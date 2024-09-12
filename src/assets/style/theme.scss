@@ -1,0 +1,27 @@
+@import 'primereact/resources/primereact.min.css';
+@import 'primereact/resources/themes/saga-orange/theme.css';
+
+// Custom theme variables
+$orange: #f26722;
+$light-orange: #ffede3;
+
+// Customize PrimeReact components by overriding variables
+:root {
+    --font-family: "Poppins", sans-serif;
+    --primary-color: #{$orange};
+    --primary-color-text: white;
+    --secondary-color: #{$light-orange};
+
+    // Override additional variables here, such as background or border colors
+    --button-bg: var(--primary-color);
+    --button-text-color: var(--primary-color-text);
+}
+
+.p-button {
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
+}
+
+.p-panel {
+    border-color: var(--primary-color);
+}
