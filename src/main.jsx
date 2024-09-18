@@ -10,6 +10,8 @@ import "./assets/style/index.scss";
 import "./assets/style/main.scss";
 import 'primeicons/primeicons.css';
 import './assets/style/theme.scss';
+import './assets/style/responsive.scss';
+
 
 
 const theme = createTheme({
