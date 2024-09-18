@@ -9,7 +9,7 @@ function DashboardHome() {
   return (
     <>
       <div className="mt-3 mb-5">
-        <Heading />
+        <Heading value={"Dashboard"}/>
       </div>
       <div className="row mb-5">
         <OverviewCardsSection />

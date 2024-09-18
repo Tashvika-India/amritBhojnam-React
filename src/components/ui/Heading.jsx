@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Heading() {
+function Heading({value}) {
   return (
-    <h4 className='dsh-heading fw-600'>Dashboard</h4>
+    <h4 className='dsh-heading fw-600'>{value}</h4>
   )
 }
 
