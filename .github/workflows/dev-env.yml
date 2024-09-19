@@ -24,7 +24,7 @@ jobs:
       run: npm install
 
     - name: Build React App
-      run: npm run build:production
+      run: npm run build
 
     - name: Archive dist artifacts
       run: tar -czf dist.tar.gz -C dist .
