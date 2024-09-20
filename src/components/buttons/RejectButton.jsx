@@ -1,8 +1,8 @@
 import React from 'react'
 
-function RejectButton() {
+function RejectButton({lable, disabled = false, loader = false , handleClick}) {
   return (
-    <button className='reject-button'>Reject</button>
+    <button className='btn btn-outline-danger' onClick={handleClick}>{lable}</button>
   )
 }
 

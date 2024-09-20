@@ -2,6 +2,8 @@
 
 $orange: #f26722;
 $light-orange: #ffede3;
+$yellow: #D59615;
+$border: #DCDAD5;
 
 body {
   font-family: "Poppins", sans-serif;
@@ -149,11 +151,11 @@ select {
 }
 
 .css-1czdqzv-MuiInputBase-root-MuiOutlinedInput-root {
-  border-radius: 10px !important;
+  border-radius: 0.625rem !important;
 }
 
-.css-1a9kd0b-MuiInputBase-root-MuiOutlinedInput-root {
-  border-radius: 10px !important;
+.css-1a9kd0b-MuiInputBase-root-MuiOutlinedInput-root , .css-hmv5em-MuiInputBase-root-MuiOutlinedInput-root {
+  border-radius: 0.625rem !important;
 }
 
 .btn-orange {
@@ -258,4 +260,23 @@ select {
   padding: 0.5rem 1rem;
   border-radius: 5px;
   border: none;
+}
+
+
+.image-uploader{ 
+  display: grid;
+  place-content: center; 
+  justify-items: center;
+  width: 100%;
+  height: 10rem;
+  border-radius: 0.625rem;
+  border: 1px dashed $yellow;
+  font-size: 1rem;
+  color: $yellow;
+  cursor: pointer;
+}
+
+.border-rounded-gray{
+  border-radius: 0.625rem;
+  border: 1px solid $border;
 }

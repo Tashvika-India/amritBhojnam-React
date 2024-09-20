@@ -65,7 +65,7 @@ const IOSSwitch = styled((props) => (
 
 export default function IosSwitch() {
   return (
-    <FormControlLabel
+    <FormControlLabel sx={{ m: 0}}
       control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
     />
   );
