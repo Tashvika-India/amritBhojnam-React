@@ -158,6 +158,10 @@ select {
   border-radius: 0.625rem !important;
 }
 
+.css-a18caf-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
+  border-radius: 0.625rem !important;
+}
+
 .btn-orange {
   background-color: $orange;
   color: white;
@@ -279,4 +283,17 @@ select {
 .border-rounded-gray{
   border-radius: 0.625rem;
   border: 1px solid $border;
+}
+
+.multipule-image-uploader{
+  display: grid;
+  place-content: center; 
+  justify-items: center;
+  width: 100%;
+  height: 10rem;
+  border-radius: 0.625rem;
+  border: 1px dashed $border;
+  font-size: 1rem;
+  color: $border;
+  cursor: pointer;
 }
