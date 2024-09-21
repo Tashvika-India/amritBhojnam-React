@@ -1,0 +1,41 @@
+@import "cssReset";
+
+.web-wrapper-main { 
+    h1 {
+        font-size: 4.3325rem; // 69.32px
+    }
+    h2 {
+        font-size: 3.75rem; //60px
+    }
+    h3 {
+        font-size: 2.25rem; //36px
+    }
+    h4 {
+        font-size: 2.0219rem; //32.35px
+    }
+    h5 {
+        font-size: 1.375rem; //22px
+    } 
+    h6 {
+        font-size: 1.25rem; //20px
+    } 
+    p {
+        font-size: 1rem; //16px
+    }  
+    .fs-18 {
+        font-size: 1.125rem; // 18px
+    }
+    .fs-14 {
+        font-size: 0.9281rem; //14.85px
+    }
+    .fs-12 {
+        font-size: 0.8119rem; // 12.99px
+    } 
+    .fs-16-big {
+        font-size: 1.0444rem; // 16.71px
+    } 
+}
+
+.primary-linear {
+    background: linear-gradient(180deg, #ffffff 0%, #fff6e8 50%, #ffffff 100%);
+}
