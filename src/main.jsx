@@ -6,11 +6,10 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import "./assets/style/index.scss";
-import "./assets/style/main.scss";
+import "./assets/style/dashboard.scss"; 
 import 'primeicons/primeicons.css';
-import './assets/style/theme.scss';
-import './assets/style/responsive.scss';
+import './assets/style/theme.scss'; 
+import './assets/style/web.scss'; 
 
 
 
