@@ -18,20 +18,12 @@ $mid-gray: #918e92;
 $font-Poppins: "Poppins", sans-serif;
 $font-Manrope: "Manrope", sans-serif;
 
-// *,
-// *::before,
-// *::after {
-//     box-sizing: border-box;
-// }
 
-// * {
-//     margin: 0;
-//     padding: 0;
-// }
-
-ul[role="list"],
-ol[role="list"] {
+ul,
+ol {
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 html:focus-within {
@@ -51,6 +43,10 @@ body {
 
 a:not([class]) {
     text-decoration-skip-ink: auto;
+}
+a{
+    text-decoration: none;
+    color: $black;
 }
 
 img,

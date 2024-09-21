@@ -23,7 +23,6 @@
     "classnames": "^2.5.1",
     "formik": "^2.4.6",
     "jquery": "^3.7.1",
-    "node-sass": "^9.0.0",
     "owl.carousel": "^2.3.4",
     "primeicons": "^7.0.0",
     "primereact": "^10.8.2",

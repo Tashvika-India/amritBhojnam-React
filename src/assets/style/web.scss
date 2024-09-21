@@ -16,8 +16,7 @@
     h6,
     p,
     a {
-        font-family: $font-Manrope;
-        color: $black;
+        font-family: $font-Manrope; 
         &::first-letter {
             text-transform: capitalize;
         }
@@ -61,8 +60,28 @@
     }
 }
 
+.fb-bottom-shadow { 
+    box-shadow: 0px 4px 40px 0px #0000000D;
+}
+
 .primary-linear {
     background: linear-gradient(180deg, #ffffff 0%, #fff6e8 50%, #ffffff 100%);
+}
+
+.header-delivery-search{
+    .header-delivery{
+        .header-delivery-icon{
+            display: inline-grid;
+            place-content: center;
+            width: 3rem;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            background-color: $light-yellow;
+            svg{
+                fill: $yellow;
+            }
+        }
+    }
 }
 
 // responsive styles
