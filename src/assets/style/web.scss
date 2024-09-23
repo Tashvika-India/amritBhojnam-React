@@ -69,6 +69,7 @@
 }
 
 .header-delivery-search{
+    width: 65%;
     .header-delivery{
         .header-delivery-icon{
             display: inline-grid;
@@ -83,6 +84,29 @@
         }
     }
 }
+
+.header-search{
+    border: 1px solid $mid-gray;
+    border-radius: 0.625rem;
+    padding: 0.25rem 0.5rem; 
+    .all-category{
+        border-right: 1px solid $mid-gray;
+        .p-dropdown-label{
+            color: $black;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+    }
+    .search-input{
+        .p-inputtext{
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: $mid-gray;
+        }
+    }
+}
+
+
 
 // responsive styles
 
