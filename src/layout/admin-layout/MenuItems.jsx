@@ -157,6 +157,18 @@ function MenuItems() {
           { path: "/orders", label: "Orders" },
           { path: "/returns-refunds", label: "Returns & Refunds" },
         ])}
+
+        <Link
+          to="/product"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <ListItemButton sx={isActive("/product") ? activeStyles : {}}>
+            <ListItemIcon sx={listItemIconStyle}>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Products" sx={listItemTextStyle} />
+          </ListItemButton>
+        </Link>
       </List>
       <Divider />
       <Typography

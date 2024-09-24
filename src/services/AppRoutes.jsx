@@ -7,6 +7,8 @@ import ProductList from "../features/admin-dashboard/manage-products/product-lis
 import ProductReviews from "../features/admin-dashboard/manage-products/product-reviews";
 import ActiveOrdersTable from "../features/admin-dashboard/manage-orders/admin-orders/components/ActiveOrdersTable";
 import AdminOrders from "../features/admin-dashboard/manage-orders/admin-orders";
+import ProductAdd from "../features/admin-dashboard/manage-products/product-add";
+import HomePage from "../features/website/web-home";
 
 function AppRoutes() {
   return (
@@ -38,12 +40,21 @@ function AppRoutes() {
           </DashboardSidebar>
         }
       />
-         <Route
+      <Route
         exact
         path="/product"
         element={
           <DashboardSidebar>
             <ProductList />
+          </DashboardSidebar>
+        }
+      />
+      <Route
+        exact
+        path="/add-product"
+        element={
+          <DashboardSidebar>
+            <ProductAdd />
           </DashboardSidebar>
         }
       />
@@ -56,7 +67,7 @@ function AppRoutes() {
           </DashboardSidebar>
         }
       />
-         <Route
+      <Route
         exact
         path="/orders"
         element={
@@ -66,6 +77,10 @@ function AppRoutes() {
         }
       />
       <Route exact path="/login" element={<Login />} />
+
+      {/* web routes */}
+
+      <Route exact path="/home" element={<HomePage />} />
     </Routes>
   );
 }

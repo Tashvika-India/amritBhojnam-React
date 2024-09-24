@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
 import YellowButton from "@/components/buttons/YellowButton";
 import CategoriesTable from "./components/CategoriesTable";
 import AddCategoryModal from "./components/AddCategoryModal";
+import { getCategoriesApi } from "../../../services/adminApiRoutes";
 
 function ManageCategories() {
-  
   const [visible, setVisible] = useState(false);
-  
+  const [categories, setCategories] = useState([]);
+  const [editData, setEditData] = useState(null);
+
+  async function getCaterioes() {
+    try {
+      const response = await getCategoriesApi();
+      setCategories(response?.data || []);
+    } catch (error) {
+      console.log("Error on Category List", error);
+    }
+  }
+
+  useEffect(() => {
+    getCaterioes();
+  }, []);
 
   return (
     <>
@@ -16,14 +30,17 @@ function ManageCategories() {
           <Heading value={"Categories"} />
         </div>
         <div className="col-md-6 text-end">
-          <YellowButton handleClick={() => setVisible(true)} lable={"+ Add New Category"} />
+          <YellowButton
+            handleClick={() => setVisible(true)}
+            lable={"+ Add New Category"}
+          />
         </div>
       </div>
 
       <div className="">
         <div className="card">
           <div className="card-body">
-            <CategoriesTable />
+            <CategoriesTable categories={categories} setEditData={setEditData} />
           </div>
         </div>
       </div>
