@@ -2,6 +2,7 @@ import React from "react";
 import Heading from "@/components/ui/Heading";
 import YellowButton from "@/components/buttons/YellowButton";
 import ProductTable from "./components/ProductTable";
+import { Link } from "react-router-dom";
 
 function ProductList() {
   return (
@@ -11,7 +12,10 @@ function ProductList() {
           <Heading value={"Products"} />
         </div>
         <div className="col-md-6 text-end">
-          <YellowButton lable={"+ Add New Product"} />
+          <Link to="/add-product">
+            {" "}
+            <YellowButton lable={"+ Add New Product"} />
+          </Link>
         </div>
       </div>
 
