@@ -21,6 +21,18 @@
             text-transform: capitalize;
         }
     }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $black;
+    }
+    p,
+    a{
+        color: $dark-grey;
+    }
 
     // Responsive Headings with Clamp
     h1 {
@@ -85,6 +97,7 @@
     }
 }
 
+// header
 .header-search{
     border: 1px solid $mid-gray;
     border-radius: 0.625rem;
@@ -105,6 +118,9 @@
         }
     }
 }
+
+// footer
+
 
 
 

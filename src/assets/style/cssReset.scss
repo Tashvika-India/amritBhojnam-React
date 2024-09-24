@@ -18,7 +18,6 @@ $mid-gray: #918e92;
 $font-Poppins: "Poppins", sans-serif;
 $font-Manrope: "Manrope", sans-serif;
 
-
 ul,
 ol {
     list-style: none;
@@ -44,7 +43,7 @@ body {
 a:not([class]) {
     text-decoration-skip-ink: auto;
 }
-a{
+a {
     text-decoration: none;
     color: $black;
 }
@@ -91,11 +90,16 @@ td {
 }
 
 .text-orange {
-    color: $orange;
+    color: $orange !important;
 }
-
-.text-white{
-    color: $white;
+.text-black {
+    color: $black !important;
+}
+.text-white {
+    color: $white !important;
+}
+.text-yellow {
+    color: $yellow !important;
 }
 
 .bg-orange {
@@ -106,9 +110,11 @@ td {
     background-color: $yellow;
 }
 
-
 .bg-light-orange {
     background-color: $light-orange;
+}
+.bg-light{
+    background-color: $light !important; 
 }
 
 .fw-500 {
@@ -129,7 +135,9 @@ td {
 .w-33 {
     width: 33%;
 }
-
+.text-balance {
+    text-wrap: balance;
+}
 .box-shadow {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
@@ -177,12 +185,12 @@ td {
     text-align: justify;
 }
 
-.border-orange{
-    border: 1px solid $orange  ;
+.border-orange {
+    border: 1px solid $orange;
 }
 
-.border-gray{
-    border: 1px solid $border ;
+.border-gray {
+    border: 1px solid $border;
 }
 
 .button-primary {

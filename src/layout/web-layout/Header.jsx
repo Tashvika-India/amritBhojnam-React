@@ -72,9 +72,9 @@ const Header = () => {
                 <li>
                   <a href="#" className='d-inline-flex flex-column justify-content-center align-items-center'>
                     <div className="position-relative">
-                      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
+                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
                         1
-                        <span class="visually-hidden">unread messages</span>
+                        <span className="visually-hidden">unread messages</span>
                       </span>
                       <CgShoppingBag size={"1.625rem"} />
                     </div>
@@ -91,9 +91,9 @@ const Header = () => {
                 <li>
                   <a href="#" className='d-inline-flex flex-column justify-content-center align-items-center'>
                     <div className="position-relative">
-                      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
+                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
                         1
-                        <span class="visually-hidden">unread messages</span>
+                        <span className="visually-hidden">unread messages</span>
                       </span>
                       <CgShoppingBag size={"1.625rem"} />
                     </div> 
