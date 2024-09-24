@@ -5,8 +5,7 @@ import LoginForm from "./LoginForm";
 
 function Login() {
   return (
-    <div className="login-wrapper h-100">
-      <div className="">
+    <div className="login-wrapper h-100 w-100">
         <div className="row">
           <div className="col-md-6">
             <div className="left-section">
@@ -30,7 +29,6 @@ function Login() {
             <img src={loginPageImage} alt="Login Page Image" className="h-100" />
           </div>
         </div>
-      </div>
     </div>
   );
 }

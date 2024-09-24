@@ -6,13 +6,9 @@ import { TextField } from "@mui/material";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import FileUpload from "../../../../components/fileUpload/FileUpload";
 import { useFormik } from "formik";
-import axios from "axios";
+import { postCategoriesApi } from "../../../../services/adminApiRoutes";
 
 export default function AddCategoryModal({ visible, setVisible }) {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI3Mjg2Mjc3LCJpYXQiOjE3MjcwNzAyNzcsImp0aSI6IjE5YzM3NzkwYjUxNzQwYTdhYjQ0OWNjMTJlNDFlZTE5IiwidXNlcl9pZCI6IjgwY2QxZjE2LTkzYTEtNDMyNi1iOWExLTAwOTdjZmE2YmU2NCJ9.QBFbcDNst64U6oPwsrDIju1oSYqrkmz8H0Nbu3_URr4";
-  const apiUrl = "https://dev-env.amritbhojanam.com/api/categories/";
-
   const initialValues = {
     name: "",
     img_file: null,
@@ -22,70 +18,25 @@ export default function AddCategoryModal({ visible, setVisible }) {
   const formik = useFormik({
     initialValues,
     onSubmit: async (values) => {
-      const formData = new FormData();
-      formData.append("name", values.name);
-      formData.append("img_file", values.img_file);
-      try {
-        const response = await axios.post(apiUrl, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        console.log("Category added successfully", response.data);
-        setVisible(false);
-      } catch (error) {
-        console.error("Error adding category", error);
-      }
+      addCategory(values);
     },
   });
 
-  const testGetApi = async () => {
+  const { values, handleSubmit, resetForm, setValues } = formik;
+
+  async function addCategory(values) {
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("img_file", values.img_file);
+    formik.resetForm();
     try {
-      const response = await axios.get(
-        "https://dev-env.amritbhojanam.com/api/categories/",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log("Response data:", response.data);
+      const response = await postCategoriesApi(formData);
     } catch (error) {
-      if (error.response) {
-        console.log("Error Status:", error.response.status);
-        console.log("Error Data:", error.response.data);
-      } else if (error.request) {
-        console.log("No response received:", error.request);
-      } else {
-        console.log("Error", error.message);
-      }
+      throw error;
     }
-  };
+  }
 
-  const footerContent = (
-    <div className="d-inline-flex gap-3">
-      <RejectButton lable="Cancel" handleClick={() => setVisible(false)} />
-      <YellowButton lable="+ Add" handleClick={formik.handleSubmit} />
-    </div>
-  );
-
-  const customHeader = (
-    <div className="d-flex align-items-center justify-content-between border-bottom pb-3">
-      <h5 className="m-0 fs-bold">Add Category</h5>
-      <div>
-        <IosSwitch
-          checked={formik.values.active}
-          onChange={(e) => formik.setFieldValue("active", e.target.checked)}
-        />
-        <span className="fs-6 text-secondary fw-normal">Active</span>
-      </div>
-    </div>
-  );
-
-  useEffect(() => {
-    testGetApi();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="card flex justify-content-center">
@@ -94,9 +45,9 @@ export default function AddCategoryModal({ visible, setVisible }) {
         style={{ width: "40vw" }}
         className="rounded-20"
         onHide={() => setVisible(false)}
-        footer={footerContent}
+        footer={<FooterContent formik={formik} setVisible={setVisible} />}
         closable={false}
-        header={customHeader}
+        header={<CustomHeader formik={formik} />}
       >
         <form onSubmit={formik.handleSubmit}>
           <div className="p-fluid">
@@ -117,5 +68,33 @@ export default function AddCategoryModal({ visible, setVisible }) {
         </form>
       </Dialog>
     </div>
+  );
+}
+
+function CustomHeader({ formik }) {
+  return (
+    <>
+      <div className="d-flex align-items-center justify-content-between border-bottom pb-3">
+        <h5 className="m-0 fs-bold">Add Category</h5>
+        <div>
+          <IosSwitch
+            checked={formik.values.active}
+            onChange={(e) => formik.setFieldValue("active", e.target.checked)}
+          />
+          <span className="fs-6 text-secondary fw-normal">Active</span>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function FooterContent({ formik, setVisible }) {
+  return (
+    <>
+      <div className="d-inline-flex gap-3">
+        <RejectButton lable="Cancel" handleClick={() => setVisible(false)} />
+        <YellowButton lable="+ Add" handleClick={formik.handleSubmit} />
+      </div>
+    </>
   );
 }
