@@ -15,3 +15,10 @@ API.interceptors.request.use((req) => {
 
 export const getCategoriesApi = () => API.get(`/categories/`);
 export const postCategoriesApi = (payload) => API.post(`/categories/`, payload);
+
+// product api  
+
+export const postProductApi = (payload) => API.post(`/products/`, payload);
+
+
+
