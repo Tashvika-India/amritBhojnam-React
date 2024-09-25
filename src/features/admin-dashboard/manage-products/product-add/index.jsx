@@ -11,8 +11,43 @@ import RejectButton from "@/components/buttons/RejectButton";
 import YellowButton from "@/components/buttons/YellowButton";
 import MultiFileUpload from "./components/MultiFileUpload";
 import { getCategoriesApi } from "@/services/adminApiRoutes";
+import { useFormik } from "formik";
+import { productInitalValues } from "@/utils/form-inital-values/InitalValues";
+import { postProductApi } from "../../../../services/adminApiRoutes";
 const ProductAdd = () => {
   const [categories, setCategories] = useState([]);
+
+  const formik = useFormik({
+    initialValues: productInitalValues,
+    onSubmit: async (values) => {
+      addProduct(values);
+    },
+  });
+  const { values, handleSubmit, resetForm, setValues, handleBlur  ,handleChange} = formik;
+
+  async function addProduct(values) {
+    const fromData = new FormData();
+    fromData.append("name", values.name);
+    fromData.append("category_id", values.category_id);
+    fromData.append("short_description", values.short_description);
+    fromData.append("long_description", values.long_description);
+    fromData.append("quantity", values.quantity);
+    fromData.append("quantity_unit", values.quantity_unit);
+    fromData.append("max_price", values.max_price);
+    fromData.append("offer_price", values.offer_price);
+    // fromData.append("nutritions", values.nutritions);
+    fromData.append("images", values.images);
+    resetForm();
+    try {
+      const response = await postProductApi(fromData);
+    } catch (error) {
+      throw error;
+    }  
+  }
+
+
+  
+
 
   async function getCaterioes() {
     try {
@@ -34,12 +69,12 @@ const ProductAdd = () => {
           <Heading value={"Add New Products"} />
         </div>
       </div>
-      <div className="">
+      <form className="" onSubmit={handleSubmit}>
         <div className="card mb-4">
           <div className="card-body">
             <h6 className="mb-4">Image</h6>
             <div className="">
-              <MultiFileUpload />
+              <MultiFileUpload  formik={formik} name="images"/>
             </div>
           </div>
         </div>
@@ -50,6 +85,9 @@ const ProductAdd = () => {
               <div className="col-md-4 mb-4">
                 <TextField
                   id="outlined-basic"
+                  name="name"
+                  value={values?.name}
+                  onChange={handleChange}
                   label="Product Name"
                   variant="outlined"
                   fullWidth
@@ -58,6 +96,9 @@ const ProductAdd = () => {
               <div className="col-md-8 mb-4">
                 <TextField
                   id="outlined-basic"
+                  name="short_description"
+                  value={formik.values?.short_description}
+                  onChange={formik.handleChange}
                   label="Short description"
                   variant="outlined"
                   fullWidth
@@ -70,10 +111,9 @@ const ProductAdd = () => {
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value=""
+                    id="demo-simple-select" 
                     label="Select Type"
-                    // onChange={handleChange}
+                  // onChange={handleChange}
                   >
                     <MenuItem value={10}>Ten</MenuItem>
                     <MenuItem value={20}>Twenty</MenuItem>
@@ -88,8 +128,11 @@ const ProductAdd = () => {
                   </InputLabel>
                   <Select
                     label="Select Category"
+                    name="category_id"
+                    value={formik.values?.category_id}
+                    onChange={formik.handleChange}
                   >
-                    {categories.map((category) => (
+                    {categories?.map((category) => (
                       <MenuItem key={category.id} value={category.id}>
                         {category.name}
                       </MenuItem>
@@ -141,7 +184,7 @@ const ProductAdd = () => {
             </div>
           </div>
         </div>
-        {/* <div className="card mb-4">
+        <div className="card mb-4">
           <div className="card-body">
             <h6 className="mb-4">Product Detail</h6>
             <div className="row">
@@ -150,6 +193,9 @@ const ProductAdd = () => {
                   id="outlined-basic"
                   label="Unit Type"
                   variant="outlined"
+                  name="quantity_unit"
+                  value={formik.values?.quantity_unit}
+                  onChange={formik.handleChange}
                   fullWidth
                 />
               </div>
@@ -158,6 +204,9 @@ const ProductAdd = () => {
                   id="outlined-basic"
                   label="Unit Title"
                   variant="outlined"
+                  name="quantity"
+                  value={formik.values?.quantity}
+                  onChange={formik.handleChange}
                   fullWidth
                 />
               </div>
@@ -165,6 +214,9 @@ const ProductAdd = () => {
                 <TextField
                   id="outlined-basic"
                   label="Description"
+                  name="long_description"
+                  value={formik.values?.long_description}
+                  onChange={formik.handleChange}
                   multiline
                   rows={3}
                   variant="outlined"
@@ -190,6 +242,9 @@ const ProductAdd = () => {
                 <TextField
                   id="outlined-basic"
                   label="Price"
+                  name="max_price"
+                  value={formik.values?.max_price}
+                  onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
                 />
@@ -198,7 +253,7 @@ const ProductAdd = () => {
                 <TextField
                   id="outlined-basic"
                   label="Stock"
-                  variant="outlined"
+                  variant="outlined" 
                   fullWidth
                 />
               </div>
@@ -208,6 +263,9 @@ const ProductAdd = () => {
                   id="outlined-basic"
                   label="Dicsount"
                   variant="outlined"
+                  name="offer_price"
+                  value={formik.values?.offer_price}
+                  onChange={formik.handleChange}
                   fullWidth
                 />
               </div>
@@ -247,16 +305,16 @@ const ProductAdd = () => {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
         <div className="card mb-4">
           <div className="card-body">
             <div className="d-flex gap-3 justify-content-end">
-              <YellowButton lable="Add Product" />
+              <YellowButton lable="Add Product" handleClick={formik.handleSubmit} />
               <RejectButton lable="Cancel" />
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </>
   );
 };

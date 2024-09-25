@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Image } from "primereact/image";
 import { RxCross2 } from "react-icons/rx";
 
-export default function MultiFileUpload() {
-  const [files, setFiles] = useState([]);
+export default function MultiFileUpload({ formik, name }) {
+  const { values, setFieldValue } = formik;
   const [dragActive, setDragActive] = useState(false);
 
   // Handle file input change
   const handleFileChange = (e) => {
     const uploadedFiles = Array.from(e.target.files);
-    setFiles((prevFiles) => [...prevFiles, ...uploadedFiles]);
+    setFieldValue(name, [...(values[name] || []), ...uploadedFiles]); // Set Formik field value
   };
 
   // Handle drag enter
@@ -32,12 +32,15 @@ export default function MultiFileUpload() {
     e.stopPropagation();
     setDragActive(false);
     const droppedFiles = Array.from(e.dataTransfer.files);
-    setFiles((prevFiles) => [...prevFiles, ...droppedFiles]);
+    setFieldValue(name, [...(values[name] || []), ...droppedFiles]); // Set dropped files to Formik field
   };
 
-  // Remove a specific file from the preview list
+  // Remove a specific file from the Formik values
   const removeFile = (fileToRemove) => {
-    setFiles((prevFiles) => prevFiles.filter((file) => file !== fileToRemove));
+    setFieldValue(
+      name,
+      values[name].filter((file) => file !== fileToRemove) // Remove the selected file from Formik state
+    );
   };
 
   return (
@@ -54,9 +57,8 @@ export default function MultiFileUpload() {
           />
           <label
             htmlFor="image"
-            className={`multipule-image-uploader mb-4 ${
-              dragActive ? "drag-active" : ""
-            }`}
+            className={`multipule-image-uploader mb-4 ${dragActive ? "drag-active" : ""
+              }`}
             onDragEnter={handleDragEnter}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
@@ -82,34 +84,38 @@ export default function MultiFileUpload() {
       </div>
       <div className="col-md-6">
         {/* Preview Section */}
-        {files.length > 0 && (
+        {values[name] && values[name].length > 0 && (
           <div className="file-previews">
-            {files.map((file, index) => (
-              <div
-                key={index}
-                className="file-preview d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 mb-2"
-              >
-                <div className="d-inline-flex align-items-center gap-3">
-                  <Image
-                    src={URL.createObjectURL(file)}
-                    zoomSrc={URL.createObjectURL(file)}
-                    alt="Uploaded File"
-                    width="80"
-                    height="60"
-                    preview
-                  />
-                  <span>{file.name}</span>
+            <div className="row">
+              {values[name].map((file, index) => (
+                <div className="col-md-6 mb-3">
+                <div
+                  key={index}
+                  className="file-preview d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 mb-2"
+                >
+                  <div className="d-inline-flex align-items-center gap-3">
+                    <Image
+                      src={URL.createObjectURL(file)}
+                      zoomSrc={URL.createObjectURL(file)}
+                      alt="Uploaded File"
+                      width="80"
+                      height="60"
+                      preview
+                    />
+                    <span>{file.name}</span>
+                  </div>
+                  <div>
+                    <RxCross2
+                      color="red"
+                      size={25}
+                      onClick={() => removeFile(file)}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <RxCross2
-                    color="red"
-                    size={25}
-                    onClick={() => removeFile(file)}
-                    style={{ cursor: "pointer" }}
-                  />
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
       </div>
