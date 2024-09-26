@@ -10,89 +10,12 @@ import productFive from "@/assets/images/dashboard/product-five.png";
 import { FaStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-function ProductTable() {
-  const categories = [
-    {
-      id: 1,
-      name: "Millet Rice",
-      quantity: 42,
-      image: productOne,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 2,
-      name: "Bakery & Confectionery",
-      quantity: 46,
-      image: productTwo,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 3,
-      name: "Flour",
-      quantity: 24,
-      image: productThree,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 4,
-      name: "Instant Mixes",
-      quantity: 56,
-      image: productFour,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 5,
-      name: "Snacks for Munching",
-      quantity: 23,
-      image: productFive,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 6,
-      name: "Snacks for Munching",
-      quantity: 54,
-      image: productOne,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 7,
-      name: "Millet Rice",
-      quantity: 42,
-      image: productOne,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 8,
-      name: "Bakery & Confectionery",
-      quantity: 46,
-      image: productTwo,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-  ];
+function ProductTable({products}) {
+
+
+  // const serialbodyTemplate = (index) => {
+  //   return products.indexOf(index);
+  // };
 
   // Template for displaying category image and name
   const imageBodyTemplate = (rowData) => {
@@ -136,15 +59,15 @@ function ProductTable() {
   };
 
   return (
-    <DataTable value={categories} responsiveLayout="scroll" paginator rows={10}>
-      <Column field="id" header="ID"></Column>
-      <Column field="image" header="Image" body={imageBodyTemplate}></Column>
+    <DataTable value={products} responsiveLayout="scroll" paginator rows={10}>
+      <Column field="s.no" header="ID" body={(index) => products.indexOf(index)}></Column>
+      <Column field="images" header="Image" body={imageBodyTemplate}></Column>
       <Column field="name" header="Name" body={linkToReview}></Column>
-      <Column field="quantity" header="Products"></Column>
-      <Column field="stocks" header="Stocks"></Column>
-      <Column field="price" header="Price"></Column>
-      <Column field="selling" header="Selling"></Column>
-      <Column field="rating" header="Rating" body={iosSwitch}></Column>
+      <Column field="quantity" header="Stocks"></Column>
+      <Column field="quantity_unit" header="Unit"></Column>
+      <Column field="max_price" header="Price"></Column>
+      <Column field="offer_price" header="Selling"></Column>
+      <Column field="ratings" header="Rating" body={iosSwitch}></Column>
       <Column header="Action" body={editButtonTemplate}></Column>
     </DataTable>
   );
