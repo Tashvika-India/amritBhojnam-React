@@ -15,6 +15,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import BadgeIcon from "@mui/icons-material/Badge";
+import { FaBox } from "react-icons/fa";
 
 function MenuItems() {
   const [openSections, setOpenSections] = React.useState({
@@ -143,6 +144,17 @@ function MenuItems() {
           { path: "/category-two", label: "Category Two" },
         ])}
 
+        <Link
+          to="/product"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <ListItemButton sx={isActive("/product") ? activeStyles : {}}>
+            <ListItemIcon sx={listItemIconStyle}>
+              <FaBox />
+            </ListItemIcon>
+            <ListItemText primary="Products" sx={listItemTextStyle} />
+          </ListItemButton>
+        </Link>
         <ListItemButton
           onClick={() => handleToggle("orders")}
           sx={isActive("/orders") || openSections.orders ? activeStyles : {}}
@@ -157,18 +169,6 @@ function MenuItems() {
           { path: "/orders", label: "Orders" },
           { path: "/returns-refunds", label: "Returns & Refunds" },
         ])}
-
-        <Link
-          to="/product"
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <ListItemButton sx={isActive("/product") ? activeStyles : {}}>
-            <ListItemIcon sx={listItemIconStyle}>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Products" sx={listItemTextStyle} />
-          </ListItemButton>
-        </Link>
       </List>
       <Divider />
       <Typography

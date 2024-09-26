@@ -26,7 +26,9 @@ const ProductAdd = () => {
   const { values, handleSubmit, resetForm, setValues, handleBlur  ,handleChange} = formik;
 
   async function addProduct(values) {
-    const fromData = new FormData();
+    const fromData = new FormData(); 
+    console.log("Form Values", values);
+    
     fromData.append("name", values.name);
     fromData.append("category_id", values.category_id);
     fromData.append("short_description", values.short_description);
@@ -35,7 +37,7 @@ const ProductAdd = () => {
     fromData.append("quantity_unit", values.quantity_unit);
     fromData.append("max_price", values.max_price);
     fromData.append("offer_price", values.offer_price);
-    // fromData.append("nutritions", values.nutritions);
+    fromData.append("nutritions", values.nutritions);
     fromData.append("images", values.images);
     resetForm();
     try {
