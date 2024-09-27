@@ -10,6 +10,7 @@ import Divider from "@mui/material/Divider";
 import DashboardHeader from "./DashboardHeader";
 import mainLogo from "@/assets/images/dashboard/main-logo.png";
 import MenuItems from "./MenuItems";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 280;
 
@@ -82,7 +83,7 @@ export default function DashboardSidebar({ children }) {
           open={open}
         >
           <DrawerHeader className="d-flex justify-content-between align-items-center mb-3">
-            <img src={mainLogo} alt="Logo" style={{ height: "60px" }} />
+            <Link to="/dashboard">  <img src={mainLogo} alt="Logo" style={{ height: "60px" }} /></Link>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? (
                 <ChevronLeftIcon />

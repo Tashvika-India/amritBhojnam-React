@@ -12,7 +12,7 @@ function ProductList() {
   async function getProductList() {
     try {
       const response = await getProductApi();
-      setProducts(response?.data);
+      setProducts(response?.data || []);
     } catch (error) {
       console.log("Error on Product List", error);
     }

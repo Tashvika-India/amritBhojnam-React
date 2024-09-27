@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import DashboardSidebar from "@/layout/admin-layout/DashboardSidebar";
-import DashboardHome from "../features/admin-dashboard/dashboard-home";
-import Login from "../features/auth/login";
+import DashboardHome from "../features/admin-dashboard/dashboard-home"; 
 import ManageCategories from "../features/admin-dashboard/manage-categories";
 import ProductList from "../features/admin-dashboard/manage-products/product-list";
 import ProductReviews from "../features/admin-dashboard/manage-products/product-reviews";
@@ -9,6 +8,7 @@ import ActiveOrdersTable from "../features/admin-dashboard/manage-orders/admin-o
 import AdminOrders from "../features/admin-dashboard/manage-orders/admin-orders";
 import ProductAdd from "../features/admin-dashboard/manage-products/product-add";
 import HomePage from "../features/website/web-home";
+import LoginPage from "../components/pages/auth-pages/LoginPage";
 
 function AppRoutes() {
   return (
@@ -85,7 +85,7 @@ function AppRoutes() {
           </DashboardSidebar>
         }
       />
-      <Route exact path="/login" element={<Login />} />
+      <Route exact path="/login" element={<LoginPage />} />
 
       {/* web routes */}
 
