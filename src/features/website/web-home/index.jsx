@@ -119,6 +119,59 @@ const HomePage = () => {
                     </Tab.Container>
                 </div>
             </section>
+            <section className="offer-cards">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="protein-left">
+                <div className="left-content p-5">
+                  <h4 className="fw-700 mb-lg-3">Upto 40% Off on special Items</h4>
+                  <p className="fw-500">
+                    Millets are packed with essential nutrients, including
+                    fiber, protein, vitamins, and minerals, offering
+                  </p>
+                </div>
+                <button className="button-primary ms-5  mb-4 text-center">
+                  Shop Now
+                </button>
+                {/* <img src={protein1} alt="millet-rice" /> */}
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="row">
+                <div class="col-md-12 mb-lg-4">
+                  <div class="protein-right-top">
+                    <div className="right-top-content p-5 pb-4">
+                      <h4 className="fw-700 mb-3">Upto 40% Off </h4>
+                      <p className="fw-500">
+                        As naturally gluten-free grains, millets provide a great
+                        alternative for those with gluten sensitivities
+                      </p>
+                    </div>
+                    <button className="button-primary mt-0 m-5 text-center">
+                        Shop Now
+                      </button>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-lg-4">
+                  <div class="protein-right-bottom">
+                    <div className="right-bottom-content p-5 pb-4">
+                      <h4 className="fw-700 mb-3">Upto 40% Off </h4>
+                      <p className="fw-500">
+                        With a low glycemic index, millets help regulate blood
+                        sugar levels, making them ideal.
+                      </p>
+                    </div>
+                    <button className="button-primary  mt-0 m-5 text-center">
+                        Shop Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
             <Footer />
         </div>
     )
