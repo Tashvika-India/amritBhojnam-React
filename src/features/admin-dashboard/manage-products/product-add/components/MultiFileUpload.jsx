@@ -9,7 +9,10 @@ export default function MultiFileUpload({ formik, name }) {
   // Handle file input change
   const handleFileChange = (e) => {
     const uploadedFiles = Array.from(e.target.files);
-    setFieldValue(name, [...(values[name] || []), ...uploadedFiles]); // Set Formik field value
+
+    // Only add valid files
+    const validFiles = uploadedFiles.filter((file) => file instanceof File);
+    setFieldValue(name, [...(values[name] || []), ...validFiles]);
   };
 
   // Handle drag enter
@@ -32,14 +35,19 @@ export default function MultiFileUpload({ formik, name }) {
     e.stopPropagation();
     setDragActive(false);
     const droppedFiles = Array.from(e.dataTransfer.files);
-    setFieldValue(name, [...(values[name] || []), ...droppedFiles]); // Set dropped files to Formik field
+
+    // Only add valid files
+    const validFiles = droppedFiles.filter((file) => file instanceof File);
+    setFieldValue(name, [...(values[name] || []), ...validFiles]);
   };
 
   // Remove a specific file from the Formik values
   const removeFile = (fileToRemove) => {
+    URL.revokeObjectURL(fileToRemove.preview);
+
     setFieldValue(
       name,
-      values[name].filter((file) => file !== fileToRemove) // Remove the selected file from Formik state
+      values[name].filter((file) => file !== fileToRemove)
     );
   };
 
@@ -51,14 +59,15 @@ export default function MultiFileUpload({ formik, name }) {
           <input
             type="file"
             id="image"
-            multiple // Enable multiple file selection
+            multiple
             hidden
             onChange={handleFileChange}
           />
           <label
             htmlFor="image"
-            className={`multipule-image-uploader mb-4 ${dragActive ? "drag-active" : ""
-              }`}
+            className={`multipule-image-uploader mb-4 ${
+              dragActive ? "drag-active" : ""
+            }`}
             onDragEnter={handleDragEnter}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
@@ -82,39 +91,46 @@ export default function MultiFileUpload({ formik, name }) {
           </label>
         </div>
       </div>
+
       <div className="col-md-6">
         {/* Preview Section */}
         {values[name] && values[name].length > 0 && (
           <div className="file-previews">
             <div className="row">
-              {values[name].map((file, index) => (
-                <div className="col-md-6 mb-3">
-                <div
-                  key={index}
-                  className="file-preview d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 mb-2"
-                >
-                  <div className="d-inline-flex align-items-center gap-3">
-                    <Image
-                      src={URL.createObjectURL(file)}
-                      zoomSrc={URL.createObjectURL(file)}
-                      alt="Uploaded File"
-                      width="80"
-                      height="60"
-                      preview
-                    />
-                    <span>{file.name}</span>
-                  </div>
-                  <div>
-                    <RxCross2
-                      color="red"
-                      size={25}
-                      onClick={() => removeFile(file)}
-                      style={{ cursor: "pointer" }}
-                    />
-                  </div>
-                </div>
-                </div>
-              ))}
+              {values[name].map((file, index) => {
+                // Ensure file is an instance of File or Blob before creating URL
+                if (file instanceof File || file instanceof Blob) {
+                  const filePreviewUrl = URL.createObjectURL(file);
+
+                  return (
+                    <div className="col-md-6 mb-3" key={index}>
+                      <div className="file-preview d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 mb-2">
+                        <div className="d-inline-flex align-items-center gap-3">
+                          <Image
+                            src={filePreviewUrl}
+                            zoomSrc={filePreviewUrl}
+                            alt="Uploaded File"
+                            width="80"
+                            height="60"
+                            preview
+                          />
+                          <span>{file.name}</span>
+                        </div>
+                        <div>
+                          <RxCross2
+                            color="red"
+                            size={25}
+                            onClick={() => removeFile(file)}
+                            style={{ cursor: "pointer" }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                } else {
+                  return null; // Skip invalid files
+                }
+              })}
             </div>
           </div>
         )}

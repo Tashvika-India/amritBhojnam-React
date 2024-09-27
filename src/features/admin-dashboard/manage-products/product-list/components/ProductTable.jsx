@@ -2,22 +2,17 @@ import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FaRegEdit } from "react-icons/fa";
-import productOne from "@/assets/images/dashboard/product-one.png";
-import productTwo from "@/assets/images/dashboard/product-two.png";
-import productThree from "@/assets/images/dashboard/product-three.png";
-import productFour from "@/assets/images/dashboard/product-four.png";
-import productFive from "@/assets/images/dashboard/product-five.png";
 import { FaStar } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function ProductTable({products}) {
 
+  const navigate = useNavigate();
 
-  // const serialbodyTemplate = (index) => {
-  //   return products.indexOf(index);
-  // };
+  const handleEditClick = (rowData) => {
+    navigate("/edit-product", { state: rowData });
+  };
 
-  // Template for displaying category image and name
   const imageBodyTemplate = (rowData) => {
     return (
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -34,7 +29,7 @@ function ProductTable({products}) {
   const linkToReview = (rowData) => {
     return (
       <Link to="/product/product-reviews" className="text-dark">
-         {rowData.name}
+            {rowData.name}
       </Link>
     
     );
@@ -42,11 +37,14 @@ function ProductTable({products}) {
 
 
   // Template for the Edit button
-  const editButtonTemplate = () => {
+  const editButtonTemplate = (rowData) => {
     return (
-      <span className="text-orange d-flex gap-2 align-items-center">
-        Edit <FaRegEdit />{" "}
-      </span>
+      <button
+        onClick={() => handleEditClick(rowData)}
+        className="text-orange d-flex gap-2 align-items-center border-0 bg-white"
+      >
+        Edit <FaRegEdit />
+      </button>
     );
   };
 

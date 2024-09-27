@@ -6,9 +6,7 @@ export default function DraggableFileUpload({ formik, name }) {
 
   const { values, setFieldValue } = formik;
   const [dragActive, setDragActive] = useState(false);
-
-  console.log("Values", values);
-
+ 
 
   const handleFileChange = (e) => {
     const uploadedFile = e.target.files[0];

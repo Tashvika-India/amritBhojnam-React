@@ -19,7 +19,8 @@ export const postCategoriesApi = (payload) => API.post(`/categories/`, payload);
 // product api  
 export const getProductApi = () => API.get(`/products/`);
 export const postProductApi = (payload) => API.post(`/products/`, payload);
-
+export const putProductApi = (id, payload) => API.put(`/products/${id}/`, payload);
+export const deleteProductApi = (id) => API.delete(`/products/${id}`);
 
 
 
