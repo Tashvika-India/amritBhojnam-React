@@ -3,20 +3,20 @@ import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import PasswordInput from "../../../components/ui/PasswordInput";
 import { loginSchema } from "../../../schemas/auth-schema";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { adminLoginApi } from "../../../services/authApiRoutes";
+
 
 function LoginForm() {
-
   const navigate = useNavigate()
-
 
   function ifError(key) {
     return errors[key] && touched[key];
   }
 
   const initialValues = {
-    email: "",
-    password: "",
+    email: "user@example.com",
+    password: "string",
   };
 
   const formik = useFormik({
@@ -24,13 +24,31 @@ function LoginForm() {
     validationSchema: loginSchema,
     onSubmit: async (submitValues) => {
       console.log("Submit Values", submitValues);
+      loginUser(submitValues);
     },
   });
 
   const { values, errors, touched, handleChange, handleBlur } = formik;
 
+  async function loginUser(values) {
+    try {
+      const response = await adminLoginApi(values);
+      console.log("Response", response);
+      const accessToken = response?.data?.access;
+      const refreshToken = response?.data?.refresh;
+      localStorage.setItem("access", accessToken);
+      localStorage.setItem("refresh", refreshToken);
+      const tokenParts = accessToken.split(".");
+      const payload = JSON.parse(atob(tokenParts[1]));
+      navigate("/dashboard")
+    } catch (error) {
+      throw error
+    }
+  }
+
+
   return (
-    <div>
+    <form onSubmit={formik.handleSubmit}>
       <div>
         <TextField
           fullWidth
@@ -53,17 +71,15 @@ function LoginForm() {
       </a>
 
       <div className="mt-5">
-        <Link to="/dashboard">
           <button
             type="submit"
             className="btn btn-orange w-100 py-3"
-            onClick={()=>navigate("/dashboard")}
+            onClick={formik.handleSubmit}
           >
             Login
-          </button>
-        </Link>
+          </button> 
       </div>
-    </div>
+    </form>
   );
 }
 
