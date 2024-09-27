@@ -13,22 +13,25 @@ import MultiFileUpload from "./components/MultiFileUpload";
 import { getCategoriesApi } from "@/services/adminApiRoutes";
 import { useFormik } from "formik";
 import { productInitalValues } from "@/utils/form-inital-values/InitalValues";
-import { postProductApi } from "../../../../services/adminApiRoutes";
+import { postProductApi, putProductApi } from "../../../../services/adminApiRoutes";
+import { useLocation, useNavigate } from "react-router-dom";
 const ProductAdd = () => {
   const [categories, setCategories] = useState([]);
+  const location = useLocation();
+  const product = location?.state;
+  const isEditMode = !!product;  
+  const navigate = useNavigate(); 
 
   const formik = useFormik({
     initialValues: productInitalValues,
     onSubmit: async (values) => {
-      addProduct(values);
+      isEditMode ? updateProduct(values) : addProduct(values);
     },
   });
   const { values, handleSubmit, resetForm, setValues, handleBlur  ,handleChange} = formik;
 
   async function addProduct(values) {
-    const fromData = new FormData(); 
-    console.log("Form Values", values);
-    
+    const fromData = new FormData();      
     fromData.append("name", values.name);
     fromData.append("category_id", values.category_id);
     fromData.append("short_description", values.short_description);
@@ -45,12 +48,28 @@ const ProductAdd = () => {
     } catch (error) {
       throw error;
     }  
+  } 
+
+  async function updateProduct(values) { 
+    const fromData = new FormData();
+    fromData.append("name", values.name);
+    fromData.append("category_id", values.category_id);
+    fromData.append("short_description", values.short_description);
+    fromData.append("long_description", values.long_description);
+    fromData.append("quantity", values.quantity);
+    fromData.append("quantity_unit", values.quantity_unit);
+    fromData.append("max_price", values.max_price);
+    fromData.append("offer_price", values.offer_price);
+    fromData.append("nutritions", values.nutritions);
+    fromData.append("images", values.images);
+    resetForm();
+    try {
+      const response = await putProductApi(product?.id,fromData);
+      navigate("/product");
+    } catch (error) {
+      throw error;
+    }
   }
-
-
-  
-
-
   async function getCaterioes() {
     try {
       const response = await getCategoriesApi();
@@ -62,13 +81,16 @@ const ProductAdd = () => {
 
   useEffect(() => {
     getCaterioes();
-  }, []);
+    if (isEditMode) {
+      setValues(product); // Pre-fill the form if in edit mode
+    }
+  }, [product]);
 
   return (
     <>
       <div className="mt-3 mb-5 row">
         <div className="col-md-6">
-          <Heading value={"Add New Products"} />
+          <Heading value={isEditMode ? "Edit Product" : "Add New Product"} />
         </div>
       </div>
       <form className="" onSubmit={handleSubmit}>
@@ -311,7 +333,7 @@ const ProductAdd = () => {
         <div className="card mb-4">
           <div className="card-body">
             <div className="d-flex gap-3 justify-content-end">
-              <YellowButton lable="Add Product" handleClick={formik.handleSubmit} />
+              <YellowButton lable={isEditMode ? "Update Product" : "Add Product"} handleClick={formik.handleSubmit} />
               <RejectButton lable="Cancel" />
             </div>
           </div>

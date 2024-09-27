@@ -60,6 +60,15 @@ function AppRoutes() {
       />
       <Route
         exact
+        path="/edit-product"
+        element={
+          <DashboardSidebar>
+            <ProductAdd />
+          </DashboardSidebar>
+        }
+      />
+      <Route
+        exact
         path="/product/product-reviews"
         element={
           <DashboardSidebar>
