@@ -17,9 +17,6 @@ function ProductList() {
       console.log("Error on Product List", error);
     }
   }
-
-  
-
   useEffect(() => {
     getProductList();
   }, []);
@@ -40,7 +37,7 @@ function ProductList() {
       <div className="">
         <div className="card">
           <div className="card-body">
-            <ProductTable products={products}  />
+            <ProductTable products={products} getProductList={getProductList}  />
           </div>
         </div>
       </div>
