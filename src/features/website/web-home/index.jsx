@@ -122,7 +122,7 @@ const HomePage = () => {
             <section className="offer-cards">
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-lg-6 col-md-12">
               <div className="protein-left">
                 <div className="left-content p-5">
                   <h4 className="fw-700 mb-lg-3">Upto 40% Off on special Items</h4>
@@ -137,7 +137,7 @@ const HomePage = () => {
                 {/* <img src={protein1} alt="millet-rice" /> */}
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-lg-6 col-md-12">
               <div className="row">
                 <div class="col-md-12 mb-lg-4">
                   <div class="protein-right-top">
