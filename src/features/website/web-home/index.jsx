@@ -4,6 +4,24 @@ import Footer from "../../../layout/web-layout/Footer";
 import { Nav, Tab } from "react-bootstrap";
 import bannerAds from "../../../assets/images/web/banner-ads.png";
 import bannerAdsmob from "../../../assets/images/web/banner-ads-mob.png";
+import amritGroup from "../../../assets/images/web/amrit-group.png";
+import milletImg from "../../../assets/images/web/millets-img.png";
+import product1 from "../../../assets/images/web/products/product-1.png";
+import jowerImg from "../../../assets/images/web/products/jower.png";
+import soupImg from "../../../assets/images/web/products/soup.png";
+import flourImg from "../../../assets/images/web/products/flour.png";
+import idlliImg from "../../../assets/images/web/products/idlli.png";
+import murukuImg from "../../../assets/images/web/products/muruku.png";
+import phoneImg from "../../../assets/images/web/phone.png";
+import appleBtn from "../../../assets/images/web/apple-btn.png";
+import androidBtn from "../../../assets/images/web/android-btn.png";
+import milletUpper from "../../../assets/images/web/millet-upper.png";
+import milletTop from "../../../assets/images/web/millet-top.png";
+import milletBottom from "../../../assets/images/web/millet-bottom.png";
+import milletRight from "../../../assets/images/web/millet-right.png";
+import grain1 from "../../../assets/images/web/grain-1.png";
+import grain2 from "../../../assets/images/web/grain-2.png";
+import grain3 from "../../../assets/images/web/grain-3.png";
 
 const HomePage = () => {
   return (
@@ -20,11 +38,7 @@ const HomePage = () => {
                     "linear-gradient(180deg, #FFB7B7 0%, #FFE0E0 100%)",
                 }}
               >
-                <img
-                  className="img-fluid"
-                  src="https://picsum.photos/200/300"
-                  alt="millet-rice"
-                />
+                <img className="img-fluid" src={product1} alt="millet-rice" />
               </div>
               <h6 className="fb-fs-16 fw-500">Millet Rice</h6>
             </div>
@@ -36,11 +50,7 @@ const HomePage = () => {
                     "linear-gradient(180deg, #96D7FF 0%, #D7F0FF 100%)",
                 }}
               >
-                <img
-                  className="img-fluid"
-                  src="https://picsum.photos/200/300"
-                  alt="millet-rice"
-                />
+                <img className="img-fluid" src={jowerImg} alt="millet-rice" />
               </div>
               <h6 className="fb-fs-16 fw-500">Bakery & Confectionery</h6>
             </div>
@@ -52,11 +62,7 @@ const HomePage = () => {
                     "linear-gradient(180deg, #FFCC8F 0%, #FFE9CF 100%)",
                 }}
               >
-                <img
-                  className="img-fluid"
-                  src="https://picsum.photos/200/300"
-                  alt="millet-rice"
-                />
+                <img className="img-fluid" src={flourImg} alt="millet-rice" />
               </div>
               <h6 className="fb-fs-16 fw-500">Flour</h6>
             </div>
@@ -68,11 +74,7 @@ const HomePage = () => {
                     " linear-gradient(180deg, #C2FFBD 0%, #EFFFEE 100%)",
                 }}
               >
-                <img
-                  className="img-fluid"
-                  src="https://picsum.photos/200/300"
-                  alt="millet-rice"
-                />
+                <img className="img-fluid" src={idlliImg} alt="millet-rice" />
               </div>
               <h6 className="fb-fs-16 fw-500">Beverages</h6>
             </div>
@@ -84,11 +86,7 @@ const HomePage = () => {
                     "linear-gradient(180deg, #F6D4FF 0%, #FBECFF 100%)",
                 }}
               >
-                <img
-                  className="img-fluid"
-                  src="https://picsum.photos/200/300"
-                  alt="millet-rice"
-                />
+                <img className="img-fluid" src={murukuImg} alt="millet-rice" />
               </div>
               <h6 className="fb-fs-16 fw-500">Snacks & Munching Rice</h6>
             </div>
@@ -100,11 +98,7 @@ const HomePage = () => {
                     "linear-gradient(180deg, #C3CCFF 0%, #E0E5FF 100%)",
                 }}
               >
-                <img
-                  className="img-fluid"
-                  src="https://picsum.photos/200/300"
-                  alt="millet-rice"
-                />
+                <img className="img-fluid" src={soupImg} alt="millet-rice" />
               </div>
               <h6 className="fb-fs-16 fw-500">Instant Mixes</h6>
             </div>
@@ -259,16 +253,29 @@ const HomePage = () => {
           <div className="row">
             <div className="col-md-6 p-0">
               <div className="image-sec">
-                <img class="d-lg-block d-md-block d-none desktop-ban" src={bannerAds} alt="banner-ads"/>
-                <img class="d-lg-none d-md-none d-block mn-1 mobile-ban" style={{marginBottom: "-3px"}} src={bannerAdsmob} alt="banner-ads"/>
+                <img
+                  class="d-lg-block d-md-block d-none desktop-ban"
+                  src={bannerAds}
+                  alt="banner-ads"
+                />
+                <img
+                  class="d-lg-none d-md-none d-block mn-1 mobile-ban"
+                  style={{ marginBottom: "-3px" }}
+                  src={bannerAdsmob}
+                  alt="banner-ads"
+                />
               </div>
             </div>
             <div className="col-md-6 p-0">
               <div className="content-sec">
-                <h2 className="pb-3">
-                  Good For <span> You <br></br> and the Planet</span>
+                <h2 className="pb-3 fw-normal text-white lh-1">
+                  Good For{" "}
+                  <span className="fw-bold">
+                    {" "}
+                    You <br></br> and the Planet
+                  </span>
                 </h2>
-                <p className="pb-5">
+                <p className="pb-5 text-white">
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
                   standard dummy text ever since the 1500s, when an unknown
@@ -279,21 +286,149 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        {/* <div className="banner-ads d-grid bg-$dark-brown">
-          <div className="image-sec">
-            <img src={bannerAds} alt="millet-rice" />
+      </section>
+      <section className="amrit_bhojanam pb-6">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-lg-6 mb-4 ps-0">
+              <div className="amrit">
+                <img src={amritGroup} alt="amrit img" className="img-fluid" />
+              </div>
+            </div>
+            <div className="col-lg-6 pe-0">
+              <div className="millets">
+                <div className="millet-left-img mb-lg-4">
+                  <img
+                    src={milletImg}
+                    alt="millets img"
+                    className="img-fluid millet-img"
+                  />
+                </div>
+                <div className="millet-content ps-5">
+                  <h6 className="text-brown">MILLET POWER</h6>
+                  <h3>Amrit Bhojanam</h3>
+                  <p className="mt-4">
+                    Amrit Bhojanam started with a simple yet powerful discovery:
+                    the incredible benefits <br />
+                    of millet. Our founders, who are passionate about
+                    sustainable and nutritious food, <br />
+                    realized just how incredible this ancient grain is. Millet
+                    has been a staple in many <br />
+                    cultures for centuries, known for its nutritional value and
+                    ability to thrive in different <br />
+                    climates. Seeing its potential to tackle today's health
+                    challenges, our founders set out <br />
+                    on a mission to bring millet back into modern diets and
+                    highlight its many benefits.
+                  </p>
+                  <p className="mt-3">
+                    With a lot of research and dedication, Amrit Bhojanam came
+                    to life. We’re here to make <br />
+                    millet accessible to everyone by offering a variety of
+                    delicious, millet-based products. <br />
+                    We believe that a healthier lifestyle starts with mindful
+                    eating, and our products are <br />
+                    crafted to provide essential nutrients while also supporting
+                    sustainable farming.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="content-sec">
-            <h2>
-              Good For <span> You and the Planet</span>
-            </h2>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer 
-            </p>
+        </div>
+      </section>
+      <section className="download-section">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-lg-6 col-md-6 mt-5">
+              <div className="download-content ms-5 mt-5">
+              <span className="millet-top">
+              <img
+                    src={milletTop}
+                    alt="millets img"
+                    className="img-fluid millet-img"
+                  />
+              </span>
+              <span className="millet-upper">
+              <img
+                    src={milletUpper}
+                    alt="millets img"
+                    className="img-fluid millet-img"
+                  />
+              </span>
+              <h2 className="pb-3 fw-normal lh-1 text-black pb-4 mt-4">
+              Download Our
+              {" "}
+                  <span className="fw-bold text-orange">
+                    {" "}<br></br>Mobile App
+                  </span>
+                </h2>
+                <p className="pb-5 mb-4">
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer 
+                </p>
+                <div className="download-btn d-flex">
+                  <div className="apple-btn me-3">
+                  <img
+                    src={appleBtn}
+                    alt="apple"
+                    className="img-fluid apple-img"
+                  />
+                  </div>
+                  <div className="android-btn">
+                  <img
+                    src={androidBtn}
+                    alt="android"
+                    className="img-fluid android-img"
+                  />
+                    </div>
+                </div>
+                <span className="millet-bottom">
+              <img
+                    src={milletBottom}
+                    alt="millets img"
+                    className="img-fluid millet-img"
+                  />
+              </span>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-8 mx-auto">
+            <span className="millet-right">
+              <img
+                    src={milletRight}
+                    alt="millets img"
+                    className="img-fluid millet-img"
+                  />
+              </span>
+              <span className="grain-1">
+              <img
+                    src={grain1}
+                    alt="millets img"
+                    className="img-fluid millet-img"
+                  />
+              </span>
+              <span className="grain-2">
+              <img
+                    src={grain2}
+                    alt="millets img"
+                    className="img-fluid millet-img"
+                  />
+              </span>
+              <span className="grain-3">
+              <img
+                    src={grain3}
+                    alt="millets img"
+                    className="img-fluid millet-img"
+                  />
+              </span>
+              <div className="phone-image">
+                <img src={phoneImg} alt="amrit img" className="img-fluid" />
+              </div>
+            </div>
           </div>
-        </div> */}
+        </div>
       </section>
       <Footer />
     </div>
