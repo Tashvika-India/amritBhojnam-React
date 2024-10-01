@@ -191,8 +191,10 @@
       justify-items: center;
       height: 14rem;
       img {
-        object-fit: contain;
-        width: 45%;
+        object-fit: fill;
+        aspect-ratio: 9/14;
+        width: 5.5rem;
+        margin-top: 1rem;
         box-shadow: 0px 3.71px 9.27px 0px rgba(0, 0, 0, 0.15);
       }
     }
@@ -217,67 +219,88 @@
 //offer style
 
 .offer-cards {
-    .protein-left {
-      background-image: url('../images/web/protien-bg-1.png');
-      height: 100%;
-      width: 100%;
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: bottom; 
-      border-radius: 30.89px;
-      .left-content {
-      }
-    }
-    .protein-right-top {
-      background-image: url('../images/web/protien-bg-2.png');
-      height: 100%;
-      width: 100%;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: right; 
-      border-radius: 30.89px;
-      .right-top-content {
-       width: 60%;
-      }
-    }
-    .protein-right-bottom{
-      background-image: url('../images/web/protien-bg-3.png');
-      height: 100%;
-      width: 100%;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: right; 
-      border-radius: 30.89px;
-      .right-bottom-content {
-          width: 60%;
-         }
+  .protein-left,
+  .protein-right-top,
+  .protein-right-bottom {
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 1.9306rem;
+    .right-top-content,
+    .right-bottom-content {
+      width: 60%;
     }
   }
+  .protein-left {
+    background-image: url("../images/web/protien-bg-1.png"); 
+    background-position: bottom;
+  }
+  .protein-right-top {
+    background-image: url("../images/web/protien-bg-2.png"); 
+    background-position: right;
+  }
+  .protein-right-bottom {
+    background-image: url("../images/web/protien-bg-3.png"); 
+    background-position: right;
+  }
+}
 
 //banner-ads
-.banner-ads{
-  .content-sec{
+.banner-ads {
+  .content-sec {
     background-color: $brown;
     height: 100%;
     width: 100%;
     padding: 4rem 13rem 6rem 8rem;
-    h2{
-      color: $light;
-      font-size: 60px;
-      font-weight: 400;
-      line-height: 4.27rem;
-      span{
-        color: $white;
-        font-weight: 700;
-      }
-    }
-    p{
-      color: $white;
-    }
   }
- 
 }
-  
+
+//download-section
+
+.download-section{
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFF6E8 50%, #FFFFFF 100%);
+  position: relative;
+  .millet-top{
+    position: absolute;
+    top: 4%;
+    left: 25%;
+  }
+  .millet-upper{
+    position: absolute;
+    top: 18%;
+    left: 10%;
+  }
+  .millet-right{
+    position: absolute;
+    top: 6%;
+    right: 3%;
+  }
+  .millet-bottom{
+    position: absolute;
+    bottom: 7%;
+    left: 5%;
+  }
+  .grain-1{
+    position: absolute;
+    top: 11%;
+    right: 13%;
+  }
+  .grain-2{
+    position: absolute;
+    bottom: 39%;
+    right: 6%;
+  }
+  .grain-3{
+    position: absolute;
+    bottom: 11%;
+    right: 5%;
+  }
+  .download-content{
+    padding: 7rem;
+    
+  }
+}
 
 // responsive styles
 
@@ -307,22 +330,22 @@
   .fb-container-xxl {
     max-width: 1100px !important;
   }
-  .banner-ads .image-sec{
+  .banner-ads .image-sec {
     height: 100%;
   }
-  .banner-ads .content-sec{
+  .banner-ads .content-sec {
     padding: 1.5rem;
   }
   .banner-ads .content-sec h2 {
     margin-top: 2rem;
-  font-size: 3rem;
-  line-height: 3rem;
+    font-size: 3rem;
+    line-height: 3rem;
   }
-  .banner-ads .content-sec p{
+  .banner-ads .content-sec p {
     padding-bottom: 1.5rem !important;
   }
-  .button-white{
-    font-size: 0.80rem;
+  .button-white {
+    font-size: 0.8rem;
     margin-bottom: 1.5rem;
   }
 }
@@ -345,46 +368,57 @@
   .web-wrapper-main p {
     font-size: 14px;
   }
-  .offer-cards .protein-right-top .right-top-content{
+  .offer-cards .protein-right-top .right-top-content {
     width: 62%;
   }
-  .button-primary{
+  .button-primary {
     font-size: 14px;
     margin-left: 2rem !important;
   }
   .offer-cards {
     .protein-left {
       .left-content {
-       padding: 2rem !important;
-       h4{
-        margin-bottom: .5rem !important;
-       }
+        padding: 2rem !important;
+        h4 {
+          margin-bottom: 0.5rem !important;
+        }
       }
     }
     .protein-right-top {
       .right-top-content {
-       padding: 2rem !important;
-       h4{
-        margin-bottom: .5rem !important;
-       }
+        padding: 2rem !important;
+        h4 {
+          margin-bottom: 0.5rem !important;
+        }
       }
     }
   }
-  .banner-ads .image-sec{
+  .banner-ads .image-sec {
     height: 100%;
   }
-  .banner-ads .content-sec{
+  .banner-ads .content-sec {
     padding: 2rem;
   }
   .banner-ads .content-sec h2 {
     margin-top: 2rem;
-  font-size: 2.5rem;
-  line-height: 2.5rem;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
   }
-  .button-white{
-    font-size: 0.90rem;
+  .button-white {
+    font-size: 0.9rem;
     margin-bottom: 2.5rem;
   }
+  .millets{
+    .millet-left-img{
+      margin-bottom: 0 !important; 
+    }
+    .millet-content p br{
+      display: none;
+    }
+  }
+  .millets .millet-content{
+    padding-left: 0rem !important;
+      }
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
@@ -426,22 +460,22 @@
     width: unset;
     padding: 22px 15rem 22px 2rem !important;
   }
-  .banner-ads .image-sec{
+  .banner-ads .image-sec {
     height: 100%;
   }
-  .banner-ads .content-sec{
+  .banner-ads .content-sec {
     padding: 1rem;
   }
   .banner-ads .content-sec h2 {
     margin-top: 2rem;
-  font-size: 2.5rem;
-  line-height: 2.5rem;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
   }
-  .banner-ads .content-sec p{
+  .banner-ads .content-sec p {
     font-size: 0.875rem;
     padding-bottom: 2rem !important;
   }
-  .button-white{
+  .button-white {
     font-size: 0.68rem;
     margin-bottom: 2.5rem;
   }
@@ -492,28 +526,52 @@
     width: unset;
     padding: 22px 15rem 22px 1rem !important;
   }
-  .banner-ads .image-sec .mobile-ban{
+  .banner-ads .image-sec .mobile-ban {
     width: 100vw;
   }
-  .banner-ads .content-sec{
+  .banner-ads .content-sec {
     padding: 1rem;
   }
   .banner-ads .content-sec h2 {
     margin-top: 2rem;
-  font-size: 2.5rem;
-  line-height: 2.5rem;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
   }
-  .banner-ads .content-sec p{
+  .banner-ads .content-sec p {
     font-size: 0.875rem;
     padding-bottom: 2rem !important;
   }
-  .button-white{
+  .button-white {
     font-size: 0.68rem;
     margin-bottom: 2.5rem;
   }
+  .millets{
+    .millet-content p br{
+      display: none;
+    }
+  }
+  .millets .millet-content{
+    padding-left: .5rem !important;
+      }
 }
 
 @media (max-width: 576px) {
+  .millets .millet-content{
+padding-left: .5rem !important;
+  }
+  .millets{
+    .millet-content p br{
+      display: none;
+    }
+  }
+  .download-section .download-content {
+    padding: 0rem;
+    margin-bottom: 3rem;
+    margin-left: .5rem !important;
+    p{
+      margin-bottom: 0rem !important;
+    }
+  }
   .cat-items-wrapper {
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
@@ -521,86 +579,87 @@
       .item-image {
         height: 8rem;
         img {
-          object-fit: contain;
-          width: 55%;
+          object-fit: fill;
+          width: 3.2rem;
+          aspect-ratio: 9/14;
         }
       }
     }
   }
-  .web-wrapper-main h4{
+  .web-wrapper-main h4 {
     font-size: 15.64px;
     margin-bottom: 0 !important;
-}
-.web-wrapper-main p {
+  }
+  .web-wrapper-main p {
     font-size: 12px;
-}
-.offer-cards {
-    .protein-left{
-        height: 85vh;
-    margin-bottom: 1rem;
-    border-radius: 16px;
-        .left-content{
-            padding-left: 1rem !important;
-            padding-right: 1rem !important;
-        }
-        button{
-            margin-left: 1rem !important;
-        }
-    }
-    .protein-right-top{
+  }
+  .offer-cards {
+    .protein-left {
+      height: 85vh;
       margin-bottom: 1rem;
-        .right-top-content {
-            padding-left: 1rem !important;
-            padding-right: 1rem !important; 
-            padding-top: 1.5rem !important;
-        }
-        button{
-            margin-left: 1rem !important;
-        }
+      border-radius: 16px;
+      .left-content {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+      button {
+        margin-left: 1rem !important;
+      }
     }
-}
-.button-primary{
+    .protein-right-top {
+      margin-bottom: 1rem;
+      .right-top-content {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        padding-top: 1.5rem !important;
+      }
+      button {
+        margin-left: 1rem !important;
+      }
+    }
+  }
+  .button-primary {
     font-size: 9.38px;
     margin: 0rem 1rem !important;
-}
-.offer-cards .protein-right-top {
+  }
+  .offer-cards .protein-right-top {
     border-radius: 16px;
     height: 35vh !important;
     background-position: left;
     // width: 91vw !important;
     background-size: cover;
-}
-.offer-cards .protein-right-bottom{
+  }
+  .offer-cards .protein-right-bottom {
     border-radius: 16px;
     height: 35vh !important;
     background-position: left;
-    // width: 91vw !important;  
-}
-.offer-cards .protein-right-top .right-top-content{
+    // width: 91vw !important;
+  }
+  .offer-cards .protein-right-top .right-top-content {
     width: unset;
     padding: 22px 5rem 22px 1rem !important;
-}
-.offer-cards .protein-right-bottom .right-bottom-content{
+  }
+  .offer-cards .protein-right-bottom .right-bottom-content {
     width: unset;
     padding: 22px 5rem 22px 1rem !important;
-}
-.banner-ads .content-sec{
-  padding: 1rem;
-}
-.banner-ads .image-sec .mobile-ban{
-  width: 100vw;
-}
-.banner-ads .content-sec h2 {
-  margin-top: 2rem;
-font-size: 2.5rem;
-line-height: 2.5rem;
-}
-.banner-ads .content-sec p{
-  font-size: 0.875rem;
-  padding-bottom: 2rem !important;
-}
-.button-white{
-  font-size: 0.68rem;
-  margin-bottom: 2.5rem;
-}
+  }
+  .banner-ads .content-sec {
+    padding: 1rem;
+  }
+  .banner-ads .image-sec .mobile-ban {
+    width: 100vw;
+  }
+  .banner-ads .content-sec h2 {
+    margin-top: 2rem;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+  }
+  .banner-ads .content-sec p {
+    font-size: 0.875rem;
+    padding-bottom: 2rem !important;
+  }
+  .button-white {
+    font-size: 0.68rem;
+    margin-bottom: 2.5rem;
+  }
 }
