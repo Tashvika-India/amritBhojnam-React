@@ -23,15 +23,22 @@ import grain1 from "../../../assets/images/web/grain-1.png";
 import grain2 from "../../../assets/images/web/grain-2.png";
 import grain3 from "../../../assets/images/web/grain-3.png";
 import WebBanner from "./components/WebBanner";
-import ItemSlide from "./components/ItemSlide"; 
-import saveImg from "../../../assets/images/web/save-image.png"; 
+import ItemSlide from "./components/ItemSlide";
+import saveImg from "../../../assets/images/web/save-image.png";
+import bestPrice from "../../../assets/images/web/offers/best-price.png";
+import deliveryImg from "../../../assets/images/web/offers/delivery.png";
+import greatDeal from "../../../assets/images/web/offers/great-deal.png";
+import easyReturn from "../../../assets/images/web/offers/easy-return.png";
 
 const HomePage = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
       <section>
-        <div className="home-banner-wrapper" style={{maxWidth: '90%', margin: '0 auto'}}>
+        <div
+          className="home-banner-wrapper"
+          style={{ maxWidth: "90%", margin: "0 auto" }}
+        >
           <WebBanner />
         </div>
       </section>
@@ -205,17 +212,21 @@ const HomePage = () => {
         <div className="container fb-container">
           <h3 className="fw-bold text-center mb-5">Super Saver of the Week</h3>
           <div className="cat-items-wrapper">
-            <div className="cat-itmes bg-orange p-4 gap-0" style={{borderRadius: "25px"}}>
-            <div className="saver-card h-100 w-100">
+            <div
+              className="cat-itmes bg-orange p-4 gap-0 w-255"
+              style={{ borderRadius: "25px" }}
+            >
+              <div className="saver-card h-100 w-100">
                 <h6 className="text-white mb-0">25% OFF</h6>
-                <p className="fb-fs-30 text-white mb-2">SAVE ₹100 </p>
-                <img className="img-fluid" src={saveImg} alt="save-img" />
+                <p
+                  className="fb-fs-30 fw-bolder text-white mb-2"
+                  style={{ textWrap: "nowrap" }}
+                >
+                  SAVE ₹100{" "}
+                </p>
+                <img className="img-fluid pt-1" src={saveImg} alt="save-img" />
+              </div>
             </div>
-            </div>
-            <div className="cat-itmes">uhfdkdj</div>
-            <div className="cat-itmes">uhfdkdj</div>
-            <div className="cat-itmes">uhfdkdj</div>
-            <div className="cat-itmes">uhfdkdj</div>
           </div>
         </div>
       </section>
@@ -274,18 +285,23 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      <section>
+        <div className="container fb-container">
+          <ItemSlide />
+        </div>
+      </section>
       <section className="banner-ads">
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-6 p-0">
               <div className="image-sec">
-                <img 
+                <img
                   className="d-lg-block d-md-block d-none desktop-ban h-100"
                   src={bannerAds}
                   alt="banner-ads"
                 />
-                <img 
-                  className="d-lg-none d-md-none d-block mn-1 mobile-ban h-100" 
+                <img
+                  className="d-lg-none d-md-none d-block mn-1 mobile-ban h-100"
                   style={{ marginBottom: "-3px" }}
                   src={bannerAdsmob}
                   alt="banner-ads"
@@ -367,7 +383,7 @@ const HomePage = () => {
         <div className="container fb-container">
           <div className="row">
             <div className="col-lg-6 col-md-6 mt-5 align-self-center">
-              <div className="download-content ms-5 mt-5 p-0"> 
+              <div className="download-content ms-5 mt-5 p-0">
                 <span className="millet-top">
                   <img
                     src={milletTop}
@@ -383,8 +399,8 @@ const HomePage = () => {
                   />
                 </span>
                 <h2 className="pb-3 fw-normal lh-1 text-black pb-4 mt-4">
-                  Download Our  
-                  <span className="fw-bold text-orange"> 
+                  Download Our
+                  <span className="fw-bold text-orange">
                     <br></br>Mobile App
                   </span>
                 </h2>
@@ -457,7 +473,68 @@ const HomePage = () => {
       </section>
       <section>
         <div className="container fb-container">
-          <ItemSlide/>
+          <div className="cat-items-wrapper offers-cards">
+            <div className="cat-itmes bg-light border-raidus-10">
+              <div className="d-flex py-4">
+                <div>
+                  <img
+                    className="img-fluid ps-3"
+                    src={bestPrice}
+                    alt="millet-rice"
+                  />
+                </div>
+                <div className="ps-4 text-start">
+                  <h6 style={{textWrap: "nowrap"}}>Best Prices & Offers</h6>
+                  <p>Orders ₹50 or more</p>
+                </div>
+              </div>
+            </div>
+            <div className="cat-itmes bg-light border-raidus-10">
+              <div className="d-flex py-4">
+                <div>
+                  <img
+                    className="img-fluid ps-4"
+                    src={deliveryImg}
+                    alt="millet-rice"
+                  />
+                </div>
+                <div className="ps-4 text-start">
+                  <h6 style={{textWrap: "nowrap"}}>Free Delivery</h6>
+                  <p>For order above ₹300</p>
+                </div>
+              </div>
+            </div>
+            <div className="cat-itmes bg-light border-raidus-10">
+              <div className="d-flex py-4">
+                <div>
+                  <img
+                    className="img-fluid ps-4"
+                    src={greatDeal}
+                    alt="millet-rice"
+                  />
+                </div>
+                <div className="ps-4 text-start">
+                  <h6 style={{textWrap: "nowrap"}}>Great Daily Deal</h6>
+                  <p>When you sign up</p>
+                </div>
+              </div>
+            </div>
+            <div className="cat-itmes bg-light border-raidus-10">
+              <div className="d-flex py-4">
+                <div>
+                  <img
+                    className="img-fluid ps-4"
+                    src={easyReturn}
+                    alt="millet-rice"
+                  />
+                </div>
+                <div className="ps-4 text-start">
+                  <h6 style={{textWrap: "nowrap"}}>Easy Return</h6>
+                  <p>Within 3 days</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <Footer />

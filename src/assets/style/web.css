@@ -130,6 +130,10 @@ td {
   width: 33%;
 }
 
+.w-255 {
+  width: 255.64px;
+}
+
 .text-balance {
   text-wrap: balance;
 }
@@ -382,6 +386,9 @@ html {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+.cat-items-wrapper .cat-itmes .saver-card img {
+  padding-left: 1.6rem;
 }
 .cat-items-wrapper .cat-itmes .item-image {
   background: var(--linear);
