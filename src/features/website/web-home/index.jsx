@@ -22,12 +22,19 @@ import milletRight from "../../../assets/images/web/millet-right.png";
 import grain1 from "../../../assets/images/web/grain-1.png";
 import grain2 from "../../../assets/images/web/grain-2.png";
 import grain3 from "../../../assets/images/web/grain-3.png";
-import saveImg from "../../../assets/images/web/save-image.png";
+import WebBanner from "./components/WebBanner";
+import ItemSlide from "./components/ItemSlide"; 
+import saveImg from "../../../assets/images/web/save-image.png"; 
 
 const HomePage = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
+      <section>
+        <div className="home-banner-wrapper" style={{maxWidth: '90%', margin: '0 auto'}}>
+          <WebBanner />
+        </div>
+      </section>
       <section>
         <div className="container fb-container">
           <div className="cat-items-wrapper">
@@ -234,8 +241,8 @@ const HomePage = () => {
             </div>
             <div className="col-lg-6 col-md-12">
               <div className="row">
-                <div class="col-md-12 mb-lg-4">
-                  <div class="protein-right-top">
+                <div className="col-md-12 mb-lg-4">
+                  <div className="protein-right-top">
                     <div className="right-top-content p-5 pb-4">
                       <h4 className="fw-bold mb-3">Upto 40% Off </h4>
                       <p className="fw-500">
@@ -248,8 +255,8 @@ const HomePage = () => {
                     </button>
                   </div>
                 </div>
-                <div class="col-md-12 mt-lg-4">
-                  <div class="protein-right-bottom">
+                <div className="col-md-12 mt-lg-4">
+                  <div className="protein-right-bottom">
                     <div className="right-bottom-content p-5 pb-4">
                       <h4 className="fw-bold mb-3">Upto 40% Off </h4>
                       <p className="fw-500">
@@ -272,13 +279,13 @@ const HomePage = () => {
           <div className="row">
             <div className="col-md-6 p-0">
               <div className="image-sec">
-                <img
-                  class="d-lg-block d-md-block d-none desktop-ban h-100"
+                <img 
+                  className="d-lg-block d-md-block d-none desktop-ban h-100"
                   src={bannerAds}
                   alt="banner-ads"
                 />
-                <img
-                  class="d-lg-none d-md-none d-block mn-1 mobile-ban h-100"
+                <img 
+                  className="d-lg-none d-md-none d-block mn-1 mobile-ban h-100" 
                   style={{ marginBottom: "-3px" }}
                   src={bannerAdsmob}
                   alt="banner-ads"
@@ -298,7 +305,7 @@ const HomePage = () => {
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
                   standard dummy text ever since the 1500s, when an unknown
-                  printer 
+                  printer
                 </p>
                 <button className="button-white rounded-3">Shop Now</button>
               </div>
@@ -360,7 +367,7 @@ const HomePage = () => {
         <div className="container fb-container">
           <div className="row">
             <div className="col-lg-6 col-md-6 mt-5 align-self-center">
-              <div className="download-content ms-5 mt-5 p-0">
+              <div className="download-content ms-5 mt-5 p-0"> 
                 <span className="millet-top">
                   <img
                     src={milletTop}
@@ -376,9 +383,8 @@ const HomePage = () => {
                   />
                 </span>
                 <h2 className="pb-3 fw-normal lh-1 text-black pb-4 mt-4">
-                  Download Our{" "}
-                  <span className="fw-bold text-orange">
-                    {" "}
+                  Download Our  
+                  <span className="fw-bold text-orange"> 
                     <br></br>Mobile App
                   </span>
                 </h2>
@@ -386,7 +392,7 @@ const HomePage = () => {
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
                   standard dummy text ever since the 1500s, when an unknown
-                  printer 
+                  printer
                 </p>
                 <div className="download-btn d-flex">
                   <div className="apple-btn me-3">
@@ -447,6 +453,11 @@ const HomePage = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      <section>
+        <div className="container fb-container">
+          <ItemSlide/>
         </div>
       </section>
       <Footer />
