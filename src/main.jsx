@@ -10,7 +10,8 @@ import "./assets/style/dashboard.scss";
 import 'primeicons/primeicons.css';
 import './assets/style/theme.scss'; 
 import './assets/style/web.scss'; 
-
+import 'slick-carousel/slick/slick.css'; 
+import 'slick-carousel/slick/slick-theme.css'; 
 
 
 const theme = createTheme({
