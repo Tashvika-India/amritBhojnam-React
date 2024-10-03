@@ -12,7 +12,7 @@ const ItemSlide = () => {
         speed: 500,
         slidesToShow: 5,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 3000,
         arrows: true,  
         nextArrow: <SampleNextArrow />,
@@ -42,7 +42,21 @@ const ItemSlide = () => {
         < >
             <Slider {...settings} className="item-slider">
                 <div className="item-slide px-2 px-lg-0">
-                    <img src={item} alt="item" className='img-fluid' />
+                <div
+              className="cat-itmes bg-orange p-4 gap-0 w-255"
+              style={{ borderRadius: "25px" }}
+            >
+              <div className="saver-card h-100 w-100">
+                <h6 className="text-white mb-0">25% OFF</h6>
+                <p
+                  className="fb-fs-30 fw-bolder text-white mb-2"
+                  style={{ textWrap: "nowrap" }}
+                >
+                  SAVE ₹100{" "}
+                </p>
+                <img className="img-fluid pt-1" src={saveImg} alt="save-img" />
+              </div>
+            </div>
                 </div>
                 <div className="item-slide px-2 px-lg-0">
                     <img src={item} alt="item" className='img-fluid' />
