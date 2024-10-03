@@ -4,17 +4,23 @@ import YellowButton from "@/components/buttons/YellowButton";
 import ProductTable from "./components/ProductTable";
 import { Link } from "react-router-dom";
 import { getProductApi } from "../../../../services/adminApiRoutes";
+import Loading from "../../../../components/ui/Loading";
 
 function ProductList() {
+
+  const [loading, setLoading] = useState(false);
 
   const [products, setProducts] = useState([]);
 
   async function getProductList() {
+    setLoading(true);
     try {
       const response = await getProductApi();
       setProducts(response?.data || []);
     } catch (error) {
       console.log("Error on Product List", error);
+    } finally {
+      setLoading(false);
     }
   }
   useEffect(() => {
@@ -37,7 +43,11 @@ function ProductList() {
       <div className="">
         <div className="card">
           <div className="card-body">
-            <ProductTable products={products} getProductList={getProductList}  />
+            {loading ? (  
+              <Loading />
+            ) : (
+              <ProductTable products={products} getProductList={getProductList} />
+            )}
           </div>
         </div>
       </div>

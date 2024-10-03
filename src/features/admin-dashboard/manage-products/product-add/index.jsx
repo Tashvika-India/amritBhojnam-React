@@ -15,7 +15,9 @@ import { useFormik } from "formik";
 import { productInitalValues } from "@/utils/form-inital-values/InitalValues";
 import { postProductApi, putProductApi } from "../../../../services/adminApiRoutes";
 import { useLocation, useNavigate } from "react-router-dom";
+import Loading from "../../../../components/ui/Loading";
 const ProductAdd = () => {
+  const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const location = useLocation();
   const product = location?.state;
@@ -30,7 +32,7 @@ const ProductAdd = () => {
   });
   const { values, handleSubmit, resetForm, setValues, handleBlur  ,handleChange} = formik;
 
-  async function addProduct(values) {
+  async function addProduct(values) { 
     const fromData = new FormData();      
     fromData.append("name", values.name);
     fromData.append("category_id", values.category_id);
@@ -45,7 +47,10 @@ const ProductAdd = () => {
     resetForm();
     try {
       const response = await postProductApi(fromData);
+      navigate("/product");
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       throw error;
     }  
   } 
@@ -66,7 +71,9 @@ const ProductAdd = () => {
     try {
       const response = await putProductApi(product?.id,fromData);
       navigate("/product");
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       throw error;
     }
   }
@@ -82,7 +89,7 @@ const ProductAdd = () => {
   useEffect(() => {
     getCaterioes();
     if (isEditMode) {
-      setValues(product); // Pre-fill the form if in edit mode
+      setValues(product);  
     }
   }, [product]);
 
@@ -333,8 +340,16 @@ const ProductAdd = () => {
         <div className="card mb-4">
           <div className="card-body">
             <div className="d-flex gap-3 justify-content-end">
-              <YellowButton lable={isEditMode ? "Update Product" : "Add Product"} handleClick={formik.handleSubmit} />
-              <RejectButton lable="Cancel" />
+            <YellowButton
+                lable={
+                  loading ? (
+                    <Loading size={24} color="inherit" />
+                  ) : isEditMode ? "Update Product" : "Add Product"
+                }
+                handleClick={formik.handleSubmit}
+                disabled={loading}
+              />
+              <RejectButton lable="Cancel" disabled={loading} />
             </div>
           </div>
         </div>

@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
-import YellowButton from "@/components/buttons/YellowButton";  
+import YellowButton from "@/components/buttons/YellowButton";
 import { getBannerApi } from "../../../services/adminApiRoutes";
 import BannerTable from "./components/BannerTable";
 import AddBannerModal from "./components/AddBannerModal";
+import Loading from "../../../components/ui/Loading"; 
 
 function ManageBanner() {
   const [visible, setVisible] = useState(false);
   const [banner, setBanner] = useState([]);
-  const [editData, setEditData] = useState(null); 
+  const [editData, setEditData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   async function getBanner() {
+    setLoading(true);
     try {
       const response = await getBannerApi();
       setBanner(response?.data || []);
     } catch (error) {
-      console.log("Error on Category List", error);
+      console.log("Error on Banner List", error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -35,15 +40,26 @@ function ManageBanner() {
             lable={"+ Add New Banner"}
           />
         </div>
-      </div> 
+      </div>
+
       <div className="">
         <div className="card">
           <div className="card-body">
-            <BannerTable banner={banner} setEditData={setEditData} />
+            {loading ? (
+              <Loading />
+            ) : (
+              <BannerTable banner={banner} setEditData={setEditData} />
+            )}
           </div>
         </div>
       </div>
-      <AddBannerModal visible={visible} setVisible={setVisible} setBanner={setBanner} editData={editData} />
+
+      <AddBannerModal
+        visible={visible}
+        setVisible={setVisible}
+        setBanner={setBanner}
+        editData={editData}
+      />
     </>
   );
 }

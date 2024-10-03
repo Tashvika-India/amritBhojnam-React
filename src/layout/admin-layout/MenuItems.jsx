@@ -219,7 +219,7 @@ function MenuItems() {
             <ListItemIcon sx={listItemIconStyle}>
             <HiPhoto size={23} />
             </ListItemIcon>
-            <ListItemText primary="banners" sx={listItemTextStyle} />
+            <ListItemText primary="Banners" sx={listItemTextStyle} />
           </ListItemButton>
         </Link>
     </>

@@ -4,18 +4,23 @@ import YellowButton from "@/components/buttons/YellowButton";
 import CategoriesTable from "./components/CategoriesTable";
 import AddCategoryModal from "./components/AddCategoryModal";
 import { getCategoriesApi } from "../../../services/adminApiRoutes";
+import Loading from "../../../components/ui/Loading";
 
 function ManageCategories() {
   const [visible, setVisible] = useState(false);
   const [categories, setCategories] = useState([]);
   const [editData, setEditData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   async function getCaterioes() {
+    setLoading(true);
     try {
       const response = await getCategoriesApi();
       setCategories(response?.data || []);
     } catch (error) {
       console.log("Error on Category List", error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -40,11 +45,15 @@ function ManageCategories() {
       <div className="">
         <div className="card">
           <div className="card-body">
-            <CategoriesTable categories={categories} setEditData={setEditData} />
+            {loading ? (
+              <Loading />
+            ) : (
+              <CategoriesTable categories={categories} setEditData={setEditData} />
+            )}
           </div>
         </div>
       </div>
-      <AddCategoryModal visible={visible} setVisible={setVisible} />
+      <AddCategoryModal visible={visible} setVisible={setVisible} getCaterioes={getCaterioes} />
     </>
   );
 }
