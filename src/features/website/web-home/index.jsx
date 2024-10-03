@@ -29,6 +29,8 @@ import bestPrice from "../../../assets/images/web/offers/best-price.png";
 import deliveryImg from "../../../assets/images/web/offers/delivery.png";
 import greatDeal from "../../../assets/images/web/offers/great-deal.png";
 import easyReturn from "../../../assets/images/web/offers/easy-return.png";
+import productCard from "../../../assets/images/web/product-card.png";
+import fireImg from "../../../assets/images/web/fire.png";
 
 const HomePage = () => {
   return (
@@ -165,27 +167,31 @@ const HomePage = () => {
                     <div className="row">
                       <div className="col-md-2">
                         <div className="product-card border p-3">
-                          <span className="product-badge badge bg-yellow fw-400">
+                          <span className="product-badge badge bg-yellow fw-500">
                             10% off
                           </span>
                           <span className="product-fav"></span>
                           <div className="">
                             <img
-                              className="img-fluid"
-                              src="https://picsum.photos/200/300"
+                              className="img-fluid py-3"
+                              src={productCard}
                               alt="product"
                             />
                           </div>
-                          <h6 className="fb-fs-12 fw-500">
-                            <span></span> 80 Calories
+                          <h6 className="fb-fs-12 fw-500 d-flex text-brown">
+                            <span><img
+                              className="img-fluid"
+                              src={fireImg}
+                              alt="fire"
+                            /></span> 80 Calories
                           </h6>
-                          <h5 className="fb-fs-14 fw-600">
+                          <h5 className="fb-fs-14 fw-600 masala-con">
                             Masala Millet (Veggie Masala)
                           </h5>
-                          <h5 className="fb-fs-14 fw-600">100 g</h5>
+                          <h5 className="fb-fs-14 fw-600 text-grey">100 g</h5>
                           <div className="d-flex justify-content-between align-items-center">
                             <h6 className="fb-fs-20 fw-bold mb-0">
-                              <small className="fw-500 fb-fs-16">
+                              <small className="fw-500 fb-fs-16 text-grey">
                                 <strike>₹80</strike>{" "}
                               </small>{" "}
                               ₹70
@@ -287,6 +293,7 @@ const HomePage = () => {
       </section>
       <section>
         <div className="container fb-container">
+        <h3 className="fw-bold text-center mb-5">Super Saver of the Week</h3>
           <ItemSlide />
         </div>
       </section>
