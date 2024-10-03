@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import YellowButton from "../../../../components/buttons/YellowButton";
 import RejectButton from "../../../../components/buttons/RejectButton";
@@ -7,8 +7,10 @@ import IosSwitch from "../../../../components/ui/IosSwitch";
 import FileUpload from "../../../../components/fileUpload/FileUpload";
 import { useFormik } from "formik";
 import { postCategoriesApi } from "../../../../services/adminApiRoutes";
+import Loading from "../../../../components/ui/Loading";
 
-export default function AddCategoryModal({ visible, setVisible }) {
+export default function AddCategoryModal({ visible, setVisible, getCaterioes }) {
+  const [loading, setLoading] = useState(false);
   const initialValues = {
     name: "",
     img_file: null,
@@ -25,14 +27,19 @@ export default function AddCategoryModal({ visible, setVisible }) {
   const { values, handleSubmit, resetForm, setValues } = formik;
 
   async function addCategory(values) {
+    setLoading(true);
     const formData = new FormData();
     formData.append("name", values.name);
-    formData.append("img_file", values.img_file);
-    formik.resetForm();
+    formData.append("img_file", values.img_file); 
     try {
       const response = await postCategoriesApi(formData);
+      formik.resetForm();
+      getCaterioes();
+      setVisible(false); 
     } catch (error) {
       throw error;
+    }finally {
+      setLoading(false);
     }
   }
 
@@ -49,6 +56,9 @@ export default function AddCategoryModal({ visible, setVisible }) {
         closable={false}
         header={<CustomHeader formik={formik} />}
       >
+        {loading ? (  
+          <Loading />
+        ) : (
         <form onSubmit={formik.handleSubmit}>
           <div className="p-fluid">
             <div className="mb-4">
@@ -66,6 +76,7 @@ export default function AddCategoryModal({ visible, setVisible }) {
             </div>
           </div>
         </form>
+        )}
       </Dialog>
     </div>
   );
@@ -88,12 +99,16 @@ function CustomHeader({ formik }) {
   );
 }
 
-function FooterContent({ formik, setVisible }) {
+function FooterContent({ formik, setVisible, loading }) {
   return (
     <>
       <div className="d-inline-flex gap-3">
         <RejectButton lable="Cancel" handleClick={() => setVisible(false)} />
-        <YellowButton lable="+ Add" handleClick={formik.handleSubmit} />
+        <YellowButton
+          lable={loading ? "Adding..." : "+ Add"}
+          handleClick={formik.handleSubmit}
+          disabled={loading}  
+        /> 
       </div>
     </>
   );

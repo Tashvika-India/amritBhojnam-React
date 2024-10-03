@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import YellowButton from "../../../../components/buttons/YellowButton";
 import RejectButton from "../../../../components/buttons/RejectButton";
@@ -7,8 +7,10 @@ import IosSwitch from "../../../../components/ui/IosSwitch";
 import FileUpload from "../../../../components/fileUpload/FileUpload";
 import { useFormik } from "formik";
 import { postBannerApi, postCategoriesApi } from "../../../../services/adminApiRoutes";
+import Loading from "../../../../components/ui/Loading";
 
 export default function AddBannerModal({ visible, setVisible, setBanner }) {
+  const [loading, setLoading] = useState(false);
   const initialValues = {
     title: "",
     sub_title: "",
@@ -29,6 +31,7 @@ export default function AddBannerModal({ visible, setVisible, setBanner }) {
   const { values, handleSubmit, resetForm, setValues } = formik;
 
   async function addBanner(values) { 
+    setLoading(true);
     const formData = new FormData(); 
     formData.append("title", values.title);
     formData.append("sub_title", values.sub_title);
@@ -36,15 +39,16 @@ export default function AddBannerModal({ visible, setVisible, setBanner }) {
     formData.append("platfrorm", values.platfrorm);
     formData.append("position", values.position);
     formData.append("img_file", values.img_file);
-    formData.append("is_active", values.is_active);
-
+    formData.append("is_active", values.is_active); 
     try {
       const response = await postBannerApi(formData); 
       formik.resetForm();
       setVisible(false);
-      setBanner( [...banner, response?.data] );
+      setBanner((prevBanners) => [...prevBanners, response?.data]);
     } catch (error) {
-      throw error;
+      console.log("Error adding banner", error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -61,6 +65,9 @@ export default function AddBannerModal({ visible, setVisible, setBanner }) {
         closable={false}
         header={<CustomHeader formik={formik} />}
       >
+        {loading ? (
+          <Loading />  
+        ) : (
         <form onSubmit={formik.handleSubmit}>
           <div className="p-fluid">
             <div className="mb-4">
@@ -137,6 +144,7 @@ export default function AddBannerModal({ visible, setVisible, setBanner }) {
             </div>
           </div>
         </form>
+        )}
       </Dialog>
     </div>
   );
@@ -160,12 +168,12 @@ function CustomHeader({ formik }) {
   );
 }
 
-function FooterContent({ formik, setVisible }) {
+function FooterContent({ formik, setVisible, loading }) {
   return (
     <>
       <div className="d-inline-flex gap-3">
         <RejectButton lable="Cancel" handleClick={() => setVisible(false)} />
-        <YellowButton lable="+ Add" handleClick={formik.handleSubmit} />
+        <YellowButton lable="+ Add" handleClick={formik.handleSubmit} disabled={loading}/>
       </div>
     </>
   );
