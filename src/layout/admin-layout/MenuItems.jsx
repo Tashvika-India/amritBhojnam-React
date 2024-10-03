@@ -16,6 +16,7 @@ import Inventory2Icon from "@mui/icons-material/Inventory2";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { FaBox } from "react-icons/fa";
+import { HiPhoto } from "react-icons/hi2";
 
 function MenuItems() {
   const [openSections, setOpenSections] = React.useState({
@@ -202,6 +203,25 @@ function MenuItems() {
           </ListItemButton>
         </Link>
       </List>
+      <Divider />
+      <Typography
+        sx={{ pl: 2, pt: 1, pb: 1 }}
+        variant="subtitle2"
+        color="textSecondary"
+      >
+        Business
+      </Typography>
+      <Link
+          to="/banner"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <ListItemButton sx={isActive("/banner") ? activeStyles : {}}>
+            <ListItemIcon sx={listItemIconStyle}>
+            <HiPhoto size={23} />
+            </ListItemIcon>
+            <ListItemText primary="banners" sx={listItemTextStyle} />
+          </ListItemButton>
+        </Link>
     </>
   );
 }

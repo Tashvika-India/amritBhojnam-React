@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import DashboardSidebar from "@/layout/admin-layout/DashboardSidebar";
-import DashboardHome from "../features/admin-dashboard/dashboard-home"; 
+import DashboardHome from "../features/admin-dashboard/dashboard-home";
 import ManageCategories from "../features/admin-dashboard/manage-categories";
 import ProductList from "../features/admin-dashboard/manage-products/product-list";
 import ProductReviews from "../features/admin-dashboard/manage-products/product-reviews";
@@ -9,10 +9,20 @@ import AdminOrders from "../features/admin-dashboard/manage-orders/admin-orders"
 import ProductAdd from "../features/admin-dashboard/manage-products/product-add";
 import HomePage from "../features/website/web-home";
 import LoginPage from "../components/pages/auth-pages/LoginPage";
+import ManageBanner from "../features/admin-dashboard/manage-banner";
 
 function AppRoutes() {
   return (
     <Routes>
+      <Route
+        exact
+        path="/"
+        element={
+          <DashboardSidebar>
+            <DashboardHome />
+          </DashboardSidebar>
+        }
+      />
       <Route
         exact
         path="/dashboard"
@@ -28,15 +38,6 @@ function AppRoutes() {
         element={
           <DashboardSidebar>
             <ManageCategories />
-          </DashboardSidebar>
-        }
-      />
-      <Route
-        exact
-        path="/"
-        element={
-          <DashboardSidebar>
-            <DashboardHome />
           </DashboardSidebar>
         }
       />
@@ -73,6 +74,15 @@ function AppRoutes() {
         element={
           <DashboardSidebar>
             <ProductReviews />
+          </DashboardSidebar>
+        }
+      />
+      <Route
+        exact
+        path="/banner"
+        element={
+          <DashboardSidebar>
+            <ManageBanner />
           </DashboardSidebar>
         }
       />
