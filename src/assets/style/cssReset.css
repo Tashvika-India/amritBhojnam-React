@@ -130,6 +130,10 @@ td {
   width: 33%;
 }
 
+.w-255 {
+  width: 255.64px;
+}
+
 .text-balance {
   text-wrap: balance;
 }

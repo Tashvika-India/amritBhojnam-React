@@ -1,6 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import item from '../../../../assets/images/web/slide-product.png';
+import saveImg from '../../../../assets/images/web/slide-product.png';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Margin } from '@mui/icons-material';
 

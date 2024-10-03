@@ -175,7 +175,9 @@
 }
 
 //category
-
+.offers-cards{
+  grid-template-columns: repeat(auto-fit, 20.2312rem) !important;
+}
 .cat-items-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, 12.2312rem);
@@ -188,7 +190,7 @@
     gap: 1rem;
     .saver-card{
       img{
-        
+        padding-left: 1.6rem;
       }
     }
     .item-image {
