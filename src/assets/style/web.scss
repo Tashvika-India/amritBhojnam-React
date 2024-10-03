@@ -99,6 +99,9 @@
       0.9281rem
     ); //14.85px Min 0.75rem, Max 0.9281rem
   }
+  .fb-fs-30{
+   font-size: 1.875rem; // 30px
+  }
   .fb-fs-12 {
     font-size: clamp(
       0.625rem,
@@ -183,6 +186,11 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    .saver-card{
+      img{
+        
+      }
+    }
     .item-image {
       background: var(--linear);
       border-radius: 8rem 8rem 1.1594rem 1.1594rem;
@@ -586,6 +594,7 @@ padding-left: .5rem !important;
       }
     }
   }
+
   .web-wrapper-main h4 {
     font-size: 15.64px;
     margin-bottom: 0 !important;

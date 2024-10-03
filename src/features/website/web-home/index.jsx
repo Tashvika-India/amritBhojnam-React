@@ -23,7 +23,8 @@ import grain1 from "../../../assets/images/web/grain-1.png";
 import grain2 from "../../../assets/images/web/grain-2.png";
 import grain3 from "../../../assets/images/web/grain-3.png";
 import WebBanner from "./components/WebBanner";
-import ItemSlide from "./components/ItemSlide";
+import ItemSlide from "./components/ItemSlide"; 
+import saveImg from "../../../assets/images/web/save-image.png"; 
 
 const HomePage = () => {
   return (
@@ -200,13 +201,31 @@ const HomePage = () => {
           </Tab.Container>
         </div>
       </section>
+      <section>
+        <div className="container fb-container">
+          <h3 className="fw-bold text-center mb-5">Super Saver of the Week</h3>
+          <div className="cat-items-wrapper">
+            <div className="cat-itmes bg-orange p-4 gap-0" style={{borderRadius: "25px"}}>
+            <div className="saver-card h-100 w-100">
+                <h6 className="text-white mb-0">25% OFF</h6>
+                <p className="fb-fs-30 text-white mb-2">SAVE ₹100 </p>
+                <img className="img-fluid" src={saveImg} alt="save-img" />
+            </div>
+            </div>
+            <div className="cat-itmes">uhfdkdj</div>
+            <div className="cat-itmes">uhfdkdj</div>
+            <div className="cat-itmes">uhfdkdj</div>
+            <div className="cat-itmes">uhfdkdj</div>
+          </div>
+        </div>
+      </section>
       <section className="offer-cards">
-        <div className="container">
+        <div className="container fb-container">
           <div className="row">
             <div className="col-lg-6 col-md-12">
               <div className="protein-left">
                 <div className="left-content p-5">
-                  <h4 className="fw-700 mb-lg-3">
+                  <h4 className="fw-bold mb-lg-3">
                     Upto 40% Off on special Items
                   </h4>
                   <p className="fw-500">
@@ -225,7 +244,7 @@ const HomePage = () => {
                 <div className="col-md-12 mb-lg-4">
                   <div className="protein-right-top">
                     <div className="right-top-content p-5 pb-4">
-                      <h4 className="fw-700 mb-3">Upto 40% Off </h4>
+                      <h4 className="fw-bold mb-3">Upto 40% Off </h4>
                       <p className="fw-500">
                         As naturally gluten-free grains, millets provide a great
                         alternative for those with gluten sensitivities
@@ -239,7 +258,7 @@ const HomePage = () => {
                 <div className="col-md-12 mt-lg-4">
                   <div className="protein-right-bottom">
                     <div className="right-bottom-content p-5 pb-4">
-                      <h4 className="fw-700 mb-3">Upto 40% Off </h4>
+                      <h4 className="fw-bold mb-3">Upto 40% Off </h4>
                       <p className="fw-500">
                         With a low glycemic index, millets help regulate blood
                         sugar levels, making them ideal.
@@ -260,13 +279,13 @@ const HomePage = () => {
           <div className="row">
             <div className="col-md-6 p-0">
               <div className="image-sec">
-                <img
-                  className="d-lg-block d-md-block d-none desktop-ban"
+                <img 
+                  className="d-lg-block d-md-block d-none desktop-ban h-100"
                   src={bannerAds}
                   alt="banner-ads"
                 />
-                <img
-                  className="d-lg-none d-md-none d-block mn-1 mobile-ban"
+                <img 
+                  className="d-lg-none d-md-none d-block mn-1 mobile-ban h-100" 
                   style={{ marginBottom: "-3px" }}
                   src={bannerAdsmob}
                   alt="banner-ads"
@@ -345,10 +364,10 @@ const HomePage = () => {
         </div>
       </section>
       <section className="download-section">
-        <div className="container-fluid">
+        <div className="container fb-container">
           <div className="row">
-            <div className="col-lg-6 col-md-6 mt-5">
-              <div className="download-content ms-5 mt-5">
+            <div className="col-lg-6 col-md-6 mt-5 align-self-center">
+              <div className="download-content ms-5 mt-5 p-0"> 
                 <span className="millet-top">
                   <img
                     src={milletTop}
@@ -364,10 +383,9 @@ const HomePage = () => {
                   />
                 </span>
                 <h2 className="pb-3 fw-normal lh-1 text-black pb-4 mt-4">
-                  Download Our
-                  {" "}
-                  <span className="fw-bold text-orange">
-                    {" "}<br></br>Mobile App
+                  Download Our  
+                  <span className="fw-bold text-orange"> 
+                    <br></br>Mobile App
                   </span>
                 </h2>
                 <p className="pb-5 mb-4">
