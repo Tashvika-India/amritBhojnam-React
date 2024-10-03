@@ -22,6 +22,7 @@ import milletRight from "../../../assets/images/web/millet-right.png";
 import grain1 from "../../../assets/images/web/grain-1.png";
 import grain2 from "../../../assets/images/web/grain-2.png";
 import grain3 from "../../../assets/images/web/grain-3.png";
+import saveImg from "../../../assets/images/web/save-image.png";
 
 const HomePage = () => {
   return (
@@ -193,13 +194,31 @@ const HomePage = () => {
           </Tab.Container>
         </div>
       </section>
+      <section>
+        <div className="container fb-container">
+          <h3 className="fw-bold text-center mb-5">Super Saver of the Week</h3>
+          <div className="cat-items-wrapper">
+            <div className="cat-itmes bg-orange p-4 gap-0" style={{borderRadius: "25px"}}>
+            <div className="saver-card h-100 w-100">
+                <h6 className="text-white mb-0">25% OFF</h6>
+                <p className="fb-fs-30 text-white mb-2">SAVE ₹100 </p>
+                <img className="img-fluid" src={saveImg} alt="save-img" />
+            </div>
+            </div>
+            <div className="cat-itmes">uhfdkdj</div>
+            <div className="cat-itmes">uhfdkdj</div>
+            <div className="cat-itmes">uhfdkdj</div>
+            <div className="cat-itmes">uhfdkdj</div>
+          </div>
+        </div>
+      </section>
       <section className="offer-cards">
-        <div className="container">
+        <div className="container fb-container">
           <div className="row">
             <div className="col-lg-6 col-md-12">
               <div className="protein-left">
                 <div className="left-content p-5">
-                  <h4 className="fw-700 mb-lg-3">
+                  <h4 className="fw-bold mb-lg-3">
                     Upto 40% Off on special Items
                   </h4>
                   <p className="fw-500">
@@ -218,7 +237,7 @@ const HomePage = () => {
                 <div class="col-md-12 mb-lg-4">
                   <div class="protein-right-top">
                     <div className="right-top-content p-5 pb-4">
-                      <h4 className="fw-700 mb-3">Upto 40% Off </h4>
+                      <h4 className="fw-bold mb-3">Upto 40% Off </h4>
                       <p className="fw-500">
                         As naturally gluten-free grains, millets provide a great
                         alternative for those with gluten sensitivities
@@ -232,7 +251,7 @@ const HomePage = () => {
                 <div class="col-md-12 mt-lg-4">
                   <div class="protein-right-bottom">
                     <div className="right-bottom-content p-5 pb-4">
-                      <h4 className="fw-700 mb-3">Upto 40% Off </h4>
+                      <h4 className="fw-bold mb-3">Upto 40% Off </h4>
                       <p className="fw-500">
                         With a low glycemic index, millets help regulate blood
                         sugar levels, making them ideal.
@@ -254,12 +273,12 @@ const HomePage = () => {
             <div className="col-md-6 p-0">
               <div className="image-sec">
                 <img
-                  class="d-lg-block d-md-block d-none desktop-ban"
+                  class="d-lg-block d-md-block d-none desktop-ban h-100"
                   src={bannerAds}
                   alt="banner-ads"
                 />
                 <img
-                  class="d-lg-none d-md-none d-block mn-1 mobile-ban"
+                  class="d-lg-none d-md-none d-block mn-1 mobile-ban h-100"
                   style={{ marginBottom: "-3px" }}
                   src={bannerAdsmob}
                   alt="banner-ads"
@@ -338,29 +357,29 @@ const HomePage = () => {
         </div>
       </section>
       <section className="download-section">
-        <div className="container-fluid">
+        <div className="container fb-container">
           <div className="row">
-            <div className="col-lg-6 col-md-6 mt-5">
-              <div className="download-content ms-5 mt-5">
-              <span className="millet-top">
-              <img
+            <div className="col-lg-6 col-md-6 mt-5 align-self-center">
+              <div className="download-content ms-5 mt-5 p-0">
+                <span className="millet-top">
+                  <img
                     src={milletTop}
                     alt="millets img"
                     className="img-fluid millet-img"
                   />
-              </span>
-              <span className="millet-upper">
-              <img
+                </span>
+                <span className="millet-upper">
+                  <img
                     src={milletUpper}
                     alt="millets img"
                     className="img-fluid millet-img"
                   />
-              </span>
-              <h2 className="pb-3 fw-normal lh-1 text-black pb-4 mt-4">
-              Download Our
-              {" "}
+                </span>
+                <h2 className="pb-3 fw-normal lh-1 text-black pb-4 mt-4">
+                  Download Our{" "}
                   <span className="fw-bold text-orange">
-                    {" "}<br></br>Mobile App
+                    {" "}
+                    <br></br>Mobile App
                   </span>
                 </h2>
                 <p className="pb-5 mb-4">
@@ -371,57 +390,57 @@ const HomePage = () => {
                 </p>
                 <div className="download-btn d-flex">
                   <div className="apple-btn me-3">
-                  <img
-                    src={appleBtn}
-                    alt="apple"
-                    className="img-fluid apple-img"
-                  />
+                    <img
+                      src={appleBtn}
+                      alt="apple"
+                      className="img-fluid apple-img"
+                    />
                   </div>
                   <div className="android-btn">
-                  <img
-                    src={androidBtn}
-                    alt="android"
-                    className="img-fluid android-img"
-                  />
-                    </div>
+                    <img
+                      src={androidBtn}
+                      alt="android"
+                      className="img-fluid android-img"
+                    />
+                  </div>
                 </div>
                 <span className="millet-bottom">
-              <img
+                  <img
                     src={milletBottom}
                     alt="millets img"
                     className="img-fluid millet-img"
                   />
-              </span>
+                </span>
               </div>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-8 mx-auto">
-            <span className="millet-right">
-              <img
-                    src={milletRight}
-                    alt="millets img"
-                    className="img-fluid millet-img"
-                  />
+              <span className="millet-right">
+                <img
+                  src={milletRight}
+                  alt="millets img"
+                  className="img-fluid millet-img"
+                />
               </span>
               <span className="grain-1">
-              <img
-                    src={grain1}
-                    alt="millets img"
-                    className="img-fluid millet-img"
-                  />
+                <img
+                  src={grain1}
+                  alt="millets img"
+                  className="img-fluid millet-img"
+                />
               </span>
               <span className="grain-2">
-              <img
-                    src={grain2}
-                    alt="millets img"
-                    className="img-fluid millet-img"
-                  />
+                <img
+                  src={grain2}
+                  alt="millets img"
+                  className="img-fluid millet-img"
+                />
               </span>
               <span className="grain-3">
-              <img
-                    src={grain3}
-                    alt="millets img"
-                    className="img-fluid millet-img"
-                  />
+                <img
+                  src={grain3}
+                  alt="millets img"
+                  className="img-fluid millet-img"
+                />
               </span>
               <div className="phone-image">
                 <img src={phoneImg} alt="amrit img" className="img-fluid" />
