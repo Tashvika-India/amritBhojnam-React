@@ -30,7 +30,7 @@ import deliveryImg from "../../../assets/images/web/offers/delivery.png";
 import greatDeal from "../../../assets/images/web/offers/great-deal.png";
 import easyReturn from "../../../assets/images/web/offers/easy-return.png";
 import productCard from "../../../assets/images/web/product-card.png";
-import fireImg from "../../../assets/images/web/fire.png";
+import fireImg from "../../../assets/images/web/Fire.png";
 
 const HomePage = () => {
   return (

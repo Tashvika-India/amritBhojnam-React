@@ -8,6 +8,7 @@ import FileUpload from "../../../../components/fileUpload/FileUpload";
 import { useFormik } from "formik";
 import { postCategoriesApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
+import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
 
 export default function AddCategoryModal({ visible, setVisible, getCaterioes }) {
   const [loading, setLoading] = useState(false);
@@ -36,8 +37,10 @@ export default function AddCategoryModal({ visible, setVisible, getCaterioes }) 
       formik.resetForm();
       getCaterioes();
       setVisible(false); 
+      notifySuccess("Category Added Successfully");
     } catch (error) {
       throw error;
+      notifyError("Failed to add category!");
     }finally {
       setLoading(false);
     }
