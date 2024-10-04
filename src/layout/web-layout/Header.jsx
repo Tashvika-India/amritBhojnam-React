@@ -7,6 +7,7 @@ import logo from '../../assets/images/web/logo.svg'
 import { FaRegHeart, FaRegUser } from 'react-icons/fa';
 import { CgShoppingBag } from 'react-icons/cg';
 import { IoMdMenu } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [selectedCity, setSelectedCity] = useState(null);
@@ -113,9 +114,9 @@ const Header = () => {
             <div className="header-divider d-flex justify-content-between ">
               <div className="header-link-list">
                 <ul className='d-flex gap-5'>
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Shop</a></li>
-                  <li><a href="#">Best Deals</a></li>
+                  <li><Link to="/home">Home</Link></li>
+                  <li><Link to="/products">Shop</Link></li>
+                  <li><Link to="/product-detail">Best Deals</Link></li>
                   <li><a href="#">Trending Products </a></li>
                   <li><a href="#">About Us </a></li>
                   <li><a href="#">Contact Us </a></li>

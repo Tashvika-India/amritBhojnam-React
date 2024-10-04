@@ -10,6 +10,8 @@ import ProductAdd from "../features/admin-dashboard/manage-products/product-add"
 import HomePage from "../features/website/web-home";
 import LoginPage from "../components/pages/auth-pages/LoginPage";
 import ManageBanner from "../features/admin-dashboard/manage-banner";
+import ProudctDetail from "../features/website/web-product-detail";
+import ProudctList from "../features/website/web-product-list";
 
 function AppRoutes() {
   return (
@@ -100,6 +102,8 @@ function AppRoutes() {
       {/* web routes */}
 
       <Route exact path="/home" element={<HomePage />} />
+      <Route exact path="/products" element={<ProudctList />} />
+      <Route exact path="/product-detail" element={<ProudctDetail />} />
     </Routes>
   );
 }
