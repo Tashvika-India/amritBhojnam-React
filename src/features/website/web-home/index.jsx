@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import { Nav, Tab } from "react-bootstrap";
+import { FiHeart } from "react-icons/fi";
 import bannerAds from "../../../assets/images/web/banner-ads.png";
 import bannerAdsmob from "../../../assets/images/web/banner-ads-mob.png";
 import amritGroup from "../../../assets/images/web/amrit-group.png";
@@ -31,6 +32,7 @@ import greatDeal from "../../../assets/images/web/offers/great-deal.png";
 import easyReturn from "../../../assets/images/web/offers/easy-return.png";
 import productCard from "../../../assets/images/web/product-card.png";
 import fireImg from "../../../assets/images/web/Fire.png";
+import firstPurchase from "../../../assets/images/web/first-purchase.png";
 
 const HomePage = () => {
   return (
@@ -165,31 +167,450 @@ const HomePage = () => {
                 <Tab.Content>
                   <Tab.Pane eventKey="All">
                     <div className="row">
-                      <div className="col-md-2">
-                        <div className="product-card border p-3">
-                          <span className="product-badge badge bg-yellow fw-500">
-                            10% off
-                          </span>
+                      <div className="d-flex mt-4 pt-2 justify-content-between">
+                        <div className="product-card border py-3 px-4">
+                          <div className="d-flex justify-content-between ">
+                            <div>
+                              <span className="product-badge badge bg-yellow fw-500">
+                                10% off
+                              </span>
+                            </div>
+                            <div>
+                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                            </div>
+                          </div>
                           <span className="product-fav"></span>
                           <div className="">
                             <img
-                              className="img-fluid py-3"
+                              className="img-fluid pb-3"
                               src={productCard}
                               alt="product"
                             />
                           </div>
                           <h6 className="fb-fs-12 fw-500 d-flex text-brown">
-                            <span><img
-                              className="img-fluid"
-                              src={fireImg}
-                              alt="fire"
-                            /></span> 80 Calories
+                            <span>
+                              <img
+                                className="img-fluid"
+                                src={fireImg}
+                                alt="fire"
+                              />
+                            </span>{" "}
+                            80 Calories
                           </h6>
                           <h5 className="fb-fs-14 fw-600 masala-con">
                             Masala Millet (Veggie Masala)
                           </h5>
                           <h5 className="fb-fs-14 fw-600 text-grey">100 g</h5>
-                          <div className="d-flex justify-content-between align-items-center">
+                          <div className="d-flex justify-content-between align-items-center mt-2">
+                            <h6 className="fb-fs-20 fw-bold mb-0">
+                              <small className="fw-500 fb-fs-16 text-grey">
+                                <strike>₹80</strike>{" "}
+                              </small>{" "}
+                              ₹70
+                            </h6>
+                            <button className="button-primary py-1 rounded fb-fs-14 fw-600">
+                              Add
+                            </button>
+                          </div>
+                        </div>
+                        <div className="product-card border  py-3 px-4">
+                          <div className="d-flex justify-content-between ">
+                            <div>
+                              <span className="product-badge badge bg-yellow fw-500">
+                                10% off
+                              </span>
+                            </div>
+                            <div>
+                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                            </div>
+                          </div>
+                          <span className="product-fav"></span>
+                          <div className="">
+                            <img
+                              className="img-fluid pb-3"
+                              src={productCard}
+                              alt="product"
+                            />
+                          </div>
+                          <h6 className="fb-fs-12 fw-500 d-flex text-brown">
+                            <span>
+                              <img
+                                className="img-fluid"
+                                src={fireImg}
+                                alt="fire"
+                              />
+                            </span>{" "}
+                            80 Calories
+                          </h6>
+                          <h5 className="fb-fs-14 fw-600 masala-con">
+                            Masala Millet (Veggie Masala)
+                          </h5>
+                          <h5 className="fb-fs-14 fw-600 text-grey">100 g</h5>
+                          <div className="d-flex justify-content-between align-items-center mt-2">
+                            <h6 className="fb-fs-20 fw-bold mb-0">
+                              <small className="fw-500 fb-fs-16 text-grey">
+                                <strike>₹80</strike>{" "}
+                              </small>{" "}
+                              ₹70
+                            </h6>
+                            <button className="button-primary py-1 rounded fb-fs-14 fw-600">
+                              Add
+                            </button>
+                          </div>
+                        </div>
+                        <div className="product-card border  py-3 px-4">
+                          <div className="d-flex justify-content-between ">
+                            <div>
+                              <span className="product-badge badge bg-yellow fw-500">
+                                10% off
+                              </span>
+                            </div>
+                            <div>
+                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                            </div>
+                          </div>
+                          <span className="product-fav"></span>
+                          <div className="">
+                            <img
+                              className="img-fluid pb-3"
+                              src={productCard}
+                              alt="product"
+                            />
+                          </div>
+                          <h6 className="fb-fs-12 fw-500 d-flex text-brown">
+                            <span>
+                              <img
+                                className="img-fluid"
+                                src={fireImg}
+                                alt="fire"
+                              />
+                            </span>{" "}
+                            80 Calories
+                          </h6>
+                          <h5 className="fb-fs-14 fw-600 masala-con">
+                            Masala Millet (Veggie Masala)
+                          </h5>
+                          <h5 className="fb-fs-14 fw-600 text-grey">100 g</h5>
+                          <div className="d-flex justify-content-between align-items-center mt-2">
+                            <h6 className="fb-fs-20 fw-bold mb-0">
+                              <small className="fw-500 fb-fs-16 text-grey">
+                                <strike>₹80</strike>{" "}
+                              </small>{" "}
+                              ₹70
+                            </h6>
+                            <button className="button-primary py-1 rounded fb-fs-14 fw-600">
+                              Add
+                            </button>
+                          </div>
+                        </div>
+                        <div className="product-card border  py-3 px-4">
+                          <div className="d-flex justify-content-between ">
+                            <div>
+                              <span className="product-badge badge bg-yellow fw-500">
+                                10% off
+                              </span>
+                            </div>
+                            <div>
+                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                            </div>
+                          </div>
+                          <span className="product-fav"></span>
+                          <div className="">
+                            <img
+                              className="img-fluid pb-3"
+                              src={productCard}
+                              alt="product"
+                            />
+                          </div>
+                          <h6 className="fb-fs-12 fw-500 d-flex text-brown">
+                            <span>
+                              <img
+                                className="img-fluid"
+                                src={fireImg}
+                                alt="fire"
+                              />
+                            </span>{" "}
+                            80 Calories
+                          </h6>
+                          <h5 className="fb-fs-14 fw-600 masala-con">
+                            Masala Millet (Veggie Masala)
+                          </h5>
+                          <h5 className="fb-fs-14 fw-600 text-grey">100 g</h5>
+                          <div className="d-flex justify-content-between align-items-center mt-2">
+                            <h6 className="fb-fs-20 fw-bold mb-0">
+                              <small className="fw-500 fb-fs-16 text-grey">
+                                <strike>₹80</strike>{" "}
+                              </small>{" "}
+                              ₹70
+                            </h6>
+                            <button className="button-primary py-1 rounded fb-fs-14 fw-600">
+                              Add
+                            </button>
+                          </div>
+                        </div>
+                        <div className="product-card border  py-3 px-4">
+                          <div className="d-flex justify-content-between ">
+                            <div>
+                              <span className="product-badge badge bg-yellow fw-500">
+                                10% off
+                              </span>
+                            </div>
+                            <div>
+                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                            </div>
+                          </div>
+                          <span className="product-fav"></span>
+                          <div className="">
+                            <img
+                              className="img-fluid pb-3"
+                              src={productCard}
+                              alt="product"
+                            />
+                          </div>
+                          <h6 className="fb-fs-12 fw-500 d-flex text-brown">
+                            <span>
+                              <img
+                                className="img-fluid"
+                                src={fireImg}
+                                alt="fire"
+                              />
+                            </span>{" "}
+                            80 Calories
+                          </h6>
+                          <h5 className="fb-fs-14 fw-600 masala-con">
+                            Masala Millet (Veggie Masala)
+                          </h5>
+                          <h5 className="fb-fs-14 fw-600 text-grey">100 g</h5>
+                          <div className="d-flex justify-content-between align-items-center mt-2">
+                            <h6 className="fb-fs-20 fw-bold mb-0">
+                              <small className="fw-500 fb-fs-16 text-grey">
+                                <strike>₹80</strike>{" "}
+                              </small>{" "}
+                              ₹70
+                            </h6>
+                            <button className="button-primary py-1 rounded fb-fs-14 fw-600">
+                              Add
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="d-flex mt-4 justify-content-between">
+                        <div className="product-card border py-3 px-4">
+                          <div className="d-flex justify-content-between ">
+                            <div>
+                              <span className="product-badge badge bg-yellow fw-500">
+                                10% off
+                              </span>
+                            </div>
+                            <div>
+                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                            </div>
+                          </div>
+                          <span className="product-fav"></span>
+                          <div className="">
+                            <img
+                              className="img-fluid pb-3"
+                              src={productCard}
+                              alt="product"
+                            />
+                          </div>
+                          <h6 className="fb-fs-12 fw-500 d-flex text-brown">
+                            <span>
+                              <img
+                                className="img-fluid"
+                                src={fireImg}
+                                alt="fire"
+                              />
+                            </span>{" "}
+                            80 Calories
+                          </h6>
+                          <h5 className="fb-fs-14 fw-600 masala-con">
+                            Masala Millet (Veggie Masala)
+                          </h5>
+                          <h5 className="fb-fs-14 fw-600 text-grey">100 g</h5>
+                          <div className="d-flex justify-content-between align-items-center mt-2">
+                            <h6 className="fb-fs-20 fw-bold mb-0">
+                              <small className="fw-500 fb-fs-16 text-grey">
+                                <strike>₹80</strike>{" "}
+                              </small>{" "}
+                              ₹70
+                            </h6>
+                            <button className="button-primary py-1 rounded fb-fs-14 fw-600">
+                              Add
+                            </button>
+                          </div>
+                        </div>
+                        <div className="product-card border  py-3 px-4">
+                          <div className="d-flex justify-content-between ">
+                            <div>
+                              <span className="product-badge badge bg-yellow fw-500">
+                                10% off
+                              </span>
+                            </div>
+                            <div>
+                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                            </div>
+                          </div>
+                          <span className="product-fav"></span>
+                          <div className="">
+                            <img
+                              className="img-fluid pb-3"
+                              src={productCard}
+                              alt="product"
+                            />
+                          </div>
+                          <h6 className="fb-fs-12 fw-500 d-flex text-brown">
+                            <span>
+                              <img
+                                className="img-fluid"
+                                src={fireImg}
+                                alt="fire"
+                              />
+                            </span>{" "}
+                            80 Calories
+                          </h6>
+                          <h5 className="fb-fs-14 fw-600 masala-con">
+                            Masala Millet (Veggie Masala)
+                          </h5>
+                          <h5 className="fb-fs-14 fw-600 text-grey">100 g</h5>
+                          <div className="d-flex justify-content-between align-items-center mt-2">
+                            <h6 className="fb-fs-20 fw-bold mb-0">
+                              <small className="fw-500 fb-fs-16 text-grey">
+                                <strike>₹80</strike>{" "}
+                              </small>{" "}
+                              ₹70
+                            </h6>
+                            <button className="button-primary py-1 rounded fb-fs-14 fw-600">
+                              Add
+                            </button>
+                          </div>
+                        </div>
+                        <div className="product-card border  py-3 px-4">
+                          <div className="d-flex justify-content-between ">
+                            <div>
+                              <span className="product-badge badge bg-yellow fw-500">
+                                10% off
+                              </span>
+                            </div>
+                            <div>
+                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                            </div>
+                          </div>
+                          <span className="product-fav"></span>
+                          <div className="">
+                            <img
+                              className="img-fluid pb-3"
+                              src={productCard}
+                              alt="product"
+                            />
+                          </div>
+                          <h6 className="fb-fs-12 fw-500 d-flex text-brown">
+                            <span>
+                              <img
+                                className="img-fluid"
+                                src={fireImg}
+                                alt="fire"
+                              />
+                            </span>{" "}
+                            80 Calories
+                          </h6>
+                          <h5 className="fb-fs-14 fw-600 masala-con">
+                            Masala Millet (Veggie Masala)
+                          </h5>
+                          <h5 className="fb-fs-14 fw-600 text-grey">100 g</h5>
+                          <div className="d-flex justify-content-between align-items-center mt-2">
+                            <h6 className="fb-fs-20 fw-bold mb-0">
+                              <small className="fw-500 fb-fs-16 text-grey">
+                                <strike>₹80</strike>{" "}
+                              </small>{" "}
+                              ₹70
+                            </h6>
+                            <button className="button-primary py-1 rounded fb-fs-14 fw-600">
+                              Add
+                            </button>
+                          </div>
+                        </div>
+                        <div className="product-card border  py-3 px-4">
+                          <div className="d-flex justify-content-between ">
+                            <div>
+                              <span className="product-badge badge bg-yellow fw-500">
+                                10% off
+                              </span>
+                            </div>
+                            <div>
+                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                            </div>
+                          </div>
+                          <span className="product-fav"></span>
+                          <div className="">
+                            <img
+                              className="img-fluid pb-3"
+                              src={productCard}
+                              alt="product"
+                            />
+                          </div>
+                          <h6 className="fb-fs-12 fw-500 d-flex text-brown">
+                            <span>
+                              <img
+                                className="img-fluid"
+                                src={fireImg}
+                                alt="fire"
+                              />
+                            </span>{" "}
+                            80 Calories
+                          </h6>
+                          <h5 className="fb-fs-14 fw-600 masala-con">
+                            Masala Millet (Veggie Masala)
+                          </h5>
+                          <h5 className="fb-fs-14 fw-600 text-grey">100 g</h5>
+                          <div className="d-flex justify-content-between align-items-center mt-2">
+                            <h6 className="fb-fs-20 fw-bold mb-0">
+                              <small className="fw-500 fb-fs-16 text-grey">
+                                <strike>₹80</strike>{" "}
+                              </small>{" "}
+                              ₹70
+                            </h6>
+                            <button className="button-primary py-1 rounded fb-fs-14 fw-600">
+                              Add
+                            </button>
+                          </div>
+                        </div>
+                        <div className="product-card border  py-3 px-4">
+                          <div className="d-flex justify-content-between ">
+                            <div>
+                              <span className="product-badge badge bg-yellow fw-500">
+                                10% off
+                              </span>
+                            </div>
+                            <div>
+                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                            </div>
+                          </div>
+                          <span className="product-fav"></span>
+                          <div className="">
+                            <img
+                              className="img-fluid pb-3"
+                              src={productCard}
+                              alt="product"
+                            />
+                          </div>
+                          <h6 className="fb-fs-12 fw-500 d-flex text-brown">
+                            <span>
+                              <img
+                                className="img-fluid"
+                                src={fireImg}
+                                alt="fire"
+                              />
+                            </span>{" "}
+                            80 Calories
+                          </h6>
+                          <h5 className="fb-fs-14 fw-600 masala-con">
+                            Masala Millet (Veggie Masala)
+                          </h5>
+                          <h5 className="fb-fs-14 fw-600 text-grey">100 g</h5>
+                          <div className="d-flex justify-content-between align-items-center mt-2">
                             <h6 className="fb-fs-20 fw-bold mb-0">
                               <small className="fw-500 fb-fs-16 text-grey">
                                 <strike>₹80</strike>{" "}
@@ -212,28 +633,6 @@ const HomePage = () => {
               </div>
             </div>
           </Tab.Container>
-        </div>
-      </section>
-      <section>
-        <div className="container fb-container">
-          <h3 className="fw-bold text-center mb-5">Super Saver of the Week</h3>
-          <div className="cat-items-wrapper">
-            <div
-              className="cat-itmes bg-orange p-4 gap-0 w-255"
-              style={{ borderRadius: "25px" }}
-            >
-              <div className="saver-card h-100 w-100">
-                <h6 className="text-white mb-0">25% OFF</h6>
-                <p
-                  className="fb-fs-30 fw-bolder text-white mb-2"
-                  style={{ textWrap: "nowrap" }}
-                >
-                  SAVE ₹100{" "}
-                </p>
-                <img className="img-fluid pt-1" src={saveImg} alt="save-img" />
-              </div>
-            </div>
-          </div>
         </div>
       </section>
       <section className="offer-cards">
@@ -293,7 +692,7 @@ const HomePage = () => {
       </section>
       <section>
         <div className="container fb-container">
-        <h3 className="fw-bold text-center mb-5">Super Saver of the Week</h3>
+          <h3 className="fw-bold text-center mb-5">Super Saver of the Week</h3>
           <ItemSlide />
         </div>
       </section>
@@ -380,6 +779,44 @@ const HomePage = () => {
                     crafted to provide essential nutrients while also supporting
                     sustainable farming.
                   </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="first_purchase">
+        <div className="container fb-container">
+          <div className="purchase-bg">
+            <div className="row">
+              <div className="col-lg-6 col-md-12">
+                <div className="purchase-content">
+                  <h4 className="text-white mb-0">Get</h4>
+                  <h1 className="text-white">
+                    25% Off{" "}
+                    <span
+                      className="text-white"
+                      style={{ fontSize: "23.11px", fontWeight: "400" }}
+                    >
+                      On your first purchase
+                    </span>
+                  </h1>
+                  <p className="text-white pt-1">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer 
+                  </p>
+                  <button className="button-white">Shop Now</button>
+                </div>
+              </div>
+              <div className="col-lg-6 col-md-12">
+                <div className="purchase-image-sec">
+                  <img
+                    className="img-fluid h-100 mt-5"
+                    src={firstPurchase}
+                    alt="purchase-page"
+                  />
                 </div>
               </div>
             </div>
@@ -491,7 +928,7 @@ const HomePage = () => {
                   />
                 </div>
                 <div className="ps-4 text-start">
-                  <h6 style={{textWrap: "nowrap"}}>Best Prices & Offers</h6>
+                  <h6 style={{ textWrap: "nowrap" }}>Best Prices & Offers</h6>
                   <p>Orders ₹50 or more</p>
                 </div>
               </div>
@@ -506,7 +943,7 @@ const HomePage = () => {
                   />
                 </div>
                 <div className="ps-4 text-start">
-                  <h6 style={{textWrap: "nowrap"}}>Free Delivery</h6>
+                  <h6 style={{ textWrap: "nowrap" }}>Free Delivery</h6>
                   <p>For order above ₹300</p>
                 </div>
               </div>
@@ -521,7 +958,7 @@ const HomePage = () => {
                   />
                 </div>
                 <div className="ps-4 text-start">
-                  <h6 style={{textWrap: "nowrap"}}>Great Daily Deal</h6>
+                  <h6 style={{ textWrap: "nowrap" }}>Great Daily Deal</h6>
                   <p>When you sign up</p>
                 </div>
               </div>
@@ -536,7 +973,7 @@ const HomePage = () => {
                   />
                 </div>
                 <div className="ps-4 text-start">
-                  <h6 style={{textWrap: "nowrap"}}>Easy Return</h6>
+                  <h6 style={{ textWrap: "nowrap" }}>Easy Return</h6>
                   <p>Within 3 days</p>
                 </div>
               </div>
