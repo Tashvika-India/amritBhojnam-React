@@ -82,6 +82,9 @@
     margin-bottom: 0;
   }
   // Font Sizes for Special Classes
+.fb-fs-30{
+  font-size: 1.875rem;
+}
   .fb-fs-16 {
     font-size: clamp(0.8rem, 1vw + 0.5rem, 1rem); //16px Min 0.875rem, Max 1rem
   }
@@ -296,6 +299,16 @@
     padding: 4rem 13rem 6rem 8rem;
   }
 }
+
+//product-detail-page
+.product-detail-page{
+  .product-detail-image{
+    border-radius: 1.25rem;
+    width: 38.75rem;
+    height: 35.125rem;
+  }
+}
+
 
 //download-section
 
