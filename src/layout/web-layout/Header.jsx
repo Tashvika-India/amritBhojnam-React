@@ -8,9 +8,19 @@ import { FaRegHeart, FaRegUser } from 'react-icons/fa';
 import { CgShoppingBag } from 'react-icons/cg';
 import { IoMdMenu } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import ProfileDropdown from '../../components/ui/ProfileDropdown'; 
+import MobileMenu from '../../components/ui/MobileMenu';
+import MyCartMenu from '../../components/ui/WishlistMenu';
 
 const Header = () => {
   const [selectedCity, setSelectedCity] = useState(null);
+  const [showCart, setShowCart] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  const toggleCart = () => setShowCart(!showCart);
+  const toggleMobileMenu = () => setShowMobileMenu(!showMobileMenu);
+
+
   const cities = [
     { name: 'New York', code: 'NY' },
     { name: 'Rome', code: 'RM' },
@@ -59,15 +69,32 @@ const Header = () => {
             <div className="header-actions">
               <ul className='list-unstyled align-items-center justify-content-between gap-4 web-header-actions d-none d-xl-flex'>
                 <li>
-                  <a href="#" className='d-inline-flex flex-column justify-content-center align-items-center'>
-                    <FaRegUser size={"1.625rem"} />
-                    <span className='d-inline-block fb-fs-14 fw-600'>Account</span>
+                  <ProfileDropdown />
+                </li>
+                <li>
+                  <a href="#" className='d-inline-flex flex-column justify-content-center align-items-center' >
+                    <FaRegHeart size={"1.625rem"} />
+                    <span className='d-inline-block fb-fs-14 fw-600'>Wishlist</span>
                   </a>
                 </li>
                 <li>
-                  <a href="#" className='d-inline-flex flex-column justify-content-center align-items-center'>
-                    <FaRegHeart size={"1.625rem"} />
-                    <span className='d-inline-block fb-fs-14 fw-600'>Wishlist</span>
+                  <a href="#" onClick={toggleCart}  className='d-inline-flex flex-column justify-content-center align-items-center'>
+                    <div className="position-relative">
+                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
+                        1
+                        <span className="visually-hidden">unread messages</span>
+                      </span>
+                      <CgShoppingBag size={"1.625rem"} />
+                    </div>
+                    <span className='d-inline-block fb-fs-14 fw-600'>My Cart</span>
+                  </a>
+                  <MyCartMenu show={showCart} onClose={toggleCart} />
+                </li>
+              </ul>
+              <ul className='list-unstyled d-flex d-xl-none align-items-center justify-content-between gap-4 mobile-header-actions'>
+                <li>
+                  <a href="#"  className='d-inline-flex flex-column justify-content-center align-items-center'>
+                    <IoSearchOutline size={"1.625rem"} />
                   </a>
                 </li>
                 <li>
@@ -79,31 +106,13 @@ const Header = () => {
                       </span>
                       <CgShoppingBag size={"1.625rem"} />
                     </div>
-                    <span className='d-inline-block fb-fs-14 fw-600'>My Cart</span>
-                  </a>
-                </li>
-              </ul>
-              <ul className='list-unstyled d-flex d-xl-none align-items-center justify-content-between gap-4 mobile-header-actions'>
-                <li>
-                  <a href="#" className='d-inline-flex flex-column justify-content-center align-items-center'>
-                    <IoSearchOutline size={"1.625rem"} /> 
                   </a>
                 </li>
                 <li>
-                  <a href="#" className='d-inline-flex flex-column justify-content-center align-items-center'>
-                    <div className="position-relative">
-                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
-                        1
-                        <span className="visually-hidden">unread messages</span>
-                      </span>
-                      <CgShoppingBag size={"1.625rem"} />
-                    </div> 
+                  <a href="#" onClick={toggleMobileMenu} className='d-inline-flex flex-column justify-content-center align-items-center'>
+                    <IoMdMenu size={"1.625rem"} />
                   </a>
-                </li>
-                <li>
-                  <a href="#" className='d-inline-flex flex-column justify-content-center align-items-center'>
-                    <IoMdMenu  size={"1.625rem"} /> 
-                  </a>
+                  <MobileMenu show={showMobileMenu} onClose={toggleMobileMenu} />
                 </li>
               </ul>
             </div>
