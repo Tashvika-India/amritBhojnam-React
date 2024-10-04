@@ -185,10 +185,25 @@
     border-radius: 10px 0 14px 0; /* Rounded corners on top-left and bottom-right */
   }
   .masala-con{
-    display: ruby-text;
+   
   }
 }
 
+// first-purchase
+.first_purchase{
+  .purchase-bg{
+    height: 421.45px !important;
+    background-image:  url("../images/web/purchase-background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+   .purchase-content{
+    padding: 3.5rem 1rem 1rem 5.9rem;
+    .button-white{
+      margin-top: 2.8rem;
+    }
+   }
+  }
+}
 
 //category
 .offers-cards{
@@ -374,6 +389,39 @@
     font-size: 0.8rem;
     margin-bottom: 1.5rem;
   }
+       // first-purchase
+.first_purchase{
+  .purchase-bg{
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem; 
+   .purchase-content{
+   h4{
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem !important;
+   }
+   h1{
+    line-height: 2.5rem;
+    font-size: 60px !important;
+    span{
+     display: block;
+    }
+   }
+   p{
+    font-size: 14px;
+   }
+    .button-white{
+      margin-top: 2.2rem;
+      border-radius: 10px;
+    }
+   }
+   .purchase-image-sec{
+    img{
+      aspect-ratio: 16 / 12;
+      margin-top: 1.7rem !important;
+    }
+   }
+  }
+}
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
@@ -388,6 +436,42 @@
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
+  .first_purchase .purchase-bg .purchase-content {
+    padding: 3.5rem 0rem 1rem 5.9rem;
+  }
+      // first-purchase
+.first_purchase{
+  .purchase-bg{
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem; 
+   .purchase-content{
+   h4{
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem !important;
+   }
+   h1{
+    line-height: 2.5rem;
+    font-size: 60px !important;
+    span{
+     display: block;
+    }
+   }
+   p{
+    font-size: 14px;
+   }
+    .button-white{
+      margin-top: 2.2rem;
+      border-radius: 10px;
+    }
+   }
+   .purchase-image-sec{
+    img{
+      aspect-ratio: 16 / 13;
+      margin-top: 4.72rem !important;
+    }
+   }
+  }
+}
   .web-wrapper-main h4 {
     font-size: 25px;
   }
@@ -448,6 +532,42 @@
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
+     // first-purchase
+.first_purchase{
+  .purchase-bg{
+    height: 744px !important;
+    background-image:  url("../images/web/purchase-bg-mobile.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-right-radius: 2.700rem;
+    border-bottom-right-radius: 2.700rem; 
+    border-bottom-left-radius: 2.700rem;
+   .purchase-content{
+   padding: 2rem;
+   padding-top: 2.5rem;
+   h4{
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem !important;
+   }
+   h1{
+    line-height: 2.5rem;
+    span{
+     display: block;
+    }
+   }
+    .button-white{
+      margin-top: 2.8rem;
+      border-radius: 10px;
+    }
+   }
+   .purchase-image-sec{
+    img{
+      margin-top: 0 !important;
+      position: sticky;
+    }
+   }
+  }
+}
   .web-wrapper-main h4 {
     font-size: 22px;
   }
@@ -579,9 +699,79 @@
   .millets .millet-content{
     padding-left: .5rem !important;
       }
+      // first-purchase
+.first_purchase{
+  .purchase-bg{
+    height: 656px !important;
+    background-image:  url("../images/web/purchase-bg-mobile.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-right-radius: 2.700rem;
+    border-bottom-right-radius: 2.700rem; 
+   .purchase-content{
+   padding: 1.222rem;
+   padding-top: 2.5rem;
+   h4{
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem !important;
+   }
+   h1{
+    line-height: 2.5rem;
+    span{
+     display: block;
+    }
+   }
+    .button-white{
+      margin-top: 2.8rem;
+      border-radius: 10px;
+    }
+   }
+   .purchase-image-sec{
+    img{
+      margin-top: 0 !important;
+      position: sticky;
+    }
+   }
+  }
+}
 }
 
 @media (max-width: 576px) {
+  // first-purchase
+.first_purchase{
+  .purchase-bg{
+    height: 37.5625rem !important;
+    background-image:  url("../images/web/purchase-bg-mobile.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px; 
+   .purchase-content{
+   padding: 1.222rem;
+   padding-top: 2.5rem;
+   h4{
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem !important;
+   }
+   h1{
+    line-height: 2rem;
+    span{
+     display: inline-block;
+    }
+   }
+    .button-white{
+      margin-top: 2.8rem;
+      border-radius: 10px;
+    }
+   }
+   .purchase-image-sec{
+    img{
+      margin-top: 0 !important;
+      position: sticky;
+    }
+   }
+  }
+}
   .millets .millet-content{
 padding-left: .5rem !important;
   }
