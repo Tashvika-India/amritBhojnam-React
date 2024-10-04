@@ -14,6 +14,8 @@ $border-light: #d7d7d7;
 $light-orange: #ffede3;
 $light-yellow: #fff2d7;
 $mid-gray: #918e92;
+$background: #F7F7F7;
+
 
 $font-Poppins: "Poppins", sans-serif;
 $font-Manrope: "Manrope", sans-serif;
@@ -91,7 +93,9 @@ td {
 .text-brown{
     color: $brown !important;
 }
-
+.text-mid-grey{
+    color: $mid-gray !important;
+}
 .text-orange {
     color: $orange !important;
 }
@@ -113,6 +117,9 @@ td {
     background-color: $orange;
 }
 
+.bg-background{
+    background-color: $background;
+}
 .bg-yellow {
     background-color: $yellow;
 }
@@ -201,7 +208,9 @@ td {
 .border-orange {
     border: 1px solid $orange;
 }
-
+.border-yellow{
+    border: 1px solid $yellow;
+}
 .border-gray {
     border: 1px solid $border;
 }
