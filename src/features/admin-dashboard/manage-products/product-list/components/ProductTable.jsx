@@ -7,11 +7,13 @@ import { Link, useNavigate } from "react-router-dom";
 import DeleteModal from "../../../../../components/ui/DeleteModal";
 import { MdDelete } from "react-icons/md"; 
 import { deleteProductApi } from "../../../../../services/adminApiRoutes";
+import { baseURL } from "../../../../../utils/constant-variable";
 
 function ProductTable({ products , getProductList }) {
   const [isModalVisible, setModalVisible] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);  // Store the current product in one state
   const navigate = useNavigate();
+
 
   const showDeleteModal = (product) => {
     setCurrentProduct(product);  // Store the product to delete
@@ -26,6 +28,7 @@ function ProductTable({ products , getProductList }) {
   const handleDelete = async () => {
     try {
       await deleteProductApi(currentProduct.id);  // Use currentProduct directly
+      getProductList();
       console.log("Record deleted successfully");
       hideDeleteModal();
       // Optionally update your product list here (e.g., remove the deleted product from UI)
@@ -38,15 +41,18 @@ function ProductTable({ products , getProductList }) {
     navigate("/edit-product", { state: rowData });
   };
 
-  const imageBodyTemplate = (rowData) => (
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <img
-        src={rowData.image}
-        alt={rowData.name}
-        style={{ width: "40px", marginRight: "10px" }}
-      />
-    </div>
-  );
+  const imageBodyTemplate = (rowData) => {
+    const imageUrl = baseURL+rowData?.images?.[0]?.img_files;  
+    return (
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <img
+          src={imageUrl}
+          alt={rowData?.name}
+          style={{ width: "3rem" }}
+        />
+      </div>
+    );
+  };
 
   const linkToReview = (rowData) => (
     <Link to="/product/product-reviews" className="text-dark">
