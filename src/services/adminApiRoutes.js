@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apiurl = import.meta.env.VITE_BASE_API_URL + "/api";
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4MTY4Njg2LCJpYXQiOjE3Mjc5NTI2ODYsImp0aSI6ImRmOWJlMGEzOTljMzQ3YWVhODlmNTg2YWRiNzFhMTRkIiwidXNlcl9pZCI6ImQ1MTFmMjIyLWQ3MzQtNDg3NC04OTlkLTYyMWRmOTBjMWRiMiIsImlzX2FkbWluIjp0cnVlfQ.QTB-tkVh60mHF5G66RMawAnBQj0TUYFTib8kICH3wsA";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4MzUzMTIwLCJpYXQiOjE3MjgxMzcxMjAsImp0aSI6Ijk4NjI1NjBmMzQ0YTQ0Y2E5MDEzZDBkOWFkNDdkZTIxIiwidXNlcl9pZCI6ImM0Y2Q1MzI0LTkyMTAtNGU5ZS1iNzFiLWJlNDY2NzBkYTIyMyIsImlzX2FkbWluIjp0cnVlfQ.u1wbycyTnCMlw8tytshSQvJW58ZUmsUS4Nr0-PKh97U";
 
 const API = axios.create({
   baseURL: apiurl,
