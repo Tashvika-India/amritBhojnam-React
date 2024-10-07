@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Image } from "primereact/image";
 import { RxCross2 } from "react-icons/rx";
 
-export default function MultiFileUpload({ formik, name }) {
+// React.memo to prevent unnecessary re-renders
+export default React.memo(function MultiFileUpload({ formik, name }) {
   const { values, setFieldValue } = formik;
   const [dragActive, setDragActive] = useState(false);
+  
+  // Detect if the user is on a mobile device
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   // Handle file input change
   const handleFileChange = (e) => {
@@ -44,12 +48,22 @@ export default function MultiFileUpload({ formik, name }) {
   // Remove a specific file from the Formik values
   const removeFile = (fileToRemove) => {
     URL.revokeObjectURL(fileToRemove.preview);
-
     setFieldValue(
       name,
       values[name].filter((file) => file !== fileToRemove)
     );
   };
+
+  // Cleanup object URLs on component unmount to avoid memory leaks
+  useEffect(() => {
+    return () => {
+      if (values[name]) {
+        values[name].forEach(file => {
+          URL.revokeObjectURL(file.preview);
+        });
+      }
+    };
+  }, [values, name]);
 
   return (
     <div className="multipule-file-upload-wrapper row">
@@ -68,10 +82,10 @@ export default function MultiFileUpload({ formik, name }) {
             className={`multipule-image-uploader mb-4 ${
               dragActive ? "drag-active" : ""
             }`}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-            onDragOver={(e) => e.preventDefault()}
+            onDragEnter={!isMobile ? handleDragEnter : null}
+            onDragLeave={!isMobile ? handleDragLeave : null}
+            onDrop={!isMobile ? handleDrop : null}
+            onDragOver={!isMobile ? (e) => e.preventDefault() : null}
           >
             <span className="mb-3">
               <svg
@@ -87,7 +101,7 @@ export default function MultiFileUpload({ formik, name }) {
                 />
               </svg>
             </span>
-            {dragActive ? "Drop Images Here" : "Upload Images"}
+            {dragActive ? "Drop Images Here" : isMobile ? "Tap to Upload Images" : "Upload Images"}
           </label>
         </div>
       </div>
@@ -137,4 +151,4 @@ export default function MultiFileUpload({ formik, name }) {
       </div>
     </div>
   );
-}
+});
