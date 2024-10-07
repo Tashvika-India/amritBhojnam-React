@@ -33,7 +33,7 @@ const ProductAdd = () => {
   const { values, handleSubmit, resetForm, setValues, handleBlur  ,handleChange} = formik;
 
   async function addProduct(values) { 
-    const fromData = new FormData();      
+    let fromData = new FormData();      
     fromData.append("name", values.name);
     fromData.append("category_id", values.category_id);
     fromData.append("short_description", values.short_description);
@@ -43,11 +43,15 @@ const ProductAdd = () => {
     fromData.append("max_price", values.max_price);
     fromData.append("offer_price", values.offer_price);
     fromData.append("nutritions", values.nutritions);
-    fromData.append("images", values.images);
+    if (values.images && values.images.length > 0) {
+      values.images.forEach((imageFile, index) => {
+        fromData.append(`img_files${index}`, imageFile); // Append each image file
+      });
+    }
     resetForm();
     try {
       const response = await postProductApi(fromData);
-      navigate("/product");
+      navigate("/product"); 
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -100,7 +104,7 @@ const ProductAdd = () => {
           <Heading value={isEditMode ? "Edit Product" : "Add New Product"} />
         </div>
       </div>
-      <form className="" onSubmit={handleSubmit}>
+      <form className="" onSubmit={formik.handleSubmit}>
         <div className="card mb-4">
           <div className="card-body">
             <h6 className="mb-4">Image</h6>
