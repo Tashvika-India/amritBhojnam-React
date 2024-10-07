@@ -5,9 +5,11 @@ import { FaRegEdit } from "react-icons/fa";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import { baseURL } from "../../../../utils/constant-variable";
 
-function CategoryTable({categories , setEditData}) {
-
-  console.log("Base Url" , baseURL)
+function CategoryTable({categories , setEditData , setVisible}) { 
+  const handleEditClick = (rowData) => {
+    setEditData(rowData);
+    setVisible(true);
+  };
 
 
   // Template for displaying category image and name
@@ -15,20 +17,20 @@ function CategoryTable({categories , setEditData}) {
     return (
       <div style={{ display: "flex", alignItems: "center" }}>
         <img
-          src={baseURL+rowData.img_file	}
-          alt={rowData.name}
-          style={{ width: "40px", marginRight: "10px" }}
+          src={baseURL + rowData?.img_file}
+          alt={rowData?.name}
+          style={{ width: "3rem" }}
         />
       </div>
     );
   };
 
   // Template for the Edit button
-  const editButtonTemplate = (rowData) => {
+  const editButtonTemplate = (rowData) => { 
     return (
-      <span className="text-orange d-flex gap-2 align-items-center" onClick={()=>setEditData(rowData)}>
-        Edit <FaRegEdit />{" "}
-      </span>
+      <button className="text-orange d-flex gap-2 align-items-center border-0 bg-white" onClick={() => handleEditClick(rowData)}>
+        Edit <FaRegEdit />
+      </button>
     );
   };
 
@@ -37,7 +39,7 @@ function CategoryTable({categories , setEditData}) {
   };
 
   return (
-    <DataTable value={categories} responsiveLayout="scroll" paginator rows={10}>
+    <DataTable value={categories} responsiveLayout="scroll" paginator rows={10} rowKey="id" >
       <Column field="image" header="Image" body={imageBodyTemplate}></Column>
       <Column field="name" header="Name"></Column>
       <Column field="quantity" header="Products"></Column>
