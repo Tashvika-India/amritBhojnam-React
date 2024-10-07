@@ -33,8 +33,11 @@ import easyReturn from "../../../assets/images/web/offers/easy-return.png";
 import productCard from "../../../assets/images/web/product-card.png";
 import fireImg from "../../../assets/images/web/Fire.png";
 import firstPurchase from "../../../assets/images/web/first-purchase.png";
+import { Checkbox } from "@mui/material";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
 
 const HomePage = () => {
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -176,7 +179,7 @@ const HomePage = () => {
                               </span>
                             </div>
                             <div>
-                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}  style={{color: "#F26722", margin:"0", padding:"0"}}  />
                             </div>
                           </div>
                           <span className="product-fav"></span>
@@ -213,7 +216,7 @@ const HomePage = () => {
                             </button>
                           </div>
                         </div>
-                        <div className="product-card border  py-3 px-4">
+                        <div className="product-card border py-3 px-4">
                           <div className="d-flex justify-content-between ">
                             <div>
                               <span className="product-badge badge bg-yellow fw-500">
@@ -221,7 +224,7 @@ const HomePage = () => {
                               </span>
                             </div>
                             <div>
-                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}  style={{color: "#F26722", margin:"0", padding:"0"}} />
                             </div>
                           </div>
                           <span className="product-fav"></span>
@@ -258,7 +261,7 @@ const HomePage = () => {
                             </button>
                           </div>
                         </div>
-                        <div className="product-card border  py-3 px-4">
+                        <div className="product-card border py-3 px-4">
                           <div className="d-flex justify-content-between ">
                             <div>
                               <span className="product-badge badge bg-yellow fw-500">
@@ -266,7 +269,7 @@ const HomePage = () => {
                               </span>
                             </div>
                             <div>
-                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}  style={{color: "#F26722", margin:"0", padding:"0"}}  />
                             </div>
                           </div>
                           <span className="product-fav"></span>
@@ -303,7 +306,7 @@ const HomePage = () => {
                             </button>
                           </div>
                         </div>
-                        <div className="product-card border  py-3 px-4">
+                        <div className="product-card border py-3 px-4">
                           <div className="d-flex justify-content-between ">
                             <div>
                               <span className="product-badge badge bg-yellow fw-500">
@@ -311,7 +314,7 @@ const HomePage = () => {
                               </span>
                             </div>
                             <div>
-                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}  style={{color: "#F26722", margin:"0", padding:"0"}}  />
                             </div>
                           </div>
                           <span className="product-fav"></span>
@@ -348,7 +351,7 @@ const HomePage = () => {
                             </button>
                           </div>
                         </div>
-                        <div className="product-card border  py-3 px-4">
+                        <div className="product-card border py-3 px-4">
                           <div className="d-flex justify-content-between ">
                             <div>
                               <span className="product-badge badge bg-yellow fw-500">
@@ -356,7 +359,7 @@ const HomePage = () => {
                               </span>
                             </div>
                             <div>
-                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} style={{color: "#F26722", margin:"0", padding:"0"}}  />
                             </div>
                           </div>
                           <span className="product-fav"></span>
@@ -396,7 +399,7 @@ const HomePage = () => {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="d-flex mt-4 justify-content-between">
+                      <div className="d-flex mt-4 pt-2 justify-content-between">
                         <div className="product-card border py-3 px-4">
                           <div className="d-flex justify-content-between ">
                             <div>
@@ -405,7 +408,7 @@ const HomePage = () => {
                               </span>
                             </div>
                             <div>
-                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} style={{color: "#F26722", margin:"0", padding:"0"}} />
                             </div>
                           </div>
                           <span className="product-fav"></span>
@@ -442,7 +445,7 @@ const HomePage = () => {
                             </button>
                           </div>
                         </div>
-                        <div className="product-card border  py-3 px-4">
+                        <div className="product-card border py-3 px-4">
                           <div className="d-flex justify-content-between ">
                             <div>
                               <span className="product-badge badge bg-yellow fw-500">
@@ -450,7 +453,7 @@ const HomePage = () => {
                               </span>
                             </div>
                             <div>
-                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}  style={{color: "#F26722", margin:"0", padding:"0"}}  />
                             </div>
                           </div>
                           <span className="product-fav"></span>
@@ -487,7 +490,7 @@ const HomePage = () => {
                             </button>
                           </div>
                         </div>
-                        <div className="product-card border  py-3 px-4">
+                        <div className="product-card border py-3 px-4">
                           <div className="d-flex justify-content-between ">
                             <div>
                               <span className="product-badge badge bg-yellow fw-500">
@@ -495,7 +498,7 @@ const HomePage = () => {
                               </span>
                             </div>
                             <div>
-                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}  style={{color: "#F26722", margin:"0", padding:"0"}}  />
                             </div>
                           </div>
                           <span className="product-fav"></span>
@@ -532,7 +535,7 @@ const HomePage = () => {
                             </button>
                           </div>
                         </div>
-                        <div className="product-card border  py-3 px-4">
+                        <div className="product-card border py-3 px-4">
                           <div className="d-flex justify-content-between ">
                             <div>
                               <span className="product-badge badge bg-yellow fw-500">
@@ -540,7 +543,7 @@ const HomePage = () => {
                               </span>
                             </div>
                             <div>
-                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}  style={{color: "#F26722", margin:"0", padding:"0"}}  />
                             </div>
                           </div>
                           <span className="product-fav"></span>
@@ -577,7 +580,7 @@ const HomePage = () => {
                             </button>
                           </div>
                         </div>
-                        <div className="product-card border  py-3 px-4">
+                        <div className="product-card border py-3 px-4">
                           <div className="d-flex justify-content-between ">
                             <div>
                               <span className="product-badge badge bg-yellow fw-500">
@@ -585,7 +588,7 @@ const HomePage = () => {
                               </span>
                             </div>
                             <div>
-                              <FiHeart color="#F26722"fontSize={"22px"}/>
+                               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}  style={{color: "#F26722", margin:"0", padding:"0"}}  />
                             </div>
                           </div>
                           <span className="product-fav"></span>

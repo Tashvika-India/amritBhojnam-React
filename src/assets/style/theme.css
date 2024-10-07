@@ -1,0 +1,19 @@
+@import 'primereact/resources/primereact.min.css';
+@import 'primereact/resources/themes/saga-orange/theme.css';
+:root {
+  --font-family: "Poppins", sans-serif;
+  --primary-color: #f26722;
+  --primary-color-text: white;
+  --secondary-color: #ffede3;
+  --button-bg: var(--primary-color);
+  --button-text-color: var(--primary-color-text);
+}
+
+.p-button {
+  background-color: var(--primary-color);
+  color: var(--primary-color-text);
+}
+
+.p-panel {
+  border-color: var(--primary-color);
+}/*# sourceMappingURL=theme.css.map */
