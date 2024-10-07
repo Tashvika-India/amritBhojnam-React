@@ -15,6 +15,8 @@ API.interceptors.request.use((req) => {
 
 export const getCategoriesApi = () => API.get(`/categories/`);
 export const postCategoriesApi = (payload) => API.post(`/categories/`, payload);
+export const putCategoriesApi = (id, payload) => API.put(`/categories/${id}/`, payload); 
+export const patchCategoriesApi = (id, payload) => API.patch(`/categories/${id}/`, payload);
 
 // product api  
 export const getProductApi = () => API.get(`/products/`);

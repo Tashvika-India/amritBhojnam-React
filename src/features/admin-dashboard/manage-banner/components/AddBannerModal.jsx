@@ -6,25 +6,31 @@ import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/mater
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import FileUpload from "../../../../components/fileUpload/FileUpload";
 import { useFormik } from "formik";
-import { postBannerApi, postCategoriesApi } from "../../../../services/adminApiRoutes";
+import { postBannerApi, putBannerApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
+import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
 
-export default function AddBannerModal({ visible, setVisible, setBanner }) {
+export default function AddBannerModal({ visible, setVisible, setBanner,getBanner , editData }) {
   const [loading, setLoading] = useState(false);
   const initialValues = {
     title: "",
     sub_title: "",
     description: "",
-    plateform: "",
+    platform: "",
     position: "",
     img_file: null,
     is_active: true,
   };
 
   const formik = useFormik({
-    initialValues,
+    initialValues: editData ? editData : initialValues,
+    enableReinitialize: true,
     onSubmit: async (values) => {
-      addBanner(values);
+      if(editData) {
+        await UpdateBanner(values); // PUT or PATCH for edit
+      } else {
+        await addBanner(values); // POST for new banner
+      } 
     },
   });
 
@@ -45,14 +51,41 @@ export default function AddBannerModal({ visible, setVisible, setBanner }) {
       formik.resetForm();
       setVisible(false);
       setBanner((prevBanners) => [...prevBanners, response?.data]);
+      notifySuccess("Banner Added Successfully");
     } catch (error) {
+      throw error;
       console.log("Error adding banner", error);
+      notifyError("Failed to add banner!");
     } finally {
       setLoading(false);
     }
   }
 
-  useEffect(() => {}, []);
+  async function UpdateBanner(values) {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("sub_title", values.sub_title);
+    formData.append("description", values.description);
+    formData.append("platfrorm", values.platfrorm);
+    formData.append("position", values.position);
+    formData.append("img_file", values.img_file);
+    formData.append("is_active", values.is_active);
+    try {
+      const response = await putBannerApi(editData.id, formData); 
+      formik.resetForm();
+      getBanner();
+      setVisible(false);
+      notifySuccess("Banner Updated Successfully");
+    } catch (error) {
+      console.error("Failed to update banner!", error);
+      notifyError("Failed to update banner!");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+ 
 
   return (
     <div className="card flex justify-content-center">
@@ -102,9 +135,9 @@ export default function AddBannerModal({ visible, setVisible, setBanner }) {
                     labelId="plateform-simple-select-label"
                     id="plateform-simple-select" 
                     label="Select Plateform"
-                    name="plateform"
+                    name="platform"
                     onChange={formik.handleChange}
-                    value={formik.values.plateform}
+                    value={formik.values.platform}
                   >
                     <MenuItem value="web">Web</MenuItem>
                     <MenuItem value="mobile">Mobile</MenuItem> 
@@ -168,12 +201,12 @@ function CustomHeader({ formik }) {
   );
 }
 
-function FooterContent({ formik, setVisible, loading }) {
+function FooterContent({ formik, setVisible, loading ,editData }) {
   return (
     <>
       <div className="d-inline-flex gap-3">
         <RejectButton lable="Cancel" handleClick={() => setVisible(false)} />
-        <YellowButton lable="+ Add" handleClick={formik.handleSubmit} disabled={loading}/>
+        <YellowButton lable="Save Changes" handleClick={formik.handleSubmit} disabled={loading}/>
       </div>
     </>
   );

@@ -25,6 +25,13 @@ function ManageBanner() {
   }
 
   useEffect(() => {
+    if (!visible) {
+      setEditData(null); 
+    }
+  }, [visible]);
+
+
+  useEffect(() => {
     getBanner();
   }, []);
 
@@ -48,7 +55,7 @@ function ManageBanner() {
             {loading ? (
               <Loading />
             ) : (
-              <BannerTable banner={banner} setEditData={setEditData} />
+              <BannerTable banner={banner} setEditData={setEditData} setVisible={setVisible}/>
             )}
           </div>
         </div>
@@ -56,9 +63,10 @@ function ManageBanner() {
 
       <AddBannerModal
         visible={visible}
-        setVisible={setVisible}
+        setVisible={setVisible} 
         setBanner={setBanner}
         editData={editData}
+        getBanner={getBanner}
       />
     </>
   );

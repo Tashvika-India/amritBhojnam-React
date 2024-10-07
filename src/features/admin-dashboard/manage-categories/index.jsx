@@ -10,9 +10,9 @@ function ManageCategories() {
   const [visible, setVisible] = useState(false);
   const [categories, setCategories] = useState([]);
   const [editData, setEditData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); 
 
-  async function getCaterioes() {
+  async function getCategories() {
     setLoading(true);
     try {
       const response = await getCategoriesApi();
@@ -22,10 +22,16 @@ function ManageCategories() {
     } finally {
       setLoading(false);
     }
-  }
+  } 
 
   useEffect(() => {
-    getCaterioes();
+    if (!visible) {
+      setEditData(null);  
+    }
+  }, [visible]);
+
+  useEffect(() => {
+    getCategories();
   }, []);
 
   return (
@@ -48,12 +54,12 @@ function ManageCategories() {
             {loading ? (
               <Loading />
             ) : (
-              <CategoriesTable categories={categories} setEditData={setEditData} />
+              <CategoriesTable categories={categories} setEditData={setEditData} setVisible={setVisible} />
             )}
           </div>
         </div>
       </div>
-      <AddCategoryModal visible={visible} setVisible={setVisible} getCaterioes={getCaterioes} />
+      <AddCategoryModal visible={visible} setVisible={setVisible} getCategories={getCategories} editData={editData} />
     </>
   );
 }

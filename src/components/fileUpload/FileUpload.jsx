@@ -3,10 +3,8 @@ import { Image } from "primereact/image";
 import { RxCross2 } from "react-icons/rx";
 
 export default function DraggableFileUpload({ formik, name }) {
-
   const { values, setFieldValue } = formik;
   const [dragActive, setDragActive] = useState(false);
- 
 
   const handleFileChange = (e) => {
     const uploadedFile = e.target.files[0];
@@ -33,7 +31,7 @@ export default function DraggableFileUpload({ formik, name }) {
     setDragActive(false);
     const droppedFile = e.dataTransfer.files[0];
     if (droppedFile) {
-      setFieldValue(name, uploadedFile);
+      setFieldValue(name, droppedFile); // Fix here, should be droppedFile
     }
   };
 
@@ -72,7 +70,7 @@ export default function DraggableFileUpload({ formik, name }) {
       </div>
 
       {/* Preview Section */}
-      {values[name] && (
+      {values[name] && values[name] instanceof File && (
         <div className="file-preview d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2">
           <div className="d-inline-flex align-items-center gap-3">
             <Image
@@ -83,7 +81,6 @@ export default function DraggableFileUpload({ formik, name }) {
               height="60"
               preview
             />
-            {/* <span>{values[name]}</span> */}
           </div>
           <div>
             <RxCross2

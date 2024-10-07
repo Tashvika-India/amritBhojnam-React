@@ -6,11 +6,11 @@ import { TextField } from "@mui/material";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import FileUpload from "../../../../components/fileUpload/FileUpload";
 import { useFormik } from "formik";
-import { postCategoriesApi } from "../../../../services/adminApiRoutes";
+import { postCategoriesApi, putCategoriesApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
 import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
 
-export default function AddCategoryModal({ visible, setVisible, getCaterioes }) {
+export default function AddCategoryModal({ visible, setVisible, getCategories, editData }) {
   const [loading, setLoading] = useState(false);
   const initialValues = {
     name: "",
@@ -19,9 +19,14 @@ export default function AddCategoryModal({ visible, setVisible, getCaterioes }) 
   };
 
   const formik = useFormik({
-    initialValues,
+    initialValues: editData ? editData : initialValues,
+    enableReinitialize: true,
     onSubmit: async (values) => {
-      addCategory(values);
+      if (editData) {
+        await updateCategory(values); // PUT or PATCH for edit
+      } else {
+        await addCategory(values); // POST for new category
+      }
     },
   });
 
@@ -31,22 +36,42 @@ export default function AddCategoryModal({ visible, setVisible, getCaterioes }) 
     setLoading(true);
     const formData = new FormData();
     formData.append("name", values.name);
-    formData.append("img_file", values.img_file); 
+    formData.append("img_file", values.img_file);
     try {
       const response = await postCategoriesApi(formData);
       formik.resetForm();
-      getCaterioes();
-      setVisible(false); 
+      getCategories();
+      setVisible(false);
       notifySuccess("Category Added Successfully");
     } catch (error) {
       throw error;
       notifyError("Failed to add category!");
-    }finally {
+    } finally {
       setLoading(false);
     }
   }
 
-  useEffect(() => {}, []);
+
+  async function updateCategory(values) {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("name", values?.name);
+    formData.append("img_file", values?.img_file);
+
+    try {
+      const response = await putCategoriesApi(editData.id, formData); // Assuming you have a PUT API
+      formik.resetForm();
+      getCategories();
+      setVisible(false);
+      notifySuccess("Category Updated Successfully");
+    } catch (error) {
+      console.error("Failed to update category!", error);
+      notifyError("Failed to update category!");
+    } finally {
+      setLoading(false);
+    }
+  }
+
 
   return (
     <div className="card flex justify-content-center">
@@ -59,26 +84,26 @@ export default function AddCategoryModal({ visible, setVisible, getCaterioes }) 
         closable={false}
         header={<CustomHeader formik={formik} />}
       >
-        {loading ? (  
+        {loading ? (
           <Loading />
         ) : (
-        <form onSubmit={formik.handleSubmit}>
-          <div className="p-fluid">
-            <div className="mb-4">
-              <FileUpload formik={formik} name="img_file" />
+          <form onSubmit={formik.handleSubmit}>
+            <div className="p-fluid">
+              <div className="mb-4">
+                <FileUpload formik={formik} name="img_file" />
+              </div>
+              <div className="mb-4">
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  placeholder="Category Name"
+                  name="name"
+                  onChange={formik.handleChange}
+                  value={formik.values.name}
+                />
+              </div>
             </div>
-            <div className="mb-4">
-              <TextField
-                fullWidth
-                variant="outlined"
-                placeholder="Category Name"
-                name="name"
-                onChange={formik.handleChange}
-                value={formik.values.name}
-              />
-            </div>
-          </div>
-        </form>
+          </form>
         )}
       </Dialog>
     </div>
@@ -89,7 +114,7 @@ function CustomHeader({ formik }) {
   return (
     <>
       <div className="d-flex align-items-center justify-content-between border-bottom pb-3">
-        <h5 className="m-0 fs-bold">Add Category</h5>
+        <h5 className="m-0 fs-bold">{formik.values.name ? 'Edit Category' : 'Add Category'}</h5>
         <div>
           <IosSwitch
             checked={formik.values.active}
@@ -102,17 +127,18 @@ function CustomHeader({ formik }) {
   );
 }
 
-function FooterContent({ formik, setVisible, loading }) {
+function FooterContent({ formik, setVisible, loading, editData }) {
   return (
     <>
       <div className="d-inline-flex gap-3">
         <RejectButton lable="Cancel" handleClick={() => setVisible(false)} />
         <YellowButton
-          lable={loading ? "Adding..." : "+ Add"}
+          label="Save Changes"
           handleClick={formik.handleSubmit}
-          disabled={loading}  
-        /> 
+          disabled={loading}
+        />
       </div>
     </>
   );
 }
+  
