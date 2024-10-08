@@ -3,14 +3,14 @@ import Heading from "@/components/ui/Heading";
 import YellowButton from "@/components/buttons/YellowButton";
 import CategoriesTable from "./components/CategoriesTable";
 import AddCategoryModal from "./components/AddCategoryModal";
-import { getCategoriesApi } from "../../../services/adminApiRoutes";
+import { getCategoriesApi, patchCategoriesApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
 
 function ManageCategories() {
   const [visible, setVisible] = useState(false);
   const [categories, setCategories] = useState([]);
   const [editData, setEditData] = useState(null);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   async function getCategories() {
     setLoading(true);
@@ -22,17 +22,43 @@ function ManageCategories() {
     } finally {
       setLoading(false);
     }
-  } 
+  }
 
   useEffect(() => {
     if (!visible) {
-      setEditData(null);  
+      setEditData(null);
     }
   }, [visible]);
 
   useEffect(() => {
     getCategories();
   }, []);
+
+  // This function will update the category status in real-time
+  async function categoriesStatusChange(rowData, updatedIsActive) {
+    try {
+      setCategories((prevCategories) =>
+        prevCategories.map((category) =>
+          category.id === rowData.id
+            ? { ...category, is_active: updatedIsActive }
+            : category
+        )
+      );
+      const formData = new FormData();
+      formData.append("is_active", updatedIsActive);
+      await patchCategoriesApi(rowData.id, formData); 
+      
+    } catch (error) {
+      setCategories((prevCategories) =>
+        prevCategories.map((category) =>
+          category.id === rowData.id
+            ? { ...category, is_active: !updatedIsActive }
+            : category
+        )
+      );
+      console.error("Failed to update category status!", error);
+    }
+  }
 
   return (
     <>
@@ -54,12 +80,22 @@ function ManageCategories() {
             {loading ? (
               <Loading />
             ) : (
-              <CategoriesTable categories={categories} setEditData={setEditData} setVisible={setVisible} />
+              <CategoriesTable
+                categories={categories}
+                setEditData={setEditData}
+                setVisible={setVisible}
+                categoriesStatusChange={categoriesStatusChange} // Pass this function
+              />
             )}
           </div>
         </div>
       </div>
-      <AddCategoryModal visible={visible} setVisible={setVisible} getCategories={getCategories} editData={editData} />
+      <AddCategoryModal
+        visible={visible}
+        setVisible={setVisible}
+        getCategories={getCategories}
+        editData={editData}
+      />
     </>
   );
 }
