@@ -162,8 +162,20 @@ td {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
+.product-detail-shadow {
+  box-shadow: 0px 8px 30px 0px rgba(0, 0, 0, 0.05);
+}
+
+.fw-300 {
+  font-weight: 300;
+}
+
 .rounded-40 {
   border-radius: 2.5rem;
+}
+
+.rounded-20 {
+  border-radius: 1.25rem;
 }
 
 .d-center {

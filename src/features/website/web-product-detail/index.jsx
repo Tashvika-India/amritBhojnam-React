@@ -146,16 +146,16 @@ const ProudctDetail = () => {
                   <span className="text-orange me-2 ms-2 mt-1">Get it by</span>
                   <span className="mt-1">Monday, 16 Sep</span>
                 </p>
-                <div class="d-flex">
+                <div class="d-flex mt-4">
                   <ul className="me-5 pe-4">
                     <li className="my-2">Type: Organic</li>
                     <li className="my-2">MFG: Jun 4.2024</li>
                     <li className="my-2">LIFE: 70 days</li>
                   </ul>
-                  <ul>
-                    <li>SKU: FWM15VKT</li>
-                    <li>Tags: Snack, Organic, Brown</li>
-                    <li>Stock: 8 Items In Stock</li>
+                  <ul className="me-5 pe-4">
+                    <li className="my-2">SKU: FWM15VKT</li>
+                    <li className="my-2">Tags: Snack, Organic, Brown</li>
+                    <li className="my-2">Stock: 8 Items In Stock</li>
                   </ul>
                 </div>
               </div>

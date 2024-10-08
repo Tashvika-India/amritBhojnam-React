@@ -75,7 +75,7 @@ function AsNavFor() {
       </Slider>
      
       <Slider
-      className="mt-4"
+      className="mt-5"
         asNavFor={nav1}
         ref={(slider) => (sliderRef2 = slider)}
         slidesToShow={4}

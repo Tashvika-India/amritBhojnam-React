@@ -12,6 +12,7 @@ import LoginPage from "../components/pages/auth-pages/LoginPage";
 import ManageBanner from "../features/admin-dashboard/manage-banner";
 import ProudctDetail from "../features/website/web-product-detail";
 import ProudctList from "../features/website/web-product-list";
+import UserProfile from "../features/website/web-account";
 
 function AppRoutes() {
   return (
@@ -104,6 +105,7 @@ function AppRoutes() {
       <Route exact path="/home" element={<HomePage />} />
       <Route exact path="/products" element={<ProudctList />} />
       <Route exact path="/product-detail" element={<ProudctDetail />} />
+      <Route exact path="/profile" element={<UserProfile />} />
     </Routes>
   );
 }
