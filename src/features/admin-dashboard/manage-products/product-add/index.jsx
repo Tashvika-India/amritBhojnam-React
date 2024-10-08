@@ -33,25 +33,30 @@ const ProductAdd = () => {
   const { values, handleSubmit, resetForm, setValues, handleBlur  ,handleChange} = formik;
 
   async function addProduct(values) { 
-    let fromData = new FormData();      
-    fromData.append("name", values.name);
-    fromData.append("category_id", values.category_id);
-    fromData.append("short_description", values.short_description);
-    fromData.append("long_description", values.long_description);
-    fromData.append("quantity", values.quantity);
-    fromData.append("quantity_unit", values.quantity_unit);
-    fromData.append("max_price", values.max_price);
-    fromData.append("offer_price", values.offer_price);
-    fromData.append("nutritions", values.nutritions);
-    if (values.images && values.images.length > 0) {
-      values.images.forEach((imageFile, index) => {
-        fromData.append(`img_files${index}`, imageFile); // Append each image file
+    const formData = new FormData();      
+    formData.append("name", values.name);
+    formData.append("category_id", values.category_id);
+    formData.append("short_description", values.short_description);
+    formData.append("long_description", values.long_description);
+    formData.append("quantity", values.quantity);
+    formData.append("quantity_unit", values.quantity_unit);
+    formData.append("max_price", values.max_price);
+    formData.append("offer_price", values.offer_price);
+    formData.append("nutritions", values.nutritions);
+    
+    if (values.images && Array.isArray(values.images)) {
+      values.images.forEach((image, index) => {
+        if (image instanceof File) {
+          formData.append("images", image);
+        } else {
+          console.error(`Image at index ${index} is not a valid File instance.`);
+        }
       });
     }
-    resetForm();
     try {
-      const response = await postProductApi(fromData);
+      const response = await postProductApi(formData);
       navigate("/product"); 
+      resetForm();
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -60,20 +65,28 @@ const ProductAdd = () => {
   } 
 
   async function updateProduct(values) { 
-    const fromData = new FormData();
-    fromData.append("name", values.name);
-    fromData.append("category_id", values.category_id);
-    fromData.append("short_description", values.short_description);
-    fromData.append("long_description", values.long_description);
-    fromData.append("quantity", values.quantity);
-    fromData.append("quantity_unit", values.quantity_unit);
-    fromData.append("max_price", values.max_price);
-    fromData.append("offer_price", values.offer_price);
-    fromData.append("nutritions", values.nutritions);
-    fromData.append("images", values.images);
-    resetForm();
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("category_id", values.category_id);
+    formData.append("short_description", values.short_description);
+    formData.append("long_description", values.long_description);
+    formData.append("quantity", values.quantity);
+    formData.append("quantity_unit", values.quantity_unit);
+    formData.append("max_price", values.max_price);
+    formData.append("offer_price", values.offer_price);
+    formData.append("nutritions", values.nutritions);
+    if (values.images && Array.isArray(values.images)) {
+      values.images.forEach((image, index) => {
+        if (image instanceof File) {
+          formData.append("images", image);
+        } else {
+          console.error(`Image at index ${index} is not a valid File instance.`);
+        }
+      });
+    }
     try {
-      const response = await putProductApi(product?.id,fromData);
+      const response = await putProductApi(product?.id,formData);
+      resetForm();
       navigate("/product");
       setLoading(false);
     } catch (error) {
