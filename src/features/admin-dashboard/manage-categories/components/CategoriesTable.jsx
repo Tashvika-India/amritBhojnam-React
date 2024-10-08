@@ -1,18 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FaRegEdit } from "react-icons/fa";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import { baseURL } from "../../../../utils/constant-variable";
 
-function CategoryTable({categories , setEditData , setVisible}) { 
+function CategoryTable({ categories, setEditData, setVisible, categoriesStatusChange }) {
   const handleEditClick = (rowData) => {
     setEditData(rowData);
     setVisible(true);
   };
 
+  const iosSwitchTemplate = (rowData) => {
+    const handleToggleChange = (event) => {
+      const updatedStatus = event.target.checked;
+      categoriesStatusChange(rowData, updatedStatus); // Call the passed function
+    };
 
-  // Template for displaying category image and name
+    return (
+      <IosSwitch
+        name="is_active"
+        checked={rowData.is_active}
+        onChange={handleToggleChange}
+      />
+    );
+  };
+
   const imageBodyTemplate = (rowData) => {
     return (
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -25,8 +38,7 @@ function CategoryTable({categories , setEditData , setVisible}) {
     );
   };
 
-  // Template for the Edit button
-  const editButtonTemplate = (rowData) => { 
+  const editButtonTemplate = (rowData) => {
     return (
       <button className="text-orange d-flex gap-2 align-items-center border-0 bg-white" onClick={() => handleEditClick(rowData)}>
         Edit <FaRegEdit />
@@ -34,16 +46,12 @@ function CategoryTable({categories , setEditData , setVisible}) {
     );
   };
 
-  const iosSwitch = () => {
-    return <IosSwitch />;
-  };
-
   return (
-    <DataTable value={categories} responsiveLayout="scroll" paginator rows={10} rowKey="id" >
+    <DataTable value={categories} responsiveLayout="scroll" paginator rows={10} rowkey="id">
       <Column field="image" header="Image" body={imageBodyTemplate}></Column>
       <Column field="name" header="Name"></Column>
       <Column field="quantity" header="Products"></Column>
-      <Column field="status" header="Status" body={iosSwitch}></Column>
+      <Column field="is_active" header="Status" body={iosSwitchTemplate}></Column>
       <Column header="Action" body={editButtonTemplate}></Column>
     </DataTable>
   );
