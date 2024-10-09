@@ -125,6 +125,9 @@
   .fb-fs-40 {
     font-size: 2.5rem;
   }
+  .fb-fs-24{
+    font-size: 1.5rem;
+  }
   section {
     padding-block: 5rem;
   }
@@ -224,6 +227,13 @@
   }
 }
 
+.add-address-button{
+  border: 1px dashed $orange;
+  color: $orange;
+  border-radius: 0.625rem;
+  padding : 1rem 0rem;
+  margin: 2rem 0rem;
+}
 
 .p-slider .p-slider-handle{
   height: 1.7rem;
@@ -359,6 +369,14 @@ text-wrap: nowrap;
   }
 }
 
+
+.summary-card{
+  border: 2px solid $border;
+  transition: all 0.3s ease-in-out;
+  &:hover{
+    border-color: $yellow;
+  }
+}
 // tab style
 
 .tab-nav-wrapper {
