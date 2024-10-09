@@ -116,6 +116,9 @@ td {
 .text-grey{
     color: $grey !important;
 }
+.text-dark-grey{
+    color: $dark-grey !important;
+}
 
 .bg-orange {
     background-color: $orange;
@@ -243,6 +246,44 @@ td {
         background-color: $white;
         color: $orange;
         border-color: $orange;
+    }
+}
+
+.button-yellow{
+    background-color: $yellow;
+    border-radius: 0.2781rem;
+    color: $white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+    padding: 0px 6px;
+    text-decoration: none;
+    line-height: 1px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        background-color: $white;
+        color: $yellow;
+        border-color: $yellow;
+        
+    }  
+}
+
+.button-set-default{
+    background-color: $white;
+    color: $yellow;
+    border: 1px solid $yellow;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #FFF7E7;
+    text-decoration: none;
+    line-height: 1px;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+        background-color: $yellow;
+        color: $white;
+        border-color: transparent;
     }
 }
 
