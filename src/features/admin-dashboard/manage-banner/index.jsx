@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
 import YellowButton from "@/components/buttons/YellowButton";
-import { getBannerApi } from "../../../services/adminApiRoutes";
+import { getBannerApi, patchBannerApi } from "../../../services/adminApiRoutes";
 import BannerTable from "./components/BannerTable";
 import AddBannerModal from "./components/AddBannerModal";
 import Loading from "../../../components/ui/Loading"; 
+import { patch } from "@mui/material";
 
 function ManageBanner() {
   const [visible, setVisible] = useState(false);
@@ -35,6 +36,30 @@ function ManageBanner() {
     getBanner();
   }, []);
 
+  async function bannerStatusChange(rowData, updatedIsActive) { 
+    try{
+      setBanner((prevBanners) =>
+        prevBanners.map((banner) =>
+          banner.id === rowData.id
+            ? { ...banner, is_active: updatedIsActive }
+            : banner
+        )
+      );
+      const formData = new FormData();
+      formData.append("is_active", updatedIsActive);
+      await patchBannerApi(rowData.id, formData);
+    } catch (error) {
+      setBanner((prevBanners) =>
+        prevBanners.map((banner) =>
+          banner.id === rowData.id
+            ? { ...banner, is_active: !updatedIsActive }
+            : banner
+        )
+      );
+      console.log("Error on Banner Status Change", error);
+    }
+  }
+
   return (
     <>
       <div className="mt-3 mb-5 row">
@@ -55,7 +80,10 @@ function ManageBanner() {
             {loading ? (
               <Loading />
             ) : (
-              <BannerTable banner={banner} setEditData={setEditData} setVisible={setVisible}/>
+              <BannerTable banner={banner} 
+              setEditData={setEditData} 
+              setVisible={setVisible}
+              bannerStatusChange={bannerStatusChange}/>
             )}
           </div>
         </div>

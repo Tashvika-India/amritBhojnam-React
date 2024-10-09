@@ -5,7 +5,7 @@ import { FaRegEdit } from "react-icons/fa";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import { baseURL } from "../../../../utils/constant-variable";
 
-function BannerTable({banner , setEditData , setVisible}) {
+function BannerTable({banner , setEditData , setVisible, bannerStatusChange}) {
 
   const handleEditClick = (rowData) => {
     setEditData(rowData);
@@ -25,18 +25,29 @@ function BannerTable({banner , setEditData , setVisible}) {
     );
   };
 
-  // Template for the Edit button
-  const editButtonTemplate = (rowData) => {
+  const iosSwitchTemplate = (rowData) => { 
+    const handleToggleChange = (event) => {
+      const updatedStatus = event.target.checked;
+      bannerStatusChange(rowData, updatedStatus);  
+    };
+
     return (
-      <button className="text-orange d-flex gap-2 align-items-center border-0 bg-white" onClick={()=> handleEditClick(rowData)}>
-        Edit <FaRegEdit /> 
-      </button>
+      <IosSwitch
+        name="is_active"
+        checked={rowData.is_active}
+        onChange={handleToggleChange}
+      />
     );
   };
 
-  const iosSwitch = () => {
-    return <IosSwitch />;
-  };
+    // Template for the Edit button
+    const editButtonTemplate = (rowData) => {
+      return (
+        <button className="text-orange d-flex gap-2 align-items-center border-0 bg-white" onClick={()=> handleEditClick(rowData)}>
+          Edit <FaRegEdit /> 
+        </button>
+      );
+    };
 
   return (
     <DataTable value={banner} responsiveLayout="scroll" paginator rows={10} rowkey="id">
@@ -44,8 +55,8 @@ function BannerTable({banner , setEditData , setVisible}) {
       <Column field="img_file" header="IMAGE" body={imageBodyTemplate}></Column>
       <Column field="title" header="Title"></Column> 
       <Column field="platform" header="PLATFORM"></Column> 
-      <Column field="status" header="STATUS" body={iosSwitch}></Column>
-      <Column header="ACTION" body={editButtonTemplate}></Column>
+      <Column field="is_active" header="STATUS" body={iosSwitchTemplate}></Column>
+      <Column header="Action" body={editButtonTemplate}></Column>
     </DataTable>
   );
 }
