@@ -28,6 +28,7 @@ export const deleteProductApi = (id) => API.delete(`/products/${id}`);
 export const getBannerApi = () => API.get(`/banners/`);
 export const postBannerApi = (payload) => API.post(`/banners/`, payload);
 export const putBannerApi = (id, payload) => API.put(`/banners/${id}/`, payload);
+export const patchBannerApi = (id, payload) => API.patch(`/banners/${id}/`, payload);
 export const deleteBannerApi = (id) => API.delete(`/banners/${id}`);
 
 
