@@ -112,7 +112,7 @@ const ProudctList = () => {
                       & More
                     </li>
                     <li className="d-flex my-3">
-                      <input type="checkbox" className="me-3 bg-grey" /> 3
+                      <input type="checkbox" id="myCheckbox" className="me-3 bg-grey" /> 3
                       <span>
                         <img
                           className="img-fluid mt-1 mx-1"
@@ -121,9 +121,10 @@ const ProudctList = () => {
                         />
                       </span>
                       & More
+                      <label for="myCheckbox"></label>
                     </li>
                     <li className="d-flex my-3">
-                      <input type="checkbox" className="me-3 bg-grey" /> 2
+                      <input type="checkbox" className="me-3 bg-grey" style={{ backgroundColor: "#000", border: "1px solid #000"}} /> 2
                       <span>
                         <img
                           className="img-fluid mt-1 mx-1"
