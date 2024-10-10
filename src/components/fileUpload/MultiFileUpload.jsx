@@ -2,64 +2,59 @@ import React, { useState, useEffect } from "react";
 import { Image } from "primereact/image";
 import { RxCross2 } from "react-icons/rx";
 
-// React.memo to prevent unnecessary re-renders
-export default React.memo(function MultiFileUpload({ formik, name }) {
+export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
   const { values, setFieldValue } = formik;
   const [dragActive, setDragActive] = useState(false);
-  
-  // Detect if the user is on a mobile device
+
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   // Handle file input change
   const handleFileChange = (e) => {
     const uploadedFiles = Array.from(e.target.files);
-
-    // Only add valid files
     const validFiles = uploadedFiles.filter((file) => file instanceof File);
     setFieldValue(name, [...(values[name] || []), ...validFiles]);
   };
 
-  // Handle drag enter
+  // Handle drag and drop for desktop
   const handleDragEnter = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(true);
   };
 
-  // Handle drag leave
   const handleDragLeave = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
   };
 
-  // Handle file drop
   const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
     const droppedFiles = Array.from(e.dataTransfer.files);
-
-    // Only add valid files
     const validFiles = droppedFiles.filter((file) => file instanceof File);
     setFieldValue(name, [...(values[name] || []), ...validFiles]);
   };
 
-  // Remove a specific file from the Formik values
+  // Remove a specific file
   const removeFile = (fileToRemove) => {
-    URL.revokeObjectURL(fileToRemove.preview);
+    if (fileToRemove instanceof File) {
+      URL.revokeObjectURL(fileToRemove.preview);
+    }
     setFieldValue(
       name,
       values[name].filter((file) => file !== fileToRemove)
     );
   };
 
-  // Cleanup object URLs on component unmount to avoid memory leaks
   useEffect(() => {
     return () => {
       if (values[name]) {
-        values[name].forEach(file => {
-          URL.revokeObjectURL(file.preview);
+        values[name].forEach((file) => {
+          if (file instanceof File) {
+            URL.revokeObjectURL(file.preview);
+          }
         });
       }
     };
@@ -67,7 +62,7 @@ export default React.memo(function MultiFileUpload({ formik, name }) {
 
   return (
     <div className="multipule-file-upload-wrapper row">
-      {/* Drag and Drop Area */}
+      {/* File Upload Area */}
       <div className="col-md-6">
         <div>
           <input
@@ -79,9 +74,7 @@ export default React.memo(function MultiFileUpload({ formik, name }) {
           />
           <label
             htmlFor="image"
-            className={`multipule-image-uploader mb-4 ${
-              dragActive ? "drag-active" : ""
-            }`}
+            className={`multipule-image-uploader mb-4 ${dragActive ? "drag-active" : ""}`}
             onDragEnter={!isMobile ? handleDragEnter : null}
             onDragLeave={!isMobile ? handleDragLeave : null}
             onDrop={!isMobile ? handleDrop : null}
@@ -106,49 +99,48 @@ export default React.memo(function MultiFileUpload({ formik, name }) {
         </div>
       </div>
 
+      {/* Preview Section */}
       <div className="col-md-6">
         {/* Preview Section */}
-        {values[name] && values[name].length > 0 && (
+        {Array.isArray(values[name]) && values[name].length > 0 && (
           <div className="file-previews">
             <div className="row">
               {values[name].map((file, index) => {
-                // Ensure file is an instance of File or Blob before creating URL
-                if (file instanceof File || file instanceof Blob) {
-                  const filePreviewUrl = URL.createObjectURL(file);
+                const filePreviewUrl = file instanceof File
+                  ? URL.createObjectURL(file) // New file (uploaded by user)
+                  : `${baseURL}/${file.img_files}`; // Preloaded file from database
 
-                  return (
-                    <div className="col-md-6 mb-3" key={index}>
-                      <div className="file-preview d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 mb-2">
-                        <div className="d-inline-flex align-items-center gap-3">
-                          <Image
-                            src={filePreviewUrl}
-                            zoomSrc={filePreviewUrl}
-                            alt="Uploaded File"
-                            width="80"
-                            height="60"
-                            preview
-                          />
-                          <span>{file.name}</span>
-                        </div>
-                        <div>
-                          <RxCross2
-                            color="red"
-                            size={25}
-                            onClick={() => removeFile(file)}
-                            style={{ cursor: "pointer" }}
-                          />
-                        </div>
+                return (
+                  <div className="col-md-6 mb-3" key={index}>
+                    <div className="file-preview d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 mb-2">
+                      <div className="d-inline-flex align-items-center gap-3">
+                        <Image
+                          src={filePreviewUrl}
+                          zoomSrc={filePreviewUrl}
+                          alt="Uploaded File"
+                          width="80"
+                          height="60"
+                          preview
+                        />
+                        <span>{file.name}</span>
+                      </div>
+                      <div>
+                        <RxCross2
+                          color="red"
+                          size={25}
+                          onClick={() => removeFile(file)}
+                          style={{ cursor: "pointer" }}
+                        />
                       </div>
                     </div>
-                  );
-                } else {
-                  return null; // Skip invalid files
-                }
+                  </div>
+                );
               })}
             </div>
           </div>
         )}
       </div>
+
     </div>
   );
 });
