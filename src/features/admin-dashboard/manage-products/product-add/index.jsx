@@ -16,55 +16,32 @@ import { productInitalValues } from "@/utils/form-inital-values/InitalValues";
 import { postProductApi, putProductApi } from "../../../../services/adminApiRoutes";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../../../components/ui/Loading";
+import * as Yup from "yup";
+import { baseURL } from "../../../../utils/constant-variable";
+
+
+const validationSchema = Yup.object({
+  name: Yup.string().required("Product name is required"),
+  // Add more validations as needed
+});
 const ProductAdd = () => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const location = useLocation();
   const product = location?.state;
-  const isEditMode = !!product;  
-  const navigate = useNavigate(); 
+  const isEditMode = !!product;
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: productInitalValues,
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
       isEditMode ? updateProduct(values) : addProduct(values);
     },
   });
-  const { values, handleSubmit, resetForm, setValues, handleBlur  ,handleChange} = formik;
-
-  async function addProduct(values) { 
-    const formData = new FormData();      
-    formData.append("name", values.name);
-    formData.append("category_id", values.category_id);
-    formData.append("short_description", values.short_description);
-    formData.append("long_description", values.long_description);
-    formData.append("quantity", values.quantity);
-    formData.append("quantity_unit", values.quantity_unit);
-    formData.append("max_price", values.max_price);
-    formData.append("offer_price", values.offer_price);
-    formData.append("nutritions", values.nutritions);
-    
-    if (values.images && Array.isArray(values.images)) {
-      values.images.forEach((image, index) => {
-        if (image instanceof File) {
-          formData.append("images", image);
-        } else {
-          console.error(`Image at index ${index} is not a valid File instance.`);
-        }
-      });
-    }
-    try {
-      const response = await postProductApi(formData);
-      navigate("/product"); 
-      resetForm();
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      throw error;
-    }  
-  } 
-
-  async function updateProduct(values) { 
+  const { values, handleSubmit, resetForm, setValues, handleBlur, handleChange } = formik;
+  const MAX_FILE_SIZE = 5 * 1024 * 1024;
+  async function addProduct(values) {
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("category_id", values.category_id);
@@ -75,17 +52,67 @@ const ProductAdd = () => {
     formData.append("max_price", values.max_price);
     formData.append("offer_price", values.offer_price);
     formData.append("nutritions", values.nutritions);
-    if (values.images && Array.isArray(values.images)) {
-      values.images.forEach((image, index) => {
-        if (image instanceof File) {
-          formData.append("images", image);
-        } else {
-          console.error(`Image at index ${index} is not a valid File instance.`);
+
+     if (values.images && Array.isArray(values.images)) {
+    values.images.forEach((image, index) => {
+      if (image instanceof File) {
+        if (image.size > MAX_FILE_SIZE) {
+          console.error(`Image at index ${index} exceeds the size limit.`);
+          return; // Skip this image or set an error state
         }
-      });
-    }
+        const validFormats = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!validFormats.includes(image.type)) {
+          console.error(`Image at index ${index} is not a valid format.`);
+          return; // Skip this image or set an error state
+        }
+        formData.append("images", image);
+      } else {
+        console.error(`Image at index ${index} is not a valid File instance.`);
+      }
+    });
+  }
     try {
-      const response = await putProductApi(product?.id,formData);
+      const response = await postProductApi(formData);
+      navigate("/product");
+      resetForm();
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
+  }
+
+  async function updateProduct(values) {
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("category_id", values.category_id);
+    formData.append("short_description", values.short_description);
+    formData.append("long_description", values.long_description);
+    formData.append("quantity", values.quantity);
+    formData.append("quantity_unit", values.quantity_unit);
+    formData.append("max_price", values.max_price);
+    formData.append("offer_price", values.offer_price);
+    formData.append("nutritions", values.nutritions);
+     if (values.images && Array.isArray(values.images)) {
+    values.images.forEach((image, index) => {
+      if (image instanceof File) {
+        if (image.size > MAX_FILE_SIZE) {
+          console.error(`Image at index ${index} exceeds the size limit.`);
+          return; // Skip this image or set an error state
+        }
+        const validFormats = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!validFormats.includes(image.type)) {
+          console.error(`Image at index ${index} is not a valid format.`);
+          return; // Skip this image or set an error state
+        }
+        formData.append("images", image);
+      } else {
+        console.error(`Image at index ${index} is not a valid File instance.`);
+      }
+    });
+  }
+    try {
+      const response = await putProductApi(product?.id, formData);
       resetForm();
       navigate("/product");
       setLoading(false);
@@ -106,7 +133,7 @@ const ProductAdd = () => {
   useEffect(() => {
     getCaterioes();
     if (isEditMode) {
-      setValues(product);  
+      setValues(product);
     }
   }, [product]);
 
@@ -122,7 +149,7 @@ const ProductAdd = () => {
           <div className="card-body">
             <h6 className="mb-4">Image</h6>
             <div className="">
-              <MultiFileUpload  formik={formik} name="images"/>
+              <MultiFileUpload formik={formik} name="images" baseURL={baseURL} />
             </div>
           </div>
         </div>
@@ -139,6 +166,8 @@ const ProductAdd = () => {
                   label="Product Name"
                   variant="outlined"
                   fullWidth
+                  error={!!formik.errors.name && formik.touched.name}
+                  helperText={formik.touched.name && formik.errors.name}
                 />
               </div>
               <div className="col-md-8 mb-4">
@@ -159,7 +188,7 @@ const ProductAdd = () => {
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
-                    id="demo-simple-select" 
+                    id="demo-simple-select"
                     label="Select Type"
                   // onChange={handleChange}
                   >
@@ -301,7 +330,7 @@ const ProductAdd = () => {
                 <TextField
                   id="outlined-basic"
                   label="Stock"
-                  variant="outlined" 
+                  variant="outlined"
                   fullWidth
                 />
               </div>
@@ -357,7 +386,7 @@ const ProductAdd = () => {
         <div className="card mb-4">
           <div className="card-body">
             <div className="d-flex gap-3 justify-content-end">
-            <YellowButton
+              <YellowButton
                 lable={
                   loading ? (
                     <Loading size={24} color="inherit" />
@@ -366,7 +395,9 @@ const ProductAdd = () => {
                 handleClick={formik.handleSubmit}
                 disabled={loading}
               />
-              <RejectButton lable="Cancel" disabled={loading} />
+              <RejectButton lable="Cancel" disabled={loading} handleClick={() => {
+                resetForm();
+              }} />
             </div>
           </div>
         </div>
