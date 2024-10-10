@@ -51,7 +51,7 @@ function CategoryTable({ categories, setEditData, setVisible, categoriesStatusCh
       <Column field="id" header="ID" body={(index) => categories.indexOf(index) + 1}></Column>
       <Column field="image" header="Image" body={imageBodyTemplate}></Column>
       <Column field="name" header="Name"></Column>
-      <Column field="quantity" header="Products"></Column>
+      {/* <Column field="quantity" header="Products"></Column> */}
       <Column field="is_active" header="Status" body={iosSwitchTemplate}></Column>
       <Column header="Action" body={editButtonTemplate}></Column>
     </DataTable>
