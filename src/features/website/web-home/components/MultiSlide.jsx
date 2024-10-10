@@ -1,6 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
 import { useState, useEffect, useRef } from "react";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import sliderBottom from "../../../../assets/images/web/product-detail/slider-bottom-img.png";
 import productDetail from "../../../../assets/images/web/product-detail/product-detail-image.png";
 
@@ -81,8 +82,12 @@ function AsNavFor() {
         slidesToShow={4}
         swipeToSlide={true}
         focusOnSelect={true}
+        arrows={true}
+        nextArrow={<SampleNextArrow />}
+        prevArrow={<SamplePrevArrow />}
+        onMouseEnter={(e) => e.currentTarget.style.background = "#fff"} // Hover color
       >
-        <div>
+        <div >
           <img className="img-fluid" src={sliderBottom} alt="slider-bottom" />
         </div>
         <div>
@@ -104,5 +109,75 @@ function AsNavFor() {
     </div>
   );
 }
+
+const arrowStyles = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "40px",
+  height: "40px",
+  borderRadius: "50%",
+  backgroundColor: "#DADADA",
+  color: "#3B3B3B",
+  boxShadow: "0px 4.83px 10px 0px rgba(0, 0, 0, 0.05)",
+  fontSize: "1rem",
+  cursor: "pointer",
+  transition: "background-color 0.3s ease",
+  position: "absolute",
+  top: "50%",
+  transform: "translateY(-50%)",
+  zIndex: "10",
+ 
+};
+
+const nextArrowStyles = {
+  ...arrowStyles,
+  right: "1rem",
+};
+
+const prevArrowStyles = {
+  ...arrowStyles,
+  left: "-1rem",
+ 
+};
+
+const spanStyles = {
+  fontWeight: "bold",
+  textTransform: "uppercase",
+};
+
+
+// Customize Next Arrow
+const SampleNextArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div
+      className="custom-arrow next-arrow"
+      onClick={onClick}
+      style={nextArrowStyles}
+    >
+      <span style={spanStyles}>
+        <IoIosArrowForward />
+      </span>
+    </div>
+  );
+};
+
+// Customize Previous Arrow
+const SamplePrevArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div
+      className="custom-arrow prev-arrow"
+      onClick={onClick}
+      style={prevArrowStyles}
+    >
+      <span style={spanStyles}>
+        <IoIosArrowBack />
+      </span>
+    </div>
+  );
+};
+
 
 export default AsNavFor;

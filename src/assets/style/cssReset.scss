@@ -103,6 +103,10 @@ td {
 .text-orange {
     color: $orange !important;
 }
+.text-green{
+    color:#287E00  !important;
+
+}
 .text-black {
     color: $black !important;
 }
@@ -228,6 +232,30 @@ td {
 }
 .border-gray {
     border: 1px solid $border;
+}
+
+.disc-style{
+    list-style: disc;
+}
+
+.button-primary-reverse{
+    background-color: $white;
+    color: $orange;
+    border: 1px solid $orange !important;
+    border-radius: 0.625rem;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-inline: 1.5rem;
+    border: 1px solid transparent;
+    padding-block: 0.75rem;
+    text-decoration: none;
+    line-height: normal;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+        background-color: $orange;
+        border-color: transparent;
+        color: $white;
+    }
 }
 
 .button-primary {
