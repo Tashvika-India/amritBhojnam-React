@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import RejectButton from "@/components/buttons/RejectButton";
 import YellowButton from "@/components/buttons/YellowButton";
-import MultiFileUpload from "./components/MultiFileUpload";
+import MultiFileUpload from "../../../../components/fileUpload/MultiFileUpload";
 import { getCategoriesApi } from "@/services/adminApiRoutes";
 import { useFormik } from "formik";
 import { productInitalValues } from "@/utils/form-inital-values/InitalValues";

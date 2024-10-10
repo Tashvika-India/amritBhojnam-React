@@ -4,9 +4,7 @@ import YellowButton from "@/components/buttons/YellowButton";
 import { getBannerApi, patchBannerApi } from "../../../services/adminApiRoutes";
 import BannerTable from "./components/BannerTable";
 import AddBannerModal from "./components/AddBannerModal";
-import Loading from "../../../components/ui/Loading"; 
-import { patch } from "@mui/material";
-
+import Loading from "../../../components/ui/Loading";  
 function ManageBanner() {
   const [visible, setVisible] = useState(false);
   const [banner, setBanner] = useState([]);

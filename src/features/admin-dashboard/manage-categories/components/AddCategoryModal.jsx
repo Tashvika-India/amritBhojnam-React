@@ -15,7 +15,7 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
   const initialValues = {
     name: "",
     img_file: null,
-    active: true,
+    is_active: true,
   };
 
   const formik = useFormik({
@@ -36,7 +36,11 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
     setLoading(true);
     const formData = new FormData();
     formData.append("name", values.name);
-    formData.append("img_file", values.img_file);
+    if (values.img_file instanceof File) {
+      formData.append("img_file", values.img_file);
+    }
+
+    formData.append("is_active", values.is_active);
     try {
       const response = await postCategoriesApi(formData);
       formik.resetForm();
@@ -56,7 +60,11 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
     setLoading(true);
     const formData = new FormData();
     formData.append("name", values?.name);
-    formData.append("img_file", values?.img_file);
+    if (values.img_file instanceof File) {
+      formData.append("img_file", values.img_file);
+    }
+
+    formData.append("is_active", values.is_active);
 
     try {
       const response = await putCategoriesApi(editData.id, formData); // Assuming you have a PUT API
@@ -118,7 +126,7 @@ function CustomHeader({ formik }) {
         <div>
           <IosSwitch
             checked={formik.values.active}
-            onChange={(e) => formik.setFieldValue("active", e.target.checked)}
+            onChange={(e) => formik.setFieldValue("is_active", e.target.checked)}
           />
           <span className="fs-6 text-secondary fw-normal">Active</span>
         </div>
