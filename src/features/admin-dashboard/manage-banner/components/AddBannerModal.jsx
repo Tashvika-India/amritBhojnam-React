@@ -10,7 +10,7 @@ import { postBannerApi, putBannerApi } from "../../../../services/adminApiRoutes
 import Loading from "../../../../components/ui/Loading";
 import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
 
-export default function AddBannerModal({ visible, setVisible, setBanner,getBanner , editData }) {
+export default function AddBannerModal({ visible, setVisible, setBanner, getBanner, editData }) {
   const [loading, setLoading] = useState(false);
   const initialValues = {
     title: "",
@@ -21,58 +21,72 @@ export default function AddBannerModal({ visible, setVisible, setBanner,getBanne
     img_file: null,
     is_active: true,
   };
-
+  
   const formik = useFormik({
     initialValues: editData ? editData : initialValues,
     enableReinitialize: true,
     onSubmit: async (values) => {
-      if(editData) {
+      if (editData) {
         await UpdateBanner(values); // PUT or PATCH for edit
       } else {
         await addBanner(values); // POST for new banner
-      } 
+      }
     },
   });
 
   const { values, handleSubmit, resetForm, setValues } = formik;
 
-  async function addBanner(values) { 
+  async function addBanner(values) {
     setLoading(true);
-    const formData = new FormData(); 
+    const formData = new FormData();
+
     formData.append("title", values.title);
     formData.append("sub_title", values.sub_title);
     formData.append("description", values.description);
-    formData.append("platfrorm", values.platfrorm);
+    formData.append("platform", values.platform);
     formData.append("position", values.position);
-    formData.append("img_file", values.img_file);
-    formData.append("is_active", values.is_active); 
+
+    // Only append the file if it's a new upload
+    if (values.img_file instanceof File) {
+      formData.append("img_file", values.img_file);
+    }
+
+    formData.append("is_active", values.is_active);
+
     try {
-      const response = await postBannerApi(formData); 
+      const response = await postBannerApi(formData);
       formik.resetForm();
       setVisible(false);
       setBanner((prevBanners) => [...prevBanners, response?.data]);
       notifySuccess("Banner Added Successfully");
     } catch (error) {
-      throw error;
-      console.log("Error adding banner", error);
+      console.error("Error adding banner", error);
       notifyError("Failed to add banner!");
     } finally {
       setLoading(false);
     }
   }
 
+
   async function UpdateBanner(values) {
     setLoading(true);
     const formData = new FormData();
+
     formData.append("title", values.title);
     formData.append("sub_title", values.sub_title);
     formData.append("description", values.description);
-    formData.append("platfrorm", values.platfrorm);
+    formData.append("platform", values.platform);
     formData.append("position", values.position);
-    formData.append("img_file", values.img_file);
+
+    // Append file only if it's changed
+    if (values.img_file instanceof File) {
+      formData.append("img_file", values.img_file);
+    }
+
     formData.append("is_active", values.is_active);
+
     try {
-      const response = await putBannerApi(editData.id, formData); 
+      const response = await putBannerApi(editData.id, formData);
       formik.resetForm();
       getBanner();
       setVisible(false);
@@ -85,7 +99,7 @@ export default function AddBannerModal({ visible, setVisible, setBanner,getBanne
     }
   }
 
- 
+
 
   return (
     <div className="card flex justify-content-center">
@@ -99,59 +113,58 @@ export default function AddBannerModal({ visible, setVisible, setBanner,getBanne
         header={<CustomHeader formik={formik} />}
       >
         {loading ? (
-          <Loading />  
+          <Loading />
         ) : (
-        <form onSubmit={formik.handleSubmit}>
-          <div className="p-fluid">
-            <div className="mb-4">
-              <FileUpload formik={formik} name="img_file" />
-            </div>
-            <div className="mb-4">
-              <TextField
-                fullWidth
-                variant="outlined"
-                placeholder="Title"
-                name="title"
-                onChange={formik.handleChange}
-                value={formik.values.title}
-              />
-            </div>
-            <div className="mb-4">
-              <TextField
-                fullWidth
-                variant="outlined"
-                placeholder="Sub Title"
-                name="sub_title"
-                onChange={formik.handleChange}
-                value={formik.values.sub_title}
-              />
-            </div>
-            <div className="mb-4">
+          <form onSubmit={formik.handleSubmit}>
+            <div className="p-fluid">
+              <div className="mb-4">
+                <FileUpload formik={formik} name="img_file" />
+              </div>
+              <div className="mb-4">
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  placeholder="Title"
+                  name="title"
+                  onChange={formik.handleChange}
+                  value={formik.values.title}
+                />
+              </div>
+              <div className="mb-4">
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  placeholder="Sub Title"
+                  name="sub_title"
+                  onChange={formik.handleChange}
+                  value={formik.values.sub_title}
+                />
+              </div>
+              <div className="mb-4">
                 <FormControl fullWidth>
-                  <InputLabel id="plateform-simple-select-label">
-                    Select Plateform
+                  <InputLabel id="platform-simple-select-label">
+                    Select platform
                   </InputLabel>
                   <Select
-                    labelId="plateform-simple-select-label"
-                    id="plateform-simple-select" 
-                    label="Select Plateform"
+                    labelId="platform-simple-select-label"
+                    id="platform-simple-select"
+                    label="Select platform"
                     name="platform"
                     onChange={formik.handleChange}
-                    value={formik.values.platform}
-                  >
+                    value={formik.values.platform}>
                     <MenuItem value="web">Web</MenuItem>
-                    <MenuItem value="mobile">Mobile</MenuItem> 
+                    <MenuItem value="mobile">Mobile</MenuItem>
                   </Select>
                 </FormControl>
               </div>
-            <div className="mb-4">
+              <div className="mb-4">
                 <FormControl fullWidth>
                   <InputLabel id="position-simple-select-label">
                     Select Position
                   </InputLabel>
                   <Select
                     labelId="position-simple-select-label"
-                    id="position-simple-select" 
+                    id="position-simple-select"
                     label="Select Position"
                     name="position"
                     onChange={formik.handleChange}
@@ -163,20 +176,20 @@ export default function AddBannerModal({ visible, setVisible, setBanner,getBanne
                   </Select>
                 </FormControl>
               </div>
-            <div className="mb-4">
-              <TextField
-                fullWidth
-                variant="outlined" 
-                multiline={true}
-                rows={3}
-                placeholder="Description"
-                name="description"
-                onChange={formik.handleChange}
-                value={formik.values.description}
-              />
+              <div className="mb-4">
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  multiline={true}
+                  rows={3}
+                  placeholder="Description"
+                  name="description"
+                  onChange={formik.handleChange}
+                  value={formik.values.description}
+                />
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
         )}
       </Dialog>
     </div>
@@ -189,11 +202,11 @@ function CustomHeader({ formik }) {
       <div className="d-flex align-items-center justify-content-between border-bottom pb-3">
         <h5 className="m-0 fs-bold">Add Banner</h5>
         <div>
-        <IosSwitch
-          checked={formik.values.is_active}
-          name="is_active"  
-          onChange={formik.handleChange}
-        />
+          <IosSwitch
+            checked={formik.values.is_active}
+            name="is_active"
+            onChange={formik.handleChange}
+          />
           <span className="fs-6 text-secondary fw-normal">Active</span>
         </div>
       </div>
@@ -201,12 +214,12 @@ function CustomHeader({ formik }) {
   );
 }
 
-function FooterContent({ formik, setVisible, loading ,editData }) {
+function FooterContent({ formik, setVisible, loading, editData }) {
   return (
     <>
       <div className="d-inline-flex gap-3">
         <RejectButton lable="Cancel" handleClick={() => setVisible(false)} />
-        <YellowButton lable="Save Changes" handleClick={formik.handleSubmit} disabled={loading}/>
+        <YellowButton lable="Save Changes" handleClick={formik.handleSubmit} disabled={loading} />
       </div>
     </>
   );
