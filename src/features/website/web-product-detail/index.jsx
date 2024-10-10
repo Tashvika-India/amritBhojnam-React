@@ -29,7 +29,11 @@ const ProudctDetail = () => {
                 <div className="d-flex justify-content-between">
                   <p className="fb-fs-18 fw-600 d-flex text-brown">
                     <span>
-                      <img className="img-fluid mt-1 me-2" src={fireImg} alt="fire" />
+                      <img
+                        className="img-fluid mt-1 me-2"
+                        src={fireImg}
+                        alt="fire"
+                      />
                     </span>{" "}
                     80 Calories
                   </p>
@@ -71,7 +75,10 @@ const ProudctDetail = () => {
                       autoComplete="off"
                       defaultChecked
                     />
-                    <label className="btn ms-3 me-2 text-grey" htmlFor="option5">
+                    <label
+                      className="btn ms-3 me-2 text-grey"
+                      htmlFor="option5"
+                    >
                       60gm
                     </label>
 
@@ -80,9 +87,14 @@ const ProudctDetail = () => {
                       className="btn-check"
                       name="options-base"
                       id="option6"
-                      autoComplete="off" checked
+                      autoComplete="off"
+                      checked
                     />
-                    <label className="button-primary me-2" htmlFor="option6" style={{padding: "0.3125rem 0.75rem"}}>
+                    <label
+                      className="button-primary me-2"
+                      htmlFor="option6"
+                      style={{ padding: "0.3125rem 0.75rem" }}
+                    >
                       80gm
                     </label>
 
@@ -93,7 +105,7 @@ const ProudctDetail = () => {
                       id="option9"
                       autoComplete="off"
                     />
-                    <label className="btn text-grey" htmlFor="option9" >
+                    <label className="btn text-grey" htmlFor="option9">
                       100gm
                     </label>
                   </div>
@@ -146,13 +158,13 @@ const ProudctDetail = () => {
                   <span className="text-orange me-2 ms-2 mt-1">Get it by</span>
                   <span className="mt-1">Monday, 16 Sep</span>
                 </p>
-                <div class="d-flex mt-4">
-                  <ul className="me-5 pe-4">
+                <div class="d-flex mt-4  ms-4 ">
+                  <ul className="me-5 pe-4 disc-style">
                     <li className="my-2">Type: Organic</li>
                     <li className="my-2">MFG: Jun 4.2024</li>
                     <li className="my-2">LIFE: 70 days</li>
                   </ul>
-                  <ul className="me-5 pe-4">
+                  <ul className="me-5 pe-4 disc-style">
                     <li className="my-2">SKU: FWM15VKT</li>
                     <li className="my-2">Tags: Snack, Organic, Brown</li>
                     <li className="my-2">Stock: 8 Items In Stock</li>
@@ -161,7 +173,7 @@ const ProudctDetail = () => {
               </div>
             </div>
           </div>
-          <div className="row ms-1 mt-5">
+          <div className="row ms-1 mt-5 description-slider">
             <div
               className="card tabs-slider ms-5 mt-4"
               style={{ border: "1px solid #E1E1E1" }}
@@ -226,20 +238,31 @@ const ProudctDetail = () => {
                             precarious goldfinch mastodon goodness gnashed a
                             jellyfish and one however because.
                           </p>
-                          <ul className="mb-4">
+                          <ul className="mb-4 disc-style ms-4">
                             <li>Type Of Packing Bottle</li>
                             <li>Color Green, Pink, Powder Blue, Purple</li>
                             <li>Quantity Per Case100ml</li>
                             <li>Ethyl Alcohol70%</li>
                             <li>Piece In OneCarton</li>
                           </ul>
+                          <p className="mb-5 pb-4">
+                            Laconic overheard dear woodchuck wow this
+                            outrageously taut beaver hey hello far meadowlark
+                            imitatively egregiously hugged that yikes minimally
+                            unanimous pouted flirtatiously as beaver beheld
+                            above forward energetic across this jeepers
+                            beneficently cockily less a the raucously that magic
+                            upheld far so the this where crud then below after
+                            jeez enchanting drunkenly more much wow callously
+                            irrespective limpet.
+                          </p>
                           <h6 className="mb-4">Suggested Use</h6>
-                          <ul className="mb-4">
+                          <ul className="mb-4 disc-style ms-4">
                             <li>Refrigeration not necessary.</li>
                             <li>Stir before serving</li>
                           </ul>
                           <h6 className="mb-4">Other Ingredients</h6>
-                          <ul className="mb-4">
+                          <ul className="mb-4 disc-style ms-4">
                             <li>Organic raw pecans, organic raw cashews.</li>
                             <li>
                               This butter was produced using a LTG (Low
@@ -252,16 +275,8 @@ const ProudctDetail = () => {
                           </ul>
 
                           <h6 className="mb-4">Warnings</h6>
-                          <ul className="mb-4">
-                            <li>Organic raw pecans, organic raw cashews.</li>
-                            <li>
-                              This butter was produced using a LTG (Low
-                              Temperature Grinding) process
-                            </li>
-                            <li>
-                              Made in machinery that processes tree nuts but
-                              does not process peanuts, gluten, dairy or soy
-                            </li>
+                          <ul className="mb-4 disc-style ms-4">
+                            <li>Oil separation occurs naturally. May contain pieces of shell.</li>
                           </ul>
                         </Tab.Pane>
                         <Tab.Pane eventKey="Additional Info">

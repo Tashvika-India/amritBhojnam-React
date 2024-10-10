@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import homeImg from "../../../assets/images/web/account/home-img.png";
+import product from "../../../assets/images/web/product-card.png";
 import {
   Box,
   FormControl,
@@ -46,7 +47,7 @@ const CheckoutPage = () => {
                             <button class="button-yellow ms-3">Default</button>
                           </div>
 
-                          <p className="mt-2">
+                          <p className="mt-2 text-wrap">
                             House no. 78, Ward no. 7, Vats Colony, Linepar,
                             Bahadurgarh, Haryana - 124507
                           </p>
@@ -73,7 +74,7 @@ const CheckoutPage = () => {
                             </p>
                           </div>
 
-                          <p className="mt-2">
+                          <p className="mt-2 text-wrap">
                             House no. 78, Ward no. 7, Vats Colony, Linepar,
                             Bahadurgarh, Haryana - 124507
                           </p>
@@ -127,10 +128,10 @@ const CheckoutPage = () => {
                   <div className="container fb-container">
                     <div className="row">
                       <div className="col-md-6 ps-0">
-                        <Box sx={{ minWidth: 120 }}>
+                        
                           <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">
-                            State
+                              State
                             </InputLabel>
                             <Select
                               labelId="demo-simple-select-label"
@@ -144,13 +145,13 @@ const CheckoutPage = () => {
                               <MenuItem value={30}>Thirty</MenuItem>
                             </Select>
                           </FormControl>
-                        </Box>
+                        
                       </div>
                       <div className="col-md-6 pe-0">
-                        <Box sx={{ minWidth: 120 }}>
+                       
                           <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">
-                            City
+                              City
                             </InputLabel>
                             <Select
                               labelId="demo-simple-select-label"
@@ -164,10 +165,10 @@ const CheckoutPage = () => {
                               <MenuItem value={30}>Thirty</MenuItem>
                             </Select>
                           </FormControl>
-                        </Box>
+                      
                       </div>
                       <div className="col-md-12 px-0">
-                      <TextField
+                        <TextField
                           fullWidth
                           className="rounded-20 me-5 mt-4"
                           id="outlined-basic"
@@ -176,7 +177,7 @@ const CheckoutPage = () => {
                         />
                       </div>
                       <div className="col-md-12 px-0">
-                      <TextField
+                        <TextField
                           fullWidth
                           className="rounded-20 me-5 mt-4"
                           id="outlined-basic"
@@ -185,7 +186,7 @@ const CheckoutPage = () => {
                         />
                       </div>
                       <div className="col-md-12 px-0">
-                      <TextField
+                        <TextField
                           fullWidth
                           className="rounded-20 me-5 mt-4"
                           id="outlined-basic"
@@ -193,19 +194,103 @@ const CheckoutPage = () => {
                           variant="outlined"
                         />
                       </div>
-                      <button className="home-btn w-25">
-                      <IoHomeOutline size={"25"} color={"#F26722"}/>
-                      </button>
-                      <button className="office-btn">
-                      <HiBuildingOffice2 size={"25"} color={"#F26722"} />
-</button>
+                      <div className="d-flex my-5 ps-0">
+                        <button className="home-btn d-flex  border-0 bg-transparent">
+                          <IoHomeOutline
+                            className="ms-2"
+                            size={"23"}
+                            color={"#F26722"}
+                          />
+                          <p className=" text-orange fw-500 ms-3">Home</p>
+                        </button>
+                        <button className="office-btn d-flex  border-0 bg-transparent ms-4">
+                          <HiBuildingOffice2
+                            className="ms-2"
+                            size={"23"}
+                            color={"#918E92"}
+                          />
+                          <p className=" text-mid-grey fw-500 ms-3">Office</p>
+                        </button>
+                      </div>
+
+                      <div className="checkout-btn d-flex mb-5 pb-5 pe-0 align-items-end justify-content-end">
+                        <button className="button-primary-reverse me-4">
+                          Cancel
+                        </button>
+                        <button className="button-primary fb-fs-16">
+                          Save & Continue
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </form>
               </div>
             </div>
             <div className="col-md-5">
-              
+              <div className="my-card-section product-detail-shadow rounded-20 p-4">
+                <p className="fb-fs-26 fw-bold my-4">My Cart</p>
+                <div className="cart-items mt-4">
+                  <div className="product-item">
+                    <img src={product} className="img-fluid" alt="product" />
+                  </div>
+                  <div className="product-details w-100 ms-3">
+                    <p className="item-name  text-black fw-500 mb-0">
+                      Masala Millet (Veggie Masala)
+                    </p>
+                    <p className="item-weight text-grey mb-0 mt-1">100 g</p>
+                    <h5 className="item-amount mt-2 fw-600">₹70 x 2</h5>
+                  </div>
+                  <div className="product-quantity text-end d-flex align-items-center">
+                    <h6 style={{ fontWeight: "800" }}>₹140</h6>
+                  </div>
+                </div>
+                <div className="cart-items mt-4">
+                  <div className="product-item">
+                    <img src={product} className="img-fluid" alt="product" />
+                  </div>
+                  <div className="product-details w-100 ms-3">
+                    <p className="item-name  text-black fw-500 mb-0">
+                      Masala Millet (Veggie Masala)
+                    </p>
+                    <p className="item-weight text-grey mb-0 mt-1">100 g</p>
+                    <h5 className="item-amount mt-2 fw-600">₹70 x 2</h5>
+                  </div>
+                  <div className="product-quantity text-end d-flex align-items-center">
+                    <h6 style={{ fontWeight: "800" }}>₹140</h6>
+                  </div>
+                </div>
+
+                <div className="cart-items mt-5">
+                  <div className="product-details w-100 ms-3">
+                    <p className="fw-500 my-2">Sub Total </p>
+                    <p className="fw-500 my-2"> Handling fee </p>
+                    <p className="fw-500 my-2 text-orange">Delivery fee </p>
+                    <p className="fw-500 my-2 text-green">Coupon Discount </p>
+                  </div>
+                  <div className="product-quantity text-end">
+                    <p className="fb-fs-18 fw-500 mb-2">₹210.00</p>
+                    <p className="fw-500 fb-fs-18 mb-1"> ₹30.00</p>
+                    <p className="fw-500 fb-fs-18 mb-1 text-orange d-flex">
+                      Free{" "}
+                      <span className="ms-3">
+                        <strike> ₹50.00</strike>
+                      </span>{" "}
+                    </p>
+                    <p className="fw-500 fb-fs-18 mb-2 text-green">-₹30.00</p>
+                  </div>
+                </div>
+
+                <div className="cart-items mt-4 border-top">
+                  <div className="product-details w-100 ms-3 pt-4">
+                    <h6 className="fw-bolder">Total Amount </h6>
+                  </div>
+                  <div className="product-quantity text-end pt-4">
+                    <h5 style={{ textWrap: "nowrap", fontWeight: "800" }}>
+                      ₹ 200.00
+                    </h5>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

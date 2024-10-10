@@ -90,6 +90,10 @@ td {
   color: #f26722 !important;
 }
 
+.text-green {
+  color: #287E00 !important;
+}
+
 .text-black {
   color: #231d25 !important;
 }
@@ -234,6 +238,30 @@ td {
   border: 1px solid #dcdad5;
 }
 
+.disc-style {
+  list-style: disc;
+}
+
+.button-primary-reverse {
+  background-color: #ffffff;
+  color: #f26722;
+  border: 1px solid #f26722 !important;
+  border-radius: 0.625rem;
+  font-size: 1rem;
+  font-weight: 600;
+  padding-inline: 1.5rem;
+  border: 1px solid transparent;
+  padding-block: 0.75rem;
+  text-decoration: none;
+  line-height: normal;
+  transition: all 0.3s ease-in-out;
+}
+.button-primary-reverse:hover {
+  background-color: #f26722;
+  border-color: transparent;
+  color: #ffffff;
+}
+
 .button-primary {
   background-color: #f26722;
   border-radius: 0.625rem;
@@ -251,6 +279,43 @@ td {
   background-color: #ffffff;
   color: #f26722;
   border-color: #f26722;
+}
+
+.button-yellow {
+  background-color: #d59615;
+  border-radius: 0.2781rem;
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  padding: 0px 6px;
+  text-decoration: none;
+  line-height: 1px;
+  transition: all 0.3s ease-in-out;
+}
+.button-yellow:hover {
+  background-color: #ffffff;
+  color: #d59615;
+  border-color: #d59615;
+}
+
+.button-set-default {
+  background-color: #ffffff;
+  color: #d59615;
+  border: 1px solid #d59615;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: #FFF7E7;
+  text-decoration: none;
+  line-height: 1px;
+  transition: all 0.3s ease-in-out;
+}
+.button-set-default:hover {
+  background-color: #d59615;
+  color: #ffffff;
+  border-color: transparent;
 }
 
 .button-white {
