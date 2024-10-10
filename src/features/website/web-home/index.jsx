@@ -37,7 +37,94 @@ import { Checkbox } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 
 const HomePage = () => {
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
+  const data = [
+    {
+      name: "Masala Millet (Veggie Masala)",
+      category: "Millet",
+      description: "Veggie Masala Millet",
+      image_url: "path/to/image.png",
+      weight: "100g",
+      price: {
+        original: 80,
+        discounted: 70,
+        currency: "₹",
+      },
+      discount_percentage: "10 % Off",
+      calories: 80,
+      availability: "In Stock",
+
+      calories: "80 Calories",
+    },
+    {
+      name: "Masala Millet (Veggie Masala)",
+      category: "Millet",
+      description: "Veggie Masala Millet",
+      image_url: "path/to/image.png",
+      weight: "100g",
+      price: {
+        original: 80,
+        discounted: 70,
+        currency: "₹",
+      },
+      discount_percentage: "10 % Off",
+      calories: 80,
+      availability: "In Stock",
+
+      calories: "80 Calories",
+    },
+    {
+      name: "Masala Millet (Veggie Masala)",
+      category: "Millet",
+      description: "Veggie Masala Millet",
+      image_url: "path/to/image.png",
+      weight: "100g",
+      price: {
+        original: 80,
+        discounted: 70,
+        currency: "₹",
+      },
+      discount_percentage: "10 % Off",
+      calories: 80,
+      availability: "In Stock",
+
+      calories: "80 Calories",
+    },
+    {
+      name: "Masala Millet (Veggie Masala)",
+      category: "Millet",
+      description: "Veggie Masala Millet",
+      image_url: "path/to/image.png",
+      weight: "100g",
+      price: {
+        original: 80,
+        discounted: 70,
+        currency: "₹",
+      },
+      discount_percentage: "10 % Off",
+      calories: 80,
+      availability: "In Stock",
+
+      calories: "80 Calories",
+    },
+    {
+      name: "Masala Millet (Veggie Masala)",
+      category: "Millet",
+      description: "Veggie Masala Millet",
+      image_url: "path/to/image.png",
+      weight: "100g",
+      price: {
+        original: 80,
+        discounted: 70,
+        currency: "₹",
+      },
+      discount_percentage: "10 % Off",
+      calories: 80,
+      availability: "In Stock",
+
+      calories: "80 Calories",
+    },
+  ];
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -171,15 +258,24 @@ const HomePage = () => {
                   <Tab.Pane eventKey="All">
                     <div className="row">
                       <div className="d-flex mt-4 pt-2 justify-content-between">
-                        <div className="product-card border py-3 px-4">
+                       {data?.map((card)=><div className="product-card border py-3 px-4">
                           <div className="d-flex justify-content-between ">
                             <div>
                               <span className="product-badge badge bg-yellow fw-500">
-                                10% off
+                                {card.discount_percentage}
                               </span>
                             </div>
                             <div>
-                               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}  style={{color: "#F26722", margin:"0", padding:"0"}}  />
+                              <Checkbox
+                                {...label}
+                                icon={<FavoriteBorder />}
+                                checkedIcon={<Favorite />}
+                                style={{
+                                  color: "#F26722",
+                                  margin: "0",
+                                  padding: "0",
+                                }}
+                              />
                             </div>
                           </div>
                           <span className="product-fav"></span>
@@ -198,25 +294,26 @@ const HomePage = () => {
                                 alt="fire"
                               />
                             </span>{" "}
-                            80 Calories
+                            {card.calories}
                           </h6>
                           <h5 className="fb-fs-14 fw-600 masala-con">
-                            Masala Millet (Veggie Masala)
+                            {card.name}
                           </h5>
-                          <h5 className="fb-fs-14 fw-600 text-grey">100 g</h5>
+                          <h5 className="fb-fs-14 fw-600 text-grey">{card.weight}</h5>
                           <div className="d-flex justify-content-between align-items-center mt-2">
                             <h6 className="fb-fs-20 fw-bold mb-0">
                               <small className="fw-500 fb-fs-16 text-grey">
-                                <strike>₹80</strike>{" "}
+                                <strike>{card.price.currency}{card.price.original}</strike>{" "}
                               </small>{" "}
-                              ₹70
+                              {card.price.currency}
+                            {card.price.discounted}
                             </h6>
                             <button className="button-primary py-1 rounded fb-fs-14 fw-600">
                               Add
                             </button>
                           </div>
-                        </div>
-                        <div className="product-card border py-3 px-4">
+                        </div>)}
+                        {/* <div className="product-card border py-3 px-4">
                           <div className="d-flex justify-content-between ">
                             <div>
                               <span className="product-badge badge bg-yellow fw-500">
@@ -395,10 +492,10 @@ const HomePage = () => {
                               Add
                             </button>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
-                    <div className="row">
+                    {/* <div className="row">
                       <div className="d-flex mt-4 pt-2 justify-content-between">
                         <div className="product-card border py-3 px-4">
                           <div className="d-flex justify-content-between ">
@@ -626,7 +723,7 @@ const HomePage = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </Tab.Pane>
                   <Tab.Pane eventKey="Snacks">Second tab content</Tab.Pane>
                   <Tab.Pane eventKey="Instant-Mix">Second tab content</Tab.Pane>
