@@ -859,6 +859,13 @@ html {
   gap: 0.6rem;
   padding: 0.2rem;
 }
+.banner-slider .banner-content {
+  background-image: url("../images/web/banner-background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #d5ccbe;
+}
+
 @media (min-width: 1400px) {
   .fb-container,
   .fb-container-lg,

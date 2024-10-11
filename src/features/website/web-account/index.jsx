@@ -31,9 +31,9 @@ const UserProfile = () => {
             className="position-relative text-start pb-3"
             style={{ marginTop: "-5rem" }}
           >
-            <div className="text-center rounded-circle d-inline-block position-relative d-flex">
+            <div className="text-center rounded-circle  position-relative d-flex flex-wrap">
               <img
-                className="img-profile avatar-xl rounded-circle img-fluid "
+                className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center"
                 src={profilePic}
                 alt="Card image cap"
               />

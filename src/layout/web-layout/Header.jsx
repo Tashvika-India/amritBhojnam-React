@@ -40,9 +40,9 @@ const Header = () => {
         </div>
         <div className="container fb-container pb-3 pt-2">
           <div className="d-flex justify-content-between align-items-center">
-            <div className="logo">
+          <Link to="/home"><div className="logo">
               <img src={logo} alt="logo" className='img-fluid' />
-            </div>
+            </div></Link>
             <div className="header-delivery-search mx-auto  d-none d-xl-block">
               <div className="d-inline-flex gap-4 w-100">
                 <div className="header-delivery d-inline-flex gap-3 align-items-center">

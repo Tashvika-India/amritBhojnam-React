@@ -22,7 +22,7 @@ const ProfileDropdown = () => {
             <Dropdown.Menu align="start" className='menu-wrapper-card'>
                 <div className="account-menu">
                     <div className="account-profile-detail">
-                        <Avatar style={{ width: '3rem', height: '3rem' }} />
+                    <Avatar style={{ width: '3rem', height: '3rem' }} />
                         <div className="d-inline-block ms-2 account-profile-content">
                             <h6>Piyush Kanwal</h6>
                             <p className="mb-0">+91 1234567890</p>

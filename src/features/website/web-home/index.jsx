@@ -53,6 +53,8 @@ const HomePage = () => {
       discount_percentage: "10 % Off",
       calories: 80,
       availability: "In Stock",
+
+      calories: "80 Calories",
     },
     {
       name: "Masala Millet (Veggie Masala)",
@@ -68,6 +70,8 @@ const HomePage = () => {
       discount_percentage: "10 % Off",
       calories: 80,
       availability: "In Stock",
+
+      calories: "80 Calories",
     },
     {
       name: "Masala Millet (Veggie Masala)",
@@ -83,6 +87,8 @@ const HomePage = () => {
       discount_percentage: "10 % Off",
       calories: 80,
       availability: "In Stock",
+
+      calories: "80 Calories",
     },
     {
       name: "Masala Millet (Veggie Masala)",
@@ -98,6 +104,8 @@ const HomePage = () => {
       discount_percentage: "10 % Off",
       calories: 80,
       availability: "In Stock",
+
+      calories: "80 Calories",
     },
     {
       name: "Masala Millet (Veggie Masala)",
@@ -113,6 +121,8 @@ const HomePage = () => {
       discount_percentage: "10 % Off",
       calories: 80,
       availability: "In Stock",
+
+      calories: "80 Calories",
     },
   ];
   return (
