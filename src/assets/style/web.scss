@@ -596,6 +596,14 @@ text-wrap: nowrap;
 }
 .total-amount-wrapper {
 }
+.banner-slider{
+  .banner-content{
+    background-image: url("../images/web/banner-background.png");
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-color: #d5ccbe ; 
+  }
+}
 
 // responsive styles
 

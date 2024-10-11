@@ -1,10 +1,21 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import Slider from 'react-slick';
 import banner from '../../../../assets/images/web/web-banner.png';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-
+import {getBannerApi}  from "../../../../services/adminApiRoutes"
 const WebBanner = () => { 
-    
+    const bannerContent = {
+        label: "All Natural Productsgfgfg",
+        heading: {
+          normalText: "Good For",
+          highlightedText: "You and the Planet",
+        },
+        description:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer",
+        buttonText: "Shop Now",
+        buttonClass: "button-primary",
+      };
+    const[bannerData,setBannerData] = useState([])
     const settings = {
         dots: false,
         infinite: false,
@@ -17,6 +28,19 @@ const WebBanner = () => {
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />,
     };
+    const fetchBannerData =async()=>{
+        try{
+            const response = await getBannerApi()
+        setBannerData(response?.data)
+        }
+        catch(error){
+
+        }
+
+    }
+    useEffect(()=>{
+fetchBannerData()
+    },[])
     return (
         < >
             <Slider {...settings} className="banner-slider">
@@ -24,7 +48,7 @@ const WebBanner = () => {
                     <img src={banner} alt="banner" className='img-fluid w-100' />
                     {/* <div className="row">
                         <div className="col-md-6">
-                            <div className="banner-content">
+                           <div className="banner-content">
                                 <span className="label">All Natural Products</span>
                                 <h1 className='fw-light text-balance'>Good For <span className='fw-bold text-orange'>You and the Planet</span></h1>
                                 <p className='text-balance mb-4'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer </p>
