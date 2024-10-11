@@ -8,6 +8,7 @@ import catIcon from "../../../assets/images/web/products/product-cat.svg";
 import { Slider } from "primereact/slider";
 import starImg from "../../../assets/images/web/products/star.png";
 import { grey } from "@mui/material/colors";
+import ProductCard from "../web-home/components/ProductCard";
 
 const ProudctList = () => {
   const [value, setValue] = useState([20, 80]);
