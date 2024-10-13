@@ -54,8 +54,6 @@ const HomePage = () => {
       discount_percentage: "10 % Off",
       calories: 80,
       availability: "In Stock",
-
-      calories: "80 Calories",
     },
     {
       name: "Masala Millet (Veggie Masala)",
@@ -71,8 +69,6 @@ const HomePage = () => {
       discount_percentage: "10 % Off",
       calories: 80,
       availability: "In Stock",
-
-      calories: "80 Calories",
     },
     {
       name: "Masala Millet (Veggie Masala)",
@@ -88,8 +84,6 @@ const HomePage = () => {
       discount_percentage: "10 % Off",
       calories: 80,
       availability: "In Stock",
-
-      calories: "80 Calories",
     },
     {
       name: "Masala Millet (Veggie Masala)",
@@ -105,8 +99,6 @@ const HomePage = () => {
       discount_percentage: "10 % Off",
       calories: 80,
       availability: "In Stock",
-
-      calories: "80 Calories",
     },
     {
       name: "Masala Millet (Veggie Masala)",
@@ -122,8 +114,6 @@ const HomePage = () => {
       discount_percentage: "10 % Off",
       calories: 80,
       availability: "In Stock",
-
-      calories: "80 Calories",
     },
   ];
   return (
@@ -225,30 +215,30 @@ const HomePage = () => {
               <div className="col-md-6">
                 <Nav
                   variant="pills"
-                  className="flex-row justify-content-end tab-nav-wrapper"
+                  className="flex-row justify-content-lg-end tab-nav-wrapper"
                 >
                   <Nav.Item className="nav">
-                    <Nav.Link className="fb-fs-18" eventKey="All">
+                    <Nav.Link className="fb-fs-18 px-2 px-lg-3" eventKey="All">
                       All
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link className="fb-fs-18" eventKey="Snacks">
+                    <Nav.Link className="fb-fs-18 px-2 px-lg-3" eventKey="Snacks">
                       Snacks
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link className="fb-fs-18" eventKey="Instant-Mix">
+                    <Nav.Link className="fb-fs-18 px-2 px-lg-3" eventKey="Instant-Mix">
                       Instant Mix
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link className="fb-fs-18" eventKey="Flour">
+                    <Nav.Link className="fb-fs-18 px-2 px-lg-3" eventKey="Flour">
                       Flour
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link className="fb-fs-18" eventKey="Rice">
+                    <Nav.Link className="fb-fs-18 px-2 px-lg-3" eventKey="Rice">
                       Rice
                     </Nav.Link>
                   </Nav.Item>
@@ -258,7 +248,7 @@ const HomePage = () => {
                 <Tab.Content>
                   <Tab.Pane eventKey="All">
                     <div className="row">
-                      <div className="d-flex mt-4 pt-2 justify-content-between">
+                      <div className="d-flex mt-4 pt-2 gap-4 flex-wrap justify-content-between">
                         {data?.map((card, index) => <ProductCard card={card} key={index} />)}
                       </div>
                     </div>
