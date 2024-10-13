@@ -320,6 +320,7 @@ text-wrap: nowrap;
 .product-card {
   position: relative;
   border-radius: 1.16rem;
+  flex: 1;
   .product-badge {
     position: absolute;
     top: -1px;
@@ -901,7 +902,7 @@ text-wrap: nowrap;
     .protein-left {
       height: 85vh;
       margin-bottom: 1rem;
-      border-radius: 16px;
+      border-radius: 1rem;
       .left-content {
         padding-left: 1rem !important;
         padding-right: 1rem !important;
@@ -996,6 +997,9 @@ text-wrap: nowrap;
 }
 
 @media (max-width: 576px) {
+  .web-wrapper-main section {
+    padding: 2rem !important;
+  }
   // first-purchase
   h5{
     font-size: 0.8125rem !important;
@@ -1074,9 +1078,9 @@ text-wrap: nowrap;
   }
   .offer-cards {
     .protein-left {
-      height: 85vh;
+      height: 60vh;
       margin-bottom: 1rem;
-      border-radius: 16px;
+      border-radius: 1rem;
       .left-content {
         padding-left: 1rem !important;
         padding-right: 1rem !important;
@@ -1101,15 +1105,15 @@ text-wrap: nowrap;
     font-size: 9.38px;
   }
   .offer-cards .protein-right-top {
-    border-radius: 16px;
-    height: 35vh !important;
+    border-radius: 1rem;
+    height: 23vh !important;
     background-position: left;
     // width: 91vw !important;
     background-size: cover;
   }
   .offer-cards .protein-right-bottom {
-    border-radius: 16px;
-    height: 35vh !important;
+    border-radius: 1rem;
+    height: 23vh !important;
     background-position: left;
     // width: 91vw !important;
   }
