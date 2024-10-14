@@ -9,12 +9,21 @@ import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import ShareIcon from "@mui/icons-material/Share";
 import deliveryImg from "../../../assets/images/web/product-detail/delivery-img.png";
 import AsNavFor from "../web-home/components/MultiSlide";
-import { Nav, Tab } from "react-bootstrap";
+import { ButtonGroup, Nav, Tab, ToggleButton } from "react-bootstrap";
 
 const ProudctDetail = () => {
   const [value, setValue] = useState(3.5);
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [selectedOption, setSelectedOption] = useState("option2");
+  const [checked, setChecked] = useState(false);
+  const [radioValue, setRadioValue] = useState('1');
+
+  const radios = [
+    { name: '60gm', value: '1' },
+    { name: '80gm', value: '2' },
+    { name: '100gm', value: '3' },
+  ];
+  
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -66,49 +75,22 @@ const ProudctDetail = () => {
                 </p>
                 <div className="d-flex mt-4 mb-3">
                   <p className="fw-600 pt-2">Size / Weight:</p>
-                  <div className="bd-example m-0 border-0">
-                    <input
-                      type="radio"
-                      className="btn-check"
-                      name="options-base"
-                      id="option5"
-                      autoComplete="off"
-                      defaultChecked
-                    />
-                    <label
-                      className="btn ms-3 me-2 text-grey"
-                      htmlFor="option5"
-                    >
-                      60gm
-                    </label>
-
-                    <input
-                      type="radio"
-                      className="btn-check"
-                      name="options-base"
-                      id="option6"
-                      autoComplete="off"
-                      checked
-                    />
-                    <label
-                      className="button-primary me-2"
-                      htmlFor="option6"
-                      style={{ padding: "0.3125rem 0.75rem" }}
-                    >
-                      80gm
-                    </label>
-
-                    <input
-                      type="radio"
-                      className="btn-check"
-                      name="options-base"
-                      id="option9"
-                      autoComplete="off"
-                    />
-                    <label className="btn text-grey" htmlFor="option9">
-                      100gm
-                    </label>
-                  </div>
+                  <ButtonGroup className="weight-check ms-3">
+        {radios.map((radio, idx) => (
+          <ToggleButton
+            key={idx}
+            id={`radio-${idx}`}
+            type="radio"
+            variant={idx % 2 ? 'bg-orange' : 'bg-orange'}
+            name="radio"
+            value={radio.value}
+            checked={radioValue === radio.value}
+            onChange={(e) => setRadioValue(e.currentTarget.value)}
+          >
+            {radio.name}
+          </ToggleButton>
+        ))}
+      </ButtonGroup>
                 </div>
                 <p className="fb-fs-40 text-orange fw-bold">
                   ₹80
