@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Checkbox } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import productCard from "../../../../assets/images/web/product-card.png";
@@ -8,7 +8,24 @@ const ProductCard = ({card,index}) => {
 
     const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
+    const [showAddButton, setShowAddButton] = useState(true);
 
+    // State to manage quantity
+    const [quantity, setQuantity] = useState(1);
+  
+    // Function to handle the decrease of quantity
+    const decreaseQuantity = () => {
+      if (quantity > 1) {
+        setQuantity(quantity - 1);
+      }
+    };
+  
+    // Function to handle the increase of quantity
+    const increaseQuantity = () => {
+      if (quantity < 10) {
+        setQuantity(quantity + 1);
+      }
+    };
     return (
         < >
             <div className="product-card border py-3 px-4" key={index}>
@@ -61,9 +78,41 @@ const ProductCard = ({card,index}) => {
                         {card.price.currency}
                         {card.price.discounted}
                     </h6>
-                    <button className="button-primary py-1 rounded fb-fs-14 fw-600">
-                        Add
+                    <div>
+      {/* Conditional rendering of the "Add" button */}
+      {showAddButton ? (
+        <button
+          className="button-primary py-1 rounded fb-fs-14 fw-600"
+          onClick={() => setShowAddButton(false)} // Hide Add button and show quantity management on click
+        >
+          Add
+        </button>
+      ) : (
+        <div className="product-quantity text-end">
+                  <div className="quantity-manage mb-4">
+                    <button
+                      className="quantity-minu d-inline-block border-0 bg-white text-orange fw-600"
+                      onClick={decreaseQuantity}
+                      disabled={quantity === 1}
+                    >
+                      -
                     </button>
+                    <span className="quantity-count d-inline-block text-orange fw-600">
+                      {quantity}{" "}
+                    </span>
+                    <button
+                      className="quantity-plus d-inline-block border-0 bg-white text-orange fw-600"
+                      onClick={increaseQuantity}
+                      disabled={quantity === 10}
+                    >
+                      +
+                    </button>
+                  </div>
+                  
+                </div>
+      )}
+    </div>
+                    
                 </div>
             </div>
         </>

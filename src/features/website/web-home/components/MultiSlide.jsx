@@ -17,7 +17,7 @@ function AsNavFor() {
     setNav2(sliderRef2);
   }, []);
   return (
-    <div className="slider-container ms-5">
+    <div className="slider-container ms-5" >
       <Slider asNavFor={nav2} ref={(slider) => (sliderRef1 = slider)}>
         <div className="product-detail-slider">
           <div className="product-detail-image bg-background pt-3 ps-4">
