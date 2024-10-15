@@ -27,13 +27,13 @@ const ItemSlide = () => {
       {
         breakpoint: 768, // For mobile screens
         settings: {
-          slidesToShow: 2, // Show 2 items
+          slidesToShow: 2, // Show 2 items 
         },
       },
       {
         breakpoint: 480, // For very small screens
         settings: {
-          slidesToShow: 2, // Show 1 item
+          slidesToShow: 1, // Show 1 item
         },
       },
     ],
@@ -43,7 +43,7 @@ const ItemSlide = () => {
       <Slider {...settings} className="item-slider">
         <div className="item-slide px-2 px-lg-0">
           <div
-            className="cat-itmes bg-orange p-4 gap-0 w-255"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">
@@ -64,7 +64,7 @@ const ItemSlide = () => {
         </div>
         <div className="item-slide px-2 px-lg-0">
         <div
-            className="cat-itmes bg-orange p-4 gap-0 w-255"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">
@@ -85,7 +85,7 @@ const ItemSlide = () => {
         </div>
         <div className="item-slide px-2 px-lg-0">
         <div
-            className="cat-itmes bg-orange p-4 gap-0 w-255"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">
@@ -106,7 +106,7 @@ const ItemSlide = () => {
         </div>
         <div className="item-slide px-2 px-lg-0">
           <div
-            className="cat-itmes bg-orange p-4 gap-0 w-255"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">
@@ -127,7 +127,7 @@ const ItemSlide = () => {
         </div>
         <div className="item-slide px-2 px-lg-0">
           <div
-            className="cat-itmes bg-orange p-4 gap-0 w-255"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">
@@ -148,7 +148,7 @@ const ItemSlide = () => {
         </div>
         <div className="item-slide px-2 px-lg-0">
           <div
-            className="cat-itmes bg-orange p-4 gap-0 w-255"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">
@@ -169,7 +169,7 @@ const ItemSlide = () => {
         </div>
         <div className="item-slide px-2 px-lg-0">
           <div
-            className="cat-itmes bg-orange p-4 gap-0 w-255"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">

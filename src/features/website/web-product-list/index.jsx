@@ -5,6 +5,11 @@ import fireImg from "../../../assets/images/web/Fire.png";
 import productCard from "../../../assets/images/web/product-card.png";
 import { FiHeart, FiMinus } from "react-icons/fi";
 import catIcon from "../../../assets/images/web/products/product-cat.svg";
+import bakeryImg from "../../../assets/images/web/products/bakery.png";
+import beveragesImg from "../../../assets/images/web/products/beverages.png";
+import flourImg from "../../../assets/images/web/products/flour-img.png";
+import mixesImg from "../../../assets/images/web/products/mixes.png";
+import snacksImg from "../../../assets/images/web/products/snacks.png";
 import { Slider } from "primereact/slider";
 import starImg from "../../../assets/images/web/products/star.png";
 import { grey } from "@mui/material/colors";
@@ -99,7 +104,7 @@ const ProudctList = () => {
       <section>
         <div className="container fb-container">
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-lg-3 col-12">
               <div className="bg-white product-detail-shadow rounded-20 p-4 mb-5">
                 <h6 className="underline-heading fw-bold">Category</h6>
                 <div className="">
@@ -113,35 +118,35 @@ const ProudctList = () => {
                     </li>
                     <li className="cat-btn-item">
                       <span className="d-inline-flex align-items-center gap-2">
-                        <img src={catIcon} className="img-fluid" alt="icon" />
+                        <img src={bakeryImg} className="img-fluid" alt="icon" />
                         Bakery & Confectionery
                       </span>
                       <span className="pill-circle">2</span>
                     </li>
                     <li className="cat-btn-item">
                       <span className="d-inline-flex align-items-center gap-2">
-                        <img src={catIcon} className="img-fluid" alt="icon" />
+                        <img src={flourImg} className="img-fluid" alt="icon" />
                         Flour
                       </span>
                       <span className="pill-circle">5</span>
                     </li>
                     <li className="cat-btn-item">
                       <span className="d-inline-flex align-items-center gap-2">
-                        <img src={catIcon} className="img-fluid" alt="icon" />
+                        <img src={beveragesImg} className="img-fluid" alt="icon" />
                         Beverages
                       </span>
                       <span className="pill-circle">2</span>
                     </li>
                     <li className="cat-btn-item">
                       <span className="d-inline-flex align-items-center gap-2">
-                        <img src={catIcon} className="img-fluid" alt="icon" />
+                        <img src={snacksImg} className="img-fluid" alt="icon" />
                         Snacks & Munching
                       </span>
                       <span className="pill-circle">5</span>
                     </li>
                     <li className="cat-btn-item">
                       <span className="d-inline-flex align-items-center gap-2">
-                        <img src={catIcon} className="img-fluid" alt="icon" />
+                        <img src={mixesImg} className="img-fluid" alt="icon" />
                         Instant Mixes
                       </span>
                       <span className="pill-circle">2</span>
@@ -180,7 +185,7 @@ const ProudctList = () => {
                       </div>
                     </div>
                     <div className="col-2 text-center">
-                      <FiMinus size={50} color={"#918E92"} />
+                      <FiMinus size={40} color={"#918E92"} />
                     </div>
                     <div className="col-5 ps-0">
                       <div className="max-border">
@@ -251,7 +256,7 @@ const ProudctList = () => {
                 </div>
               </div>
             </div>
-            <div className="col-md-9">
+            <div className="col-lg-9 col-12">
               <div className="d-flex justify-content-between align-items-center mt-lg-0 mt-4">
                 <h5 className="text-mid-grey">Showing 6 result</h5>
                 <div className="sort-select d-flex">

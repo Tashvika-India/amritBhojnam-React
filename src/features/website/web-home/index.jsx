@@ -36,6 +36,7 @@ import firstPurchase from "../../../assets/images/web/first-purchase.png";
 import { Checkbox } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import ProductCard from "./components/ProductCard";
+import { Link } from "react-router-dom";
 
 const HomePage = () => { 
 
@@ -130,7 +131,7 @@ const HomePage = () => {
       <section>
         <div className="container fb-container">
           <div className="cat-items-wrapper">
-            <div className="cat-itmes">
+          <Link to="/products"><div className="cat-itmes">
               <div
                 className="item-image"
                 style={{
@@ -141,8 +142,8 @@ const HomePage = () => {
                 <img className="img-fluid" src={product1} alt="millet-rice" />
               </div>
               <h6 className="fb-fs-16 fw-500">Millet Rice</h6>
-            </div>
-            <div className="cat-itmes">
+            </div></Link>
+            <Link to="/products"><div className="cat-itmes">
               <div
                 className="item-image"
                 style={{
@@ -153,8 +154,8 @@ const HomePage = () => {
                 <img className="img-fluid" src={jowerImg} alt="millet-rice" />
               </div>
               <h6 className="fb-fs-16 fw-500">Bakery & Confectionery</h6>
-            </div>
-            <div className="cat-itmes">
+            </div></Link>
+            <Link to="/products"><div className="cat-itmes">
               <div
                 className="item-image"
                 style={{
@@ -165,8 +166,8 @@ const HomePage = () => {
                 <img className="img-fluid" src={flourImg} alt="millet-rice" />
               </div>
               <h6 className="fb-fs-16 fw-500">Flour</h6>
-            </div>
-            <div className="cat-itmes">
+            </div></Link>
+            <Link to="/products"><div className="cat-itmes">
               <div
                 className="item-image"
                 style={{
@@ -177,8 +178,8 @@ const HomePage = () => {
                 <img className="img-fluid" src={idlliImg} alt="millet-rice" />
               </div>
               <h6 className="fb-fs-16 fw-500">Beverages</h6>
-            </div>
-            <div className="cat-itmes">
+            </div></Link>
+            <Link to="/products"><div className="cat-itmes">
               <div
                 className="item-image"
                 style={{
@@ -189,8 +190,8 @@ const HomePage = () => {
                 <img className="img-fluid" src={murukuImg} alt="millet-rice" />
               </div>
               <h6 className="fb-fs-16 fw-500">Snacks & Munching Rice</h6>
-            </div>
-            <div className="cat-itmes">
+            </div></Link>
+            <Link to="/products"><div className="cat-itmes">
               <div
                 className="item-image"
                 style={{
@@ -201,7 +202,7 @@ const HomePage = () => {
                 <img className="img-fluid" src={soupImg} alt="millet-rice" />
               </div>
               <h6 className="fb-fs-16 fw-500">Instant Mixes</h6>
-            </div>
+            </div></Link>
           </div>
         </div>
       </section>
