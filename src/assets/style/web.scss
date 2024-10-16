@@ -335,6 +335,14 @@ text-wrap: nowrap;
     padding: 0.375rem 0.75rem;
     border-radius: 0.625rem 0 0.875rem 0; /* Rounded corners on top-left and bottom-right */
   }
+  .product-image{
+    img{
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      width: 100%;
+    }
+    
+  }
   .masala-con {
   }
 }
@@ -1048,6 +1056,19 @@ text-wrap: nowrap;
 @media (max-width: 576px) {
   .web-wrapper-main section {
     padding-block: 2rem !important;
+  }
+  .download-section .download-content img{
+    display: none;
+  }
+  .download-section .millet-right,
+  .grain-1,
+  .grain-2,
+  .grain-3 {
+    display: none; /* Hide these images */
+  }
+  .download-section .phone-image{
+    aspect-ratio: 6 / 5;
+    object-fit: contain;
   }
   .button-yellow{
     padding: 0.4375rem 0.375rem;

@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Checkbox } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
-import productCard from "../../../../assets/images/web/product-card.png";
+// import productCard from "../../../../assets/images/web/product-product.png";
 import fireImg from "../../../../assets/images/web/Fire.png";
 import { Link } from "react-router-dom";
+import {getProductApi} from "../../../../services/adminApiRoutes";
+import { baseURL } from '../../../../utils/constant-variable';
 
-const ProductCard = ({ card, index }) => {
+const ProductCard = ({ product, index }) => {
+
+  console.log('product', product?.images);
+  
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [quantity, setQuantity] = useState(0);
+  
   const decreaseQuantity = () => {
     if (quantity <= 1) {
       setQuantity(0);
@@ -23,14 +29,16 @@ const ProductCard = ({ card, index }) => {
   const handleClick = () => {
     setQuantity(1);
   };
-
+ 
+  
   return (
     <>
+    
       <div className="product-card border py-3 px-4" key={index}>
         <div className="d-flex justify-content-between ">
           <div>
             <span className="product-badge badge bg-yellow fw-500">
-              {card.discount_percentage}
+               10% off
             </span>
           </div>
           <div>
@@ -47,27 +55,29 @@ const ProductCard = ({ card, index }) => {
           </div>
         </div>
         <span className="product-fav"></span>
-        <div className="">
-          <img className="img-fluid pb-3" src={productCard} alt="product" />
+        <div className="product-image">
+          <img className="img-fluid pb-3" src={ baseURL + product?.images[0]?.img_files} alt="product" />
         </div>
         <h6 className="fb-fs-12 fw-500 d-flex text-brown">
           <span>
-            <img className="img-fluid" src={fireImg} alt="fire" />
+          <img className="img-fluid" src={fireImg} /> 
           </span>
-          {card.calories}
+          <span className='pt-1 ps-1'>
+          80 Calories
+          </span>
         </h6>
-        <Link to="/products"><h5 className="fb-fs-14 fw-600 masala-con">{card.name}</h5>Home</Link>
-        <h5 className="fb-fs-14 fw-600 text-grey">{card.weight}</h5>
+        <Link to="/products"><h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5></Link>
+        <h5 className="fb-fs-14 fw-600 text-grey">
+        100 g
+        </h5>
         <div className="d-flex justify-content-between align-items-center mt-2">
           <h6 className="fb-fs-20 fw-bold mb-0">
             <small className="fw-500 fb-fs-16 text-grey">
               <strike>
-                {card.price.currency}
-                {card.price.original}
+              ₹ {product?.offer_price}
               </strike>
             </small>
-            {card.price.currency}
-            {card.price.discounted}
+            ₹ {product?.max_price}
           </h6>
           <div>
             {/* Conditional rendering of the "Add" button */}
@@ -104,6 +114,7 @@ const ProductCard = ({ card, index }) => {
           </div>
         </div>
       </div>
+      
     </>
   );
 };
