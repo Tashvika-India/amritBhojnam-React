@@ -17,12 +17,12 @@ function AsNavFor() {
     setNav2(sliderRef2);
   }, []);
   return (
-    <div className="slider-container ms-5" >
+    <div className="slider-container ms-lg-5" >
       <Slider asNavFor={nav2} ref={(slider) => (sliderRef1 = slider)}>
         <div className="product-detail-slider">
-          <div className="product-detail-image bg-background pt-3 ps-4">
+          <div className="product-detail-image bg-background pt-3 ps-lg-4">
             <img
-              className="img-fluid pt-5 ps-4"
+              className="img-fluid pt-lg-5 ps-lg-4"
               src={productDetail}
               alt="banner-ads"
             />

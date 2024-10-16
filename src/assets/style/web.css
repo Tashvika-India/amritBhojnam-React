@@ -502,6 +502,12 @@ html {
   z-index: 1;
 }
 
+.custom-checkbox .p-checkbox-box {
+  border: none;
+  box-shadow: none;
+  background-color: #EEEEEE;
+}
+
 .category-select-list {
   display: flex;
   flex-direction: column;
@@ -583,7 +589,6 @@ html {
 
 .max-border {
   border: 1px solid #dcdad5;
-  padding: 0.3125rem;
   border-radius: 0.375rem;
   text-wrap: nowrap;
 }
@@ -631,6 +636,11 @@ html {
 .product-card {
   position: relative;
   border-radius: 1.16rem;
+  flex: 1;
+}
+.product-card:hover {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+  border: 1px solid #f26722 !important;
 }
 .product-card .product-badge {
   position: absolute;
@@ -638,6 +648,12 @@ html {
   left: -1px;
   padding: 0.375rem 0.75rem;
   border-radius: 0.625rem 0 0.875rem 0; /* Rounded corners on top-left and bottom-right */
+}
+.product-card .product-image img {
+  aspect-ratio: 4/3;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
 }
 .first_purchase .purchase-bg {
   height: 26.3406rem !important;
@@ -761,6 +777,18 @@ html {
   height: 35.125rem;
 }
 
+.product-quantity {
+  color: #f26722;
+}
+.product-quantity .quantity-manage {
+  border: 1px solid #f26722;
+  border-radius: 0.625rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.2rem;
+}
 .download-section {
   background: linear-gradient(180deg, #ffffff 0%, #fff6e8 50%, #ffffff 100%);
   position: relative;
@@ -864,6 +892,21 @@ html {
   background-repeat: no-repeat;
   background-size: cover;
   background-color: #d5ccbe;
+}
+
+.custom-tabview .p-tabview-nav li .p-highlight {
+  background-color: #d59615 !important; /* Set the background color of the active tab */
+}
+
+.custom-tabview .p-tabview-nav li.p-highlight .p-tabview-title {
+  color: #d59615 !important; /* Set the text color of the active tab */
+}
+
+.weight-check .btn-check:checked + .btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check) + .btn:active {
+  background-color: #f26722;
+  border-color: transparent;
+  border-radius: 6px;
+  color: #ffffff;
 }
 
 @media (min-width: 1400px) {
@@ -1103,10 +1146,24 @@ html {
     font-size: 0.68rem;
     margin-bottom: 2.5rem;
   }
+  .button-yellow {
+    padding: 0.4375rem 0.375rem;
+  }
+  .button-set-default {
+    padding: 0.625rem;
+    margin-top: 0.625rem;
+  }
 }
 @media (min-width: 576px) and (max-width: 768px) {
   .web-wrapper-main h4 {
     font-size: 18px;
+  }
+  .button-yellow {
+    padding: 0.4375rem 0.375rem;
+  }
+  .button-set-default {
+    padding: 0.625rem;
+    margin-top: 0.625rem;
   }
   .web-wrapper-main p {
     font-size: 14px;
@@ -1114,7 +1171,7 @@ html {
   .offer-cards .protein-left {
     height: 85vh;
     margin-bottom: 1rem;
-    border-radius: 16px;
+    border-radius: 1rem;
   }
   .offer-cards .protein-left .left-content {
     padding-left: 1rem !important;
@@ -1198,6 +1255,30 @@ html {
   }
 }
 @media (max-width: 576px) {
+  .web-wrapper-main section {
+    padding-block: 2rem !important;
+  }
+  .download-section .download-content img {
+    display: none;
+  }
+  .download-section .millet-right,
+  .grain-1,
+  .grain-2,
+  .grain-3 {
+    display: none; /* Hide these images */
+  }
+  .download-section .phone-image {
+    aspect-ratio: 6/5;
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+  .button-yellow {
+    padding: 0.4375rem 0.375rem;
+  }
+  .button-set-default {
+    padding: 0.625rem;
+    margin-top: 0.625rem;
+  }
   h5 {
     font-size: 0.8125rem !important;
   }
@@ -1266,9 +1347,9 @@ html {
     font-size: 12px;
   }
   .offer-cards .protein-left {
-    height: 85vh;
+    height: 140vh;
     margin-bottom: 1rem;
-    border-radius: 16px;
+    border-radius: 1rem;
   }
   .offer-cards .protein-left .left-content {
     padding-left: 1rem !important;
@@ -1291,16 +1372,22 @@ html {
   .button-primary {
     font-size: 9.38px;
   }
+  .button-primary-reverse {
+    font-size: 9.38px;
+  }
   .offer-cards .protein-right-top {
-    border-radius: 16px;
-    height: 35vh !important;
+    border-radius: 1rem;
+    height: 60vh !important;
     background-position: left;
     background-size: cover;
   }
   .offer-cards .protein-right-bottom {
-    border-radius: 16px;
-    height: 35vh !important;
+    border-radius: 1rem;
+    height: 60vh !important;
     background-position: left;
+  }
+  .offer-cards .protein-right-bottom button {
+    margin-left: 1rem !important;
   }
   .offer-cards .protein-right-top .right-top-content {
     width: unset;

@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import { Nav, Tab } from "react-bootstrap";
-import { FiHeart } from "react-icons/fi";
 import bannerAds from "../../../assets/images/web/banner-ads.png";
 import bannerAdsmob from "../../../assets/images/web/banner-ads-mob.png";
 import amritGroup from "../../../assets/images/web/amrit-group.png";
@@ -25,98 +24,36 @@ import grain2 from "../../../assets/images/web/grain-2.png";
 import grain3 from "../../../assets/images/web/grain-3.png";
 import WebBanner from "./components/WebBanner";
 import ItemSlide from "./components/ItemSlide";
-import saveImg from "../../../assets/images/web/save-image.png";
 import bestPrice from "../../../assets/images/web/offers/best-price.png";
 import deliveryImg from "../../../assets/images/web/offers/delivery.png";
 import greatDeal from "../../../assets/images/web/offers/great-deal.png";
 import easyReturn from "../../../assets/images/web/offers/easy-return.png";
-import productCard from "../../../assets/images/web/product-card.png";
-import fireImg from "../../../assets/images/web/Fire.png";
 import firstPurchase from "../../../assets/images/web/first-purchase.png";
-import { Checkbox } from "@mui/material";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import ProductCard from "./components/ProductCard";
 import { Link } from "react-router-dom";
+import { getProductApi } from "../../../services/adminApiRoutes";
+import Loading from "../../../components/ui/Loading";
 
-const HomePage = () => { 
+const HomePage = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const data = [
-    {
-      name: "Masala Millet (Veggie Masala)",
-      category: "Millet",
-      description: "Veggie Masala Millet",
-      image_url: "path/to/image.png",
-      weight: "100g",
-      price: {
-        original: 80,
-        discounted: 70,
-        currency: "₹",
-      },
-      discount_percentage: "10 % Off",
-      calories: 80,
-      availability: "In Stock",
-    },
-    {
-      name: "Masala Millet (Veggie Masala)",
-      category: "Millet",
-      description: "Veggie Masala Millet",
-      image_url: "path/to/image.png",
-      weight: "100g",
-      price: {
-        original: 80,
-        discounted: 70,
-        currency: "₹",
-      },
-      discount_percentage: "10 % Off",
-      calories: 80,
-      availability: "In Stock",
-    },
-    {
-      name: "Masala Millet (Veggie Masala)",
-      category: "Millet",
-      description: "Veggie Masala Millet",
-      image_url: "path/to/image.png",
-      weight: "100g",
-      price: {
-        original: 80,
-        discounted: 70,
-        currency: "₹",
-      },
-      discount_percentage: "10 % Off",
-      calories: 80,
-      availability: "In Stock",
-    },
-    {
-      name: "Masala Millet (Veggie Masala)",
-      category: "Millet",
-      description: "Veggie Masala Millet",
-      image_url: "path/to/image.png",
-      weight: "100g",
-      price: {
-        original: 80,
-        discounted: 70,
-        currency: "₹",
-      },
-      discount_percentage: "10 % Off",
-      calories: 80,
-      availability: "In Stock",
-    },
-    {
-      name: "Masala Millet (Veggie Masala)",
-      category: "Millet",
-      description: "Veggie Masala Millet",
-      image_url: "path/to/image.png",
-      weight: "100g",
-      price: {
-        original: 80,
-        discounted: 70,
-        currency: "₹",
-      },
-      discount_percentage: "10 % Off",
-      calories: 80,
-      availability: "In Stock",
-    },
-  ];
+  async function getProductList() {
+    setLoading(true);
+    try {
+      const response = await getProductApi();
+      setProducts(response?.data || []);
+    } catch (error) {
+      console.log("Error on Product List", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getProductList();
+  }, []);
+
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -131,78 +68,94 @@ const HomePage = () => {
       <section>
         <div className="container fb-container">
           <div className="cat-items-wrapper">
-          <Link to="/products"><div className="cat-itmes">
-              <div
-                className="item-image"
-                style={{
-                  "--linear":
-                    "linear-gradient(180deg, #FFB7B7 0%, #FFE0E0 100%)",
-                }}
-              >
-                <img className="img-fluid" src={product1} alt="millet-rice" />
+            <Link to="/products">
+              <div className="cat-itmes">
+                <div
+                  className="item-image"
+                  style={{
+                    "--linear":
+                      "linear-gradient(180deg, #FFB7B7 0%, #FFE0E0 100%)",
+                  }}
+                >
+                  <img className="img-fluid" src={product1} alt="millet-rice" />
+                </div>
+                <h6 className="fb-fs-16 fw-500">Millet Rice</h6>
               </div>
-              <h6 className="fb-fs-16 fw-500">Millet Rice</h6>
-            </div></Link>
-            <Link to="/products"><div className="cat-itmes">
-              <div
-                className="item-image"
-                style={{
-                  "--linear":
-                    "linear-gradient(180deg, #96D7FF 0%, #D7F0FF 100%)",
-                }}
-              >
-                <img className="img-fluid" src={jowerImg} alt="millet-rice" />
+            </Link>
+            <Link to="/products">
+              <div className="cat-itmes">
+                <div
+                  className="item-image"
+                  style={{
+                    "--linear":
+                      "linear-gradient(180deg, #96D7FF 0%, #D7F0FF 100%)",
+                  }}
+                >
+                  <img className="img-fluid" src={jowerImg} alt="millet-rice" />
+                </div>
+                <h6 className="fb-fs-16 fw-500">Bakery & Confectionery</h6>
               </div>
-              <h6 className="fb-fs-16 fw-500">Bakery & Confectionery</h6>
-            </div></Link>
-            <Link to="/products"><div className="cat-itmes">
-              <div
-                className="item-image"
-                style={{
-                  "--linear":
-                    "linear-gradient(180deg, #FFCC8F 0%, #FFE9CF 100%)",
-                }}
-              >
-                <img className="img-fluid" src={flourImg} alt="millet-rice" />
+            </Link>
+            <Link to="/products">
+              <div className="cat-itmes">
+                <div
+                  className="item-image"
+                  style={{
+                    "--linear":
+                      "linear-gradient(180deg, #FFCC8F 0%, #FFE9CF 100%)",
+                  }}
+                >
+                  <img className="img-fluid" src={flourImg} alt="millet-rice" />
+                </div>
+                <h6 className="fb-fs-16 fw-500">Flour</h6>
               </div>
-              <h6 className="fb-fs-16 fw-500">Flour</h6>
-            </div></Link>
-            <Link to="/products"><div className="cat-itmes">
-              <div
-                className="item-image"
-                style={{
-                  "--linear":
-                    " linear-gradient(180deg, #C2FFBD 0%, #EFFFEE 100%)",
-                }}
-              >
-                <img className="img-fluid" src={idlliImg} alt="millet-rice" />
+            </Link>
+            <Link to="/products">
+              <div className="cat-itmes">
+                <div
+                  className="item-image"
+                  style={{
+                    "--linear":
+                      " linear-gradient(180deg, #C2FFBD 0%, #EFFFEE 100%)",
+                  }}
+                >
+                  <img className="img-fluid" src={idlliImg} alt="millet-rice" />
+                </div>
+                <h6 className="fb-fs-16 fw-500">Beverages</h6>
               </div>
-              <h6 className="fb-fs-16 fw-500">Beverages</h6>
-            </div></Link>
-            <Link to="/products"><div className="cat-itmes">
-              <div
-                className="item-image"
-                style={{
-                  "--linear":
-                    "linear-gradient(180deg, #F6D4FF 0%, #FBECFF 100%)",
-                }}
-              >
-                <img className="img-fluid" src={murukuImg} alt="millet-rice" />
+            </Link>
+            <Link to="/products">
+              <div className="cat-itmes">
+                <div
+                  className="item-image"
+                  style={{
+                    "--linear":
+                      "linear-gradient(180deg, #F6D4FF 0%, #FBECFF 100%)",
+                  }}
+                >
+                  <img
+                    className="img-fluid"
+                    src={murukuImg}
+                    alt="millet-rice"
+                  />
+                </div>
+                <h6 className="fb-fs-16 fw-500">Snacks & Munching Rice</h6>
               </div>
-              <h6 className="fb-fs-16 fw-500">Snacks & Munching Rice</h6>
-            </div></Link>
-            <Link to="/products"><div className="cat-itmes">
-              <div
-                className="item-image"
-                style={{
-                  "--linear":
-                    "linear-gradient(180deg, #C3CCFF 0%, #E0E5FF 100%)",
-                }}
-              >
-                <img className="img-fluid" src={soupImg} alt="millet-rice" />
+            </Link>
+            <Link to="/products">
+              <div className="cat-itmes">
+                <div
+                  className="item-image"
+                  style={{
+                    "--linear":
+                      "linear-gradient(180deg, #C3CCFF 0%, #E0E5FF 100%)",
+                  }}
+                >
+                  <img className="img-fluid" src={soupImg} alt="millet-rice" />
+                </div>
+                <h6 className="fb-fs-16 fw-500">Instant Mixes</h6>
               </div>
-              <h6 className="fb-fs-16 fw-500">Instant Mixes</h6>
-            </div></Link>
+            </Link>
           </div>
         </div>
       </section>
@@ -224,17 +177,26 @@ const HomePage = () => {
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link className="fb-fs-18 px-2 px-lg-3" eventKey="Snacks">
+                    <Nav.Link
+                      className="fb-fs-18 px-2 px-lg-3"
+                      eventKey="Snacks"
+                    >
                       Snacks
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link className="fb-fs-18 px-2 px-lg-3" eventKey="Instant-Mix">
+                    <Nav.Link
+                      className="fb-fs-18 px-2 px-lg-3"
+                      eventKey="Instant-Mix"
+                    >
                       Instant Mix
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link className="fb-fs-18 px-2 px-lg-3" eventKey="Flour">
+                    <Nav.Link
+                      className="fb-fs-18 px-2 px-lg-3"
+                      eventKey="Flour"
+                    >
                       Flour
                     </Nav.Link>
                   </Nav.Item>
@@ -249,8 +211,14 @@ const HomePage = () => {
                 <Tab.Content>
                   <Tab.Pane eventKey="All">
                     <div className="row">
-                      <div className="d-flex mt-4 pt-2 gap-4 flex-wrap justify-content-between">
-                        {data?.map((card, index) => <ProductCard card={card} key={index} />)}
+                      <div className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between" style={{gridTemplateColumns: 'repeat(5, 1fr)'}}>
+                        {loading ? (
+                          <Loading />
+                        ) : (
+                          products?.map((item, index) => (
+                            <ProductCard product={item} index={index} />
+                          ))
+                        )}
                       </div>
                     </div>
                   </Tab.Pane>
@@ -348,7 +316,6 @@ const HomePage = () => {
                 <h2 className="pb-3 fw-normal text-white lh-1">
                   Good For
                   <span className="fw-bold">
-                    
                     You <br></br> and the Planet
                   </span>
                 </h2>
