@@ -92,7 +92,7 @@ const ProudctDetail = () => {
         ))}
       </ButtonGroup>
                 </div>
-                <p className="fb-fs-40 text-orange fw-bold">
+                <p className="fb-fs-40 text-orange fw-bold original-price">
                   ₹80
                   <small className="fw-500 fb-fs-30 text-grey ms-3">
                     <strike>₹90</strike>{" "}
@@ -109,10 +109,10 @@ const ProudctDetail = () => {
                 <div className="mt-5">
                   <p className="fw-600">Check Availability</p>
                   <div
-                    className="border-gray border-raidus-10 mt-2"
+                    className="border-gray border-raidus-10 mt-2 input-box"
                     style={{ width: "60%" }}
                   >
-                    <div className="input-group mb-2 mt-2">
+                    <div className="input-group mb-2 mt-2 ">
                       <input
                         type="text"
                         className="form-control border-0 box-shadow-0"
@@ -141,12 +141,12 @@ const ProudctDetail = () => {
                   <span className="mt-1">Monday, 16 Sep</span>
                 </p>
                 <div class="d-flex mt-4  ms-4 ">
-                  <ul className="me-5 pe-4 disc-style">
+                  <ul className="me-5 pe-4 disc-style w-50">
                     <li className="my-2">Type: Organic</li>
                     <li className="my-2">MFG: Jun 4.2024</li>
                     <li className="my-2">LIFE: 70 days</li>
                   </ul>
-                  <ul className="me-5 pe-4 disc-style">
+                  <ul className="me-5 pe-4 disc-style w-50">
                     <li className="my-2">SKU: FWM15VKT</li>
                     <li className="my-2">Tags: Snack, Organic, Brown</li>
                     <li className="my-2">Stock: 8 Items In Stock</li>
