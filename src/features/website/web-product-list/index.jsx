@@ -13,12 +13,24 @@ import snacksImg from "../../../assets/images/web/products/snacks.png";
 import { Slider } from "primereact/slider";
 import starImg from "../../../assets/images/web/products/star.png";
 import { grey } from "@mui/material/colors";
+import { Checkbox } from "primereact/checkbox";
 import ProductCard from "../web-home/components/ProductCard";
 import { InputText } from "primereact/inputtext";
 
 const ProudctList = () => {
   const [minValue, setMinValue] = useState(100); // Default Min value
   const [maxValue, setMaxValue] = useState(200); // Default Max value
+
+  const [ingredients, setIngredients] = useState([]);
+
+  const onIngredientsChange = (e) => {
+    let _ingredients = [...ingredients];
+
+    if (e.checked) _ingredients.push(e.value);
+    else _ingredients.splice(_ingredients.indexOf(e.value), 1);
+
+    setIngredients(_ingredients);
+  };
 
   const data = [
     {
@@ -132,7 +144,11 @@ const ProudctList = () => {
                     </li>
                     <li className="cat-btn-item">
                       <span className="d-inline-flex align-items-center gap-2">
-                        <img src={beveragesImg} className="img-fluid" alt="icon" />
+                        <img
+                          src={beveragesImg}
+                          className="img-fluid"
+                          alt="icon"
+                        />
                         Beverages
                       </span>
                       <span className="pill-circle">2</span>
@@ -157,31 +173,32 @@ const ProudctList = () => {
               <div className="bg-white product-detail-shadow rounded-20 p-4 px-3">
                 <h6 className="underline-heading fw-bold">Price & Rating</h6>
                 <div className="mb-4 pb-3 border-bottom mt-5">
-                <Slider
-        value={[minValue, maxValue]}
-        onChange={(e) => {
-          setMinValue(e.value[0]);
-          setMaxValue(e.value[1]);
-        }}
-        className="w-14rem"
-        range
-        min={0} // Set minimum range value
-        max={500} // Set maximum range value
-      />
+                  <Slider
+                    value={[minValue, maxValue]}
+                    onChange={(e) => {
+                      setMinValue(e.value[0]);
+                      setMaxValue(e.value[1]);
+                    }}
+                    className="w-14rem"
+                    range
+                    min={0} // Set minimum range value
+                    max={500} // Set maximum range value
+                  />
                   <div className="row mt-4">
                     <div className="col-5 pe-0">
                       <div className="max-border">
-                      <p className="ms-2 fw-300">
-              Min: <span className="fw-500 ms-2"> 
-              <span>Rs.</span> {/* Rs. prefix */}
-                <InputText 
-                  value={minValue}
-                  style={{width: "30%"}} 
-                  onChange={(e) => setMinValue(e.target.value)} 
-                  className="border-0 px-0" 
-                />
-              </span>
-            </p>
+                        <p className="ms-2 fw-300">
+                          Min:{" "}
+                          <span className="fw-500 ms-2">
+                            <span>Rs.</span> {/* Rs. prefix */}
+                            <InputText
+                              value={minValue}
+                              style={{ width: "30%" }}
+                              onChange={(e) => setMinValue(e.target.value)}
+                              className="border-0 px-0"
+                            />
+                          </span>
+                        </p>
                       </div>
                     </div>
                     <div className="col-2 text-center">
@@ -189,17 +206,18 @@ const ProudctList = () => {
                     </div>
                     <div className="col-5 ps-0">
                       <div className="max-border">
-                      <p className="ms-2 fw-300">
-              Max: <span className="fw-500 ms-2">
-              <span>Rs.</span>
-                <InputText 
-                  value={maxValue} 
-                  style={{width: "30%"}} 
-                  onChange={(e) => setMaxValue(e.target.value)} 
-                  className="border-0 px-0" 
-                />
-              </span>
-            </p>
+                        <p className="ms-2 fw-300">
+                          Max:{" "}
+                          <span className="fw-500 ms-2">
+                            <span>Rs.</span>
+                            <InputText
+                              value={maxValue}
+                              style={{ width: "30%" }}
+                              onChange={(e) => setMaxValue(e.target.value)}
+                              className="border-0 px-0"
+                            />
+                          </span>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -207,50 +225,85 @@ const ProudctList = () => {
                 <div className="">
                   <p className="fw-500 pb-2">Customer Ratings</p>
                   <ul className="mt-2">
-                    <li className="d-flex mt-3">
-                      <input type="checkbox" className="me-3 bg-grey" /> 4
-                      <span>
-                        <img
-                          className="img-fluid mt-1 mx-1"
-                          src={starImg}
-                          alt="star"
+                    <li className="d-flex my-3">
+                      <div className="d-flex align-items-center">
+                        <Checkbox
+                          variant="filled"
+                          inputId="ingredient1"
+                          name="pizza"
+                          value="Cheese"
+                          onChange={onIngredientsChange}
+                          checked={ingredients.includes("Cheese")}
                         />
-                      </span>
-                      & More
+                        <label htmlFor="ingredient1" className="ms-3 d-flex">
+                         4
+                          <span>
+                            <img
+                              className="img-fluid mt-1 mx-1"
+                              src={starImg}
+                              alt="star"
+                            />
+                          </span>
+                           & More
+                        </label>
+                      </div>
                     </li>
                     <li className="d-flex my-3">
-                      <input type="checkbox" id="myCheckbox" className="me-3 bg-grey" /> 3
-                      <span>
-                        <img
-                          className="img-fluid mt-1 mx-1"
-                          src={starImg}
-                          alt="star"
+                      <div className="d-flex align-items-center">
+                        <Checkbox
+                          variant="filled"
+                          inputId="ingredient2" name="pizza" value="Mushroom" onChange={onIngredientsChange} checked={ingredients.includes('Mushroom')}
                         />
-                      </span>
-                      & More
-                      <label for="myCheckbox"></label>
+                        <label htmlFor="ingredient2" className="ms-3 d-flex">
+                         3
+                          <span>
+                            <img
+                              className="img-fluid mt-1 mx-1"
+                              src={starImg}
+                              alt="star"
+                            />
+                          </span>
+                           & More
+                        </label>
+                      </div>
                     </li>
                     <li className="d-flex my-3">
-                      <input type="checkbox" className="me-3 bg-grey" style={{ backgroundColor: "#000", border: "1px solid #000"}} /> 2
-                      <span>
-                        <img
-                          className="img-fluid mt-1 mx-1"
-                          src={starImg}
-                          alt="star"
+                      <div className="d-flex align-items-center">
+                        <Checkbox
+                          variant="filled"
+                          inputId="ingredient3" name="pizza" value="Pepper" onChange={onIngredientsChange} checked={ingredients.includes('Pepper')}
                         />
-                      </span>
-                      & More
+                        <label htmlFor="ingredient3" className="ms-3 d-flex">
+                         2
+                          <span>
+                            <img
+                              className="img-fluid mt-1 mx-1"
+                              src={starImg}
+                              alt="star"
+                            />
+                          </span>
+                           & More
+                        </label>
+                      </div>
                     </li>
                     <li className="d-flex my-3">
-                      <input type="checkbox" className="me-3 bg-grey" /> 1
-                      <span>
-                        <img
-                          className="img-fluid mt-1 mx-1"
-                          src={starImg}
-                          alt="star"
+                      <div className="d-flex align-items-center">
+                        <Checkbox
+                          variant="filled"
+                          inputId="ingredient4" name="pizza" value="Onion" onChange={onIngredientsChange} checked={ingredients.includes('Onion')} 
                         />
-                      </span>
-                      & More
+                        <label htmlFor="ingredient4" className="ms-3 d-flex">
+                         1
+                          <span>
+                            <img
+                              className="img-fluid mt-1 mx-1"
+                              src={starImg}
+                              alt="star"
+                            />
+                          </span>
+                           & More
+                        </label>
+                      </div>
                     </li>
                   </ul>
                 </div>
@@ -260,22 +313,22 @@ const ProudctList = () => {
               <div className="d-flex justify-content-between align-items-center mt-lg-0 mt-4">
                 <h5 className="text-mid-grey">Showing 6 result</h5>
                 <div className="sort-select d-flex">
-                  <p className="mt-1 text-mid-grey">
-                    Sort by:
-                  </p>
+                  <p className="mt-1 text-mid-grey">Sort by:</p>
                   <span>
-                      <select
-                        className="form-select fw-600 text-mid-grey border-0"
-                        name=""
-                        id=""
-                      >
-                        <option value="">Popularity</option>
-                      </select>
-                    </span>
+                    <select
+                      className="form-select fw-600 text-mid-grey border-0"
+                      name=""
+                      id=""
+                    >
+                      <option value="">Popularity</option>
+                    </select>
+                  </span>
                 </div>
               </div>
               <div className="d-flex mt-4 gap-4 pt-2 justify-content-start flex-wrap">
-                {data?.map((card, index) => <ProductCard card={card} key={index} />)}
+                {data?.map((card, index) => (
+                  <ProductCard card={card} key={index} />
+                ))}
               </div>
             </div>
           </div>
