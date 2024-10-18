@@ -23,12 +23,12 @@ const CheckoutPage = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
-      <div className="container fb-container w-75">
+      <div className="container fb-container">
         <div className="row">
-          <div className="col-md-12 mx-auto">
+          <div className="col-md-11 mx-auto">
             <div className="checkout-page">
-              <p className="fb-fs-40 fw-bold mt-5 mb-4">Checkout</p>
-              <p className="fb-fs-26 fw-bold">Saved Address</p>
+              <p className="fb-fs-40 fw-bold mt-5 mb-4 checkout-head">Checkout</p>
+              <p className="fb-fs-26 fw-bold checkout-save">Saved Address</p>
               <div className="row">
                 <div className="col-md-7">
                   <div className="summary-card rounded-20 px-2 py-3 mt-3">
@@ -41,7 +41,7 @@ const CheckoutPage = () => {
                               src={homeImg}
                               alt="pencil"
                             />
-                            <div className="ms-3">
+                            <div className="ms-md-3">
                               <div className="d-flex mt-2">
                                 <p className="fw-600 fb-fs-18">
                                   Piyush Kanwal | 7464810000
@@ -71,13 +71,12 @@ const CheckoutPage = () => {
                               src={homeImg}
                               alt="pencil"
                             />
-                            <div className="ms-3">
+                            <div className="ms-md-3">
                               <div className="d-flex mt-2">
                                 <p className="fw-600 fb-fs-18">
                                   Piyush Kanwal | 7464810000
                                 </p>
                               </div>
-
                               <p className="mt-2 text-wrap">
                                 House no. 78, Ward no. 7, Vats Colony, Linepar,
                                 Bahadurgarh, Haryana - 124507
@@ -92,12 +91,12 @@ const CheckoutPage = () => {
                     + Add New Address
                   </button>
                   <div className="new-address">
-                    <p className="fb-fs-26 fw-bold my-3">Add New Address</p>
+                    <p className="fb-fs-26 fw-bold my-3 checkout-save">Add New Address</p>
                     <p className="text-mid-grey">BASIC DETAILS</p>
                     <form>
                       <div className="container fb-container">
                         <div className="row">
-                          <div className="col-md-6 ps-0">
+                          <div className="col-md-6 ps-md-0">
                             <TextField
                               fullWidth
                               className="rounded-20 me-5 mt-4"
@@ -106,7 +105,7 @@ const CheckoutPage = () => {
                               variant="outlined"
                             />
                           </div>
-                          <div className="col-md-6 pe-0">
+                          <div className="col-md-6 pe-md-0">
                             <TextField
                               fullWidth
                               className="rounded-20 me-5 mt-4"
@@ -115,7 +114,7 @@ const CheckoutPage = () => {
                               variant="outlined"
                             />
                           </div>
-                          <div className="col-md-12 px-0 mb-2">
+                          <div className="col-md-12 px-md-0 mb-2">
                             <TextField
                               fullWidth
                               className="rounded-20 me-5 mt-4"
@@ -131,7 +130,7 @@ const CheckoutPage = () => {
                     <form>
                       <div className="container fb-container">
                         <div className="row">
-                          <div className="col-md-6 ps-0">
+                          <div className="col-md-6 ps-md-0 pb-4">
                             <FormControl fullWidth>
                               <InputLabel id="demo-simple-select-label">
                                 State
@@ -149,7 +148,7 @@ const CheckoutPage = () => {
                               </Select>
                             </FormControl>
                           </div>
-                          <div className="col-md-6 pe-0">
+                          <div className="col-md-6 pe-md-0">
                             <FormControl fullWidth>
                               <InputLabel id="demo-simple-select-label">
                                 City
@@ -167,7 +166,7 @@ const CheckoutPage = () => {
                               </Select>
                             </FormControl>
                           </div>
-                          <div className="col-md-12 px-0">
+                          <div className="col-md-12 px-md-0">
                             <TextField
                               fullWidth
                               className="rounded-20 me-5 mt-4"
@@ -176,7 +175,7 @@ const CheckoutPage = () => {
                               variant="outlined"
                             />
                           </div>
-                          <div className="col-md-12 px-0">
+                          <div className="col-md-12 px-md-0">
                             <TextField
                               fullWidth
                               className="rounded-20 me-5 mt-4"
@@ -185,7 +184,7 @@ const CheckoutPage = () => {
                               variant="outlined"
                             />
                           </div>
-                          <div className="col-md-12 px-0">
+                          <div className="col-md-12 px-md-0">
                             <TextField
                               fullWidth
                               className="rounded-20 me-5 mt-4"
@@ -194,7 +193,7 @@ const CheckoutPage = () => {
                               variant="outlined"
                             />
                           </div>
-                          <div className="d-flex my-5 ps-0">
+                          <div className="d-flex my-5 ps-md-0">
                             <button className="home-btn d-flex  border-0 bg-transparent">
                               <IoHomeOutline
                                 className="ms-2"
