@@ -944,6 +944,42 @@
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
+  .product-detail-content {
+    h4 {
+      font-size: 1.3rem !important;
+    }
+  }
+  .description-slider .card {
+    margin: 0 !important;
+  }
+  .product-detail-page .product-detail-content {
+    padding-left: 0 !important;
+    .weight-check {
+      label {
+        font-size: 12px;
+        padding-top: 6px;
+      }
+    }
+    .original-price {
+      font-size: 2rem;
+      small {
+        strike {
+          font-size: 1.5rem;
+        }
+      }
+    }
+    .input-box {
+      width: 100% !important;
+      input {
+        font-size: 13px;
+      }
+    }
+    ul {
+      li {
+        font-size: 14px;
+      }
+    }
+  }
   .web-wrapper-main h4 {
     font-size: 18px;
   }
@@ -955,7 +991,7 @@
     margin-top: 0.625rem;
   }
   .web-wrapper-main p {
-    font-size: 14px;
+    font-size: 13px;
   }
   .offer-cards {
     .protein-left {
@@ -1056,8 +1092,55 @@
 }
 
 @media (max-width: 576px) {
+  .checkout-page {
+    .checkout-head {
+      font-size: 2rem !important;
+      margin-bottom: 0 !important;
+    }
+    .checkout-save {
+      font-size: 1rem !important;
+    }
+    .summary-card{
+      .order-date{
+        display: block !important;
+        p{
+          font-size: 13px !important;
+        }
+      }
+    }
+    .home-btn{
+      width: 32%;
+      p{
+        padding-top: 3px;
+      }
+    }
+    .office-btn{
+      width: 32%;
+      p{
+        padding-top: 3px;
+      }
+    }
+  }
   h4 {
     font-size: 1rem !important;
+  }
+  .tab-nav-wrapper .nav-item .nav-link {
+    font-size: 10px !important;
+    padding: 8px 12px !important;
+    margin-right: 4px !important;
+  }
+  .disc-style {
+    font-size: 12px;
+  }
+  .description-slider .card {
+    margin-left: 0 !important;
+    padding: 0;
+    .tab-content {
+      padding: 0 !important;
+    }
+    .tab-nav-wrapper {
+      padding: 0 !important;
+    }
   }
   .web-wrapper-main section {
     padding-block: 2rem !important;
@@ -1088,15 +1171,14 @@
         }
       }
     }
-    .input-box{
+    .input-box {
       width: 100% !important;
-      input{
+      input {
         font-size: 13px;
       }
     }
     ul {
-     
-      li{
+      li {
         font-size: 14px;
       }
     }

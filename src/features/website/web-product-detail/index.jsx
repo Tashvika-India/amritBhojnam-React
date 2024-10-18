@@ -31,7 +31,7 @@ const ProudctDetail = () => {
         <div className="container fb-container">
           <div className="row">
             <div className="col-md-6">
-              <AsNavFor />
+              <AsNavFor/>
             </div>
             <div className="col-md-6">
               <div className="product-detail-content ps-4">
@@ -227,7 +227,7 @@ const ProudctDetail = () => {
                             <li>Ethyl Alcohol70%</li>
                             <li>Piece In OneCarton</li>
                           </ul>
-                          <p className="mb-5 pb-4">
+                          <p className="mb-5 pb-md-4">
                             Laconic overheard dear woodchuck wow this
                             outrageously taut beaver hey hello far meadowlark
                             imitatively egregiously hugged that yikes minimally
