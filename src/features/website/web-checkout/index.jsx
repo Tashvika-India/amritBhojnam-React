@@ -25,12 +25,12 @@ const CheckoutPage = () => {
       <Header />
       <div className="container fb-container">
         <div className="row">
-          <div className="col-md-11 mx-auto">
+          <div className="col-lg-11 col-md-12 mx-auto">
             <div className="checkout-page">
               <p className="fb-fs-40 fw-bold mt-5 mb-4 checkout-head">Checkout</p>
               <p className="fb-fs-26 fw-bold checkout-save">Saved Address</p>
               <div className="row">
-                <div className="col-md-7">
+                <div className="col-lg-7 col-md-12">
                   <div className="summary-card rounded-20 px-2 py-3 mt-3">
                     <div className="container">
                       <div className="row">
@@ -227,7 +227,7 @@ const CheckoutPage = () => {
                     </form>
                   </div>
                 </div>
-                <div className="col-md-5">
+                <div className="col-lg-5 col-md-12">
                   <div className="my-card-section product-detail-shadow rounded-20 p-4">
                     <p className="fb-fs-26 fw-bold my-4">My Cart</p>
                     <div className="cart-items mt-4">
