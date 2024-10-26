@@ -23,7 +23,7 @@ function AsNavFor() {
         <div className="product-detail-slider">
           <div className="product-detail-image bg-background pt-3 ps-lg-4">
             <img
-              className="img-fluid pt-lg-5 ps-lg-4"
+              className="img-fluid pt-lg-5 pt-0 ps-lg-4 ps-0"
               src={productDetail}  
               alt="banner-ads"
             />
@@ -32,7 +32,7 @@ function AsNavFor() {
         <div className="product-detail-slider">
           <div className="product-detail-image bg-background pt-3 ps-4">
             <img
-              className="img-fluid pt-5 ps-3"
+              className="img-fluid pt-lg-5 pt-0 ps-lg-4 ps-0"
               src={productDetail}
               alt="banner-ads"
             />
@@ -41,7 +41,7 @@ function AsNavFor() {
         <div className="product-detail-slider">
           <div className="product-detail-image bg-background pt-3 ps-4">
             <img
-              className="img-fluid pt-5 ps-3"
+              className="img-fluid pt-lg-5 pt-0 ps-lg-4 ps-0"
               src={productDetail}
               alt="banner-ads"
             />
@@ -50,7 +50,7 @@ function AsNavFor() {
         <div className="product-detail-slider">
           <div className="product-detail-image bg-background pt-3 ps-4">
             <img
-              className="img-fluid pt-5 ps-3"
+              className="img-fluid pt-lg-5 pt-0 ps-lg-4 ps-0"
               src={productDetail}
               alt="banner-ads"
             />
@@ -59,7 +59,7 @@ function AsNavFor() {
         <div className="product-detail-slider">
           <div className="product-detail-image bg-background pt-3 ps-4">
             <img
-              className="img-fluid pt-5 ps-3"
+              className="img-fluid pt-lg-5 pt-0 ps-lg-4 ps-0"
               src={productDetail}
               alt="banner-ads"
             />
@@ -68,7 +68,7 @@ function AsNavFor() {
         <div className="product-detail-slider">
           <div className="product-detail-image bg-background pt-3  ps-4">
             <img
-              className="img-fluid pt-5 ps-3"
+              className="img-fluid pt-lg-5 pt-0 ps-lg-4 ps-0"
               src={productDetail}
               alt="banner-ads"
             />

@@ -444,7 +444,7 @@ const HomePage = () => {
                     <br></br>Mobile App
                   </span>
                 </h2>
-                <p className="pb-5 mb-4">
+                <p className="pb-5 mb-lg-4 mb-0 pe-5">
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
                   standard dummy text ever since the 1500s, when an unknown
