@@ -510,38 +510,38 @@
   position: relative;
   .millet-top {
     position: absolute;
-    top: 4%;
-    left: 25%;
+    top: 5%;
+    left: 29%;
   }
   .millet-upper {
     position: absolute;
-    top: 18%;
-    left: 10%;
+    top: 23%;
+    left: 15%;
   }
   .millet-right {
     position: absolute;
     top: 6%;
-    right: 3%;
+    right: 7%;
   }
   .millet-bottom {
     position: absolute;
-    bottom: 7%;
-    left: 5%;
+    bottom: 2%;
+    left: 11%;
   }
   .grain-1 {
     position: absolute;
-    top: 11%;
-    right: 13%;
+    top: 12%;
+    right: 19%;
   }
   .grain-2 {
     position: absolute;
     bottom: 39%;
-    right: 6%;
+    right: 12%;
   }
   .grain-3 {
     position: absolute;
-    bottom: 11%;
-    right: 5%;
+    bottom: 10%;
+    right: 12%;
   }
   .download-content {
     padding: 7rem;
@@ -839,6 +839,15 @@
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
+  .download-section .download-content img {
+    display: none;
+  }
+  .download-section .millet-right,
+  .grain-1,
+  .grain-2,
+  .grain-3 {
+    display: none; /* Hide these images */
+  }
   // first-purchase
   .first_purchase {
     .purchase-bg {
@@ -944,6 +953,15 @@
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
+  .download-section .download-content img {
+    display: none;
+  }
+  .download-section .millet-right,
+  .grain-1,
+  .grain-2,
+  .grain-3 {
+    display: none; /* Hide these images */
+  }
   .product-detail-content {
     h4 {
       font-size: 1.3rem !important;
@@ -954,6 +972,7 @@
   }
   .product-detail-page .product-detail-content {
     padding-left: 0 !important;
+    margin-top: 3rem !important;
     .weight-check {
       label {
         font-size: 12px;
@@ -1297,7 +1316,7 @@
   }
   .offer-cards {
     .protein-left {
-      height: 140vh;
+      height: 63vh;
       margin-bottom: 1rem;
       border-radius: 1rem;
       .left-content {
@@ -1328,15 +1347,15 @@
   }
   .offer-cards .protein-right-top {
     border-radius: 1rem;
-    height: 60vh !important;
-    background-position: left;
+    height: 22vh !important;
+    background-position: bottom;
     // width: 91vw !important;
     background-size: cover;
   }
   .offer-cards .protein-right-bottom {
     border-radius: 1rem;
-    height: 60vh !important;
-    background-position: left;
+    height: 22vh !important;
+    background-position: bottom;
     // width: 91vw !important;
     button {
       margin-left: 1rem !important;
@@ -1380,5 +1399,11 @@
     .form-select {
       font-size: 0.8125rem;
     }
+  }
+  .web-wrapper-main a{
+    font-size: 0.875rem;
+  }
+  .web-wrapper-main time{
+    font-size: 0.875rem;
   }
 }

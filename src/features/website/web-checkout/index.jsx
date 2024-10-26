@@ -196,19 +196,19 @@ const CheckoutPage = () => {
                           <div className="d-flex my-5 ps-md-0">
                             <button className="home-btn d-flex  border-0 bg-transparent">
                               <IoHomeOutline
-                                className="ms-2"
-                                size={"23"}
+                                className="ms-lg-2 ms-0"
+                                size={"20"}
                                 color={"#F26722"}
                               />
-                              <p className=" text-orange fw-500 ms-3">Home</p>
+                              <p className=" text-orange fw-500 ms-lg-3 ms-2">Home</p>
                             </button>
                             <button className="office-btn d-flex  border-0 bg-transparent ms-4">
                               <HiBuildingOffice2
-                                className="ms-2"
+                                className="ms-lg-2 ms-0"
                                 size={"23"}
                                 color={"#918E92"}
                               />
-                              <p className=" text-mid-grey fw-500 ms-3">
+                              <p className=" text-mid-grey fw-500 ms-lg-3 ms-2">
                                 Office
                               </p>
                             </button>
