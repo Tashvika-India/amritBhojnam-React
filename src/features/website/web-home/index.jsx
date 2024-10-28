@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import { Nav, Tab } from "react-bootstrap";
@@ -33,6 +33,7 @@ import ProductCard from "./components/ProductCard";
 import { Link } from "react-router-dom";
 import { getProductApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
+import { motion, useScroll, useTransform } from "framer-motion"
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -49,6 +50,20 @@ const HomePage = () => {
       setLoading(false);
     }
   }
+
+
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start end", "start start"],
+  });
+
+  
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
+   
+  const x = useTransform(scrollYProgress, [0, 0.5], ["-100%", "0%"]);
+  const xx = useTransform(scrollYProgress, [0, 0.5], ["100%", "0%"]);
 
   useEffect(() => {
     getProductList();
@@ -69,7 +84,7 @@ const HomePage = () => {
         <div className="container fb-container">
           <div className="cat-items-wrapper">
             <Link to="/products">
-              <div className="cat-itmes">
+              <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
                 <div
                   className="item-image"
                   style={{
@@ -80,10 +95,10 @@ const HomePage = () => {
                   <img className="img-fluid" src={product1} alt="millet-rice" />
                 </div>
                 <h6 className="fb-fs-16 fw-500">Millet Rice</h6>
-              </div>
+              </motion.div>
             </Link>
             <Link to="/products">
-              <div className="cat-itmes">
+              <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
                 <div
                   className="item-image"
                   style={{
@@ -94,10 +109,10 @@ const HomePage = () => {
                   <img className="img-fluid" src={jowerImg} alt="millet-rice" />
                 </div>
                 <h6 className="fb-fs-16 fw-500">Bakery & Confectionery</h6>
-              </div>
+              </motion.div>
             </Link>
             <Link to="/products">
-              <div className="cat-itmes">
+              <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
                 <div
                   className="item-image"
                   style={{
@@ -108,10 +123,10 @@ const HomePage = () => {
                   <img className="img-fluid" src={flourImg} alt="millet-rice" />
                 </div>
                 <h6 className="fb-fs-16 fw-500">Flour</h6>
-              </div>
+              </motion.div>
             </Link>
             <Link to="/products">
-              <div className="cat-itmes">
+              <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
                 <div
                   className="item-image"
                   style={{
@@ -122,10 +137,10 @@ const HomePage = () => {
                   <img className="img-fluid" src={idlliImg} alt="millet-rice" />
                 </div>
                 <h6 className="fb-fs-16 fw-500">Beverages</h6>
-              </div>
+              </motion.div>
             </Link>
             <Link to="/products">
-              <div className="cat-itmes">
+              <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
                 <div
                   className="item-image"
                   style={{
@@ -140,10 +155,10 @@ const HomePage = () => {
                   />
                 </div>
                 <h6 className="fb-fs-16 fw-500">Snacks & Munching Rice</h6>
-              </div>
+              </motion.div>
             </Link>
             <Link to="/products">
-              <div className="cat-itmes">
+              <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
                 <div
                   className="item-image"
                   style={{
@@ -154,7 +169,7 @@ const HomePage = () => {
                   <img className="img-fluid" src={soupImg} alt="millet-rice" />
                 </div>
                 <h6 className="fb-fs-16 fw-500">Instant Mixes</h6>
-              </div>
+              </motion.div>
             </Link>
           </div>
         </div>
@@ -211,7 +226,7 @@ const HomePage = () => {
                 <Tab.Content>
                   <Tab.Pane eventKey="All">
                     <div className="row">
-                      <div className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between" style={{gridTemplateColumns: 'repeat(5, 1fr)'}}>
+                      <div className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between" style={{ gridTemplateColumns: 'repeat(5, 1fr)' }}>
                         {loading ? (
                           <Loading />
                         ) : (
@@ -236,7 +251,10 @@ const HomePage = () => {
         <div className="container fb-container">
           <div className="row">
             <div className="col-lg-6 col-md-12">
-              <div className="protein-left">
+              <motion.div ref={targetRef} style={{
+                opacity: opacity,
+                x: x,
+              }} className="protein-left">
                 <div className="left-content p-5">
                   <h4 className="fw-bold mb-lg-3">
                     Upto 40% Off on special Items
@@ -250,12 +268,15 @@ const HomePage = () => {
                   Shop Now
                 </button>
                 {/* <img src={protein1} alt="millet-rice" /> */}
-              </div>
+              </motion.div>
             </div>
             <div className="col-lg-6 col-md-12">
               <div className="row">
                 <div className="col-md-12 mb-lg-4">
-                  <div className="protein-right-top">
+                  <motion.div ref={targetRef} style={{
+                    opacity: opacity,
+                    x: xx,
+                  }} className="protein-right-top">
                     <div className="right-top-content p-5 pb-4">
                       <h4 className="fw-bold mb-3">Upto 40% Off </h4>
                       <p className="fw-500">
@@ -266,10 +287,13 @@ const HomePage = () => {
                     <button className="button-primary mt-0 m-5 text-center">
                       Shop Now
                     </button>
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="col-md-12 mt-lg-4">
-                  <div className="protein-right-bottom">
+                  <motion.div ref={targetRef} style={{
+                    opacity: opacity,
+                    x: xx,
+                  }} className="protein-right-bottom">
                     <div className="right-bottom-content p-5 pb-4">
                       <h4 className="fw-bold mb-3">Upto 40% Off </h4>
                       <p className="fw-500">
@@ -280,7 +304,7 @@ const HomePage = () => {
                     <button className="button-primary  mt-0 m-5 text-center">
                       Shop Now
                     </button>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
