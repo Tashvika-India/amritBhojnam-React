@@ -1,14 +1,15 @@
-import React from 'react'
-import Login from '../../../features/auth/login'
+import React from 'react';
+import Login from '../../../features/auth/login';
 import { Navigate } from 'react-router-dom';
 
 function LoginPage() {
-    const accessToken = localStorage.getItem("access");
-    if (accessToken) {
-        return <Navigate to="/dashboard" />
+    const token = localStorage.getItem("access") ? localStorage.getItem("access") : localStorage.getItem("refresh");
+
+    if (token) {
+        return <Navigate to="/dashboard" />;
     }
 
-    return <Login />
+    return <Login />;
 }
 
-export default LoginPage
+export default LoginPage;

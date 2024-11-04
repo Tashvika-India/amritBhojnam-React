@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import harry from "@/assets/images/dashboard/harry.jpg";
 import { FaAngleDown, FaRegBell } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 280;
 
@@ -36,13 +37,27 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 export default function DashboardHeader({ open, handleDrawerOpen }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setLoading(true); // Start loading on logout
+    setTimeout(() => {
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
+      setLoading(false); // Stop loading once logout is complete
+      navigate("/login");
+    }, 1000); // Simulate logout delay for user feedback
   };
 
   return (
@@ -96,7 +111,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout} disabled={loading}>{loading ? "Logging out..." : "Logout"}</MenuItem>
       </Menu>
     </>
   );
