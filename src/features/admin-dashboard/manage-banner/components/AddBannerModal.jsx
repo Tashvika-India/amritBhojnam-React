@@ -5,6 +5,7 @@ import RejectButton from "../../../../components/buttons/RejectButton";
 import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import FileUpload from "../../../../components/fileUpload/FileUpload";
+import { bannerSchema } from "../../../../schemas/banner-schema";
 import { useFormik } from "formik";
 import { postBannerApi, putBannerApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
@@ -25,6 +26,7 @@ export default function AddBannerModal({ visible, setVisible, setBanner, getBann
   const formik = useFormik({
     initialValues: editData ? editData : initialValues,
     enableReinitialize: true,
+    validationSchema: bannerSchema,
     onSubmit: async (values) => {
       if (editData) {
         await UpdateBanner(values); // PUT or PATCH for edit
@@ -34,7 +36,8 @@ export default function AddBannerModal({ visible, setVisible, setBanner, getBann
     },
   });
 
-  const { values, handleSubmit, resetForm, setValues } = formik;
+
+  const { values, handleSubmit, handleBlur, resetForm, setValues, errors } = formik;
 
   async function addBanner(values) {
     setLoading(true);
@@ -126,9 +129,11 @@ export default function AddBannerModal({ visible, setVisible, setBanner, getBann
                   variant="outlined"
                   placeholder="Title"
                   name="title"
+                  onBlur={handleBlur}
                   onChange={formik.handleChange}
                   value={formik.values.title}
                 />
+                <p>{errors.title}</p>
               </div>
               <div className="mb-4">
                 <TextField
@@ -139,6 +144,7 @@ export default function AddBannerModal({ visible, setVisible, setBanner, getBann
                   onChange={formik.handleChange}
                   value={formik.values.sub_title}
                 />
+                 <p>{errors.sub_title}</p>
               </div>
               <div className="mb-4">
                 <FormControl fullWidth>
