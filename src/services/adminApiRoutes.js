@@ -18,6 +18,8 @@ export const postCategoriesApi = (payload) => API.post(`/categories/`, payload);
 export const putCategoriesApi = (id, payload) => API.put(`/categories/${id}/`, payload); 
 export const patchCategoriesApi = (id, payload) => API.patch(`/categories/${id}/`, payload);
 
+export const getSubCategoriesApi = () => API.get(`/sub-categories/`);
+
 // product api  
 export const getProductApi = () => API.get(`/products/`);
 export const postProductApi = (payload) => API.post(`/products/`, payload);
