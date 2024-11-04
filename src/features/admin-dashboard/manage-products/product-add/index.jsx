@@ -136,7 +136,7 @@ const ProductAdd = () => {
       throw error;
     }
   }
-
+  
   async function updateProduct(values) {
     const formData = new FormData();
     formData.append("name", values.name);

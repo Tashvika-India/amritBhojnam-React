@@ -58,7 +58,7 @@ const ProductCard = ({ product, index }) => {
         <div className="product-image">
           <img className="img-fluid pb-3" src={ baseURL + product?.images[0]?.img_files} alt="product" />
         </div>
-        <h6 className="fb-fs-12 fw-500 d-flex text-brown">
+        <h6 className="fb-fs-12 fw-500 d-flex text-brown pb-2">
           <span>
           <img className="img-fluid" src={fireImg} /> 
           </span>
@@ -70,9 +70,9 @@ const ProductCard = ({ product, index }) => {
         <h5 className="fb-fs-14 fw-600 text-grey">
         100 g
         </h5>
-        <div className="d-flex justify-content-between align-items-center mt-2">
+        <div className="d-flex justify-content-between align-items-center mt-3">
           <h6 className="fb-fs-20 fw-bold mb-0">
-            <small className="fw-500 fb-fs-16 text-grey">
+            <small className="fw-500 fb-fs-16 text-grey pe-2">
               <strike>
               ₹ {product?.offer_price}
               </strike>
