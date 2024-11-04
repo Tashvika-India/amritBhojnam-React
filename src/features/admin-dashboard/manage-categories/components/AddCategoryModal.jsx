@@ -6,6 +6,7 @@ import { TextField } from "@mui/material";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import FileUpload from "../../../../components/fileUpload/FileUpload";
 import { useFormik } from "formik";
+import {categorySchema } from "../../../../schemas/category-schema";
 import { postCategoriesApi, putCategoriesApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
 import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
@@ -21,6 +22,7 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
   const formik = useFormik({
     initialValues: editData ? editData : initialValues,
     enableReinitialize: true,
+    validationSchema: categorySchema,
     onSubmit: async (values) => {
       if (editData) {
         await updateCategory(values); // PUT or PATCH for edit
@@ -30,7 +32,7 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
     },
   });
 
-  const { values, handleSubmit, resetForm, setValues } = formik;
+  const { values, handleSubmit, resetForm, setValues, errors } = formik;
 
   async function addCategory(values) {
     setLoading(true);
@@ -99,6 +101,7 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
             <div className="p-fluid">
               <div className="mb-4">
                 <FileUpload formik={formik} name="img_file" />
+                <p>{errors.img_file}</p>
               </div>
               <div className="mb-4">
                 <TextField
@@ -109,6 +112,7 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
                   onChange={formik.handleChange}
                   value={formik.values.name}
                 />
+                 <p>{errors.name}</p>
               </div>
             </div>
           </form>
