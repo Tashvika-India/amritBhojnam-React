@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import PasswordInput from "../../../components/ui/PasswordInput";
@@ -6,53 +6,69 @@ import { loginSchema } from "../../../schemas/auth-schema";
 import { useNavigate } from "react-router-dom";
 import { adminLoginApi } from "../../../services/authApiRoutes";
 
-
 function LoginForm() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  function ifError(key) {
-    return errors[key] && touched[key];
-  }
 
   const initialValues = {
-    email: "user@example.com",
-    password: "string",
+    // email: "user@example.com",
+    // password: "string",
+    email: "",
+    password: "",
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
     onSubmit: async (submitValues) => {
-      console.log("Submit Values", submitValues);
-      loginUser(submitValues);
+      setLoading(true);   
+      try {
+        await loginUser(submitValues);
+      } finally {
+        setLoading(false);  
+      }
     },
   });
 
   const { values, errors, touched, handleChange, handleBlur } = formik;
 
+  const ifError = (key) => errors[key] && touched[key];
+
   async function loginUser(values) {
     try {
       const response = await adminLoginApi(values);
-      console.log("Response", response);
       const accessToken = response?.data?.access;
       const refreshToken = response?.data?.refresh;
-      localStorage.setItem("access", accessToken);
-      localStorage.setItem("refresh", refreshToken);
-      const tokenParts = accessToken.split(".");
-      const payload = JSON.parse(atob(tokenParts[1]));
-      navigate("/dashboard")
+
+      if (accessToken && refreshToken) {
+        // Store tokens in localStorage
+        localStorage.setItem("access", accessToken);
+        localStorage.setItem("refresh", refreshToken);
+
+        // Decode token payload (Base64)
+        const tokenParts = accessToken.split(".");
+        const payload = JSON.parse(atob(tokenParts[1]));
+
+        // Navigate to dashboard if admin role
+        if (payload?.is_admin) {
+          navigate("/dashboard");
+        } else {
+          setErrorMessage("Access Denied: Not an admin user.");
+        }
+      }
     } catch (error) {
-      throw error
+      setErrorMessage("Login failed. Please check your credentials.");
     }
   }
-
 
   return (
     <form onSubmit={formik.handleSubmit}>
       <div>
         <TextField
           fullWidth
-          value={values?.email}
+          value={values.email}
           onChange={handleChange}
           onBlur={handleBlur}
           name="email"
@@ -66,18 +82,24 @@ function LoginForm() {
       <div className="mt-4">
         <PasswordInput formik={formik} name="password" ifError={ifError} />
       </div>
+      
+      {errorMessage && (
+        <p className="text-danger mt-2">{errorMessage}</p>
+      )}
+      
       <a className="text-orange text-end m-0 fw-600 d-block">
         Forgot Password?
       </a>
 
       <div className="mt-5">
-          <button
-            type="submit"
-            className="btn btn-orange w-100 py-3"
-            onClick={formik.handleSubmit}
-          >
-            Login
-          </button> 
+        <button
+          type="submit"
+          className="btn btn-orange w-100 py-3"
+          onClick={formik.handleSubmit}
+          disabled={loading}
+        >
+          {loading ? "Logging in..." : "Login"}
+        </button>
       </div>
     </form>
   );

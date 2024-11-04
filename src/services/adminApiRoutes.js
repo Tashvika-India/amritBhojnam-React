@@ -1,15 +1,17 @@
 import axios from "axios";
 
 const apiurl = import.meta.env.VITE_BASE_API_URL + "/api";
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwOTIzMDE3LCJpYXQiOjE3MzA3MDcwMTcsImp0aSI6Ijk1YmNjNmM2MzRiYTQ0OTI5NmM0N2NmNTNkZWY0YTYzIiwidXNlcl9pZCI6ImM0Y2Q1MzI0LTkyMTAtNGU5ZS1iNzFiLWJlNDY2NzBkYTIyMyIsImlzX2FkbWluIjp0cnVlfQ.xrHLn9q0bW59M6cnM_fDSBXiYX40-tewwFFiyYzqAOY";
+
+const getToken = localStorage.getItem("access")
+  ? localStorage.getItem("access")
+  : localStorage.getItem("refresh");
 
 const API = axios.create({
   baseURL: apiurl,
 });
 
 API.interceptors.request.use((req) => {
-  req.headers.Authorization = `Bearer ${token}`;
+  req.headers.Authorization = `Bearer ${getToken}`;
   return req;
 });
 
