@@ -19,7 +19,7 @@ function BannerTable({banner , setEditData , setVisible, bannerStatusChange}) {
         <img
           src={baseURL+rowData.img_file	}
           alt={rowData.name}
-          style={{ width: "3.125rem", aspectRatio: "1/1" }}
+          className="img-fluid img-table-thumbnail"
         />
       </div>
     );

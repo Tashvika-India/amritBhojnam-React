@@ -183,6 +183,20 @@
   cursor: pointer;
 }
 
+.img-table-thumbnail {
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  aspect-ratio: 1/1;
+  border: 1px solid #d55210;
+  transition: transform 0.3s ease-in-out;
+  background-color: #FFF;
+  &:hover {
+    transform: scale3d(2, 2, 2);
+  }
+}
+
 
 .icon-spin {
   animation: spin 1s linear infinite;
