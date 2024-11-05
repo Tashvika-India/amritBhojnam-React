@@ -17,6 +17,7 @@ import ProudctList from "../features/website/web-product-list";
 import UserProfile from "../features/website/web-account";
 import CheckoutPage from "../features/website/web-checkout"; 
 import PrivateRoute from "./PrivateRoute";
+import ManageSubCategories from "../features/admin-dashboard/manage-sub-categories";
 
 function AppRoutes() {
   return (
@@ -45,11 +46,22 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/category-one"
+        path="/category"
         element={
           <PrivateRoute>
             <DashboardSidebar>
               <ManageCategories />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        exact
+        path="/sub-category"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ManageSubCategories />
             </DashboardSidebar>
           </PrivateRoute>
         }
