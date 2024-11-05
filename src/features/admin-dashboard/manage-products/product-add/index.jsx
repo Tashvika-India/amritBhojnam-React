@@ -96,13 +96,13 @@ const ProductAdd = () => {
     formData.append("meta_description", values.meta_description); 
 
     // Append tags
-    values.tags.forEach((tag, index) => {
+    values.tags?.forEach((tag, index) => {
       if (tag.trim()) {
         formData.append(`tags[${index}]`, tag.trim());
       }
     });
 
-    values.keyword.forEach((key, index) => {
+    values.keyword?.forEach((key, index) => {
       if (key.trim()) {
         formData.append(`meta_keywords[${index}]`, key.trim());
       }
@@ -161,13 +161,14 @@ const ProductAdd = () => {
     formData.append("meta_description", values.meta_description);  
 
     // Append tags
-    values.tags.forEach((tag, index) => {
+    values.tags?.forEach((tag, index) => {
       if (tag.trim()) {
         formData.append(`tags[${index}]`, tag.trim());
       }
     });
 
-    values.keyword.forEach((key, index) => {
+    
+    values.keyword?.forEach((key, index) => {
       if (key.trim()) {
         formData.append(`meta_keywords[${index}]`, key.trim());
       }
