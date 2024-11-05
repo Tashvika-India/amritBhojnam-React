@@ -1,3 +1,5 @@
+// src/routes/AppRoutes.js
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import DashboardSidebar from "@/layout/admin-layout/DashboardSidebar";
 import DashboardHome from "../features/admin-dashboard/dashboard-home";
@@ -13,7 +15,8 @@ import ManageBanner from "../features/admin-dashboard/manage-banner";
 import ProudctDetail from "../features/website/web-product-detail";
 import ProudctList from "../features/website/web-product-list";
 import UserProfile from "../features/website/web-account";
-import CheckoutPage from "../features/website/web-checkout";
+import CheckoutPage from "../features/website/web-checkout"; 
+import PrivateRoute from "./PrivateRoute";
 
 function AppRoutes() {
   return (
@@ -22,87 +25,104 @@ function AppRoutes() {
         exact
         path="/"
         element={
-          <DashboardSidebar>
-            <DashboardHome />
-          </DashboardSidebar>
+          <PrivateRoute>
+            <DashboardSidebar>
+              <DashboardHome />
+            </DashboardSidebar>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/dashboard"
         element={
-          <DashboardSidebar>
-            <DashboardHome />
-          </DashboardSidebar>
+          <PrivateRoute>
+            <DashboardSidebar>
+              <DashboardHome />
+            </DashboardSidebar>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/category-one"
         element={
-          <DashboardSidebar>
-            <ManageCategories />
-          </DashboardSidebar>
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ManageCategories />
+            </DashboardSidebar>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/product"
         element={
-          <DashboardSidebar>
-            <ProductList />
-          </DashboardSidebar>
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ProductList />
+            </DashboardSidebar>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/add-product"
         element={
-          <DashboardSidebar>
-            <ProductAdd />
-          </DashboardSidebar>
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ProductAdd />
+            </DashboardSidebar>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/edit-product"
         element={
-          <DashboardSidebar>
-            <ProductAdd />
-          </DashboardSidebar>
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ProductAdd />
+            </DashboardSidebar>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/product/product-reviews"
         element={
-          <DashboardSidebar>
-            <ProductReviews />
-          </DashboardSidebar>
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ProductReviews />
+            </DashboardSidebar>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/banner"
         element={
-          <DashboardSidebar>
-            <ManageBanner />
-          </DashboardSidebar>
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ManageBanner />
+            </DashboardSidebar>
+          </PrivateRoute>
         }
       />
       <Route
         exact
         path="/orders"
         element={
-          <DashboardSidebar>
-            <AdminOrders />
-          </DashboardSidebar>
+          <PrivateRoute>
+            <DashboardSidebar>
+              <AdminOrders />
+            </DashboardSidebar>
+          </PrivateRoute>
         }
       />
       <Route exact path="/login" element={<LoginPage />} />
 
       {/* web routes */}
-
       <Route exact path="/home" element={<HomePage />} />
       <Route exact path="/products" element={<ProudctList />} />
       <Route exact path="/product-detail" element={<ProudctDetail />} />
