@@ -32,7 +32,7 @@ function CategoryTable({ categories, setEditData, setVisible, categoriesStatusCh
         <img
           src={baseURL + rowData?.img_file}
           alt={rowData?.name}
-          style={{ width: "3rem" }}
+          className="img-fluid img-table-thumbnail"
         />
       </div>
     );

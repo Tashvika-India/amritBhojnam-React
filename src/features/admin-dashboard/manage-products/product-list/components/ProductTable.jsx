@@ -48,7 +48,7 @@ function ProductTable({ products , getProductList }) {
         <img
           src={imageUrl}
           alt={rowData?.name}
-          style={{ width: "3rem" }}
+          className="img-fluid img-table-thumbnail"
         />
       </div>
     );
