@@ -31,13 +31,15 @@ import easyReturn from "../../../assets/images/web/offers/easy-return.png";
 import firstPurchase from "../../../assets/images/web/first-purchase.png";
 import ProductCard from "./components/ProductCard";
 import { Link } from "react-router-dom";
-import { getProductApi } from "../../../services/adminApiRoutes";
+import { getCategoriesApi, getProductApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion";
+import { baseURL } from "../../../utils/constant-variable";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [category, setCategory] = useState([]);
 
   async function getProductList() {
     setLoading(true);
@@ -51,22 +53,36 @@ const HomePage = () => {
     }
   }
 
-
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "start start"],
   });
 
-  
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
 
-   
   const x = useTransform(scrollYProgress, [0, 0.5], ["-100%", "0%"]);
   const xx = useTransform(scrollYProgress, [0, 0.5], ["100%", "0%"]);
 
   useEffect(() => {
     getProductList();
+  }, []);
+
+  async function getCategory() {
+    setLoading(true);
+    try {
+      const response = await getCategoriesApi();
+      const filteredData = (response?.data || []).filter(item => item.is_active === true);
+      setCategory(filteredData);
+    } catch (error) {
+      console.log("Error on Banner List", error);
+    } finally {
+      setLoading(false);
+    }
+  }  
+
+  useEffect(() => {
+    getCategory();
   }, []);
 
   return (
@@ -75,7 +91,7 @@ const HomePage = () => {
       <section>
         <div
           className="home-banner-wrapper"
-          style={{ maxWidth: "90%", margin: "0 auto" }}
+          style={{ maxWidth: "90%", maxHeight: "90%", margin: "0 auto" }}
         >
           <WebBanner />
         </div>
@@ -83,94 +99,20 @@ const HomePage = () => {
       <section>
         <div className="container fb-container">
           <div className="cat-items-wrapper">
-            <Link to="/products">
-              <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
-                <div
-                  className="item-image"
-                  style={{
-                    "--linear":
-                      "linear-gradient(180deg, #FFB7B7 0%, #FFE0E0 100%)",
-                  }}
-                >
-                  <img className="img-fluid" src={product1} alt="millet-rice" />
-                </div>
-                <h6 className="fb-fs-16 fw-500">Millet Rice</h6>
-              </motion.div>
-            </Link>
-            <Link to="/products">
-              <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
-                <div
-                  className="item-image"
-                  style={{
-                    "--linear":
-                      "linear-gradient(180deg, #96D7FF 0%, #D7F0FF 100%)",
-                  }}
-                >
-                  <img className="img-fluid" src={jowerImg} alt="millet-rice" />
-                </div>
-                <h6 className="fb-fs-16 fw-500">Bakery & Confectionery</h6>
-              </motion.div>
-            </Link>
-            <Link to="/products">
-              <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
-                <div
-                  className="item-image"
-                  style={{
-                    "--linear":
-                      "linear-gradient(180deg, #FFCC8F 0%, #FFE9CF 100%)",
-                  }}
-                >
-                  <img className="img-fluid" src={flourImg} alt="millet-rice" />
-                </div>
-                <h6 className="fb-fs-16 fw-500">Flour</h6>
-              </motion.div>
-            </Link>
-            <Link to="/products">
-              <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
-                <div
-                  className="item-image"
-                  style={{
-                    "--linear":
-                      " linear-gradient(180deg, #C2FFBD 0%, #EFFFEE 100%)",
-                  }}
-                >
-                  <img className="img-fluid" src={idlliImg} alt="millet-rice" />
-                </div>
-                <h6 className="fb-fs-16 fw-500">Beverages</h6>
-              </motion.div>
-            </Link>
-            <Link to="/products">
-              <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
-                <div
-                  className="item-image"
-                  style={{
-                    "--linear":
-                      "linear-gradient(180deg, #F6D4FF 0%, #FBECFF 100%)",
-                  }}
-                >
-                  <img
-                    className="img-fluid"
-                    src={murukuImg}
-                    alt="millet-rice"
-                  />
-                </div>
-                <h6 className="fb-fs-16 fw-500">Snacks & Munching Rice</h6>
-              </motion.div>
-            </Link>
-            <Link to="/products">
-              <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
-                <div
-                  className="item-image"
-                  style={{
-                    "--linear":
-                      "linear-gradient(180deg, #C3CCFF 0%, #E0E5FF 100%)",
-                  }}
-                >
-                  <img className="img-fluid" src={soupImg} alt="millet-rice" />
-                </div>
-                <h6 className="fb-fs-16 fw-500">Instant Mixes</h6>
-              </motion.div>
-            </Link>
+            {category?.map((item, index) => (
+              <Link to="/products" className="cat-card" key={index}>
+                <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
+                  <div className="item-image">
+                    <img
+                      className="img-fluid"
+                      src={baseURL+item.img_file}
+                      alt="millet-rice"
+                    />
+                  </div>
+                  <h6 className="fb-fs-16 fw-500">{item.name}</h6>
+                </motion.div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -226,7 +168,10 @@ const HomePage = () => {
                 <Tab.Content>
                   <Tab.Pane eventKey="All">
                     <div className="row">
-                      <div className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between" style={{ gridTemplateColumns: 'repeat(5, 1fr)' }}>
+                      <div
+                        className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
+                        style={{ gridTemplateColumns: "repeat(5, 1fr)" }}
+                      >
                         {loading ? (
                           <Loading />
                         ) : (
@@ -251,10 +196,14 @@ const HomePage = () => {
         <div className="container fb-container">
           <div className="row">
             <div className="col-lg-6 col-md-12">
-              <motion.div ref={targetRef} style={{
-                opacity: opacity,
-                x: x,
-              }} className="protein-left">
+              <motion.div
+                ref={targetRef}
+                style={{
+                  opacity: opacity,
+                  x: x,
+                }}
+                className="protein-left"
+              >
                 <div className="left-content p-5">
                   <h4 className="fw-bold mb-lg-3">
                     Upto 40% Off on special Items
@@ -273,10 +222,14 @@ const HomePage = () => {
             <div className="col-lg-6 col-md-12">
               <div className="row">
                 <div className="col-md-12 mb-lg-4">
-                  <motion.div ref={targetRef} style={{
-                    opacity: opacity,
-                    x: xx,
-                  }} className="protein-right-top">
+                  <motion.div
+                    ref={targetRef}
+                    style={{
+                      opacity: opacity,
+                      x: xx,
+                    }}
+                    className="protein-right-top"
+                  >
                     <div className="right-top-content p-5 pb-4">
                       <h4 className="fw-bold mb-3">Upto 40% Off </h4>
                       <p className="fw-500">
@@ -290,10 +243,14 @@ const HomePage = () => {
                   </motion.div>
                 </div>
                 <div className="col-md-12 mt-lg-4">
-                  <motion.div ref={targetRef} style={{
-                    opacity: opacity,
-                    x: xx,
-                  }} className="protein-right-bottom">
+                  <motion.div
+                    ref={targetRef}
+                    style={{
+                      opacity: opacity,
+                      x: xx,
+                    }}
+                    className="protein-right-bottom"
+                  >
                     <div className="right-bottom-content p-5 pb-4">
                       <h4 className="fw-bold mb-3">Upto 40% Off </h4>
                       <p className="fw-500">

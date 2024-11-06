@@ -1,130 +1,122 @@
-import React,{useEffect,useState} from 'react';
-import Slider from 'react-slick';
-import banner from '../../../../assets/images/web/web-banner.png';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import {getBannerApi}  from "../../../../services/adminApiRoutes"
-const WebBanner = () => { 
-    const bannerContent = {
-        label: "All Natural Productsgfgfg",
-        heading: {
-          normalText: "Good For",
-          highlightedText: "You and the Planet",
-        },
-        description:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer",
-        buttonText: "Shop Now",
-        buttonClass: "button-primary",
-      };
-    const[bannerData,setBannerData] = useState([])
-    const settings = {
-        dots: false,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: true,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />,
-    };
-    const fetchBannerData =async()=>{
-        try{
-            const response = await getBannerApi()
-        setBannerData(response?.data)
-        }
-        catch(error){
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+import banner from "../../../../assets/images/web/web-banner.png";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { getBannerApi } from "../../../../services/adminApiRoutes";
+import { baseURL } from "../../../../utils/constant-variable";
+const WebBanner = () => {
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+  };
+  const [banner, setBanner] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-        }
-
+  async function getBanner() {
+    setLoading(true);
+    try {
+      const response = await getBannerApi();
+      setBanner(response?.data || []);
+    } catch (error) {
+      console.log("Error on Banner List", error);
+    } finally {
+      setLoading(false);
     }
-    useEffect(()=>{
-fetchBannerData()
-    },[])
-    return (
-        < >
-            <Slider {...settings} className="banner-slider">
-                <div className="banner-slide" >
-                    <img src={banner} alt="banner" className='img-fluid w-100' />
-                    {/* <div className="row">
-                        <div className="col-md-6">
-                           <div className="banner-content">
-                                <span className="label">All Natural Products</span>
-                                <h1 className='fw-light text-balance'>Good For <span className='fw-bold text-orange'>You and the Planet</span></h1>
-                                <p className='text-balance mb-4'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer </p>
-                                <button className="button-primary">Shop Now</button>
-                            </div>
-                        </div>
-                    </div> */}
-                </div>
-                <div className="banner-slide" >
-                    <img src={banner} alt="banner" className='img-fluid' />
-                </div>
-                <div className="banner-slide" >
-                    <img src={banner} alt="banner" className='img-fluid' />
-                </div>
-                <div className="banner-slide" >
-                    <img src={banner} alt="banner" className='img-fluid' />
-                </div>
-            </Slider>
-        </>
-    )
-}
+  }
 
+  useEffect(() => {
+    getBanner();
+  }, []);
+
+  return (
+    <>
+      <Slider {...settings} className="banner-slider">
+        {banner?.map((item, index) => (
+          <div className="banner-slide" key={index}>
+            <img
+              src={baseURL + item.img_file}
+              alt="banner"
+              className="img-fluid"
+            />
+          </div>
+        ))}
+      </Slider>
+    </>
+  );
+};
 
 const arrowStyles = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '40px',
-    height: '40px',
-    borderRadius: '50%',
-    backgroundColor: '#fff',
-    color: '#3B3B3B',
-    boxShadow: '0px 4.83px 10px 0px rgba(0, 0, 0, 0.05)',
-    fontSize: '1rem',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    zIndex: 10,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "40px",
+  height: "40px",
+  borderRadius: "50%",
+  backgroundColor: "#fff",
+  color: "#3B3B3B",
+  boxShadow: "0px 4.83px 10px 0px rgba(0, 0, 0, 0.05)",
+  fontSize: "1rem",
+  cursor: "pointer",
+  transition: "background-color 0.3s ease",
+  position: "absolute",
+  top: "50%",
+  transform: "translateY(-50%)",
+  zIndex: 10,
 };
 
 const nextArrowStyles = {
-    ...arrowStyles,
-    right: '-1rem',
+  ...arrowStyles,
+  right: "-1rem",
 };
 
 const prevArrowStyles = {
-    ...arrowStyles,
-    left: '-1rem',
+  ...arrowStyles,
+  left: "-1rem",
 };
 
 const spanStyles = {
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
+  fontWeight: "bold",
+  textTransform: "uppercase",
 };
-
 
 // Customize Next Arrow
 const SampleNextArrow = (props) => {
-    const { onClick } = props;
-    return (
-        <div className="custom-arrow next-arrow" onClick={onClick} style={nextArrowStyles}>
-            <span style={spanStyles}><IoIosArrowForward /></span>
-        </div>
-    );
+  const { onClick } = props;
+  return (
+    <div
+      className="custom-arrow next-arrow"
+      onClick={onClick}
+      style={nextArrowStyles}
+    >
+      <span style={spanStyles}>
+        <IoIosArrowForward />
+      </span>
+    </div>
+  );
 };
 
 // Customize Previous Arrow
 const SamplePrevArrow = (props) => {
-    const { onClick } = props;
-    return (
-        <div className="custom-arrow prev-arrow" onClick={onClick} style={prevArrowStyles}>
-            <span style={spanStyles}><IoIosArrowBack /></span>
-        </div>
-    );
+  const { onClick } = props;
+  return (
+    <div
+      className="custom-arrow prev-arrow"
+      onClick={onClick}
+      style={prevArrowStyles}
+    >
+      <span style={spanStyles}>
+        <IoIosArrowBack />
+      </span>
+    </div>
+  );
 };
 
-export default WebBanner
+export default WebBanner;
