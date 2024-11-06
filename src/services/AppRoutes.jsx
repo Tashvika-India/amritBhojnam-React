@@ -18,6 +18,7 @@ import UserProfile from "../features/website/web-account";
 import CheckoutPage from "../features/website/web-checkout"; 
 import PrivateRoute from "./PrivateRoute";
 import ManageSubCategories from "../features/admin-dashboard/manage-sub-categories";
+import AdminCustomer from "../features/admin-dashboard/manage-customers";
 
 function AppRoutes() {
   return (
@@ -128,6 +129,17 @@ function AppRoutes() {
           <PrivateRoute>
             <DashboardSidebar>
               <AdminOrders />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+       <Route
+        exact
+        path="/customers"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <AdminCustomer />
             </DashboardSidebar>
           </PrivateRoute>
         }

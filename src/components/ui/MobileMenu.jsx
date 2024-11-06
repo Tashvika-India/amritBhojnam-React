@@ -4,9 +4,14 @@ import logo from "../../assets/images/web/logo.svg";
 import { InputText } from "primereact/inputtext";
 import { IoSearchOutline } from "react-icons/io5";
 import { Dropdown } from "primereact/dropdown";
+import MobileLogin from "../../components/ui/MobileLogin";
 
 const MobileMenu = ({ show, onClose }) => {
   const [selectedCity, setSelectedCity] = useState(null);
+  const [showMobileLogin, setShowMobileLogin] = useState(false);
+
+  const toggleMobileLogin = () => setShowMobileLogin(!showMobileLogin);
+
   const cities = [
     { name: "New York", code: "NY" },
     { name: "Rome", code: "RM" },
@@ -33,18 +38,21 @@ const MobileMenu = ({ show, onClose }) => {
           </div>
         </div>
         <div>
-          <button className="button-primary w-100 mt-4">
-            <p className="fw-600 mb-0" style={{fontSize: "16px"}}>Login</p>
-          </button>
+          <a href="#" onClick={toggleMobileLogin}>
+            <button className="button-primary w-100 mt-4">
+              <p className="fw-600 mb-0" style={{ fontSize: "16px" }}>
+                Login
+              </p>
+              <MobileLogin show={showMobileLogin} onClose={toggleMobileLogin} />
+            </button>
+          </a>
         </div>
         <div className="link-button mt-4">
           <ul>
             <li className="border-bottom py-3">Home</li>
             <div className="d-flex justify-content-between border-bottom">
-            <li className=" py-3">
-              Shop
-            </li>
-            <span>
+              <li className=" py-3">Shop</li>
+              <span>
                 <div className="all-category text-end mt-2">
                   <Dropdown
                     value={selectedCity}
@@ -55,7 +63,7 @@ const MobileMenu = ({ show, onClose }) => {
                   />
                 </div>
               </span>
-</div>
+            </div>
             <li className="border-bottom py-3">Best deals</li>
             <li className="border-bottom py-3">Trending Products</li>
             <li className="border-bottom py-3">About Us</li>
@@ -64,7 +72,12 @@ const MobileMenu = ({ show, onClose }) => {
               Almost Finished
               <span>
                 <button className="button-primary ms-3 rounded-1 px-2 py-0 fw-400 fb-fs-16">
-                  <p className="mb-0"  style={{fontSize: "16px", fontWeight: "400"}}>SALE</p>
+                  <p
+                    className="mb-0"
+                    style={{ fontSize: "16px", fontWeight: "400" }}
+                  >
+                    SALE
+                  </p>
                 </button>
               </span>
             </li>
