@@ -141,8 +141,8 @@ function MenuItems() {
           {openSections.category ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         {renderCollapse("category", [
-          { path: "/category-one", label: "Category One" },
-          { path: "/category-two", label: "Category Two" },
+          { path: "/category", label: "Category" },
+          { path: "/sub-category", label: "Sub Category" },
         ])}
 
         <Link
