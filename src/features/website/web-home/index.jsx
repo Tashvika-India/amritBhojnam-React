@@ -72,7 +72,8 @@ const HomePage = () => {
     setLoading(true);
     try {
       const response = await getCategoriesApi();
-      setCategory(response?.data || []);
+      const filteredData = (response?.data || []).filter(item => item.is_active === true);
+      setCategory(filteredData);
     } catch (error) {
       console.log("Error on Banner List", error);
     } finally {
