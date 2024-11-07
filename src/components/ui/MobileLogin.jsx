@@ -9,7 +9,7 @@ const MobileLogin = ({ show, onClose }) => {
   const [selectedCity, setSelectedCity] = useState(null);
   const [showOTPInputs, setShowOTPInputs] = useState(false);
   const [otpValues, setOtpValues] = useState(new Array(4).fill(""));
-
+console.log("showwww",show)
   const handleSendOTP = () => {
     // Trigger any logic to send the OTP here
     setShowOTPInputs(true);
@@ -50,14 +50,16 @@ const MobileLogin = ({ show, onClose }) => {
           </div>
         </div>
         <div>
-          <div className="flex flex-column gap-4 py-3">
+      
+          <div className="flex flex-column gap-4 py-3 phone-input">
             <label htmlFor="username">
               Phone No <span style={{ color: "red" }}>*</span>
             </label>
             <InputText
-              className="w-100 mb-2 p-inputtext-lg"
+              className="w-100 mt-3 mb-2 p-inputtext-lg border-radius-8"
               placeholder="Enter Phone No."
               id="Phone"
+              style={{border: "1px solid #918e92"}}
               aria-describedby="username-help"
             />
             <small id="username-help">Enter your Phone Number to login.</small>
@@ -69,15 +71,8 @@ const MobileLogin = ({ show, onClose }) => {
           </button>
         </div> */}
         <div>
-          <button
-            className="button-primary w-100"
-            style={{ fontSize: "1rem" }}
-            onClick={handleSendOTP}
-          >
-            Send OTP
-          </button>
-          {showOTPInputs && (
-            <div>
+        {showOTPInputs && (
+            <div className="pb-3 text-center">
               {otpValues.map((otp, index) => (
                 <input 
                   key={index}
@@ -85,11 +80,18 @@ const MobileLogin = ({ show, onClose }) => {
                   maxLength="1"
                   value={otp}
                   onChange={(e) => handleChange(e.target.value, index)}
-                  style={{ width: "45px", height: "50px", margin: "13px", borderRadius: "8px", textAlign: "center" }}
+                  style={{ width: "55px", height: "55px", backgroundColor: "white", border: "1px solid #918e92",  margin: "12px", borderRadius: "10px", textAlign: "center" }}
                 />
               ))}
             </div>
           )}
+          <button
+            className="button-primary w-100"
+            style={{ fontSize: "1rem" }}
+            onClick={handleSendOTP}
+          >
+            Send OTP
+          </button>
         </div>
       </Offcanvas.Body>
     </Offcanvas>

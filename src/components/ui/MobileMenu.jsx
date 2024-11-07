@@ -38,14 +38,14 @@ const MobileMenu = ({ show, onClose }) => {
           </div>
         </div>
         <div>
-          <a href="#" onClick={toggleMobileLogin}>
+          <div onClick={toggleMobileLogin}>
             <button className="button-primary w-100 mt-4">
               <p className="fw-600 mb-0" style={{ fontSize: "16px" }}>
                 Login
               </p>
               <MobileLogin show={showMobileLogin} onClose={toggleMobileLogin} />
             </button>
-          </a>
+          </div>
         </div>
         <div className="link-button mt-4">
           <ul>
