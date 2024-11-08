@@ -6,12 +6,11 @@ import { IoSearchOutline } from "react-icons/io5";
 import { Dropdown } from "primereact/dropdown";
 import MobileLogin from "../../components/ui/MobileLogin";
 
-const MobileMenu = ({ show, onClose }) => {
+const MobileMenu = ({ show, onClose, showMobileLogin, toggleMobileLogin}) => {
+
+  
   const [selectedCity, setSelectedCity] = useState(null);
-  const [showMobileLogin, setShowMobileLogin] = useState(false);
-
-  const toggleMobileLogin = () => setShowMobileLogin(!showMobileLogin);
-
+ 
   const cities = [
     { name: "New York", code: "NY" },
     { name: "Rome", code: "RM" },
@@ -38,13 +37,14 @@ const MobileMenu = ({ show, onClose }) => {
           </div>
         </div>
         <div>
-          <div onClick={toggleMobileLogin}>
-            <button className="button-primary w-100 mt-4">
+          <div >
+            <button className="button-primary w-100 mt-4" type="button" onClick={toggleMobileLogin}>
               <p className="fw-600 mb-0" style={{ fontSize: "16px" }}>
                 Login
               </p>
-              <MobileLogin show={showMobileLogin} onClose={toggleMobileLogin} />
+              
             </button>
+            <MobileLogin otpShow={showMobileLogin} onOtpClose={toggleMobileLogin} />
           </div>
         </div>
         <div className="link-button mt-4">
