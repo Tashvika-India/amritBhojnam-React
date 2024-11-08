@@ -72,7 +72,7 @@ export const putSubCategoriesApi = (id, payload) => API.put(`/sub-categories/${i
 export const patchSubCategoriesApi = (id, payload) => API.patch(`/sub-categories/${id}/`, payload);
 
 // product api  
-export const getProductApi = () => API.get(`/products/`);
+export const getProductApi = (product_id) => API.get(`/products/?product_id=${product_id ? product_id : ""}`);
 export const postProductApi = (payload) => API.post(`/products/`, payload);
 export const putProductApi = (id, payload) => API.put(`/products/${id}/`, payload);
 export const deleteProductApi = (id) => API.delete(`/products/${id}`);

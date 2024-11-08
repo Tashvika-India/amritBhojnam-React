@@ -26,7 +26,7 @@ const Header = () => {
   const toggleMobileMenu = () => setShowMobileMenu((prev) => !prev);
 
   const toggleMobileLogin = () => setShowMobileLogin((prev) => !prev);  
-  const toggleWebLogin = () => setShowWebLogin((prev) => !prev);  
+  const toggleWebLogin = () => setShowWebLogin((prev) => !prev);   
 
   const cities = [
     { name: 'New York', code: 'NY' },
@@ -66,9 +66,9 @@ const Header = () => {
                     <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name"
                       placeholder="All Categories" className="w-full border-0" />
                   </div>
-                  <div className="search-input position-relative z-1 w-100" >
-                    <InputText keyfilter="int" placeholder="Search for products" className='border-0 ps-3' />
-                    <span className='search-icon z-2 position-absolute end-0 top-50 translate-middle mb-3'><IoSearchOutline color="#918e92" size={"1.25rem"} /></span>
+                  <div className="search-input position-relative z-1 w-100 d-flex justify-content-between" >
+                    <InputText type='text' placeholder="Search for products" className='border-0 ps-3 w-100'  style={{boxShadow: 'none'}}/>
+                    <button className='search-icon d-inline-block z-2  h-100 border-0 bg-transparent'><IoSearchOutline color="#918e92" size={"1.25rem"} /></button>
                   </div>
                 </div>
               </div>

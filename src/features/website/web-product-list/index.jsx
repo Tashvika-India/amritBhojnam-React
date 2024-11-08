@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import fireImg from "../../../assets/images/web/Fire.png";
@@ -16,8 +16,12 @@ import { grey } from "@mui/material/colors";
 import { Checkbox } from "primereact/checkbox";
 import ProductCard from "../web-home/components/ProductCard";
 import { InputText } from "primereact/inputtext";
+import Loading from "../../../components/ui/Loading";
+import { getProductApi } from "../../../services/adminApiRoutes";
 
 const ProudctList = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [minValue, setMinValue] = useState(100); // Default Min value
   const [maxValue, setMaxValue] = useState(200); // Default Max value
 
@@ -32,83 +36,23 @@ const ProudctList = () => {
     setIngredients(_ingredients);
   };
 
-  const data = [
-    {
-      name: "Masala Millet (Veggie Masala)",
-      category: "Millet",
-      description: "Veggie Masala Millet",
-      image_url: "path/to/image.png",
-      weight: "100g",
-      price: {
-        original: 80,
-        discounted: 70,
-        currency: "₹",
-      },
-      discount_percentage: "10 % Off",
-      calories: 80,
-      availability: "In Stock",
-    },
-    {
-      name: "Masala Millet (Veggie Masala)",
-      category: "Millet",
-      description: "Veggie Masala Millet",
-      image_url: "path/to/image.png",
-      weight: "100g",
-      price: {
-        original: 80,
-        discounted: 70,
-        currency: "₹",
-      },
-      discount_percentage: "10 % Off",
-      calories: 80,
-      availability: "In Stock",
-    },
-    {
-      name: "Masala Millet (Veggie Masala)",
-      category: "Millet",
-      description: "Veggie Masala Millet",
-      image_url: "path/to/image.png",
-      weight: "100g",
-      price: {
-        original: 80,
-        discounted: 70,
-        currency: "₹",
-      },
-      discount_percentage: "10 % Off",
-      calories: 80,
-      availability: "In Stock",
-    },
-    {
-      name: "Masala Millet (Veggie Masala)",
-      category: "Millet",
-      description: "Veggie Masala Millet",
-      image_url: "path/to/image.png",
-      weight: "100g",
-      price: {
-        original: 80,
-        discounted: 70,
-        currency: "₹",
-      },
-      discount_percentage: "10 % Off",
-      calories: 80,
-      availability: "In Stock",
-    },
-    {
-      name: "Masala Millet (Veggie Masala)",
-      category: "Millet",
-      description: "Veggie Masala Millet",
-      image_url: "path/to/image.png",
-      weight: "100g",
-      price: {
-        original: 80,
-        discounted: 70,
-        currency: "₹",
-      },
-      discount_percentage: "10 % Off",
-      calories: 80,
-      availability: "In Stock",
-    },
-  ];
+
+  async function getProductList() {
+    setLoading(true);
+    try {
+      const response = await getProductApi();
+      setProducts(response?.data || []);
+    } catch (error) {
+      console.log("Error on Product List", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getProductList();
+  }, []);
+
 
   return (
     <div className="web-wrapper-main">
@@ -236,7 +180,7 @@ const ProudctList = () => {
                           checked={ingredients.includes("Cheese")}
                         />
                         <label htmlFor="ingredient1" className="ms-3 d-flex">
-                         4
+                          4
                           <span>
                             <img
                               className="img-fluid mt-1 mx-1"
@@ -244,7 +188,7 @@ const ProudctList = () => {
                               alt="star"
                             />
                           </span>
-                           & More
+                          & More
                         </label>
                       </div>
                     </li>
@@ -255,7 +199,7 @@ const ProudctList = () => {
                           inputId="ingredient2" name="pizza" value="Mushroom" onChange={onIngredientsChange} checked={ingredients.includes('Mushroom')}
                         />
                         <label htmlFor="ingredient2" className="ms-3 d-flex">
-                         3
+                          3
                           <span>
                             <img
                               className="img-fluid mt-1 mx-1"
@@ -263,7 +207,7 @@ const ProudctList = () => {
                               alt="star"
                             />
                           </span>
-                           & More
+                          & More
                         </label>
                       </div>
                     </li>
@@ -274,7 +218,7 @@ const ProudctList = () => {
                           inputId="ingredient3" name="pizza" value="Pepper" onChange={onIngredientsChange} checked={ingredients.includes('Pepper')}
                         />
                         <label htmlFor="ingredient3" className="ms-3 d-flex">
-                         2
+                          2
                           <span>
                             <img
                               className="img-fluid mt-1 mx-1"
@@ -282,7 +226,7 @@ const ProudctList = () => {
                               alt="star"
                             />
                           </span>
-                           & More
+                          & More
                         </label>
                       </div>
                     </li>
@@ -290,10 +234,10 @@ const ProudctList = () => {
                       <div className="d-flex align-items-center">
                         <Checkbox
                           variant="filled"
-                          inputId="ingredient4" name="pizza" value="Onion" onChange={onIngredientsChange} checked={ingredients.includes('Onion')} 
+                          inputId="ingredient4" name="pizza" value="Onion" onChange={onIngredientsChange} checked={ingredients.includes('Onion')}
                         />
                         <label htmlFor="ingredient4" className="ms-3 d-flex">
-                         1
+                          1
                           <span>
                             <img
                               className="img-fluid mt-1 mx-1"
@@ -301,7 +245,7 @@ const ProudctList = () => {
                               alt="star"
                             />
                           </span>
-                           & More
+                          & More
                         </label>
                       </div>
                     </li>
@@ -325,10 +269,19 @@ const ProudctList = () => {
                   </span>
                 </div>
               </div>
-              <div className="d-flex mt-4 gap-4 pt-2 justify-content-start flex-wrap">
-                {data?.map((card, index) => (
-                  <ProductCard card={card} key={index} />
-                ))}
+              <div className="row">
+                <div
+                  className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
+                  style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
+                >
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    products?.map((item, index) => (
+                      <ProductCard product={item} key={index} />
+                    ))
+                  )}
+                </div>
               </div>
             </div>
           </div>

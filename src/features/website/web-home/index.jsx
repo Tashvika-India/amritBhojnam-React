@@ -79,7 +79,7 @@ const HomePage = () => {
     } finally {
       setLoading(false);
     }
-  }  
+  }
 
   useEffect(() => {
     getCategory();
@@ -105,7 +105,7 @@ const HomePage = () => {
                   <div className="item-image">
                     <img
                       className="img-fluid"
-                      src={baseURL+item.img_file}
+                      src={baseURL + item.img_file}
                       alt="millet-rice"
                     />
                   </div>
@@ -176,16 +176,68 @@ const HomePage = () => {
                           <Loading />
                         ) : (
                           products?.map((item, index) => (
-                            <ProductCard product={item} index={index} />
+                            <ProductCard product={item} key={index} />
                           ))
                         )}
                       </div>
                     </div>
                   </Tab.Pane>
-                  <Tab.Pane eventKey="Snacks">Second tab content</Tab.Pane>
-                  <Tab.Pane eventKey="Instant-Mix">Second tab content</Tab.Pane>
-                  <Tab.Pane eventKey="Flour">Second tab content</Tab.Pane>
-                  <Tab.Pane eventKey="Rice">Second tab content</Tab.Pane>
+                  <Tab.Pane eventKey="Snacks"> <div className="row">
+                    <div
+                      className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
+                      style={{ gridTemplateColumns: "repeat(5, 1fr)" }}
+                    >
+                      {loading ? (
+                        <Loading />
+                      ) : (
+                        products?.map((item, index) => (
+                          <ProductCard product={item} key={index} />
+                        ))
+                      )}
+                    </div>
+                  </div></Tab.Pane>
+                  <Tab.Pane eventKey="Instant-Mix"> <div className="row">
+                    <div
+                      className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
+                      style={{ gridTemplateColumns: "repeat(5, 1fr)" }}
+                    >
+                      {loading ? (
+                        <Loading />
+                      ) : (
+                        products?.map((item, index) => (
+                          <ProductCard product={item} key={index} />
+                        ))
+                      )}
+                    </div>
+                  </div></Tab.Pane>
+                  <Tab.Pane eventKey="Flour"> <div className="row">
+                    <div
+                      className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
+                      style={{ gridTemplateColumns: "repeat(5, 1fr)" }}
+                    >
+                      {loading ? (
+                        <Loading />
+                      ) : (
+                        products?.map((item, index) => (
+                          <ProductCard product={item} key={index} />
+                        ))
+                      )}
+                    </div>
+                  </div></Tab.Pane>
+                  <Tab.Pane eventKey="Rice"> <div className="row">
+                    <div
+                      className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
+                      style={{ gridTemplateColumns: "repeat(5, 1fr)" }}
+                    >
+                      {loading ? (
+                        <Loading />
+                      ) : (
+                        products?.map((item, index) => (
+                          <ProductCard product={item} key={index} />
+                        ))
+                      )}
+                    </div>
+                  </div></Tab.Pane>
                 </Tab.Content>
               </div>
             </div>
