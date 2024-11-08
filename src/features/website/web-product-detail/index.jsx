@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Rating } from "primereact/rating";
 import Header from "../../../layout/web-layout/Header";
@@ -10,20 +10,39 @@ import ShareIcon from "@mui/icons-material/Share";
 import deliveryImg from "../../../assets/images/web/product-detail/delivery-img.png";
 import AsNavFor from "../web-home/components/MultiSlide";
 import { ButtonGroup, Nav, Tab, ToggleButton } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { getProductApi } from "../../../services/adminApiRoutes";
 
 const ProudctDetail = () => {
-  const [value, setValue] = useState(3.5);
+  const [rating, setRating] = useState(0);
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [selectedOption, setSelectedOption] = useState("option2");
   const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
 
-  const radios = [
-    { name: '60gm', value: '1' },
-    { name: '80gm', value: '2' },
-    { name: '100gm', value: '3' },
-  ];
-  
+  const { id } = useParams();
+  const [detail, useDetail] = useState({}); 
+
+  const radios = [{ name: `${detail?.quantity}${detail?.quantity_unit}`, value: '1' }];
+
+  console.table(detail);
+
+  const fetchProductDetail = async () => {
+    try {
+      const response = await getProductApi(id);
+      useDetail(response?.data[0] || {});
+    } catch (error) {
+      console.log("Error on Product Detail", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProductDetail(); 
+  }, [id]);
+
+
+
+
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -31,7 +50,7 @@ const ProudctDetail = () => {
         <div className="container fb-container">
           <div className="row">
             <div className="col-lg-6 col-12">
-              <AsNavFor/>
+              <AsNavFor data={detail.images} />
             </div>
             <div className="col-lg-6 col-12">
               <div className="product-detail-content ps-4">
@@ -43,7 +62,7 @@ const ProudctDetail = () => {
                         src={fireImg}
                         alt="fire"
                       />
-                    </span>{" "}
+                    </span>
                     80 Calories
                   </p>
                   <div>
@@ -57,46 +76,44 @@ const ProudctDetail = () => {
                   </div>
                 </div>
                 <h4 className="fb-fs-30 fw-bold">
-                  Masala Millet (Veggie Masala)
+                  {detail?.name}
                 </h4>
                 <div className="d-flex mb-4 mt-4">
                   <Rating
                     className="me-3"
-                    value={value}
-                    onChange={(e) => setValue(e.value)}
+                    value={detail?.ratings}
+                    onChange={(e) => setRating(e.ratings)}
                     cancel={false}
                   />
                   <p className="text-mid-grey">(12 reviews)</p>
                 </div>
                 <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever s
+                  {detail?.short_description}
                 </p>
                 <div className="d-flex mt-4 mb-3">
                   <p className="fw-600 pt-2">Size / Weight:</p>
                   <ButtonGroup className="weight-check ms-3">
-        {radios.map((radio, idx) => (
-          <ToggleButton
-            key={idx}
-            id={`radio-${idx}`}
-            type="radio"
-            variant={idx % 2 ? 'bg-orange' : 'bg-orange'}
-            name="radio"
-            value={radio.value}
-            checked={radioValue === radio.value}
-            onChange={(e) => setRadioValue(e.currentTarget.value)}
-          >
-            {radio.name}
-          </ToggleButton>
-        ))}
-      </ButtonGroup>
+                    {radios.map((radio, idx) => (
+                      <ToggleButton
+                        key={idx}
+                        id={`radio-${idx}`}
+                        type="radio"
+                        variant={idx % 2 ? 'bg-orange' : 'bg-orange'}
+                        name="radio"
+                        value={radio.value}
+                        checked={radioValue === radio.value}
+                        onChange={(e) => setRadioValue(e.currentTarget.value)}
+                      >
+                        {radio.name}
+                      </ToggleButton>
+                    ))}
+                  </ButtonGroup>
                 </div>
                 <p className="fb-fs-40 text-orange fw-bold original-price">
-                  ₹80
+                ₹{detail?.offer_price}
                   <small className="fw-500 fb-fs-30 text-grey ms-3">
-                    <strike>₹90</strike>{" "}
-                  </small>{" "}
+                    <strike>₹{detail?.max_price}</strike>
+                  </small>
                 </p>
                 <p style={{ fontSize: "0.875rem" }} className="fw-500">
                   (Inclusive of all taxes)
@@ -140,16 +157,16 @@ const ProudctDetail = () => {
                   <span className="text-orange me-2 ms-2 mt-1">Get it by</span>
                   <span className="mt-1">Monday, 16 Sep</span>
                 </p>
-                <div class="d-flex mt-4  ms-4 ">
+                <div className="d-flex mt-4  ms-4 ">
                   <ul className="me-5 pe-4 disc-style w-50">
-                    <li className="my-2">Type: Organic</li>
-                    <li className="my-2">MFG: Jun 4.2024</li>
-                    <li className="my-2">LIFE: 70 days</li>
+                    <li className="my-2">Type:{detail?.product_type}</li>
+                    <li className="my-2">MFG: {detail?.mfg_date}</li>
+                    <li className="my-2">LIFE:{detail?.days}</li>
                   </ul>
                   <ul className="me-5 pe-4 disc-style w-50">
                     <li className="my-2">SKU: FWM15VKT</li>
-                    <li className="my-2">Tags: Snack, Organic, Brown</li>
-                    <li className="my-2">Stock: 8 Items In Stock</li>
+                    <li className="my-2">Tags:{detail?.tags}</li>
+                    <li className="my-2">Stock: {detail?.quantity} Items In Stock</li>
                   </ul>
                 </div>
               </div>
@@ -204,12 +221,9 @@ const ProudctDetail = () => {
                       <Tab.Content className="px-4 pb-4">
                         <Tab.Pane eventKey="Description">
                           <p className="mb-4">
-                            Uninhibited carnally hired played in whimpered dear
-                            gorilla koala depending and much yikes off far
-                            quetzal goodness and from for grimaced goodness
-                            unaccountably and meadowlark near unblushingly
-                            crucial scallop tightly neurotic hungrily some and
-                            dear furiously this apart.
+                            {
+                              detail?.long_description
+                            }
                           </p>
                           <p className="mb-4">
                             Spluttered narrowly yikes left moth in yikes bowed

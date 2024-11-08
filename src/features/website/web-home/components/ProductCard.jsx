@@ -3,16 +3,13 @@ import { Checkbox } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 // import productCard from "../../../../assets/images/web/product-product.png";
 import fireImg from "../../../../assets/images/web/Fire.png";
-import { Link } from "react-router-dom";
-import {getProductApi} from "../../../../services/adminApiRoutes";
+import { Link } from "react-router-dom"; 
 import { baseURL } from '../../../../utils/constant-variable';
 
-const ProductCard = ({ product, index }) => {
-
-  console.log('product', product?.images);
+const ProductCard = ({ product }) => { 
   
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(0); 
   
   const decreaseQuantity = () => {
     if (quantity <= 1) {
@@ -33,12 +30,11 @@ const ProductCard = ({ product, index }) => {
   
   return (
     <>
-    
-      <div className="product-card border py-3 px-4" key={index}>
+      <div className="product-card border py-3 px-4">
         <div className="d-flex justify-content-between ">
           <div>
             <span className="product-badge badge bg-yellow fw-500">
-               10% off
+                10% off
             </span>
           </div>
           <div>
@@ -66,7 +62,7 @@ const ProductCard = ({ product, index }) => {
           80 Calories
           </span>
         </h6>
-        <Link to="/products"><h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5></Link>
+        <Link to={`/product-detail/${product?.id}`}><h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5></Link>
         <h5 className="fb-fs-14 fw-600 text-grey">
         100 g
         </h5>
@@ -74,10 +70,10 @@ const ProductCard = ({ product, index }) => {
           <h6 className="fb-fs-20 fw-bold mb-0">
             <small className="fw-500 fb-fs-16 text-grey pe-2">
               <strike>
-              ₹ {product?.offer_price}
+              ₹ {product?.max_price}
               </strike>
             </small>
-            ₹ {product?.max_price}
+            ₹ {product?.offer_price}
           </h6>
           <div>
             {/* Conditional rendering of the "Add" button */}

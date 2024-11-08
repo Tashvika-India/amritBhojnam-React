@@ -4,9 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import sliderBottom from "../../../../assets/images/web/product-detail/slider-bottom-img.png";
 import productDetail from "../../../../assets/images/web/product-detail/product-detail-image.png";
+import { baseURL } from "../../../../utils/constant-variable";
 
 
-function AsNavFor() {
+function AsNavFor({ data }) {
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
   let sliderRef1 = useRef(null);
@@ -16,68 +17,25 @@ function AsNavFor() {
     setNav1(sliderRef1);
     setNav2(sliderRef2);
   }, []);
+
   return (
-  
-    <div className="slider-container ms-lg-5" >
+    <div className="slider-container ms-lg-5">
       <Slider asNavFor={nav2} ref={(slider) => (sliderRef1 = slider)}>
-        <div className="product-detail-slider">
-          <div className="product-detail-image bg-background pt-3 ps-lg-4">
-            <img
-              className="img-fluid pt-lg-5 pt-0 ps-lg-4 ps-0"
-              src={productDetail}  
-              alt="banner-ads"
-            />
+        {data?.map((item, index) => ( 
+          <div className="product-detail-slider" key={index}>
+            <div className="product-detail-image bg-background p-3">
+              <img
+                className="img-fluid w-100 h-100"
+                src={baseURL+item?.img_files}   
+                alt={`banner-ads-${index}`}  
+              />
+            </div>
           </div>
-        </div>
-        <div className="product-detail-slider">
-          <div className="product-detail-image bg-background pt-3 ps-4">
-            <img
-              className="img-fluid pt-lg-5 pt-0 ps-lg-4 ps-0"
-              src={productDetail}
-              alt="banner-ads"
-            />
-          </div>
-        </div>
-        <div className="product-detail-slider">
-          <div className="product-detail-image bg-background pt-3 ps-4">
-            <img
-              className="img-fluid pt-lg-5 pt-0 ps-lg-4 ps-0"
-              src={productDetail}
-              alt="banner-ads"
-            />
-          </div>
-        </div>
-        <div className="product-detail-slider">
-          <div className="product-detail-image bg-background pt-3 ps-4">
-            <img
-              className="img-fluid pt-lg-5 pt-0 ps-lg-4 ps-0"
-              src={productDetail}
-              alt="banner-ads"
-            />
-          </div>
-        </div>
-        <div className="product-detail-slider">
-          <div className="product-detail-image bg-background pt-3 ps-4">
-            <img
-              className="img-fluid pt-lg-5 pt-0 ps-lg-4 ps-0"
-              src={productDetail}
-              alt="banner-ads"
-            />
-          </div>
-        </div>
-        <div className="product-detail-slider">
-          <div className="product-detail-image bg-background pt-3  ps-4">
-            <img
-              className="img-fluid pt-lg-5 pt-0 ps-lg-4 ps-0"
-              src={productDetail}
-              alt="banner-ads"
-            />
-          </div>
-        </div>
+        ))}
       </Slider>
-     
+
       <Slider
-      className="mt-5"
+        className="mt-5"
         asNavFor={nav1}
         ref={(slider) => (sliderRef2 = slider)}
         slidesToShow={4}
@@ -86,26 +44,14 @@ function AsNavFor() {
         arrows={true}
         nextArrow={<SampleNextArrow />}
         prevArrow={<SamplePrevArrow />}
-        onMouseEnter={(e) => e.currentTarget.style.background = "#fff"} // Hover color
+        onMouseEnter={(e) => e.currentTarget.style.background = "#fff"}  
       >
-        <div >
-          <img className="img-fluid" src={sliderBottom} alt="slider-bottom" />
-        </div>
-        <div>
-          <img className="img-fluid" src={sliderBottom} alt="slider-bottom" />
-        </div>
-        <div>
-          <img className="img-fluid" src={sliderBottom} alt="slider-bottom" />
-        </div>
-        <div>
-          <img className="img-fluid" src={sliderBottom} alt="slider-bottom" />
-        </div>
-        <div>
-          <img className="img-fluid" src={sliderBottom} alt="slider-bottom" />
-        </div>
-        <div>
-          <img className="img-fluid" src={sliderBottom} alt="slider-bottom" />
-        </div>
+        {/* Slider thumbnails */}
+        {data?.map((item, index) => (
+          <div key={index} className="p-1">
+            <img className="img-fluid" src={baseURL+item?.img_files} alt={`slider-bottom-${index}`} />
+          </div>
+        ))}
       </Slider>
     </div>
   );
@@ -128,7 +74,7 @@ const arrowStyles = {
   top: "50%",
   transform: "translateY(-50%)",
   zIndex: "10",
- 
+
 };
 
 const nextArrowStyles = {
@@ -139,7 +85,7 @@ const nextArrowStyles = {
 const prevArrowStyles = {
   ...arrowStyles,
   left: "-1rem",
- 
+
 };
 
 const spanStyles = {

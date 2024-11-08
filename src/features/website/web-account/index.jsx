@@ -28,7 +28,7 @@ const UserProfile = () => {
                 style={{ height: "200px" }}
               />
             </div>
-            <div class="p-4 pt-0">
+            <div className="p-4 pt-0">
               <div
                 className="position-relative text-start pb-3"
                 style={{ marginTop: "-5rem" }}
