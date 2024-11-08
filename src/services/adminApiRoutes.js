@@ -39,4 +39,3 @@ export const putBannerApi = (id, payload) => API.put(`/banners/${id}/`, payload)
 export const patchBannerApi = (id, payload) => API.patch(`/banners/${id}/`, payload);
 export const deleteBannerApi = (id) => API.delete(`/banners/${id}`);
 
-

@@ -8,18 +8,25 @@ import { FaRegHeart, FaRegUser } from 'react-icons/fa';
 import { CgShoppingBag } from 'react-icons/cg';
 import { IoMdMenu } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-import ProfileDropdown from '../../components/ui/ProfileDropdown'; 
+import ProfileDropdown from '../../components/ui/ProfileDropdown';
 import MobileMenu from '../../components/ui/MobileMenu';
 import MyCartMenu from '../../components/ui/WishlistMenu';
+import MobileLogin from '../../components/ui/MobileLogin';
 
 const Header = () => {
   const [selectedCity, setSelectedCity] = useState(null);
   const [showCart, setShowCart] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showMobileLogin, setShowMobileLogin] = useState(false); 
+
+  const [showWebLogin, setShowWebLogin] = useState(false); 
 
   const toggleCart = () => setShowCart(!showCart);
-  const toggleMobileMenu = () => setShowMobileMenu(!showMobileMenu);
+  
+  const toggleMobileMenu = () => setShowMobileMenu((prev) => !prev);
 
+  const toggleMobileLogin = () => setShowMobileLogin((prev) => !prev);  
+  const toggleWebLogin = () => setShowWebLogin((prev) => !prev);  
 
   const cities = [
     { name: 'New York', code: 'NY' },
@@ -40,7 +47,7 @@ const Header = () => {
         </div>
         <div className="container fb-container pb-3 pt-2">
           <div className="d-flex justify-content-between align-items-center">
-          <Link to="/home"><div className="logo">
+            <Link to="/home"><div className="logo">
               <img src={logo} alt="logo" className='img-fluid' />
             </div></Link>
             <div className="header-delivery-search mx-auto  d-none d-xl-block">
@@ -69,7 +76,13 @@ const Header = () => {
             <div className="header-actions">
               <ul className='list-unstyled align-items-center justify-content-between gap-4 web-header-actions d-none d-xl-flex'>
                 <li>
-                  <ProfileDropdown />
+                  <button
+                    className='d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent'
+                    onClick={toggleWebLogin}>
+                    <FaRegUser size={"1.625rem"} />
+                    <span className='d-inline-block fb-fs-14 fw-600'>Login</span>
+                  </button>
+                  {/* <ProfileDropdown /> */}
                 </li>
                 <li>
                   <a href="#" className='d-inline-flex flex-column justify-content-center align-items-center' >
@@ -78,7 +91,7 @@ const Header = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" onClick={toggleCart}  className='d-inline-flex flex-column justify-content-center align-items-center'>
+                  <a href="#" onClick={toggleCart} className='d-inline-flex flex-column justify-content-center align-items-center'>
                     <div className="position-relative">
                       <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
                         1
@@ -93,7 +106,7 @@ const Header = () => {
               </ul>
               <ul className='list-unstyled d-flex d-xl-none align-items-center justify-content-between gap-4 mobile-header-actions'>
                 <li>
-                  <a href="#"  className='d-inline-flex flex-column justify-content-center align-items-center'>
+                  <a href="#" className='d-inline-flex flex-column justify-content-center align-items-center'>
                     <IoSearchOutline size={"1.625rem"} />
                   </a>
                 </li>
@@ -112,7 +125,14 @@ const Header = () => {
                   <a href="#" onClick={toggleMobileMenu} className='d-inline-flex flex-column justify-content-center align-items-center'>
                     <IoMdMenu size={"1.625rem"} />
                   </a>
-                  <MobileMenu show={showMobileMenu} onClose={toggleMobileMenu} />
+                  <MobileMenu 
+                    show={showMobileMenu} 
+                    onClose={toggleMobileMenu} 
+                    showMobileLogin={showMobileLogin} 
+                    toggleMobileLogin={toggleMobileLogin} 
+                    />
+
+                    <MobileLogin otpShow={showWebLogin} onOtpClose={toggleWebLogin} align="end" />
                 </li>
               </ul>
             </div>

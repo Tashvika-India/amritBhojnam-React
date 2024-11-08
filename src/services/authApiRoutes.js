@@ -27,3 +27,9 @@ API.interceptors.request.use((req) => {
 
 
 export const adminLoginApi = (data) => API.post("accounts/admin/login/", data);
+
+
+
+// send otp api
+export const sendOtpApi = (data) => API.post(`accounts/send_otp/`, data); 
+export const verifyOtpApi = (data) => API.post(`accounts/verify_otp/`, data);
