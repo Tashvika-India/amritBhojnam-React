@@ -19,7 +19,8 @@ import CheckoutPage from "../features/website/web-checkout";
 import PrivateRoute from "./PrivateRoute";
 import ManageSubCategories from "../features/admin-dashboard/manage-sub-categories";
 import AdminCustomer from "../features/admin-dashboard/manage-customers";
-
+import ReturnRefund from "../features/admin-dashboard/manage-orders/refund-return";
+import ManageEmployees from "../features/admin-dashboard/manage-employees";
 function AppRoutes() {
   return (
     <Routes>
@@ -135,11 +136,33 @@ function AppRoutes() {
       />
        <Route
         exact
+        path="/returns-refunds"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+             <ReturnRefund/>
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+       <Route
+        exact
         path="/customers"
         element={
           <PrivateRoute>
             <DashboardSidebar>
               <AdminCustomer />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        exact
+        path="/employees"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ManageEmployees />
             </DashboardSidebar>
           </PrivateRoute>
         }
