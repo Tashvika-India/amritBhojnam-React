@@ -41,7 +41,7 @@ const WebBanner = () => {
       <Slider {...settings} className="banner-slider">
         {banner?.map((item, index) => (
           <div className="banner-slide" key={index}>
-            <img
+            <img loading="lazy"
               src={baseURL + item.img_file}
               alt="banner"
               className="img-fluid"

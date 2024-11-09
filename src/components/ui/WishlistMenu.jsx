@@ -38,6 +38,7 @@ const MyCartMenu = ({ show, onClose }) => {
                 {" "}
                 <span>
                   <img
+                    lazyload
                     className="img-fluid me-3"
                     src={deliveryImg}
                     alt="delivery-img"
