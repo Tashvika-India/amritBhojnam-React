@@ -133,8 +133,8 @@ const ProudctDetail = () => {
                       <input
                         type="text"
                         className="form-control border-0 box-shadow-0"
-                        placeholder="Recipient's username"
-                        aria-label="Recipient's username"
+                        placeholder="Enter Pincode"
+                        aria-label="Enter Pincode"
                         aria-describedby="basic-addon2"
                       />
                       <span

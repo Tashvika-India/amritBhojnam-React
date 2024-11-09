@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { getProductApi, searchProductApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
 import { InputText } from "primereact/inputtext";
+import useURLFilters from "../../../../custom-compoents/useURLFilters";
 
 function debounce(func, delay) {
   let timeout;
@@ -18,6 +19,8 @@ function debounce(func, delay) {
 function ProductList() {
   const [search, setSearch] = useState('');
 
+  const [filter, setFilter] = useURLFilters([]);
+
   const [loading, setLoading] = useState(false);
 
   const [products, setProducts] = useState([]);
@@ -25,7 +28,7 @@ function ProductList() {
   async function getProductList() {
     setLoading(true);
     try {
-      const response = await getProductApi();
+      const response = await getProductApi(filter);
       setProducts(response?.data || []);
     } catch (error) {
       console.log("Error on Product List", error);
