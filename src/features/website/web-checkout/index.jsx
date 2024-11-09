@@ -46,7 +46,7 @@ const CheckoutPage = () => {
                                 <p className="fw-600 fb-fs-18">
                                   Piyush Kanwal | 7464810000
                                 </p>
-                                <button class="button-yellow ms-3">
+                                <button className="button-yellow ms-3">
                                   Default
                                 </button>
                               </div>
