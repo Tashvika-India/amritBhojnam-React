@@ -333,7 +333,12 @@
     }
   }
 }
-
+.header-search .search-input .p-inputtext:enabled:focus {
+  box-shadow: none !important;
+}
+.header-search .all-category .p-inputtext:enabled:focus{
+  box-shadow: none !important;
+}
 .product-card {
   position: relative;
   border-radius: 1.16rem;
@@ -798,7 +803,7 @@
           }
         }
         p {
-          font-size: 14px;
+          font-size: 14px;                      
         }
         .button-white {
           margin-top: 2.2rem;

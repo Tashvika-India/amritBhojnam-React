@@ -60,7 +60,7 @@ const Header = () => {
                       placeholder="All Categories" className="w-full border-0" />
                   </div>
                   <div className="search-input position-relative z-1 w-100" >
-                    <InputText keyfilter="int" placeholder="Search for products" className='border-0 ps-3' />
+                    <InputText keyfilter="int" placeholder="Search for products" className='border-0 ps-3 w-100' />
                     <span className='search-icon z-2 position-absolute end-0 top-50 translate-middle mb-3'><IoSearchOutline color="#918e92" size={"1.25rem"} /></span>
                   </div>
                 </div>
