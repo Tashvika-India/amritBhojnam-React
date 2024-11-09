@@ -3,7 +3,7 @@ import Heading from "@/components/ui/Heading";
 import YellowButton from "@/components/buttons/YellowButton"; 
 import {  getSubCategoriesApi, patchSubCategoriesApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
-import AddSubCategoryModal from "./components/AddSubCategoryModal";
+// import AddSubCategoryModal from "./components/"
 import CategoriesSubTable from "../manage-sub-categories/components/CategoriesSubTable";
 
 function ManageEmployees() {
@@ -90,12 +90,12 @@ function ManageEmployees() {
           </div>
         </div>
       </div>
-      <AddSubCategoryModal
+      {/* <AddSubCategoryModal
         visible={visible}
         setVisible={setVisible}
         getCategories={getCategories}
         editData={editData}
-      />
+      /> */}
     </>
   );
 }

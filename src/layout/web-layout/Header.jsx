@@ -54,33 +54,7 @@ const Header = () => {
       setLoading(false);
     }
   }
-
-  const [location, setLocation] = useState({ latitude: null, longitude: null });
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          });
-          setError(null); // Reset error if successful
-        },
-        (err) => {
-          setError("Location access denied or unavailable");
-          console.error("Geolocation error:", err);
-        }
-      );
-    } else {
-      setError("Geolocation is not supported by this browser");
-    }
-  }, []);
-
-  useEffect(() => {
-    getCategory();
-  }, []);
+ 
 
   return (
     < >
