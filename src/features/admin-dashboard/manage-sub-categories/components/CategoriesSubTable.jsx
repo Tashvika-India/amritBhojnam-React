@@ -4,19 +4,24 @@ import { Column } from "primereact/column";
 import { FaRegEdit } from "react-icons/fa";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import { baseURL } from "../../../../utils/constant-variable";
+import { Button } from 'primereact/button';
 
 function CategoriesSubTable({ categories, setEditData, setVisible, categoriesStatusChange }) {
   const handleEditClick = (rowData) => {
     setEditData(rowData);
     setVisible(true);
   };
-
+  const actionBodyTemplate = () => {
+    return (
+        <Button icon="pi pi-pencil" className="p-button-rounded p-button-text" />
+    );
+};
   const iosSwitchTemplate = (rowData) => {
     const handleToggleChange = (event) => {
       const updatedStatus = event.target.checked;
       categoriesStatusChange(rowData, updatedStatus); // Call the passed function
     };
-
+  
     return (
       <IosSwitch
         name="is_active"
@@ -48,12 +53,13 @@ function CategoriesSubTable({ categories, setEditData, setVisible, categoriesSta
 
   return (
     <DataTable value={categories} responsiveLayout="scroll" paginator rows={10} rowkey="id">
-      <Column field="id" header="ID" body={(index) => categories.indexOf(index) + 1}></Column>
-      <Column field="image" header="Image" body={imageBodyTemplate}></Column>
-      <Column field="name" header="Name"></Column>
-      {/* <Column field="quantity" header="Products"></Column> */}
-      <Column field="is_active" header="Status" body={iosSwitchTemplate}></Column>
-      <Column header="Action" body={editButtonTemplate}></Column>
+      <Column field="id" header="CUSTOMER ID" body={(index) => categories.indexOf(index) + 1}></Column>
+      <Column field="name" header="NAME"></Column>
+      <Column field="email" header="EMAIL"></Column>
+      <Column field="phone" header="PHONE"></Column>
+      <Column field="role" header="ROLE"></Column>
+      <Column field="is_active" header="STATUS" body={iosSwitchTemplate}></Column>
+      <Column header="Action" body={actionBodyTemplate}></Column>
     </DataTable>
   );
 }
