@@ -62,7 +62,7 @@ const ProductCard = ({ product }) => {
           80 Calories
           </span>
         </h6>
-        <Link to={`/product-detail/${product?.id}`}><h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5></Link>
+        <Link to={`/product-detail?product_id=${product?.id}`}><h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5></Link>
         <h5 className="fb-fs-14 fw-600 text-grey">
         100 g
         </h5>

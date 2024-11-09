@@ -18,29 +18,28 @@ import ProductCard from "../web-home/components/ProductCard";
 import { InputText } from "primereact/inputtext";
 import Loading from "../../../components/ui/Loading";
 import { getProductApi } from "../../../services/adminApiRoutes";
+import useURLFilters from "../../../custom-compoents/useURLFilters";
 
 const ProudctList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [minValue, setMinValue] = useState(100); // Default Min value
   const [maxValue, setMaxValue] = useState(200); // Default Max value
-
+  const [filters, setFilters] = useURLFilters();
   const [ingredients, setIngredients] = useState([]);
-
   const onIngredientsChange = (e) => {
     let _ingredients = [...ingredients];
-
     if (e.checked) _ingredients.push(e.value);
     else _ingredients.splice(_ingredients.indexOf(e.value), 1);
-
     setIngredients(_ingredients);
   };
+
 
 
   async function getProductList() {
     setLoading(true);
     try {
-      const response = await getProductApi();
+      const response = await getProductApi(filters);
       setProducts(response?.data || []);
     } catch (error) {
       console.log("Error on Product List", error);
@@ -51,7 +50,7 @@ const ProudctList = () => {
 
   useEffect(() => {
     getProductList();
-  }, []);
+  }, [filters]);
 
 
   return (
@@ -270,18 +269,24 @@ const ProudctList = () => {
                 </div>
               </div>
               <div className="row">
-                <div
-                  className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
-                  style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
-                >
-                  {loading ? (
-                    <Loading />
+                {loading ? (
+                  <Loading />
+                ) : (
+                  Array.isArray(products) && products.length > 0 ? (
+                    <div
+                      className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
+                      style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
+                    >
+                      {products.map((item) => (
+                        <ProductCard product={item} key={item.id || item.index} />
+                      ))}
+                    </div>
                   ) : (
-                    products?.map((item, index) => (
-                      <ProductCard product={item} key={index} />
-                    ))
-                  )}
-                </div>
+                    <div className="d-flex justify-content-center w-100">
+                      <h3 className="text-center">No Product Found</h3>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </div>

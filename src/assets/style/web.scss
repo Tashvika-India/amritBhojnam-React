@@ -319,6 +319,9 @@
   padding: 0.25rem 0.5rem;
   .all-category {
     border-right: 1px solid $mid-gray;
+    .p-dropdown:not(.p-disabled).p-focus {
+      box-shadow: none;
+    }
     .p-dropdown-label {
       color: $black;
       font-size: 0.875rem;

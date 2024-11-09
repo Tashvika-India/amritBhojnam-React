@@ -35,16 +35,18 @@ import { getCategoriesApi, getProductApi } from "../../../services/adminApiRoute
 import Loading from "../../../components/ui/Loading";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { baseURL } from "../../../utils/constant-variable";
+import useURLFilters from "../../../custom-compoents/useURLFilters";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState([]);
+  const [filter, setFilter] = useURLFilters([]);
 
   async function getProductList() {
     setLoading(true);
     try {
-      const response = await getProductApi();
+      const response = await getProductApi(filter);
       setProducts(response?.data || []);
     } catch (error) {
       console.log("Error on Product List", error);
@@ -100,7 +102,7 @@ const HomePage = () => {
         <div className="container fb-container">
           <div className="cat-items-wrapper">
             {category?.map((item, index) => (
-              <Link to="/products" className="cat-card" key={index}>
+              <Link to={`/products?category_id=${item.id}`} className="cat-card" key={index}>
                 <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
                   <div className="item-image">
                     <img

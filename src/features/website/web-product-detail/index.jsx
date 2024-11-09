@@ -12,6 +12,7 @@ import AsNavFor from "../web-home/components/MultiSlide";
 import { ButtonGroup, Nav, Tab, ToggleButton } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { getProductApi } from "../../../services/adminApiRoutes";
+import useURLFilters from "../../../custom-compoents/useURLFilters";
 
 const ProudctDetail = () => {
   const [rating, setRating] = useState(0);
@@ -19,17 +20,16 @@ const ProudctDetail = () => {
   const [selectedOption, setSelectedOption] = useState("option2");
   const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
+  const [filters, setFilters] = useURLFilters()
 
-  const { id } = useParams();
   const [detail, useDetail] = useState({}); 
 
   const radios = [{ name: `${detail?.quantity}${detail?.quantity_unit}`, value: '1' }];
 
-  console.table(detail);
 
   const fetchProductDetail = async () => {
     try {
-      const response = await getProductApi(id);
+      const response = await getProductApi(filters);
       useDetail(response?.data[0] || {});
     } catch (error) {
       console.log("Error on Product Detail", error);
@@ -38,7 +38,7 @@ const ProudctDetail = () => {
 
   useEffect(() => {
     fetchProductDetail(); 
-  }, [id]);
+  }, []);
 
 
 
