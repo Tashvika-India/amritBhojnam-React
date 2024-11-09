@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import homeImg from "../../../assets/images/web/account/home-img.png";
@@ -12,14 +12,16 @@ import {
   TextField,
 } from "@mui/material";
 import { IoHomeOutline } from "react-icons/io5";
-import { HiBuildingOffice2 } from "react-icons/hi2";
+import { HiBuildingOffice2 } from "react-icons/hi2"; 
 
 const CheckoutPage = () => {
-  const [age, setAge] = React.useState("");
+  const [age, setAge] = useState("");
 
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+
+
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -49,8 +51,7 @@ const CheckoutPage = () => {
                                 <button className="button-yellow ms-3">
                                   Default
                                 </button>
-                              </div>
-
+                              </div> 
                               <p className="mt-2 text-wrap">
                                 House no. 78, Ward no. 7, Vats Colony, Linepar,
                                 Bahadurgarh, Haryana - 124507
