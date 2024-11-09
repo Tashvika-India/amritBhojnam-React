@@ -22,7 +22,7 @@ function DashboardCategoryTable() {
   const imageBodyTemplate = (rowData) => {
     return (
       <div style={{ display: "flex", alignItems: "center" }}>
-        <img
+        <img 
           src={rowData.image}
           alt={rowData.name}
           style={{ width: "40px", marginRight: "10px" }}

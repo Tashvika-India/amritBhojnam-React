@@ -172,7 +172,7 @@ function AppRoutes() {
       {/* web routes */}
       <Route exact path="/home" element={<HomePage />} />
       <Route exact path="/products" element={<ProudctList />} />
-      <Route exact  path="/product-detail/:id" element={<ProudctDetail />} />
+      <Route exact  path="/product-detail" element={<ProudctDetail />} />
       <Route exact path="/profile" element={<UserProfile />} />
       <Route exact path="/checkout" element={<CheckoutPage />} />
     </Routes>

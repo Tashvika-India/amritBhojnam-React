@@ -24,7 +24,7 @@ function AsNavFor({ data }) {
         {data?.map((item, index) => ( 
           <div className="product-detail-slider" key={index}>
             <div className="product-detail-image bg-background p-3">
-              <img
+              <img loading="lazy"
                 className="img-fluid w-100 h-100"
                 src={baseURL+item?.img_files}   
                 alt={`banner-ads-${index}`}  
@@ -49,7 +49,7 @@ function AsNavFor({ data }) {
         {/* Slider thumbnails */}
         {data?.map((item, index) => (
           <div key={index} className="p-1">
-            <img className="img-fluid" src={baseURL+item?.img_files} alt={`slider-bottom-${index}`} />
+            <img loading="lazy" className="img-fluid" src={baseURL+item?.img_files} alt={`slider-bottom-${index}`} />
           </div>
         ))}
       </Slider>
