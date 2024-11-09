@@ -117,8 +117,8 @@ const Header = () => {
                       placeholder="All Categories"
                       className="w-full border-0"
                     />
-                  </div>
-                  <div className="search-input position-relative z-1 w-100 d-flex justify-content-between">
+                   </div>
+                   <div className="search-input position-relative z-1 w-100 d-flex justify-content-between">
                     <InputText
                       type="text"
                       placeholder="Search for products"
@@ -132,7 +132,7 @@ const Header = () => {
                     >
                       <IoSearchOutline color="#918e92" size="1.25rem" />
                     </button>
-                  </div>
+                 </div>
                 </form>
               </div>
             </div>
