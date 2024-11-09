@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
 import YellowButton from "@/components/buttons/YellowButton"; 
 import {  getSubCategoriesApi, patchSubCategoriesApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
-// import AddSubCategoryModal from "./components/"
 import CategoriesSubTable from "../manage-sub-categories/components/CategoriesSubTable";
+import { debounce } from "@mui/material";
+import { InputText } from "primereact/inputtext";
 
 function ManageEmployees() {
   const [visible, setVisible] = useState(false);
   const [categories, setCategories] = useState([]);
   const [editData, setEditData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState('');
+
 
   async function getCategories() {
     setLoading(true);
@@ -23,6 +26,21 @@ function ManageEmployees() {
       setLoading(false);
     }
   }
+
+
+  const debouncedSearch = useCallback(
+    debounce((value) => {
+      searchProducts(value); // Call search API after user stops typing
+    }, 300),
+    [] // Empty dependency array to ensure this is only created once
+  );
+
+  // Handle search input change
+  const onSearchChange = (e) => {
+    const value = e.target.value; // Get value from the search input
+    setSearch(value); // Update search state
+    debouncedSearch(value); // Trigger the debounced search function
+  };
 
   useEffect(() => {
     if (!visible) {
@@ -77,6 +95,22 @@ function ManageEmployees() {
       <div className="">
         <div className="card">
           <div className="card-body">
+          <div className="row mb-3">
+              <div className="col-md-5"></div>
+              <div className="col-md-2">
+
+              </div>
+              <div className="col-md-2">
+              </div>
+              <div className="col-md-3">
+                <InputText
+                class="p-2 w-100"
+                  value={search} // Bind input value to state
+                  onChange={onSearchChange} // Call handler on input change
+                  placeholder="Search Product" // Placeholder text
+                />
+              </div>
+            </div>
             {loading ? (
               <Loading />
             ) : (
