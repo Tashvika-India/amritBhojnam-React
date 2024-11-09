@@ -6,12 +6,14 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import "./assets/style/dashboard.scss"; 
+import "./assets/style/dashboard.scss";
 import 'primeicons/primeicons.css';
-import './assets/style/theme.scss'; 
-import './assets/style/web.scss'; 
-import 'slick-carousel/slick/slick.css'; 
-import 'slick-carousel/slick/slick-theme.css'; 
+import './assets/style/theme.scss';
+import './assets/style/web.scss';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { Provider } from "react-redux";
+import store from "./store.js";
 
 
 const theme = createTheme({
@@ -27,6 +29,8 @@ const theme = createTheme({
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </ThemeProvider>
 );
