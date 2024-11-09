@@ -21,7 +21,7 @@ const MobileMenu = ({ show, onClose, showMobileLogin, toggleMobileLogin}) => {
   return (
     <Offcanvas show={show} onHide={onClose} placement="start">
       <Offcanvas.Header closeButton>
-        <img src={logo} alt="logo" />
+        <img src={logo} className="img-fluid" alt="logo" loading="lazy" />
       </Offcanvas.Header>
       <Offcanvas.Body>
         <div className="header-search d-inline-flex w-100 align-self-center">

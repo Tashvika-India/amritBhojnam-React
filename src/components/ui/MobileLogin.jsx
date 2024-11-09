@@ -115,7 +115,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
   return (
     <Offcanvas show={otpShow} onHide={onOtpClose} placement={align} className="bg-light-orange rounded-start-4">
       <Offcanvas.Header closeButton>
-        <img src={logo} alt="logo" />
+        <img  src={logo} alt="logo"  className="img-fluid" loading="lazy"  />
       </Offcanvas.Header>
       <Offcanvas.Body>
         <div className="d-inline-flex w-100 align-self-center">

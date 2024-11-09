@@ -1,40 +1,86 @@
 import { Dropdown } from 'primereact/dropdown'
 import { InputText } from 'primereact/inputtext'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiLocationOn } from 'react-icons/ci';
 import { IoSearchOutline } from 'react-icons/io5';
 import logo from '../../assets/images/web/logo.svg'
 import { FaRegHeart, FaRegUser } from 'react-icons/fa';
 import { CgShoppingBag } from 'react-icons/cg';
 import { IoMdMenu } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ProfileDropdown from '../../components/ui/ProfileDropdown';
 import MobileMenu from '../../components/ui/MobileMenu';
 import MyCartMenu from '../../components/ui/WishlistMenu';
 import MobileLogin from '../../components/ui/MobileLogin';
+import { getCategoriesApi } from '../../services/adminApiRoutes';
 
 const Header = () => {
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [search, setSearch] = useState('');
   const [showCart, setShowCart] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [showMobileLogin, setShowMobileLogin] = useState(false); 
+  const [showMobileLogin, setShowMobileLogin] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [category, setCategory] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null); 
+  const navigate = useNavigate();
 
-  const [showWebLogin, setShowWebLogin] = useState(false); 
+  const [showWebLogin, setShowWebLogin] = useState(false);
 
   const toggleCart = () => setShowCart(!showCart);
-  
+
   const toggleMobileMenu = () => setShowMobileMenu((prev) => !prev);
 
-  const toggleMobileLogin = () => setShowMobileLogin((prev) => !prev);  
-  const toggleWebLogin = () => setShowWebLogin((prev) => !prev);   
+  const toggleMobileLogin = () => setShowMobileLogin((prev) => !prev);
+  const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
 
-  const cities = [
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' }
-  ];
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (search.trim()) {
+      const categoryQuery = selectedCategory ? `category_id=${selectedCategory.id}` : '';
+      navigate(`/products?${categoryQuery}&name=${search}`);
+    }
+  };
+
+
+  async function getCategory() {
+    setLoading(true);
+    try {
+      const response = await getCategoriesApi();
+      const filteredData = (response?.data || []).filter(item => item.is_active === true);
+      setCategory(filteredData);
+    } catch (error) {
+      console.log("Error on Banner List", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          });
+          setError(null); // Reset error if successful
+        },
+        (err) => {
+          setError("Location access denied or unavailable");
+          console.error("Geolocation error:", err);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser");
+    }
+  }, []);
+
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   return (
     < >
@@ -61,22 +107,33 @@ const Header = () => {
                     <p className='fw-600 text-truncate'>Akshya Nagar 1st Block 1...</p>
                   </div>
                 </div>
-                <div className="header-search d-inline-flex w-100 align-self-center">
+                <form onSubmit={handleSearchSubmit} className="header-search d-inline-flex w-100 align-self-center">
                   <div className="all-category">
-                    <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name"
-                      placeholder="All Categories" className="w-full border-0" />
-                  </div>
-<<<<<<< HEAD
-                  <div className="search-input position-relative z-1 w-100" >
-                    <InputText keyfilter="int" placeholder="Search for products" className='border-0 ps-3 w-100' />
-                    <span className='search-icon z-2 position-absolute end-0 top-50 translate-middle mb-3'><IoSearchOutline color="#918e92" size={"1.25rem"} /></span>
-=======
-                  <div className="search-input position-relative z-1 w-100 d-flex justify-content-between" >
-                    <InputText type='text' placeholder="Search for products" className='border-0 ps-3 w-100'  style={{boxShadow: 'none'}}/>
-                    <button className='search-icon d-inline-block z-2  h-100 border-0 bg-transparent'><IoSearchOutline color="#918e92" size={"1.25rem"} /></button>
->>>>>>> dcbcd50a993deda9fda448d8696ae62082989625
-                  </div>
-                </div>
+                    <Dropdown
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.value)}
+                      options={category}
+                      optionLabel="name"
+                      placeholder="All Categories"
+                      className="w-full border-0"
+                    />
+                   </div>
+                   <div className="search-input position-relative z-1 w-100 d-flex justify-content-between">
+                    <InputText
+                      type="text"
+                      placeholder="Search for products"
+                      className="border-0 ps-3 w-100"
+                      style={{ boxShadow: 'none' }}
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <button
+                      type="submit"
+                      className="search-icon d-inline-block z-2 h-100 border-0 bg-transparent"
+                    >
+                      <IoSearchOutline color="#918e92" size="1.25rem" />
+                    </button>
+                 </div>
+                </form>
               </div>
             </div>
             <div className="header-actions">
@@ -131,14 +188,14 @@ const Header = () => {
                   <a href="#" onClick={toggleMobileMenu} className='d-inline-flex flex-column justify-content-center align-items-center'>
                     <IoMdMenu size={"1.625rem"} />
                   </a>
-                  <MobileMenu 
-                    show={showMobileMenu} 
-                    onClose={toggleMobileMenu} 
-                    showMobileLogin={showMobileLogin} 
-                    toggleMobileLogin={toggleMobileLogin} 
-                    />
+                  <MobileMenu
+                    show={showMobileMenu}
+                    onClose={toggleMobileMenu}
+                    showMobileLogin={showMobileLogin}
+                    toggleMobileLogin={toggleMobileLogin}
+                  />
 
-                    <MobileLogin otpShow={showWebLogin} onOtpClose={toggleWebLogin} align="end" />
+                  <MobileLogin otpShow={showWebLogin} onOtpClose={toggleWebLogin} align="end" />
                 </li>
               </ul>
             </div>
