@@ -34,8 +34,7 @@ const ProductCard = ({ product }) => {
       const response = await postCartApi({
         product_id: product_id,
         item_quantity: quantity
-      })
-      console.log( 'res', response);
+      }) 
     }
     catch (error) {
       console.log(error);

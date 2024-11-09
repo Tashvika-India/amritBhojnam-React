@@ -9,10 +9,7 @@ const MyCartMenu = ({ show, onClose }) => {
   const [quantity, setQuantity] = useState(2);
   const [showItem, setShowItem] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [cartList, setCartList] = useState([]);
-  
-  console.log();
-  
+  const [cartList, setCartList] = useState([]); 
 
   // Function to increase quantity
   const increaseQuantity = () => {
