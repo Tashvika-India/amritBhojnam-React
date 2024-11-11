@@ -5,6 +5,7 @@ import {  getSubCategoriesApi, patchSubCategoriesApi } from "../../../services/a
 import Loading from "../../../components/ui/Loading";
 import CategoriesSubTable from "../manage-sub-categories/components/CategoriesSubTable";
 import { debounce } from "@mui/material";
+import { Link } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
 
 function ManageEmployees() {
@@ -85,10 +86,12 @@ function ManageEmployees() {
           <Heading value={"Employees"} />
         </div>
         <div className="col-md-6 text-end">
+        <Link to="/add-employee">
           <YellowButton
             handleClick={() => setVisible(true)}
-            lable={"+ Add New"}
+            lable={"+ Add Employee"}
           />
+          </Link>
         </div>
       </div>
 
@@ -104,7 +107,7 @@ function ManageEmployees() {
               </div>
               <div className="col-md-3">
                 <InputText
-                class="p-2 w-100"
+                className="p-2 w-100"
                   value={search} // Bind input value to state
                   onChange={onSearchChange} // Call handler on input change
                   placeholder="Search Product" // Placeholder text

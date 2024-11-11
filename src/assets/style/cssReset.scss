@@ -8,6 +8,7 @@ $dark-brown: #843a17;
 $brown: #ac562d;
 $dark-grey: #3b3b3b;
 $black: #231d25;
+$red: #E50000;
 $grey: #979797;
 $border: #dcdad5;
 $border-light: #d7d7d7;
@@ -334,6 +335,24 @@ td {
         background-color: $black;
         color: $white;
         border-color: $black;
+    }
+}
+
+.button-red{
+    background-color: $white;
+    border-radius: 0.625rem;
+    color: $red;
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding-inline: 3.1rem;
+    padding-block: 0.75rem;
+    border: 1px solid red;
+    text-decoration: none;
+    line-height: normal;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        background-color: $red;
+        color: $white;
     }
 }
 
