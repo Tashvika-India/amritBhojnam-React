@@ -21,6 +21,7 @@ import ManageSubCategories from "../features/admin-dashboard/manage-sub-categori
 import AdminCustomer from "../features/admin-dashboard/manage-customers";
 import ReturnRefund from "../features/admin-dashboard/manage-orders/refund-return";
 import ManageEmployees from "../features/admin-dashboard/manage-employees";
+import EmployeeAdd from "../features/admin-dashboard/manage-employees/add-employees";
 function AppRoutes() {
   return (
     <Routes>
@@ -167,6 +168,17 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
+       <Route
+        exact
+        path="/add-employee"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <EmployeeAdd />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
       <Route exact path="/login" element={<LoginPage />} />
 
       {/* web routes */}
@@ -175,6 +187,7 @@ function AppRoutes() {
       <Route exact  path="/product-detail" element={<ProudctDetail />} />
       <Route exact path="/profile" element={<UserProfile />} />
       <Route exact path="/checkout" element={<CheckoutPage />} />
+      <Route exact path="/contact-us" element={<ContactUs />} />
     </Routes>
   );
 }
