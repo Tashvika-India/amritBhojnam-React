@@ -22,6 +22,8 @@ import AdminCustomer from "../features/admin-dashboard/manage-customers";
 import ReturnRefund from "../features/admin-dashboard/manage-orders/refund-return";
 import ManageEmployees from "../features/admin-dashboard/manage-employees";
 import EmployeeAdd from "../features/admin-dashboard/manage-employees/add-employees";
+import ContactUs from "../features/website/web-contact-us";
+import AboutUs from "../features/website/web-about-us";
 function AppRoutes() {
   return (
     <Routes>
@@ -188,6 +190,7 @@ function AppRoutes() {
       <Route exact path="/profile" element={<UserProfile />} />
       <Route exact path="/checkout" element={<CheckoutPage />} />
       <Route exact path="/contact-us" element={<ContactUs />} />
+      <Route exact path="/about-us" element={<AboutUs />} />
     </Routes>
   );
 }
