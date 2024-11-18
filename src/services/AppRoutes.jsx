@@ -15,13 +15,15 @@ import ManageBanner from "../features/admin-dashboard/manage-banner";
 import ProudctDetail from "../features/website/web-product-detail";
 import ProudctList from "../features/website/web-product-list";
 import UserProfile from "../features/website/web-account";
-import CheckoutPage from "../features/website/web-checkout"; 
+import CheckoutPage from "../features/website/web-checkout";
 import PrivateRoute from "./PrivateRoute";
 import ManageSubCategories from "../features/admin-dashboard/manage-sub-categories";
 import AdminCustomer from "../features/admin-dashboard/manage-customers";
 import ReturnRefund from "../features/admin-dashboard/manage-orders/refund-return";
 import ManageEmployees from "../features/admin-dashboard/manage-employees";
 import EmployeeAdd from "../features/admin-dashboard/manage-employees/add-employees";
+import ContactUs from "../features/website/web-contact-us";
+import ProductOption from "../features/admin-dashboard/manage-products/product-option";
 function AppRoutes() {
   return (
     <Routes>
@@ -101,7 +103,17 @@ function AppRoutes() {
             </DashboardSidebar>
           </PrivateRoute>
         }
-      />
+      /><Route
+      exact
+      path="/product-option"
+      element={
+        <PrivateRoute>
+          <DashboardSidebar>
+            <ProductOption />
+          </DashboardSidebar>
+        </PrivateRoute>
+      }
+    />
       <Route
         exact
         path="/product/product-reviews"
@@ -135,18 +147,18 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
-       <Route
+      <Route
         exact
         path="/returns-refunds"
         element={
           <PrivateRoute>
             <DashboardSidebar>
-             <ReturnRefund/>
+              <ReturnRefund />
             </DashboardSidebar>
           </PrivateRoute>
         }
       />
-       <Route
+      <Route
         exact
         path="/customers"
         element={
@@ -168,7 +180,7 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
-       <Route
+      <Route
         exact
         path="/add-employee"
         element={
@@ -184,7 +196,7 @@ function AppRoutes() {
       {/* web routes */}
       <Route exact path="/home" element={<HomePage />} />
       <Route exact path="/products" element={<ProudctList />} />
-      <Route exact  path="/product-detail" element={<ProudctDetail />} />
+      <Route exact path="/product-detail" element={<ProudctDetail />} />
       <Route exact path="/profile" element={<UserProfile />} />
       <Route exact path="/checkout" element={<CheckoutPage />} />
       <Route exact path="/contact-us" element={<ContactUs />} />
