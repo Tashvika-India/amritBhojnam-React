@@ -26,11 +26,17 @@ const ProudctDetail = () => {
 
   const radios = [{ name: `${detail?.quantity}${detail?.quantity_unit}`, value: '1' }];
 
+  console.log("detail", detail);
+  
+
 
   const fetchProductDetail = async () => {
     try {
       const response = await getProductApi(filters);
-      useDetail(response?.data[0] || {});
+      useDetail(response?.data?.results[0] || {});
+
+      console.log("response", response);
+      
     } catch (error) {
       console.log("Error on Product Detail", error);
     }
