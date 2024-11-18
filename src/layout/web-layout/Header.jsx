@@ -14,13 +14,12 @@ import MyCartMenu from '../../components/ui/WishlistMenu';
 import MobileLogin from '../../components/ui/MobileLogin';
 import { getCategoriesApi } from '../../services/adminApiRoutes';
 
-const Header = () => {
+const Header = ({category}) => {
   const [search, setSearch] = useState('');
   const [showCart, setShowCart] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showMobileLogin, setShowMobileLogin] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [category, setCategory] = useState([]);
+  const [loading, setLoading] = useState(false); 
   const [selectedCategory, setSelectedCategory] = useState(null); 
   const navigate = useNavigate();
 
@@ -36,24 +35,11 @@ const Header = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (search.trim()) {
+      setLoading(true);
       const categoryQuery = selectedCategory ? `category_id=${selectedCategory.id}` : '';
       navigate(`/products?${categoryQuery}&name=${search}`);
     }
   };
-
-
-  async function getCategory() {
-    setLoading(true);
-    try {
-      const response = await getCategoriesApi();
-      const filteredData = (response?.data || []).filter(item => item.is_active === true);
-      setCategory(filteredData);
-    } catch (error) {
-      console.log("Error on Banner List", error);
-    } finally {
-      setLoading(false);
-    }
-  }
  
 
   return (
