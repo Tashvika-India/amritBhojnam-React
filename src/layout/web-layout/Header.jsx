@@ -184,8 +184,8 @@ const Header = () => {
                   <li><Link to="/products">Shop</Link></li>
                   <li><Link to="/product-detail">Best Deals</Link></li>
                   <li><a href="#">Trending Products </a></li>
-                  <li><a href="#">About Us </a></li>
-                  <li><a href="#">Contact Us </a></li>
+                  <li><Link to="/about-us">About Us </Link></li>
+                  <li><Link to="/contact-us">Contact Us </Link></li>
                 </ul>
               </div>
               <div className="header-divider-action">
