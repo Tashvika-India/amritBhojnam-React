@@ -57,7 +57,7 @@ const ProductOption = ({ isEditMode = false, existingData = {} }) => {
         setLoading(true);
         try {
             const response = await getProductApi(filter);
-            setProducts(response?.data || []);
+            setProducts(response?.data?.results || []);
         } catch (error) {
             console.log("Error on Product List", error);
         } finally {

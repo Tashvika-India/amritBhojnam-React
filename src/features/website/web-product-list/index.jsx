@@ -40,7 +40,7 @@ const ProudctList = () => {
     setLoading(true);
     try {
       const response = await getProductApi(filters);
-      setProducts(response?.data || []);
+      setProducts(response?.data?.results || []);
     } catch (error) {
       console.log("Error on Product List", error);
     } finally {
