@@ -89,3 +89,10 @@ export const deleteBannerApi = (id) => API.delete(`/banners/${id}`);
 
 export const getCartApi = () => API.get(`/cart/`);
 export const postCartApi = (payload) => API.post(`/cart/`, payload);
+
+// options api
+
+export const getOptionsApi = () => API.get(`products/options/`);
+export const postOptionsApi = (payload) => API.post(`products/options/`, payload);
+export const putOptionsApi = (id, payload) => API.put(`products/options/${id}`, payload);
+export const patchOptionsApi = (id, payload) => API.patch(`products/options/${id}`, payload);
