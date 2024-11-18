@@ -42,7 +42,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState([]);
   const [filter, setFilter] = useURLFilters([]);
-
+  
   async function getProductList() {
     setLoading(true);
     try {
@@ -89,7 +89,7 @@ const HomePage = () => {
 
   return (
     <div className="web-wrapper-main">
-      <Header />
+      <Header category={category} />
       <section>
         <div
           className="home-banner-wrapper"
