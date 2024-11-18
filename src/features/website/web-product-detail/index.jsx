@@ -24,18 +24,12 @@ const ProudctDetail = () => {
 
   const [detail, useDetail] = useState({}); 
 
-  const radios = [{ name: `${detail?.quantity}${detail?.quantity_unit}`, value: '1' }];
-
-  console.log("detail", detail);
-  
-
+  const radios = [{ name: `${detail?.quantity}${detail?.quantity_unit}`, value: '1' }]; 
 
   const fetchProductDetail = async () => {
     try {
       const response = await getProductApi(filters);
-      useDetail(response?.data?.results[0] || {});
-
-      console.log("response", response);
+      useDetail(response?.data?.results[0] || {}); 
       
     } catch (error) {
       console.log("Error on Product Detail", error);
