@@ -82,6 +82,10 @@
     ); //16px Min 0.875rem, Max 1rem
     margin-bottom: 0;
   }
+
+  .fb-fs-20{
+    font-size: 20px;
+  }
   // Font Sizes for Special Classes
   .fb-fs-30 {
     font-size: 1.875rem;
@@ -113,6 +117,7 @@
       0.8119rem
     ); //12.99px Min 0.625rem, Max 0.8119rem
   }
+ 
   .fb-fs-16-big {
     font-size: clamp(
       0.875rem,
@@ -148,8 +153,18 @@
   box-shadow: 0px 4px 40px 0px #0000000d;
 }
 
+.about-linear{
+  background: linear-gradient(0deg, rgba(245, 239, 229, 0) 0%, #FFFDFA 100%);
+}
+
+
+
 .primary-linear {
   background: linear-gradient(180deg, #ffffff 0%, #fff6e8 50%, #ffffff 100%);
+}
+
+.fw-300{
+  font-weight: 300 !important;
 }
 
 .home-btn {
@@ -234,6 +249,57 @@
   border: none;
 }
 
+
+//contact-us page  
+  .contact-us{
+    background-image: url("../images/web/contact-background.png");
+  background-repeat: no-repeat;
+  background-size: auto;
+  height: 100% !important;
+ padding-top: 8rem !important;
+   .card{
+    overflow: hidden;
+    margin-bottom: 5rem !important;
+    .orange-section{
+      padding: 4.5rem 5.6rem;
+        }
+        .white-section{
+          padding: 5.5rem 2.6rem;
+        }
+   }
+  
+  }
+
+  .about-us{
+    .card{
+      .card-body{
+        img{
+          aspect-ratio: 11/16;
+          width: 6rem;
+        }
+      
+      }
+    }
+    .about-bottom{
+      background-image:  url("../images/web/about-bottom-background.png");
+    background-size: cover;
+background-repeat: no-repeat;
+height: 45rem;
+.grey-background{
+  img{
+    margin-top: 4rem;
+    width: 41.5rem;
+    aspect-ratio: 19 / 16;
+  }
+}
+.white-background{
+  background-color: white;
+  padding: 4rem 6rem 4rem 4rem;
+  margin-top: 4rem;
+  margin-right: 6rem;
+}
+    }
+  }
 
 
 /* Default tab button styles */
