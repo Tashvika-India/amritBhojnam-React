@@ -325,6 +325,24 @@
   margin: 2rem 0rem;
 }
 
+.login-offcanvas{
+ 
+    background-image: url("../images/web/login-background.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+}
+
+.popular-product{
+  .popularleft{
+  img{
+    margin-left: 2rem;
+    aspect-ratio: 26 / 16;
+    width: fit-content;
+  }
+  }
+        }
+
 .p-slider .p-slider-handle {
   height: 1.7rem;
   width: 1.7rem;
