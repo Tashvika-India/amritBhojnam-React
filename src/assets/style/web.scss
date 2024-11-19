@@ -408,6 +408,7 @@
 }
 .product-card {
   position: relative;
+  overflow: hidden;
   border-radius: 1.16rem;
   flex: 1;
   &:hover {
@@ -419,11 +420,25 @@
     top: -1px;
     left: -1px;
     padding: 0.375rem 0.75rem;
-    border-radius: 0.625rem 0 0.875rem 0; /* Rounded corners on top-left and bottom-right */
+    border-radius: 0.625rem 0 0.875rem 0; 
+    z-index: 2;
+  }
+  .product-fav{
+    position: relative;
+    top: 0;
+    z-index: 2;
+    margin-right: .5rem;
+    .whislist-icon{
+      padding: .15rem;
+      position: relative;
+      bottom: -0.375rem;
+    }
   }
   .product-image {
+    position: relative;
+    margin-top: -2.6rem;
     img {
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 1/1;
       object-fit: cover;
       width: 100%;
     }
@@ -1403,9 +1418,9 @@
     font-size: 1rem !important;
   }
   .tab-nav-wrapper .nav-item .nav-link {
-    font-size: 10px !important;
-    padding: 8px 12px !important;
-    margin-right: 4px !important;
+    // font-size: 10px !important;
+    // padding: 8px 12px !important;
+    // margin-right: 4px !important;
   }
   .disc-style {
     font-size: 12px;
@@ -1587,7 +1602,7 @@
       }
     }
     .protein-right-top {
-      margin-bottom: 1rem;
+      // margin-bottom: 1rem;
       .right-top-content {
         padding-left: 1rem !important;
         padding-right: 1rem !important;
@@ -1605,15 +1620,17 @@
     font-size: 9.38px;
   }
   .offer-cards .protein-right-top {
+    padding-bottom: 1rem;
     border-radius: 1rem;
-    height: 22vh !important;
+    // height: 22vh !important;
     background-position: bottom;
     // width: 91vw !important;
-    background-size: cover;
+    background-size: cover; 
   }
   .offer-cards .protein-right-bottom {
+    padding-bottom: 1rem;
     border-radius: 1rem;
-    height: 22vh !important;
+    // height: 22vh !important;
     background-position: bottom;
     // width: 91vw !important;
     button {

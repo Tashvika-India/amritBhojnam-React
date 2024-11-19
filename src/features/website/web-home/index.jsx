@@ -89,7 +89,7 @@ const HomePage = () => {
 
   return (
     <div className="web-wrapper-main">
-      <Header category={category} />
+      <Header />
       <section>
         <div
           className="home-banner-wrapper"
@@ -171,8 +171,8 @@ const HomePage = () => {
                   <Tab.Pane eventKey="All">
                     <div className="row">
                       <div
-                        className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
-                        style={{ gridTemplateColumns: "repeat(5, 1fr)" }}
+                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                        style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)" }}
                       >
                         {loading ? (
                           <Loading />
@@ -186,8 +186,8 @@ const HomePage = () => {
                   </Tab.Pane>
                   <Tab.Pane eventKey="Snacks"> <div className="row">
                     <div
-                      className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
-                      style={{ gridTemplateColumns: "repeat(5, 1fr)" }}
+                      className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                      style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)" }}
                     >
                       {loading ? (
                         <Loading />
@@ -200,8 +200,8 @@ const HomePage = () => {
                   </div></Tab.Pane>
                   <Tab.Pane eventKey="Instant-Mix"> <div className="row">
                     <div
-                      className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
-                      style={{ gridTemplateColumns: "repeat(5, 1fr)" }}
+                      className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                      style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)" }}
                     >
                       {loading ? (
                         <Loading />
@@ -214,8 +214,8 @@ const HomePage = () => {
                   </div></Tab.Pane>
                   <Tab.Pane eventKey="Flour"> <div className="row">
                     <div
-                      className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
-                      style={{ gridTemplateColumns: "repeat(5, 1fr)" }}
+                      className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                      style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)" }}
                     >
                       {loading ? (
                         <Loading />
@@ -228,8 +228,8 @@ const HomePage = () => {
                   </div></Tab.Pane>
                   <Tab.Pane eventKey="Rice"> <div className="row">
                     <div
-                      className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
-                      style={{ gridTemplateColumns: "repeat(5, 1fr)" }}
+                      className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                      style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)" }}
                     >
                       {loading ? (
                         <Loading />
@@ -275,7 +275,7 @@ const HomePage = () => {
             </div>
             <div className="col-lg-6 col-md-12">
               <div className="row">
-                <div className="col-md-12 mb-lg-4">
+                <div className="col-md-12 mb-lg-4 mb-3">
                   <motion.div
                     ref={targetRef}
                     style={{
@@ -291,7 +291,7 @@ const HomePage = () => {
                         alternative for those with gluten sensitivities
                       </p>
                     </div>
-                    <button className="button-primary mt-0 m-5 text-center">
+                    <button className="button-primary mt-0 m-lg-5 text-center">
                       Shop Now
                     </button>
                   </motion.div>
@@ -312,7 +312,7 @@ const HomePage = () => {
                         sugar levels, making them ideal.
                       </p>
                     </div>
-                    <button className="button-primary  mt-0 m-5 text-center">
+                    <button className="button-primary  mt-0 m-lg-5 text-center">
                       Shop Now
                     </button>
                   </motion.div>
