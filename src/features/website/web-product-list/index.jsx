@@ -55,7 +55,7 @@ const ProudctList = () => {
 
   return (
     <div className="web-wrapper-main">
-      <Header />
+      <Header/>
       <section>
         <div className="container fb-container">
           <div className="row">
@@ -275,7 +275,7 @@ const ProudctList = () => {
                   Array.isArray(products) && products.length > 0 ? (
                     <div
                       className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
-                      style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
+                      style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(4, 1fr)" : "repeat(2, 1fr)"  }}
                     >
                       {products.map((item) => (
                         <ProductCard product={item} key={item.id || item.index} />

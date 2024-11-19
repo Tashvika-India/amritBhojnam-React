@@ -24,7 +24,7 @@ const ProductCard = ({ product }) => {
     setQuantity(quantity + 1);
   };
 
-  const handleClick = () => { 
+  const handleClick = () => {
     setQuantity(1);
   };
 
@@ -34,7 +34,7 @@ const ProductCard = ({ product }) => {
       const response = await postCartApi({
         product_id: product_id,
         item_quantity: quantity
-      }) 
+      })
     }
     catch (error) {
       console.log(error);
@@ -42,7 +42,7 @@ const ProductCard = ({ product }) => {
     finally {
       setLoading(false);
     }
-  } 
+  }
 
   useEffect(() => {
     if (quantity > 0) {
@@ -51,91 +51,93 @@ const ProductCard = ({ product }) => {
   }, [quantity]);
 
 
-return (
-  <>
-    <div className="product-card border py-3 px-4">
-      <div className="d-flex justify-content-between ">
-        <div>
-          <span className="product-badge badge bg-yellow fw-500">
-            10% off
-          </span>
+  return (
+    <>
+      <div className="product-card border pb-3 d-flex flex-column justify-content-between">
+        <div className="d-flex justify-content-between product-fav">
+          <div>
+            <span className="product-badge badge bg-yellow fw-500">
+              10% off
+            </span>
+          </div>
+          <div className='bg-white rounded-circle whislist-icon'>
+            <Checkbox
+              {...label}
+              icon={<FavoriteBorder />}
+              checkedIcon={<Favorite />}
+              style={{
+                color: "#F26722",
+                margin: "0",
+                padding: "0",
+              }}
+            />
+          </div>
         </div>
-        <div>
-          <Checkbox
-            {...label}
-            icon={<FavoriteBorder />}
-            checkedIcon={<Favorite />}
-            style={{
-              color: "#F26722",
-              margin: "0",
-              padding: "0",
-            }}
-          />
+        {/* <span className="product-fav"></span> */}
+        <div className="product-image">
+          <img className="img-fluid pb-3" src={baseURL + product?.images[0]?.img_files} alt="product" />
         </div>
-      </div>
-      <span className="product-fav"></span>
-      <div className="product-image">
-        <img className="img-fluid pb-3" src={baseURL + product?.images[0]?.img_files} alt="product" />
-      </div>
-      <h6 className="fb-fs-12 fw-500 d-flex text-brown pb-2">
-        <span>
-          <img className="img-fluid" src={fireImg} />
-        </span>
-        <span className='pt-1 ps-1'>
-          80 Calories
-        </span>
-      </h6>
-      <Link to={`/product-detail?product_id=${product?.id}`}><h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5></Link>
-      <h5 className="fb-fs-14 fw-600 text-grey">
-        100 g
-      </h5>
-      <div className="d-flex justify-content-between align-items-center mt-3">
-        <h6 className="fb-fs-20 fw-bold mb-0">
-          <small className="fw-500 fb-fs-16 text-grey pe-2">
-            <strike>
-              ₹ {product?.max_price}
-            </strike>
-          </small>
-          ₹ {product?.offer_price}
-        </h6>
-        <div>
-          {/* Conditional rendering of the "Add" button */}
-          {quantity === 0 ? (
-            <button
-              className="button-primary py-1 rounded fb-fs-14 fw-600"
-              onClick={() => handleClick()}  
-            >
-              Add
-            </button>
-          ) : (
-            <div className="product-quantity text-end">
-              <div className="quantity-manage">
+        <div className="px-3">
+          <h6 className="fb-fs-12 fw-500 d-flex text-brown pb-2">
+            <span>
+              <img className="img-fluid" src={fireImg} />
+            </span>
+            <span className='pt-1 ps-1'>
+              80 Calories
+            </span>
+          </h6>
+          <Link to={`/product-detail?product_id=${product?.id}`}><h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5></Link>
+          <h5 className="fb-fs-14 fw-600 text-grey">
+            {product?.quantity}{product?.quantity_unit}
+          </h5>
+          <div className="d-flex justify-content-between align-items-end mt-3">
+            <h6 className="fb-fs-20 fw-bold mb-0">
+              <small className="fw-500 fb-fs-16 text-grey pe-2">
+                <strike>
+                  ₹ {product?.max_price}
+                </strike>
+              </small>
+              ₹ {product?.offer_price}
+            </h6>
+            <div>
+              {/* Conditional rendering of the "Add" button */}
+              {quantity === 0 ? (
                 <button
-                  className="quantity-minu d-inline-block border-0 bg-white text-orange fw-600"
-                  onClick={decreaseQuantity}
-                  disabled={quantity < 1}
+                  className="button-primary py-1 rounded fb-fs-14 fw-600"
+                  onClick={() => handleClick()}
                 >
-                  -
+                  Add
                 </button>
-                <span className="quantity-count d-inline-block text-orange fw-600">
-                  {quantity}
-                </span>
-                <button
-                  className="quantity-plus d-inline-block border-0 bg-white text-orange fw-600"
-                  onClick={increaseQuantity}
-                  disabled={quantity === 10}
-                >
-                  +
-                </button>
-              </div>
+              ) : (
+                <div className="product-quantity text-end">
+                  <div className="quantity-manage">
+                    <button
+                      className="quantity-minu d-inline-block border-0 bg-white text-orange fw-600"
+                      onClick={decreaseQuantity}
+                      disabled={quantity < 1}
+                    >
+                      -
+                    </button>
+                    <span className="quantity-count d-inline-block text-orange fw-600">
+                      {quantity}
+                    </span>
+                    <button
+                      className="quantity-plus d-inline-block border-0 bg-white text-orange fw-600"
+                      onClick={increaseQuantity}
+                      disabled={quantity === 10}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </div>
-    </div>
 
-  </>
-);
+    </>
+  );
 };
 
 export default ProductCard;
