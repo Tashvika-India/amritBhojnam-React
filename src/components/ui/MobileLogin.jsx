@@ -113,21 +113,22 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
   };
 
   return (
-    <Offcanvas show={otpShow} onHide={onOtpClose} placement={align} className="bg-light-orange rounded-start-4">
+    <Offcanvas show={otpShow} onHide={onOtpClose} placement={align} className="bg-white rounded-start-4 login-offcanvas" style={{width: "28%"}}>
       <Offcanvas.Header closeButton>
-        <img  src={logo} alt="logo"  className="img-fluid" loading="lazy"  />
+        <img  src={logo} alt="logo"  className="img-fluid p-2" loading="lazy"  />
       </Offcanvas.Header>
-      <Offcanvas.Body>
-        <div className="d-inline-flex w-100 align-self-center">
-          <h1>Login</h1>
+      <Offcanvas.Body class="p-4">
+        <div className="d-inline-flex w-100 align-self-center justify-content-between">
+          <h4 class="fw-bold">Login</h4>
+          {/* <p class="fb-fs-14 fw-600">Or <span class="text-orange text-decoration-underline"> Create an account</span></p> */}
         </div>
         <div className="flex flex-column gap-4 py-3 phone-input">
-          <label htmlFor="phone">
+          {/* <label htmlFor="phone">
             Phone No <span style={{ color: "red" }}>*</span>
-          </label>
+          </label> */}
           <InputText
-            className="w-100 mt-3 mb-2 p-inputtext-lg border-radius-8"
-            placeholder="Enter Phone No."
+            className="w-100 mt-3 p-3 mb-2 p-inputtext-lg border-radius-8"
+            placeholder="Phone No*"
             id="phone"
             maxLength="10"
             value={phoneNumber}
@@ -140,7 +141,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
               }
             }}
           />
-          <small id="phone-help">Enter your Phone Number to login.</small>
+         
           {errorMessage && <div className="text-danger">{errorMessage}</div>}
         </div>
 
@@ -188,14 +189,18 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
         {!showOTPInputs && (
           <div>
             <button
-              className="button-primary fs-6 w-100"
+              className="button-primary fs-6 w-100 mt-3"
               onClick={handleSendOTP}
               disabled={loading}
             >
               {loading ? "Sending OTP..." : "Send OTP"}
             </button>
           </div>
+          
         )}
+        <div class="mt-4">
+        <small id="phone-help" class="text-dark-grey">By clicking on Login, I accept the Terms & Conditions and Privacy Policy Recovery Account</small>
+        </div>
       </Offcanvas.Body>
     </Offcanvas>
   );

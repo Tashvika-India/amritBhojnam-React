@@ -24,6 +24,7 @@ import grain2 from "../../../assets/images/web/grain-2.png";
 import grain3 from "../../../assets/images/web/grain-3.png";
 import WebBanner from "./components/WebBanner";
 import ItemSlide from "./components/ItemSlide";
+import popularProduct from "../../../assets/images/web/popular-product.png";
 import bestPrice from "../../../assets/images/web/offers/best-price.png";
 import deliveryImg from "../../../assets/images/web/offers/delivery.png";
 import greatDeal from "../../../assets/images/web/offers/great-deal.png";
@@ -31,18 +32,22 @@ import easyReturn from "../../../assets/images/web/offers/easy-return.png";
 import firstPurchase from "../../../assets/images/web/first-purchase.png";
 import ProductCard from "./components/ProductCard";
 import { Link } from "react-router-dom";
-import { getCategoriesApi, getProductApi } from "../../../services/adminApiRoutes";
+import {
+  getCategoriesApi,
+  getProductApi,
+} from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { baseURL } from "../../../utils/constant-variable";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
+import ProductSlide from "./components/productSlide";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState([]);
   const [filter, setFilter] = useURLFilters([]);
-  
+
   async function getProductList() {
     setLoading(true);
     try {
@@ -74,7 +79,9 @@ const HomePage = () => {
     setLoading(true);
     try {
       const response = await getCategoriesApi();
-      const filteredData = (response?.data || []).filter(item => item.is_active === true);
+      const filteredData = (response?.data || []).filter(
+        (item) => item.is_active === true
+      );
       setCategory(filteredData);
     } catch (error) {
       console.log("Error on Banner List", error);
@@ -102,7 +109,11 @@ const HomePage = () => {
         <div className="container fb-container">
           <div className="cat-items-wrapper">
             {category?.map((item, index) => (
-              <Link to={`/products?category_id=${item.id}`} className="cat-card" key={index}>
+              <Link
+                to={`/products?category_id=${item.id}`}
+                className="cat-card"
+                key={index}
+              >
                 <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
                   <div className="item-image">
                     <img
@@ -172,7 +183,12 @@ const HomePage = () => {
                     <div className="row">
                       <div
                         className="d-grid mt-4 pt-2 gap-4 justify-content-between"
-                        style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)" }}
+                        style={{
+                          gridTemplateColumns:
+                            window.innerWidth > 768
+                              ? "repeat(5, 1fr)"
+                              : "repeat(2, 1fr)",
+                        }}
                       >
                         {loading ? (
                           <Loading />
@@ -184,62 +200,94 @@ const HomePage = () => {
                       </div>
                     </div>
                   </Tab.Pane>
-                  <Tab.Pane eventKey="Snacks"> <div className="row">
-                    <div
-                      className="d-grid mt-4 pt-2 gap-4 justify-content-between"
-                      style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)" }}
-                    >
-                      {loading ? (
-                        <Loading />
-                      ) : (
-                        products?.map((item, index) => (
-                          <ProductCard product={item} key={index} />
-                        ))
-                      )}
+                  <Tab.Pane eventKey="Snacks">
+                    {" "}
+                    <div className="row">
+                      <div
+                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                        style={{
+                          gridTemplateColumns:
+                            window.innerWidth > 768
+                              ? "repeat(5, 1fr)"
+                              : "repeat(2, 1fr)",
+                        }}
+                      >
+                        {loading ? (
+                          <Loading />
+                        ) : (
+                          products?.map((item, index) => (
+                            <ProductCard product={item} key={index} />
+                          ))
+                        )}
+                      </div>
                     </div>
-                  </div></Tab.Pane>
-                  <Tab.Pane eventKey="Instant-Mix"> <div className="row">
-                    <div
-                      className="d-grid mt-4 pt-2 gap-4 justify-content-between"
-                      style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)" }}
-                    >
-                      {loading ? (
-                        <Loading />
-                      ) : (
-                        products?.map((item, index) => (
-                          <ProductCard product={item} key={index} />
-                        ))
-                      )}
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="Instant-Mix">
+                    {" "}
+                    <div className="row">
+                      <div
+                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                        style={{
+                          gridTemplateColumns:
+                            window.innerWidth > 768
+                              ? "repeat(5, 1fr)"
+                              : "repeat(2, 1fr)",
+                        }}
+                      >
+                        {loading ? (
+                          <Loading />
+                        ) : (
+                          products?.map((item, index) => (
+                            <ProductCard product={item} key={index} />
+                          ))
+                        )}
+                      </div>
                     </div>
-                  </div></Tab.Pane>
-                  <Tab.Pane eventKey="Flour"> <div className="row">
-                    <div
-                      className="d-grid mt-4 pt-2 gap-4 justify-content-between"
-                      style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)" }}
-                    >
-                      {loading ? (
-                        <Loading />
-                      ) : (
-                        products?.map((item, index) => (
-                          <ProductCard product={item} key={index} />
-                        ))
-                      )}
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="Flour">
+                    {" "}
+                    <div className="row">
+                      <div
+                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                        style={{
+                          gridTemplateColumns:
+                            window.innerWidth > 768
+                              ? "repeat(5, 1fr)"
+                              : "repeat(2, 1fr)",
+                        }}
+                      >
+                        {loading ? (
+                          <Loading />
+                        ) : (
+                          products?.map((item, index) => (
+                            <ProductCard product={item} key={index} />
+                          ))
+                        )}
+                      </div>
                     </div>
-                  </div></Tab.Pane>
-                  <Tab.Pane eventKey="Rice"> <div className="row">
-                    <div
-                      className="d-grid mt-4 pt-2 gap-4 justify-content-between"
-                      style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)" }}
-                    >
-                      {loading ? (
-                        <Loading />
-                      ) : (
-                        products?.map((item, index) => (
-                          <ProductCard product={item} key={index} />
-                        ))
-                      )}
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="Rice">
+                    {" "}
+                    <div className="row">
+                      <div
+                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                        style={{
+                          gridTemplateColumns:
+                            window.innerWidth > 768
+                              ? "repeat(5, 1fr)"
+                              : "repeat(2, 1fr)",
+                        }}
+                      >
+                        {loading ? (
+                          <Loading />
+                        ) : (
+                          products?.map((item, index) => (
+                            <ProductCard product={item} key={index} />
+                          ))
+                        )}
+                      </div>
                     </div>
-                  </div></Tab.Pane>
+                  </Tab.Pane>
                 </Tab.Content>
               </div>
             </div>
@@ -366,6 +414,21 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      <section className="popular-product">
+        <div className="container fb-container">
+          <h3 className="fw-bold text-center mb-5">Daily Best Sells</h3>
+          <div className="row">
+            <div className="col-md-5">
+              <div className="popularleft">
+              <img src={popularProduct} alt="amrit img" className="img-fluid" />
+              </div>
+            </div>
+            <div className="col-md-7">
+              <ProductSlide />
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="amrit_bhojanam pb-6">
         <div className="container-fluid">
           <div className="row">
@@ -414,6 +477,171 @@ const HomePage = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="best-product">
+          <div className="container fb-container">
+          <Tab.Container id="left-tabs-example" defaultActiveKey="All">
+            <div className="row">
+              <div className="col-md-6">
+                <h3 className="fw-bold">Our Best Selling Products</h3>
+              </div>
+              {/* <div className="col-md-6">
+                <Nav
+                  variant="pills"
+                  className="flex-row justify-content-lg-end tab-nav-wrapper"
+                >
+                  <Nav.Item className="nav">
+                    <Nav.Link className="fb-fs-18 px-2 px-lg-3" eventKey="All">
+                      All
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link
+                      className="fb-fs-18 px-2 px-lg-3"
+                      eventKey="Snacks"
+                    >
+                      Snacks
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link
+                      className="fb-fs-18 px-2 px-lg-3"
+                      eventKey="Instant-Mix"
+                    >
+                      Instant Mix
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link
+                      className="fb-fs-18 px-2 px-lg-3"
+                      eventKey="Flour"
+                    >
+                      Flour
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link className="fb-fs-18 px-2 px-lg-3" eventKey="Rice">
+                      Rice
+                    </Nav.Link>
+                  </Nav.Item>
+                </Nav>
+              </div> */}
+              <div className="col-md-12">
+                <Tab.Content>
+                  <Tab.Pane eventKey="All">
+                    <div className="row">
+                      <div
+                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                        style={{
+                          gridTemplateColumns:
+                            window.innerWidth > 768
+                              ? "repeat(5, 1fr)"
+                              : "repeat(2, 1fr)",
+                        }}
+                      >
+                        {loading ? (
+                          <Loading />
+                        ) : (
+                          products?.map((item, index) => (
+                            <ProductCard product={item} key={index} />
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="Snacks">
+                    {" "}
+                    <div className="row">
+                      <div
+                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                        style={{
+                          gridTemplateColumns:
+                            window.innerWidth > 768
+                              ? "repeat(5, 1fr)"
+                              : "repeat(2, 1fr)",
+                        }}
+                      >
+                        {loading ? (
+                          <Loading />
+                        ) : (
+                          products?.map((item, index) => (
+                            <ProductCard product={item} key={index} />
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="Instant-Mix">
+                    {" "}
+                    <div className="row">
+                      <div
+                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                        style={{
+                          gridTemplateColumns:
+                            window.innerWidth > 768
+                              ? "repeat(5, 1fr)"
+                              : "repeat(2, 1fr)",
+                        }}
+                      >
+                        {loading ? (
+                          <Loading />
+                        ) : (
+                          products?.map((item, index) => (
+                            <ProductCard product={item} key={index} />
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="Flour">
+                    {" "}
+                    <div className="row">
+                      <div
+                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                        style={{
+                          gridTemplateColumns:
+                            window.innerWidth > 768
+                              ? "repeat(5, 1fr)"
+                              : "repeat(2, 1fr)",
+                        }}
+                      >
+                        {loading ? (
+                          <Loading />
+                        ) : (
+                          products?.map((item, index) => (
+                            <ProductCard product={item} key={index} />
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="Rice">
+                    {" "}
+                    <div className="row">
+                      <div
+                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                        style={{
+                          gridTemplateColumns:
+                            window.innerWidth > 768
+                              ? "repeat(5, 1fr)"
+                              : "repeat(2, 1fr)",
+                        }}
+                      >
+                        {loading ? (
+                          <Loading />
+                        ) : (
+                          products?.map((item, index) => (
+                            <ProductCard product={item} key={index} />
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  </Tab.Pane>
+                </Tab.Content>
+              </div>
+            </div>
+          </Tab.Container>
         </div>
       </section>
       <section className="first_purchase">
