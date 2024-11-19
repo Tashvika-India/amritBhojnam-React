@@ -14,7 +14,7 @@ const ContactUs = () => {
             <div class="card p-0 rounded-40 contact-box-shadow">
               <div className="card-body p-0 ">
                 <div className="row">
-                  <div className="col-md-5">
+                  <div className="col-md-6 col-lg-5">
                     <div className="orange-section bg-orange">
                       <p
                         className="fb-fs-40 text-white fw-300"
@@ -31,7 +31,7 @@ const ContactUs = () => {
                       <div className="contact-list my-4 pb-2 pt-4">
                         <p className="text-dark-brown fw-600">PHONE NO.</p>
                         <div className="d-flex pt-2">
-                          <Call size="32" color="#FFF" variant="Bulk" />
+                          <Call size={"2rem"} color="#FFF" variant="Bulk" />
                           <p className="fb-fs-18 text-white fw-600 ps-3">
                             +91-1234567890
                           </p>
@@ -41,7 +41,7 @@ const ContactUs = () => {
                         <p className="text-dark-brown fw-600">EMAIL ADDRESS.</p>
                         <div className="d-flex pt-2">
                           <DirectboxNotif
-                            size="32"
+                              size={"2rem"}
                             color="#FFF"
                             variant="Bulk"
                           />
@@ -54,7 +54,7 @@ const ContactUs = () => {
                         <p className="text-dark-brown fw-600">ADDRESS.</p>
                         <div className="d-flex pt-2">
                           <LocationMinus
-                            size="50"
+                             size={"2.8rem"}
                             color="#FFF"
                             variant="Bulk"
                           />
@@ -66,7 +66,7 @@ const ContactUs = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-7">
+                  <div className="col-md-6 col-lg-7">
                     <div className="white-section">
                       <h5 className="fw-300 text-black mb-0">Contact Form</h5>
                       <p className="fb-fs-40 fw-600" style={{lineHeight: "3rem"}}>Drop Us a Line</p>
