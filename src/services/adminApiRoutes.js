@@ -89,6 +89,7 @@ export const deleteBannerApi = (id) => API.delete(`/banners/${id}`);
 
 export const getCartApi = () => API.get(`/cart/`);
 export const postCartApi = (payload) => API.post(`/cart/`, payload);
+export const getFinalCartApi = (cart_id) => API.get(`/cart/final/?cart_id=${cart_id}`);
 
 // options api
 

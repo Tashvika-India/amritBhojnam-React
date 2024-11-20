@@ -11,33 +11,64 @@ import deliveryImg from "../../../assets/images/web/product-detail/delivery-img.
 import AsNavFor from "../web-home/components/MultiSlide";
 import { ButtonGroup, Nav, Tab, ToggleButton } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { getProductApi } from "../../../services/adminApiRoutes";
+import { getCartApi, getProductApi, postCartApi } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
+import MyCartMenu from "../../../components/ui/MyCartMenu";
 
 const ProudctDetail = () => {
   const [rating, setRating] = useState(0);
+  const [showCart, setShowCart] = useState(false);
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [selectedOption, setSelectedOption] = useState("option2");
   const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
   const [filters, setFilters] = useURLFilters()
+  const [loading, setLoading] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+  const toggleCart = () => setShowCart(!showCart);
+  const [detail, setDetail] = useState({});
 
-  const [detail, useDetail] = useState({}); 
-
-  const radios = [{ name: `${detail?.quantity}${detail?.quantity_unit}`, value: '1' }]; 
+  const radios = [{ name: `${detail?.quantity}${detail?.quantity_unit}`, value: '1' }];
 
   const fetchProductDetail = async () => {
     try {
       const response = await getProductApi(filters);
-      useDetail(response?.data?.results[0] || {}); 
-      
+      const productDetail = response?.data?.results[0] || {};
+      setDetail(productDetail);
     } catch (error) {
       console.log("Error on Product Detail", error);
     }
   };
 
+  const handleClick = () => {
+    if (quantity === 0) {
+      setQuantity(1);
+    }
+  };
+
+  const addToCart = async (product_id, quantity) => {
+    setLoading(true);
+    try {
+      const response = await postCartApi({
+        product_id,
+        item_quantity: quantity,
+      });
+    } catch (error) {
+      console.log("Error adding to cart:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   useEffect(() => {
-    fetchProductDetail(); 
+    if (quantity > 0) {
+      addToCart(detail?.id, quantity);
+    }
+  }, [quantity]);
+
+  useEffect(() => {
+    fetchProductDetail();
   }, []);
 
 
@@ -110,7 +141,7 @@ const ProudctDetail = () => {
                   </ButtonGroup>
                 </div>
                 <p className="fb-fs-40 text-orange fw-bold original-price">
-                ₹{detail?.offer_price}
+                  ₹{detail?.offer_price}
                   <small className="fw-500 fb-fs-30 text-grey ms-3">
                     <strike>₹{detail?.max_price}</strike>
                   </small>
@@ -119,9 +150,17 @@ const ProudctDetail = () => {
                   (Inclusive of all taxes)
                 </p>
                 <div>
-                  <button className="button-primary mt-4 fb-fs-18">
-                    Add to Cart
-                  </button>
+                  {quantity === 0 ? (
+                    <button className="button-primary mt-4 fb-fs-18" onClick={() => handleClick()}>
+                      Add to Cart
+                    </button>) : (
+                    <>
+                      <button className="button-primary mt-4 fb-fs-18"  onClick={toggleCart}>
+                        Checkout Cart
+                      </button>
+                      <MyCartMenu show={showCart} onClose={toggleCart} />
+                    </> )
+                  }
                 </div>
                 <div className="mt-5">
                   <p className="fw-600">Check Availability</p>
