@@ -2,19 +2,23 @@ import React, { useEffect, useState } from "react";
 import { Offcanvas, Button, ProgressBar } from "react-bootstrap";
 import product from "../../assets/images/web/product-card.png";
 import deliveryImg from "../../assets/images/web/product-detail/delivery-img.png";
-import { getCartApi, postCartApi } from "../../services/adminApiRoutes";
+import { getCartApi, getFinalCartApi, postCartApi } from "../../services/adminApiRoutes";
 import { baseURL } from "../../utils/constant-variable";
 
 const MyCartMenu = ({ show, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [cartList, setCartList] = useState([]);
   const [updating, setUpdating] = useState(false);
+  const [finalCart, setFinalCart] = useState({});
 
   async function getCartList() {
     setLoading(true);
     try {
       const response = await getCartApi();
       setCartList(response?.data?.items || []);  
+      const finalCart = await getFinalCartApi(response?.data?.id);   
+      
+      setFinalCart(finalCart?.data || {});
     } catch (error) {
       console.log("Error on Product List", error);
     } finally {
@@ -53,6 +57,7 @@ const MyCartMenu = ({ show, onClose }) => {
     }
   }
 
+  
   useEffect(() => {
     if (show) {
       getCartList();
@@ -133,7 +138,7 @@ const MyCartMenu = ({ show, onClose }) => {
                   </p>
                 </div>
                 <div className="">
-                  <h5 className="total-amount d-inline-block text-orange">₹150</h5>
+                  <h5 className="total-amount d-inline-block text-orange">{`₹${finalCart.total}`}</h5>
                 </div>
               </div>
               <button className="button-primary w-100">Checkout</button>

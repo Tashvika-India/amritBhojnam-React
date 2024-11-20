@@ -10,7 +10,7 @@ import { IoMdMenu } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import ProfileDropdown from '../../components/ui/ProfileDropdown';
 import MobileMenu from '../../components/ui/MobileMenu';
-import MyCartMenu from '../../components/ui/WishlistMenu';
+import MyCartMenu from '../../components/ui/MyCartMenu';
 import MobileLogin from '../../components/ui/MobileLogin';
 import { getCategoriesApi } from '../../services/adminApiRoutes';
 import useURLFilters from '../../custom-compoents/useURLFilters';
