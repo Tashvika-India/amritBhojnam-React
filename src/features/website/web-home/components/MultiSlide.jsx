@@ -42,6 +42,7 @@ function AsNavFor({ data }) {
         swipeToSlide={true}
         focusOnSelect={true}
         arrows={true}
+        style={{marginRight: "2rem"}}
         nextArrow={<SampleNextArrow />}
         prevArrow={<SamplePrevArrow />}
         onMouseEnter={(e) => e.currentTarget.style.background = "#fff"}  
