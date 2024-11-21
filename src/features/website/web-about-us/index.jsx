@@ -34,7 +34,7 @@ const AboutUs = () => {
             </div>
             <div className="col-md-6 ps-lg-0 pe-lg-5">
               <div>
-                <p className="fb-fs-40 fw-600 py-lg-4 py-2 mb-lg-2 mt-lg-2">
+                <p className="fb-fs-40 fw-600 py-lg-4 py-md-0 py-2 mb-md-0 mb-lg-2 mt-lg-2">
                   Welcome to Amrit Bhojanam
                 </p>
                 <p>
@@ -59,7 +59,7 @@ const AboutUs = () => {
                 </p>
               </div>
               <div className="pt-3 bottom-image">
-                <div className="row mt-lg-5 pt-lg-5">
+                <div className="row mt-xl-5 mt-lg-0 pt-lg-5">
                   <div className="col-4 ">
                     <img
                       src={About1}
@@ -112,7 +112,7 @@ const AboutUs = () => {
           initial={{ x: "-100%" }}
           animate={{ x: 0 }}
           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="marquee flex-shrink-0 mb-md-5 pb-lg-5 pb-sm-5 pt-md-4 pt-sm-4"
+          className="marquee flex-shrink-0 mb-md-5 mb-lg-0 mb-xl-5 pb-lg-5 pb-sm-5 pt-md-4  pt-sm-4"
           style={{ whiteSpace: "nowrap" }}
         >
           {/* Add text or images that you want to animate in the marquee */}
@@ -161,10 +161,10 @@ const AboutUs = () => {
            MILLET POWER
           </span>
         </motion.div>
-          <div className="row mx-lg-5 px-lg-4">
+          <div className="row mx-xl-5 mx-lg-0 px-xl-4 px-lg-4">
             <div className="col-lg-4 col-sm-6">
               <div className="card rounded-20">
-                <div className="card-body text-center px-lg-5 py-lg-4">
+                <div className="card-body text-center px-lg-5 py-xl-4 py-lg-2">
                   <img
                     src={PriceOffer}
                     className="img-fluid d-block mx-auto mb-4 pt-4"
@@ -184,7 +184,7 @@ const AboutUs = () => {
             </div>
             <div className="col-lg-4 col-sm-6">
               <div className="card rounded-20">
-                <div className="card-body text-center px-lg-5 py-lg-4">
+                <div className="card-body text-center px-lg-5 py-xl-4 py-lg-2">
                   <img
                     src={WideAsortment}
                     className="img-fluid d-block mx-auto mb-4 pt-4"
@@ -202,7 +202,7 @@ const AboutUs = () => {
             </div>
             <div className="col-lg-4 col-sm-6 mt-sm-4 mt-lg-0">
               <div className="card rounded-20">
-                <div className="card-body text-center  px-lg-5 py-lg-4">
+                <div className="card-body text-center  px-lg-5 py-xl-4 py-lg-2">
                   <img
                     src={FreeDelivery}
                     className="img-fluid d-block mx-auto mb-4 pt-4"
@@ -220,7 +220,7 @@ const AboutUs = () => {
             </div>
             <div className="col-lg-4 col-sm-6 mt-4 mb-lg-4">
               <div className="card rounded-20">
-                <div className="card-body text-center  px-lg-5 py-lg-4">
+                <div className="card-body text-center  px-lg-5 py-xl-4 py-lg-2">
                   <img
                     src={ReturnEasy}
                     className="img-fluid d-block mx-auto mb-4 pt-4"
@@ -238,7 +238,7 @@ const AboutUs = () => {
             </div>
             <div className="col-lg-4 col-sm-6 mt-4 mb-4">
               <div className="card rounded-20">
-                <div className="card-body text-center  px-lg-5 py-lg-4">
+                <div className="card-body text-center  px-lg-5 py-xl-4 py-lg-2">
                   <img
                     src={Satisfaction}
                     className="img-fluid d-block mx-auto mb-4 pt-4"
@@ -256,7 +256,7 @@ const AboutUs = () => {
             </div>
             <div className="col-lg-4 col-sm-6 mt-4 mb-4">
               <div className="card rounded-20">
-                <div className="card-body text-center  px-lg-5 py-lg-4">
+                <div className="card-body text-center  px-lg-5 py-xl-4 py-lg-2">
                   <img
                     src={GreatDeal}
                     className="img-fluid d-block mx-auto mb-4 pt-4"
