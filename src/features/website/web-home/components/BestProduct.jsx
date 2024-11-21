@@ -6,7 +6,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { Margin } from "@mui/icons-material";
 import ProductCard from "./ProductCard";
 
-const BestProduct = () => {
+const BestProduct = ({ products }) => {
   const settings = {
     dots: false,
     infinite: false,
@@ -39,100 +39,78 @@ const BestProduct = () => {
       },
     ],
   };
+
   return (
     <>
       <Slider {...settings} className="item-slider">
+      {products?.map((product)=>(
         <div className="item-slide px-2 px-lg-0">
-        <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard product={product}/>
+          </div>
+        </div>
+      ))}
+       
+        {/* <div className="item-slide px-2 px-lg-0">
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard />
           </div>
         </div>
         <div className="item-slide px-2 px-lg-0">
-        <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard />
           </div>
         </div>
         <div className="item-slide px-2 px-lg-0">
-        <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard />
           </div>
         </div>
         <div className="item-slide px-2 px-lg-0">
-        <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard />
           </div>
         </div>
         <div className="item-slide px-2 px-lg-0">
-        <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard />
           </div>
         </div>
         <div className="item-slide px-2 px-lg-0">
-        <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard />
           </div>
         </div>
         <div className="item-slide px-2 px-lg-0">
-          <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard />
           </div>
         </div>
         <div className="item-slide px-2 px-lg-0">
-          <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard />
           </div>
         </div>
         <div className="item-slide px-2 px-lg-0">
-          <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard />
           </div>
         </div>
         <div className="item-slide px-2 px-lg-0">
-          <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard />
           </div>
         </div>
         <div className="item-slide px-2 px-lg-0">
-          <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard />
           </div>
         </div>
         <div className="item-slide px-2 px-lg-0">
-          <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
+          <div className="cat-itmes gap-0 mx-0 mx-lg-2">
+            <ProductCard />
           </div>
-        </div>
-        <div className="item-slide px-2 px-lg-0">
-          <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
-          </div>
-        </div>
+        </div> */}
       </Slider>
     </>
   );

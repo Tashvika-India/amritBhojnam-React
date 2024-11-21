@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiurl = import.meta.env.VITE_BASE_API_URL + "/api";
- 
+
 const API = axios.create({
   baseURL: apiurl,
 });
@@ -58,42 +58,57 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-
-
-
 export const getCategoriesApi = () => API.get(`/categories/`);
 export const postCategoriesApi = (payload) => API.post(`/categories/`, payload);
-export const putCategoriesApi = (id, payload) => API.put(`/categories/${id}/`, payload); 
-export const patchCategoriesApi = (id, payload) => API.patch(`/categories/${id}/`, payload);
+export const putCategoriesApi = (id, payload) =>
+  API.put(`/categories/${id}/`, payload);
+export const patchCategoriesApi = (id, payload) =>
+  API.patch(`/categories/${id}/`, payload);
 
 export const getSubCategoriesApi = () => API.get(`/sub-categories/`);
-export const postSubCategoriesApi = (payload) => API.post(`/sub-categories/`, payload);
-export const putSubCategoriesApi = (id, payload) => API.put(`/sub-categories/${id}/`, payload); 
-export const patchSubCategoriesApi = (id, payload) => API.patch(`/sub-categories/${id}/`, payload);
+export const postSubCategoriesApi = (payload) =>
+  API.post(`/sub-categories/`, payload);
+export const putSubCategoriesApi = (id, payload) =>
+  API.put(`/sub-categories/${id}/`, payload);
+export const patchSubCategoriesApi = (id, payload) =>
+  API.patch(`/sub-categories/${id}/`, payload);
 
-// product api  
-export const getProductApi = ({product_id,category_id,name}) => API.get(`/products/?category_id=${category_id}&product_id=${product_id}&name=${name}`); 
+// product api
+export const getProductApi = ({ product_id, category_id, name }) =>
+  API.get(
+    `/products/?category_id=${category_id}&product_id=${product_id}&name=${name}`
+  );
 export const postProductApi = (payload) => API.post(`/products/`, payload);
-export const putProductApi = (id, payload) => API.put(`/products/${id}/`, payload);
+export const putProductApi = (id, payload) =>
+  API.put(`/products/${id}/`, payload);
 export const deleteProductApi = (id) => API.delete(`/products/${id}`);
-export const searchProductApi = (search) => API.get(`/products/similar-to-search/?search_query=${search}`);
+export const searchProductApi = (search) =>
+  API.get(`/products/similar-to-search/?search_query=${search}`);
 
 // banner api
 export const getBannerApi = () => API.get(`/banners/`);
 export const postBannerApi = (payload) => API.post(`/banners/`, payload);
-export const putBannerApi = (id, payload) => API.put(`/banners/${id}/`, payload);
-export const patchBannerApi = (id, payload) => API.patch(`/banners/${id}/`, payload);
+export const putBannerApi = (id, payload) =>
+  API.put(`/banners/${id}/`, payload);
+export const patchBannerApi = (id, payload) =>
+  API.patch(`/banners/${id}/`, payload);
 export const deleteBannerApi = (id) => API.delete(`/banners/${id}`);
 
-// cart api 
+// cart api
 
 export const getCartApi = () => API.get(`/cart/`);
 export const postCartApi = (payload) => API.post(`/cart/`, payload);
-export const getFinalCartApi = (cart_id) => API.get(`/cart/final/?cart_id=${cart_id}`);
+export const getFinalCartApi = (cart_id) =>
+  API.get(`/cart/final/?cart_id=${cart_id}`);
 
 // options api
 
 export const getOptionsApi = () => API.get(`products/options/`);
-export const postOptionsApi = (payload) => API.post(`products/options/`, payload);
-export const putOptionsApi = (id, payload) => API.put(`products/options/${id}`, payload);
-export const patchOptionsApi = (id, payload) => API.patch(`products/options/${id}`, payload);
+export const postOptionsApi = (payload) =>
+  API.post(`products/options/`, payload);
+export const putOptionsApi = (id, payload) =>
+  API.put(`products/options/${id}`, payload);
+export const patchOptionsApi = (id, payload) =>
+  API.patch(`products/options/${id}`, payload);
+export const getPopularProducts = () => API.get("products/popular/");
+export const getBestPrice =() => API.get("best-price-products/");

@@ -24,7 +24,7 @@ import grain2 from "../../../assets/images/web/grain-2.png";
 import grain3 from "../../../assets/images/web/grain-3.png";
 import WebBanner from "./components/WebBanner";
 import ItemSlide from "./components/ItemSlide";
-import popularProduct from "../../../assets/images/web/popular-product.png";
+import popProduct from "../../../assets/images/web/popular-product.png";
 import bestPrice from "../../../assets/images/web/offers/best-price.png";
 import deliveryImg from "../../../assets/images/web/offers/delivery.png";
 import greatDeal from "../../../assets/images/web/offers/great-deal.png";
@@ -34,6 +34,8 @@ import ProductCard from "./components/ProductCard";
 import { Link } from "react-router-dom";
 import {
   getCategoriesApi,
+  getPopularProducts,
+  getBestPrice,
   getProductApi,
 } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
@@ -48,6 +50,8 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState([]);
   const [filter, setFilter] = useURLFilters([]);
+  const [popularProduct, setPopularProduct] = useState([]);
+  const [bestPrice, setBestPrice] = useState([]);
 
   async function getProductList() {
     setLoading(true);
@@ -58,6 +62,24 @@ const HomePage = () => {
       console.log("Error on Product List", error);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function getPopularProduct() {
+    try {
+      const response = await getPopularProducts();
+      setPopularProduct(response?.data?.results);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async function getBestPrice() {
+    try {
+      const response = await getBestPrice();
+      setBestPrice(response?.data?.results || []);
+    } catch (error) {
+      console.log("Error on Product List", error);
     }
   }
 
@@ -74,6 +96,8 @@ const HomePage = () => {
 
   useEffect(() => {
     getProductList();
+    getPopularProduct();
+    getBestPrice();
   }, []);
 
   async function getCategory() {
@@ -421,11 +445,15 @@ const HomePage = () => {
           <div className="row">
             <div className="col-md-5">
               <div className="popularleft">
-              <img src={popularProduct} alt="amrit img" className="img-fluid" />
+                <img
+                  src={popProduct}
+                  alt="amrit img"
+                  className="img-fluid"
+                />
               </div>
             </div>
             <div className="col-md-7">
-              <ProductSlide />
+              <ProductSlide bestPriceProduct={bestPrice}/>
             </div>
           </div>
         </div>
@@ -481,9 +509,9 @@ const HomePage = () => {
         </div>
       </section>
       <section className="best-product">
-          <div className="container fb-container">
+        <div className="container fb-container">
           <h3 className="fw-bold mb-5">Our Best Selling Products</h3>
-         <BestProduct />
+          <BestProduct products={popularProduct} />
         </div>
       </section>
       <section className="first_purchase">

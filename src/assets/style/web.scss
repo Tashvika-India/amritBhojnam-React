@@ -289,7 +289,7 @@
     }
     .white-background {
       background-color: white;
-      padding: 4rem 6rem 4rem 4rem;
+      padding: 4rem 6rem 3.6rem 4rem;
       margin-top: 4rem;
       margin-right: 6rem;
     }
@@ -882,6 +882,21 @@
   .fb-container-xxl {
     max-width: 900px !important;
   }
+  .about-us .main-logo img{
+    aspect-ratio: 11/16;
+    width: fit-content;
+    padding-left: 0 !important;
+    padding-right: 2rem;
+  }
+  .fb-fs-40{
+    font-size: 1.8rem !important;
+  }
+  .thoughtful-content {
+    font-size: 1rem !important;
+  }
+  .thoughtful-content-bottom {
+    font-size: 1rem !important;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
@@ -891,6 +906,19 @@
   .contact-us .card .orange-section{
     padding: 2.5rem 1rem;
   } 
+  .about-us .about-bottom .grey-background img {
+    width: 21rem;
+    aspect-ratio: 13 / 16;
+    margin-top: 0
+  }
+  .about-us .about-bottom{
+    height: 29rem;
+  }
+  .about-us .about-bottom .white-background {
+    padding: 1rem;
+    margin-top: 0;
+    margin-right: 0;
+  }
   .fb-fs-18{
     font-size: 1rem !important;
   }

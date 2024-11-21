@@ -6,7 +6,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { Margin } from "@mui/icons-material";
 import ProductCard from "./ProductCard";
 
-const ProductSlide = () => {
+const ProductSlide = ({bestPriceProduct}) => {
   const settings = {
     dots: false,
     infinite: false,
@@ -42,14 +42,17 @@ const ProductSlide = () => {
   return (
     <>
       <Slider {...settings} className="item-slider">
+      {bestPriceProduct?.map((bestPrice)=>(
         <div className="item-slide px-2 px-lg-0">
         <div
             className="cat-itmes gap-0 mx-0 mx-lg-2"
           >
-           <ProductCard />
+           <ProductCard bestPriceProduct={bestPrice} />
           </div>
         </div>
-        <div className="item-slide px-2 px-lg-0">
+      ))}
+        
+        {/* <div className="item-slide px-2 px-lg-0">
         <div
             className="cat-itmes gap-0 mx-0 mx-lg-2"
           >
@@ -90,7 +93,7 @@ const ProductSlide = () => {
           >
            <ProductCard />
           </div>
-        </div>
+        </div> */}
       </Slider>
     </>
   );
