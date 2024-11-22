@@ -25,7 +25,8 @@ import grain3 from "../../../assets/images/web/grain-3.png";
 import WebBanner from "./components/WebBanner";
 import ItemSlide from "./components/ItemSlide";
 import popProduct from "../../../assets/images/web/popular-product.png";
-import bestPrice from "../../../assets/images/web/offers/best-price.png";
+import bestOffer from "../../../assets/images/web/offers/best-price.png";
+import bestPrice from "./components/BestProduct";
 import deliveryImg from "../../../assets/images/web/offers/delivery.png";
 import greatDeal from "../../../assets/images/web/offers/great-deal.png";
 import easyReturn from "../../../assets/images/web/offers/easy-return.png";
@@ -35,8 +36,8 @@ import { Link } from "react-router-dom";
 import {
   getCategoriesApi,
   getPopularProducts,
-  getBestPrice,
   getProductApi,
+  getBestPriceApi,
 } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -76,8 +77,10 @@ const HomePage = () => {
 
   async function getBestPrice() {
     try {
-      const response = await getBestPrice();
-      setBestPrice(response?.data?.results || []);
+      const response = await getBestPriceApi(); 
+      console.log("response",response);
+      
+      setBestPrice(response?.data || []);
     } catch (error) {
       console.log("Error on Product List", error);
     }
@@ -94,12 +97,6 @@ const HomePage = () => {
   const x = useTransform(scrollYProgress, [0, 0.5], ["-100%", "0%"]);
   const xx = useTransform(scrollYProgress, [0, 0.5], ["100%", "0%"]);
 
-  useEffect(() => {
-    getProductList();
-    getPopularProduct();
-    getBestPrice();
-  }, []);
-
   async function getCategory() {
     setLoading(true);
     try {
@@ -113,9 +110,15 @@ const HomePage = () => {
     } finally {
       setLoading(false);
     }
-  }
+  } 
+
+  console.log('state', bestPrice);
+  
 
   useEffect(() => {
+    getProductList();
+    getPopularProduct();
+    getBestPrice();
     getCategory();
   }, []);
 
@@ -443,7 +446,7 @@ const HomePage = () => {
         <div className="container fb-container">
           <h3 className="fw-bold text-center mb-5">Daily Best Sells</h3>
           <div className="row">
-            <div className="col-md-5">
+            <div className="col-md-5 align-self-center">
               <div className="popularleft">
                 <img
                   src={popProduct}
@@ -652,7 +655,7 @@ const HomePage = () => {
                 <div>
                   <img
                     className="img-fluid ps-3"
-                    src={bestPrice}
+                    src={bestOffer}
                     alt="millet-rice"
                   />
                 </div>

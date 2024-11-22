@@ -111,4 +111,4 @@ export const putOptionsApi = (id, payload) =>
 export const patchOptionsApi = (id, payload) =>
   API.patch(`products/options/${id}`, payload);
 export const getPopularProducts = () => API.get("products/popular/");
-export const getBestPrice =() => API.get("best-price-products/");
+export const getBestPriceApi = () => API.get("best-price-products/");

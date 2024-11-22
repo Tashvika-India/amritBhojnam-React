@@ -42,58 +42,15 @@ const ProductSlide = ({bestPriceProduct}) => {
   return (
     <>
       <Slider {...settings} className="item-slider">
-      {bestPriceProduct?.map((bestPrice)=>(
+      {bestPriceProduct?.map((item , index)=>(
         <div className="item-slide px-2 px-lg-0">
         <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
+            className="cat-itmes gap-0 mx-0 mx-lg-2"  key={index}
           >
-           <ProductCard bestPriceProduct={bestPrice} />
+           <ProductCard product={item} />
           </div>
         </div>
       ))}
-        
-        {/* <div className="item-slide px-2 px-lg-0">
-        <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
-          </div>
-        </div>
-        <div className="item-slide px-2 px-lg-0">
-        <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
-          </div>
-        </div>
-        <div className="item-slide px-2 px-lg-0">
-        <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
-          </div>
-        </div>
-        <div className="item-slide px-2 px-lg-0">
-        <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
-          </div>
-        </div>
-        <div className="item-slide px-2 px-lg-0">
-        <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
-          </div>
-        </div>
-        <div className="item-slide px-2 px-lg-0">
-          <div
-            className="cat-itmes gap-0 mx-0 mx-lg-2"
-          >
-           <ProductCard />
-          </div>
-        </div> */}
       </Slider>
     </>
   );
