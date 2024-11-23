@@ -41,7 +41,7 @@ const ProudctDetail = () => {
   };
 
   const handleClick = () => {
-    if (quantity === 0) {
+    if (quantity === 0 || quantity === undefined) {
       setQuantity(1);
     }
   };
@@ -69,11 +69,9 @@ const ProudctDetail = () => {
 
   useEffect(() => {
     fetchProductDetail();
-  }, []);
+  }, [showCart , quantity]);
 
-
-
-
+ 
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -150,13 +148,13 @@ const ProudctDetail = () => {
                   (Inclusive of all taxes)
                 </p>
                 <div>
-                  {quantity === 0 ? (
+                  {(detail?.cart_item_qty === undefined || detail?.cart_item_qty === 0 )? (
                     <button className="button-primary mt-4 fb-fs-18" onClick={() => handleClick()}>
                       Add to Cart
                     </button>) : (
                     <>
                       <button className="button-primary mt-4 fb-fs-18"  onClick={toggleCart}>
-                        Checkout Cart
+                        Go to Cart
                       </button>
                       <MyCartMenu show={showCart} onClose={toggleCart} />
                     </> )
