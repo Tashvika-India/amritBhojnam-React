@@ -442,7 +442,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <section className="popular-product">
+      <section className="popular-product" id="best-price">
         <div className="container fb-container">
           <h3 className="fw-bold text-center mb-5">Daily Best Sells</h3>
           <div className="row">
@@ -511,7 +511,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <section className="best-product">
+      <section className="best-product" id="popular-product">
         <div className="container fb-container">
           <h3 className="fw-bold mb-5">Our Best Selling Products</h3>
           <BestProduct products={popularProduct} />
