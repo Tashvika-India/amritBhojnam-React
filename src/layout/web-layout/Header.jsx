@@ -76,7 +76,7 @@ const Header = () => {
             </div></Link>
             <div className="header-delivery-search mx-auto  d-none d-xl-block">
               <div className="d-inline-flex gap-4 w-100">
-                <div className="header-delivery d-inline-flex gap-3 align-items-center">
+                {/* <div className="header-delivery d-inline-flex gap-3 align-items-center">
                   <div className="header-delivery-icon">
                     <CiLocationOn size={25} />
                   </div>
@@ -84,7 +84,7 @@ const Header = () => {
                     <small>Deliver to</small>
                     <p className='fw-600 text-truncate'>Akshya Nagar 1st Block 1...</p>
                   </div>
-                </div>
+                </div> */}
                 <form onSubmit={handleSearchSubmit} className="header-search d-inline-flex w-100 align-self-center">
                   <div className="all-category">
                     <Dropdown
@@ -185,9 +185,9 @@ const Header = () => {
               <div className="header-link-list">
                 <ul className='d-flex gap-5'>
                   <li><Link to="/home">Home</Link></li>
-                  <li><Link to="/products">Shop</Link></li>
-                  <li><Link to="/product-detail">Best Deals</Link></li>
-                  <li><a href="#">Trending Products </a></li>
+                  <li><Link to="/products">Products</Link></li>
+                  <li><a href="/home#bestselling">Best Deals</a></li>
+                  <li><a href="/home#popular">Trending Products </a></li>
                   <li><Link to="/about-us">About Us </Link></li>
                   <li><Link to="/contact-us">Contact Us </Link></li>
                 </ul>

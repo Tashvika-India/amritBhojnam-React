@@ -25,8 +25,7 @@ import grain3 from "../../../assets/images/web/grain-3.png";
 import WebBanner from "./components/WebBanner";
 import ItemSlide from "./components/ItemSlide";
 import popProduct from "../../../assets/images/web/popular-product.png";
-import bestOffer from "../../../assets/images/web/offers/best-price.png";
-import bestPrice from "./components/BestProduct";
+import bestOffer from "../../../assets/images/web/offers/best-price.png"; 
 import deliveryImg from "../../../assets/images/web/offers/delivery.png";
 import greatDeal from "../../../assets/images/web/offers/great-deal.png";
 import easyReturn from "../../../assets/images/web/offers/easy-return.png";
@@ -39,7 +38,7 @@ import {
   getProductApi,
   getBestPriceApi,
 } from "../../../services/adminApiRoutes";
-import Loading from "../../../components/ui/Loading";
+import Loading from "../../../components/ui/Loading"; 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { baseURL } from "../../../utils/constant-variable";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
@@ -77,25 +76,15 @@ const HomePage = () => {
 
   async function getBestPrice() {
     try {
-      const response = await getBestPriceApi(); 
-      console.log("response",response);
-      
+      const response = await getBestPriceApi();
+      console.log("response", response);
+
       setBestPrice(response?.data || []);
     } catch (error) {
       console.log("Error on Product List", error);
     }
   }
 
-  const targetRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start end", "start start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
-
-  const x = useTransform(scrollYProgress, [0, 0.5], ["-100%", "0%"]);
-  const xx = useTransform(scrollYProgress, [0, 0.5], ["100%", "0%"]);
 
   async function getCategory() {
     setLoading(true);
@@ -110,10 +99,7 @@ const HomePage = () => {
     } finally {
       setLoading(false);
     }
-  } 
-
-  console.log('state', bestPrice);
-  
+  }
 
   useEffect(() => {
     getProductList();
@@ -128,8 +114,7 @@ const HomePage = () => {
       <section>
         <div
           className="home-banner-wrapper"
-          style={{ maxWidth: "90%", maxHeight: "90%", margin: "0 auto" }}
-        >
+          style={{ maxWidth: "90%", maxHeight: "90%", margin: "0 auto" }}>
           <WebBanner />
         </div>
       </section>
@@ -140,12 +125,10 @@ const HomePage = () => {
               <Link
                 to={`/products?category_id=${item.id}`}
                 className="cat-card"
-                key={index}
-              >
+                key={index}>
                 <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
                   <div className="item-image">
-                    <img
-                      className="img-fluid"
+                    <img className="img-fluid"
                       src={baseURL + item.img_file}
                       alt="millet-rice"
                     />
@@ -159,179 +142,38 @@ const HomePage = () => {
       </section>
       <section>
         <div className="container fb-container">
-          <Tab.Container id="left-tabs-example" defaultActiveKey="All">
             <div className="row">
               <div className="col-md-6">
                 <h3 className="fw-bold">Our Best Selling Products</h3>
               </div>
-              <div className="col-md-6">
-                <Nav
-                  variant="pills"
-                  className="flex-row justify-content-lg-end tab-nav-wrapper"
-                >
-                  <Nav.Item className="nav">
-                    <Nav.Link className="fb-fs-18 px-2 px-lg-3" eventKey="All">
-                      All
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link
-                      className="fb-fs-18 px-2 px-lg-3"
-                      eventKey="Snacks"
-                    >
-                      Snacks
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link
-                      className="fb-fs-18 px-2 px-lg-3"
-                      eventKey="Instant-Mix"
-                    >
-                      Instant Mix
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link
-                      className="fb-fs-18 px-2 px-lg-3"
-                      eventKey="Flour"
-                    >
-                      Flour
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link className="fb-fs-18 px-2 px-lg-3" eventKey="Rice">
-                      Rice
-                    </Nav.Link>
-                  </Nav.Item>
-                </Nav>
-              </div>
               <div className="col-md-12">
-                <Tab.Content>
-                  <Tab.Pane eventKey="All">
-                    <div className="row">
-                      <div
-                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
-                        style={{
-                          gridTemplateColumns:
-                            window.innerWidth > 768
-                              ? "repeat(5, 1fr)"
-                              : "repeat(2, 1fr)",
-                        }}
-                      >
-                        {loading ? (
-                          <Loading />
-                        ) : (
-                          products?.map((item, index) => (
-                            <ProductCard product={item} key={index} />
-                          ))
-                        )}
-                      </div>
-                    </div>
-                  </Tab.Pane>
-                  <Tab.Pane eventKey="Snacks">
-                    {" "}
-                    <div className="row">
-                      <div
-                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
-                        style={{
-                          gridTemplateColumns:
-                            window.innerWidth > 768
-                              ? "repeat(5, 1fr)"
-                              : "repeat(2, 1fr)",
-                        }}
-                      >
-                        {loading ? (
-                          <Loading />
-                        ) : (
-                          products?.map((item, index) => (
-                            <ProductCard product={item} key={index} />
-                          ))
-                        )}
-                      </div>
-                    </div>
-                  </Tab.Pane>
-                  <Tab.Pane eventKey="Instant-Mix">
-                    {" "}
-                    <div className="row">
-                      <div
-                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
-                        style={{
-                          gridTemplateColumns:
-                            window.innerWidth > 768
-                              ? "repeat(5, 1fr)"
-                              : "repeat(2, 1fr)",
-                        }}
-                      >
-                        {loading ? (
-                          <Loading />
-                        ) : (
-                          products?.map((item, index) => (
-                            <ProductCard product={item} key={index} />
-                          ))
-                        )}
-                      </div>
-                    </div>
-                  </Tab.Pane>
-                  <Tab.Pane eventKey="Flour">
-                    {" "}
-                    <div className="row">
-                      <div
-                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
-                        style={{
-                          gridTemplateColumns:
-                            window.innerWidth > 768
-                              ? "repeat(5, 1fr)"
-                              : "repeat(2, 1fr)",
-                        }}
-                      >
-                        {loading ? (
-                          <Loading />
-                        ) : (
-                          products?.map((item, index) => (
-                            <ProductCard product={item} key={index} />
-                          ))
-                        )}
-                      </div>
-                    </div>
-                  </Tab.Pane>
-                  <Tab.Pane eventKey="Rice">
-                    {" "}
-                    <div className="row">
-                      <div
-                        className="d-grid mt-4 pt-2 gap-4 justify-content-between"
-                        style={{
-                          gridTemplateColumns:
-                            window.innerWidth > 768
-                              ? "repeat(5, 1fr)"
-                              : "repeat(2, 1fr)",
-                        }}
-                      >
-                        {loading ? (
-                          <Loading />
-                        ) : (
-                          products?.map((item, index) => (
-                            <ProductCard product={item} key={index} />
-                          ))
-                        )}
-                      </div>
-                    </div>
-                  </Tab.Pane>
-                </Tab.Content>
+                <div className="row">
+                  <div
+                    className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                    style={{
+                      gridTemplateColumns:
+                        window.innerWidth > 768
+                          ? "repeat(5, 1fr)"
+                          : "repeat(2, 1fr)",
+                    }}>
+                    {loading ? (
+                      <Loading />
+                    ) : (
+                      products?.map((item, index) => (
+                        <ProductCard product={item} key={index} />
+                      ))
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          </Tab.Container>
+            </div> 
         </div>
       </section>
       <section className="offer-cards">
         <div className="container fb-container">
           <div className="row">
             <div className="col-lg-6 col-md-12">
-              <motion.div
-                ref={targetRef}
-                style={{
-                  opacity: opacity,
-                  x: x,
-                }}
+              <div
                 className="protein-left"
               >
                 <div className="left-content p-5">
@@ -347,17 +189,12 @@ const HomePage = () => {
                   Shop Now
                 </button>
                 {/* <img src={protein1} alt="millet-rice" /> */}
-              </motion.div>
+              </div>
             </div>
             <div className="col-lg-6 col-md-12">
               <div className="row">
                 <div className="col-md-12 mb-lg-4 mb-3">
-                  <motion.div
-                    ref={targetRef}
-                    style={{
-                      opacity: opacity,
-                      x: xx,
-                    }}
+                  <div
                     className="protein-right-top"
                   >
                     <div className="right-top-content p-5 pb-4">
@@ -370,15 +207,10 @@ const HomePage = () => {
                     <button className="button-primary mt-0 m-lg-5 text-center">
                       Shop Now
                     </button>
-                  </motion.div>
+                  </div>
                 </div>
                 <div className="col-md-12 mt-lg-4">
-                  <motion.div
-                    ref={targetRef}
-                    style={{
-                      opacity: opacity,
-                      x: xx,
-                    }}
+                  <div
                     className="protein-right-bottom"
                   >
                     <div className="right-bottom-content p-5 pb-4">
@@ -391,7 +223,7 @@ const HomePage = () => {
                     <button className="button-primary  mt-0 m-lg-5 text-center">
                       Shop Now
                     </button>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -442,7 +274,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <section className="popular-product">
+      <section className="popular-product" id="bestselling">
         <div className="container fb-container">
           <h3 className="fw-bold text-center mb-5">Daily Best Sells</h3>
           <div className="row">
@@ -456,7 +288,7 @@ const HomePage = () => {
               </div>
             </div>
             <div className="col-md-7">
-              <ProductSlide bestPriceProduct={bestPrice}/>
+              <ProductSlide bestPriceProduct={bestPrice} />
             </div>
           </div>
         </div>
@@ -511,9 +343,9 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <section className="best-product">
+      <section className="best-product" id="popular">
         <div className="container fb-container">
-          <h3 className="fw-bold mb-5">Our Best Selling Products</h3>
+          <h3 className="fw-bold mb-5">Popular Products</h3>
           <BestProduct products={popularProduct} />
         </div>
       </section>
