@@ -98,14 +98,14 @@ const MyCartMenu = ({ show, onClose }) => {
                 cartList.map((item, index) => (
                   <div className="cart-items mb-2" key={index}>
                     <div className="product-item p-1">
-                      <img src={baseURL + item?.product?.images[0]?.img_files} className="img-fluid" alt="product" />
+                      <img src={baseURL + item?.product?.images[0]?.img_files} className="img-fluid" alt={item?.product?.name} />
                     </div>
                     <div className="product-details w-100 ms-3">
                       <p className="item-name text-black fw-500 mb-0">
                         {item?.product?.name}
                       </p>
                       <p className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity} ${item?.product?.quantity_unit}`}</p>
-                      <p className="item-weight mb-0 mt-1">{`${Math.trunc(item?.price)} X ${item?.item_quantity}`}</p>
+                      <p className="item-weight mb-0 mt-1">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</p>
                     </div>
                     <div className="product-quantity text-end">
                       <div className="quantity-manage mb-4">
@@ -159,7 +159,7 @@ const MyCartMenu = ({ show, onClose }) => {
                 <h5 className="total-amount d-inline-block text-orange">{(finalCart.total === undefined) ? '₹ 0' : `₹ ${finalCart.total}`} </h5>
               </div>
             </div>
-            <button className="button-primary w-100">Checkout</button>
+            <Link to="/checkout" className="button-primary w-100 d-block text-center">Checkout</Link>
           </div>
         </div>
       </Offcanvas.Body>

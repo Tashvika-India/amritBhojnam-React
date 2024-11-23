@@ -78,14 +78,14 @@ const ProductCard = ({ product }) => {
           <img className="img-fluid pb-3" src={baseURL + product?.images[0]?.img_files} alt="product" />
         </div>
         <div className="px-3">
-          <h6 className="fb-fs-12 fw-500 d-flex text-brown pb-2">
+          {/* <h6 className="fb-fs-12 fw-500 d-flex text-brown pb-2">
             <span>
               <img className="img-fluid" src={fireImg} />
             </span>
             <span className='pt-1 ps-1'>
               80 Calories
             </span>
-          </h6>
+          </h6> */}
           <Link to={`/product-detail?product_id=${product?.id}`}><h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5></Link>
           <h5 className="fb-fs-14 fw-600 text-grey">
             {product?.quantity}{product?.quantity_unit}
@@ -134,8 +134,7 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
         </div>
-      </div>
-
+      </div> 
     </>
   );
 };
