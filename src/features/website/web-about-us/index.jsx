@@ -307,7 +307,7 @@ const AboutUs = () => {
                     diet.
                   </p>
 
-                  <p className="pt-lg-4 pt-2 pb-2">
+                  <p className="pt-lg-4 pt-md-0 pt-2 pb-2">
                     These are packed with essential nutrients like fiber,
                     protein, vitamins, and minerals, making them a powerhouse of
                     health benefits. Millets are also gluten-free and have a low

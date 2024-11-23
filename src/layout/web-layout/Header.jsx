@@ -184,10 +184,10 @@ const Header = () => {
             <div className="header-divider d-flex justify-content-between ">
               <div className="header-link-list">
                 <ul className='d-flex gap-5'>
-                  <li><Link to="/home">Home</Link></li>
+                  <li><Link to="/home">Home</Link></li> 
                   <li><Link to="/products">Products</Link></li>
                   <li><a href="/home#bestselling">Best Deals</a></li>
-                  <li><a href="/home#popular">Trending Products </a></li>
+                  <li><a href="/home#popular">Trending Products </a></li> 
                   <li><Link to="/about-us">About Us </Link></li>
                   <li><Link to="/contact-us">Contact Us </Link></li>
                 </ul>
