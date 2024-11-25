@@ -11,6 +11,8 @@ const ProductCard = ({ product }) => {
   const [loading, setLoading] = useState(false);
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [quantity, setQuantity] = useState(0);
+  const [checked, setChecked] = useState(false);
+  const[wishListProduct,setWishListProduct] =useState({id:"",action:""})
 
   const decreaseQuantity = () => {
     if (quantity <= 1) {
@@ -27,7 +29,19 @@ const ProductCard = ({ product }) => {
   const handleClick = () => {
     setQuantity(1);
   };
+ 
 
+  const handleChange = (event) => {
+      setChecked(event.target.checked); // Update state
+      console.log(event.target.checked);
+      if(event.target.checked===true){
+        setWishListProduct({id:"2345678",Action:"add"})
+      }else{
+        setWishListProduct({id:"2345678",Action:"remove"})
+      }
+      
+  };
+console.log(wishListProduct)
   async function addToCart(product_id, quantity) {
     setLoading(true);
     try {
@@ -65,6 +79,8 @@ const ProductCard = ({ product }) => {
               {...label}
               icon={<FavoriteBorder />}
               checkedIcon={<Favorite />}
+              checked={checked} // Controlled state
+            onChange={handleChange}
               style={{
                 color: "#F26722",
                 margin: "0",

@@ -4,13 +4,13 @@ import Footer from "../../../layout/web-layout/Footer";
 import { Tab } from "react-bootstrap";
 import Loading from "../../../components/ui/Loading";
 import ProductCard from "../web-home/components/ProductCard";
+import WishList from "./components/wishlistProduct";
 import { Checkbox } from "@mui/material";
 import { Favorite, FavoriteBorder, Label } from "@mui/icons-material";
 import BestProduct from "../web-home/components/BestProduct";
 
 const Wishlist = () => {
   const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState([]);
 
   return (
     <div className="web-wrapper-main">
@@ -40,22 +40,9 @@ const Wishlist = () => {
               </div>
             </div>
           </div>
-          {/* <div className="row">
-                {loading ? (
-                  <Loading />
-                ) : (
-                  Array.isArray(products) && products.length > 0 ? (
-                    <div
-                      className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
-                      style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(4, 1fr)" : "repeat(2, 1fr)"  }}
-                    >
-                      {products.map((item) => (
-                        <ProductCard product={item} key={item.id || item.index} />
-                      ))}
-                    </div>
-                  ) )
-                };
-              </div> */}
+          <div className="row">
+            <WishList />
+          </div>
         </div>
       </section>
       <Footer />

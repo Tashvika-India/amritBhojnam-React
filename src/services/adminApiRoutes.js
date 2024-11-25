@@ -112,3 +112,6 @@ export const patchOptionsApi = (id, payload) =>
   API.patch(`products/options/${id}`, payload);
 export const getPopularProducts = () => API.get("products/popular/");
 export const getBestPriceApi = () => API.get("best-price-products/");
+export const getWishlist = () => API.get("wishlist/");
+export const postWishlist = (payload) => API.post(`wishlist/`, payload);
+
