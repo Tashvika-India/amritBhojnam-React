@@ -12,10 +12,39 @@ import {
   TextField,
 } from "@mui/material";
 import { IoHomeOutline } from "react-icons/io5";
-import { HiBuildingOffice2 } from "react-icons/hi2"; 
+import { HiBuildingOffice2 } from "react-icons/hi2";
+import { getCartApi, getFinalCartApi } from "../../../services/adminApiRoutes";
+import Loading from "../../../components/ui/Loading";
+import { Link } from "react-router-dom";
+import { baseURL } from "../../../utils/constant-variable";
 
 const CheckoutPage = () => {
   const [age, setAge] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [cartList, setCartList] = useState([]);
+  const [finalCart, setFinalCart] = useState({});
+
+
+  const getCartList = async () => {
+    setLoading(true);
+    try {
+      const response = await getCartApi();
+      setCartList(response?.data?.items || []);
+      const finalCartData = await getFinalCartApi(response?.data?.id);
+      setFinalCart(finalCartData?.data || {});
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getCartList();
+  }, []);
+
+  console.log("finalCart", finalCart, "Cart", cartList);
+
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -51,7 +80,7 @@ const CheckoutPage = () => {
                                 <button className="button-yellow ms-3">
                                   Default
                                 </button>
-                              </div> 
+                              </div>
                               <p className="mt-2 text-wrap">
                                 House no. 78, Ward no. 7, Vats Colony, Linepar,
                                 Bahadurgarh, Haryana - 124507
@@ -230,79 +259,72 @@ const CheckoutPage = () => {
                 </div>
                 <div className="col-lg-5 col-md-12">
                   <div className="my-card-section product-detail-shadow rounded-20 p-4">
-                    <p className="fb-fs-26 fw-bold my-4">My Cart</p>
-                    <div className="cart-items mt-4">
-                      <div className="product-item">
-                        <img
-                          src={product}
-                          className="img-fluid"
-                          alt="product"
-                        />
-                      </div>
-                      <div className="product-details w-100 ms-3">
-                        <p className="item-name  text-black fw-500 mb-0">
-                          Masala Millet (Veggie Masala)
-                        </p>
-                        <p className="item-weight text-grey mb-0 mt-1">100 g</p>
-                        <h5 className="item-amount mt-2 fw-600">₹70 x 2</h5>
-                      </div>
-                      <div className="product-quantity text-end d-flex align-items-center">
-                        <h6 style={{ fontWeight: "800" }}>₹140</h6>
-                      </div>
-                    </div>
-                    <div className="cart-items mt-4">
-                      <div className="product-item">
-                        <img
-                          src={product}
-                          className="img-fluid"
-                          alt="product"
-                        />
-                      </div>
-                      <div className="product-details w-100 ms-3">
-                        <p className="item-name  text-black fw-500 mb-0">
-                          Masala Millet (Veggie Masala)
-                        </p>
-                        <p className="item-weight text-grey mb-0 mt-1">100 g</p>
-                        <h5 className="item-amount mt-2 fw-600">₹70 x 2</h5>
-                      </div>
-                      <div className="product-quantity text-end d-flex align-items-center">
-                        <h6 style={{ fontWeight: "800" }}>₹140</h6>
-                      </div>
-                    </div>
+                    <p className="fb-fs-26 fw-bold mb-4">My Cart</p>
 
+                    {loading ? (
+                      <Loading />
+                    ) : cartList.length > 0 ? (
+                      cartList.map((item, index) => (
+                        <div className="cart-items mt-4" key={index}>
+                          <div className="product-item p-1">
+                            <img
+                              src={baseURL + item?.product?.images[0]?.img_files}
+                              className="img-fluid"
+                              alt={item?.product?.name}
+                            />
+                          </div>
+                          <div className="product-details w-100 ms-3">
+                            <p className="item-name  text-black fw-500 mb-0">
+                              {item?.product?.name}
+                            </p>
+                            <p className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity} ${item?.product?.quantity_unit}`}</p>
+                            <h5 className="item-amount mt-2 fw-600">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</h5>
+                          </div>
+                          <div className="product-quantity text-end d-flex align-items-center">
+                            <h6 style={{ fontWeight: "800" }}>{`₹${Math.trunc(item?.price) * item?.item_quantity}`}</h6>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-center py-4">
+                        <h4 className="text-muted mb-4">Your cart is empty!</h4>
+                        <Link className="button-primary fs-6" to="/products">
+                          Browse Products
+                        </Link>
+                      </div>
+                    )}
                     <div className="cart-items mt-5">
                       <div className="product-details w-100 ms-3">
                         <p className="fw-500 my-2">Sub Total </p>
                         <p className="fw-500 my-2"> Handling fee </p>
                         <p className="fw-500 my-2 text-orange">Delivery fee </p>
-                        <p className="fw-500 my-2 text-green">
-                          Coupon Discount{" "}
-                        </p>
+                        {/* <p className="fw-500 my-2 text-green">
+                          Coupon Discount
+                        </p> */}
                       </div>
                       <div className="product-quantity text-end">
-                        <p className="fb-fs-18 fw-500 mb-2">₹210.00</p>
-                        <p className="fw-500 fb-fs-18 mb-1"> ₹30.00</p>
-                        <p className="fw-500 fb-fs-18 mb-1 text-orange d-flex">
-                          Free{" "}
-                          <span className="ms-3">
-                            <strike> ₹50.00</strike>
-                          </span>{" "}
+                        <p className="fb-fs-18 fw-500 mb-2">{(finalCart.total === undefined) ? '₹ 0' : `₹ ${finalCart.total}`}</p>
+                        <p className="fw-500 fb-fs-18 mb-1">{(finalCart.handling_fee === undefined) ? '₹ 0' : `₹ ${finalCart.handling_fee}`}</p>
+                        <p className="fw-500 fb-fs-18 mb-1 text-orange ">
+                          {(finalCart.delivery_charges === undefined) ? '₹ 0' : `₹ ${finalCart.delivery_charges}`} 
                         </p>
-                        <p className="fw-500 fb-fs-18 mb-2 text-green">
-                          -₹30.00
-                        </p>
+                        {/* <p className="fw-500 fb-fs-18 mb-2 text-green">
+                        {(finalCart.total === undefined) ? '₹ 0' : `- ₹ ${finalCart.total}`}
+                        </p> */}
                       </div>
                     </div>
-
-                    <div className="cart-items mt-4 border-top">
+                    <div className="cart-items mt-4 border-top mb-2">
                       <div className="product-details w-100 ms-3 pt-4">
                         <h6 className="fw-bolder">Total Amount </h6>
                       </div>
                       <div className="product-quantity text-end pt-4">
                         <h5 style={{ textWrap: "nowrap", fontWeight: "800" }}>
-                          ₹ 200.00
+                          {(finalCart.amount_to_pay === undefined) ? '₹ 0' : `₹ ${finalCart.amount_to_pay}`}
                         </h5>
                       </div>
+                    </div>
+                    <div className="w-100">
+                      <button className="button-primary w-100">Pay Now</button>
                     </div>
                   </div>
                 </div>

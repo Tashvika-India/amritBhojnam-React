@@ -44,7 +44,7 @@ const BestProduct = ({ products }) => {
     <>
       <Slider {...settings} className="item-slider">
       {products?.map((product)=>(
-        <div className="item-slide px-2 px-lg-0">
+        <div className="item-slide px-2 px-lg-0" key={product?.id}>
           <div className="cat-itmes gap-0 mx-0 mx-lg-2">
             <ProductCard product={product}/>
           </div>

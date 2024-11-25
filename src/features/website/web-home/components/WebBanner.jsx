@@ -4,6 +4,7 @@ import banner from "../../../../assets/images/web/web-banner.png";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { getBannerApi } from "../../../../services/adminApiRoutes";
 import { baseURL } from "../../../../utils/constant-variable";
+import { Link } from "react-router-dom";
 const WebBanner = () => {
   const settings = {
     dots: false,
@@ -40,13 +41,13 @@ const WebBanner = () => {
     <>
       <Slider {...settings} className="banner-slider">
         {banner?.map((item, index) => (
-          <div className="banner-slide" key={index}>
+          <Link to="/products" className="banner-slide" key={index}>
             <img loading="lazy"
               src={baseURL + item.img_file}
               alt="banner"
               className="img-fluid"
             />
-          </div>
+          </Link>
         ))}
       </Slider>
     </>
