@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import * as Yup from "yup";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import homeImg from "../../../assets/images/web/account/home-img.png";
 import product from "../../../assets/images/web/product-card.png";
 import {
   Box,
+  Collapse,
   FormControl,
   InputLabel,
   MenuItem,
@@ -13,17 +15,21 @@ import {
 } from "@mui/material";
 import { IoHomeOutline } from "react-icons/io5";
 import { HiBuildingOffice2 } from "react-icons/hi2";
-import { getCartApi, getFinalCartApi } from "../../../services/adminApiRoutes";
+import { getAddressApi, getCartApi, getFinalCartApi, postAddressApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
 import { Link } from "react-router-dom";
 import { baseURL } from "../../../utils/constant-variable";
+import { useFormik } from "formik";
+import { get } from "jquery";
+
 
 const CheckoutPage = () => {
   const [age, setAge] = useState("");
   const [loading, setLoading] = useState(false);
   const [cartList, setCartList] = useState([]);
   const [finalCart, setFinalCart] = useState({});
-
+  const [open, setOpen] = useState(false);
+  const [addressList, setAddressList] = useState([]);
 
   const getCartList = async () => {
     setLoading(true);
@@ -39,16 +45,75 @@ const CheckoutPage = () => {
     }
   };
 
-  useEffect(() => {
-    getCartList();
-  }, []);
+  const getAddressList = async () => {
+    setLoading(true);
+    try {
+      const response = await getAddressApi();
+      setAddressList(response?.data || []);
 
-  console.log("finalCart", finalCart, "Cart", cartList);
-
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+    } finally {
+      setLoading(false);
+    }
+  }; 
 
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+
+  const handlePayNow = (amount, firstName, email, phone, productinfo, surl, furl) => {
+
+    const data = {
+      amount: amount,
+      firstName: firstName,
+      email: email,
+      phone: phone,
+      productinfo: productinfo,
+      surl: surl,
+      furl: furl
+    }
+  };
+
+
+  const formik = useFormik({
+    initialValues: {
+      house_flat_block_no: "",
+      road_area_colony: "",
+      city: "",
+      state: "",
+      pincode: "",
+      save_as: "home", // Default value
+    },
+    validationSchema: Yup.object({
+      house_flat_block_no: Yup.string().required("Required"),
+      road_area_colony: Yup.string().required("Required"),
+      city: Yup.string().required("Required"),
+      state: Yup.string().required("Required"),
+      pincode: Yup.string()
+        .matches(/^\d{6}$/, "Pincode must be exactly 6 digits")
+        .required("Required"),
+    }),
+    onSubmit: async (values, { resetForm, setSubmitting }) => {
+      setLoading(true);
+      try {
+        await postAddressApi(values);
+        getAddressList();
+        setLoading(false);
+        setOpen(false);
+        resetForm();
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
+
+  useEffect(() => {
+    getAddressList();
+    getCartList();
+  }, []);
 
 
   return (
@@ -62,203 +127,356 @@ const CheckoutPage = () => {
               <p className="fb-fs-26 fw-bold checkout-save">Saved Address</p>
               <div className="row">
                 <div className="col-lg-7 col-md-12">
-                  <div className="summary-card rounded-20 px-2 py-3 mt-3">
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-md-12">
-                          <div className="order-date d-flex">
-                            <img
-                              className="img-fluid me-1"
-                              src={homeImg}
-                              alt="pencil"
-                            />
-                            <div className="ms-md-3">
-                              <div className="d-flex mt-2">
-                                <p className="fw-600 fb-fs-18">
-                                  Piyush Kanwal | 7464810000
-                                </p>
-                                <button className="button-yellow ms-3">
-                                  Default
-                                </button>
+                  {/* <div className="summary-card rounded-20 px-2 py-3 mt-3">
+                          <div className="container">
+                            <div className="row">
+                              <div className="col-md-12">
+                                <div className="order-date d-flex">
+                                  <img
+                                    className="img-fluid me-1"
+                                    src={homeImg}
+                                    alt="pencil"
+                                  />
+                                  <div className="ms-md-3">
+                                    <div className="d-flex mt-2">
+                                      <p className="fw-600 fb-fs-18">
+                                        Piyush Kanwal | 7464810000
+                                      </p>
+                                      <button className="button-yellow ms-3">
+                                        Default
+                                      </button>
+                                    </div>
+                                    <p className="mt-2 text-wrap">
+                                      House no. 78, Ward no. 7, Vats Colony, Linepar,
+                                      Bahadurgarh, Haryana - 124507
+                                    </p>
+                                  </div>
+                                </div>
                               </div>
-                              <p className="mt-2 text-wrap">
-                                House no. 78, Ward no. 7, Vats Colony, Linepar,
-                                Bahadurgarh, Haryana - 124507
-                              </p>
+                            </div>
+                          </div>
+                        </div> */}
+                  {loading ? (
+                    <Loading />
+                  ) : addressList.length > 0 ? (
+                    addressList.map((item, index) => (
+                      <div className="summary-card rounded-20 px-2 py-3 mt-3" key={index}>
+                        <div className="container">
+                          <div className="row">
+                            <div className="col-md-12">
+                              <div className="order-date d-flex">
+                                <img
+                                  className="img-fluid me-1"
+                                  src={homeImg}
+                                  alt="pencil"
+                                />
+                                <div className="ms-md-3">
+                                  <div className="d-flex mt-2">
+                                    <p className="fw-600 fb-fs-18">
+                                      {item?.user_detail?.full_name} | {item?.user_detail?.phone_number}
+                                    </p>
+                                  </div>
+                                  <p className="mt-2 text-wrap">
+                                    {item?.house_flat_block_no}, {item?.road_area_colony}, {item?.city}, {item?.state} - {item?.pincode}
+                                  </p>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
+                    ))
+                  ) : (
+                    <div className="text-center py-4">
+                      <h6 className="text-muted mb-4">Your Address is empty!</h6>
                     </div>
-                  </div>
-                  <div className="summary-card rounded-20 px-2 py-3 mt-3">
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-md-12">
-                          <div className="order-date d-flex">
-                            <img
-                              className="img-fluid me-1"
-                              src={homeImg}
-                              alt="pencil"
-                            />
-                            <div className="ms-md-3">
-                              <div className="d-flex mt-2">
-                                <p className="fw-600 fb-fs-18">
-                                  Piyush Kanwal | 7464810000
-                                </p>
-                              </div>
-                              <p className="mt-2 text-wrap">
-                                House no. 78, Ward no. 7, Vats Colony, Linepar,
-                                Bahadurgarh, Haryana - 124507
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button className="add-address-button w-100 bg-transparent text-center fw-600">
+                  )}
+
+                  <button className="add-address-button w-100 bg-transparent text-center fw-600" onClick={() => setOpen(!open)}
+                    aria-controls="example-collapse-text"
+                    aria-expanded={open}>
                     + Add New Address
                   </button>
-                  <div className="new-address">
-                    <p className="fb-fs-26 fw-bold my-3 checkout-save">Add New Address</p>
-                    <p className="text-mid-grey">BASIC DETAILS</p>
-                    <form>
-                      <div className="container fb-container">
-                        <div className="row">
-                          <div className="col-md-6 ps-md-0">
-                            <TextField
-                              fullWidth
-                              className="rounded-20 me-5 mt-4"
-                              id="outlined-basic"
-                              label="Name"
-                              variant="outlined"
-                            />
-                          </div>
-                          <div className="col-md-6 pe-md-0">
-                            <TextField
-                              fullWidth
-                              className="rounded-20 me-5 mt-4"
-                              id="outlined-basic"
-                              label="Phone Number"
-                              variant="outlined"
-                            />
-                          </div>
-                          <div className="col-md-12 px-md-0 mb-2">
-                            <TextField
-                              fullWidth
-                              className="rounded-20 me-5 mt-4"
-                              id="outlined-basic"
-                              label="Email Address"
-                              variant="outlined"
-                            />
+                  <Collapse in={open}>
+                    <div className="new-address">
+                      <p className="fb-fs-26 fw-bold my-3 checkout-save">Add New Address</p>
+                      <p className="text-mid-grey">BASIC DETAILS</p>
+                      <form>
+                        <div className="container fb-container">
+                          <div className="row">
+                            <div className="col-md-6 ps-md-0">
+                              <TextField
+                                fullWidth
+                                className="rounded-20 me-5 mt-4"
+                                id="outlined-basic"
+                                label="Name"
+                                variant="outlined"
+                              />
+                            </div>
+                            <div className="col-md-6 pe-md-0">
+                              <TextField
+                                fullWidth
+                                className="rounded-20 me-5 mt-4"
+                                id="outlined-basic"
+                                label="Phone Number"
+                                variant="outlined"
+                              />
+                            </div>
+                            <div className="col-md-12 px-md-0 mb-2">
+                              <TextField
+                                fullWidth
+                                className="rounded-20 me-5 mt-4"
+                                id="outlined-basic"
+                                label="Email Address"
+                                variant="outlined"
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </form>
-                    <p className="text-mid-grey my-4">ADDRESS DETAILS</p>
-                    <form>
-                      <div className="container fb-container">
-                        <div className="row">
-                          <div className="col-md-6 ps-md-0 pb-4">
-                            <FormControl fullWidth>
-                              <InputLabel id="demo-simple-select-label">
-                                State
-                              </InputLabel>
-                              <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={age}
-                                label="Age"
-                                onChange={handleChange}
-                              >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                              </Select>
-                            </FormControl>
-                          </div>
-                          <div className="col-md-6 pe-md-0">
-                            <FormControl fullWidth>
-                              <InputLabel id="demo-simple-select-label">
-                                City
-                              </InputLabel>
-                              <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={age}
-                                label="Age"
-                                onChange={handleChange}
-                              >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                              </Select>
-                            </FormControl>
-                          </div>
-                          <div className="col-md-12 px-md-0">
-                            <TextField
-                              fullWidth
-                              className="rounded-20 me-5 mt-4"
-                              id="outlined-basic"
-                              label="Pincode"
-                              variant="outlined"
-                            />
-                          </div>
-                          <div className="col-md-12 px-md-0">
-                            <TextField
-                              fullWidth
-                              className="rounded-20 me-5 mt-4"
-                              id="outlined-basic"
-                              label="House / Flat /Block No."
-                              variant="outlined"
-                            />
-                          </div>
-                          <div className="col-md-12 px-md-0">
-                            <TextField
-                              fullWidth
-                              className="rounded-20 me-5 mt-4"
-                              id="outlined-basic"
-                              label="Road /Area / Colony"
-                              variant="outlined"
-                            />
-                          </div>
-                          <div className="d-flex my-5 ps-md-0">
-                            <button className="home-btn d-flex  border-0 bg-transparent">
-                              <IoHomeOutline
-                                className="ms-lg-2 ms-0"
-                                size={"20"}
-                                color={"#F26722"}
+                      </form>
+                      <p className="text-mid-grey my-4">ADDRESS DETAILS</p>
+                      {/* <form>
+                        <div className="container fb-container">
+                          <div className="row">
+                            <div className="col-md-6 ps-md-0 pb-4">
+                              <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">
+                                  State
+                                </InputLabel>
+                                <Select
+                                  labelId="demo-simple-select-label"
+                                  id="demo-simple-select"
+                                  name="state"
+                                  value={age}
+                                  label="Age"
+                                  onChange={handleChange}
+                                >
+                                  <MenuItem value={10}>Ten</MenuItem>
+                                  <MenuItem value={20}>Twenty</MenuItem>
+                                  <MenuItem value={30}>Thirty</MenuItem>
+                                </Select>
+                              </FormControl>
+                            </div>
+                            <div className="col-md-6 pe-md-0">
+                              <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">
+                                  City
+                                </InputLabel>
+                                <Select
+                                  labelId="demo-simple-select-label"
+                                  id="demo-simple-select"
+                                  value={age}
+                                  label="Age"
+                                  name="city"
+                                  onChange={handleChange}
+                                >
+                                  <MenuItem value={10}>Ten</MenuItem>
+                                  <MenuItem value={20}>Twenty</MenuItem>
+                                  <MenuItem value={30}>Thirty</MenuItem>
+                                </Select>
+                              </FormControl>
+                            </div>
+                            <div className="col-md-12 px-md-0">
+                              <TextField
+                                fullWidth
+                                className="rounded-20 me-5 mt-4"
+                                id="outlined-basic"
+                                label="Pincode"
+                                name="pincode"
+                                variant="outlined"
                               />
-                              <p className=" text-orange fw-500 ms-lg-3 ms-2">Home</p>
-                            </button>
-                            <button className="office-btn d-flex  border-0 bg-transparent ms-4">
-                              <HiBuildingOffice2
-                                className="ms-lg-2 ms-0"
-                                size={"23"}
-                                color={"#918E92"}
+                            </div>
+                            <div className="col-md-12 px-md-0">
+                              <TextField
+                                fullWidth
+                                className="rounded-20 me-5 mt-4"
+                                id="outlined-basic"
+                                name="house_flat_block_no"
+                                label="House / Flat /Block No."
+                                variant="outlined"
                               />
-                              <p className=" text-mid-grey fw-500 ms-lg-3 ms-2">
-                                Office
-                              </p>
-                            </button>
-                          </div>
+                            </div>
+                            <div className="col-md-12 px-md-0">
+                              <TextField
+                                fullWidth
+                                className="rounded-20 me-5 mt-4"
+                                id="outlined-basic"
+                                name="road_area_colony"
+                                label="Road /Area / Colony"
+                                variant="outlined"
+                              />
+                            </div>
+                            <div className="d-flex my-5 ps-md-0">
+                              <button className="home-btn d-flex  border-0 bg-transparent">
+                                <IoHomeOutline
+                                  className="ms-lg-2 ms-0"
+                                  size={"20"}
+                                  color={"#F26722"}
+                                  name="save_as"
+                                />
+                                <p className=" text-orange fw-500 ms-lg-3 ms-2">Home</p>
+                              </button>
+                              <button className="office-btn d-flex  border-0 bg-transparent ms-4">
+                                <HiBuildingOffice2
+                                  className="ms-lg-2 ms-0"
+                                  size={"23"}
+                                  color={"#918E92"}
+                                  name="save_as"
+                                />
+                                <p className=" text-mid-grey fw-500 ms-lg-3 ms-2">
+                                  Office
+                                </p>
+                              </button>
+                            </div>
 
-                          <div className="checkout-btn d-flex mb-5 pb-5 pe-0 align-items-end justify-content-end">
-                            <button className="button-primary-reverse me-4">
-                              Cancel
-                            </button>
-                            <button className="button-primary fb-fs-16">
-                              Save & Continue
-                            </button>
+                            <div className="checkout-btn d-flex mb-5 pb-5 pe-0 align-items-end justify-content-end">
+                              <button className="button-primary-reverse me-4" type="button">
+                                Cancel
+                              </button>
+                              <button className="button-primary fb-fs-16" type="submit">
+                                Save & Continue
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </form>
-                  </div>
+                      </form> */}
+                      <form onSubmit={formik.handleSubmit}>
+                        <div className="container fb-container">
+                          <div className="row">
+                            <div className="col-md-6 ps-md-0 pb-4">
+                              <FormControl fullWidth>
+                                <InputLabel id="state-select-label">State</InputLabel>
+                                <Select
+                                  id="state-select"
+                                  name="state"
+                                  value={formik.values.state}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                >
+                                  <MenuItem value="State1">State1</MenuItem>
+                                  <MenuItem value="State2">State2</MenuItem>
+                                  <MenuItem value="State3">State3</MenuItem>
+                                </Select>
+                                {formik.touched.state && formik.errors.state ? (
+                                  <div className="error text-danger">{formik.errors.state}</div>
+                                ) : null}
+                              </FormControl>
+                            </div>
+                            <div className="col-md-6 pe-md-0">
+                              <FormControl fullWidth>
+                                <InputLabel id="city-select-label">City</InputLabel>
+                                <Select
+                                  id="city-select"
+                                  name="city"
+                                  value={formik.values.city}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                >
+                                  <MenuItem value="City1">City1</MenuItem>
+                                  <MenuItem value="City2">City2</MenuItem>
+                                  <MenuItem value="City3">City3</MenuItem>
+                                </Select>
+                                {formik.touched.city && formik.errors.city ? (
+                                  <div className="error text-danger">{formik.errors.city}</div>
+                                ) : null}
+                              </FormControl>
+                            </div>
+                            <div className="col-md-12 px-md-0">
+                              <TextField
+                                fullWidth
+                                className="rounded-20 me-5 mt-4"
+                                id="pincode"
+                                label="Pincode"
+                                name="pincode"
+                                variant="outlined"
+                                value={formik.values.pincode}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                              />
+                              {formik.touched.pincode && formik.errors.pincode ? (
+                                <div className="error text-danger">{formik.errors.pincode}</div>
+                              ) : null}
+                            </div>
+                            <div className="col-md-12 px-md-0">
+                              <TextField
+                                fullWidth
+                                className="rounded-20 me-5 mt-4"
+                                id="house_flat_block_no"
+                                name="house_flat_block_no"
+                                label="House / Flat / Block No."
+                                variant="outlined"
+                                value={formik.values.house_flat_block_no}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                              />
+                              {formik.touched.house_flat_block_no &&
+                                formik.errors.house_flat_block_no ? (
+                                <div className="error text-danger">{formik.errors.house_flat_block_no}</div>
+                              ) : null}
+                            </div>
+                            <div className="col-md-12 px-md-0">
+                              <TextField
+                                fullWidth
+                                className="rounded-20 me-5 mt-4"
+                                id="road_area_colony"
+                                name="road_area_colony"
+                                label="Road / Area / Colony"
+                                variant="outlined"
+                                value={formik.values.road_area_colony}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                              />
+                              {formik.touched.road_area_colony &&
+                                formik.errors.road_area_colony ? (
+                                <div className="error text-danger">{formik.errors.road_area_colony}</div>
+                              ) : null}
+                            </div>
+                            <div className="d-flex my-5 ps-md-0">
+                              <button
+                                type="button"
+                                className="home-btn d-flex border-0 bg-transparent"
+                                onClick={() => formik.setFieldValue("save_as", "home")}
+                              >
+                                <IoHomeOutline
+                                  className="ms-lg-2 ms-0"
+                                  size={"20"}
+                                  color={"#F26722"}
+                                />
+                                <p className="text-orange fw-500 ms-lg-3 ms-2">Home</p>
+                              </button>
+                              <button
+                                type="button"
+                                className="office-btn d-flex border-0 bg-transparent ms-4"
+                                onClick={() => formik.setFieldValue("save_as", "office")}
+                              >
+                                <HiBuildingOffice2
+                                  className="ms-lg-2 ms-0"
+                                  size={"23"}
+                                  color={"#918E92"}
+                                />
+                                <p className="text-mid-grey fw-500 ms-lg-3 ms-2">Office</p>
+                              </button>
+                            </div>
+                            <div className="checkout-btn d-flex mb-5 pb-5 pe-0 align-items-end justify-content-end">
+                              <button
+                                className="button-primary-reverse me-4"
+                                type="button"
+                                onClick={() => formik.resetForm()}
+                              >
+                                Cancel
+                              </button>
+                              <button className="button-primary fb-fs-16" type="submit">
+                                Save & Continue
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </Collapse>
                 </div>
                 <div className="col-lg-5 col-md-12">
-                  <div className="my-card-section product-detail-shadow rounded-20 p-4">
+                  <div className="my-card-section product-detail-shadow rounded-20 p-4 mb-4 sticky-top">
                     <p className="fb-fs-26 fw-bold mb-4">My Cart</p>
 
                     {loading ? (
@@ -294,24 +512,28 @@ const CheckoutPage = () => {
                       </div>
                     )}
                     <div className="cart-items mt-5">
-                      <div className="product-details w-100 ms-3">
-                        <p className="fw-500 my-2">Sub Total </p>
-                        <p className="fw-500 my-2"> Handling fee </p>
-                        <p className="fw-500 my-2 text-orange">Delivery fee </p>
-                        {/* <p className="fw-500 my-2 text-green">
-                          Coupon Discount
-                        </p> */}
-                      </div>
-                      <div className="product-quantity text-end">
-                        <p className="fb-fs-18 fw-500 mb-2">{(finalCart.total === undefined) ? '₹ 0' : `₹ ${finalCart.total}`}</p>
-                        <p className="fw-500 fb-fs-18 mb-1">{(finalCart.handling_fee === undefined) ? '₹ 0' : `₹ ${finalCart.handling_fee}`}</p>
-                        <p className="fw-500 fb-fs-18 mb-1 text-orange ">
-                          {(finalCart.delivery_charges === undefined) ? '₹ 0' : `₹ ${finalCart.delivery_charges}`} 
-                        </p>
-                        {/* <p className="fw-500 fb-fs-18 mb-2 text-green">
-                        {(finalCart.total === undefined) ? '₹ 0' : `- ₹ ${finalCart.total}`}
-                        </p> */}
-                      </div>
+                      <ul className="list-unstyled w-100">
+                        <li className="d-flex justify-content-between my-2">
+                          <span className="fw-500">Sub Total</span>
+                          <span className="fb-fs-18 fw-500">{finalCart.total === undefined ? '₹ 0' : `₹ ${finalCart.total}`}</span>
+                        </li>
+                        <li className="d-flex justify-content-between my-2">
+                          <span className="fw-500">Handling fee</span>
+                          <span className="fb-fs-18 fw-500">{finalCart.handling_fee === undefined ? '₹ 0' : `₹ ${finalCart.handling_fee}`}</span>
+                        </li>
+                        <li className="d-flex justify-content-between my-2">
+                          <span className="fw-500 text-orange">Delivery fee</span>
+                          <span className="fb-fs-18 fw-500 text-orange">
+                            {finalCart.delivery_charges === undefined ? '₹ 0' : `₹ ${finalCart.delivery_charges}`}
+                          </span>
+                        </li>
+                        {/* <li className="d-flex justify-content-between my-2">
+                          <span className="fw-500 text-green">Coupon Discount</span>
+                          <span className="fb-fs-18 fw-500 text-green">
+                            {finalCart.total === undefined ? '₹ 0' : `- ₹ ${finalCart.total}`}
+                          </span>
+                        </li> */}
+                      </ul>
                     </div>
                     <div className="cart-items mt-4 border-top mb-2">
                       <div className="product-details w-100 ms-3 pt-4">
@@ -324,7 +546,7 @@ const CheckoutPage = () => {
                       </div>
                     </div>
                     <div className="w-100">
-                      <button className="button-primary w-100">Pay Now</button>
+                      <button className="button-primary w-100" onClick={() => handlePayNow(finalCart.amount_to_pay, 'xyz', 'xyz@gmail.com', '999999999', finalCart, 'success', 'fail')}>Pay Now</button>
                     </div>
                   </div>
                 </div>
