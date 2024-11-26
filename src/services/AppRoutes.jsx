@@ -26,6 +26,7 @@ import ContactUs from "../features/website/web-contact-us";
 import ProductOption from "../features/admin-dashboard/manage-products/product-option"; 
 import AboutUs from "../features/website/web-about-us"; 
 import Wishlist from "../features/website/web-wishlist";
+import TermsAndConditions from "../features/website/web-terms-conditions";
 function AppRoutes() {
   return (
     <Routes>
@@ -204,6 +205,7 @@ function AppRoutes() {
       <Route exact path="/contact-us" element={<ContactUs />} />
       <Route exact path="/about-us" element={<AboutUs />} />
       <Route exact path="/wishlist" element={<Wishlist />} />
+      <Route exact path="/term-conditions" element={<TermsAndConditions />} />
     </Routes>
   );
 }

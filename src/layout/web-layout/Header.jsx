@@ -240,7 +240,7 @@ const Header = () => {
                     <Link to="/products">Products</Link>
                   </li>
                   <li>
-                    <a href="/home#bestselling">Best Deals</a>
+                    <a href="/home#best">Best Deals</a>
                   </li>
                   <li>
                     <a href="/home#popular">Trending Products </a>

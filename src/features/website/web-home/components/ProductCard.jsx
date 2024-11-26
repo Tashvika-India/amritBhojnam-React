@@ -29,7 +29,7 @@ const ProductCard = ({ product }) => {
     const data = { product_id: product?.id, action: updatedChecked };
 
     try {
-      await postWishlist(data); // Make API call
+      await postWishlist(data);
     } catch (error) {
       console.error("Error updating wishlist:", error);
       setChecked(!updatedChecked); // Revert state on error

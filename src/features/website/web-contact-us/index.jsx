@@ -41,7 +41,7 @@ const ContactUs = () => {
                         <p className="text-dark-brown fw-600">EMAIL ADDRESS.</p>
                         <div className="d-flex pt-2">
                           <DirectboxNotif
-                              size={"2rem"}
+                            size={"2rem"}
                             color="#FFF"
                             variant="Bulk"
                           />
@@ -54,7 +54,7 @@ const ContactUs = () => {
                         <p className="text-dark-brown fw-600">ADDRESS.</p>
                         <div className="d-flex pt-2">
                           <LocationMinus
-                             size={"2.8rem"}
+                            size={"2.8rem"}
                             color="#FFF"
                             variant="Bulk"
                           />
@@ -69,7 +69,12 @@ const ContactUs = () => {
                   <div className="col-md-6 col-lg-7">
                     <div className="white-section">
                       <h5 className="fw-300 text-black mb-0">Contact Form</h5>
-                      <p className="fb-fs-40 fw-600" style={{lineHeight: "3rem"}}>Drop Us a Line</p>
+                      <p
+                        className="fb-fs-40 fw-600"
+                        style={{ lineHeight: "3rem" }}
+                      >
+                        Drop Us a Line
+                      </p>
                       <p className="text-mid-grey pt-3">
                         Your email address will not be published. Required
                         fields are marked *
@@ -138,7 +143,7 @@ const ContactUs = () => {
         <div className="container-fluid p-0">
           <div>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.999963804814!2d77.37656137616419!3d28.629763184205288!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce5ba4c903dbb%3A0xe55a9b972af80f51!2sFictiveBox%20Digital!5e0!3m2!1sen!2sin!4v1731403123609!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28022.12022655864!2d77.01072461824441!3d28.60682509187019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1ad34eb74975%3A0xfcf9092de6f26d2f!2sKaruna%20Kunj%2C%20Dwarka%20Sector-3%2C%20Dwarka%2C%20Delhi%2C%20110078!5e0!3m2!1sen!2sin!4v1732620709544!5m2!1sen!2sin"
               style={{ border: "0", height: "30rem" }}
               allowfullscreen=""
               loading="lazy"
