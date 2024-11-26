@@ -103,15 +103,24 @@ export const getFinalCartApi = (cart_id) =>
 
 // options api
 
-export const getOptionsApi = () => API.get(`products/options/`);
+export const getOptionsApi = () => API.get(`/products/options/`);
 export const postOptionsApi = (payload) =>
-  API.post(`products/options/`, payload);
+  API.post(`/products/options/`, payload);
 export const putOptionsApi = (id, payload) =>
-  API.put(`products/options/${id}`, payload);
+  API.put(`/products/options/${id}`, payload);
 export const patchOptionsApi = (id, payload) =>
-  API.patch(`products/options/${id}`, payload);
+  API.patch(`/products/options/${id}`, payload);
 export const getPopularProducts = () => API.get("products/popular/");
-export const getBestPriceApi = () => API.get("best-price-products/");
+export const getBestPriceApi = () => API.get("best-price-products/")
+
+// checkout & address api
+
+export const getSelectAddressApi = () => API.get(`/accounts/address/select/`);
+export const getAddressApi = () => API.get(`/accounts/addresses/`);
+export const postAddressApi = (payload) => API.post(`/accounts/addresses/`, payload);
+export const putAddressApi = (id, payload) =>API.put(`/accounts/addresses/${id}`, payload); 
+export const deleteAddressApi = (id) => API.delete(`/accounts/addresses/${id}`);
+
+// Wishlist api
 export const getWishlist = () => API.get("wishlist/");
 export const postWishlist = (payload) => API.post(`wishlist/`, payload);
-
