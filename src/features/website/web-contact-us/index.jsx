@@ -24,16 +24,14 @@ const ContactUs = () => {
                         <span className="fw-600">how we can help you</span>
                       </p>
                       <p className="text-white pt-3">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Ut elit tellus, luctus nec ullamcorper mattis, pulvinar
-                        dapibus leo.
+                      Need help with our millet-based products or have questions? We’re here for you! Contact us to learn more or share your thoughts.
                       </p>
                       <div className="contact-list my-4 pb-2 pt-4">
                         <p className="text-dark-brown fw-600">PHONE NO.</p>
                         <div className="d-flex pt-2">
                           <Call size={"2rem"} color="#FFF" variant="Bulk" />
                           <p className="fb-fs-18 text-white fw-600 ps-3">
-                            +91-1234567890
+                          +91 7678320459
                           </p>
                         </div>
                       </div>
@@ -46,7 +44,7 @@ const ContactUs = () => {
                             variant="Bulk"
                           />
                           <p className="fb-fs-18 text-white fw-600 ps-3">
-                            support@amritbhojanam.com
+                          info@amritbhojanam.com
                           </p>
                         </div>
                       </div>
@@ -59,8 +57,7 @@ const ContactUs = () => {
                             variant="Bulk"
                           />
                           <p className="fb-fs-18 text-white fw-600 ps-3">
-                            Plot No. 34, Near Aakash Hospital, Sector -3,
-                            Dwarka, New Delhi-110078.
+                          Plot No. 34, 3rd Floor, Sector – 3, Karuna Kunj, Dwarka, New Delhi, 110078.
                           </p>
                         </div>
                       </div>
