@@ -115,7 +115,7 @@ export const getBestPriceApi = () => API.get("best-price-products/")
 
 // checkout & address api
 
-export const getSelectAddressApi = () => API.get(`/accounts/address/select/`);
+export const postSelectAddressApi = (payload) => API.post(`/accounts/address/select/`, payload);
 export const getAddressApi = () => API.get(`/accounts/addresses/`);
 export const postAddressApi = (payload) => API.post(`/accounts/addresses/`, payload);
 export const putAddressApi = (id, payload) =>API.put(`/accounts/addresses/${id}`, payload); 
