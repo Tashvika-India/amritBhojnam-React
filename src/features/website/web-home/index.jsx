@@ -274,7 +274,7 @@ const HomePage = () => {
           </div>
         </div>
       </section> 
-      <section className="popular-product" id="bestselling">
+      <section className="popular-product" id="best">
 
         <div className="container fb-container">
           <h3 className="fw-bold text-center mb-5">Daily Best Sells</h3>

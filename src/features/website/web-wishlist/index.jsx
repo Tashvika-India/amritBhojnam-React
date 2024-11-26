@@ -20,7 +20,7 @@ const Wishlist = () => {
           <div className="row">
             <div className="d-flex justify-content-between align-items-center">
               <div>
-                <h3 className="fw-bold">My Wishlist</h3>
+                <h3 className="fw-bold mb-0">My Wishlist</h3>
                 <p className="fb-fs-18 text text-mid-grey fw-500">
                   Total Items : 9
                 </p>
@@ -41,10 +41,7 @@ const Wishlist = () => {
             </div>
           </div>
           <div className="row" >
-        
-          <WishList />
-         
-           
+          <WishList /> 
           </div>
         </div>
       </section>
