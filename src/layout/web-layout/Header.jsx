@@ -26,10 +26,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState([]);
   const [showWebLogin, setShowWebLogin] = useState(false);
-
-
-
-
+ 
 
   const toggleCart = () => setShowCart(!showCart);
 
@@ -153,15 +150,15 @@ const Header = () => {
                   {/* <ProfileDropdown /> */}
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                   to="/wishlist"
                     className="d-inline-flex flex-column justify-content-center align-items-center"
                   >
                     <FaRegHeart size={"1.625rem"} />
                     <span className="d-inline-block fb-fs-14 fw-600">
                       Wishlist
                     </span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a

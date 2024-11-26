@@ -40,8 +40,11 @@ const Wishlist = () => {
               </div>
             </div>
           </div>
-          <div className="row">
-            <WishList />
+          <div className="row" >
+        
+          <WishList />
+         
+           
           </div>
         </div>
       </section>
