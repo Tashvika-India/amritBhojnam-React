@@ -42,7 +42,7 @@ API.interceptors.response.use(
         // Logout or handle the error if token refresh fails
         localStorage.removeItem("access");
         localStorage.removeItem("refresh");
-        window.location.href = "/login"; // Redirect to login or handle as necessary
+        // window.location.href = "/login"; // Redirect to login or handle as necessary
       }
     }
     return Promise.reject(error);
@@ -111,7 +111,7 @@ export const putOptionsApi = (id, payload) =>
 export const patchOptionsApi = (id, payload) =>
   API.patch(`/products/options/${id}`, payload);
 export const getPopularProducts = () => API.get("products/popular/");
-export const getBestPriceApi = () => API.get("best-price-products/");
+export const getBestPriceApi = () => API.get("best-price-products/")
 
 // checkout & address api
 
@@ -120,3 +120,7 @@ export const getAddressApi = () => API.get(`/accounts/addresses/`);
 export const postAddressApi = (payload) => API.post(`/accounts/addresses/`, payload);
 export const putAddressApi = (id, payload) =>API.put(`/accounts/addresses/${id}`, payload); 
 export const deleteAddressApi = (id) => API.delete(`/accounts/addresses/${id}`);
+
+// Wishlist api
+export const getWishlist = () => API.get("wishlist/");
+export const postWishlist = (payload) => API.post(`wishlist/`, payload);

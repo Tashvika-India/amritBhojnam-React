@@ -8,6 +8,7 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import AcceptButton from "@/components/buttons/AcceptButton";
 import RejectButton from "@/components/buttons/RejectButton";
+import { Link } from "react-router-dom";
 
 const ActiveOrdersTable = () => {
   const [orders, setOrders] = useState([
@@ -127,7 +128,7 @@ const ActiveOrdersTable = () => {
   return (
     <div className="datatable">
       <DataTable value={orders} paginator rows={10}>
-        <Column field="id" header="ID"></Column>
+       <Column field="id" header="ID"></Column>
         <Column header="Customer" body={customerTemplate}></Column>
         <Column field="order" header="Order (Rs)"></Column>
         <Column header="Payment" body={paymentStatusTemplate}></Column>
