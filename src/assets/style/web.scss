@@ -544,8 +544,22 @@
 .summary-card {
   border: 2px solid $border;
   transition: all 0.3s ease-in-out;
-  &:hover {
+  img{
+    transition: all 0.3s ease-in-out;
+  }
+  button{
+    transition: all 0.3s ease-in-out;
+  }
+  &:hover,
+  &.active {
     border-color: $yellow;
+    background: linear-gradient(180deg, #ffcd8f4d 0%, #ffe9cf18 100%);
+    img{
+      transition: all 0.3s ease-in-out;
+    }
+    button{
+      transition: all 0.3s ease-in-out;
+    }
   }
 }
 // tab style

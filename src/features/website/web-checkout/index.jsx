@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { IoHomeOutline } from "react-icons/io5";
 import { HiBuildingOffice2 } from "react-icons/hi2";
-import { getAddressApi, getCartApi, getFinalCartApi, postAddressApi } from "../../../services/adminApiRoutes";
+import { getAddressApi, getCartApi, getFinalCartApi, postAddressApi, postSelectAddressApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
 import { Link } from "react-router-dom";
 import { baseURL } from "../../../utils/constant-variable";
@@ -31,8 +31,7 @@ const CheckoutPage = () => {
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
 
-  const getCartList = async () => {
-    setLoading(true);
+  const getCartList = async () => { 
     try {
       const response = await getCartApi();
       setCartList(response?.data?.items || []);
@@ -40,23 +39,20 @@ const CheckoutPage = () => {
       setFinalCart(finalCartData?.data || {});
     } catch (error) {
       console.log("Error fetching cart data:", error);
-    } finally {
-      setLoading(false);
+    } finally { 
     }
   };
 
-  const getAddressList = async () => {
-    setLoading(true);
+  const getAddressList = async () => { 
     try {
       const response = await getAddressApi();
       setAddressList(response?.data || []);
 
     } catch (error) {
       console.log("Error fetching cart data:", error);
-    } finally {
-      setLoading(false);
+    } finally { 
     }
-  }; 
+  };
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -110,6 +106,16 @@ const CheckoutPage = () => {
     },
   });
 
+  const handleSelectAddress = async (address_id) => { 
+    try {
+      const response = await postSelectAddressApi({ address_id });
+      getAddressList();
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+    }
+  }
+
+
   useEffect(() => {
     getAddressList();
     getCartList();
@@ -127,46 +133,17 @@ const CheckoutPage = () => {
               <p className="fb-fs-26 fw-bold checkout-save">Saved Address</p>
               <div className="row">
                 <div className="col-lg-7 col-md-12">
-                  {/* <div className="summary-card rounded-20 px-2 py-3 mt-3">
-                          <div className="container">
-                            <div className="row">
-                              <div className="col-md-12">
-                                <div className="order-date d-flex">
-                                  <img
-                                    className="img-fluid me-1"
-                                    src={homeImg}
-                                    alt="pencil"
-                                  />
-                                  <div className="ms-md-3">
-                                    <div className="d-flex mt-2">
-                                      <p className="fw-600 fb-fs-18">
-                                        Piyush Kanwal | 7464810000
-                                      </p>
-                                      <button className="button-yellow ms-3">
-                                        Default
-                                      </button>
-                                    </div>
-                                    <p className="mt-2 text-wrap">
-                                      House no. 78, Ward no. 7, Vats Colony, Linepar,
-                                      Bahadurgarh, Haryana - 124507
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div> */}
                   {loading ? (
                     <Loading />
                   ) : addressList.length > 0 ? (
                     addressList.map((item, index) => (
-                      <div className="summary-card rounded-20 px-2 py-3 mt-3" key={index}>
+                      <div className={`summary-card ${item?.selected ? 'active' : ''} rounded-20 px-2 py-3 mt-3 cursor-pointer`} key={index} onClick={() => handleSelectAddress(item?.id)}>
                         <div className="container">
                           <div className="row">
                             <div className="col-md-12">
                               <div className="order-date d-flex">
                                 <img
-                                  className="img-fluid me-1"
+                                  className={`img-fluid me-1 rounded-4 ${item?.selected ? 'shadow' : ''}`}
                                   src={homeImg}
                                   alt="pencil"
                                 />
@@ -175,6 +152,11 @@ const CheckoutPage = () => {
                                     <p className="fw-600 fb-fs-18">
                                       {item?.user_detail?.full_name} | {item?.user_detail?.phone_number}
                                     </p>
+                                    {item?.selected && (
+                                      <button className="button-yellow ms-3">
+                                        Default
+                                      </button>
+                                    )}
                                   </div>
                                   <p className="mt-2 text-wrap">
                                     {item?.house_flat_block_no}, {item?.road_area_colony}, {item?.city}, {item?.state} - {item?.pincode}
@@ -235,111 +217,6 @@ const CheckoutPage = () => {
                         </div>
                       </form>
                       <p className="text-mid-grey my-4">ADDRESS DETAILS</p>
-                      {/* <form>
-                        <div className="container fb-container">
-                          <div className="row">
-                            <div className="col-md-6 ps-md-0 pb-4">
-                              <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">
-                                  State
-                                </InputLabel>
-                                <Select
-                                  labelId="demo-simple-select-label"
-                                  id="demo-simple-select"
-                                  name="state"
-                                  value={age}
-                                  label="Age"
-                                  onChange={handleChange}
-                                >
-                                  <MenuItem value={10}>Ten</MenuItem>
-                                  <MenuItem value={20}>Twenty</MenuItem>
-                                  <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                              </FormControl>
-                            </div>
-                            <div className="col-md-6 pe-md-0">
-                              <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">
-                                  City
-                                </InputLabel>
-                                <Select
-                                  labelId="demo-simple-select-label"
-                                  id="demo-simple-select"
-                                  value={age}
-                                  label="Age"
-                                  name="city"
-                                  onChange={handleChange}
-                                >
-                                  <MenuItem value={10}>Ten</MenuItem>
-                                  <MenuItem value={20}>Twenty</MenuItem>
-                                  <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                              </FormControl>
-                            </div>
-                            <div className="col-md-12 px-md-0">
-                              <TextField
-                                fullWidth
-                                className="rounded-20 me-5 mt-4"
-                                id="outlined-basic"
-                                label="Pincode"
-                                name="pincode"
-                                variant="outlined"
-                              />
-                            </div>
-                            <div className="col-md-12 px-md-0">
-                              <TextField
-                                fullWidth
-                                className="rounded-20 me-5 mt-4"
-                                id="outlined-basic"
-                                name="house_flat_block_no"
-                                label="House / Flat /Block No."
-                                variant="outlined"
-                              />
-                            </div>
-                            <div className="col-md-12 px-md-0">
-                              <TextField
-                                fullWidth
-                                className="rounded-20 me-5 mt-4"
-                                id="outlined-basic"
-                                name="road_area_colony"
-                                label="Road /Area / Colony"
-                                variant="outlined"
-                              />
-                            </div>
-                            <div className="d-flex my-5 ps-md-0">
-                              <button className="home-btn d-flex  border-0 bg-transparent">
-                                <IoHomeOutline
-                                  className="ms-lg-2 ms-0"
-                                  size={"20"}
-                                  color={"#F26722"}
-                                  name="save_as"
-                                />
-                                <p className=" text-orange fw-500 ms-lg-3 ms-2">Home</p>
-                              </button>
-                              <button className="office-btn d-flex  border-0 bg-transparent ms-4">
-                                <HiBuildingOffice2
-                                  className="ms-lg-2 ms-0"
-                                  size={"23"}
-                                  color={"#918E92"}
-                                  name="save_as"
-                                />
-                                <p className=" text-mid-grey fw-500 ms-lg-3 ms-2">
-                                  Office
-                                </p>
-                              </button>
-                            </div>
-
-                            <div className="checkout-btn d-flex mb-5 pb-5 pe-0 align-items-end justify-content-end">
-                              <button className="button-primary-reverse me-4" type="button">
-                                Cancel
-                              </button>
-                              <button className="button-primary fb-fs-16" type="submit">
-                                Save & Continue
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </form> */}
                       <form onSubmit={formik.handleSubmit}>
                         <div className="container fb-container">
                           <div className="row">
@@ -495,8 +372,8 @@ const CheckoutPage = () => {
                             <p className="item-name  text-black fw-500 mb-0">
                               {item?.product?.name}
                             </p>
-                            <p className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity} ${item?.product?.quantity_unit}`}</p>
-                            <h5 className="item-amount mt-2 fw-600">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</h5>
+                            <small className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity} ${item?.product?.quantity_unit}`}</small>
+                            <h6 className="item-amount mt-2 fw-600">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</h6>
                           </div>
                           <div className="product-quantity text-end d-flex align-items-center">
                             <h6 style={{ fontWeight: "800" }}>{`₹${Math.trunc(item?.price) * item?.item_quantity}`}</h6>
