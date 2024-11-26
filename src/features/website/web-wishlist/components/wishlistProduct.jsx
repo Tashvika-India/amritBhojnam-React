@@ -3,18 +3,15 @@ import ProductCard from "../../web-home/components/ProductCard";
 import { getWishlist } from "../../../../services/adminApiRoutes";
 
 const WishList = () => {
-  const [wishlist, setWishlist] = useState([
-    { id: 1, name: "product1" },
-    { id: 2, name: "product2" },
-    { id: 3, name: "product3" },
-  ]);
+  const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(false);
   async function getWishlistData() {
     setLoading(true);
     try {
-      const response = await getWishlist();
-      console.log("1234567890-", response);
-      setWishlist(response?.data || []);
+      const response = await getWishlist(); 
+      const data = response?.data || []
+      const correctData = data?.map((product) => ( {...product , is_wishlist : true}))
+      setWishlist(correctData);
     } catch (error) {
       console.log("Error on Product List", error);
     } finally {
@@ -26,19 +23,23 @@ const WishList = () => {
   }, []);
   return (
     <>
-      <div className="item-slider">
-        <div className="row">
-          {wishlist?.map((wishlist) => (
-            <div className="col-md-3">
-              <div className="item-slide px-2 px-lg-0" key={wishlist?.id}>
-                <div className="cat-itmes gap-0 mx-0 mx-lg-2">
-                  <ProductCard wishlist={wishlist} />
+      <div className="item-slider mt-5  d-grid justify-content-between gap-3"   style={{
+                      gridTemplateColumns:
+                        window.innerWidth > 768
+                          ? "repeat(5, 1fr)"
+                          : "repeat(2, 1fr)",
+                    }}>
+     
+          {wishlist?.map((data,index) => ( 
+              <div className="item-slide px-2 px-lg-0" key={index}>
+                <div className="cat-itmes gap-0 "  >
+                  <ProductCard  product={data} />
                 </div>
               </div>
-            </div>
+           
           ))}
         </div>
-      </div>
+    
     </>
   );
 };
