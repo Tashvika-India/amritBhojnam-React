@@ -30,14 +30,14 @@ const Footer = () => {
                       <img src={call} alt="call" />
                     </span>{" "}
                     <span className="text-orange me-2">Call US :</span>{" "}
-                    <a href="tel:+91-1234567890">+91-1234567890</a>{" "}
+                    <a href="tel:+91-1234567890">+91 7678320459</a>{" "}
                   </li>
                   <li className="d-flex align-items-center fw-500">
                     <span className="me-3">
                       <img src={mail} alt="email" />
                     </span>{" "}
                     <span className="text-orange me-2">Email : </span>{" "}
-                    <a href="mailto: ">support@amritbhojanam.com</a>{" "}
+                    <a href="mailto: ">info@amritbhojanam.com</a>{" "}
                   </li>
                   <li className="d-flex align-items-center fw-500">
                     <span className="me-3">
