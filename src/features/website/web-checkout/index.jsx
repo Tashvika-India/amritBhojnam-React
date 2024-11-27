@@ -21,17 +21,18 @@ import { Link } from "react-router-dom";
 import { baseURL } from "../../../utils/constant-variable";
 import { useFormik } from "formik";
 import { get } from "jquery";
+import Address from "../../../assets/common-components/website/Address";
 
 
 const CheckoutPage = () => {
-  const [age, setAge] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [cartList, setCartList] = useState([]);
   const [finalCart, setFinalCart] = useState({});
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
 
-  const getCartList = async () => { 
+  const getCartList = async () => {
     try {
       const response = await getCartApi();
       setCartList(response?.data?.items || []);
@@ -39,18 +40,18 @@ const CheckoutPage = () => {
       setFinalCart(finalCartData?.data || {});
     } catch (error) {
       console.log("Error fetching cart data:", error);
-    } finally { 
+    } finally {
     }
   };
 
-  const getAddressList = async () => { 
+  const getAddressList = async () => {
     try {
       const response = await getAddressApi();
       setAddressList(response?.data || []);
 
     } catch (error) {
       console.log("Error fetching cart data:", error);
-    } finally { 
+    } finally {
     }
   };
 
@@ -93,7 +94,10 @@ const CheckoutPage = () => {
     onSubmit: async (values, { resetForm, setSubmitting }) => {
       setLoading(true);
       try {
-        await postAddressApi(values);
+        const response = await postAddressApi(values);
+        console.log("response", response);
+        const address_id = response?.data?.id;
+        await postSelectAddressApi({ address_id });
         getAddressList();
         setLoading(false);
         setOpen(false);
@@ -106,7 +110,7 @@ const CheckoutPage = () => {
     },
   });
 
-  const handleSelectAddress = async (address_id) => { 
+  const handleSelectAddress = async (address_id) => {
     try {
       const response = await postSelectAddressApi({ address_id });
       getAddressList();
@@ -180,177 +184,12 @@ const CheckoutPage = () => {
                     + Add New Address
                   </button>
                   <Collapse in={open}>
-                    <div className="new-address">
-                      <p className="fb-fs-26 fw-bold my-3 checkout-save">Add New Address</p>
-                      <p className="text-mid-grey">BASIC DETAILS</p>
-                      <form>
-                        <div className="container fb-container">
-                          <div className="row">
-                            <div className="col-md-6 ps-md-0">
-                              <TextField
-                                fullWidth
-                                className="rounded-20 me-5 mt-4"
-                                id="outlined-basic"
-                                label="Name"
-                                variant="outlined"
-                              />
-                            </div>
-                            <div className="col-md-6 pe-md-0">
-                              <TextField
-                                fullWidth
-                                className="rounded-20 me-5 mt-4"
-                                id="outlined-basic"
-                                label="Phone Number"
-                                variant="outlined"
-                              />
-                            </div>
-                            <div className="col-md-12 px-md-0 mb-2">
-                              <TextField
-                                fullWidth
-                                className="rounded-20 me-5 mt-4"
-                                id="outlined-basic"
-                                label="Email Address"
-                                variant="outlined"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                      <p className="text-mid-grey my-4">ADDRESS DETAILS</p>
-                      <form onSubmit={formik.handleSubmit}>
-                        <div className="container fb-container">
-                          <div className="row">
-                            <div className="col-md-6 ps-md-0 pb-4">
-                              <FormControl fullWidth>
-                                <InputLabel id="state-select-label">State</InputLabel>
-                                <Select
-                                  id="state-select"
-                                  name="state"
-                                  value={formik.values.state}
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
-                                >
-                                  <MenuItem value="State1">State1</MenuItem>
-                                  <MenuItem value="State2">State2</MenuItem>
-                                  <MenuItem value="State3">State3</MenuItem>
-                                </Select>
-                                {formik.touched.state && formik.errors.state ? (
-                                  <div className="error text-danger">{formik.errors.state}</div>
-                                ) : null}
-                              </FormControl>
-                            </div>
-                            <div className="col-md-6 pe-md-0">
-                              <FormControl fullWidth>
-                                <InputLabel id="city-select-label">City</InputLabel>
-                                <Select
-                                  id="city-select"
-                                  name="city"
-                                  value={formik.values.city}
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
-                                >
-                                  <MenuItem value="City1">City1</MenuItem>
-                                  <MenuItem value="City2">City2</MenuItem>
-                                  <MenuItem value="City3">City3</MenuItem>
-                                </Select>
-                                {formik.touched.city && formik.errors.city ? (
-                                  <div className="error text-danger">{formik.errors.city}</div>
-                                ) : null}
-                              </FormControl>
-                            </div>
-                            <div className="col-md-12 px-md-0">
-                              <TextField
-                                fullWidth
-                                className="rounded-20 me-5 mt-4"
-                                id="pincode"
-                                label="Pincode"
-                                name="pincode"
-                                variant="outlined"
-                                value={formik.values.pincode}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                              />
-                              {formik.touched.pincode && formik.errors.pincode ? (
-                                <div className="error text-danger">{formik.errors.pincode}</div>
-                              ) : null}
-                            </div>
-                            <div className="col-md-12 px-md-0">
-                              <TextField
-                                fullWidth
-                                className="rounded-20 me-5 mt-4"
-                                id="house_flat_block_no"
-                                name="house_flat_block_no"
-                                label="House / Flat / Block No."
-                                variant="outlined"
-                                value={formik.values.house_flat_block_no}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                              />
-                              {formik.touched.house_flat_block_no &&
-                                formik.errors.house_flat_block_no ? (
-                                <div className="error text-danger">{formik.errors.house_flat_block_no}</div>
-                              ) : null}
-                            </div>
-                            <div className="col-md-12 px-md-0">
-                              <TextField
-                                fullWidth
-                                className="rounded-20 me-5 mt-4"
-                                id="road_area_colony"
-                                name="road_area_colony"
-                                label="Road / Area / Colony"
-                                variant="outlined"
-                                value={formik.values.road_area_colony}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                              />
-                              {formik.touched.road_area_colony &&
-                                formik.errors.road_area_colony ? (
-                                <div className="error text-danger">{formik.errors.road_area_colony}</div>
-                              ) : null}
-                            </div>
-                            <div className="d-flex my-5 ps-md-0">
-                              <button
-                                type="button"
-                                className="home-btn d-flex border-0 bg-transparent"
-                                onClick={() => formik.setFieldValue("save_as", "home")}
-                              >
-                                <IoHomeOutline
-                                  className="ms-lg-2 ms-0"
-                                  size={"20"}
-                                  color={"#F26722"}
-                                />
-                                <p className="text-orange fw-500 ms-lg-3 ms-2">Home</p>
-                              </button>
-                              <button
-                                type="button"
-                                className="office-btn d-flex border-0 bg-transparent ms-4"
-                                onClick={() => formik.setFieldValue("save_as", "office")}
-                              >
-                                <HiBuildingOffice2
-                                  className="ms-lg-2 ms-0"
-                                  size={"23"}
-                                  color={"#918E92"}
-                                />
-                                <p className="text-mid-grey fw-500 ms-lg-3 ms-2">Office</p>
-                              </button>
-                            </div>
-                            <div className="checkout-btn d-flex mb-5 pb-5 pe-0 align-items-end justify-content-end">
-                              <button
-                                className="button-primary-reverse me-4"
-                                type="button"
-                                onClick={() => formik.resetForm()}
-                              >
-                                Cancel
-                              </button>
-                              <button className="button-primary fb-fs-16" type="submit">
-                                Save & Continue
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </Collapse>
+                    <Address
+                      formik={formik}
+                      loading={loading}
+                      setOpen={setOpen}
+                    />
+                  </Collapse >
                 </div>
                 <div className="col-lg-5 col-md-12">
                   <div className="my-card-section product-detail-shadow rounded-20 p-4 mb-4 sticky-top">
