@@ -1,4 +1,5 @@
-import React from "react";
+import * as Yup from "yup";
+import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import { TabPanel, TabView } from "primereact/tabview";
@@ -11,8 +12,104 @@ import tickImg from "../../../assets/images/web/account/tick-image.png";
 import homeImg from "../../../assets/images/web/account/home-img.png";
 import editButton from "../../../assets/images/web/account/edit-button.png";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
-
+import { getAddressApi, postAddressApi, postSelectAddressApi } from "../../../services/adminApiRoutes";
+import {
+  Collapse,
+} from "@mui/material";
+import { useFormik } from "formik";
+import Address from "../../../assets/common-components/website/Address";
+import Loading from "../../../components/ui/Loading";
 const UserProfile = () => {
+
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [addressList, setAddressList] = useState([]);
+
+
+
+  const getAddressList = async () => {
+    try {
+      const response = await getAddressApi();
+      setAddressList(response?.data || []);
+
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+    } finally {
+    }
+  };
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
+  const handlePayNow = (amount, firstName, email, phone, productinfo, surl, furl) => {
+
+    const data = {
+      amount: amount,
+      firstName: firstName,
+      email: email,
+      phone: phone,
+      productinfo: productinfo,
+      surl: surl,
+      furl: furl
+    }
+  };
+
+
+  const formik = useFormik({
+    initialValues: {
+      house_flat_block_no: "",
+      road_area_colony: "",
+      city: "",
+      state: "",
+      pincode: "",
+      save_as: "home", // Default value
+    },
+    validationSchema: Yup.object({
+      house_flat_block_no: Yup.string().required("Required"),
+      road_area_colony: Yup.string().required("Required"),
+      city: Yup.string().required("Required"),
+      state: Yup.string().required("Required"),
+      pincode: Yup.string()
+        .matches(/^\d{6}$/, "Pincode must be exactly 6 digits")
+        .required("Required"),
+    }),
+    onSubmit: async (values, { resetForm, setSubmitting }) => {
+      setLoading(true);
+      try {
+        const response = await postAddressApi(values);
+        console.log("response", response);
+        const address_id = response?.data?.id;
+        await postSelectAddressApi({ address_id });
+        getAddressList();
+        setLoading(false);
+        setOpen(false);
+        resetForm();
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
+
+  const handleSelectAddress = async (address_id) => {
+    try {
+      const response = await postSelectAddressApi({ address_id });
+      getAddressList();
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+    }
+  }
+
+
+  useEffect(() => {
+    getAddressList();
+  }, []);
+
+
+
+
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -119,29 +216,29 @@ const UserProfile = () => {
                       <div className="row border-bottom px-3 py-3">
                         <div className="col-md-3">
                           <p>
-                            {" "}
-                            Order ID:{" "}
+
+                            Order ID:
                             <span className="fw-600"> #123456789</span>
                           </p>
                         </div>
                         <div className="col-md-3">
                           <p>
-                            {" "}
-                            Order Placed:{" "}
+
+                            Order Placed:
                             <span className="fw-600"> March 10, 2024</span>
                           </p>
                         </div>
                         <div className="col-md-3">
                           <p>
-                            {" "}
-                            Total Amount:{" "}
+
+                            Total Amount:
                             <span className="fw-600"> ₹ 130 </span>
                           </p>
                         </div>
                         <div className="col-md-3 text-end">
                           <p className="text-orange fw-500">
-                            {" "}
-                            Download Invoice{" "}
+
+                            Download Invoice
                           </p>
                         </div>
                       </div>
@@ -205,29 +302,29 @@ const UserProfile = () => {
                       <div className="row border-bottom px-3 py-3">
                         <div className="col-md-3">
                           <p>
-                            {" "}
-                            Order ID:{" "}
+
+                            Order ID:
                             <span className="fw-600"> #123456789</span>
                           </p>
                         </div>
                         <div className="col-md-3">
                           <p>
-                            {" "}
-                            Order Placed:{" "}
+
+                            Order Placed:
                             <span className="fw-600"> March 10, 2024</span>
                           </p>
                         </div>
                         <div className="col-md-3">
                           <p>
-                            {" "}
-                            Total Amount:{" "}
+
+                            Total Amount:
                             <span className="fw-600"> ₹ 130 </span>
                           </p>
                         </div>
                         <div className="col-md-3 text-end">
                           <p className="text-orange fw-500">
-                            {" "}
-                            Download Invoice{" "}
+
+                            Download Invoice
                           </p>
                         </div>
                       </div>
@@ -292,12 +389,14 @@ const UserProfile = () => {
                     <p className="fb-fs-26 fw-bold text-dark-grey my-4">
                       Saved Address
                     </p>
-                    <div className="d-flex mt-4 pt-2">
+                    <button type="button" className="d-flex mt-4 pt-2 border-0 bg-transparent" onClick={() => setOpen(!open)}
+                      aria-controls="example-collapse-text"
+                      aria-expanded={open}>
                       <i className="pi pi-plus text-yellow me-2 mt-1"></i>
                       <p className="fw-500">Add New Address</p>
-                    </div>
+                    </button>
                   </div>
-                  <div className="summary-card rounded-20 p-3">
+                  {/* <div className="summary-card rounded-20 p-3">
                     <div className="container">
                       <div className="row">
                         <div className="col-md-12">
@@ -398,6 +497,58 @@ const UserProfile = () => {
                         </div>
                       </div>
                     </div>
+                  </div> */}
+                  <div className="">
+                    {loading ? (
+                      <Loading />
+                    ) : addressList.length > 0 ? (
+                      addressList.map((item, index) => (
+                        <div className={`summary-card ${item?.selected ? 'active' : ''} rounded-20 px-2 py-3 mt-3 cursor-pointer`} key={index} onClick={() => handleSelectAddress(item?.id)}>
+                          <div className="container">
+                            <div className="row">
+                              <div className="col-md-12">
+                                <div className="order-date d-flex">
+                                  <img
+                                    className={`img-fluid me-1 rounded-4 ${item?.selected ? 'shadow' : ''}`}
+                                    src={homeImg}
+                                    alt="pencil"
+                                  />
+                                  <div className="ms-md-3">
+                                    <div className="d-flex mt-2">
+                                      <p className="fw-600 fb-fs-18">
+                                        {item?.user_detail?.full_name} | {item?.user_detail?.phone_number}
+                                      </p>
+                                      {item?.selected && (
+                                        <button className="button-yellow ms-3">
+                                          Default
+                                        </button>
+                                      )}
+                                    </div>
+                                    <p className="mt-2 text-wrap">
+                                      {item?.house_flat_block_no}, {item?.road_area_colony}, {item?.city}, {item?.state} - {item?.pincode}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-center py-4">
+                        <h6 className="text-muted mb-4">Your Address is empty!</h6>
+                      </div>
+                    )}
+
+                  </div>
+                  <div className="">
+                    <Collapse in={open}>
+                      <Address
+                        formik={formik}
+                        loading={loading}
+                        setOpen={setOpen}
+                      />
+                    </Collapse >
                   </div>
                 </div>
               </TabPanel>
