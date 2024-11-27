@@ -27,6 +27,9 @@ import ProductOption from "../features/admin-dashboard/manage-products/product-o
 import AboutUs from "../features/website/web-about-us"; 
 import Wishlist from "../features/website/web-wishlist";
 import TermsAndConditions from "../features/website/web-terms-conditions";
+import PrivacyPolicy from "../features/website/web-privacy";
+import RefundPolicy from "../features/website/web-refund";
+import ShipingPolicy from "../features/website/web-shiping";
 function AppRoutes() {
   return (
     <Routes>
@@ -206,6 +209,11 @@ function AppRoutes() {
       <Route exact path="/about-us" element={<AboutUs />} />
       <Route exact path="/wishlist" element={<Wishlist />} />
       <Route exact path="/term-conditions" element={<TermsAndConditions />} />
+      <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route exact path="/refund-policy" element={<RefundPolicy />} />
+      <Route exact path="/shiping-policy" element={<ShipingPolicy />} />
+
+
     </Routes>
   );
 }
