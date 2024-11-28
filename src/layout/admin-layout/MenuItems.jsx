@@ -211,17 +211,22 @@ function MenuItems() {
       >
         Business
       </Typography>
-      <Link
-          to="/banner"
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <ListItemButton sx={isActive("/banner") ? activeStyles : {}}>
-            <ListItemIcon sx={listItemIconStyle}>
+      <Link to="/banner" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/banner") ? activeStyles : {}}>
+          <ListItemIcon sx={listItemIconStyle}>
             <HiPhoto size={23} />
-            </ListItemIcon>
-            <ListItemText primary="Banners" sx={listItemTextStyle} />
-          </ListItemButton>
-        </Link>
+          </ListItemIcon>
+          <ListItemText primary="Banners" sx={listItemTextStyle} />
+        </ListItemButton>
+      </Link>
+      <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/contact") ? activeStyles : {}}>
+          <ListItemIcon sx={listItemIconStyle}>
+            <HiPhoto size={23} />
+          </ListItemIcon>
+          <ListItemText primary="Contact" sx={listItemTextStyle} />
+        </ListItemButton>
+      </Link>
     </>
   );
 }
