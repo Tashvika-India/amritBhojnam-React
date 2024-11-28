@@ -56,8 +56,6 @@ const ProductCard = ({ product }) => {
     }
   }, [quantity]);
 
-  console.log("Product->",product);
-
   return (
     <div className="product-card border pb-3 d-flex flex-column justify-content-between">
       <div className="d-flex justify-content-between product-fav">

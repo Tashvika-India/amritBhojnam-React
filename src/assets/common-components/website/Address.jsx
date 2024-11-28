@@ -9,17 +9,19 @@ import {
 import { IoHomeOutline } from "react-icons/io5";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 
-const Address = ({ formik, loading, setOpen, editData }) => {
-  console.log(editData);
+const Address = ({ formik, loading, setOpen, editData }) => { 
+
   const [age, setAge] = useState("");
+  
   useEffect(() => {
     if (editData) {
       formik.setValues(editData);
     } else {
       formik.resetForm();
     }
-  }, [editData]);
-  console.log(formik.values);
+  }, [editData]); 
+
+
   return (
     <div>
       <div className="new-address">

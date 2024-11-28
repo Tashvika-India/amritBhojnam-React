@@ -4,6 +4,7 @@ import { Dropdown } from 'react-bootstrap';
 import { CiLogout } from 'react-icons/ci';
 import { FaBox, FaRegUser } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 
 const ProfileDropdown = () => {
     return (
@@ -15,11 +16,11 @@ const ProfileDropdown = () => {
             >
                 <div className="d-inline-flex flex-column align-items-center position-relative justify-content-center">
                     <FaRegUser size={"1.625rem"} />
-                    <span className="d-inline-block ms-2 fb-fs-14 fw-600">Account</span>
+                   <Link to="/profile"><span className="d-inline-block ms-2 fb-fs-14 fw-600">Profile</span></Link> 
                 </div>
             </Dropdown.Toggle>
 
-            <Dropdown.Menu align="start" className='menu-wrapper-card'>
+            {/* <Dropdown.Menu align="start" className='menu-wrapper-card'>
                 <div className="account-menu">
                     <div className="account-profile-detail">
                     <Avatar style={{ width: '3rem', height: '3rem' }} />
@@ -46,7 +47,7 @@ const ProfileDropdown = () => {
                         </li>
                     </ul>
                 </div>
-            </Dropdown.Menu>
+            </Dropdown.Menu> */}
         </Dropdown>
     );
 };

@@ -13,6 +13,7 @@ import homeImg from "../../../assets/images/web/account/home-img.png";
 import editButton from "../../../assets/images/web/account/edit-button.png";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
 import {
+  deleteAddressApi,
   getAddressApi,
   postAddressApi,
   postSelectAddressApi,
@@ -26,8 +27,6 @@ const UserProfile = () => {
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
   const [editData, setEditData] = useState([null]);
-
-  console.log("gfjh", editData);
 
   const getAddressList = async () => {
     try {
@@ -85,10 +84,11 @@ const UserProfile = () => {
       setLoading(true);
       try {
         const response = await postAddressApi(values);
-        console.log("response", response);
         const address_id = response?.data?.id;
-        await postSelectAddressApi({ address_id });
-        getAddressList();
+        if(address_id){
+          await postSelectAddressApi({ address_id });
+          getAddressList();
+        }
         setLoading(false);
         setOpen(false);
         resetForm();
@@ -103,6 +103,17 @@ const UserProfile = () => {
   const handleSelectAddress = async (address_id) => {
     try {
       const response = await postSelectAddressApi({ address_id });
+      getAddressList();
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+    }
+  };
+
+  const handleDeleteAddress = async (address_id) => {
+    console.log("address_id", address_id);
+    
+    try {
+      const response = await deleteAddressApi(address_id);
       getAddressList();
     } catch (error) {
       console.log("Error fetching cart data:", error);
@@ -540,23 +551,22 @@ const UserProfile = () => {
                               <div className="col-md-1"></div>
                               <div className="col-md-11">
                                 <div className="d-flex mt-2">
-                                  <button className="border-0 bg-transparent">
-                                    <img
-                                      className="img-fluid me-3"
-                                      src={editButton}
-                                      onClick={() => {
+                                  <button className="border-0 bg-transparent" onClick={() => {
                                         setOpen(!open)
                                         setEditData(item);
                                       
-                                      }}
-                                      alt="pencil"
+                                      }}>
+                                    <img
+                                      className="img-fluid me-3"
+                                      src={editButton}
+                                      alt="Edit"
                                     />
                                   </button>
-                                  <button className="border-0 bg-transparent">
+                                  <button className="border-0 bg-transparent" onClick={() => handleDeleteAddress(item?.id)}>
                                     <img
                                       className="img-fluid me-2"
                                       src={deleteButton}
-                                      alt="pencil"
+                                      alt="Delete"
                                     />
                                   </button>
                                 </div>
