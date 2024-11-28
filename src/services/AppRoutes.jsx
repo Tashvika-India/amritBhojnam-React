@@ -142,6 +142,17 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
+       <Route
+        exact
+        path="/contact"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ManageBanner />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
       <Route
         exact
         path="/orders"
