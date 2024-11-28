@@ -15,7 +15,7 @@ import MobileLogin from "../../components/ui/MobileLogin";
 import { getCategoriesApi } from "../../services/adminApiRoutes";
 import useURLFilters from "../../custom-compoents/useURLFilters";
 import { getWishlist } from "../../services/adminApiRoutes";
-const Header = () => {
+const Header = ({ cart = "" }) => {
   const [search, setSearch] = useState("");
   const [showCart, setShowCart] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -26,7 +26,6 @@ const Header = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState([]);
   const [showWebLogin, setShowWebLogin] = useState(false);
- 
 
   const toggleCart = () => setShowCart(!showCart);
 
@@ -34,6 +33,11 @@ const Header = () => {
 
   const toggleMobileLogin = () => setShowMobileLogin((prev) => !prev);
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
+
+  const accessToken = localStorage.getItem("access");
+  // const user = localStorage.getItem("user");
+ 
+  const login = accessToken;
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +66,7 @@ const Header = () => {
 
   useEffect(() => {
     getCategory();
-  
+
   }, []);
 
   return (
@@ -138,20 +142,24 @@ const Header = () => {
             <div className="header-actions">
               <ul className="list-unstyled align-items-center justify-content-between gap-4 web-header-actions d-none d-xl-flex">
                 <li>
-                  <button
-                    className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
-                    onClick={toggleWebLogin}
-                  >
-                    <FaRegUser size={"1.625rem"} />
-                    <span className="d-inline-block fb-fs-14 fw-600">
-                      Login
-                    </span>
-                  </button>
-                  {/* <ProfileDropdown /> */}
+                  {
+                    (login) ?
+                      <ProfileDropdown />
+                      :
+                      <button
+                        className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
+                        onClick={toggleWebLogin}
+                      >
+                        <FaRegUser size={"1.625rem"} />
+                        <span className="d-inline-block fb-fs-14 fw-600">
+                          Login
+                        </span>
+                      </button>
+                  }
                 </li>
                 <li>
                   <Link
-                   to="/wishlist"
+                    to="/wishlist"
                     className="d-inline-flex flex-column justify-content-center align-items-center"
                   >
                     <FaRegHeart size={"1.625rem"} />
@@ -168,7 +176,7 @@ const Header = () => {
                   >
                     <div className="position-relative">
                       <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
-                        1
+                        {cart.length}
                         <span className="visually-hidden">unread messages</span>
                       </span>
                       <CgShoppingBag size={"1.625rem"} />
@@ -271,7 +279,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </header>
+      </header >
     </>
   );
 };

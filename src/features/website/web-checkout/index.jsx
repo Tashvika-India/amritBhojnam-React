@@ -119,7 +119,6 @@ const CheckoutPage = () => {
     }
   }
 
-
   useEffect(() => {
     getAddressList();
     getCartList();
@@ -128,7 +127,7 @@ const CheckoutPage = () => {
 
   return (
     <div className="web-wrapper-main">
-      <Header />
+      <Header cart={cartList} />
       <div className="container fb-container">
         <div className="row">
           <div className="col-lg-11 col-md-12 mx-auto">
