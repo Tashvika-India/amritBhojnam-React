@@ -1205,6 +1205,9 @@
   .download-section .download-content img {
     display: none;
   }
+  .product-container{
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
   .fb-fs-26 {
     font-size: 1.3rem !important;
   }
@@ -1405,6 +1408,18 @@
 @media (max-width: 576px) {
   .contact-us .card .orange-section {
     padding: 2rem 1rem;
+}
+.product-container{
+  grid-template-columns: repeat(2, 1fr) !important;
+}
+.popular-product .popularleft img{
+  margin-left: 0 !important;
+}
+.cat-items-wrapper .cat-card .cat-itmes .item-image {
+  height: 9rem !important;
+}
+.cat-items-wrapper .cat-card .cat-itmes .item-image img{
+  aspect-ratio: 13/16;
 }
 .contact-us .card .white-section{
   padding: 2.5rem 0.5625rem;

@@ -149,7 +149,7 @@ const HomePage = () => {
               <div className="col-md-12">
                 <div className="row">
                   <div
-                    className="d-grid mt-4 pt-2 gap-4 justify-content-between"
+                    className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
                     style={{
                       gridTemplateColumns:
                         window.innerWidth > 768
