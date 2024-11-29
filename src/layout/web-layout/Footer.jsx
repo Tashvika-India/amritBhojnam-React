@@ -50,7 +50,7 @@ const Footer = () => {
                 <div className="d-flex gap-4 py-lg-3 py-2">
                   <small className="fw-500 text-black">Follow Us</small>{" "}
                   <div className="d-inline-flex gap-2 align-items-center">
-                    <a href="https://www.instagram.com/">
+                    <a href="https://www.instagram.com/amrit_bhojanam/profilecard/#/">
                       <AiFillInstagram size={24} color="#f26722" />
                     </a>{" "}
                     <a href="https://www.instagram.com/">
