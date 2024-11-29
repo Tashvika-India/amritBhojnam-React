@@ -11,11 +11,9 @@ import { HiBuildingOffice2 } from "react-icons/hi2";
 
 const Address = ({ formik, loading, setOpen, editData }) => { 
 
-  const [age, setAge] = useState("");
-  
   useEffect(() => {
-    if (editData) {
-      formik.setValues(editData);
+    if (editData?.id) {
+      formik.setValues(editData); 
     } else {
       formik.resetForm();
     }
@@ -154,6 +152,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   name="road_area_colony"
                   label="Road / Area / Colony"
                   variant="outlined"
+                  +
                   value={formik.values.road_area_colony}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}

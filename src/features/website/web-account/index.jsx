@@ -17,6 +17,7 @@ import {
   getAddressApi,
   postAddressApi,
   postSelectAddressApi,
+  putAddressApi,
 } from "../../../services/adminApiRoutes";
 import { Collapse } from "@mui/material";
 import { useFormik } from "formik";
@@ -83,19 +84,24 @@ const UserProfile = () => {
     onSubmit: async (values, { resetForm, setSubmitting }) => {
       setLoading(true);
       try {
-        const response = await postAddressApi(values);
-        const address_id = response?.data?.id;
-        if(address_id){
-          await postSelectAddressApi({ address_id });
-          getAddressList();
+        if (editData?.id) { 
+          await putAddressApi(editData.id, values);
+          console.log("Address updated successfully");
+        } else { 
+          const response = await postAddressApi(values);
+          const address_id = response?.data?.id;
+          if (address_id) {
+            await postSelectAddressApi({ address_id });
+          }
         }
-        setLoading(false);
-        setOpen(false);
-        resetForm();
+        getAddressList();  
+        setOpen(false);  
+        resetForm();  
       } catch (error) {
         console.error("Error submitting form:", error);
       } finally {
         setSubmitting(false);
+        setLoading(false);
       }
     },
   });
@@ -108,7 +114,10 @@ const UserProfile = () => {
       console.log("Error fetching cart data:", error);
     }
   };
-
+  const handleEditAddress = (address) => {
+    setEditData(address);  
+    setOpen(true);  
+  };
   const handleDeleteAddress = async (address_id) => {
     console.log("address_id", address_id);
     
@@ -551,11 +560,7 @@ const UserProfile = () => {
                               <div className="col-md-1"></div>
                               <div className="col-md-11">
                                 <div className="d-flex mt-2">
-                                  <button className="border-0 bg-transparent" onClick={() => {
-                                        setOpen(!open)
-                                        setEditData(item);
-                                      
-                                      }}>
+                                  <button className="border-0 bg-transparent"onClick={() => handleEditAddress(item)}>
                                     <img
                                       className="img-fluid me-3"
                                       src={editButton}
@@ -590,6 +595,7 @@ const UserProfile = () => {
                         loading={loading}
                         setOpen={setOpen}
                         editData={editData}
+                        setEditData={setEditData}
                       />
                     </Collapse>
                   </div>
