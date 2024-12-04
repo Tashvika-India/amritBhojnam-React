@@ -14,8 +14,10 @@ import editButton from "../../../assets/images/web/account/edit-button.png";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
 import {
   deleteAddressApi,
-  getAddressApi,
+  getAddressApi, 
+  getProfileApi,
   postAddressApi,
+  postProfileApi,
   postSelectAddressApi,
 } from "../../../services/adminApiRoutes";
 import { Collapse } from "@mui/material";
@@ -27,6 +29,7 @@ const UserProfile = () => {
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
   const [editData, setEditData] = useState([null]);
+  const [user, setUser] = useState({});
 
   const getAddressList = async () => {
     try {
@@ -85,7 +88,7 @@ const UserProfile = () => {
       try {
         const response = await postAddressApi(values);
         const address_id = response?.data?.id;
-        if(address_id){
+        if (address_id) {
           await postSelectAddressApi({ address_id });
           getAddressList();
         }
@@ -100,6 +103,28 @@ const UserProfile = () => {
     },
   });
 
+
+  const profile = useFormik({
+    initialValues: {
+      pp: "",
+      full_name: "",
+      email: "",
+      phone: "",
+      gender: "M",
+      date_of_birth: "1999-05-11",
+    },
+    validationSchema: Yup.object({
+      full_name: Yup.string().required("First name is required"),
+      email: Yup.string().email("Invalid email").required("Email is required"),
+      phone: Yup.string()
+        .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
+        .required("Phone number is required"),
+    }),
+    onSubmit: async (values, { resetForm, setSubmitting }) => { 
+      addProfile(values);
+    },
+  });
+
   const handleSelectAddress = async (address_id) => {
     try {
       const response = await postSelectAddressApi({ address_id });
@@ -109,9 +134,7 @@ const UserProfile = () => {
     }
   };
 
-  const handleDeleteAddress = async (address_id) => {
-    console.log("address_id", address_id);
-    
+  const handleDeleteAddress = async (address_id) => { 
     try {
       const response = await deleteAddressApi(address_id);
       getAddressList();
@@ -120,9 +143,37 @@ const UserProfile = () => {
     }
   };
 
+  const addProfile = async (values) => {
+    const formData = new FormData();
+    formData.append("full_name", values.full_name);
+    formData.append("phone", values.phone);
+    formData.append("email", values.email);
+    formData.append("gender", values.gender);
+    formData.append("date_of_birth", values.date_of_birth);
+    
+    try {
+      setLoading(true);
+      const response = await postProfileApi(formData); 
+      const user_id = response?.data?.id;
+      const userDetail = await getProfileApi(user_id);
+      setUser(userDetail);
+      setLoading(false);
+      setOpen(false);
+      resetForm();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  console.log("user", user);
+  
+
   useEffect(() => {
     getAddressList();
   }, []);
+ 
 
   return (
     <div className="web-wrapper-main">
@@ -151,9 +202,9 @@ const UserProfile = () => {
                     alt="Card image cap"
                   />
                   <div className="image-content mt-5 pt-5 ms-3">
-                    <p className="fb-fs-30 fw-bold">Piyush Kanwal</p>
+                    <p className="fb-fs-30 fw-bold">{user?.data?.full_name}</p>
                     <p className="fw-500 text-mid-grey fb-fs-18 text-start">
-                      +91 1234567890
+                    {user?.data?.phone}
                     </p>
                   </div>
                 </div>
@@ -165,7 +216,8 @@ const UserProfile = () => {
                   <div className="d-flex justify-content-between mt-4">
                     <p className="fb-fs-26 fw-bold">My Account</p>
                     <div className="d-flex">
-                      <img
+                      <button className="d-inline-flex align-items-end border-0 bg-transparent" onClick={() => HandleEdit( )}>
+                        <img
                         className="img-fluid"
                         src={pencilImg}
                         alt="pencil"
@@ -176,9 +228,10 @@ const UserProfile = () => {
                         }}
                       />
                       <p className="fw-500 mt-2">Edit</p>
+                      </button>
                     </div>
                   </div>
-                  <form>
+                  <form onSubmit={profile.handleSubmit}>
                     <div className="container fb-container">
                       <div className="row">
                         <div className="col-md-6">
@@ -187,7 +240,11 @@ const UserProfile = () => {
                             className="rounded-20 me-5 mt-4"
                             id="outlined-basic"
                             label="Name"
+                            name="full_name"
                             variant="outlined"
+                            value={profile.values.full_name}
+                            onChange={profile.handleChange}
+                            onBlur={profile.handleBlur}
                           />
                         </div>
                         <div className="col-md-6">
@@ -196,7 +253,11 @@ const UserProfile = () => {
                             className="rounded-20 me-5 mt-4"
                             id="outlined-basic"
                             label="Email Address"
+                            name="email"
                             variant="outlined"
+                            value={profile.values.email}
+                            onChange={profile.handleChange}
+                            onBlur={profile.handleBlur}
                           />
                         </div>
                         <div className="col-md-6">
@@ -205,10 +266,17 @@ const UserProfile = () => {
                             className="rounded-20 me-5 mt-4"
                             id="outlined-basic"
                             label="Phone Number"
+                            name="phone"
+                            type="number"
                             variant="outlined"
+                            minValue={10}
+                            maxValue={10}
+                            value={profile.values.phone}
+                            onChange={profile.handleChange}
+                            onBlur={profile.handleBlur}
                           />
                         </div>
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6">
                           <TextField
                             fullWidth
                             className="rounded-20 me-5 mt-4"
@@ -216,6 +284,9 @@ const UserProfile = () => {
                             label="Alternate Phone Number"
                             variant="outlined"
                           />
+                        </div> */}
+                        <div className="col-12 mt-4 text-end">
+                          <button type="submit" className="button-primary">Save</button>
                         </div>
                       </div>
                     </div>
@@ -394,8 +465,10 @@ const UserProfile = () => {
                     <button
                       type="button"
                       className="d-flex mt-4 pt-2 border-0 bg-transparent"
-                      onClick={() => {setOpen(!open)
-                      setEditData(null)}}
+                      onClick={() => {
+                        setOpen(!open)
+                        setEditData(null)
+                      }}
                       aria-controls="example-collapse-text"
                       aria-expanded={open}
                     >
@@ -511,9 +584,8 @@ const UserProfile = () => {
                     ) : addressList.length > 0 ? (
                       addressList.map((item, index) => (
                         <div
-                          className={`summary-card ${
-                            item?.selected ? "active" : ""
-                          } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                          className={`summary-card ${item?.selected ? "active" : ""
+                            } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
                           key={index}
                           onClick={() => handleSelectAddress(item?.id)}
                         >
@@ -522,9 +594,8 @@ const UserProfile = () => {
                               <div className="col-md-12">
                                 <div className="order-date d-flex">
                                   <img
-                                    className={`img-fluid me-1 rounded-4 ${
-                                      item?.selected ? "shadow" : ""
-                                    }`}
+                                    className={`img-fluid me-1 rounded-4 ${item?.selected ? "shadow" : ""
+                                      }`}
                                     src={homeImg}
                                     alt="pencil"
                                   />
@@ -552,10 +623,10 @@ const UserProfile = () => {
                               <div className="col-md-11">
                                 <div className="d-flex mt-2">
                                   <button className="border-0 bg-transparent" onClick={() => {
-                                        setOpen(!open)
-                                        setEditData(item);
-                                      
-                                      }}>
+                                    setOpen(!open)
+                                    setEditData(item);
+
+                                  }}>
                                     <img
                                       className="img-fluid me-3"
                                       src={editButton}

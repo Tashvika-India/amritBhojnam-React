@@ -118,9 +118,15 @@ export const getBestPriceApi = () => API.get("best-price-products/")
 export const postSelectAddressApi = (payload) => API.post(`/accounts/address/select/`, payload);
 export const getAddressApi = () => API.get(`/accounts/addresses/`);
 export const postAddressApi = (payload) => API.post(`/accounts/addresses/`, payload);
-export const putAddressApi = (id, payload) =>API.put(`/accounts/address/${id}`, payload); 
+export const putAddressApi = (id, payload) => API.put(`/accounts/address/${id}`, payload); 
 export const deleteAddressApi = (id) => API.delete(`/accounts/address/${id}`);``
 
 // Wishlist api
-export const getWishlist = () => API.get("wishlist/");
-export const postWishlist = (payload) => API.post(`wishlist/`, payload);
+export const getWishlist = () => API.get(`/wishlist/`);
+export const postWishlist = (payload) => API.post(`/wishlist/`, payload);
+
+//profile api
+export const getProfile = () => API.get(`/profiles/`);
+export const getProfileApi = (id) => API.get(`/profiles/${id}/`);
+export const postProfileApi = (payload) => API.post(`/profiles/`, payload);
+export const putProfileApi = (payload) => API.put(`/profiles/`, payload);
