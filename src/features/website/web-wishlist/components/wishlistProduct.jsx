@@ -1,30 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "../../web-home/components/ProductCard";
 import { getWishlist } from "../../../../services/adminApiRoutes";
+import { useSelector } from "react-redux";
 
 const WishList = () => {
-  const [wishlist, setWishlist] = useState([]);
-  const [loading, setLoading] = useState(false);
-  async function getWishlistData() {
-    setLoading(true);
-    try {
-      const response = await getWishlist();
-      const data = response?.data || [];
-      const correctData = data?.map((product) => ({
-        ...product,
-        is_wishlist: true,
-      }));
-      setWishlist(correctData);
-  
-    } catch (error) {
-      console.log("Error on Product List", error);
-    } finally {
-      setLoading(false);
-    }
-  }
-  useEffect(() => {
-    getWishlistData();
-  }, []);
+  const { wishlist=[], loading } = useSelector((state) => state.wishlist);
   return (
     <>
       <div
@@ -37,7 +17,7 @@ const WishList = () => {
         {wishlist?.map((data, index) => (
           <div className="item-slide px-2 px-lg-0" key={index}>
             <div className="cat-itmes gap-0 ">
-              <ProductCard product={data} getWishlistData={getWishlistData} />
+              <ProductCard product={data} getWishlistData={wishlist} />
             </div>
           </div>
         ))}

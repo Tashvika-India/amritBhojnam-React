@@ -5,11 +5,14 @@ import fireImg from "../../../../assets/images/web/Fire.png";
 import { Link } from "react-router-dom";
 import { baseURL } from "../../../../utils/constant-variable";
 import { postCartApi, postWishlist } from "../../../../services/adminApiRoutes";
+import { useDispatch } from "react-redux";
+import { updateWishlist } from "../../../../redux/slices/wishlistSlice";
 
 const ProductCard = ({ product }) => {
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [checked, setChecked] = useState(product?.is_wishlist || false);
+  const dispatch = useDispatch();
 
   const decreaseQuantity = () => {
     setQuantity((prev) => Math.max(0, prev - 1));
@@ -28,12 +31,13 @@ const ProductCard = ({ product }) => {
     setChecked(updatedChecked); // Update UI immediately
     const data = { product_id: product?.id, action: updatedChecked };
 
-    try {
-      await postWishlist(data);
-    } catch (error) {
-      console.error("Error updating wishlist:", error);
-      setChecked(!updatedChecked); // Revert state on error
-    }
+    // try {
+    //   await postWishlist(data);
+    // } catch (error) {
+    //   console.error("Error updating wishlist:", error);
+    //   setChecked(!updatedChecked); // Revert state on error
+    // }
+    dispatch(updateWishlist(data));
   };
 
   async function addToCart(product_id, quantity) {
@@ -98,7 +102,7 @@ const ProductCard = ({ product }) => {
             </small>
             ₹ {product?.offer_price}
           </h6>
-          <div>
+          {/* <div>
             {quantity === 0 ? (
               <button
                 className="button-primary py-1 rounded fb-fs-14 fw-600"
@@ -129,7 +133,7 @@ const ProductCard = ({ product }) => {
                 </div>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

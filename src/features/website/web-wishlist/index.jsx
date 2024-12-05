@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
-import { Tab } from "react-bootstrap";
-import Loading from "../../../components/ui/Loading";
-import ProductCard from "../web-home/components/ProductCard";
 import WishList from "./components/wishlistProduct";
-import { Checkbox } from "@mui/material";
-import { Favorite, FavoriteBorder, Label } from "@mui/icons-material";
-import BestProduct from "../web-home/components/BestProduct";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchWishlist } from "../../../redux/slices/wishlistSlice";
+
 
 const Wishlist = () => {
-  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchWishlist());
+  }, []);
 
   return (
     <div className="web-wrapper-main">
@@ -41,7 +43,7 @@ const Wishlist = () => {
             </div>
           </div>
           <div className="row" >
-          <WishList /> 
+            <WishList />
           </div>
         </div>
       </section>
