@@ -106,61 +106,60 @@ const AboutUs = () => {
               </p>
             </div>
           </div>
+          {/* Marquee section with Framer Motion */}
+          <motion.div
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="marquee flex-shrink-0 mb-md-5 mb-lg-0 mb-xl-5 pb-lg-5 pb-sm-5 pt-md-4  pt-sm-4"
+            style={{ whiteSpace: "nowrap" }}
+          >
+            {/* Add text or images that you want to animate in the marquee */}
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
 
-             {/* Marquee section with Framer Motion */}
-       <motion.div
-          initial={{ x: "-100%" }}
-          animate={{ x: 0 }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="marquee flex-shrink-0 mb-md-5 mb-lg-0 mb-xl-5 pb-lg-5 pb-sm-5 pt-md-4  pt-sm-4"
-          style={{ whiteSpace: "nowrap" }}
-        >
-          {/* Add text or images that you want to animate in the marquee */}
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-          <span className="marquee-content text-yellow fb-fs-30  px-5">
-           MILLET POWER
-          </span>
-        </motion.div>
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+              MILLET POWER
+            </span>
+          </motion.div>
           <div className="row mx-xl-5 mx-lg-0 px-xl-4 px-lg-4">
             <div className="col-lg-4 col-sm-6">
               <div className="card rounded-20">
@@ -191,7 +190,9 @@ const AboutUs = () => {
                     alt="logo"
                     loading="lazy"
                   />
-                  <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">Wide Assortment</p>
+                  <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">
+                    Wide Assortment
+                  </p>
                   <p className=" mb-5">
                     There are many variations of passages of Lorem Ipsum
                     available, but the majority have suffered alteration in some
@@ -209,7 +210,9 @@ const AboutUs = () => {
                     alt="logo"
                     loading="lazy"
                   />
-                  <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">Free Delivery</p>
+                  <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">
+                    Free Delivery
+                  </p>
                   <p className=" mb-5">
                     There are many variations of passages of Lorem Ipsum
                     available, but the majority have suffered alteration in some
@@ -227,7 +230,9 @@ const AboutUs = () => {
                     alt="logo"
                     loading="lazy"
                   />
-                  <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">Easy Returns</p>
+                  <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">
+                    Easy Returns
+                  </p>
                   <p className=" mb-5">
                     There are many variations of passages of Lorem Ipsum
                     available, but the majority have suffered alteration in some
@@ -245,7 +250,9 @@ const AboutUs = () => {
                     alt="logo"
                     loading="lazy"
                   />
-                  <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">100% Satisfaction</p>
+                  <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">
+                    100% Satisfaction
+                  </p>
                   <p className=" mb-5">
                     There are many variations of passages of Lorem Ipsum
                     available, but the majority have suffered alteration in some
@@ -275,10 +282,8 @@ const AboutUs = () => {
               </div>
             </div>
           </div>{" "}
-         
-         
-          </div>
-       
+        </div>
+
         <div className="about-bottom">
           <div className="container fb-container">
             <div className="row pt-4">

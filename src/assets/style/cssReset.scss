@@ -9,6 +9,7 @@ $brown: #ac562d;
 $dark-grey: #3b3b3b;
 $black: #231d25;
 $red: #E50000;
+$semi-orange: #FB9300;
 $grey: #979797;
 $border: #dcdad5;
 $border-light: #d7d7d7;
@@ -16,6 +17,8 @@ $light-orange: #ffede3;
 $light-yellow: #fff2d7;
 $mid-gray: #918e92;
 $background: #F7F7F7;
+$blue: #0073C6;
+$yellow-bg: #FFF7EA;
 
 
 $font-Poppins: "Poppins", sans-serif;
@@ -98,6 +101,9 @@ td {
 .text-dark-brown{
     color: $dark-brown !important;
 }
+.text-blue{
+    color: $blue !important;
+}
 .text-brown{
     color: $brown !important;
 }
@@ -121,6 +127,10 @@ td {
     color: $yellow !important;
 }
 
+.bg-footer-bg{
+    background-color: $yellow-bg !important;
+}
+
 .text-grey{
     color: $grey !important;
 }
@@ -139,9 +149,11 @@ td {
     background-color: $yellow;
 }
 
-.bg-light-orange {
-    background-color: $light-orange;
+.bg-semi-orange{
+    background-color: $semi-orange !important;
 }
+
+
 .bg-light{
     background-color: $light !important; 
 }

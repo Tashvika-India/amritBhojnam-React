@@ -13,6 +13,8 @@ import flourImg from "../../../assets/images/web/products/flour.png";
 import idlliImg from "../../../assets/images/web/products/idlli.png";
 import murukuImg from "../../../assets/images/web/products/muruku.png";
 import phoneImg from "../../../assets/images/web/phone.png";
+import bestBackgroundTop from "../../../assets/images/web/best-background-top.png";
+import bestBackgroundBottom from "../../../assets/images/web/best-background-bottom.png";
 import appleBtn from "../../../assets/images/web/apple-btn.png";
 import androidBtn from "../../../assets/images/web/android-btn.png";
 import milletUpper from "../../../assets/images/web/millet-upper.png";
@@ -21,11 +23,13 @@ import milletBottom from "../../../assets/images/web/millet-bottom.png";
 import milletRight from "../../../assets/images/web/millet-right.png";
 import grain1 from "../../../assets/images/web/grain-1.png";
 import grain2 from "../../../assets/images/web/grain-2.png";
+import earthImage from "../../../assets/images/web/earth-image.png";
 import grain3 from "../../../assets/images/web/grain-3.png";
 import WebBanner from "./components/WebBanner";
 import ItemSlide from "./components/ItemSlide";
+import { FaAsterisk } from "react-icons/fa6";
 import popProduct from "../../../assets/images/web/popular-product.png";
-import bestOffer from "../../../assets/images/web/offers/best-price.png"; 
+import bestOffer from "../../../assets/images/web/offers/best-price.png";
 import deliveryImg from "../../../assets/images/web/offers/delivery.png";
 import greatDeal from "../../../assets/images/web/offers/great-deal.png";
 import easyReturn from "../../../assets/images/web/offers/easy-return.png";
@@ -38,7 +42,7 @@ import {
   getProductApi,
   getBestPriceApi,
 } from "../../../services/adminApiRoutes";
-import Loading from "../../../components/ui/Loading"; 
+import Loading from "../../../components/ui/Loading";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { baseURL } from "../../../utils/constant-variable";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
@@ -77,14 +81,12 @@ const HomePage = () => {
   async function getBestPrice() {
     try {
       const response = await getBestPriceApi();
-      console.log("response", response);
 
       setBestPrice(response?.data || []);
     } catch (error) {
       console.log("Error on Product List", error);
     }
   }
-
 
   async function getCategory() {
     setLoading(true);
@@ -114,21 +116,102 @@ const HomePage = () => {
       <section>
         <div
           className="home-banner-wrapper"
-          style={{ maxWidth: "90%", maxHeight: "90%", margin: "0 auto" }}>
+          style={{ maxWidth: "90%", maxHeight: "90%", margin: "0 auto" }}
+        >
           <WebBanner />
+          <div>
+            <div className="row my-4 px-lg-3">
+              <div className="col-md-4">
+                <div className="card-left">
+                  <div className="row">
+                    <div className="col-md-6 ps-lg-5 ps-4">
+                      <div className="pt-lg-4 pt-2 mt-2">
+                        <p className="text-white fb-fs-24">Beyond Business,</p>
+                        <p className="text-white fb-fs-28 fw-bold lh-1">
+                          Backing Farmers
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-white py-lg-4 py-3 mt-2 mb-5">
+                          Farmers are the backbone of our organic journey. We
+                          strive to build communities, support organic
+                          practices, ensure sustainable livelihoods, and nurture
+                          strong partnerships with them.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="col-md-6"></div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="card-center">
+                  <div className="row">
+                    <div className="col-md-6 ps-5">
+                      <div className="pt-4 mt-2">
+                        <p className="text-white fb-fs-24">Wholesome Food,</p>
+                        <p className="text-white fb-fs-28 fw-bold lh-1">
+                          Fulfilling Life
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-white py-4 mt-2 mb-5">
+                          Organic is a lifestyle, a habit, and a practice
+                          combined. It embodies the methods of growing and
+                          processing food naturally.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="col-md-6"></div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="card-right">
+                  <div className="row">
+                    <div className="col-md-6 ps-5 ms-2">
+                      <div className="pt-4 mt-2">
+                        <p className="text-white fb-fs-24">Healthy Bites,</p>
+                        <p className="text-white fb-fs-28 fw-bold lh-1">
+                          Greener Future
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-white py-4 mt-2 mb-5">
+                          Every healthy bite you take nurtures your body and the
+                          planet. Together, let's build a greener future, one
+                          meal at a time.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="col-md-6"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-      <section>
+      <section className="explore-categories">
         <div className="container fb-container">
+        <div className="text-center mb-4">
+        <p className="fb-fs-40 text-blue">
+        EAT HEALTHY
+        </p>
+        <h1 className="text-blue fw-bolder">BE HEALTHY</h1>
+        <button className="orange-button align-item-center mt-3 mb-5 fb-fs-20">Explore Categories</button>
+        </div>
           <div className="cat-items-wrapper">
             {category?.map((item, index) => (
               <Link
                 to={`/products?category_id=${item.id}`}
                 className="cat-card"
-                key={index}>
+                key={index}
+              >
                 <motion.div whileHover={{ scale: 1.1 }} className="cat-itmes">
                   <div className="item-image">
-                    <img className="img-fluid"
+                    <img
+                      className="img-fluid"
                       src={baseURL + item.img_file}
                       alt="millet-rice"
                     />
@@ -142,40 +225,39 @@ const HomePage = () => {
       </section>
       <section>
         <div className="container fb-container">
-            <div className="row">
-              <div className="col-md-6">
-                <h3 className="fw-bold">Our Best Selling Products</h3>
-              </div>
-              <div className="col-md-12">
-                <div className="row">
-                  <div
-                    className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
-                    style={{
-                      gridTemplateColumns:
-                        window.innerWidth > 768
-                          ? "repeat(5, 1fr)"
-                          : "repeat(2, 1fr)",
-                    }}>
-                    {loading ? (
-                      <Loading />
-                    ) : (
-                      products?.map((item, index) => (
-                        <ProductCard product={item} key={index} />
-                      ))
-                    )}
-                  </div>
+          <div className="row">
+            <div className="col-md-6">
+              <h3 className="fw-bold">Our Best Selling Products</h3>
+            </div>
+            <div className="col-md-12">
+              <div className="row">
+                <div
+                  className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
+                  style={{
+                    gridTemplateColumns:
+                      window.innerWidth > 768
+                        ? "repeat(5, 1fr)"
+                        : "repeat(2, 1fr)",
+                  }}
+                >
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    products?.map((item, index) => (
+                      <ProductCard product={item} key={index} />
+                    ))
+                  )}
                 </div>
               </div>
-            </div> 
+            </div>
+          </div>
         </div>
       </section>
       <section className="offer-cards">
         <div className="container fb-container">
           <div className="row">
             <div className="col-lg-6 col-md-12 pe-4">
-              <div
-                className="protein-left"
-              >
+              <div className="protein-left">
                 <div className="left-content p-5">
                   <h4 className="fw-bold mb-lg-3">
                     Upto 40% Off on special Items
@@ -194,9 +276,7 @@ const HomePage = () => {
             <div className="col-lg-6 col-md-12 ps-4">
               <div className="row">
                 <div className="col-md-12 mb-lg-4 mb-3">
-                  <div
-                    className="protein-right-top"
-                  >
+                  <div className="protein-right-top">
                     <div className="right-top-content p-5 pb-4">
                       <h4 className="fw-bold mb-3">Upto 40% Off </h4>
                       <p className="fw-500">
@@ -210,9 +290,7 @@ const HomePage = () => {
                   </div>
                 </div>
                 <div className="col-md-12 mt-lg-4">
-                  <div
-                    className="protein-right-bottom"
-                  >
+                  <div className="protein-right-bottom">
                     <div className="right-bottom-content p-5 pb-4">
                       <h4 className="fw-bold mb-3">Upto 40% Off </h4>
                       <p className="fw-500">
@@ -230,16 +308,66 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      <section className="overflow-hidden">
+        <div className="container-fluid px-0 mt-3">
+          <div className="row">
+            {/* Marquee section with Framer Motion */}
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              className="marquee flex-shrink-0 "
+              style={{ whiteSpace: "nowrap" }}
+            >
+              {/* Add text or images that you want to animate in the marquee */}
+              <div>
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
+                  Next your pro enjoy 12 months of zilly for $50/month on select
+                  plans.
+                </span>
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
+                  Next your pro enjoy 12 months of zilly for $50/month on select
+                  plans.
+                </span>
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
+                  Next your pro enjoy 12 months of zilly for $50/month on select
+                  plans.
+                </span>
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
+                  Next your pro enjoy 12 months of zilly for $50/month on select
+                  plans.
+                </span>
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
+                  Next your pro enjoy 12 months of zilly for $50/month on select
+                  plans.
+                </span>
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
+                  Next your pro enjoy 12 months of zilly for $50/month on select
+                  plans.
+                </span>
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
+                  Next your pro enjoy 12 months of zilly for $50/month on select
+                  plans.
+                </span>
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
+                  Next your pro enjoy 12 months of zilly for $50/month on select
+                  plans.
+                </span>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
       <section>
         <div className="container fb-container">
           <h3 className="fw-bold text-center mb-5">Super Saver of the Week</h3>
           <ItemSlide />
         </div>
       </section>
-      <section className="banner-ads">
-        <div className="container-fluid">
+      <section className="banner-ads mt-5">
+        <div className="container-fluid px-0">
           <div className="row">
-            <div className="col-md-6 p-0">
+            {/* <div className="col-md-6 p-0">
               <div className="image-sec">
                 <img
                   className="d-lg-block d-md-block d-none desktop-ban h-100"
@@ -270,22 +398,43 @@ const HomePage = () => {
                 </p>
                 <button className="button-white rounded-3">Shop Now</button>
               </div>
+            </div> */}
+            <div className="col-md-5">
+              <div>
+                <img
+                  className="d-lg-none d-md-block d-none desktop-ban h-100"
+                  src={earthImage}
+                  alt="banner-ads"
+                />
+              </div>
+            </div>
+            <div className="col-md-7">
+              <div className="content-sec">
+                <h2 className="pb-3 fw-normal text-white lh-1">
+                  Good For
+                  <span className="fw-bold">
+                    You <br></br> and the Planet
+                  </span>
+                </h2>
+                <p className="pb-5 text-white w-75">
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer
+                </p>
+                <button className="button-white rounded-3">Shop Now</button>
+              </div>
             </div>
           </div>
         </div>
-      </section> 
+      </section>
       <section className="popular-product" id="best">
-
         <div className="container fb-container">
           <h3 className="fw-bold text-center mb-5">Daily Best Sells</h3>
           <div className="row">
             <div className="col-md-5 align-self-center">
               <div className="popularleft">
-                <img
-                  src={popProduct}
-                  alt="amrit img"
-                  className="img-fluid"
-                />
+                <img src={popProduct} alt="amrit img" className="img-fluid" />
               </div>
             </div>
             <div className="col-md-7">
@@ -343,11 +492,36 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-      </section> 
-      <section className="best-product" id="popular"> 
-        <div className="container fb-container">
-          <h3 className="fw-bold mb-5">Popular Products</h3>
-          <BestProduct products={popularProduct} />
+      </section>
+      <section className="best-product" id="popular">
+        <div className="container-fluid px-0">
+          <div>
+            <img
+              className="img-fluid h-100 mt-5"
+              style={{ marginBottom: "-1px" }}
+              src={bestBackgroundTop}
+              alt="purchase-page"
+            />
+          </div>
+          <div className="bg-semi-orange h-100 py-5">
+            <h3 className="fw-bold mb-5 text-center text-white">
+              Our Best Selling Products
+            </h3>
+            <BestProduct products={popularProduct} />
+            <div className="mt-5 text-center">
+              <button className="white-button fw-500 mt-2">
+                See all Products
+              </button>
+            </div>
+          </div>
+          <div>
+            <img
+              className="img-fluid h-100"
+              style={{ marginTop: "-1px" }}
+              src={bestBackgroundBottom}
+              alt="purchase-page"
+            />
+          </div>
         </div>
       </section>
       <section className="first_purchase">
@@ -480,7 +654,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <section>
+      {/* <section>
         <div className="container fb-container">
           <div className="cat-items-wrapper offers-cards">
             <div className="cat-itmes bg-light border-raidus-10">
@@ -545,7 +719,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <Footer />
     </div>
   );
