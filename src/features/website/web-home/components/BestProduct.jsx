@@ -11,18 +11,20 @@ const BestProduct = ({ products }) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 6,
+  //   centerMode: true,
+  // centerPadding: '40px',
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 1000,
     arrows: true,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+    // nextArrow: <SampleNextArrow />,
+    // prevArrow: <SamplePrevArrow />,
     responsive: [
       {
         breakpoint: 1024, // For mid-sized screens (tablets, etc.)
         settings: {
-          slidesToShow: 5, // Show 3 items
+          slidesToShow: 6, // Show 3 items
         },
       },
       {

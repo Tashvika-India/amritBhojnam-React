@@ -61,7 +61,7 @@ const ProductCard = ({ product }) => {
   }, [quantity]);
 
   return (
-    <div className="product-card border pb-3 d-flex flex-column justify-content-between">
+    <div className="product-card border pb-3 d-flex flex-column justify-content-between bg-white">
       <div className="d-flex justify-content-between product-fav">
         <div>
           <span className="product-badge badge bg-yellow fw-500">10% off</span>
