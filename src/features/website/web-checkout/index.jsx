@@ -22,6 +22,8 @@ import { baseURL } from "../../../utils/constant-variable";
 import { useFormik } from "formik";
 import { get } from "jquery";
 import Address from "../../../assets/common-components/website/Address";
+import { FaRegUser } from "react-icons/fa";
+import MobileLogin from "../../../components/ui/MobileLogin";
 
 
 const CheckoutPage = () => {
@@ -31,6 +33,13 @@ const CheckoutPage = () => {
   const [finalCart, setFinalCart] = useState({});
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
+  const [showWebLogin, setShowWebLogin] = useState(false);
+
+  const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
+
+  const accessToken = localStorage.getItem("access") || localStorage.getItem("refresh");
+
+  const login = accessToken;
 
   const getCartList = async () => {
     try {
@@ -95,7 +104,6 @@ const CheckoutPage = () => {
       setLoading(true);
       try {
         const response = await postAddressApi(values);
-        console.log("response", response);
         const address_id = response?.data?.id;
         await postSelectAddressApi({ address_id });
         getAddressList();
@@ -127,7 +135,7 @@ const CheckoutPage = () => {
 
   return (
     <div className="web-wrapper-main">
-      <Header cart={cartList} />
+      <Header />
       <div className="container fb-container">
         <div className="row">
           <div className="col-lg-11 col-md-12 mx-auto">
@@ -226,6 +234,7 @@ const CheckoutPage = () => {
                         </Link>
                       </div>
                     )}
+
                     <div className="cart-items mt-5">
                       <ul className="list-unstyled w-100">
                         <li className="d-flex justify-content-between my-2">
@@ -260,9 +269,26 @@ const CheckoutPage = () => {
                         </h5>
                       </div>
                     </div>
-                    <div className="w-100">
-                      <button className="button-primary w-100" onClick={() => handlePayNow(finalCart.amount_to_pay, 'xyz', 'xyz@gmail.com', '999999999', finalCart, 'success', 'fail')}>Pay Now</button>
-                    </div>
+                    {(cartList.length > 0 ) ? (
+                      <>
+                        <div className="w-100">
+                          {
+                            (login) ?
+                              <button className="button-primary w-100" onClick={() => handlePayNow(finalCart.amount_to_pay, 'xyz', 'xyz@gmail.com', '999999999', finalCart, 'success', 'fail')}>Pay Now</button>
+                              :
+                              <button className="button-primary w-100" onClick={toggleWebLogin}>
+                                Login
+                              </button>
+                          }
+                          <MobileLogin
+                            otpShow={showWebLogin}
+                            onOtpClose={toggleWebLogin}
+                            align="end"
+                          />
+                        </div>
+                      </>
+                    )
+                      : ''}
                   </div>
                 </div>
               </div>
