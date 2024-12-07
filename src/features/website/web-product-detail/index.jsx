@@ -14,6 +14,8 @@ import { useParams } from "react-router-dom";
 import { getCartApi, getProductApi, postCartApi } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import MyCartMenu from "../../../components/ui/MyCartMenu";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart, fetchFinalCart } from "../../../redux/slices/cartSlice";
 
 const ProudctDetail = () => {
   const [rating, setRating] = useState(0);
@@ -26,10 +28,10 @@ const ProudctDetail = () => {
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const toggleCart = () => setShowCart(!showCart);
-  const [detail, setDetail] = useState({});
+  const [detail, setDetail] = useState({}); 
 
   const radios = [{ name: `${detail?.quantity}${detail?.quantity_unit}`, value: '1' }];
-
+  const dispatch = useDispatch();
   const fetchProductDetail = async () => {
     try {
       const response = await getProductApi(filters);
@@ -41,6 +43,7 @@ const ProudctDetail = () => {
   };
 
   const handleClick = () => {
+    dispatch(fetchCart());
     if (quantity === 0 || quantity === undefined) {
       setQuantity(1);
     }
@@ -53,6 +56,8 @@ const ProudctDetail = () => {
         product_id,
         item_quantity: quantity,
       });
+      console.log("response", response);
+      
     } catch (error) {
       console.log("Error adding to cart:", error);
     } finally {
@@ -68,10 +73,13 @@ const ProudctDetail = () => {
   }, [quantity]);
 
   useEffect(() => {
-    fetchProductDetail();
+    fetchProductDetail();      
   }, [showCart , quantity]);
 
- 
+
+  console.log("detail", detail);
+  
+
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -83,7 +91,7 @@ const ProudctDetail = () => {
             </div>
             <div className="col-lg-6 col-12">
               <div className="product-detail-content ps-4">
-                <div className="d-flex justify-content-between">
+                {/* <div className="d-flex justify-content-between">
                   <p className="fb-fs-18 fw-600 d-flex text-brown">
                     <span>
                       <img
@@ -94,7 +102,7 @@ const ProudctDetail = () => {
                     </span>
                     80 Calories
                   </p>
-                  <div>
+                  <div className="ms-auto">
                     <Checkbox
                       {...label}
                       icon={<FavoriteBorder />}
@@ -103,7 +111,7 @@ const ProudctDetail = () => {
                     />
                     <ShareIcon style={{ color: "#F26722" }} className="ms-2" />
                   </div>
-                </div>
+                </div> */}
                 <h4 className="fb-fs-30 fw-bold">
                   {detail?.name}
                 </h4>
@@ -262,7 +270,7 @@ const ProudctDetail = () => {
                               detail?.long_description
                             }
                           </p>
-                          <p className="mb-4">
+                          {/* <p className="mb-4">
                             Spluttered narrowly yikes left moth in yikes bowed
                             this that grizzly much hello on spoon-fed that alas
                             rethought much decently richly and wow against the
@@ -310,7 +318,7 @@ const ProudctDetail = () => {
                           <h6 className="mb-4">Warnings</h6>
                           <ul className="mb-4 disc-style ms-4">
                             <li>Oil separation occurs naturally. May contain pieces of shell.</li>
-                          </ul>
+                          </ul> */}
                         </Tab.Pane>
                         <Tab.Pane eventKey="Additional Info">
                           Second tab content

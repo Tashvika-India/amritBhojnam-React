@@ -15,7 +15,9 @@ import MobileLogin from "../../components/ui/MobileLogin";
 import { getCategoriesApi } from "../../services/adminApiRoutes";
 import useURLFilters from "../../custom-compoents/useURLFilters";
 import { getWishlist } from "../../services/adminApiRoutes";
-const Header = ({ cart = "" }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../../redux/slices/cartSlice";
+const Header = () => {
   const [search, setSearch] = useState("");
   const [showCart, setShowCart] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -23,6 +25,8 @@ const Header = ({ cart = "" }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useURLFilters();
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [category, setCategory] = useState([]);
   const [showWebLogin, setShowWebLogin] = useState(false);
@@ -34,9 +38,10 @@ const Header = ({ cart = "" }) => {
   const toggleMobileLogin = () => setShowMobileLogin((prev) => !prev);
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
 
-  const accessToken = localStorage.getItem("access");
-  // const user = localStorage.getItem("user");
- 
+  const { cartItems, finalCart, loading: cartLoading, error } = useSelector((state) => state.cart);
+
+  const accessToken = localStorage.getItem("access") || localStorage.getItem("refresh");
+
   const login = accessToken;
 
   const handleSearchSubmit = (e) => {
@@ -66,6 +71,7 @@ const Header = ({ cart = "" }) => {
 
   useEffect(() => {
     getCategory();
+    dispatch(fetchCart());
 
   }, []);
 
@@ -79,7 +85,7 @@ const Header = ({ cart = "" }) => {
               order now.
             </p>
             <p className="text-white fw-500 fb-fs-14">
-              Need Help? Call Us:{" "}
+              Need Help? Call Us:
               <a
                 className="text-white text-decoration-none"
                 href="tel:+1800 900 5600"
@@ -169,14 +175,13 @@ const Header = ({ cart = "" }) => {
                   </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <button
                     onClick={toggleCart}
-                    className="d-inline-flex flex-column justify-content-center align-items-center"
+                    className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
                   >
                     <div className="position-relative">
                       <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
-                        {cart.length}
+                        {cartItems.length}
                         <span className="visually-hidden">unread messages</span>
                       </span>
                       <CgShoppingBag size={"1.625rem"} />
@@ -184,41 +189,40 @@ const Header = ({ cart = "" }) => {
                     <span className="d-inline-block fb-fs-14 fw-600">
                       My Cart
                     </span>
-                  </a>
+                  </button>
                   <MyCartMenu show={showCart} onClose={toggleCart} />
                 </li>
               </ul>
-              <ul className="list-unstyled d-flex d-xl-none align-items-center justify-content-between gap-4 mobile-header-actions">
-                <li>
+              <ul className="list-unstyled d-flex d-xl-none align-items-center justify-content-between gap-2 mobile-header-actions">
+                {/* <li>
                   <a
                     href="#"
                     className="d-inline-flex flex-column justify-content-center align-items-center"
                   >
                     <IoSearchOutline size={"1.625rem"} />
                   </a>
-                </li>
+                </li> */}
                 <li>
-                  <a
-                    href="#"
-                    className="d-inline-flex flex-column justify-content-center align-items-center"
+                  <button
+                    onClick={toggleCart}
+                    className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
                   >
                     <div className="position-relative">
                       <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
-                        1
+                        {cartItems.length}
                         <span className="visually-hidden">unread messages</span>
                       </span>
                       <CgShoppingBag size={"1.625rem"} />
                     </div>
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <button
                     onClick={toggleMobileMenu}
-                    className="d-inline-flex flex-column justify-content-center align-items-center"
+                    className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
                   >
                     <IoMdMenu size={"1.625rem"} />
-                  </a>
+                  </button>
                   <MobileMenu
                     show={showMobileMenu}
                     onClose={toggleMobileMenu}
@@ -268,7 +272,7 @@ const Header = ({ cart = "" }) => {
                   </li>
                   <li>
                     <a href="#" className="text-orange">
-                      Almost Finished{" "}
+                      Almost Finished
                       <span className="ms-2 text-white text-uppercase badge bg-orange fb-fs-14 fw-500">
                         SALE
                       </span>

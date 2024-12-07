@@ -15,6 +15,7 @@ import deleteButton from "../../../assets/images/web/account/delete-button.png";
 import {
   deleteAddressApi,
   getAddressApi, 
+  getProfile, 
   getProfileApi,
   postAddressApi,
   postProfileApi,
@@ -30,6 +31,8 @@ const UserProfile = () => {
   const [addressList, setAddressList] = useState([]);
   const [editData, setEditData] = useState([null]);
   const [user, setUser] = useState({});
+  const [userDetail, setUserDetail] = useState({});
+  
 
   const getAddressList = async () => {
     try {
@@ -103,6 +106,16 @@ const UserProfile = () => {
     },
   });
 
+  const getProfileList = async () => {
+    try {
+      const response = await getProfile();
+      setUserDetail(response?.data[0] || []);
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+    } finally {
+    }
+  };
+
 
   const profile = useFormik({
     initialValues: {
@@ -166,12 +179,11 @@ const UserProfile = () => {
       setSubmitting(false);
     }
   };
-
-  console.log("user", user);
-  
+ 
 
   useEffect(() => {
     getAddressList();
+    getProfileList();
   }, []);
  
 
