@@ -2,17 +2,31 @@ import axios from "axios";
 
 const apiurl = import.meta.env.VITE_BASE_API_URL + "/api";
 
+// Axios Instance
 const API = axios.create({
   baseURL: apiurl,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
+// Token Refresh Logic
+let isRefreshing = false;
+let failedQueue = [];
 
-// Refresh token function
+const processQueue = (error, token = null) => {
+  failedQueue.forEach((prom) => {
+    if (token) prom.resolve(token);
+    else prom.reject(error);
+  });
+  failedQueue = [];
+};
+
 const refreshAccessToken = async () => {
   try {
     const refreshToken = localStorage.getItem("refresh");
     if (!refreshToken) throw new Error("No refresh token available");
 
-    const response = await axios.post(`${apiurl}/accounts/token/refresh/`, {
+    const response = await API.post("/accounts/token/refresh/", {
       refresh: refreshToken,
     });
 
@@ -21,42 +35,63 @@ const refreshAccessToken = async () => {
 
     return newAccessToken;
   } catch (error) {
-    console.error("Failed to refresh token", error);
-    return null;
+    console.error("Failed to refresh token:", error.message);
+    throw error;
   }
 };
 
-// Add interceptor to handle expired tokens
-API.interceptors.response.use(
-  (response) => response, // Pass through if the response is successful
-  async (error) => {
-    if (error.response && error.response.status === 401) {
-      // Try refreshing the token if we get a 401 error
-      const newAccessToken = await refreshAccessToken();
+API.interceptors.request.use(
+  (config) => {
+    const accessToken = localStorage.getItem("access");
+    if (accessToken) {
+      config.headers["Authorization"] = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
-      if (newAccessToken) {
-        // Retry the original request with the new access token
-        error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
-        return axios(error.config);
-      } else {
-        // Logout or handle the error if token refresh fails
+API.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then((token) => {
+            originalRequest.headers["Authorization"] = `Bearer ${token}`;
+            return API(originalRequest);
+          })
+          .catch((err) => Promise.reject(err));
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      try {
+        const newAccessToken = await refreshAccessToken();
+        processQueue(null, newAccessToken);
+        isRefreshing = false;
+
+        originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+        return API(originalRequest);
+      } catch (err) {
+        processQueue(err, null);
+        isRefreshing = false;
         localStorage.removeItem("access");
         localStorage.removeItem("refresh");
-        // window.location.href = "/login"; // Redirect to login or handle as necessary
+        // window.location.href = "/login"; // Redirect to login page
+        return Promise.reject(err);
       }
     }
+
     return Promise.reject(error);
   }
 );
 
-// Set up request interceptor to attach the access token
-API.interceptors.request.use((req) => {
-  const accessToken = localStorage.getItem("access");
-  if (accessToken) {
-    req.headers.Authorization = `Bearer ${accessToken}`;
-  }
-  return req;
-});
 
 export const getCategoriesApi = () => API.get(`/categories/`);
 export const postCategoriesApi = (payload) => API.post(`/categories/`, payload);
@@ -129,4 +164,4 @@ export const postWishlist = (payload) => API.post(`/wishlist/`, payload);
 export const getProfile = () => API.get(`/profiles/`);
 export const getProfileApi = (id) => API.get(`/profiles/${id}/`);
 export const postProfileApi = (payload) => API.post(`/profiles/`, payload);
-export const putProfileApi = (payload) => API.put(`/profiles/`, payload);
+export const putProfileApi = (id,payload) => API.put(`/profiles/${id}`, payload);

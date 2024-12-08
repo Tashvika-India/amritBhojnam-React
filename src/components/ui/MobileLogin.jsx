@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Offcanvas } from "react-bootstrap";
 import logo from "../../assets/images/web/logo.svg";
-import { InputText } from "primereact/inputtext";  
+import { InputText } from "primereact/inputtext";
 import { sendOtpApi, verifyOtpApi } from "../../services/authApiRoutes";
 const MobileLogin = ({ otpShow, onOtpClose, align }) => {
   const [showOTPInputs, setShowOTPInputs] = useState(false);
@@ -9,7 +9,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  const otpRefs = useRef([]); 
+  const otpRefs = useRef([]);
 
 
 
@@ -79,7 +79,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
     setLoading(true);
     try {
       const otp = otpValues.join(""); // Join OTP values into a single string
-      const data =   await verifyOtpApi({ phone_number: phoneNumber, otp }) 
+      const data = await verifyOtpApi({ phone_number: phoneNumber, otp })
 
       const accessToken = data?.data?.access;
       const refreshToken = data?.data?.refresh;
@@ -102,7 +102,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
           setErrorMessage("Access Denied: Not an admin user.");
         }
       }
-      
+
       onOtpClose(); // Close the OTP modal on successful verification
 
     } catch (error) {
@@ -113,9 +113,9 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
   };
 
   return (
-    <Offcanvas show={otpShow} onHide={onOtpClose} placement={align} className="bg-white rounded-start-4 login-offcanvas" style={{width: "28%"}}>
+    <Offcanvas show={otpShow} onHide={onOtpClose} placement={align} className="bg-white rounded-start-4 login-offcanvas" style={{ width: "28%" }}>
       <Offcanvas.Header closeButton>
-        <img  src={logo} alt="logo"  className="img-fluid p-2" loading="lazy"  />
+        <img src={logo} alt="logo" className="img-fluid p-2" loading="lazy" />
       </Offcanvas.Header>
       <Offcanvas.Body class="p-4">
         <div className="d-inline-flex w-100 align-self-center justify-content-between">
@@ -141,8 +141,6 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
               }
             }}
           />
-         
-          {errorMessage && <div className="text-danger">{errorMessage}</div>}
         </div>
 
         {/* OTP input section */}
@@ -166,22 +164,34 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
                   borderRadius: "10px",
                   textAlign: "center",
                 }}
+
               />
             ))}
-            {otpValues.some((val) => val) && (
-              <button onClick={handleClearOTP} className="btn btn-link">
-                Clear OTP
-              </button>
+            {errorMessage && <div className="text-danger">{errorMessage}</div>}
+
+            {!otpValues.some((val) => val) && (
+              <>
+                <p className="pt-3 text-center">please enter the OTP sent to your mobile number</p></>
             )}
-            <div className="pt-3">
-              <button
-                className="button-primary fs-6 w-100"
-                onClick={handleVerifyOTP}
-                disabled={loading}
-              >
-                {loading ? "Verifying..." : "Verify OTP"}
-              </button>
-            </div>
+            {otpValues.some((val) => val) && (
+              <>
+                <button onClick={handleClearOTP} className="btn btn-link text-danger">
+                  Clear OTP
+                </button>
+                <div className="pt-3">
+                  <button
+                    className="button-primary fs-6 w-100"
+                    onClick={handleVerifyOTP}
+                    disabled={loading}
+                  >
+                    {loading ? "Verifying..." : "Verify OTP"}
+                  </button>
+                </div>
+                <div class="mt-4">
+                  <small id="phone-help" class="text-dark-grey">By clicking on Login, I accept the Terms & Conditions and Privacy Policy Recovery Account</small>
+                </div>
+              </>
+            )}
           </div>
         )}
 
@@ -196,13 +206,10 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
               {loading ? "Sending OTP..." : "Send OTP"}
             </button>
           </div>
-          
+
         )}
-        <div class="mt-4">
-        <small id="phone-help" class="text-dark-grey">By clicking on Login, I accept the Terms & Conditions and Privacy Policy Recovery Account</small>
-        </div>
       </Offcanvas.Body>
-    </Offcanvas>
+    </Offcanvas >
   );
 };
 
