@@ -14,12 +14,13 @@ import editButton from "../../../assets/images/web/account/edit-button.png";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
 import {
   deleteAddressApi,
-  getAddressApi, 
-  getProfile, 
+  getAddressApi,
+  getProfile,
   getProfileApi,
   postAddressApi,
   postProfileApi,
   postSelectAddressApi,
+  putProfileApi,
 } from "../../../services/adminApiRoutes";
 import { Collapse } from "@mui/material";
 import { useFormik } from "formik";
@@ -32,7 +33,7 @@ const UserProfile = () => {
   const [editData, setEditData] = useState([null]);
   const [user, setUser] = useState({});
   const [userDetail, setUserDetail] = useState({});
-  
+
 
   const getAddressList = async () => {
     try {
@@ -106,37 +107,15 @@ const UserProfile = () => {
     },
   });
 
-  const getProfileList = async () => {
+   // Fetch Profile Data
+   const getProfileList = async () => {
     try {
-      const response = await getProfile();
-      setUserDetail(response?.data[0] || []);
+      const response = await getProfile(); 
+      setUserDetail(response?.data[0] || {});
     } catch (error) {
-      console.log("Error fetching cart data:", error);
-    } finally {
+      console.error("Error fetching profile data:", error);
     }
   };
-
-
-  const profile = useFormik({
-    initialValues: {
-      pp: "",
-      full_name: "",
-      email: "",
-      phone: "",
-      gender: "M",
-      date_of_birth: "1999-05-11",
-    },
-    validationSchema: Yup.object({
-      full_name: Yup.string().required("First name is required"),
-      email: Yup.string().email("Invalid email").required("Email is required"),
-      phone: Yup.string()
-        .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
-        .required("Phone number is required"),
-    }),
-    onSubmit: async (values, { resetForm, setSubmitting }) => { 
-      addProfile(values);
-    },
-  });
 
   const handleSelectAddress = async (address_id) => {
     try {
@@ -147,7 +126,7 @@ const UserProfile = () => {
     }
   };
 
-  const handleDeleteAddress = async (address_id) => { 
+  const handleDeleteAddress = async (address_id) => {
     try {
       const response = await deleteAddressApi(address_id);
       getAddressList();
@@ -156,36 +135,70 @@ const UserProfile = () => {
     }
   };
 
-  const addProfile = async (values) => {
+  useEffect(() => {
+    if (userDetail) {
+      console.log('userDetail', userDetail);
+      
+      profile.setValues({
+        // pp: userDetail.pp || "",`
+        full_name: userDetail.full_name || "",
+        email: userDetail.email || "",
+        phone_number: userDetail.phone_number || "",
+        gender: userDetail.gender || "M",
+        date_of_birth: userDetail.date_of_birth || "1999-05-11",
+      });
+    }
+  }, [userDetail]);
+
+  const profile = useFormik({
+    initialValues: {
+      // pp: "",
+      full_name: "",
+      email: "",
+      phone_number: "",
+      gender: "M",
+      date_of_birth: "1999-05-11",
+    },
+    validationSchema: Yup.object({
+      full_name: Yup.string().required("Full name is required"),
+      email: Yup.string().email("Invalid email").required("Email is required"),
+      phone: Yup.string()
+        .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
+        .required("Phone number is required"),
+    }),
+    onSubmit: async (values, { resetForm, setSubmitting }) => {
+      await updateProfile(values);
+      resetForm();
+      setSubmitting(false);
+    },
+  });
+
+
+  const updateProfile = async (values) => {
     const formData = new FormData();
     formData.append("full_name", values.full_name);
     formData.append("phone", values.phone);
     formData.append("email", values.email);
     formData.append("gender", values.gender);
     formData.append("date_of_birth", values.date_of_birth);
-    
+
     try {
       setLoading(true);
-      const response = await postProfileApi(formData); 
-      const user_id = response?.data?.id;
-      const userDetail = await getProfileApi(user_id);
-      setUser(userDetail);
-      setLoading(false);
-      setOpen(false);
-      resetForm();
+      const response = await putProfileApi(userDetail.id, formData); // Assuming `userDetail.id` exists
+      console.log("Profile updated successfully:", response);
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Error updating profile:", error);
     } finally {
-      setSubmitting(false);
+      setLoading(false);
     }
   };
- 
+
 
   useEffect(() => {
     getAddressList();
     getProfileList();
   }, []);
- 
+
 
   return (
     <div className="web-wrapper-main">
@@ -216,7 +229,7 @@ const UserProfile = () => {
                   <div className="image-content mt-5 pt-5 ms-3">
                     <p className="fb-fs-30 fw-bold">{user?.data?.full_name}</p>
                     <p className="fw-500 text-mid-grey fb-fs-18 text-start">
-                    {user?.data?.phone}
+                      {user?.data?.phone}
                     </p>
                   </div>
                 </div>
@@ -228,18 +241,18 @@ const UserProfile = () => {
                   <div className="d-flex justify-content-between mt-4">
                     <p className="fb-fs-26 fw-bold">My Account</p>
                     <div className="d-flex">
-                      <button className="d-inline-flex align-items-end border-0 bg-transparent" onClick={() => HandleEdit( )}>
+                      <button className="d-inline-flex align-items-end border-0 bg-transparent" onClick={() => HandleEdit()}>
                         <img
-                        className="img-fluid"
-                        src={pencilImg}
-                        alt="pencil"
-                        style={{
-                          width: "2rem",
-                          aspectRatio: "16/14",
-                          objectFit: "scale-down",
-                        }}
-                      />
-                      <p className="fw-500 mt-2">Edit</p>
+                          className="img-fluid"
+                          src={pencilImg}
+                          alt="pencil"
+                          style={{
+                            width: "2rem",
+                            aspectRatio: "16/14",
+                            objectFit: "scale-down",
+                          }}
+                        />
+                        <p className="fw-500 mt-2">Edit</p>
                       </button>
                     </div>
                   </div>
@@ -250,55 +263,56 @@ const UserProfile = () => {
                           <TextField
                             fullWidth
                             className="rounded-20 me-5 mt-4"
-                            id="outlined-basic"
+                            id="full_name"
                             label="Name"
                             name="full_name"
                             variant="outlined"
                             value={profile.values.full_name}
                             onChange={profile.handleChange}
                             onBlur={profile.handleBlur}
+                            error={profile.touched.full_name && Boolean(profile.errors.full_name)}
+                            helperText={profile.touched.full_name && profile.errors.full_name}
                           />
                         </div>
                         <div className="col-md-6">
                           <TextField
                             fullWidth
                             className="rounded-20 me-5 mt-4"
-                            id="outlined-basic"
+                            id="email"
                             label="Email Address"
                             name="email"
                             variant="outlined"
                             value={profile.values.email}
                             onChange={profile.handleChange}
                             onBlur={profile.handleBlur}
+                            error={profile.touched.email && Boolean(profile.errors.email)}
+                            helperText={profile.touched.email && profile.errors.email}
                           />
                         </div>
                         <div className="col-md-6">
                           <TextField
                             fullWidth
                             className="rounded-20 me-5 mt-4"
-                            id="outlined-basic"
+                            id="phone"
                             label="Phone Number"
                             name="phone"
                             type="number"
                             variant="outlined"
-                            minValue={10}
-                            maxValue={10}
-                            value={profile.values.phone}
+                            value={profile.values.phone_number}
                             onChange={profile.handleChange}
                             onBlur={profile.handleBlur}
+                            error={profile.touched.phone_number && Boolean(profile.errors.phone_number)}
+                            helperText={profile.touched.phone_number && profile.errors.phone_number}
                           />
                         </div>
-                        {/* <div className="col-md-6">
-                          <TextField
-                            fullWidth
-                            className="rounded-20 me-5 mt-4"
-                            id="outlined-basic"
-                            label="Alternate Phone Number"
-                            variant="outlined"
-                          />
-                        </div> */}
                         <div className="col-12 mt-4 text-end">
-                          <button type="submit" className="button-primary">Save</button>
+                          <button
+                            type="submit"
+                            className="button-primary"
+                            disabled={profile.isSubmitting || loading}
+                          >
+                            {loading ? "Saving..." : "Save"}
+                          </button>
                         </div>
                       </div>
                     </div>

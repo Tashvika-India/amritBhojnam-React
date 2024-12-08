@@ -72,7 +72,21 @@ const Header = () => {
   useEffect(() => {
     getCategory();
     dispatch(fetchCart());
+  }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => { 
+      if (!accessToken) {
+        console.log("Token not found"); 
+        setShowMobileLogin(true);
+        setShowWebLogin(true);
+      } else {
+        setShowMobileLogin(false);
+        setShowWebLogin(false); // Optional: Reset state if token exists
+      }
+    }, 3000); // Check every 1 second
+
+    return () => clearInterval(interval); // Clean up on component unmount
   }, []);
 
   return (

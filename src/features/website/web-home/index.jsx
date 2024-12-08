@@ -194,13 +194,13 @@ const HomePage = () => {
       </section>
       <section className="explore-categories">
         <div className="container fb-container">
-        <div className="text-center mb-4">
-        <p className="fb-fs-40 text-blue">
-        EAT HEALTHY
-        </p>
-        <h1 className="text-blue fw-bolder">BE HEALTHY</h1>
-        <button className="orange-button align-item-center mt-3 mb-5 fb-fs-20">Explore Categories</button>
-        </div>
+          <div className="text-center mb-4">
+            <p className="fb-fs-40 text-blue">
+              EAT HEALTHY
+            </p>
+            <h1 className="text-blue fw-bolder">BE HEALTHY</h1>
+            <button className="orange-button align-item-center mt-3 mb-5 fb-fs-20">Explore Categories</button>
+          </div>
           <div className="cat-items-wrapper">
             {category?.map((item, index) => (
               <Link
@@ -365,7 +365,7 @@ const HomePage = () => {
         </div>
       </section>
       <section className="banner-ads mt-5">
-        <div className="container-fluid px-0">
+        <div className="container-fluid">
           <div className="row">
             {/* <div className="col-md-6 p-0">
               <div className="image-sec">
@@ -411,16 +411,14 @@ const HomePage = () => {
             <div className="col-md-7">
               <div className="content-sec">
                 <h2 className="pb-3 fw-normal text-white lh-1">
-                  Good For
-                  <span className="fw-bold">
-                    You <br></br> and the Planet
+                  Good For <span className="fw-bold"> You <br></br> and the Planet
                   </span>
                 </h2>
                 <p className="pb-5 text-white w-75">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer
+                  Our commitment to sustainability ensures that every choice you make with us
+                  positively impacts both you and the planet. By prioritizing eco-friendly
+                  solutions, we create a future that is healthier, greener, and more equitable
+                  for everyone.
                 </p>
                 <button className="button-white rounded-3">Shop Now</button>
               </div>
@@ -493,17 +491,16 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <section className="best-product" id="popular">
-        <div className="container-fluid px-0">
-          <div>
-            <img
-              className="img-fluid h-100 mt-5"
-              style={{ marginBottom: "-1px" }}
-              src={bestBackgroundTop}
-              alt="purchase-page"
-            />
-          </div>
-          <div className="bg-semi-orange h-100 py-5">
+      <img
+        className="img-fluid w-100 mt-5"
+        style={{ marginBottom: "-1px" }}
+        src={bestBackgroundTop}
+        alt="purchase-page"
+      />
+      <section className="best-product bg-semi-orange overflow-hidden" id="popular">
+        <div className="container-fluid">
+
+          <div className="h-100 py-5">
             <h3 className="fw-bold mb-5 text-center text-white">
               Our Best Selling Products
             </h3>
@@ -514,16 +511,15 @@ const HomePage = () => {
               </button>
             </div>
           </div>
-          <div>
-            <img
-              className="img-fluid h-100"
-              style={{ marginTop: "-1px" }}
-              src={bestBackgroundBottom}
-              alt="purchase-page"
-            />
-          </div>
+
         </div>
       </section>
+      <img
+        className="img-fluid w-100"
+        style={{ marginTop: "-1px" }}
+        src={bestBackgroundBottom}
+        alt="purchase-page"
+      />
       <section className="first_purchase">
         <div className="container fb-container">
           <div className="purchase-bg">
