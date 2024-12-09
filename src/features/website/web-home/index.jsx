@@ -83,7 +83,6 @@ const HomePage = () => {
   async function getBestPrice() {
     try {
       const response = await getBestPriceApi();
-
       setBestPrice(response?.data || []);
     } catch (error) {
       console.log("Error on Product List", error);
@@ -433,7 +432,7 @@ const HomePage = () => {
                 />
               </div>
             </div>
-            <div className="col-md-7">
+            <div className="col-lg-7 col-md-12">
               <div className="content-sec">
                 <h2 className="pb-3 fw-normal text-white lh-1">
                   Good For{" "}
