@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <>
       <footer>
-        <div className="footer-upper mt-5">
+        <div className="footer-upper mt-lg-5 mt-1">
           <div className="text-center pt-3">
             <h1 className="fw-bolder text-white">JOIN FOR HOT OFFERS</h1>
             <p className="fw-500 fb-fs-22 text-white">
@@ -19,12 +19,16 @@ const Footer = () => {
               <br></br> to get the most exclusive promos.
             </p>
             <form>
-      
-        <input type="text" className="py-3 ps-3 rounded-3 border-0 w-25" placeholder="Email address"/>
-     <button className="fb-fs-18 text-white fw-600 brown-button ms-4 mt-5 ">Subscribe</button>
-    </form>
+              <input
+                type="text"
+                className="py-3 ps-3 rounded-3 border-0 w-25"
+                placeholder="Email address"
+              />
+              <button className="fb-fs-18 text-white fw-600 brown-button ms-4 mt-lg-5 mt-3">
+                Subscribe
+              </button>
+            </form>
           </div>
-          
         </div>
         <div className="bg-footer-bg">
           <div className="container fb-container">

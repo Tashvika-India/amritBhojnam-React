@@ -28,6 +28,7 @@ import grain3 from "../../../assets/images/web/grain-3.png";
 import WebBanner from "./components/WebBanner";
 import ItemSlide from "./components/ItemSlide";
 import { FaAsterisk } from "react-icons/fa6";
+import astrick from "../../../assets/images/web/asterisk.png";
 import popProduct from "../../../assets/images/web/popular-product.png";
 import bestOffer from "../../../assets/images/web/offers/best-price.png";
 import deliveryImg from "../../../assets/images/web/offers/delivery.png";
@@ -48,6 +49,7 @@ import { baseURL } from "../../../utils/constant-variable";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import ProductSlide from "./components/productSlide";
 import BestProduct from "./components/BestProduct";
+import { FaStarOfLife } from "react-icons/fa";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -147,7 +149,7 @@ const HomePage = () => {
               <div className="col-md-4">
                 <div className="card-center">
                   <div className="row">
-                    <div className="col-md-6 ps-5">
+                    <div className="col-md-6 ps-lg-5 ps-4">
                       <div className="pt-4 mt-2">
                         <p className="text-white fb-fs-24">Wholesome Food,</p>
                         <p className="text-white fb-fs-28 fw-bold lh-1">
@@ -169,7 +171,7 @@ const HomePage = () => {
               <div className="col-md-4">
                 <div className="card-right">
                   <div className="row">
-                    <div className="col-md-6 ps-5 ms-2">
+                    <div className="col-md-6 ps-lg-5 ps-4 ms-2">
                       <div className="pt-4 mt-2">
                         <p className="text-white fb-fs-24">Healthy Bites,</p>
                         <p className="text-white fb-fs-28 fw-bold lh-1">
@@ -195,11 +197,11 @@ const HomePage = () => {
       <section className="explore-categories">
         <div className="container fb-container">
           <div className="text-center mb-4">
-            <p className="fb-fs-40 text-blue">
-              EAT HEALTHY
-            </p>
+            <p className="fb-fs-40 text-blue">EAT HEALTHY</p>
             <h1 className="text-blue fw-bolder">BE HEALTHY</h1>
-            <button className="orange-button align-item-center mt-3 mb-5 fb-fs-20">Explore Categories</button>
+            <button className="orange-button align-item-center mt-3 mb-5 fb-fs-20">
+              Explore Categories
+            </button>
           </div>
           <div className="cat-items-wrapper">
             {category?.map((item, index) => (
@@ -256,7 +258,7 @@ const HomePage = () => {
       <section className="offer-cards">
         <div className="container fb-container">
           <div className="row">
-            <div className="col-lg-6 col-md-12 pe-4">
+            <div className="col-lg-6 col-md-12 pe-lg-4">
               <div className="protein-left">
                 <div className="left-content p-5">
                   <h4 className="fw-bold mb-lg-3">
@@ -273,12 +275,12 @@ const HomePage = () => {
                 {/* <img src={protein1} alt="millet-rice" /> */}
               </div>
             </div>
-            <div className="col-lg-6 col-md-12 ps-4">
+            <div className="col-lg-6 col-md-12 ps-lg-4">
               <div className="row">
-                <div className="col-md-12 mb-lg-4 mb-3">
+                <div className="col-md-12 mb-lg-4 mb-md-3">
                   <div className="protein-right-top">
                     <div className="right-top-content p-5 pb-4">
-                      <h4 className="fw-bold mb-3">Upto 40% Off </h4>
+                      <h4 className="fw-bold mb-lg-3">Upto 40% Off </h4>
                       <p className="fw-500">
                         As naturally gluten-free grains, millets provide a great
                         alternative for those with gluten sensitivities
@@ -292,7 +294,7 @@ const HomePage = () => {
                 <div className="col-md-12 mt-lg-4">
                   <div className="protein-right-bottom">
                     <div className="right-bottom-content p-5 pb-4">
-                      <h4 className="fw-bold mb-3">Upto 40% Off </h4>
+                      <h4 className="fw-bold mb-lg-3">Upto 40% Off </h4>
                       <p className="fw-500">
                         With a low glycemic index, millets help regulate blood
                         sugar levels, making them ideal.
@@ -319,39 +321,62 @@ const HomePage = () => {
               className="marquee flex-shrink-0 "
               style={{ whiteSpace: "nowrap" }}
             >
-              {/* Add text or images that you want to animate in the marquee */}
-              <div>
-                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
-                  Next your pro enjoy 12 months of zilly for $50/month on select
-                  plans.
+              <div className="d-flex">
+              <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
+                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <span className="">
+                    Next your pro enjoy 12 months of zilly for $50/month on
+                    select plans.
+                  </span>
                 </span>
-                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
-                  Next your pro enjoy 12 months of zilly for $50/month on select
-                  plans.
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
+                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <span className="">
+                    Next your pro enjoy 12 months of zilly for $50/month on
+                    select plans.
+                  </span>
                 </span>
-                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
-                  Next your pro enjoy 12 months of zilly for $50/month on select
-                  plans.
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
+                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <span className="">
+                    Next your pro enjoy 12 months of zilly for $50/month on
+                    select plans.
+                  </span>
                 </span>
-                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
-                  Next your pro enjoy 12 months of zilly for $50/month on select
-                  plans.
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
+                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <span className="">
+                    Next your pro enjoy 12 months of zilly for $50/month on
+                    select plans.
+                  </span>
                 </span>
-                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
-                  Next your pro enjoy 12 months of zilly for $50/month on select
-                  plans.
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
+                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <span className="">
+                    Next your pro enjoy 12 months of zilly for $50/month on
+                    select plans.
+                  </span>
                 </span>
-                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
-                  Next your pro enjoy 12 months of zilly for $50/month on select
-                  plans.
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
+                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <span className="">
+                    Next your pro enjoy 12 months of zilly for $50/month on
+                    select plans.
+                  </span>
                 </span>
-                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
-                  Next your pro enjoy 12 months of zilly for $50/month on select
-                  plans.
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
+                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <span className="">
+                    Next your pro enjoy 12 months of zilly for $50/month on
+                    select plans.
+                  </span>
                 </span>
-                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background">
-                  Next your pro enjoy 12 months of zilly for $50/month on select
-                  plans.
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
+                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <span className="">
+                    Next your pro enjoy 12 months of zilly for $50/month on
+                    select plans.
+                  </span>
                 </span>
               </div>
             </motion.div>
@@ -411,14 +436,17 @@ const HomePage = () => {
             <div className="col-md-7">
               <div className="content-sec">
                 <h2 className="pb-3 fw-normal text-white lh-1">
-                  Good For <span className="fw-bold"> You <br></br> and the Planet
+                  Good For{" "}
+                  <span className="fw-bold">
+                    {" "}
+                    You <br></br> and the Planet
                   </span>
                 </h2>
                 <p className="pb-5 text-white w-75">
-                  Our commitment to sustainability ensures that every choice you make with us
-                  positively impacts both you and the planet. By prioritizing eco-friendly
-                  solutions, we create a future that is healthier, greener, and more equitable
-                  for everyone.
+                  Our commitment to sustainability ensures that every choice you
+                  make with us positively impacts both you and the planet. By
+                  prioritizing eco-friendly solutions, we create a future that
+                  is healthier, greener, and more equitable for everyone.
                 </p>
                 <button className="button-white rounded-3">Shop Now</button>
               </div>
@@ -497,21 +525,22 @@ const HomePage = () => {
         src={bestBackgroundTop}
         alt="purchase-page"
       />
-      <section className="best-product bg-semi-orange overflow-hidden" id="popular">
+      <section
+        className="best-product bg-semi-orange overflow-hidden"
+        id="popular"
+      >
         <div className="container-fluid">
-
-          <div className="h-100 py-5">
-            <h3 className="fw-bold mb-5 text-center text-white">
+          <div className="h-100">
+            <h3 className="fw-bold mb-5 pb-2 text-center text-white">
               Our Best Selling Products
             </h3>
             <BestProduct products={popularProduct} />
             <div className="mt-5 text-center">
-              <button className="white-button fw-500 mt-2">
+              <button className="white-button fw-500 mt-4">
                 See all Products
               </button>
             </div>
           </div>
-
         </div>
       </section>
       <img
