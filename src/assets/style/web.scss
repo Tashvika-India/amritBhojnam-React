@@ -1289,6 +1289,28 @@ footer{
   .download-section .download-content img {
     display: none;
   }
+  .brown-button {
+    padding: 12px 1rem;
+  }
+  footer{
+    .footer-upper{
+      height: 32rem !important;
+      form{
+        margin-top: 2rem;
+        button{ 
+          margin-inline: 1rem;
+        }
+      }
+    }
+  }
+  .explore-categories::after{
+    top: -3rem;
+    right: -1rem;
+  }
+  .explore-categories::before {
+    top: -1rem;
+    left: -1rem;
+}
   .product-container {
     grid-template-columns: repeat(2, 1fr) !important;
   }
@@ -1492,6 +1514,31 @@ footer{
 @media (max-width: 576px) {
   .contact-us .card .orange-section {
     padding: 2rem 1rem;
+  }
+  .brown-button {
+    padding: 12px 1rem;
+  }
+  .home-banner-wrapper{
+    .card-left p{
+      width: 60% !important;
+    }
+    .card-center p{
+      width: 60% !important;
+    }
+    .card-right p{
+      width: 60% !important;
+    }
+  } 
+  footer{
+    .footer-upper{
+      height: 32rem !important;
+      form{
+        margin-top: 2rem;
+        button{
+          margin-left: 0 !important;
+        }
+      }
+    }
   }
   .explore-categories::before{
     display: none !important;
