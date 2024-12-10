@@ -5,9 +5,6 @@ const apiurl = import.meta.env.VITE_BASE_API_URL + "/api";
 // Axios Instance
 const API = axios.create({
   baseURL: apiurl,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 // Token Refresh Logic
 let isRefreshing = false;
@@ -164,4 +161,9 @@ export const postWishlist = (payload) => API.post(`/wishlist/`, payload);
 export const getProfile = () => API.get(`/profiles/`);
 export const getProfileApi = (id) => API.get(`/profiles/${id}/`);
 export const postProfileApi = (payload) => API.post(`/profiles/`, payload);
-export const putProfileApi = (id,payload) => API.put(`/profiles/${id}`, payload);
+export const putProfileApi = (id,payload) => API.put(`/profiles/${id}/`, payload);
+
+
+// pay now 
+export const postPayNowApi = (payload) => API.post(`/accounts/payu/initiate/`, payload);
+export const postPayuCallbackApi = (payload) => API.post(`/accounts/payu/callback/`, payload);

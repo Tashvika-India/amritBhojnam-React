@@ -79,7 +79,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
     setLoading(true);
     try {
       const otp = otpValues.join(""); // Join OTP values into a single string
-      const data = await verifyOtpApi({ phone_number: phoneNumber, otp })
+      const data = await verifyOtpApi({ phone_or_email: phoneNumber, otp })
 
       const accessToken = data?.data?.access;
       const refreshToken = data?.data?.refresh;
