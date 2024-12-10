@@ -117,10 +117,10 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
       <Offcanvas.Header closeButton>
         <img src={logo} alt="logo" className="img-fluid p-2" loading="lazy" />
       </Offcanvas.Header>
-      <Offcanvas.Body class="p-4">
+      <Offcanvas.Body className="p-4">
         <div className="d-inline-flex w-100 align-self-center justify-content-between">
-          <h4 class="fw-bold">Login</h4>
-          {/* <p class="fb-fs-14 fw-600">Or <span class="text-orange text-decoration-underline"> Create an account</span></p> */}
+          <h4 className="fw-bold">Login</h4>
+          {/* <p className="fb-fs-14 fw-600">Or <span className="text-orange text-decoration-underline"> Create an account</span></p> */}
         </div>
         <div className="flex flex-column gap-4 py-3 phone-input">
           {/* <label htmlFor="phone">
@@ -187,8 +187,8 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
                     {loading ? "Verifying..." : "Verify OTP"}
                   </button>
                 </div>
-                <div class="mt-4">
-                  <small id="phone-help" class="text-dark-grey">By clicking on Login, I accept the Terms & Conditions and Privacy Policy Recovery Account</small>
+                <div className="mt-4">
+                  <small id="phone-help" className="text-dark-grey">By clicking on Login, I accept the Terms & Conditions and Privacy Policy Recovery Account</small>
                 </div>
               </>
             )}

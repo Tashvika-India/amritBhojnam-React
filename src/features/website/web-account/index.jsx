@@ -533,7 +533,7 @@ const UserProfile = () => {
                                 <p className="fw-600 fb-fs-lg-18 fb-fs-md-16">
                                   Piyush Kanwal | 7464810000
                                 </p>
-                                <button class="button-yellow ms-lg-3">
+                                <button className="button-yellow ms-lg-3">
                                   Default
                                 </button>
                               </div>

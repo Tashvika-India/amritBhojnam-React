@@ -80,21 +80,18 @@ const CheckoutPage = () => {
 
       // Step 2: Prepare Payment Details
       const payDetails = {
-        amount ,
+        amount: 1,
         firstname: user.full_name || "N/A",
         email: user.email || "N/A",
         phone: user.phone || "N/A",
         productinfo,
-        surl: `http://localhost:5173/home`,
-        furl: `http://localhost:5173/contact-us`,
-      };
-
-      console.log("Payment Details:", payDetails);
+        surl: `https://dev-react.amritbhojanam.com/home}`,
+        furl: `https://dev-react.amritbhojanam.com/contact-us`,
+      }; 
 
       // Step 3: Initiate Payment
       const data = await postPayNowApi(payDetails);
-      const paymentResponse = data?.data;
-      console.log("Payment Response:", paymentResponse);
+      const paymentResponse = data?.data; 
 
       // Validate Payment Response
       if (!paymentResponse?.payment_url || !paymentResponse?.form_data) {

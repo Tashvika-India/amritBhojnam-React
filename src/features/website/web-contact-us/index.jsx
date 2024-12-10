@@ -11,7 +11,7 @@ const ContactUs = () => {
       <section className="contact-us pb-0">
         <div className="container fb-container mb-5">
           <div className="row">
-            <div class="card p-0 rounded-40 contact-box-shadow">
+            <div className="card p-0 rounded-40 contact-box-shadow">
               <div className="card-body p-0 ">
                 <div className="row">
                   <div className="col-md-6 col-lg-5">
