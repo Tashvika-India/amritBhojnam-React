@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import { TabPanel, TabView } from "primereact/tabview";
-import { TextField } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import pencilImg from "../../../assets/images/web/account/pencil.png";
 import accountBg from "../../../assets/images/web/account/account-profile-background.png";
 import profilePic from "../../../assets/images/web/account/profile-picture.png";
@@ -30,8 +30,7 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
-  const [editData, setEditData] = useState([null]);
-  const [user, setUser] = useState({});
+  const [editData, setEditData] = useState([null]); 
   const [userDetail, setUserDetail] = useState({});
 
 
@@ -107,10 +106,10 @@ const UserProfile = () => {
     },
   });
 
-   // Fetch Profile Data
-   const getProfileList = async () => {
+  // Fetch Profile Data
+  const getProfileList = async () => {
     try {
-      const response = await getProfile(); 
+      const response = await getProfile();
       setUserDetail(response?.data[0] || {});
     } catch (error) {
       console.error("Error fetching profile data:", error);
@@ -137,14 +136,11 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (userDetail) {
-      console.log('userDetail', userDetail);
-      
       profile.setValues({
-        // pp: userDetail.pp || "",`
+        pp: userDetail.pp || "",
         full_name: userDetail.full_name || "",
         email: userDetail.email || "",
-        phone_number: userDetail.phone_number || "",
-        gender: userDetail.gender || "M",
+        gender: userDetail.gender || "",
         date_of_birth: userDetail.date_of_birth || "1999-05-11",
       });
     }
@@ -152,32 +148,27 @@ const UserProfile = () => {
 
   const profile = useFormik({
     initialValues: {
-      // pp: "",
+      pp: "",
       full_name: "",
       email: "",
-      phone_number: "",
-      gender: "M",
+      gender: "",
       date_of_birth: "1999-05-11",
     },
     validationSchema: Yup.object({
       full_name: Yup.string().required("Full name is required"),
       email: Yup.string().email("Invalid email").required("Email is required"),
-      phone: Yup.string()
-        .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
-        .required("Phone number is required"),
     }),
     onSubmit: async (values, { resetForm, setSubmitting }) => {
       await updateProfile(values);
       resetForm();
       setSubmitting(false);
     },
-  });
-
+  }); 
 
   const updateProfile = async (values) => {
+    
     const formData = new FormData();
     formData.append("full_name", values.full_name);
-    formData.append("phone", values.phone);
     formData.append("email", values.email);
     formData.append("gender", values.gender);
     formData.append("date_of_birth", values.date_of_birth);
@@ -199,6 +190,8 @@ const UserProfile = () => {
     getProfileList();
   }, []);
 
+  
+  
 
   return (
     <div className="web-wrapper-main">
@@ -227,9 +220,9 @@ const UserProfile = () => {
                     alt="Card image cap"
                   />
                   <div className="image-content mt-5 pt-5 ms-3">
-                    <p className="fb-fs-30 fw-bold">{user?.data?.full_name}</p>
+                    <p className="fb-fs-30 fw-bold">{userDetail?.full_name}</p>
                     <p className="fw-500 text-mid-grey fb-fs-18 text-start">
-                      {user?.data?.phone}
+                      {userDetail?.phone_number}
                     </p>
                   </div>
                 </div>
@@ -274,7 +267,7 @@ const UserProfile = () => {
                             helperText={profile.touched.full_name && profile.errors.full_name}
                           />
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 mb-4">
                           <TextField
                             fullWidth
                             className="rounded-20 me-5 mt-4"
@@ -289,20 +282,43 @@ const UserProfile = () => {
                             helperText={profile.touched.email && profile.errors.email}
                           />
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 mb-4">
+                          <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">
+                              Gender
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              name="gender"
+                              value={profile.values.gender}
+                              label="Gender"
+                              onChange={profile.handleChange}
+                              onBlur={profile.handleBlur}
+                              error={profile.touched.gender && Boolean(profile.errors.gender)}
+                              helperText={profile.touched.gender && profile.errors.gender}
+                            >
+                              <MenuItem value={""}>Select</MenuItem>
+                              <MenuItem value={"Male"}>Male</MenuItem>
+                              <MenuItem value={"Female"}>Female</MenuItem>
+                              <MenuItem value={"Other"}>Other</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </div>
+                        <div className="col-md-6 mb-4">
                           <TextField
                             fullWidth
-                            className="rounded-20 me-5 mt-4"
-                            id="phone"
-                            label="Phone Number"
-                            name="phone"
-                            type="number"
+                            className="rounded-20 me-5"
+                            id="date_of_birth"
+                            label="Date of Birth"
+                            name="date_of_birth"
                             variant="outlined"
-                            value={profile.values.phone_number}
+                            type="date"
+                            value={profile.values.date_of_birth}
                             onChange={profile.handleChange}
                             onBlur={profile.handleBlur}
-                            error={profile.touched.phone_number && Boolean(profile.errors.phone_number)}
-                            helperText={profile.touched.phone_number && profile.errors.phone_number}
+                            error={profile.touched.date_of_birth && Boolean(profile.errors.date_of_birth)}
+                            helperText={profile.touched.date_of_birth && profile.errors.date_of_birth}
                           />
                         </div>
                         <div className="col-12 mt-4 text-end">
@@ -312,7 +328,7 @@ const UserProfile = () => {
                             disabled={profile.isSubmitting || loading}
                           >
                             {loading ? "Saving..." : "Save"}
-                          </button>
+                          </button>     
                         </div>
                       </div>
                     </div>
@@ -628,7 +644,7 @@ const UserProfile = () => {
                                   <div className="ms-md-3">
                                     <div className="d-flex mt-2">
                                       <p className="fw-600 fb-fs-18">
-                                        {item?.user_detail?.full_name} |{" "}
+                                        {item?.user_detail?.full_name} |
                                         {item?.user_detail?.phone_number}
                                       </p>
                                       {item?.selected && (
@@ -638,8 +654,8 @@ const UserProfile = () => {
                                       )}
                                     </div>
                                     <p className="mt-2 text-wrap">
-                                      {item?.house_flat_block_no},{" "}
-                                      {item?.road_area_colony}, {item?.city},{" "}
+                                      {item?.house_flat_block_no},
+                                      {item?.road_area_colony}, {item?.city},
                                       {item?.state} - {item?.pincode}
                                     </p>
                                   </div>

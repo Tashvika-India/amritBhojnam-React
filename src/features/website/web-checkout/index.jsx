@@ -15,14 +15,12 @@ import {
 } from "@mui/material";
 import { IoHomeOutline } from "react-icons/io5";
 import { HiBuildingOffice2 } from "react-icons/hi2";
-import { getAddressApi, getCartApi, getFinalCartApi, postAddressApi, postSelectAddressApi } from "../../../services/adminApiRoutes";
+import { getAddressApi, getCartApi, getFinalCartApi, getProfile, getProfileApi, postAddressApi, postPayNowApi, postPayuCallbackApi, postSelectAddressApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
 import { Link } from "react-router-dom";
 import { baseURL } from "../../../utils/constant-variable";
 import { useFormik } from "formik";
-import { get } from "jquery";
 import Address from "../../../assets/common-components/website/Address";
-import { FaRegUser } from "react-icons/fa";
 import MobileLogin from "../../../components/ui/MobileLogin";
 
 
@@ -34,7 +32,6 @@ const CheckoutPage = () => {
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
   const [showWebLogin, setShowWebLogin] = useState(false);
-
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
 
   const accessToken = localStorage.getItem("access") || localStorage.getItem("refresh");
@@ -68,16 +65,65 @@ const CheckoutPage = () => {
     setAge(event.target.value);
   };
 
-  const handlePayNow = (amount, firstName, email, phone, productinfo, surl, furl) => {
 
-    const data = {
-      amount: amount,
-      firstName: firstName,
-      email: email,
-      phone: phone,
-      productinfo: productinfo,
-      surl: surl,
-      furl: furl
+  const handlePayNow = async (amount, userId, productinfo, surl, furl) => {
+    setLoading(true);
+
+    try {
+      // Step 1: Fetch User Profile
+      const response = await getProfileApi(userId);
+      const user = response?.data;
+
+      if (!user) {
+        throw new Error("User profile not found");
+      }
+
+      // Step 2: Prepare Payment Details
+      const payDetails = {
+        amount ,
+        firstname: user.full_name || "N/A",
+        email: user.email || "N/A",
+        phone: user.phone || "N/A",
+        productinfo,
+        surl: `http://localhost:5173/home`,
+        furl: `http://localhost:5173/contact-us`,
+      };
+
+      console.log("Payment Details:", payDetails);
+
+      // Step 3: Initiate Payment
+      const data = await postPayNowApi(payDetails);
+      const paymentResponse = data?.data;
+      console.log("Payment Response:", paymentResponse);
+
+      // Validate Payment Response
+      if (!paymentResponse?.payment_url || !paymentResponse?.form_data) {
+        throw new Error("Invalid payment response");
+      }
+
+      const { payment_url, form_data } = paymentResponse;
+
+      // Step 4: Dynamically Create and Submit Form
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = payment_url;
+
+      // Append all form data as hidden inputs
+      Object.keys(form_data).forEach((key) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = form_data[key];
+        form.appendChild(input);
+      });
+
+      document.body.appendChild(form); // Append form to the body
+      form.submit(); // Submit the form to redirect
+    } catch (error) {
+      console.error("Error during payment:", error);
+      alert(`Payment failed: ${error.message}`);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -254,7 +300,7 @@ const CheckoutPage = () => {
                         {/* <li className="d-flex justify-content-between my-2">
                           <span className="fw-500 text-green">Coupon Discount</span>
                           <span className="fb-fs-18 fw-500 text-green">
-                            {finalCart.total === undefined ? '₹ 0' : `- ₹ ${finalCart.total}`}
+                            {finalCart.discount === undefined ? '₹ 0' : `- ₹ ${finalCart.discount}`}
                           </span>
                         </li> */}
                       </ul>
@@ -269,12 +315,12 @@ const CheckoutPage = () => {
                         </h5>
                       </div>
                     </div>
-                    {(cartList.length > 0 ) ? (
+                    {(cartList.length > 0) ? (
                       <>
                         <div className="w-100">
                           {
                             (login) ?
-                              <button className="button-primary w-100" onClick={() => handlePayNow(finalCart.amount_to_pay, 'xyz', 'xyz@gmail.com', '999999999', finalCart, 'success', 'fail')}>Pay Now</button>
+                              <button className="button-primary w-100" onClick={() => handlePayNow(finalCart.amount_to_pay, finalCart?.user_id, finalCart?.status)}>Pay Now</button>
                               :
                               <button className="button-primary w-100" onClick={toggleWebLogin}>
                                 Login
