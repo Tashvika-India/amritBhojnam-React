@@ -23,7 +23,7 @@ const AboutUs = () => {
         <div className="container fb-container mb-lg-5 pb-lg-5">
           <div className="row">
             <div className="col-md-6 pe-lg-0 ps-md-0">
-              <div class="main-logo">
+              <div className="main-logo">
                 <img
                   src={MainImg}
                   className="img-fluid ps-lg-4"
@@ -48,7 +48,7 @@ const AboutUs = () => {
                   founders set out on a mission to bring millet back into modern
                   diets and highlight its many benefits.
                 </p>
-                <p class="pt-lg-4 pt-2 mt-1">
+                <p className="pt-lg-4 pt-2 mt-1">
                   {" "}
                   With a lot of research and dedication, Amrit Bhojanam came to
                   life. We’re here to make millet accessible to everyone by
