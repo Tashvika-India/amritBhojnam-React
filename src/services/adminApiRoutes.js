@@ -166,9 +166,6 @@ export const putProfileApi = (id,payload) => API.put(`/profiles/${id}/`, payload
 
 // pay now 
 export const postPayNowApi = (payload) => API.post(`/accounts/payu/initiate/`, payload); 
-export const postPayuCallbackApi = (url,payload) => API.post(url, payload);
- 
-export const postPayuCallbackApi = (payload) => API.post(`/accounts/payu/callback/`, payload);
-
+export const postPayuCallbackApi = (url,payload) => API.post(url, payload); 
 //order history
 export const getOrderApi = () => API.get(`/orders/`); 
