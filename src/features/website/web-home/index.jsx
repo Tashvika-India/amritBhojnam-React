@@ -121,8 +121,8 @@ const HomePage = () => {
         >
           <WebBanner />
           <div>
-            <div className="row my-4 px-lg-3">
-              <div className="col-md-4">
+            <div className="row my-4 px-lg-3 gap-sm-3 gap-xl-0">
+              <div className="col-xl-4 col-lg-12 col-md-12">
                 <div className="card-left">
                   <div className="row">
                     <div className="col-md-6 ps-lg-5 ps-4">
@@ -145,7 +145,7 @@ const HomePage = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-4">
+              <div className="col-xl-4 col-lg-12 col-md-12">
                 <div className="card-center">
                   <div className="row">
                     <div className="col-md-6 ps-lg-5 ps-4">
@@ -167,7 +167,7 @@ const HomePage = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-4">
+              <div className="col-xl-4 col-lg-12 col-md-12">
                 <div className="card-right">
                   <div className="row">
                     <div className="col-md-6 ps-lg-5 ps-4 ms-2">

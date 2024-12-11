@@ -263,29 +263,34 @@
 .p-tabview .p-tabview-nav {
   border: none;
 }
-.brown-button{
+.brown-button {
   border: 1px solid $brown;
   background-color: $brown;
   padding: 14px 1.8rem;
   border-radius: 10px;
 }
 
-footer{
-  .footer-upper{
+footer {
+  .footer-upper {
     background-image: url("../images/web/footer-upper-background.png");
-  background-repeat: no-repeat;
-  background-size: auto;
-  height: 47rem !important;
-  width: 100% !important;
-  padding-top: 8rem !important;
+    background-repeat: no-repeat;
+    background-size: auto;
+    height: 47rem !important;
+    width: 100% !important;
+    padding-top: 8rem !important;
   }
 }
 
 //explore-categories
 .explore-categories {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgb(165 220 255 / 27%) 47.5%, rgba(255, 255, 255, 0.8) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgb(165 220 255 / 27%) 47.5%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
   position: relative;
-  &::before{
+  &::before {
     content: "";
     position: absolute;
     background-image: url(/src/assets/images/web/category-before.png);
@@ -301,7 +306,7 @@ footer{
     background-image: url(/src/assets/images/web/category-after.png);
     background-repeat: no-repeat;
     top: 1rem;
-    right: 0;
+    right: -24px;
     height: 27rem;
     width: 15rem;
   }
@@ -919,6 +924,9 @@ footer{
   .fb-container-xxl {
     max-width: 1100px !important;
   }
+  footer .footer-upper form input {
+    width: 35% !important;
+  }
   .banner-ads .image-sec {
     height: 100%;
   }
@@ -1001,6 +1009,36 @@ footer{
 @media (min-width: 992px) and (max-width: 1200px) {
   .first_purchase .purchase-bg .purchase-content {
     padding: 3.5rem 0rem 1rem 5.9rem;
+  }
+  .home-banner-wrapper {
+    .card-left {
+      background-size: cover;
+      border-radius: 2rem;
+      padding-bottom: 12px;
+      p {
+        padding-left: 1rem;
+        width: 70%;
+      }
+    }
+    .card-center {
+      background-size: cover;
+      border-radius: 2rem;
+      p {
+        padding-left: 1rem;
+        width: 70%;
+      }
+    }
+    .card-right {
+      background-size: cover;
+      border-radius: 2rem;
+      p {
+        padding-left: 1rem;
+        width: 70%;
+      }
+    }
+  }
+  footer .footer-upper form input {
+    width: 40% !important;
   }
   .contact-us .card .orange-section {
     padding: 2.5rem 1rem;
@@ -1119,10 +1157,50 @@ footer{
   .download-section .download-content img {
     display: none;
   }
-  .banner-ads img{
+  .home-banner-wrapper {
+    .card-left {
+      background-size: cover;
+      border-radius: 2rem;
+      padding-bottom: 12px;
+      p {
+        padding-left: 1rem;
+        width: 70%;
+      }
+    }
+    .card-center {
+      background-size: cover;
+      border-radius: 2rem;
+      p {
+        padding-left: 1rem;
+        width: 70%;
+      }
+    }
+    .card-right {
+      background-size: cover;
+      border-radius: 2rem;
+      p {
+        padding-left: 1rem;
+        width: 70%;
+      }
+    }
+  }
+  .offer-cards {
+    .protein-right-top button {
+      margin-bottom: 1rem !important;
+      margin-left: 2rem !important;
+    }
+    .protein-right-bottom button {
+      margin-left: 2rem !important;
+      margin-bottom: 1rem !important;
+    }
+  }
+  footer .footer-upper form input {
+    width: 50% !important;
+  }
+  .banner-ads img {
     display: none !important;
   }
- 
+
   .contact-us .card .orange-section {
     padding: 2.5rem 1rem;
   }
@@ -1286,35 +1364,76 @@ footer{
   }
 }
 
-@media (max-width: 992px) {
-}
-
 @media (min-width: 576px) and (max-width: 768px) {
+  .home-banner-wrapper {
+    .card-left {
+      background-size: cover;
+      border-radius: 2rem;
+      padding-bottom: 12px;
+      p {
+        padding-left: 1rem;
+        width: 50%;
+      }
+    }
+    .card-center {
+      background-size: cover;
+      border-radius: 2rem;
+      p {
+        padding-left: 1rem;
+        width: 50%;
+      }
+    }
+    .card-right {
+      background-size: cover;
+      border-radius: 2rem;
+      p {
+        padding-left: 1rem;
+        width: 50%;
+      }
+    }
+  }
+  .offer-cards {
+    .protein-right-top button {
+      margin-bottom: 1rem !important;
+    }
+    .protein-right-bottom button {
+      margin-left: 1rem !important;
+    }
+  }
+  .protein-right-top button {
+    margin-bottom: 1rem !important;
+  }
   .download-section .download-content img {
     display: none;
+  }
+  .popular-product .popularleft img {
+    margin-left: 0 !important;
+  }
+  footer .footer-upper form input {
+    width: 70% !important;
   }
   .brown-button {
     padding: 12px 1rem;
   }
-  footer{
-    .footer-upper{
+  footer {
+    .footer-upper {
       height: 32rem !important;
-      form{
+      form {
         margin-top: 2rem;
-        button{ 
+        button {
           margin-inline: 1rem;
         }
       }
     }
   }
-  .explore-categories::after{
+  .explore-categories::after {
     top: -3rem;
     right: -1rem;
   }
   .explore-categories::before {
     top: -1rem;
     left: -1rem;
-}
+  }
   .product-container {
     grid-template-columns: repeat(2, 1fr) !important;
   }
@@ -1519,35 +1638,44 @@ footer{
   .contact-us .card .orange-section {
     padding: 2rem 1rem;
   }
+  .offcanvas-backdrop .login-offcanvas {
+    width: 100% !important;
+  }
+  .banner-ads .content-sec p {
+    width: 100% !important;
+  }
+  footer .footer-upper form input {
+    width: 90% !important;
+  }
   .brown-button {
     padding: 12px 1rem;
   }
-  .home-banner-wrapper{
-    .card-left p{
+  .home-banner-wrapper {
+    .card-left p {
       width: 60% !important;
     }
-    .card-center p{
+    .card-center p {
       width: 60% !important;
     }
-    .card-right p{
+    .card-right p {
       width: 60% !important;
     }
-  } 
-  footer{
-    .footer-upper{
+  }
+  footer {
+    .footer-upper {
       height: 32rem !important;
-      form{
+      form {
         margin-top: 2rem;
-        button{
+        button {
           margin-left: 0 !important;
         }
       }
     }
   }
-  .explore-categories::before{
+  .explore-categories::before {
     display: none !important;
   }
-  .explore-categories::after{
+  .explore-categories::after {
     display: none !important;
   }
   .fb-fs-24 {
