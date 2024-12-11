@@ -89,10 +89,12 @@ function ProductTable({ products , getProductList }) {
         <Column field="s.no" header="ID" body={(index) => products.indexOf(index) + 1}></Column>
         <Column field="images" header="Image" body={imageBodyTemplate}></Column>
         <Column field="name" header="Name" body={linkToReview}></Column>
+        <Column field="category" header="Category"></Column>
         <Column field="quantity" header="Stocks"></Column>
         <Column field="quantity_unit" header="Unit"></Column>
         <Column field="max_price" header="Price"></Column>
         <Column field="offer_price" header="Selling"></Column>
+        <Column field="status" header="Status"></Column>
         <Column field="ratings" header="Rating" body={iosSwitch}></Column>
         <Column header="Action" body={editButtonTemplate}></Column>
       </DataTable>

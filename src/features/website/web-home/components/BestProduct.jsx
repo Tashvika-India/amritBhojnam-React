@@ -22,9 +22,15 @@ const BestProduct = ({ products }) => {
     // prevArrow: <SamplePrevArrow />,
     responsive: [
       {
+        breakpoint: 1200, // For mid-sized screens (tablets, etc.)
+        settings: {
+          slidesToShow: 5, // Show 3 items
+        },
+      },
+      {
         breakpoint: 1024, // For mid-sized screens (tablets, etc.)
         settings: {
-          slidesToShow: 6, // Show 3 items
+          slidesToShow: 4, // Show 3 items
         },
       },
       {

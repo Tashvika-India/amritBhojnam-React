@@ -20,9 +20,15 @@ const ProductSlide = ({ bestPriceProduct }) => {
     prevArrow: <SamplePrevArrow />,
     responsive: [
       {
+        breakpoint: 1200, // For mid-sized screens (tablets, etc.)
+        settings: {
+          slidesToShow: 2, // Show 3 items
+        },
+      },
+      {
         breakpoint: 1024, // For mid-sized screens (tablets, etc.)
         settings: {
-          slidesToShow: 3, // Show 3 items
+          slidesToShow: 2, // Show 3 items
         },
       },
       {
