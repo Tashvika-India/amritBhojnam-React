@@ -1,11 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
-import Footer from "../../../layout/web-layout/Footer";
-import { Nav, Tab } from "react-bootstrap";
-import bannerAds from "../../../assets/images/web/banner-ads.png";
-import bannerAdsmob from "../../../assets/images/web/banner-ads-mob.png";
-import amritGroup from "../../../assets/images/web/amrit-group.png";
-import milletImg from "../../../assets/images/web/millets-img.png";
+import Footer from "../../../layout/web-layout/Footer"; 
+import amritGroup from "../../../assets/images/web/amrit-group.png"; 
+import milletImg from "../../../assets/images/web/millets-img.png";  
 import phoneImg from "../../../assets/images/web/phone.png";
 import bestBackgroundTop from "../../../assets/images/web/best-background-top.png";
 import bestBackgroundBottom from "../../../assets/images/web/best-background-bottom.png";
@@ -20,14 +17,9 @@ import grain2 from "../../../assets/images/web/grain-2.png";
 import earthImage from "../../../assets/images/web/earth-image.png";
 import grain3 from "../../../assets/images/web/grain-3.png";
 import WebBanner from "./components/WebBanner";
-import ItemSlide from "./components/ItemSlide";
-import { FaAsterisk } from "react-icons/fa6";
+import ItemSlide from "./components/ItemSlide"; 
 import astrick from "../../../assets/images/web/asterisk.png";
-import popProduct from "../../../assets/images/web/popular-product.png";
-import bestOffer from "../../../assets/images/web/offers/best-price.png";
-import deliveryImg from "../../../assets/images/web/offers/delivery.png";
-import greatDeal from "../../../assets/images/web/offers/great-deal.png";
-import easyReturn from "../../../assets/images/web/offers/easy-return.png";
+import popProduct from "../../../assets/images/web/popular-product.png"; 
 import firstPurchase from "../../../assets/images/web/first-purchase.png";
 import ProductCard from "./components/ProductCard";
 import { Link } from "react-router-dom";
@@ -38,7 +30,7 @@ import {
   getBestPriceApi,
 } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { baseURL } from "../../../utils/constant-variable";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import ProductSlide from "./components/productSlide";
@@ -76,17 +68,17 @@ const HomePage = () => {
 
   async function getBestPrice() {
     try {
-      const response = await getBestPriceApi();
-      setBestPrice(response?.data || []);
+      const response = await getBestPriceApi(); 
+      setBestPrice(Array.isArray(response?.data) ? response.data : []);
     } catch (error) {
-      console.log("Error on Product List", error);
+      console.log("Error on Best Price", error);
     }
   }
 
   async function getCategory() {
     setLoading(true);
     try {
-      const response = await getCategoriesApi();
+      const response = await getCategoriesApi(); 
       const filteredData = (response?.data || []).filter(
         (item) => item.is_active === true
       );
@@ -107,6 +99,7 @@ const HomePage = () => {
 
   return (
     <div className="web-wrapper-main">
+
       <Header />
       <section>
         <div

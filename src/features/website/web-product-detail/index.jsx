@@ -2,33 +2,26 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Rating } from "primereact/rating";
 import Header from "../../../layout/web-layout/Header";
-import Footer from "../../../layout/web-layout/Footer";
-import fireImg from "../../../assets/images/web/Fire.png";
-import { Checkbox } from "@mui/material";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
-import ShareIcon from "@mui/icons-material/Share";
+import Footer from "../../../layout/web-layout/Footer"; 
 import deliveryImg from "../../../assets/images/web/product-detail/delivery-img.png";
 import AsNavFor from "../web-home/components/MultiSlide";
-import { ButtonGroup, Nav, Tab, ToggleButton } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { getCartApi, getProductApi, postCartApi } from "../../../services/adminApiRoutes";
+import { ButtonGroup, Nav, Tab, ToggleButton } from "react-bootstrap"; 
+import { getProductApi, postCartApi } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import MyCartMenu from "../../../components/ui/MyCartMenu";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart, fetchFinalCart } from "../../../redux/slices/cartSlice";
+import { cartAdd } from "../../../redux/slices/cartSlice";
 
-const ProudctDetail = () => {
-  const [rating, setRating] = useState(0);
-  const [showCart, setShowCart] = useState(false);
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
-  const [selectedOption, setSelectedOption] = useState("option2");
-  const [checked, setChecked] = useState(false);
+const ProudctDetail = () => { 
+  const [showCart, setShowCart] = useState(false); 
   const [radioValue, setRadioValue] = useState('1');
   const [filters, setFilters] = useURLFilters()
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const toggleCart = () => setShowCart(!showCart);
-  const [detail, setDetail] = useState({}); 
+  const [detail, setDetail] = useState({});
+  const { cartItems, finalCart, error, cartId } = useSelector((state) => state.cart);
+
 
   const radios = [{ name: `${detail?.quantity}${detail?.quantity_unit}`, value: '1' }];
   const dispatch = useDispatch();
@@ -42,12 +35,7 @@ const ProudctDetail = () => {
     }
   };
 
-  const handleClick = () => {
-    dispatch(fetchCart());
-    if (quantity === 0 || quantity === undefined) {
-      setQuantity(1);
-    }
-  };
+ 
 
   const addToCart = async (product_id, quantity) => {
     setLoading(true);
@@ -56,8 +44,9 @@ const ProudctDetail = () => {
         product_id,
         item_quantity: quantity,
       });
-      console.log("response", response);
-      
+      dispatch(cartAdd(response?.data))
+
+
     } catch (error) {
       console.log("Error adding to cart:", error);
     } finally {
@@ -65,18 +54,17 @@ const ProudctDetail = () => {
     }
   };
 
+  function checkItemInCart() {
+    return cartItems.some((cartItem) => cartItem.product_id === detail?.id);
+  } 
 
   useEffect(() => {
-    if (quantity > 0) {
-      addToCart(detail?.id, quantity);
-    }
-  }, [quantity]);
+    fetchProductDetail();
+  }, [showCart]);
 
-  useEffect(() => {
-    fetchProductDetail();      
-  }, [showCart , quantity]);
-
- 
+  useEffect(() => { 
+    checkItemInCart()
+  }, [cartItems]);  
 
   return (
     <div className="web-wrapper-main">
@@ -89,27 +77,7 @@ const ProudctDetail = () => {
             </div>
             <div className="col-lg-6 col-12">
               <div className="product-detail-content ps-4">
-                {/* <div className="d-flex justify-content-between">
-                  <p className="fb-fs-18 fw-600 d-flex text-brown">
-                    <span>
-                      <img
-                        className="img-fluid mt-1 me-2"
-                        src={fireImg}
-                        alt="fire"
-                      />
-                    </span>
-                    80 Calories
-                  </p>
-                  <div className="ms-auto">
-                    <Checkbox
-                      {...label}
-                      icon={<FavoriteBorder />}
-                      checkedIcon={<Favorite />}
-                      style={{ color: "#F26722" }}
-                    />
-                    <ShareIcon style={{ color: "#F26722" }} className="ms-2" />
-                  </div>
-                </div> */}
+
                 <h4 className="fb-fs-30 fw-bold">
                   {detail?.name}
                 </h4>
@@ -154,16 +122,16 @@ const ProudctDetail = () => {
                   (Inclusive of all taxes)
                 </p>
                 <div>
-                  {(detail?.cart_item_qty === undefined || detail?.cart_item_qty === 0 )? (
-                    <button className="button-primary mt-4 fb-fs-18" onClick={() => handleClick()}>
-                      Add to Cart
+                  {!checkItemInCart() ? (
+                    <button className="button-primary mt-4 fb-fs-18" onClick={() => addToCart(detail?.id, quantity || 1)} disabled={loading}>
+                      {loading ? "Adding..." : "Add to Cart"}
                     </button>) : (
                     <>
-                      <button className="button-primary mt-4 fb-fs-18"  onClick={toggleCart}>
+                      <button className="button-primary mt-4 fb-fs-18" onClick={toggleCart}>
                         Go to Cart
                       </button>
                       <MyCartMenu show={showCart} onClose={toggleCart} />
-                    </> )
+                    </>)
                   }
                 </div>
                 <div className="mt-5">
@@ -268,55 +236,6 @@ const ProudctDetail = () => {
                               detail?.long_description
                             }
                           </p>
-                          {/* <p className="mb-4">
-                            Spluttered narrowly yikes left moth in yikes bowed
-                            this that grizzly much hello on spoon-fed that alas
-                            rethought much decently richly and wow against the
-                            frequent fluidly at formidable acceptably flapped
-                            besides and much circa far over the bucolically hey
-                            precarious goldfinch mastodon goodness gnashed a
-                            jellyfish and one however because.
-                          </p>
-                          <ul className="mb-4 disc-style ms-4">
-                            <li>Type Of Packing Bottle</li>
-                            <li>Color Green, Pink, Powder Blue, Purple</li>
-                            <li>Quantity Per Case100ml</li>
-                            <li>Ethyl Alcohol70%</li>
-                            <li>Piece In OneCarton</li>
-                          </ul>
-                          <p className="mb-5 pb-md-4">
-                            Laconic overheard dear woodchuck wow this
-                            outrageously taut beaver hey hello far meadowlark
-                            imitatively egregiously hugged that yikes minimally
-                            unanimous pouted flirtatiously as beaver beheld
-                            above forward energetic across this jeepers
-                            beneficently cockily less a the raucously that magic
-                            upheld far so the this where crud then below after
-                            jeez enchanting drunkenly more much wow callously
-                            irrespective limpet.
-                          </p>
-                          <h6 className="mb-4">Suggested Use</h6>
-                          <ul className="mb-4 disc-style ms-4">
-                            <li>Refrigeration not necessary.</li>
-                            <li>Stir before serving</li>
-                          </ul>
-                          <h6 className="mb-4">Other Ingredients</h6>
-                          <ul className="mb-4 disc-style ms-4">
-                            <li>Organic raw pecans, organic raw cashews.</li>
-                            <li>
-                              This butter was produced using a LTG (Low
-                              Temperature Grinding) process
-                            </li>
-                            <li>
-                              Made in machinery that processes tree nuts but
-                              does not process peanuts, gluten, dairy or soy
-                            </li>
-                          </ul>
-
-                          <h6 className="mb-4">Warnings</h6>
-                          <ul className="mb-4 disc-style ms-4">
-                            <li>Oil separation occurs naturally. May contain pieces of shell.</li>
-                          </ul> */}
                         </Tab.Pane>
                         <Tab.Pane eventKey="Additional Info">
                           Second tab content

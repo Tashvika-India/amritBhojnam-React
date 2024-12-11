@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"; 
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getCartApi, getFinalCartApi, postCartApi } from "../../services/adminApiRoutes";
 
 const initialState = {
@@ -7,6 +7,7 @@ const initialState = {
   loading: false,
   updating: false,
   error: null,
+  cartId: null
 };
 
 // Thunks
@@ -18,6 +19,8 @@ export const fetchCart = createAsyncThunk("cart/fetchCart", async (_, { rejectWi
     return rejectWithValue(error.response?.data || error.message);
   }
 });
+
+
 
 export const fetchFinalCart = createAsyncThunk(
   "cart/fetchFinalCart",
@@ -46,7 +49,14 @@ export const updateCart = createAsyncThunk(
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    cartAdd: (state, action) => { 
+      state.cartItems.push(action.payload);
+    },
+    removeCart : (state, action) => { 
+      state.cartItems = state.cartItems.filter((item) => item.product_id !== action.payload);
+    }
+  },
   extraReducers: (builder) => {
     // fetchCart
     builder.addCase(fetchCart.pending, (state) => {
@@ -55,6 +65,7 @@ const cartSlice = createSlice({
     });
     builder.addCase(fetchCart.fulfilled, (state, action) => {
       state.loading = false;
+      state.cartId = action.payload?.[0]?.cart_id
       state.cartItems = action.payload;
     });
     builder.addCase(fetchCart.rejected, (state, action) => {
@@ -73,6 +84,7 @@ const cartSlice = createSlice({
     });
     builder.addCase(fetchFinalCart.rejected, (state, action) => {
       state.loading = false;
+      state.finalCart = {};
       state.error = action.payload;
     });
 
@@ -94,5 +106,7 @@ const cartSlice = createSlice({
     });
   },
 });
+
+export const { cartAdd ,removeCart} = cartSlice.actions;
 
 export default cartSlice.reducer;

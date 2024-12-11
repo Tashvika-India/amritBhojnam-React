@@ -93,14 +93,15 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
 
         // Decode token payload (Base64)
         const tokenParts = accessToken.split(".");
-        const payload = JSON.parse(atob(tokenParts[1]));
+        const payload = JSON.parse(atob(tokenParts[1])); 
+        window.location.reload(true);
 
         // Navigate to dashboard if admin role
-        if (payload?.is_admin) {
-          navigate("/home");
-        } else {
-          setErrorMessage("Access Denied: Not an admin user.");
-        }
+        // if (payload?.is_admin) {
+        //   navigate("/home");
+        // } else {
+        //   setErrorMessage("Access Denied: Not an admin user.");
+        //
       }
 
       onOtpClose(); // Close the OTP modal on successful verification

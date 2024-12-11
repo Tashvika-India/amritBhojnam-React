@@ -5,14 +5,13 @@ import deliveryImg from "../../assets/images/web/product-detail/delivery-img.png
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
-import { fetchCart, fetchFinalCart, updateCart } from "../../redux/slices/cartSlice";
+import { fetchCart, fetchFinalCart, removeCart, updateCart } from "../../redux/slices/cartSlice";
 import { baseURL } from "../../utils/constant-variable";
 
 const MyCartMenu = ({ show, onClose }) => {
   const dispatch = useDispatch();
-  const { cartItems, finalCart, loading, error } = useSelector((state) => state.cart);
+  const { cartItems, finalCart, loading, error  , cartId} = useSelector((state) => state.cart);
 
-  const cartID  = cartItems?.[0]?.cart_id || ""; 
 
   const handleUpdateCart = (product_id, newQuantity) => {
     dispatch(updateCart({ product_id, item_quantity: newQuantity }));
@@ -21,25 +20,33 @@ const MyCartMenu = ({ show, onClose }) => {
   const handleIncreaseQuantity = (product_id, currentQuantity) => {
     if (currentQuantity < 10) {
       handleUpdateCart(product_id, currentQuantity + 1);
-      dispatch(fetchCart());
-      dispatch(fetchFinalCart(cartID));
+      dispatch(fetchFinalCart(cartId));
     }
   };
 
   const handleDecreaseQuantity = (product_id, currentQuantity) => {
     const newQuantity = currentQuantity - 1;
     handleUpdateCart(product_id, Math.max(newQuantity, 0));
-    dispatch(fetchCart());
-    dispatch(fetchFinalCart(cartID));
+    dispatch(fetchFinalCart(cartId)); 
   }; 
-  
+
+  const handleRemoveQuantity = (product_id) => {
+    dispatch(removeCart(product_id)); 
+    handleUpdateCart(product_id, 0);
+    dispatch(fetchFinalCart(cartId)); 
+  }; 
 
   useEffect(() => {
     if (show) {
       dispatch(fetchCart());
-      dispatch(fetchFinalCart(cartID));
     }
   }, [show, dispatch]);
+
+  useEffect(() => {
+    if (cartId) {
+      dispatch(fetchFinalCart(cartId));
+    }
+  }, [show, dispatch, cartId]); 
 
   return (
     <Offcanvas show={show} onHide={onClose} placement="end" style={{ width: "30%" }}>
@@ -62,41 +69,41 @@ const MyCartMenu = ({ show, onClose }) => {
             </div>
             <div className="mb-2 px-3" style={{ maxHeight: "60dvh", overflowY: "auto" }}>
               { cartItems?.length > 0 ? (
-                cartItems.map((item) => (
-                  <div className="cart-items mb-2" key={item.product.id}>
+                cartItems?.map((item) => (
+                  <div className="cart-items mb-2" key={item?.product.id}>
                     <div className="product-item p-1">
                       <img
-                        src={baseURL + item.product.images[0]?.img_files || product}
+                        src={baseURL + item?.product?.images[0]?.img_files || product}
                         className="img-fluid"
-                        alt={item.product.name}
+                        alt={item?.product?.name}
                       />
                     </div>
                     <div className="product-details w-100 ms-3">
-                      <p className="item-name text-black fw-500 mb-0">{item.product.name}</p>
-                      <p className="item-weight text-grey mb-0 mt-1">{`${item.product.quantity} ${item.product.quantity_unit}`}</p>
-                      <p className="item-weight mb-0 mt-1">{`₹ ${Math.trunc(item.price)} X ${item.item_quantity}`}</p>
+                      <p className="item-name text-black fw-500 mb-0">{item?.product?.name}</p>
+                      <p className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity} ${item?.product?.quantity_unit}`}</p>
+                      <p className="item-weight mb-0 mt-1">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</p>
                     </div>
                     <div className="product-quantity text-end">
                       <div className="quantity-manage mb-4">
                         <button
                           className="quantity-minu d-inline-block border-0 bg-white text-orange fw-600"
-                          onClick={() => handleDecreaseQuantity(item.product.id, item.item_quantity)}
-                          disabled={item.item_quantity <= 1}
+                          onClick={() => handleDecreaseQuantity(item?.product.id, item?.item_quantity)}
+                          disabled={item?.item_quantity <= 1}
                         >
                           -
                         </button>
-                        <span className="quantity-count d-inline-block text-orange fw-600">{item.item_quantity}</span>
+                        <span className="quantity-count d-inline-block text-orange fw-600">{item?.item_quantity}</span>
                         <button
                           className="quantity-plus d-inline-block border-0 bg-white text-orange fw-600"
-                          onClick={() => handleIncreaseQuantity(item.product.id, item.item_quantity)}
-                          disabled={item.item_quantity >= 10}
+                          onClick={() => handleIncreaseQuantity(item?.product.id, item?.item_quantity)}
+                          disabled={item?.item_quantity >= 10}
                         >
                           +
                         </button>
                       </div>
                       <button
                         className="ms-2 text-yellow remove-quantity border-0 bg-white text-decoration-underline"
-                        onClick={() => handleDecreaseQuantity(item.product.id, 1)}
+                        onClick={() => handleRemoveQuantity(item?.product.id, 0)}
                       >
                         Remove
                       </button>
