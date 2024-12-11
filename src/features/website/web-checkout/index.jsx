@@ -98,13 +98,11 @@ const CheckoutPage = () => {
         input.type = "hidden";
         input.name = key;
         input.value = form_data[key];
-        form.appendChild(input);
-        console.log("Form" , form)
+        form.appendChild(input); 
       });
 
       console.log(payment_url,form_data);
-      document.body.appendChild(form);
-      console.log("Form" , form)
+      document.body.appendChild(form); 
       form.submit();
     } catch (error) {
       console.error("Error during payment:", error);
