@@ -3,7 +3,13 @@ import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import { TabPanel, TabView } from "primereact/tabview";
-import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import pencilImg from "../../../assets/images/web/account/pencil.png";
 import accountBg from "../../../assets/images/web/account/account-profile-background.png";
 import profilePic from "../../../assets/images/web/account/profile-picture.png";
@@ -15,6 +21,7 @@ import deleteButton from "../../../assets/images/web/account/delete-button.png";
 import {
   deleteAddressApi,
   getAddressApi,
+  getOrderApi,
   getProfile,
   getProfileApi,
   postAddressApi,
@@ -26,13 +33,14 @@ import { Collapse } from "@mui/material";
 import { useFormik } from "formik";
 import Address from "../../../assets/common-components/website/Address";
 import Loading from "../../../components/ui/Loading";
+import { baseURL } from "../../../utils/constant-variable";
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
-  const [editData, setEditData] = useState([null]); 
+  const [editData, setEditData] = useState([null]);
   const [userDetail, setUserDetail] = useState({});
-
+  const [order, setOrder] = useState([]);
 
   const getAddressList = async () => {
     try {
@@ -40,6 +48,16 @@ const UserProfile = () => {
       setAddressList(response?.data || []);
     } catch (error) {
       console.log("Error fetching cart data:", error);
+    } finally {
+    }
+  };
+
+  const getOrderList = async () => {
+    try {
+      const response = await getOrderApi();
+      setOrder(response?.data);
+    } catch (error) {
+      console.log("Error fetching order dataL", error);
     } finally {
     }
   };
@@ -163,10 +181,9 @@ const UserProfile = () => {
       resetForm();
       setSubmitting(false);
     },
-  }); 
+  });
 
   const updateProfile = async (values) => {
-    
     const formData = new FormData();
     formData.append("full_name", values.full_name);
     formData.append("email", values.email);
@@ -184,14 +201,13 @@ const UserProfile = () => {
     }
   };
 
-
   useEffect(() => {
     getAddressList();
     getProfileList();
+    getOrderList();
   }, []);
 
-  
-  
+  console.log(order);
 
   return (
     <div className="web-wrapper-main">
@@ -234,7 +250,10 @@ const UserProfile = () => {
                   <div className="d-flex justify-content-between mt-4">
                     <p className="fb-fs-26 fw-bold">My Account</p>
                     <div className="d-flex">
-                      <button className="d-inline-flex align-items-end border-0 bg-transparent" onClick={() => HandleEdit()}>
+                      <button
+                        className="d-inline-flex align-items-end border-0 bg-transparent"
+                        onClick={() => HandleEdit()}
+                      >
                         <img
                           className="img-fluid"
                           src={pencilImg}
@@ -263,8 +282,14 @@ const UserProfile = () => {
                             value={profile.values.full_name}
                             onChange={profile.handleChange}
                             onBlur={profile.handleBlur}
-                            error={profile.touched.full_name && Boolean(profile.errors.full_name)}
-                            helperText={profile.touched.full_name && profile.errors.full_name}
+                            error={
+                              profile.touched.full_name &&
+                              Boolean(profile.errors.full_name)
+                            }
+                            helperText={
+                              profile.touched.full_name &&
+                              profile.errors.full_name
+                            }
                           />
                         </div>
                         <div className="col-md-6 mb-4">
@@ -278,8 +303,13 @@ const UserProfile = () => {
                             value={profile.values.email}
                             onChange={profile.handleChange}
                             onBlur={profile.handleBlur}
-                            error={profile.touched.email && Boolean(profile.errors.email)}
-                            helperText={profile.touched.email && profile.errors.email}
+                            error={
+                              profile.touched.email &&
+                              Boolean(profile.errors.email)
+                            }
+                            helperText={
+                              profile.touched.email && profile.errors.email
+                            }
                           />
                         </div>
                         <div className="col-md-6 mb-4">
@@ -295,8 +325,13 @@ const UserProfile = () => {
                               label="Gender"
                               onChange={profile.handleChange}
                               onBlur={profile.handleBlur}
-                              error={profile.touched.gender && Boolean(profile.errors.gender)}
-                              helperText={profile.touched.gender && profile.errors.gender}
+                              error={
+                                profile.touched.gender &&
+                                Boolean(profile.errors.gender)
+                              }
+                              helperText={
+                                profile.touched.gender && profile.errors.gender
+                              }
                             >
                               <MenuItem value={""}>Select</MenuItem>
                               <MenuItem value={"Male"}>Male</MenuItem>
@@ -317,8 +352,14 @@ const UserProfile = () => {
                             value={profile.values.date_of_birth}
                             onChange={profile.handleChange}
                             onBlur={profile.handleBlur}
-                            error={profile.touched.date_of_birth && Boolean(profile.errors.date_of_birth)}
-                            helperText={profile.touched.date_of_birth && profile.errors.date_of_birth}
+                            error={
+                              profile.touched.date_of_birth &&
+                              Boolean(profile.errors.date_of_birth)
+                            }
+                            helperText={
+                              profile.touched.date_of_birth &&
+                              profile.errors.date_of_birth
+                            }
                           />
                         </div>
                         <div className="col-12 mt-4 text-end">
@@ -328,7 +369,7 @@ const UserProfile = () => {
                             disabled={profile.isSubmitting || loading}
                           >
                             {loading ? "Saving..." : "Save"}
-                          </button>     
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -338,86 +379,114 @@ const UserProfile = () => {
               <TabPanel header="Order History" leftIcon="pi pi-box me-2">
                 <div className="order-section">
                   <p className="fb-fs-26 fw-bold my-4">Order History</p>
-                  <div className="summary-card rounded-20 ">
-                    <div className="container">
-                      <div className="row border-bottom px-3 py-3">
-                        <div className="col-md-3">
-                          <p>
-                            Order ID:
-                            <span className="fw-600"> #123456789</span>
-                          </p>
-                        </div>
-                        <div className="col-md-3">
-                          <p>
-                            Order Placed:
-                            <span className="fw-600"> March 10, 2024</span>
-                          </p>
-                        </div>
-                        <div className="col-md-3">
-                          <p>
-                            Total Amount:
-                            <span className="fw-600"> ₹ 130 </span>
-                          </p>
-                        </div>
-                        <div className="col-md-3 text-end">
-                          <p className="text-orange fw-500">Download Invoice</p>
-                        </div>
-                      </div>
-                      <div className="row px-3 py-4">
-                        <div className="col-md-8">
-                          <div className="prod-detail d-flex">
-                            <img
-                              className="img-fluid me-4"
-                              src={milletImg}
-                              alt="pencil"
-                            />
-                            <div>
-                              <p className="fb-fs-18 fw-600 text-dark-grey">
-                                Masala Millets (Veggie Masala)
-                              </p>
-                              <p className="mt-2">
-                                Qty: <span className="fw-600"> 2</span>
-                              </p>
-                              <p className="mt-2">
-                                Size: <span className="fw-600"> 100gm</span>
-                              </p>
-                            </div>
+                  {order.map((item, index) => (
+                    <div className="summary-card rounded-20 mb-4">
+                      <div className="container">
+                        <div className="row border-bottom px-3 py-3">
+                          <div className="col-md-3">
+                            <p>
+                              Order ID:
+                              <span className="fw-600" title={item?.id}>&nbsp;&nbsp;
+                                {item?.id?.slice(0, 16)}...
+                              </span>
+                            </p>
                           </div>
-                        </div>
-                        <div className="col-md-4">
-                          <div className="price-sec text-end text-dark-grey">
-                            <p className="fb-fs-24 fw-bold">₹80</p>
+                          <div className="col-md-3">
+                            <p>
+                              Order Placed:
+                              <span className="fw-600">&nbsp;&nbsp;
+                                {new Date(item?.created_at).toLocaleDateString(
+                                  "en-GB"
+                                )}
+                              </span>
+                            </p>
                           </div>
-                        </div>
-                      </div>
-                      <div className="row p-3">
-                        <div className="col-md-6">
-                          <div className="order-date d-flex">
-                            <img
-                              className="img-fluid me-2"
-                              src={tickImg}
-                              alt="pencil"
-                            />
-                            <p className="text-dark-grey">
-                              Delivered on March 26, 2024
+                          <div className="col-md-3">
+                            <p>
+                              Total Amount:
+                              <span className="fw-600">&nbsp;&nbsp;
+                                {" "}
+                                ₹ {item?.amount_to_pay}{" "}
+                              </span>
+                            </p>
+                          </div>
+                          <div className="col-md-3 text-end">
+                            <p className="text-orange fw-500">
+                              Download Invoice
                             </p>
                           </div>
                         </div>
-                        <div className="col-md-6 text-md-end">
-                          <div className="more-option d-flex justify-content-end">
-                            <button className="fw-bold border-0 text-dark-grey bg-transparent border-end pe-4">
-                              View Product
-                            </button>
-                            <button className="fw-bold border-0 text-orange bg-transparent ms-3">
-                              Buy Again
-                            </button>
+                        {item?.product_details.map((data) => (
+                          <div className="row px-3 py-4">
+                            <div className="col-md-8">
+                              <div className="prod-detail d-flex align-items-center">
+                                <img
+                                  className="img-fluid me-4 rounded-4"
+                                  style={{ height: "7rem", width: "7rem" }}
+                                  src={
+                                    baseURL +
+                                    data?.product?.images[0]?.img_files
+                                  }
+                                  alt="pencil"
+                                />
+                                <div>
+                                  <p className="fb-fs-18 fw-600 text-dark-grey">
+                                    {data?.product?.name}
+                                  </p>
+                                  <p className="mt-2">
+                                    Qty: <span className="fw-600"> {data?.item_quantity}</span>
+                                  </p>
+                                  <p className="mt-2">
+                                    Size:{" "}
+                                    <span className="fw-600">{`${data?.product?.quantity}${data?.product?.quantity_unit}
+`}</span>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="price-sec text-end text-dark-grey">
+                                <p className="fb-fs-24 fw-bold">₹{data?.price}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                        <div className="row p-3">
+                          <div className="col-md-6">
+                            <div className="order-date d-flex">
+                              <img
+                                className="img-fluid me-2"
+                                src={tickImg}
+                                alt="pencil"
+                              />
+                              <p className="text-dark-grey">
+                                Delivered on{" "}
+                                {new Date(
+                                  item?.delivered_on
+                                ).toLocaleDateString("en-US", {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric",
+                                })}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="col-md-6 text-md-end">
+                            <div className="more-option d-flex justify-content-end">
+                              <button className="fw-bold border-0 text-dark-grey bg-transparent border-end pe-4">
+                                View Product
+                              </button>
+                              <button className="fw-bold border-0 text-orange bg-transparent ms-3">
+                                Buy Again
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-                <div className="order-section">
+                {/* <div className="order-section">
                   <div className="summary-card rounded-20 mt-5">
                     <div className="container">
                       <div className="row border-bottom px-3 py-3">
@@ -496,7 +565,7 @@ const UserProfile = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </TabPanel>
               <TabPanel header="Address Book" leftIcon="pi pi-map-marker me-2">
                 <div className="address-section">
@@ -508,8 +577,8 @@ const UserProfile = () => {
                       type="button"
                       className="d-flex mt-4 pt-2 border-0 bg-transparent"
                       onClick={() => {
-                        setOpen(!open)
-                        setEditData(null)
+                        setOpen(!open);
+                        setEditData(null);
                       }}
                       aria-controls="example-collapse-text"
                       aria-expanded={open}
@@ -626,8 +695,9 @@ const UserProfile = () => {
                     ) : addressList.length > 0 ? (
                       addressList.map((item, index) => (
                         <div
-                          className={`summary-card ${item?.selected ? "active" : ""
-                            } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                          className={`summary-card ${
+                            item?.selected ? "active" : ""
+                          } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
                           key={index}
                           onClick={() => handleSelectAddress(item?.id)}
                         >
@@ -636,8 +706,9 @@ const UserProfile = () => {
                               <div className="col-md-12">
                                 <div className="order-date d-flex">
                                   <img
-                                    className={`img-fluid me-1 rounded-4 ${item?.selected ? "shadow" : ""
-                                      }`}
+                                    className={`img-fluid me-1 rounded-4 ${
+                                      item?.selected ? "shadow" : ""
+                                    }`}
                                     src={homeImg}
                                     alt="pencil"
                                   />
@@ -664,18 +735,25 @@ const UserProfile = () => {
                               <div className="col-md-1"></div>
                               <div className="col-md-11">
                                 <div className="d-flex mt-2">
-                                  <button className="border-0 bg-transparent" onClick={() => {
-                                    setOpen(!open)
-                                    setEditData(item);
-
-                                  }}>
+                                  <button
+                                    className="border-0 bg-transparent"
+                                    onClick={() => {
+                                      setOpen(!open);
+                                      setEditData(item);
+                                    }}
+                                  >
                                     <img
                                       className="img-fluid me-3"
                                       src={editButton}
                                       alt="Edit"
                                     />
                                   </button>
-                                  <button className="border-0 bg-transparent" onClick={() => handleDeleteAddress(item?.id)}>
+                                  <button
+                                    className="border-0 bg-transparent"
+                                    onClick={() =>
+                                      handleDeleteAddress(item?.id)
+                                    }
+                                  >
                                     <img
                                       className="img-fluid me-2"
                                       src={deleteButton}

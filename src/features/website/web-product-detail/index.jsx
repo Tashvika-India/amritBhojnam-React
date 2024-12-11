@@ -76,9 +76,7 @@ const ProudctDetail = () => {
     fetchProductDetail();      
   }, [showCart , quantity]);
 
-
-  console.log("detail", detail);
-  
+ 
 
   return (
     <div className="web-wrapper-main">
