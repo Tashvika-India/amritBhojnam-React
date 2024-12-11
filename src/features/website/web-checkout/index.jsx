@@ -2,20 +2,11 @@ import * as Yup from "yup";
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
-import homeImg from "../../../assets/images/web/account/home-img.png";
-import product from "../../../assets/images/web/product-card.png";
-import {
-  Box,
-  Collapse,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
-import { IoHomeOutline } from "react-icons/io5";
-import { HiBuildingOffice2 } from "react-icons/hi2";
-import { getAddressApi, getCartApi, getFinalCartApi, getProfile, getProfileApi, postAddressApi, postPayNowApi, postPayuCallbackApi, postSelectAddressApi } from "../../../services/adminApiRoutes";
+import homeImg from "../../../assets/images/web/account/home-img.png"; 
+import { 
+  Collapse, 
+} from "@mui/material"; 
+import { getAddressApi, getCartApi, getFinalCartApi, getProfile, getProfileApi, postAddressApi, postPayNowApi, postSelectAddressApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
 import { Link } from "react-router-dom";
 import { baseURL } from "../../../utils/constant-variable";
@@ -79,43 +70,42 @@ const CheckoutPage = () => {
       }
 
       // Step 2: Prepare Payment Details
-      const payDetails = {
+    const payDetails = {
         amount: 1,
         firstname: user.full_name || "N/A",
         email: user.email || "N/A",
         phone: user.phone || "N/A",
         productinfo,
-        surl: `https://dev-react.amritbhojanam.com/home}`,
-        furl: `https://dev-react.amritbhojanam.com/contact-us`,
+        surl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_success_web/`, 
+        furl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_failed_web/`,  
       }; 
 
-      // Step 3: Initiate Payment
       const data = await postPayNowApi(payDetails);
       const paymentResponse = data?.data; 
-
-      // Validate Payment Response
+      
       if (!paymentResponse?.payment_url || !paymentResponse?.form_data) {
         throw new Error("Invalid payment response");
       }
 
       const { payment_url, form_data } = paymentResponse;
 
-      // Step 4: Dynamically Create and Submit Form
       const form = document.createElement("form");
       form.method = "POST";
       form.action = payment_url;
 
-      // Append all form data as hidden inputs
       Object.keys(form_data).forEach((key) => {
         const input = document.createElement("input");
         input.type = "hidden";
         input.name = key;
         input.value = form_data[key];
         form.appendChild(input);
+        console.log("Form" , form)
       });
 
-      document.body.appendChild(form); // Append form to the body
-      form.submit(); // Submit the form to redirect
+      console.log(payment_url,form_data);
+      document.body.appendChild(form);
+      console.log("Form" , form)
+      form.submit();
     } catch (error) {
       console.error("Error during payment:", error);
       alert(`Payment failed: ${error.message}`);
