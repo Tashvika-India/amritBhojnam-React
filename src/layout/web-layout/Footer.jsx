@@ -13,7 +13,7 @@ const Footer = () => {
       <footer>
         <div className="footer-upper mt-lg-5 mt-1">
           <div className="text-center pt-3">
-            <h1 className="fw-bolder text-white">JOIN FOR HOT OFFERS</h1>
+            <h1 className="text-white bangers-regular">JOIN FOR HOT OFFERS</h1>
             <p className="fw-500 fb-fs-22 text-white">
               If we go all out...We do it well! Subscribe to the newsletter{" "}
               <br></br> to get the most exclusive promos.
