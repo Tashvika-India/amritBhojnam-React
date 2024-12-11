@@ -62,9 +62,9 @@ const ProudctDetail = () => {
     fetchProductDetail();
   }, [showCart]);
 
-  useEffect(() => {
+  useEffect(() => { 
     checkItemInCart()
-  }, [cartItems]); 
+  }, [cartItems]);  
 
   return (
     <div className="web-wrapper-main">

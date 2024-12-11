@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer"; 
-import amritGroup from "../../../assets/images/web/amrit-group.png";
-import milletImg from "../../../assets/images/web/millets-img.png"; 
+import amritGroup from "../../../assets/images/web/amrit-group.png"; 
+import milletImg from "../../../assets/images/web/millets-img.png";  
 import phoneImg from "../../../assets/images/web/phone.png";
 import bestBackgroundTop from "../../../assets/images/web/best-background-top.png";
 import bestBackgroundBottom from "../../../assets/images/web/best-background-bottom.png";
@@ -108,8 +108,8 @@ const HomePage = () => {
         >
           <WebBanner />
           <div>
-            <div className="row my-4 px-lg-3">
-              <div className="col-md-4">
+            <div className="row my-4 px-lg-3 gap-sm-3 gap-xl-0">
+              <div className="col-xl-4 col-lg-12 col-md-12">
                 <div className="card-left">
                   <div className="row">
                     <div className="col-md-6 ps-lg-5 ps-4">
@@ -132,7 +132,7 @@ const HomePage = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-4">
+              <div className="col-xl-4 col-lg-12 col-md-12">
                 <div className="card-center">
                   <div className="row">
                     <div className="col-md-6 ps-lg-5 ps-4">
@@ -154,7 +154,7 @@ const HomePage = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-4">
+              <div className="col-xl-4 col-lg-12 col-md-12">
                 <div className="card-right">
                   <div className="row">
                     <div className="col-md-6 ps-lg-5 ps-4 ms-2">
