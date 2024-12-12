@@ -261,8 +261,8 @@ td {
 }
 
 .button-primary-reverse{
-    background-color: $white;
-    color: $orange;
+    background-color: $white !important;
+    color: $orange !important;
     border: 1px solid $orange !important;
     border-radius: 0.625rem;
     font-size: 1rem;
@@ -274,16 +274,16 @@ td {
     line-height: normal;
     transition: all 0.3s ease-in-out;
     &:hover{
-        background-color: $orange;
+        background-color: $orange !important;
         border-color: transparent;
-        color: $white;
+        color: $white !important;
     }
 }
 
 .button-primary {
-    background-color: $orange;
+    background-color: $orange !important;
     border-radius: 0.625rem;
-    color: $white;
+    color: $white !important;
     font-size: 1.125rem;
     font-weight: 600;
     padding-inline: 1.5rem;
@@ -293,9 +293,9 @@ td {
     line-height: normal;
     transition: all 0.3s ease-in-out;
     &:hover {
-        background-color: $white;
-        color: $orange;
-        border-color: $orange;
+        background-color: $white !important;
+        color: $orange !important;
+        border-color: $orange !important;
     }
 }
 

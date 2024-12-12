@@ -46,22 +46,34 @@ const UserProfile = () => {
 
   const formik = useFormik({
     initialValues: {
+      ads_name: "",
+      ads_phone: "",
+      ads_email: "",
       house_flat_block_no: "",
       road_area_colony: "",
       city: "",
       state: "",
       pincode: "",
-      save_as: "home", // Default value
+      save_as: "", 
     },
     validationSchema: Yup.object({
-      house_flat_block_no: Yup.string().required("Required"),
-      road_area_colony: Yup.string().required("Required"),
-      city: Yup.string().required("Required"),
-      state: Yup.string().required("Required"),
+      ads_name: Yup.string().required("Name is required"),
+      ads_phone: Yup.string()
+        .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
+        .required("Phone number is required"),
+      ads_email: Yup.string()
+        .email("Invalid email format")
+        .required("Email is required"),
+      house_flat_block_no: Yup.string().required("House/Flat/Block No is required"),
+      road_area_colony: Yup.string().required("Road/Area/Colony is required"),
+      city: Yup.string().required("City is required"),
+      state: Yup.string().required("State is required"),
       pincode: Yup.string()
         .matches(/^\d{6}$/, "Pincode must be exactly 6 digits")
-        .required("Required"),
+        .required("Pincode is required"),
+      save_as: Yup.string().required("Save as field is required"),
     }),
+
     onSubmit: async (values) => {
       editData ? updateAddress(values) : addAddress(values);
     },
@@ -170,7 +182,7 @@ const UserProfile = () => {
       full_name: "",
       email: "",
       gender: "",
-      date_of_birth: "1999-05-11",
+      date_of_birth: "00-00-0000",
     },
     validationSchema: Yup.object({
       full_name: Yup.string().required("Full name is required"),
@@ -214,7 +226,7 @@ const UserProfile = () => {
         full_name: userDetail.full_name || "",
         email: userDetail.email || "",
         gender: userDetail.gender || "",
-        date_of_birth: userDetail.date_of_birth || "1999-05-11",
+        date_of_birth: userDetail.date_of_birth || "00-00-0000",
       });
     }
   }, [userDetail]);
@@ -231,7 +243,13 @@ const UserProfile = () => {
       setActiveIndex(0);
     }
 
-  }, [location.search]);
+  }, [location.search]); 
+
+  useEffect(() => {
+    if (userDetail?.full_name === null && userDetail?.email === null && userDetail?.gender === null && userDetail?.date_of_birth === null) {
+      setProfileEdit(true);   
+    }
+  }, [userDetail]);
 
 
   return (
@@ -495,14 +513,7 @@ const UserProfile = () => {
                                   alt="pencil"
                                 />
                                 <p className="text-dark-grey">
-                                  Delivered on
-                                  {new Date(
-                                    item?.delivered_on
-                                  ).toLocaleDateString("en-US", {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric",
-                                  })}
+                                  Delivered on {new Date(item?.delivered_on).toLocaleDateString("en-US", {year: "numeric",month: "long",day: "numeric",})}
                                 </p>
                               </div>
                             </div>
