@@ -219,7 +219,7 @@ function MenuItems() {
           <ListItemText primary="Banners" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
-      <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+      <Link to="/contact" style={{ textDecoration: "none", color: "inherit" }}>
         <ListItemButton sx={isActive("/contact") ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
             <HiPhoto size={23} />

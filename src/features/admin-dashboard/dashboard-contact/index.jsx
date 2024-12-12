@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
 import YellowButton from "@/components/buttons/YellowButton";
-import { getBannerApi, patchBannerApi } from "../../../services/adminApiRoutes";
-import BannerTable from "./components/BannerTable";
-import AddBannerModal from "./components/AddBannerModal";
-import Loading from "../../../components/ui/Loading";  
-function ManageBanner() {
+import CategoriesTable from "./components/CategoriesTable";
+import AddCategoryModal from "./components/AddCategoryModal";
+import { getCategoriesApi, patchCategoriesApi } from "../../../services/adminApiRoutes";
+import Loading from "../../../components/ui/Loading";
+
+function ManageCategories() {
   const [visible, setVisible] = useState(false);
-  const [banner, setBanner] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [editData, setEditData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  async function getBanner() {
+  async function getCategories() {
     setLoading(true);
     try {
-      const response = await getBannerApi();
-      setBanner(response?.data || []);
+      const response = await getCategoriesApi();
+      setCategories(response?.data || []);
     } catch (error) {
-      console.log("Error on Banner List", error);
+      console.log("Error on Category List", error);
     } finally {
       setLoading(false);
     }
@@ -25,36 +26,37 @@ function ManageBanner() {
 
   useEffect(() => {
     if (!visible) {
-      setEditData(null); 
+      setEditData(null);
     }
   }, [visible]);
 
-
   useEffect(() => {
-    getBanner();
+    getCategories();
   }, []);
 
-  async function bannerStatusChange(rowData, updatedIsActive) { 
-    try{
-      setBanner((prevBanners) =>
-        prevBanners.map((banner) =>
-          banner.id === rowData.id
-            ? { ...banner, is_active: updatedIsActive }
-            : banner
+  // This function will update the category status in real-time
+  async function categoriesStatusChange(rowData, updatedIsActive) {
+    try {
+      setCategories((prevCategories) =>
+        prevCategories.map((category) =>
+          category.id === rowData.id
+            ? { ...category, is_active: updatedIsActive }
+            : category
         )
       );
       const formData = new FormData();
       formData.append("is_active", updatedIsActive);
-      await patchBannerApi(rowData.id, formData);
+      await patchCategoriesApi(rowData.id, formData); 
+      
     } catch (error) {
-      setBanner((prevBanners) =>
-        prevBanners.map((banner) =>
-          banner.id === rowData.id
-            ? { ...banner, is_active: !updatedIsActive }
-            : banner
+      setCategories((prevCategories) =>
+        prevCategories.map((category) =>
+          category.id === rowData.id
+            ? { ...category, is_active: !updatedIsActive }
+            : category
         )
       );
-      console.log("Error on Banner Status Change", error);
+      console.error("Failed to update category status!", error);
     }
   }
 
@@ -62,12 +64,12 @@ function ManageBanner() {
     <>
       <div className="mt-3 mb-5 row">
         <div className="col-md-6">
-          <Heading value={"Banners"} />
+          <Heading value={"Categories"} />
         </div>
         <div className="col-md-6 text-end">
           <YellowButton
             handleClick={() => setVisible(true)}
-            lable={"+ Add New Information"}
+            lable={"+ Add New Category"}
           />
         </div>
       </div>
@@ -78,24 +80,24 @@ function ManageBanner() {
             {loading ? (
               <Loading />
             ) : (
-              <BannerTable banner={banner} 
-              setEditData={setEditData} 
-              setVisible={setVisible}
-              bannerStatusChange={bannerStatusChange}/>
+              <CategoriesTable
+                categories={categories}
+                setEditData={setEditData}
+                setVisible={setVisible}
+                categoriesStatusChange={categoriesStatusChange}
+              />
             )}
           </div>
         </div>
       </div>
-
-      <AddBannerModal
+      <AddCategoryModal
         visible={visible}
-        setVisible={setVisible} 
-        setBanner={setBanner}
+        setVisible={setVisible}
+        getCategories={getCategories}
         editData={editData}
-        getBanner={getBanner}
       />
     </>
   );
 }
 
-export default ManageBanner;
+export default ManageCategories;
