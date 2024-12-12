@@ -153,6 +153,8 @@ export const postAddressApi = (payload) => API.post(`/accounts/addresses/`, payl
 export const putAddressApi = (id, payload) => API.put(`/accounts/address/${id}`, payload); 
 export const deleteAddressApi = (id) => API.delete(`/accounts/address/${id}`);``
 
+export const getPincodeApi = (pincode) => API.get(`/pincode/?pincode=${pincode}`);
+
 // Wishlist api
 export const getWishlist = () => API.get(`/wishlist/`);
 export const postWishlist = (payload) => API.post(`/wishlist/`, payload);

@@ -60,6 +60,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
 
   // Handle sending OTP
   const handleSendOTP = async () => {
+    setShowOTPInputs(true);
     if (phoneNumber.length === 10) {
       setLoading(true);
       try {
@@ -197,7 +198,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
         )}
 
         {/* Send OTP button */}
-        {!showOTPInputs && (
+        {/* {!showOTPInputs && (
           <div>
             <button
               className="button-primary fs-6 w-100 mt-3"
@@ -207,8 +208,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
               {loading ? "Sending OTP..." : "Send OTP"}
             </button>
           </div>
-
-        )}
+        )} */}
       </Offcanvas.Body>
     </Offcanvas >
   );
