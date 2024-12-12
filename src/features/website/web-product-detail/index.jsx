@@ -88,7 +88,7 @@ const ProudctDetail = () => {
                     onChange={(e) => setRating(e.ratings)}
                     cancel={false}
                   />
-                  <p className="text-mid-grey">(12 reviews)</p>
+                  <p className="text-mid-grey">({detail?.ratings} Reviews)</p>
                 </div>
                 <p>
                   {detail?.short_description}
@@ -134,7 +134,7 @@ const ProudctDetail = () => {
                     </>)
                   }
                 </div>
-                <div className="mt-5">
+                {/* <div className="mt-5">
                   <p className="fw-600">Check Availability</p>
                   <div
                     className="border-gray border-raidus-10 mt-2 input-box"
@@ -156,8 +156,8 @@ const ProudctDetail = () => {
                       </span>
                     </div>
                   </div>
-                </div>
-                <p className="d-flex fb-fs-18 fw-500 my-3">
+                </div> */}
+                {/* <p className="d-flex fb-fs-18 fw-500 my-3">
                   <span>
                     <img
                       className="img-fluid"
@@ -167,7 +167,7 @@ const ProudctDetail = () => {
                   </span>
                   <span className="text-orange me-2 ms-2 mt-1">Get it by</span>
                   <span className="mt-1">Monday, 16 Sep</span>
-                </p>
+                </p> */}
                 <div className="d-flex mt-4  ms-4 ">
                   <ul className="me-5 pe-4 disc-style w-50">
                     <li className="my-2">Type:{detail?.product_type}</li>
@@ -208,7 +208,7 @@ const ProudctDetail = () => {
                             Description
                           </Nav.Link>
                         </Nav.Item>
-                        <Nav.Item>
+                        {/* <Nav.Item>
                           <Nav.Link
                             as="button"
                             className="fb-fs-18 btn-tab"
@@ -225,7 +225,7 @@ const ProudctDetail = () => {
                           >
                             Reviews(12)
                           </Nav.Link>
-                        </Nav.Item>
+                        </Nav.Item> */}
                       </Nav>
                     </div>
                     <div className="col-md-12">

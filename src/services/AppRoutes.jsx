@@ -35,7 +35,7 @@ function AppRoutes() {
     <Routes>
       <Route
         exact
-        path="/"
+        path="/dashboard"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -211,7 +211,7 @@ function AppRoutes() {
       <Route exact path="/login" element={<LoginPage />} />
 
       {/* web routes */}
-      <Route exact path="/home" element={<HomePage />} />
+      <Route exact path="/" element={<HomePage />} />
       <Route exact path="/products" element={<ProudctList />} />
       <Route exact path="/product-detail" element={<ProudctDetail />} />
       <Route exact path="/profile" element={<UserProfile />} />

@@ -111,7 +111,7 @@ const Header = () => {
         </div>
         <div className="container fb-container pb-3 pt-2">
           <div className="d-flex justify-content-between align-items-center">
-            <Link to="/home">
+            <Link to= "/">
               <div className="logo">
                 <img src={logo} alt="logo" className="img-fluid" />
               </div>
@@ -260,16 +260,16 @@ const Header = () => {
               <div className="header-link-list">
                 <ul className="d-flex gap-5">
                   <li>
-                    <Link to="/home">Home</Link>
+                    <Link to= "/">Home</Link>
                   </li>
                   <li>
                     <Link to="/products">Products</Link>
                   </li>
                   <li>
-                    <a href="/home#best">Best Deals</a>
+                    <a href="/#best">Best Deals</a>
                   </li>
                   <li>
-                    <a href="/home#popular">Trending Products </a>
+                    <a href="/#popular">Trending Products </a>
                   </li>
                   <li>
                     <Link to="/about-us">About Us </Link>

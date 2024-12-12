@@ -6,20 +6,22 @@ import { getBannerApi } from "../../../../services/adminApiRoutes";
 import { baseURL } from "../../../../utils/constant-variable";
 import { Link } from "react-router-dom";
 const WebBanner = () => {
+  const [banner, setBanner] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: banner.length > 1, 
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    arrows: true,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+    autoplay: banner.length > 1, 
+    autoplaySpeed: 3000,
+    arrows: banner.length > 1,  
+    nextArrow: banner.length > 1 ? <SampleNextArrow /> : null,
+    prevArrow: banner.length > 1 ? <SamplePrevArrow /> : null,
   };
-  const [banner, setBanner] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   async function getBanner() {
     setLoading(true);
