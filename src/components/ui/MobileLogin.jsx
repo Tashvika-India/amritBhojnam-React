@@ -99,7 +99,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
 
         // Navigate to dashboard if admin role
         // if (payload?.is_admin) {
-        //   navigate("/home");
+        //   navigate( "/");
         // } else {
         //   setErrorMessage("Access Denied: Not an admin user.");
         //

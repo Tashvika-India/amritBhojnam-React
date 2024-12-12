@@ -255,9 +255,9 @@ const HomePage = () => {
                     fiber, protein, vitamins, and minerals, offering
                   </p>
                 </div>
-                <button className="button-primary ms-5  mb-4 text-center">
+                <Link to="/products" className="button-primary d-inlin-block ms-5  mb-4 text-center">
                   Shop Now
-                </button>
+                </Link>
                 {/* <img src={protein1} alt="millet-rice" /> */}
               </div>
             </div>
@@ -272,9 +272,9 @@ const HomePage = () => {
                         alternative for those with gluten sensitivities
                       </p>
                     </div>
-                    <button className="button-primary mt-0 m-lg-5 text-center">
+                    <Link className="button-primary mt-0 m-lg-5 text-center d-inline-block">
                       Shop Now
-                    </button>
+                    </Link>
                   </div>
                 </div>
                 <div className="col-md-12 mt-lg-4">
@@ -286,9 +286,9 @@ const HomePage = () => {
                         sugar levels, making them ideal.
                       </p>
                     </div>
-                    <button className="button-primary  mt-0 m-lg-5 text-center">
+                    <Link className="button-primary  d-inline-block mt-0 m-lg-5 text-center">
                       Shop Now
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -422,9 +422,8 @@ const HomePage = () => {
             <div className="col-lg-7 col-md-12">
               <div className="content-sec">
                 <h2 className="pb-3 fw-normal text-white lh-1">
-                  Good For{" "}
+                  Good For
                   <span className="fw-bold">
-                    {" "}
                     You <br></br> and the Planet
                   </span>
                 </h2>
@@ -434,7 +433,7 @@ const HomePage = () => {
                   prioritizing eco-friendly solutions, we create a future that
                   is healthier, greener, and more equitable for everyone.
                 </p>
-                <button className="button-white rounded-3">Shop Now</button>
+                <Link to="/products" className="button-white rounded-3 d-inline-block">Shop Now</Link>
               </div>
             </div>
           </div>
@@ -518,13 +517,13 @@ const HomePage = () => {
         <div className="container-fluid">
           <div className="h-100">
             <h3 className="fw-bold mb-5 pb-2 text-center text-white">
-              Our Best Selling Products
+              Our Trending Products 
             </h3>
             <BestProduct products={popularProduct} />
             <div className="mt-5 text-center">
-              <button className="white-button fw-500 mt-4">
+              <Link to="/products" className="white-button fw-500 mt-4 d-inline-block">
                 See all Products
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -2,10 +2,10 @@ import * as Yup from "yup";
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
-import homeImg from "../../../assets/images/web/account/home-img.png"; 
-import { 
-  Collapse, 
-} from "@mui/material"; 
+import homeImg from "../../../assets/images/web/account/home-img.png";
+import {
+  Collapse,
+} from "@mui/material";
 import { getAddressApi, getCartApi, getFinalCartApi, getProfile, getProfileApi, postAddressApi, postPayNowApi, postSelectAddressApi, putAddressApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
 import { Link } from "react-router-dom";
@@ -50,7 +50,7 @@ const CheckoutPage = () => {
       console.log("Error fetching cart data:", error);
     } finally {
     }
-  }; 
+  };
 
 
   const handlePayNow = async (amount, userId, productinfo, surl, furl) => {
@@ -66,19 +66,19 @@ const CheckoutPage = () => {
       }
 
       // Step 2: Prepare Payment Details
-    const payDetails = {
+      const payDetails = {
         amount: 1,
         firstname: user.full_name || "N/A",
         email: user.email || "N/A",
         phone: user.phone || "N/A",
         productinfo,
-        surl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_success_web/`, 
-        furl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_failed_web/`,  
-      }; 
+        surl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_success_web/`,
+        furl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_failed_web/`,
+      };
 
       const data = await postPayNowApi(payDetails);
-      const paymentResponse = data?.data; 
-      
+      const paymentResponse = data?.data;
+
       if (!paymentResponse?.payment_url || !paymentResponse?.form_data) {
         throw new Error("Invalid payment response");
       }
@@ -94,11 +94,11 @@ const CheckoutPage = () => {
         input.type = "hidden";
         input.name = key;
         input.value = form_data[key];
-        form.appendChild(input); 
+        form.appendChild(input);
       });
 
-      console.log(payment_url,form_data);
-      document.body.appendChild(form); 
+      console.log(payment_url, form_data);
+      document.body.appendChild(form);
       form.submit();
     } catch (error) {
       console.error("Error during payment:", error);
@@ -108,9 +108,19 @@ const CheckoutPage = () => {
     }
   };
 
-
   const formik = useFormik({
     initialValues: {
+      ads_name: "",
+      ads_phone: "",
+      ads_email: "",
+      house_flat_block_no: "",
+      road_area_colony: "",
+      city: "",
+      state: "",
+      pincode: "",
+      save_as: "",
+    },
+    validationSchema: Yup.object({
       ads_name: Yup.string().required("Name is required"),
       ads_phone: Yup.string()
         .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
@@ -126,17 +136,8 @@ const CheckoutPage = () => {
         .matches(/^\d{6}$/, "Pincode must be exactly 6 digits")
         .required("Pincode is required"),
       save_as: Yup.string().required("Save as field is required"),
-    },
-    validationSchema: Yup.object({
-      house_flat_block_no: Yup.string().required("Required"),
-      road_area_colony: Yup.string().required("Required"),
-      city: Yup.string().required("Required"),
-      state: Yup.string().required("Required"),
-      pincode: Yup.string()
-        .matches(/^\d{6}$/, "Pincode must be exactly 6 digits")
-        .required("Required"),
     }),
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
       addAddress(values);
     },
   });
@@ -194,7 +195,7 @@ const CheckoutPage = () => {
                           <div className="row">
                             <div className="col-md-12">
                               <div className="order-date d-flex">
-                                <img className={`img-fluid me-1 rounded-4 ${item?.selected ? 'shadow' : ''}`} src={homeImg} alt="pencil"/>
+                                <img className={`img-fluid me-1 rounded-4 ${item?.selected ? 'shadow' : ''}`} src={homeImg} alt="pencil" />
                                 <div className="ms-md-3">
                                   <div className="d-flex mt-2">
                                     <p className="fw-600 fb-fs-18">{item?.user_detail?.full_name} | {item?.user_detail?.phone_number}</p>
@@ -302,7 +303,7 @@ const CheckoutPage = () => {
                         </h5>
                       </div>
                     </div>
-                    {(cartList.length > 0) ? (
+                    {(cartList.length > 0 && addressList.length > 0) ? (
                       <>
                         <div className="w-100">
                           {
@@ -321,7 +322,13 @@ const CheckoutPage = () => {
                         </div>
                       </>
                     )
-                      : ''}
+                      :
+                      <>
+                        <div className="w-100 text-center">
+                          <h6 className="text-danger text-uppercase fs-6"> Please Add Your address </h6> 
+                        </div>
+                      </>
+                    }
                   </div>
                 </div>
               </div>
