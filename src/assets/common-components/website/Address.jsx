@@ -8,18 +8,43 @@ import {
 } from "@mui/material";
 import { IoHomeOutline } from "react-icons/io5";
 import { HiBuildingOffice2 } from "react-icons/hi2";
+import { getPincodeApi } from "../../../services/adminApiRoutes";
 
 const Address = ({ formik, loading, setOpen, editData }) => { 
 
-  const [age, setAge] = useState("");
-  
   useEffect(() => {
-    if (editData) {
+    if (editData && Object.keys(editData).length > 0) {
       formik.setValues(editData);
     } else {
       formik.resetForm();
     }
-  }, [editData]); 
+  }, [editData]);
+
+  async function stateCityFromPincode() {
+    try {
+      const response = await getPincodeApi(formik.values.pincode);
+      const { state, district } = response?.data || {};
+
+      formik.setFieldValue('state', state);
+      formik.setFieldValue('city', district);
+
+    } catch (error) {
+      console.error('Error fetching pincode details:', error);
+      alert('Invalid pincode or server error.');
+    } finally {
+    }
+  }
+
+  useEffect(() => {
+    if (formik.values.pincode?.length === 6) {
+      stateCityFromPincode()
+    }
+    else {
+      formik.setFieldValue('city', "");
+      formik.setFieldValue('state', "");
+
+    }
+  }, [formik.values.pincode])
 
 
   return (
@@ -27,26 +52,44 @@ const Address = ({ formik, loading, setOpen, editData }) => {
       <div className="new-address">
         <p className="fb-fs-26 fw-bold my-3 checkout-save">Add New Address</p>
         <p className="text-mid-grey">BASIC DETAILS</p>
-        <form>
+        <form onSubmit={formik.handleSubmit}>
           <div className="container fb-container">
             <div className="row">
               <div className="col-md-6 ps-md-0">
                 <TextField
                   fullWidth
-                  className="rounded-20 me-5 mt-4"
-                  id="outlined-basic"
+                  className="rounded-20 me-5 mt-4" 
+                  id="ads_name" 
+                  name="ads_name" 
                   label="Name"
                   variant="outlined"
+                  value={formik.values.ads_name}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.ads_name && formik.errors.ads_name ? (
+                  <div className="error text-danger">
+                    {formik.errors.ads_name}
+                  </div>
+                ) : null}
               </div>
               <div className="col-md-6 pe-md-0">
                 <TextField
                   fullWidth
                   className="rounded-20 me-5 mt-4"
-                  id="outlined-basic"
+                  id="ads_phone"
                   label="Phone Number"
+                  name="ads_phone"
                   variant="outlined"
+                  value={formik.values.ads_phone}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.ads_phone && formik.errors.ads_phone ? (
+                  <div className="error text-danger">
+                    {formik.errors.ads_phone}
+                  </div>
+                ) : null}
               </div>
               <div className="col-md-12 px-md-0 mb-2">
                 <TextField
@@ -54,62 +97,26 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   className="rounded-20 me-5 mt-4"
                   id="outlined-basic"
                   label="Email Address"
+                  name="ads_email"
                   variant="outlined"
+                  value={formik.values.ads_email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.ads_email && formik.errors.ads_email ? (
+                  <div className="error text-danger">
+                    {formik.errors.ads_email}
+                  </div>
+                ) : null}
               </div>
             </div>
-          </div>
-        </form>
-        <p className="text-mid-grey my-4">ADDRESS DETAILS</p>
-        <form onSubmit={formik.handleSubmit}>
+          </div> 
+
+          <p className="text-mid-grey my-4">ADDRESS DETAILS</p>
+
           <div className="container fb-container">
             <div className="row">
-              <div className="col-md-6 ps-md-0 pb-4">
-                <FormControl fullWidth>
-                  <InputLabel id="state-select-label">State</InputLabel>
-                  <Select
-                    id="state-select"
-                    name="state"
-                    label="State"
-                    value={formik.values.state}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  >
-                    <MenuItem value=" ">Select</MenuItem>
-                    <MenuItem value="Delhi">Delhi</MenuItem>
-                    <MenuItem value="UttarPradesh">Uttar Pradesh</MenuItem>
-                  </Select>
-                  {formik.touched.state && formik.errors.state ? (
-                    <div className="error text-danger">
-                      {formik.errors.state}
-                    </div>
-                  ) : null}
-                </FormControl>
-              </div>
-              <div className="col-md-6 pe-md-0">
-                <FormControl fullWidth>
-                  <InputLabel id="city-select-label">City</InputLabel>
-                  <Select
-                    id="city-select"
-                    label="City"
-                    name="city"
-                    value={formik.values.city}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  >
-                    <MenuItem value=" ">Select</MenuItem>
-                    <MenuItem value="NewDelhi">New Delhi</MenuItem>
-                    <MenuItem value="OldDelhi">Old Delhi</MenuItem>
-                    <MenuItem value="Noida">Noida</MenuItem>
-                  </Select>
-                  {formik.touched.city && formik.errors.city ? (
-                    <div className="error text-danger">
-                      {formik.errors.city}
-                    </div>
-                  ) : null}
-                </FormControl>
-              </div>
-              <div className="col-md-12 px-md-0 ">
+              <div className="col-md-4 ps-0">
                 <TextField
                   fullWidth
                   className="rounded-20 me-5"
@@ -127,6 +134,51 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   </div>
                 ) : null}
               </div>
+              <div className="col-md-4">
+                <FormControl fullWidth>
+                  <TextField
+                    id="state"
+                    fullWidth
+                    className="rounded-20 me-5"
+                    name="state"
+                    label="State"
+                    variant="outlined"
+                    disabled
+                    value={formik.values.state}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                  </TextField>
+                  {formik.touched.state && formik.errors.state ? (
+                    <div className="error text-danger">
+                      {formik.errors.state}
+                    </div>
+                  ) : null}
+                </FormControl>
+              </div>
+              <div className="col-md-4 pe-0">
+                <FormControl fullWidth>
+                  <TextField
+                    id="city"
+                    readOnly
+                    fullWidth
+                    disabled
+                    className="rounded-20 me-5"
+                    label="City"
+                    name="city"
+                    variant="outlined"
+                    value={formik.values.city}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                  </TextField>
+                  {formik.touched.city && formik.errors.city ? (
+                    <div className="error text-danger">
+                      {formik.errors.city}
+                    </div>
+                  ) : null}
+                </FormControl>
+              </div>
               <div className="col-md-12 px-md-0">
                 <TextField
                   fullWidth
@@ -140,7 +192,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.house_flat_block_no &&
-                formik.errors.house_flat_block_no ? (
+                  formik.errors.house_flat_block_no ? (
                   <div className="error text-danger">
                     {formik.errors.house_flat_block_no}
                   </div>
@@ -159,37 +211,57 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.road_area_colony &&
-                formik.errors.road_area_colony ? (
+                  formik.errors.road_area_colony ? (
                   <div className="error text-danger">
                     {formik.errors.road_area_colony}
                   </div>
                 ) : null}
               </div>
-              <div className="d-flex my-5 ps-md-0">
+              <div className="d-flex my-5 ps-md-0 gap-3">
                 <button
                   type="button"
-                  className="home-btn d-flex border-0 bg-transparent"
+                  className={`d-flex align-items-center border-0 bg-transparent" ${formik.values.save_as === "home" ? "home-btn" : "office-btn"}`}
                   onClick={() => formik.setFieldValue("save_as", "home")}
-                >
+                  onBlur={formik.handleBlur}>
                   <IoHomeOutline
                     className="ms-lg-2 ms-0"
                     size={"20"}
-                    color={"#F26722"}
+                    color={formik.values.save_as === "home" ? "#F26722" : "#918E92"}
                   />
-                  <p className="text-orange fw-500 ms-lg-3 ms-2">Home</p>
+                  <p className={`${formik.values.save_as === "home" ? "text-orange" : "text-mid-grey"} fw-500 ms-lg-3 ms-2`}>Home</p>
                 </button>
                 <button
                   type="button"
-                  className="office-btn d-flex border-0 bg-transparent ms-4"
+                  className={`d-flex align-items-center border-0 bg-transparent" ${formik.values.save_as === "office" ? "home-btn" : "office-btn"}`}
                   onClick={() => formik.setFieldValue("save_as", "office")}
+                  onBlur={formik.handleBlur}
                 >
                   <HiBuildingOffice2
                     className="ms-lg-2 ms-0"
                     size={"23"}
-                    color={"#918E92"}
+                    color={formik.values.save_as === "office" ? "#F26722" : "#918E92"}
                   />
-                  <p className="text-mid-grey fw-500 ms-lg-3 ms-2">Office</p>
+                  <p className={`${formik.values.save_as === "office" ? "text-orange" : "text-mid-grey"} fw-500 ms-lg-3 ms-2`}>Office</p> 
                 </button>
+                <button
+                  type="button"
+                  className={`d-flex align-items-center border-0 bg-transparent" ${formik.values.save_as === "other" ? "home-btn" : "office-btn"}`}
+                  onClick={() => formik.setFieldValue("save_as", "other")}
+                  onBlur={formik.handleBlur}
+                >
+                  <HiBuildingOffice2
+                    className="ms-lg-2 ms-0"
+                    size={"23"}
+                    color={formik.values.save_as === "other" ? "#F26722" : "#918E92"} 
+                  />
+                  <p className={`${formik.values.save_as === "other" ? "text-orange" : "text-mid-grey"} fw-500 ms-lg-3 ms-2`}>Other</p>  
+                </button>
+                {formik.touched.save_as &&
+                  formik.errors.save_as ? (
+                  <div className="error text-danger">
+                    {formik.errors.save_as}
+                  </div>
+                ) : null}
               </div>
               <div className="checkout-btn d-flex mb-5 pb-5 pe-0 align-items-end justify-content-end">
                 <button

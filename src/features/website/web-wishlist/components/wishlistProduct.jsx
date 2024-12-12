@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const WishList = () => {
   const { wishlist=[], loading } = useSelector((state) => state.wishlist);
+  
   return (
     <>
       <div
