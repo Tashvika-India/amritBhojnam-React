@@ -39,6 +39,7 @@ const WebBanner = () => {
     getBanner();
   }, []);
 
+
   return (
     <>
       <Slider {...settings} className="banner-slider">

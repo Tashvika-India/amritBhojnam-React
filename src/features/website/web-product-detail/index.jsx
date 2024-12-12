@@ -2,28 +2,31 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Rating } from "primereact/rating";
 import Header from "../../../layout/web-layout/Header";
-import Footer from "../../../layout/web-layout/Footer"; 
+import Footer from "../../../layout/web-layout/Footer";
 import deliveryImg from "../../../assets/images/web/product-detail/delivery-img.png";
 import AsNavFor from "../web-home/components/MultiSlide";
-import { ButtonGroup, Nav, Tab, ToggleButton } from "react-bootstrap"; 
+import { ButtonGroup, Nav, Tab, ToggleButton } from "react-bootstrap";
 import { getProductApi, postCartApi } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import MyCartMenu from "../../../components/ui/MyCartMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { cartAdd } from "../../../redux/slices/cartSlice";
 
-const ProudctDetail = () => { 
-  const [showCart, setShowCart] = useState(false); 
-  const [radioValue, setRadioValue] = useState('1');
-  const [filters, setFilters] = useURLFilters()
+const ProudctDetail = () => {
+  const [showCart, setShowCart] = useState(false);
+  const [radioValue, setRadioValue] = useState("1");
+  const [filters, setFilters] = useURLFilters();
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const toggleCart = () => setShowCart(!showCart);
   const [detail, setDetail] = useState({});
-  const { cartItems, finalCart, error, cartId } = useSelector((state) => state.cart);
+  const { cartItems, finalCart, error, cartId } = useSelector(
+    (state) => state.cart
+  );
 
-
-  const radios = [{ name: `${detail?.quantity}${detail?.quantity_unit}`, value: '1' }];
+  const radios = [
+    { name: `${detail?.quantity}${detail?.quantity_unit}`, value: "1" },
+  ];
   const dispatch = useDispatch();
   const fetchProductDetail = async () => {
     try {
@@ -35,8 +38,6 @@ const ProudctDetail = () => {
     }
   };
 
- 
-
   const addToCart = async (product_id, quantity) => {
     setLoading(true);
     try {
@@ -44,9 +45,7 @@ const ProudctDetail = () => {
         product_id,
         item_quantity: quantity,
       });
-      dispatch(cartAdd(response?.data))
-
-
+      dispatch(cartAdd(response?.data));
     } catch (error) {
       console.log("Error adding to cart:", error);
     } finally {
@@ -56,15 +55,15 @@ const ProudctDetail = () => {
 
   function checkItemInCart() {
     return cartItems.some((cartItem) => cartItem.product_id === detail?.id);
-  } 
+  }
 
   useEffect(() => {
     fetchProductDetail();
   }, [showCart]);
 
-  useEffect(() => { 
-    checkItemInCart()
-  }, [cartItems]);  
+  useEffect(() => {
+    checkItemInCart();
+  }, [cartItems]);
 
   return (
     <div className="web-wrapper-main">
@@ -77,22 +76,20 @@ const ProudctDetail = () => {
             </div>
             <div className="col-lg-6 col-12">
               <div className="product-detail-content ps-4">
-
-                <h4 className="fb-fs-30 fw-bold">
-                  {detail?.name}
-                </h4>
+                <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
                 <div className="d-flex mb-4 mt-4">
                   <Rating
                     className="me-3"
-                    value={detail?.ratings}
-                    onChange={(e) => setRating(e.ratings)}
+                    value={Math.round(detail?.ratings)} // Rounds the ratings value to the nearest integer
+                    onChange={(e) => setRating(Math.round(e.ratings))}
                     cancel={false}
                   />
-                  <p className="text-mid-grey">(12 reviews)</p>
+                  <p className="text-mid-grey">
+                    ({Math.round(detail?.ratings)} Reviews)
+                  </p>
                 </div>
-                <p>
-                  {detail?.short_description}
-                </p>
+
+                <p>{detail?.short_description}</p>
                 <div className="d-flex mt-4 mb-3">
                   <p className="fw-600 pt-2">Size / Weight:</p>
                   <ButtonGroup className="weight-check ms-3">
@@ -101,7 +98,7 @@ const ProudctDetail = () => {
                         key={idx}
                         id={`radio-${idx}`}
                         type="radio"
-                        variant={idx % 2 ? 'bg-orange' : 'bg-orange'}
+                        variant={idx % 2 ? "bg-orange" : "bg-orange"}
                         name="radio"
                         value={radio.value}
                         checked={radioValue === radio.value}
@@ -123,18 +120,26 @@ const ProudctDetail = () => {
                 </p>
                 <div>
                   {!checkItemInCart() ? (
-                    <button className="button-primary mt-4 fb-fs-18" onClick={() => addToCart(detail?.id, quantity || 1)} disabled={loading}>
+                    <button
+                      className="button-primary mt-4 fb-fs-18"
+                      onClick={() => addToCart(detail?.id, quantity || 1)}
+                      disabled={loading}
+                    >
                       {loading ? "Adding..." : "Add to Cart"}
-                    </button>) : (
+                    </button>
+                  ) : (
                     <>
-                      <button className="button-primary mt-4 fb-fs-18" onClick={toggleCart}>
+                      <button
+                        className="button-primary mt-4 fb-fs-18"
+                        onClick={toggleCart}
+                      >
                         Go to Cart
                       </button>
                       <MyCartMenu show={showCart} onClose={toggleCart} />
-                    </>)
-                  }
+                    </>
+                  )}
                 </div>
-                <div className="mt-5">
+                {/* <div className="mt-5">
                   <p className="fw-600">Check Availability</p>
                   <div
                     className="border-gray border-raidus-10 mt-2 input-box"
@@ -156,8 +161,8 @@ const ProudctDetail = () => {
                       </span>
                     </div>
                   </div>
-                </div>
-                <p className="d-flex fb-fs-18 fw-500 my-3">
+                </div> */}
+                {/* <p className="d-flex fb-fs-18 fw-500 my-3">
                   <span>
                     <img
                       className="img-fluid"
@@ -167,7 +172,7 @@ const ProudctDetail = () => {
                   </span>
                   <span className="text-orange me-2 ms-2 mt-1">Get it by</span>
                   <span className="mt-1">Monday, 16 Sep</span>
-                </p>
+                </p> */}
                 <div className="d-flex mt-4  ms-4 ">
                   <ul className="me-5 pe-4 disc-style w-50">
                     <li className="my-2">Type:{detail?.product_type}</li>
@@ -177,7 +182,9 @@ const ProudctDetail = () => {
                   <ul className="me-5 pe-4 disc-style w-50">
                     <li className="my-2">SKU: FWM15VKT</li>
                     <li className="my-2">Tags:{detail?.tags}</li>
-                    <li className="my-2">Stock: {detail?.quantity} Items In Stock</li>
+                    <li className="my-2">
+                      Stock: {detail?.quantity} Items In Stock
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -208,7 +215,7 @@ const ProudctDetail = () => {
                             Description
                           </Nav.Link>
                         </Nav.Item>
-                        <Nav.Item>
+                        {/* <Nav.Item>
                           <Nav.Link
                             as="button"
                             className="fb-fs-18 btn-tab"
@@ -225,17 +232,13 @@ const ProudctDetail = () => {
                           >
                             Reviews(12)
                           </Nav.Link>
-                        </Nav.Item>
+                        </Nav.Item> */}
                       </Nav>
                     </div>
                     <div className="col-md-12">
                       <Tab.Content className="px-4 pb-4">
                         <Tab.Pane eventKey="Description">
-                          <p className="mb-4">
-                            {
-                              detail?.long_description
-                            }
-                          </p>
+                          <p className="mb-4">{detail?.long_description}</p>
                         </Tab.Pane>
                         <Tab.Pane eventKey="Additional Info">
                           Second tab content

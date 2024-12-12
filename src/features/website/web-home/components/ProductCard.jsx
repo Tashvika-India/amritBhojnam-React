@@ -61,6 +61,7 @@ const ProductCard = ({ product }) => {
   }, [quantity]);
 
   return (
+    <Link to={`/product-detail?product_id=${product?.id}`}>
     <div className="product-card border pb-3 d-flex flex-column justify-content-between bg-white">
       <div className="d-flex justify-content-between product-fav">
         <div>
@@ -88,9 +89,9 @@ const ProductCard = ({ product }) => {
         />
       </div>
       <div className="px-3">
-        <Link to={`/product-detail?product_id=${product?.id}`}>
+       
           <h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5>
-        </Link>
+      
         <h5 className="fb-fs-14 fw-600 text-grey">
           {product?.quantity}
           {product?.quantity_unit}
@@ -137,6 +138,7 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 
