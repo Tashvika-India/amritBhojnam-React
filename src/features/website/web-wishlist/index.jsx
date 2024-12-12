@@ -23,22 +23,6 @@ const Wishlist = () => {
             <div className="d-flex justify-content-between align-items-center">
               <div>
                 <h3 className="fw-bold mb-0">My Wishlist</h3>
-                <p className="fb-fs-18 text text-mid-grey fw-500">
-                  Total Items : 9
-                </p>
-              </div>
-              <div className="sort-select d-flex">
-                <p className="mt-1 text-mid-grey">Sort by:</p>
-                <span>
-                  <select
-                    className="form-select fw-600 text-mid-grey border-0"
-                    name=""
-                    id=""
-                  >
-                    <option value="">Popularity</option>
-                    <option value="">Low Price</option>
-                  </select>
-                </span>
               </div>
             </div>
           </div>

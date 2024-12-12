@@ -313,10 +313,11 @@ footer {
     position: absolute;
     background-image: url(/src/assets/images/web/category-after.png);
     background-repeat: no-repeat;
+    object-fit: contain;
     top: 1rem;
-    right: -24px;
-    height: 27rem;
-    width: 15rem;
+    right: 0;
+    height: 100%;
+    width: 13rem;
   }
 }
 
@@ -886,13 +887,13 @@ footer {
     background-color: #d5ccbe;
   }
 }
-.custom-tabview .p-tabview-nav li .p-highlight {
-  background-color: $yellow !important; /* Set the background color of the active tab */
+
+.custom-tabview{
+  .p-tabview-nav-container{
+    display: none !important;
+  }
 }
 
-.custom-tabview .p-tabview-nav li.p-highlight .p-tabview-title {
-  color: $yellow !important; /* Set the text color of the active tab */
-}
 .weight-check .btn-check:checked + .btn,
 .btn.active,
 .btn.show,
