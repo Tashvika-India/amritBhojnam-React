@@ -17,6 +17,7 @@ import useURLFilters from "../../custom-compoents/useURLFilters";
 import { getWishlist } from "../../services/adminApiRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../redux/slices/cartSlice";
+import ScrollTopBehaviour from "../../custom-compoents/ScrollTopBehaviour";
 const Header = () => {
   const [search, setSearch] = useState("");
   const [showCart, setShowCart] = useState(false);
@@ -110,6 +111,8 @@ const Header = () => {
 
   return (
     <>
+          <ScrollTopBehaviour/>
+
       <header className="fb-bottom-shadow">
         <div className="header-top bg-yellow py-2">
           <div className="container fb-container d-flex flex-wrap gap-2 justify-content-center justify-content-lg-between align-items-center">

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "./services/AppRoutes";
-import { NotificationContainer } from "./components/ui/Notification";
+import { NotificationContainer } from "./components/ui/Notification"; 
 
 function App() {
 
