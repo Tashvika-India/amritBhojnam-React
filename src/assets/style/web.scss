@@ -41,6 +41,12 @@
     font-weight: 400 !important;
     font-style: normal !important;
   }
+
+  .nav-item-link{
+    .active{
+      color: $yellow !important;
+    }
+  }
   
 
   // Responsive Headings with Clamp
@@ -1029,6 +1035,9 @@ footer {
   .login-offcanvas{
     width: 30% !important;
       }
+      .cart-offcanvas{
+        width: 30% !important;
+      }
   .home-banner-wrapper {
     .card-left {
       background-size: cover;
@@ -1178,6 +1187,9 @@ footer {
   }
   .login-offcanvas{
     width: 40% !important;
+      }
+      .cart-offcanvas{
+        width: 40% !important;
       }
   .home-banner-wrapper {
     .card-left {
@@ -1389,6 +1401,9 @@ footer {
 @media (min-width: 576px) and (max-width: 768px) {
   .login-offcanvas{
     width: 50% !important;
+      }
+      .cart-offcanvas{
+        width: 50% !important;
       }
   .home-banner-wrapper {
     .card-left {
@@ -1665,6 +1680,9 @@ footer {
       height: 10rem !important;
       width: 100% !important;
     }
+  }
+  .cart-offcanvas{
+    width: 100% !important;
   }
   .login-offcanvas{
 width: 100% !important;
