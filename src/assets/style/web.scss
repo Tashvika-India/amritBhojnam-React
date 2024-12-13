@@ -1026,6 +1026,9 @@ footer {
   .first_purchase .purchase-bg .purchase-content {
     padding: 3.5rem 0rem 1rem 5.9rem;
   }
+  .login-offcanvas{
+    width: 30% !important;
+      }
   .home-banner-wrapper {
     .card-left {
       background-size: cover;
@@ -1173,6 +1176,9 @@ footer {
   .download-section .download-content img {
     display: none;
   }
+  .login-offcanvas{
+    width: 40% !important;
+      }
   .home-banner-wrapper {
     .card-left {
       background-size: cover;
@@ -1381,6 +1387,9 @@ footer {
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
+  .login-offcanvas{
+    width: 50% !important;
+      }
   .home-banner-wrapper {
     .card-left {
       background-size: cover;
@@ -1651,6 +1660,15 @@ footer {
 }
 
 @media (max-width: 576px) {
+  .banner-slider{
+    img{
+      height: 10rem !important;
+      width: 100% !important;
+    }
+  }
+  .login-offcanvas{
+width: 100% !important;
+  }
   .contact-us .card .orange-section {
     padding: 2rem 1rem;
   }
