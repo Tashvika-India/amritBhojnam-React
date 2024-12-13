@@ -235,6 +235,20 @@ const ContactUs = () => {
             </div>
           </div>
         </div>
+        <div className="container-fluid p-0">
+        <div>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.7730399115353!2d77.0507695!3d28.6065848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1ad4a7c61103%3A0x9382383d0e00ff22!2s3rd%20Floor%2C%203%2F90%2C%20Karuna%20Kunj%2C%20Dwarka%20Sector-3%2C%20Dwarka%2C%20New%20Delhi%2C%20Delhi%2C%20110078!5e0!3m2!1sen!2sin!4v1734084071604!5m2!1sen!2sin"
+        width="100%"
+        height="450"
+        style={{ border: 0 }}
+        allowFullScreen=""
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        title="Google Map"
+      ></iframe>
+    </div>
+        </div>
         <Footer />
       </section>
     </div>

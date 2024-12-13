@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import pencilImg from "../../../assets/images/web/account/pencil.png";
-import accountBg from "../../../assets/images/web/account/account-profile-background.png";
+import profileBg from "../../../assets/images/web/account/profile-bg.png";
 import profilePic from "../../../assets/images/web/account/profile-picture.png";
 import tickImg from "../../../assets/images/web/account/tick-image.png";
 import homeImg from "../../../assets/images/web/account/home-img.png";
@@ -261,7 +261,7 @@ const UserProfile = () => {
             <div className="user-profile-img">
               <img
                 className="img-fluid profile-img profile-foreground-img rounded-top w-100 mt-5"
-                src={accountBg}
+                src={profileBg}
                 alt="pencil"
                 style={{ height: "200px" }}
               />
@@ -343,7 +343,7 @@ const UserProfile = () => {
                           <div className="col-md-6 mb-4">
                             <TextField
                               fullWidth
-                              className="rounded-20 me-5 mt-4"
+                              className="rounded-20 me-5 mt-4 mb-3"
                               id="email"
                               label="Email Address"
                               name="email"
@@ -441,7 +441,7 @@ const UserProfile = () => {
                               <p>
                                 Order ID:
                                 <span className="fw-600" title={item?.id}>&nbsp;&nbsp;
-                                  {item?.id?.slice(0, 16)}...
+                                  {item?.id?.slice(0, 12)}...
                                 </span>
                               </p>
                             </div>
@@ -513,7 +513,8 @@ const UserProfile = () => {
                                   alt="pencil"
                                 />
                                 <p className="text-dark-grey">
-                                  Delivered on {new Date(item?.delivered_on).toLocaleDateString("en-US", {year: "numeric",month: "long",day: "numeric",})}
+                                Delivered within 5-7 days
+                                {/* {new Date(item?.delivered_on).toLocaleDateString("en-US", {year: "numeric",month: "long",day: "numeric",})} */}
                                 </p>
                               </div>
                             </div>
