@@ -324,9 +324,15 @@ const CheckoutPage = () => {
                     )
                       :
                       <>
+
                         <div className="w-100 text-center">
-                          <h6 className="text-danger text-uppercase fs-6"> Please Add Your address </h6> 
+                          {(cartList.length > 0) ?
+                            <h6 className="text-danger text-uppercase fs-6"> Please Add Your address </h6>
+                            :
+                            <h6 className="text-danger text-uppercase fs-6"> Please Add Product in Cart </h6>
+                          }
                         </div>
+
                       </>
                     }
                   </div>

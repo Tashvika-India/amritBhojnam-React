@@ -20,9 +20,7 @@ const ProudctDetail = () => {
   const [quantity, setQuantity] = useState(0);
   const toggleCart = () => setShowCart(!showCart);
   const [detail, setDetail] = useState({});
-  const { cartItems, finalCart, error, cartId } = useSelector(
-    (state) => state.cart
-  );
+  const { cartItems, finalCart, error, cartId } = useSelector((state) => state.cart);
 
   const radios = [
     { name: `${detail?.quantity}${detail?.quantity_unit}`, value: "1" },
@@ -80,8 +78,8 @@ const ProudctDetail = () => {
                 <div className="d-flex mb-4 mt-4">
                   <Rating
                     className="me-3"
-                    value={Math.round(detail?.ratings)} // Rounds the ratings value to the nearest integer
-                    onChange={(e) => setRating(Math.round(e.ratings))}
+                    value={Math.round(detail?.ratings)}  
+                    readOnly
                     cancel={false}
                   />
                   <p className="text-mid-grey">
@@ -180,7 +178,7 @@ const ProudctDetail = () => {
                     <li className="my-2">LIFE:{detail?.days}</li>
                   </ul>
                   <ul className="me-5 pe-4 disc-style w-50">
-                    <li className="my-2">SKU: FWM15VKT</li>
+                    <li className="my-2">SKU: FWM15VKT</li>
                     <li className="my-2">Tags:{detail?.tags}</li>
                     <li className="my-2">
                       Stock: {detail?.quantity} Items In Stock
