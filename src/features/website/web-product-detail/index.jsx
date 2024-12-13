@@ -6,11 +6,13 @@ import Footer from "../../../layout/web-layout/Footer";
 import deliveryImg from "../../../assets/images/web/product-detail/delivery-img.png";
 import AsNavFor from "../web-home/components/MultiSlide";
 import { ButtonGroup, Nav, Tab, ToggleButton } from "react-bootstrap";
-import { getProductApi, postCartApi } from "../../../services/adminApiRoutes";
+import { getProductApi, getYouMayAlsoLikeApi, postCartApi } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import MyCartMenu from "../../../components/ui/MyCartMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { cartAdd } from "../../../redux/slices/cartSlice";
+import Loading from "../../../components/ui/Loading";
+import ProductCard from "../web-home/components/ProductCard";
 
 const ProudctDetail = () => {
   const [showCart, setShowCart] = useState(false);
@@ -20,9 +22,8 @@ const ProudctDetail = () => {
   const [quantity, setQuantity] = useState(0);
   const toggleCart = () => setShowCart(!showCart);
   const [detail, setDetail] = useState({});
-  const { cartItems, finalCart, error, cartId } = useSelector(
-    (state) => state.cart
-  );
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
+  const { cartItems, finalCart, error, cartId } = useSelector((state) => state.cart);
 
   const radios = [
     { name: `${detail?.quantity}${detail?.quantity_unit}`, value: "1" },
@@ -38,6 +39,17 @@ const ProudctDetail = () => {
     }
   };
 
+  const fetchYouMayAlsoLike = async (product_id) => { 
+    setLoading(true);
+    try {
+      const response = await getYouMayAlsoLikeApi({ product_id }); 
+      const recommendedProducts = response?.data || [];
+      setRecommendedProducts(recommendedProducts);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching 'You May Also Like' products", error);
+    }
+  };  
   const addToCart = async (product_id, quantity) => {
     setLoading(true);
     try {
@@ -46,6 +58,7 @@ const ProudctDetail = () => {
         item_quantity: quantity,
       });
       dispatch(cartAdd(response?.data));
+      setLoading(false);
     } catch (error) {
       console.log("Error adding to cart:", error);
     } finally {
@@ -59,6 +72,7 @@ const ProudctDetail = () => {
 
   useEffect(() => {
     fetchProductDetail();
+    fetchYouMayAlsoLike(filters?.product_id);
   }, [showCart]);
 
   useEffect(() => {
@@ -80,8 +94,8 @@ const ProudctDetail = () => {
                 <div className="d-flex mb-4 mt-4">
                   <Rating
                     className="me-3"
-                    value={Math.round(detail?.ratings)} // Rounds the ratings value to the nearest integer
-                    onChange={(e) => setRating(Math.round(e.ratings))}
+                    value={Math.round(detail?.ratings)}
+                    readOnly
                     cancel={false}
                   />
                   <p className="text-mid-grey">
@@ -180,7 +194,7 @@ const ProudctDetail = () => {
                     <li className="my-2">LIFE:{detail?.days}</li>
                   </ul>
                   <ul className="me-5 pe-4 disc-style w-50">
-                    <li className="my-2">SKU: FWM15VKT</li>
+                    <li className="my-2">SKU: FWM15VKT</li>
                     <li className="my-2">Tags:{detail?.tags}</li>
                     <li className="my-2">
                       Stock: {detail?.quantity} Items In Stock
@@ -253,6 +267,27 @@ const ProudctDetail = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="similar-product">
+        <div className="container fb-container">
+        <div
+                  className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
+                  style={{
+                    gridTemplateColumns:
+                      window.innerWidth > 768
+                        ? "repeat(5, 1fr)"
+                        : "repeat(2, 1fr)",
+                  }}
+                >
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    recommendedProducts?.map((item, index) => (
+                      <ProductCard product={item} key={index} />
+                    ))
+                  )}
+                </div>
         </div>
       </section>
       <Footer />
