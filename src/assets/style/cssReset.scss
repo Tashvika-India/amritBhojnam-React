@@ -250,7 +250,10 @@ td {
     border: 1px solid $orange;
 }
 .border-yellow{
-    border: 1px solid $yellow;
+    border: 1px solid $yellow !important;
+}
+.border-yellow-color{
+    border-color:  $yellow !important;
 }
 .border-gray {
     border: 1px solid $border;
