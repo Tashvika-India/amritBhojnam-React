@@ -49,7 +49,7 @@ const MyCartMenu = ({ show, onClose }) => {
   }, [show, dispatch, cartId]); 
 
   return (
-    <Offcanvas show={show} onHide={onClose} placement="end" style={{ width: "30%" }}>
+    <Offcanvas show={show} onHide={onClose} placement="end" className="cart-offcanvas" style={{ width: "30%" }}>
       <Offcanvas.Header closeButton className="border-bottom">
         <Offcanvas.Title>Your Cart</Offcanvas.Title>
       </Offcanvas.Header>
