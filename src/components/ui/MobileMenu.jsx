@@ -5,6 +5,7 @@ import { InputText } from "primereact/inputtext";
 import { IoSearchOutline } from "react-icons/io5";
 import { Dropdown } from "primereact/dropdown";
 import MobileLogin from "../../components/ui/MobileLogin";
+import { Link } from "react-router-dom";
 
 const MobileMenu = ({ show, onClose, showMobileLogin, toggleMobileLogin}) => {
 
@@ -49,10 +50,11 @@ const MobileMenu = ({ show, onClose, showMobileLogin, toggleMobileLogin}) => {
         </div>
         <div className="link-button mt-4">
           <ul>
-            <li className="border-bottom py-3">Home</li>
+           <a href="/"><li className="border-bottom py-3">Home</li>
+           </a> 
             <div className="d-flex justify-content-between border-bottom">
-              <li className=" py-3">Shop</li>
-              <span>
+            <a href="/products"><li className=" py-3">Shop</li> </a> 
+              {/* <span>
                 <div className="all-category text-end mt-2">
                   <Dropdown
                     value={selectedCity}
@@ -62,13 +64,13 @@ const MobileMenu = ({ show, onClose, showMobileLogin, toggleMobileLogin}) => {
                     className="border-0"
                   />
                 </div>
-              </span>
+              </span> */}
             </div>
-            <li className="border-bottom py-3">Best deals</li>
-            <li className="border-bottom py-3">Trending Products</li>
-            <li className="border-bottom py-3">About Us</li>
-            <li className="border-bottom py-3">Contact Us</li>
-            <li className="py-3">
+            <a href="/#best"><li className="border-bottom py-3">Best deals</li></a>
+            <a href="/#popular"><li className="border-bottom py-3">Trending Products</li></a>
+            <Link to="/about-us"><li className="border-bottom py-3">About Us</li></Link>
+            <Link to="/contact-us"><li className="border-bottom py-3">Contact Us</li></Link>
+            {/* <li className="py-3">
               Almost Finished
               <span>
                 <button className="button-primary ms-3 rounded-1 px-2 py-0 fw-400 fb-fs-16">
@@ -80,7 +82,7 @@ const MobileMenu = ({ show, onClose, showMobileLogin, toggleMobileLogin}) => {
                   </p>
                 </button>
               </span>
-            </li>
+            </li> */}
           </ul>
         </div>
       </Offcanvas.Body>
