@@ -106,9 +106,9 @@ export const patchSubCategoriesApi = (id, payload) =>
   API.patch(`/sub-categories/${id}/`, payload);
 
 // product api
-export const getProductApi = ({ product_id, category_id, name }) =>
+export const getProductApi = ({ product_id, category_id, name , minPrice , maxPrice , rating }) =>
   API.get(
-    `/products/?category_id=${category_id}&product_id=${product_id}&name=${name}`
+    `/products/?category_id=${category_id}&product_id=${product_id}&name=${name}&min_amount=${minPrice}&max_amount=${maxPrice}&rating=${rating}`
   );
 export const postProductApi = (payload) => API.post(`/products/`, payload);
 export const putProductApi = (id, payload) =>
@@ -116,6 +116,11 @@ export const putProductApi = (id, payload) =>
 export const deleteProductApi = (id) => API.delete(`/products/${id}`);
 export const searchProductApi = (search) =>
   API.get(`/products/similar-to-search/?search_query=${search}`);
+
+export const getYouMayAlsoLikeApi = ({ product_id }) =>
+  API.get(`/products/you-may-also-like/?product_id=${product_id}`);
+
+
 
 // banner api
 export const getBannerApi = () => API.get(`/banners/`);

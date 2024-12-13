@@ -25,6 +25,7 @@ import useURLFilters from "../../../custom-compoents/useURLFilters";
 import { Icon } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
+import { scrollToTop } from "../../../utils/constant-variable";
 
 const ProudctList = () => {
   const [products, setProducts] = useState([]);
@@ -95,6 +96,7 @@ const ProudctList = () => {
     navigate(
       `/products?category_id=${filters.category_id}&name=${filters.name}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}&rating=${filters.rating}`
     );
+    scrollToTop()
   }, [filters]);
 
   return (
