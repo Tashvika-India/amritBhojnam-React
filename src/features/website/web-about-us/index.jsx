@@ -32,12 +32,12 @@ const AboutUs = () => {
                 />
               </div>
             </div>
-            <div className="col-md-6 ps-lg-0 pe-lg-5">
+            <div className="col-md-6 ps-lg-0 pe-lg-5 about-right">
               <div>
                 <p className="fb-fs-40 fw-600 py-lg-4 py-md-0 py-2 mb-md-0 mb-lg-2 mt-lg-2">
                   Welcome to Amrit Bhojanam
                 </p>
-                <p>
+                <p className="about-con-inner">
                   Amrit Bhojanam started with a simple yet powerful discovery:
                   the incredible benefits of millet. Our founders, who are
                   passionate about sustainable and nutritious food, realized
@@ -48,7 +48,7 @@ const AboutUs = () => {
                   founders set out on a mission to bring millet back into modern
                   diets and highlight its many benefits.
                 </p>
-                <p className="pt-lg-4 pt-2 mt-1">
+                <p className="pt-lg-4 pt-2 mt-1 about-con-inner">
                   {" "}
                   With a lot of research and dedication, Amrit Bhojanam came to
                   life. We’re here to make millet accessible to everyone by
@@ -59,7 +59,7 @@ const AboutUs = () => {
                 </p>
               </div>
               <div className="pt-3 bottom-image">
-                <div className="row mt-xl-5 mt-lg-0 pt-lg-5">
+                <div className="row mt-xl-5 mt-lg-0 pt-lg-5 bottom-sec">
                   <div className="col-4 ">
                     <img
                       src={About1}

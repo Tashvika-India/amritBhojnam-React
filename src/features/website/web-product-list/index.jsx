@@ -102,7 +102,7 @@ const ProudctList = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
-      <section>
+      <section className="product-list">
         <div className="container fb-container">
           <div className="row">
             <div className="col-lg-3 col-12">

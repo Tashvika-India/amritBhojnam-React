@@ -127,7 +127,7 @@ const MyCartMenu = ({ show, onClose }) => {
             <div className="d-flex justify-content-between ">
               <div className="mb-3">
                 <h5>Total Amount:</h5>
-                <p className="text-black fw-normal mb-0">
+                <p className="text-black fw-normal mb-0 checkout-content">
                   Taxes and shipping calculated at checkout
                 </p>
               </div>

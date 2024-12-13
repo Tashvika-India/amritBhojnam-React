@@ -297,7 +297,7 @@ footer {
 
 .banner-slider{
   img{
-    height: 45rem !important;
+    height: 39rem !important;
     width: 100% !important;
   }
 }
@@ -336,7 +336,7 @@ footer {
 
 //contact-us page
 .contact-us {
-  background-image: url("../images/web/contact-background.png");
+  background-image: url("../images/web/contact-us-bg.png");
   background-repeat: no-repeat;
   background-size: auto;
   height: 100% !important;
@@ -946,6 +946,99 @@ footer {
   .fb-container-xxl {
     max-width: 1100px !important;
   }
+  .contact-us {
+    background-size: contain !important;
+    padding-top: 2rem !important;
+  }
+  .contact-us .card{
+    margin-bottom: 2.8rem !important;
+  }
+  .contact-us .container{
+    margin-bottom: 0 !important;
+  }
+  .contact-us .orange-section{
+    padding: 2.7rem 2.6rem !important;
+  }
+  .contact-us .card .white-section {
+    padding: 2.5rem 2.6rem;
+}
+  .summary-card .bg-transparent{
+    margin-left: 1.2rem !important;
+  }
+  .cart-offcanvas .total-amount-wrapper .checkout-content{
+    font-size: 0.6875rem !Important;
+  }
+  .fb-fs-40{
+    font-size: 2.1875rem !important;
+  }
+  .about-us .about-bottom {
+    height: 37rem !important;
+  }
+.about-us .about-bottom .white-background{
+  padding: 1rem 2rem 1rem 2rem;
+  h3{
+    padding-bottom: 0rem !important;
+  }
+  p{
+    padding-top: 8px !important;
+  }
+}
+  p{
+    font-size: 0.875rem !important;
+  }
+  .fb-fs-26{
+    font-size: 1.2rem !important
+  }
+  .about-us {
+    .bottom-image{
+      .bottom-sec{
+        margin-top: 0.5rem !important;
+        padding-top: 0 !important;
+      }
+     
+    }
+    .about-right{
+      padding-left: 2rem !important;
+      .about-con-inner{
+        font-size: 0.875rem !important;
+      }
+    }
+  }
+  
+  .banner-slider img{
+    height: 30rem !important;
+  }
+  .amrit_bhojanam .millets .millet-content p{
+    br{
+      display: none !important;
+    }
+  }
+  .card-left .con-ban{
+    font-size: 0.7rem !important;
+  }
+  .product-list .max-border{
+    p{
+      font-size: 12px !important;
+    }
+  }
+  .card-center .con-ban{
+    font-size: 0.7rem !important;
+  }
+  .banner-ads .content-sec{
+    padding-left: 10rem !important;
+  }
+  .card-right .con-ban{
+    font-size: 0.7rem !important;
+  }
+  .popular-product .slick-slider{
+    margin-left: 2rem !important;
+  }
+  .fb-fs-24{
+    font-size: 1rem !important;
+  }
+  .fb-fs-28{
+    font-size: 1.2rem !important;
+  }
   footer .footer-upper form input {
     width: 35% !important;
   }
@@ -1433,7 +1526,7 @@ footer {
     }
   }
   .offer-cards {
-    .protein-right-top button {
+    .protein-right-top .button-primary {
       margin-bottom: 1rem !important;
     }
     .protein-right-bottom button {
@@ -1604,7 +1697,7 @@ footer {
     margin-top: 1rem;
   }
   .button-primary {
-    font-size: 11px;
+    font-size: 0.6875rem;
   }
   .offer-cards .protein-right-bottom .right-bottom-content {
     width: unset;
@@ -1675,6 +1768,13 @@ footer {
 }
 
 @media (max-width: 576px) {
+  .popular-product .popularleft{
+    margin-bottom: 1.5rem !important;
+  }
+  .home-banner-wrapper .card-center{
+    background-size: cover !important;
+    border-radius: 1rem !important;
+  }
   .banner-slider{
     img{
       height: 10rem !important;
@@ -2003,7 +2103,7 @@ width: 100% !important;
         padding-left: 1rem !important;
         padding-right: 1rem !important;
       }
-      button {
+      .button-primary {
         margin-left: 1rem !important;
       }
     }
@@ -2014,13 +2114,13 @@ width: 100% !important;
         padding-right: 1rem !important;
         padding-top: 1.5rem !important;
       }
-      button {
+      .button-primary {
         margin-left: 1rem !important;
       }
     }
   }
   .button-primary {
-    font-size: 9.38px;
+    font-size: 0.6875rem;
   }
   .button-primary-reverse {
     font-size: 9.38px;
@@ -2032,14 +2132,16 @@ width: 100% !important;
     background-position: bottom;
     // width: 91vw !important;
     background-size: cover;
+    margin-bottom: 1rem !important;
   }
   .offer-cards .protein-right-bottom {
     padding-bottom: 1rem;
     border-radius: 1rem;
+    margin-top: 1rem !important;
     // height: 22vh !important;
     background-position: bottom;
     // width: 91vw !important;
-    button {
+    .button-primary {
       margin-left: 1rem !important;
     }
   }
