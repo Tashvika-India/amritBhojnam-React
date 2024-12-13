@@ -287,10 +287,10 @@ const UserProfile = () => {
               </div>
             </div>
             <div>
-              <div className="flex mb-2 gap-2 justify-content-end">
-                <button className={`border-0 bg-white fw-600  px-3 py-2 ${activeIndex === 0 ? "text-yellow" : 'text-dark-grey'}`} onClick={() => setActiveIndex(0)} rounded outlined={activeIndex !== 0} label="1" > <i className="pi pi-user"></i> My Account</button>
-                <button className={`border-0 bg-white fw-600  px-3 py-2 ${activeIndex === 1 ? "text-yellow" : 'text-dark-grey'}`} onClick={() => setActiveIndex(1)} rounded outlined={activeIndex !== 1} label="2"><i className="pi pi-box"></i> Order History</button>
-                <button className={`border-0 bg-white fw-600  px-3 py-2 ${activeIndex === 2 ? "text-yellow" : 'text-dark-grey'}`} onClick={() => setActiveIndex(2)} rounded outlined={activeIndex !== 2} label="3" ><i className="pi pi-map-marker"></i> Address Book</button>
+              <div className="flex mb-2 gap-2 justify-content-end border-bottom">
+                <button className={`border-0 bg-white fw-600  px-4 py-3 ${activeIndex === 0 ? "text-yellow bg-footer-bg border-bottom border-yellow-color" : 'text-dark-grey'}`} onClick={() => setActiveIndex(0)} rounded outlined={activeIndex !== 0} label="1" > <span className="me-1"><i className="pi fs-5 pi-user"></i> </span> My Account</button>
+                <button className={`border-0 bg-white fw-600  px-4 py-3 ${activeIndex === 1 ? "text-yellow bg-footer-bg border-bottom border-yellow-color" : 'text-dark-grey'}`} onClick={() => setActiveIndex(1)} rounded outlined={activeIndex !== 1} label="2"> <span className="me-1"><i className="pi fs-5 pi-box"></i> </span>  Order History</button>
+                <button className={`border-0 bg-white fw-600  px-4 py-3 ${activeIndex === 2 ? "text-yellow bg-footer-bg border-bottom border-yellow-color" : 'text-dark-grey'}`} onClick={() => setActiveIndex(2)} rounded outlined={activeIndex !== 2} label="3" > <span className="me-1"><i className="pi fs-5 pi-map-marker"></i> </span>  Address Book</button>
               </div>
               <TabView className="custom-tabview" activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
                 <TabPanel header="My Account"  >
