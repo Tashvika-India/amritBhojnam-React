@@ -41,6 +41,12 @@
     font-weight: 400 !important;
     font-style: normal !important;
   }
+
+  .nav-item-link{
+    .active{
+      color: $yellow !important;
+    }
+  }
   
 
   // Responsive Headings with Clamp

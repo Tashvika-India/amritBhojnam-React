@@ -7,7 +7,7 @@ import logo from "../../assets/images/web/logo.svg";
 import { FaRegHeart, FaRegUser } from "react-icons/fa";
 import { CgShoppingBag } from "react-icons/cg";
 import { IoMdMenu } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import ProfileDropdown from "../../components/ui/ProfileDropdown";
 import MobileMenu from "../../components/ui/MobileMenu";
 import MyCartMenu from "../../components/ui/MyCartMenu";
@@ -41,9 +41,15 @@ const Header = () => {
   const toggleMobileLogin = () => setShowMobileLogin((prev) => !prev);
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
 
-  const { cartItems, finalCart, loading: cartLoading, error } = useSelector((state) => state.cart);
+  const {
+    cartItems,
+    finalCart,
+    loading: cartLoading,
+    error,
+  } = useSelector((state) => state.cart);
 
-  const accessToken = localStorage.getItem("access") || localStorage.getItem("refresh");
+  const accessToken =
+    localStorage.getItem("access") || localStorage.getItem("refresh");
 
   const login = accessToken;
 
@@ -52,7 +58,7 @@ const Header = () => {
     e.preventDefault();
     setLoading(true);
     navigate(`/products?category_id=${filters.category_id}&name=${filters.name}`);
-    toggleMobileMenu()
+    setShowMobileMenu(false)
   };
   async function getCategory() {
     setLoading(true);
@@ -229,14 +235,6 @@ const Header = () => {
                 </li>
               </ul>
               <ul className="list-unstyled d-flex d-xl-none align-items-center justify-content-between gap-2 mobile-header-actions">
-                {/* <li>
-                  <a
-                    href="#"
-                    className="d-inline-flex flex-column justify-content-center align-items-center"
-                  >
-                    <IoSearchOutline size={"1.625rem"} />
-                  </a>
-                </li> */}
                 <li>
                   <button
                     onClick={toggleCart}
@@ -285,23 +283,23 @@ const Header = () => {
             <div className="header-divider d-flex justify-content-between ">
               <div className="header-link-list">
                 <ul className="d-flex gap-5">
-                  <li>
-                    <Link to="/">Home</Link>
+                  <li className="nav-item-link">
+                    <NavLink to="/">Home</NavLink>
                   </li>
-                  <li>
-                    <Link to="/products">Products</Link>
+                  <li className="nav-item-link">
+                    <NavLink to="/products">Products</NavLink>
                   </li>
-                  <li>
+                  <li className="nav-item-link">
                     <a href="/#best">Best Deals</a>
                   </li>
-                  <li>
+                  <li className="nav-item-link">
                     <a href="/#popular">Trending Products </a>
                   </li>
-                  <li>
-                    <Link to="/about-us">About Us </Link>
+                  <li className="nav-item-link">
+                    <NavLink to="/about-us">About Us </NavLink>
                   </li>
-                  <li>
-                    <Link to="/contact-us">Contact Us </Link>
+                  <li className="nav-item-link">
+                    <NavLink to="/contact-us">Contact Us </NavLink>
                   </li>
                 </ul>
               </div>
@@ -323,7 +321,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </header >
+      </header>
     </>
   );
 };

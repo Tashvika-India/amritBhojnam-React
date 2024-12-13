@@ -11,6 +11,9 @@ const useURLFilters = () => {
     category_id: search.get("category_id") || "",
     name: search.get("name") || "",
     search: search.get("search") || "",
+    minPrice : search.get("minPrice") || 0,
+    maxPrice : search.get("maxPrice") || 500,
+    rating : search.get("rating") || ""
   });
 
   useEffect(() => {
@@ -20,6 +23,9 @@ const useURLFilters = () => {
       product_id: search.get("product_id") || "",
       category_id: search.get("category_id") || "",
       name: search.get("name") || "",
+      minPrice : search.get("minPrice") || 0,
+      maxPrice : search.get("maxPrice") || 500,
+      rating : search.get("rating") || ""
     };
     setFilters(parsedFilters);
   }, [location.search]);
