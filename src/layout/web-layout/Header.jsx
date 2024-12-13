@@ -38,9 +38,15 @@ const Header = () => {
   const toggleMobileLogin = () => setShowMobileLogin((prev) => !prev);
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
 
-  const { cartItems, finalCart, loading: cartLoading, error } = useSelector((state) => state.cart);
+  const {
+    cartItems,
+    finalCart,
+    loading: cartLoading,
+    error,
+  } = useSelector((state) => state.cart);
 
-  const accessToken = localStorage.getItem("access") || localStorage.getItem("refresh");
+  const accessToken =
+    localStorage.getItem("access") || localStorage.getItem("refresh");
 
   const login = accessToken;
 
@@ -75,9 +81,9 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => { 
+    const interval = setInterval(() => {
       if (!accessToken) {
-        console.log("Token not found"); 
+        console.log("Token not found");
         setShowMobileLogin(true);
         setShowWebLogin(true);
       } else {
@@ -111,7 +117,7 @@ const Header = () => {
         </div>
         <div className="container fb-container pb-3 pt-2">
           <div className="d-flex justify-content-between align-items-center">
-            <Link to= "/">
+            <Link to="/">
               <div className="logo">
                 <img src={logo} alt="logo" className="img-fluid" />
               </div>
@@ -162,20 +168,19 @@ const Header = () => {
             <div className="header-actions">
               <ul className="list-unstyled align-items-center justify-content-between gap-4 web-header-actions d-none d-xl-flex">
                 <li>
-                  {
-                    (login) ?
-                      <ProfileDropdown />
-                      :
-                      <button
-                        className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
-                        onClick={toggleWebLogin}
-                      >
-                        <FaRegUser size={"1.625rem"} />
-                        <span className="d-inline-block fb-fs-14 fw-600">
-                          Login
-                        </span>
-                      </button>
-                  }
+                  {login ? (
+                    <ProfileDropdown />
+                  ) : (
+                    <button
+                      className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
+                      onClick={toggleWebLogin}
+                    >
+                      <FaRegUser size={"1.625rem"} />
+                      <span className="d-inline-block fb-fs-14 fw-600">
+                        Login
+                      </span>
+                    </button>
+                  )}
                 </li>
                 <li>
                   <Link
@@ -208,14 +213,6 @@ const Header = () => {
                 </li>
               </ul>
               <ul className="list-unstyled d-flex d-xl-none align-items-center justify-content-between gap-2 mobile-header-actions">
-                {/* <li>
-                  <a
-                    href="#"
-                    className="d-inline-flex flex-column justify-content-center align-items-center"
-                  >
-                    <IoSearchOutline size={"1.625rem"} />
-                  </a>
-                </li> */}
                 <li>
                   <button
                     onClick={toggleCart}
@@ -260,7 +257,7 @@ const Header = () => {
               <div className="header-link-list">
                 <ul className="d-flex gap-5">
                   <li>
-                    <Link to= "/">Home</Link>
+                    <Link to="/">Home</Link>
                   </li>
                   <li>
                     <Link to="/products">Products</Link>
@@ -297,7 +294,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </header >
+      </header>
     </>
   );
 };

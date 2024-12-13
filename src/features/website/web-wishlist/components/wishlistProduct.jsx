@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 
 const WishList = () => {
   const { wishlist=[], loading } = useSelector((state) => state.wishlist);
+
+
   
   return (
     <>
@@ -16,9 +18,9 @@ const WishList = () => {
         }}
       >
         {wishlist?.map((data, index) => (
-          <div className="item-slide px-2 px-lg-0" key={index}>
+          <div className="item-slide px-2 px-lg-0" key={data.id}>
             <div className="cat-itmes gap-0 ">
-              <ProductCard product={data} getWishlistData={wishlist} />
+              <ProductCard product={data} />
             </div>
           </div>
         ))}

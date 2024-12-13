@@ -17,14 +17,16 @@ import { Checkbox } from "primereact/checkbox";
 import ProductCard from "../web-home/components/ProductCard";
 import { InputText } from "primereact/inputtext";
 import Loading from "../../../components/ui/Loading";
-import { getProductApi } from "../../../services/adminApiRoutes";
+import { getCategoriesApi, getProductApi } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
+import { Icon } from "@mui/material";
 
 const ProudctList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [minValue, setMinValue] = useState(100); // Default Min value
-  const [maxValue, setMaxValue] = useState(200); // Default Max value
+  const [minValue, setMinValue] = useState(100);
+  const [categoryList, setCategoryList] = useState([]);
+  const [maxValue, setMaxValue] = useState(200);
   const [filters, setFilters] = useURLFilters();
   const [ingredients, setIngredients] = useState([]);
   const onIngredientsChange = (e) => {
@@ -34,7 +36,15 @@ const ProudctList = () => {
     setIngredients(_ingredients);
   };
 
-
+  async function getCategoryList() {
+    try {
+      const response = await getCategoriesApi();
+      setCategoryList(response?.data || []);
+    } catch (error) {
+      console.log("Error on Product List", error);
+    } finally {
+    }
+  }
 
   async function getProductList() {
     setLoading(true);
@@ -53,9 +63,13 @@ const ProudctList = () => {
   }, [filters]);
 
 
+  useEffect(() => {
+    getCategoryList();
+  }, []);
+
   return (
     <div className="web-wrapper-main">
-      <Header/>
+      <Header />
       <section>
         <div className="container fb-container">
           <div className="row">
@@ -64,52 +78,23 @@ const ProudctList = () => {
                 <h6 className="underline-heading fw-bold">Category</h6>
                 <div className="">
                   <ul className="category-select-list">
-                    <li className="cat-btn-item active">
+                    {categoryList?.map((item, index) => (
+                      <li className={`cat-btn-item {${filters?.category === item?.id ? "active" : ""}}` }key={index} >
+                        <span className="d-inline-flex align-items-center gap-2">
+                          {/* <img src={item?.image} className="img-fluid" alt="icon" /> */}
+                          {item?.name}
+                        </span>
+                        {/* <span className="pill-circle">{item?.product_count}</span> */}
+                      </li>
+                    ))}
+                    {/* <li className="cat-btn-item active">
                       <span className="d-inline-flex align-items-center gap-2">
                         <img src={catIcon} className="img-fluid" alt="icon" />
                         Millet Rice
                       </span>
                       <span className="pill-circle">6</span>
-                    </li>
-                    <li className="cat-btn-item">
-                      <span className="d-inline-flex align-items-center gap-2">
-                        <img src={bakeryImg} className="img-fluid" alt="icon" />
-                        Bakery & Confectionery
-                      </span>
-                      <span className="pill-circle">2</span>
-                    </li>
-                    <li className="cat-btn-item">
-                      <span className="d-inline-flex align-items-center gap-2">
-                        <img src={flourImg} className="img-fluid" alt="icon" />
-                        Flour
-                      </span>
-                      <span className="pill-circle">5</span>
-                    </li>
-                    <li className="cat-btn-item">
-                      <span className="d-inline-flex align-items-center gap-2">
-                        <img
-                          src={beveragesImg}
-                          className="img-fluid"
-                          alt="icon"
-                        />
-                        Beverages
-                      </span>
-                      <span className="pill-circle">2</span>
-                    </li>
-                    <li className="cat-btn-item">
-                      <span className="d-inline-flex align-items-center gap-2">
-                        <img src={snacksImg} className="img-fluid" alt="icon" />
-                        Snacks & Munching
-                      </span>
-                      <span className="pill-circle">5</span>
-                    </li>
-                    <li className="cat-btn-item">
-                      <span className="d-inline-flex align-items-center gap-2">
-                        <img src={mixesImg} className="img-fluid" alt="icon" />
-                        Instant Mixes
-                      </span>
-                      <span className="pill-circle">2</span>
-                    </li>
+                    </li> */}
+                  
                   </ul>
                 </div>
               </div>
@@ -195,7 +180,11 @@ const ProudctList = () => {
                       <div className="d-flex align-items-center">
                         <Checkbox
                           variant="filled"
-                          inputId="ingredient2" name="pizza" value="Mushroom" onChange={onIngredientsChange} checked={ingredients.includes('Mushroom')}
+                          inputId="ingredient2"
+                          name="pizza"
+                          value="Mushroom"
+                          onChange={onIngredientsChange}
+                          checked={ingredients.includes("Mushroom")}
                         />
                         <label htmlFor="ingredient2" className="ms-3 d-flex">
                           3
@@ -214,7 +203,11 @@ const ProudctList = () => {
                       <div className="d-flex align-items-center">
                         <Checkbox
                           variant="filled"
-                          inputId="ingredient3" name="pizza" value="Pepper" onChange={onIngredientsChange} checked={ingredients.includes('Pepper')}
+                          inputId="ingredient3"
+                          name="pizza"
+                          value="Pepper"
+                          onChange={onIngredientsChange}
+                          checked={ingredients.includes("Pepper")}
                         />
                         <label htmlFor="ingredient3" className="ms-3 d-flex">
                           2
@@ -233,7 +226,11 @@ const ProudctList = () => {
                       <div className="d-flex align-items-center">
                         <Checkbox
                           variant="filled"
-                          inputId="ingredient4" name="pizza" value="Onion" onChange={onIngredientsChange} checked={ingredients.includes('Onion')}
+                          inputId="ingredient4"
+                          name="pizza"
+                          value="Onion"
+                          onChange={onIngredientsChange}
+                          checked={ingredients.includes("Onion")}
                         />
                         <label htmlFor="ingredient4" className="ms-3 d-flex">
                           1
@@ -271,21 +268,24 @@ const ProudctList = () => {
               <div className="row">
                 {loading ? (
                   <Loading />
+                ) : Array.isArray(products) && products.length > 0 ? (
+                  <div
+                    className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
+                    style={{
+                      gridTemplateColumns:
+                        window.innerWidth > 768
+                          ? "repeat(4, 1fr)"
+                          : "repeat(2, 1fr)",
+                    }}
+                  >
+                    {products.map((item) => (
+                      <ProductCard product={item} key={item.id || item.index} />
+                    ))}
+                  </div>
                 ) : (
-                  Array.isArray(products) && products.length > 0 ? (
-                    <div
-                      className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
-                      style={{ gridTemplateColumns: window.innerWidth > 768 ? "repeat(4, 1fr)" : "repeat(2, 1fr)"  }}
-                    >
-                      {products.map((item) => (
-                        <ProductCard product={item} key={item.id || item.index} />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="d-flex justify-content-center w-100">
-                      <h3 className="text-center">No Product Found</h3>
-                    </div>
-                  )
+                  <div className="d-flex justify-content-center w-100">
+                    <h3 className="text-center">No Product Found</h3>
+                  </div>
                 )}
               </div>
             </div>
