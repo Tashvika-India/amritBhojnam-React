@@ -12,7 +12,7 @@ import ProfileDropdown from "../../components/ui/ProfileDropdown";
 import MobileMenu from "../../components/ui/MobileMenu";
 import MyCartMenu from "../../components/ui/MyCartMenu";
 import MobileLogin from "../../components/ui/MobileLogin";
-import { getCategoriesApi } from "../../services/adminApiRoutes";
+import { getCategoriesApi, getProfile } from "../../services/adminApiRoutes";
 import useURLFilters from "../../custom-compoents/useURLFilters";
 import { getWishlist } from "../../services/adminApiRoutes";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +25,9 @@ const Header = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useURLFilters();
+
+  const [userDetail, setUserDetail] = useState({});
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -44,15 +47,12 @@ const Header = () => {
 
   const login = accessToken;
 
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (search.trim()) {
-      setLoading(true);
-      const categoryQuery = selectedCategory
-        ? `category_id=${selectedCategory.id}`
-        : "";
-      navigate(`/products?${categoryQuery}&name=${search}`);
-    }
+    setLoading(true);
+    navigate(`/products?category_id=${filters.category_id}&name=${filters.name}`);
+    toggleMobileMenu()
   };
   async function getCategory() {
     setLoading(true);
@@ -69,25 +69,38 @@ const Header = () => {
     }
   }
 
+  const getProfileList = async () => {
+    try {
+      const response = await getProfile();
+      setUserDetail(response?.data[0] || {});
+    } catch (error) {
+      console.error("Error fetching profile data:", error);
+    }
+  };
+
+
   useEffect(() => {
     getCategory();
+    getProfileList();
     dispatch(fetchCart());
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => { 
-      if (!accessToken) {
-        console.log("Token not found"); 
-        setShowMobileLogin(true);
-        setShowWebLogin(true);
-      } else {
-        setShowMobileLogin(false);
-        setShowWebLogin(false); // Optional: Reset state if token exists
-      }
-    }, 3000); // Check every 1 second
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (!accessToken) {
+  //       console.log("Token not found");
+  //       setShowMobileLogin(true);
+  //       setShowWebLogin(true);
+  //     } else {
+  //       setShowMobileLogin(false);
+  //       setShowWebLogin(false); // Optional: Reset state if token exists
+  //     }
+  //   }, 3000); // Check every 1 second
 
-    return () => clearInterval(interval); // Clean up on component unmount
-  }, []);
+  //   return () => clearInterval(interval); // Clean up on component unmount
+  // }, []);
+
+
 
   return (
     <>
@@ -111,30 +124,21 @@ const Header = () => {
         </div>
         <div className="container fb-container pb-3 pt-2">
           <div className="d-flex justify-content-between align-items-center">
-            <Link to= "/">
+            <Link to="/">
               <div className="logo">
                 <img src={logo} alt="logo" className="img-fluid" />
               </div>
             </Link>
             <div className="header-delivery-search mx-auto  d-none d-xl-block">
               <div className="d-inline-flex gap-4 w-100">
-                {/* <div className="header-delivery d-inline-flex gap-3 align-items-center">
-                  <div className="header-delivery-icon">
-                    <CiLocationOn size={25} />
-                  </div>
-                  <div className="header-delivery-text">
-                    <small>Deliver to</small>
-                    <p className='fw-600 text-truncate'>Akshya Nagar 1st Block 1...</p>
-                  </div>
-                </div> */}
                 <form
                   onSubmit={handleSearchSubmit}
                   className="header-search d-inline-flex w-100 align-self-center"
                 >
                   <div className="all-category">
                     <Dropdown
-                      value={selectedCategory}
-                      onChange={(e) => setSelectedCategory(e.value)}
+                      value={category.find((c) => c.id === filters.category_id)}
+                      onChange={(e) => setFilters({ ...filters, category_id: e.value.id })}
                       options={category}
                       optionLabel="name"
                       placeholder="All Categories"
@@ -147,12 +151,12 @@ const Header = () => {
                       placeholder="Search for products"
                       className="border-0 ps-3 w-100"
                       style={{ boxShadow: "none" }}
-                      onChange={(e) => setSearch(e.target.value)}
+                      value={filters.name}
+                      onChange={(e) => setFilters({ ...filters, name: e.target.value })}
                     />
                     <button
                       type="submit"
-                      className="search-icon d-inline-block z-2 h-100 border-0 bg-transparent"
-                    >
+                      className="search-icon d-inline-block z-2 h-100 border-0 bg-transparent">
                       <IoSearchOutline color="#918e92" size="1.25rem" />
                     </button>
                   </div>
@@ -164,7 +168,7 @@ const Header = () => {
                 <li>
                   {
                     (login) ?
-                      <ProfileDropdown />
+                      <ProfileDropdown userDetail={userDetail} />
                       :
                       <button
                         className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
@@ -189,21 +193,38 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <button
-                    onClick={toggleCart}
-                    className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
-                  >
-                    <div className="position-relative">
-                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
-                        {cartItems.length}
-                        <span className="visually-hidden">unread messages</span>
-                      </span>
-                      <CgShoppingBag size={"1.625rem"} />
-                    </div>
-                    <span className="d-inline-block fb-fs-14 fw-600">
-                      My Cart
-                    </span>
-                  </button>
+                  {
+                    (login) ?
+                      <button
+                        onClick={toggleCart}
+                        className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
+                      >
+                        <div className="position-relative">
+                          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
+                            {cartItems.length}
+                          </span>
+                          <CgShoppingBag size={"1.625rem"} />
+                        </div>
+                        <span className="d-inline-block fb-fs-14 fw-600">
+                          My Cart
+                        </span>
+                      </button>
+                      :
+                      <button
+                        onClick={toggleCart}
+                        className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
+                      >
+                        <div className="position-relative">
+                          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
+                            {cartItems.length}
+                          </span>
+                          <CgShoppingBag size={"1.625rem"} />
+                        </div>
+                        <span className="d-inline-block fb-fs-14 fw-600">
+                          My Cart
+                        </span>
+                      </button>
+                  }
                   <MyCartMenu show={showCart} onClose={toggleCart} />
                 </li>
               </ul>
@@ -242,6 +263,11 @@ const Header = () => {
                     onClose={toggleMobileMenu}
                     showMobileLogin={showMobileLogin}
                     toggleMobileLogin={toggleMobileLogin}
+                    handleSearchSubmit={handleSearchSubmit}
+                    filters={filters}
+                    setFilters={setFilters}
+                    login={login}
+                    userDetail={userDetail}
                   />
 
                   <MobileLogin
@@ -260,7 +286,7 @@ const Header = () => {
               <div className="header-link-list">
                 <ul className="d-flex gap-5">
                   <li>
-                    <Link to= "/">Home</Link>
+                    <Link to="/">Home</Link>
                   </li>
                   <li>
                     <Link to="/products">Products</Link>

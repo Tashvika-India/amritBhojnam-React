@@ -10,6 +10,7 @@ const useURLFilters = () => {
     product_id: search.get("product_id") || "",
     category_id: search.get("category_id") || "",
     name: search.get("name") || "",
+    search: search.get("search") || "",
   });
 
   useEffect(() => {
