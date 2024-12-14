@@ -17,11 +17,14 @@ import fireImg from "../../../assets/images/web/Fire.png";
 import { Checkbox } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import ShareIcon from "@mui/icons-material/Share";
+import MobileLogin from "../../../components/ui/MobileLogin";
 
 const ProudctDetail = () => {
   const [showCart, setShowCart] = useState(false);
   const [radioValue, setRadioValue] = useState("1");
   const [filters, setFilters] = useURLFilters();
+  const [showWebLogin, setShowWebLogin] = useState(false);
+  const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(0);
@@ -70,6 +73,8 @@ const ProudctDetail = () => {
       setLoading(false);
     }
   };
+
+  const login = localStorage.getItem("access") || localStorage.getItem("refresh");
 
   function checkItemInCart() {
     return cartItems.some((cartItem) => cartItem.product_id === detail?.id);
@@ -160,26 +165,43 @@ const ProudctDetail = () => {
                   (Inclusive of all taxes)
                 </p>
                 <div>
-                  {!checkItemInCart() ? (
-                    <button
-                      className="button-primary mt-4 fb-fs-18"
-                      onClick={() => addToCart(detail?.id, quantity || 1)}
-                      disabled={loading}
-                    >
-                      {loading ? "Adding..." : "Add to Cart"}
-                    </button>
-                  ) : (
-                    <>
+                  {login ? (
+                    !checkItemInCart() ? (
                       <button
                         className="button-primary mt-4 fb-fs-18"
-                        onClick={toggleCart}
+                        onClick={() => addToCart(detail?.id, quantity || 1)}
+                        disabled={loading}
                       >
-                        Go to Cart
+                        {loading ? "Adding..." : "Add to Cart"}
                       </button>
-                      <MyCartMenu show={showCart} onClose={toggleCart} />
+                    ) : (
+                      <>
+                        <button
+                          className="button-primary mt-4 fb-fs-18"
+                          onClick={toggleCart}
+                        >
+                          Go to Cart
+                        </button>
+                        <MyCartMenu show={showCart} onClose={toggleCart} />
+                      </>
+                    )
+                  ) : (
+                    <>
+                    <button
+                      className="button-primary mt-4 fb-fs-18"
+                      onClick={() => setShowWebLogin(true)}
+                    >
+                      Add to Cart
+                    </button>
+                      <MobileLogin
+                      otpShow={showWebLogin}
+                      onOtpClose={toggleWebLogin}
+                      align="end"
+                    />
                     </>
                   )}
                 </div>
+
                 <div className="mt-5">
                   <p className="fw-600">Check Availability</p>
                   <div
@@ -301,6 +323,9 @@ const ProudctDetail = () => {
       </section>
       <section className="similar-product">
         <div className="container fb-container">
+          <h3 className="fw-bold mb-5 pb-2">
+            Similar Products
+          </h3>
           <div className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
             style={{
               gridTemplateColumns:
@@ -311,10 +336,12 @@ const ProudctDetail = () => {
           >
             {loading ? (
               <Loading />
-            ) : (
-              recommendedProducts?.map((item, index) => (
+            ) : recommendedProducts?.length > 0 ? (
+              recommendedProducts.map((item, index) => (
                 <ProductCard product={item} key={index} />
               ))
+            ) : (
+              <p>There is no similar product.</p>
             )}
           </div>
         </div>
