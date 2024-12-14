@@ -36,13 +36,13 @@ const Footer = () => {
               <div className="col-lg-5 col-md-12 mb-4">
                 <div className="footer-detail">
                   <img src={logo} alt="logo" />
-                  <p className="my-4 text-balance   pe-5">
+                  <p className="my-4  pe-md-5">
                     At Amrit Bhojanam, we bring the incredible health benefits
                     of millet to your table. We promote a healthier lifestyle
                     with our range of nutritious, millet-based products.
-                    Rediscover millet, packed with essential nutrients and
+                    {/* Rediscover millet, packed with essential nutrients and
                     eco-friendly benefits, and see how it transforms your diet
-                    and well-being. Let's make millet a staple in every home!
+                    and well-being. Let's make millet a staple in every home! */}
                   </p>
                   <ul className="footer-detail-links d-flex flex-column gap-md-3 gap-2 pt-lg-3 pt-0 mb-3 mt-3">
                     <li className="d-flex align-items-center fw-500">

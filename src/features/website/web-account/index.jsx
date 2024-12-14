@@ -54,7 +54,7 @@ const UserProfile = () => {
       city: "",
       state: "",
       pincode: "",
-      save_as: "", 
+      save_as: "",
     },
     validationSchema: Yup.object({
       ads_name: Yup.string().required("Name is required"),
@@ -243,11 +243,11 @@ const UserProfile = () => {
       setActiveIndex(0);
     }
 
-  }, [location.search]); 
+  }, [location.search]);
 
   useEffect(() => {
     if (userDetail?.full_name === null && userDetail?.email === null && userDetail?.gender === null && userDetail?.date_of_birth === null) {
-      setProfileEdit(true);   
+      setProfileEdit(true);
     }
   }, [userDetail]);
 
@@ -255,30 +255,30 @@ const UserProfile = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
-      <div className="container fb-container mb-5 pb-5">
+      <div className="container fb-container mb-md-5 pb-md-5">
         <div className="row">
           <div className="col-md-10 mx-auto">
-            <div className="user-profile-img">
-              <img
+            <div className="user-profile-img mt-5">
+              {/* <img
                 className="img-fluid profile-img profile-foreground-img rounded-top w-100 mt-5"
                 src={profileBg}
                 alt="pencil"
                 style={{ height: "200px" }}
-              />
+              /> */}
             </div>
             <div className="p-4 pt-0">
               <div
                 className="position-relative text-start pb-3"
                 style={{ marginTop: "-5rem" }}
               >
-                <div className="text-center rounded-circle  position-relative d-flex flex-wrap">
+                <div className="text-center rounded-circle  position-relative d-flex align-items-center">
                   <img
                     className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center"
                     src={profilePic}
                     alt="Card image cap"
                   />
-                  <div className="image-content mt-5 pt-5 ms-3">
-                    <p className="fb-fs-30 fw-bold">{userDetail?.full_name}</p>
+                  <div className="image-content mt-5 mt-md-3 pt-md-5 ms-md-3">
+                    <h4 className="text-dark-grey fw-bold">{userDetail?.full_name}</h4>
                     <p className="fw-500 text-mid-grey fb-fs-18 text-start">
                       {userDetail?.phone_number}
                     </p>
@@ -287,14 +287,14 @@ const UserProfile = () => {
               </div>
             </div>
             <div>
-              <div className="flex mb-2 gap-2 justify-content-end border-bottom">
-                <button className={`border-0 bg-white fw-600  px-4 py-3 ${activeIndex === 0 ? "text-yellow bg-footer-bg border-bottom border-yellow-color" : 'text-dark-grey'}`} onClick={() => setActiveIndex(0)} rounded outlined={activeIndex !== 0} label="1" > <span className="me-1"><i className="pi fs-5 pi-user"></i> </span> My Account</button>
-                <button className={`border-0 bg-white fw-600  px-4 py-3 ${activeIndex === 1 ? "text-yellow bg-footer-bg border-bottom border-yellow-color" : 'text-dark-grey'}`} onClick={() => setActiveIndex(1)} rounded outlined={activeIndex !== 1} label="2"> <span className="me-1"><i className="pi fs-5 pi-box"></i> </span>  Order History</button>
-                <button className={`border-0 bg-white fw-600  px-4 py-3 ${activeIndex === 2 ? "text-yellow bg-footer-bg border-bottom border-yellow-color" : 'text-dark-grey'}`} onClick={() => setActiveIndex(2)} rounded outlined={activeIndex !== 2} label="3" > <span className="me-1"><i className="pi fs-5 pi-map-marker"></i> </span>  Address Book</button>
+              <div className="flex mb-2 gap-2 justify-content-end border-bottom profile-tabs">
+                <button className={`border-0 bg-white fw-600 ${activeIndex === 0 ? "text-yellow bg-footer-bg border-bottom border-yellow-color" : 'text-dark-grey'}`} onClick={() => setActiveIndex(0)} rounded outlined={activeIndex !== 0} label="1" > <span className="me-1"><i className="pi pi-user"></i> </span> My Account</button>
+                <button className={`border-0 bg-white fw-600 ${activeIndex === 1 ? "text-yellow bg-footer-bg border-bottom border-yellow-color" : 'text-dark-grey'}`} onClick={() => setActiveIndex(1)} rounded outlined={activeIndex !== 1} label="2"> <span className="me-1"><i className="pi pi-box"></i> </span>  Order History</button>
+                <button className={`border-0 bg-white fw-600 ${activeIndex === 2 ? "text-yellow bg-footer-bg border-bottom border-yellow-color" : 'text-dark-grey'}`} onClick={() => setActiveIndex(2)} rounded outlined={activeIndex !== 2} label="3" > <span className="me-1"><i className="pi pi-map-marker"></i> </span>  Address Book</button>
               </div>
               <TabView className="custom-tabview" activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
                 <TabPanel header="My Account"  >
-                  <div className="account-section mb-4">
+                  <div className="account-section mb-md-4">
                     <div className="d-flex justify-content-between">
                       <p className="fb-fs-26 fw-bold">My Account</p>
                       <div className="d-flex">
@@ -413,9 +413,9 @@ const UserProfile = () => {
                               }
                             />
                           </div>
-                          <div className="col-12 mt-4 text-end">
-                            {
-                              profileEdit &&
+                          {
+                            profileEdit &&
+                            <div className="col-12 mt-4 text-end"> 
                               <button
                                 type="submit"
                                 className="button-primary"
@@ -423,8 +423,8 @@ const UserProfile = () => {
                               >
                                 {loading ? "Saving..." : "Save"}
                               </button>
-                            }
-                          </div>
+                            </div>
+                          }
                         </div>
                       </div>
                     </form>
@@ -436,12 +436,12 @@ const UserProfile = () => {
                     {order.map((item, index) => (
                       <div className="summary-card rounded-20 mb-4" key={index}>
                         <div className="container">
-                          <div className="row border-bottom px-3 py-3">
+                          <div className="row border-bottom px-2 px-md-3 py-3">
                             <div className="col-md-3">
                               <p>
                                 Order ID:
                                 <span className="fw-600" title={item?.id}>&nbsp;&nbsp;
-                                  {item?.id?.slice(0, 12)}...
+                                {item?.id?.slice(0, 12)}...
                                 </span>
                               </p>
                             </div>
@@ -455,23 +455,22 @@ const UserProfile = () => {
                                 </span>
                               </p>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-6 col-md-3">
                               <p>
                                 Total Amount:
-                                <span className="fw-600">&nbsp;&nbsp;
-
+                                <span className="fw-600">&nbsp;&nbsp; 
                                   ₹ {item?.amount_to_pay}
                                 </span>
                               </p>
                             </div>
-                            <div className="col-md-3 text-end">
+                            <div className="col-6 col-md-3 text-end">
                               <p className="text-orange fw-500">
                                 Download Invoice
                               </p>
                             </div>
                           </div>
                           {item?.product_details.map((data) => (
-                            <div className="row px-3 py-4">
+                            <div className="row px-2 px-md-3 pt-3 py-md-4">
                               <div className="col-md-8">
                                 <div className="prod-detail d-flex align-items-center">
                                   <img
@@ -504,22 +503,22 @@ const UserProfile = () => {
                               </div>
                             </div>
                           ))}
-                          <div className="row p-3">
+                          <div className="row p-2 p-md-3">
                             <div className="col-md-6">
-                              <div className="order-date d-flex">
+                              <div className="d-flex mb-2 mb-md-0">
                                 <img
                                   className="img-fluid me-2"
                                   src={tickImg}
                                   alt="pencil"
                                 />
                                 <p className="text-dark-grey">
-                                Delivered within 5-7 days
-                                {/* {new Date(item?.delivered_on).toLocaleDateString("en-US", {year: "numeric",month: "long",day: "numeric",})} */}
+                                  Delivered within 5-7 days
+                                  {/* {new Date(item?.delivered_on).toLocaleDateString("en-US", {year: "numeric",month: "long",day: "numeric",})} */}
                                 </p>
                               </div>
                             </div>
                             <div className="col-md-6 text-md-end">
-                              <div className="more-option d-flex justify-content-end">
+                              <div className="more-option d-flex justify-content-md-end">
                                 <button className="fw-bold border-0 text-dark-grey bg-transparent border-end pe-4">
                                   View Product
                                 </button>
@@ -536,13 +535,13 @@ const UserProfile = () => {
                 </TabPanel>
                 <TabPanel header="Address Book" >
                   <div className="address-section">
-                    <div className="d-flex justify-content-between">
-                      <p className="fb-fs-26 fw-bold text-dark-grey my-4">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <h4 className="fb-fs-26 fw-bold text-dark-grey my-md-4">
                         Saved Address
-                      </p>
+                      </h4>
                       <button
                         type="button"
-                        className="d-flex mt-4 pt-2 border-0 bg-transparent"
+                        className="d-flex align-items-center border-0 bg-transparent"
                         onClick={() => {
                           setOpen(!open);
                           setEditData(null);
@@ -550,7 +549,7 @@ const UserProfile = () => {
                         aria-controls="example-collapse-text"
                         aria-expanded={open}
                       >
-                        <i className="pi pi-plus text-yellow me-2 mt-1"></i>
+                        <i className="pi pi-plus text-yellow me-2 mt-md-1"></i>
                         <p className="fw-500">Add New Address</p>
                       </button>
                     </div>
@@ -565,10 +564,10 @@ const UserProfile = () => {
                             key={index}
                             onClick={() => handleSelectAddress(item?.id)}
                           >
-                            <div className="container">
+                            <div className="px-md-3">
                               <div className="row">
                                 <div className="col-md-12">
-                                  <div className="order-date d-flex">
+                                  <div className="order-date d-flex gap-2">
                                     <img
                                       className={`img-fluid me-1 rounded-4 ${item?.selected ? "shadow" : ""
                                         }`}
@@ -576,10 +575,10 @@ const UserProfile = () => {
                                       alt="pencil"
                                     />
                                     <div className="ms-md-3">
-                                      <div className="d-flex mt-2">
+                                      <div className="d-flex mt-2 gap-1 align-items-center">
                                         <p className="fw-600 fb-fs-18">{item?.user_detail?.full_name} | {item?.user_detail?.phone_number}</p>
                                         {item?.selected && (
-                                          <button className="button-yellow ms-3">
+                                          <button className="button-yellow default-btn ms-md-3 fw-normal lh-base align-self-center">
                                             Default
                                           </button>
                                         )}
