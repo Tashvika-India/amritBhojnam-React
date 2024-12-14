@@ -51,13 +51,13 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setLoading(true); // Start loading on logout
+    setLoading(true);  
     setTimeout(() => {
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
-      setLoading(false); // Stop loading once logout is complete
+      setLoading(false);  
       navigate("/login");
-    }, 1000); // Simulate logout delay for user feedback
+    }, 1000); 
   };
 
   return (
@@ -86,10 +86,10 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
               />
             </div>
             <IconButton sx={{ p: 0 }}>
-              <Avatar alt="Harry Styles" src={harry} />
+              <Avatar alt="Avatar" src={harry} />
             </IconButton>
             <div className="ms-1">
-              <h6 className="m-0">Harry Styles</h6>
+              <h6 className="m-0">Avatar</h6>
               <span className="m-0 text-secondary">Admin</span>
             </div>
             <div className="ms-1 cursor-pointer" onClick={handleClick}>

@@ -28,7 +28,7 @@ function ProductList() {
   async function getProductList() {
     setLoading(true);
     try {
-      const response = await getProductApi(filter);
+      const response = await getProductApi({...filter , maxPrice:5000});
       setProducts(response?.data?.results || []);
     } catch (error) {
       console.log("Error on Product List", error);
@@ -37,22 +37,6 @@ function ProductList() {
     }
   }
 
-  async function searchProducts(query) {
-    if (!query) {
-      getProductList();
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const response = await searchProductApi(query); // Search products by query
-      setProducts(response?.data || []); // Update the product list with search results
-    } catch (error) {
-      console.error("Error on Search Product", error);
-    } finally {
-      setLoading(false); // Stop loading spinner
-    }
-  }
 
   const debouncedSearch = useCallback(
     debounce((value) => {
@@ -69,7 +53,7 @@ function ProductList() {
 
   useEffect(() => {
     getProductList();
-  }, []);
+  }, [filter]);
 
   return (
     <>
@@ -93,8 +77,8 @@ function ProductList() {
               <div className="col-md-2"></div>
               <div className="col-md-3">
                 <InputText
-                  value={search}
-                  onChange={onSearchChange}
+                  value={filter.name}
+                  onChange={(e)=>setFilter({...filter,name:e.target.value})}
                   placeholder="Search Product" 
                 />
               </div>
