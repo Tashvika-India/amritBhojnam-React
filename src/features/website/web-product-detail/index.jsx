@@ -18,6 +18,7 @@ import { Checkbox } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import ShareIcon from "@mui/icons-material/Share";
 import MobileLogin from "../../../components/ui/MobileLogin";
+import { set } from "lodash";
 
 const ProudctDetail = () => {
   const [showCart, setShowCart] = useState(false);
@@ -33,9 +34,53 @@ const ProudctDetail = () => {
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const { cartItems, finalCart, error, cartId } = useSelector((state) => state.cart);
 
+  const [pincode, setPincode] = useState("");
+  const [message, setMessage] = useState(""); 
+
+  const delhiPincodes = [
+    "110001", "110002", "110003", "110004", "110005", "110006", "110007", "110008",
+    "110009", "110010", "110011", "110012", "110013", "110014", "110015", "110016",
+    "110017", "110018", "110019", "110020", "110021", "110022", "110023", "110024",
+    "110025", "110026", "110027", "110028", "110029", "110030", "110031", "110032",
+    "110033", "110034", "110035", "110036", "110037", "110038", "110039", "110040",
+    "110041", "110042", "110043", "110044", "110045", "110046", "110047", "110048",
+    "110049", "110050", "110051", "110052", "110053", "110054", "110055", "110056",
+    "110057", "110058", "110059", "110060", "110061", "110062", "110063", "110064",
+    "110065", "110066", "110067", "110068", "110069", "110070", "110071", "110072",
+    "110073", "110074", "110075", "110076", "110077", "110078", "110079", "110080",
+    "110081", "110082", "110083", "110084", "110085", "110086", "110087", "110088",
+    "110089", "110090", "110091", "110092", "110093", "110094", "110095", "110096",
+  ];
+  const gurugramPincodes = [
+    "122001", "122002", "122003", "122004", "122005", "122006", "122007", "122008",
+    "122009", "122010", "122011", "122012", "122013", "122014", "122015", "122016",
+    "122017", "122018", "122019", "122020", "122021", "122022", "122023", "122024",
+    "122025", "122026", "122027",
+  ];
+
+  const noidaPincodes = [
+    "201301", "201302", "201303", "201304", "201305", "201306", "201307", "201308",
+    "201309", "201310", "201311",
+  ];
+  const combinedPincodes = Array.from(new Set([...delhiPincodes, ...gurugramPincodes, ...noidaPincodes]));
+
+  const handleCheckPincode = () => {
+    if (pincode.length === 6) {
+      if (combinedPincodes.includes(pincode)) {
+        setMessage("Delivery is available for your pincode.");
+      } else {
+        setMessage("Delivery is not available for your pincode.");
+      }
+    } else {
+      setMessage("Please enter a valid 6-digit pincode.");
+    }
+  };
+
+
   const radios = [
     { name: `${detail?.quantity}${detail?.quantity_unit}`, value: "1" },
   ];
+
   const dispatch = useDispatch();
   const fetchProductDetail = async () => {
     try {
@@ -88,6 +133,7 @@ const ProudctDetail = () => {
   useEffect(() => {
     checkItemInCart();
   }, [cartItems]);
+
 
   return (
     <div className="web-wrapper-main">
@@ -187,17 +233,17 @@ const ProudctDetail = () => {
                     )
                   ) : (
                     <>
-                    <button
-                      className="button-primary mt-4 fb-fs-18"
-                      onClick={() => setShowWebLogin(true)}
-                    >
-                      Add to Cart
-                    </button>
+                      <button
+                        className="button-primary mt-4 fb-fs-18"
+                        onClick={() => setShowWebLogin(true)}
+                      >
+                        Add to Cart
+                      </button>
                       <MobileLogin
-                      otpShow={showWebLogin}
-                      onOtpClose={toggleWebLogin}
-                      align="end"
-                    />
+                        otpShow={showWebLogin}
+                        onOtpClose={toggleWebLogin}
+                        align="end"
+                      />
                     </>
                   )}
                 </div>
@@ -208,21 +254,28 @@ const ProudctDetail = () => {
                     className="border-gray border-raidus-10 mt-2 input-box"
                     style={{ width: "60%" }}
                   >
-                    <div className="input-group mb-2 mt-2 ">
+                    <div className="input-group mb-2 mt-2">
                       <input
-                        type="text"
+                        type="number"
                         className="form-control border-0 box-shadow-0 fw-600"
                         placeholder="Enter Pincode"
                         aria-label="Enter Pincode"
                         aria-describedby="basic-addon2"
+                        maxLength={6}
+                        minLength={6}
+                        value={pincode}
+                        onChange={(e) => setPincode(e.target.value)}
                       />
                       <button
-                        className="input-group-text border-0 text-orange fw-600  bg-transparent border-start border-2 ps-4 me-3"
+                        className="input-group-text border-0 text-orange fw-600 bg-transparent border-start border-2 ps-4 me-3"
+                        onClick={handleCheckPincode}
                       >
                         CHECK
                       </button>
                     </div>
                   </div>
+                  {(message) && <p className="mt-2 fw-600 text-dark">{message}</p> }
+                
                 </div>
                 <p className="d-flex fb-fs-18 fw-500 my-3">
                   <span>
