@@ -35,21 +35,20 @@ function AsNavFor({ data }) {
       </Slider>
 
       <Slider
-        className="mt-5"
+        className="mt-5 slider-bottom-thumbs"
         asNavFor={nav1}
         ref={(slider) => (sliderRef2 = slider)}
         slidesToShow={4}
         swipeToSlide={true}
-        focusOnSelect={true}
-        arrows={true}
-        style={{marginRight: "2rem"}}
+        focusOnSelect={true}  
+        arrows={true}   
         nextArrow={<SampleNextArrow />}
         prevArrow={<SamplePrevArrow />}
         onMouseEnter={(e) => e.currentTarget.style.background = "#fff"}  
       >
         {/* Slider thumbnails */}
         {data?.map((item, index) => (
-          <div key={index} className="p-1">
+          <div key={index} className="slider-bottom-item">
             <img loading="lazy" className="img-fluid" src={baseURL+item?.img_files} alt={`slider-bottom-${index}`} />
           </div>
         ))}
@@ -62,11 +61,11 @@ const arrowStyles = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  width: "40px",
-  height: "40px",
+  width: "2.5rem",
+  height: "2.5rem",
   borderRadius: "50%",
   backgroundColor: "#DADADA",
-  color: "#3B3B3B",
+  color: "#FFFFFF",
   boxShadow: "0px 4.83px 10px 0px rgba(0, 0, 0, 0.05)",
   fontSize: "1rem",
   cursor: "pointer",
@@ -75,7 +74,6 @@ const arrowStyles = {
   top: "50%",
   transform: "translateY(-50%)",
   zIndex: "10",
-
 };
 
 const nextArrowStyles = {

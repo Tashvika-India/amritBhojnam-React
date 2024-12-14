@@ -133,7 +133,7 @@ const HomePage = () => {
                 </div>
               </div>
               <div className="col-xl-4 col-lg-12 col-md-12 mb-3 mb-xl-0">
-                <div className="card-center mb-3">
+                <div className="card-center mb-md-3">
                   <div className="row">
                     <div className="col-md-6 ps-xxl-5 ps-4">
                       <div className="pt-xxl-4 pt-2 mt-2">
@@ -441,7 +441,7 @@ const HomePage = () => {
       </section>
       <section className="popular-product" id="best">
         <div className="container fb-container">
-          <h3 className="fw-bold text-center mb-5">Daily Best Sells</h3>
+          <h3 className="fw-bold text-center mb-5 ms-lg-5">Daily Best Sells</h3>
           <div className="row">
             <div className="col-md-5 align-self-center">
               <div className="popularleft">
@@ -471,7 +471,7 @@ const HomePage = () => {
                     className="img-fluid millet-img"
                   />
                 </div>
-                <div className="millet-content ps-5">
+                <div className="millet-content ps-lg-5">
                   <h6 className="text-brown">MILLET POWER</h6>
                   <h3>Amrit Bhojanam</h3>
                   <p className="mt-4">
