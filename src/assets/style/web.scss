@@ -829,6 +829,22 @@ footer {
   }
 }
 
+.user-profile-img {
+  background: linear-gradient(90deg, #f26722 0%, #d64701 100%);
+  border-radius: 1rem;
+  height: 12.5rem;
+  width: 100%;
+}
+.profile-tabs {
+  button {
+    padding: 1rem 1.5rem;  
+    font-size: 1.125rem;
+    i{
+      font-size: 1.125rem;
+    }
+  }
+}
+
 .no-caret {
   &::after {
     display: none !important;
@@ -1468,16 +1484,16 @@ footer {
     padding: 0.625rem;
     margin-top: 0.625rem;
   }
-  .popular-product .popularleft img{
+  .popular-product .popularleft img {
     margin-left: 0 !important;
   }
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
-  .banner-slider img{
+  .banner-slider img {
     height: 21rem !important;
   }
-  .popular-product .popularleft{
+  .popular-product .popularleft {
     margin-bottom: 1rem;
   }
   .login-offcanvas {
@@ -1494,8 +1510,8 @@ footer {
       background-size: cover !important;
       padding-left: 0.2rem !important;
       border-radius: 1.125rem !important;
-      p{
-        width: 60%  !important;
+      p {
+        width: 60% !important;
       }
     }
   }
@@ -1742,6 +1758,35 @@ footer {
 }
 
 @media (max-width: 576px) {
+  .web-wrapper-main {
+    .fb-fs-26 {
+      font-size: 1.4rem;
+    }
+  }
+  .user-profile-img {
+    height: 7.5rem; 
+
+  }
+  .img-profile{
+    height: 10.5rem;
+  }
+  .default-btn{
+    font-size: .8rem;
+  }
+  .order-date{ 
+    img{
+      height: 4rem; 
+    }
+  }
+  .profile-tabs {
+    button { 
+      padding: 0.7rem 0.5rem 0.5rem;
+      font-size:0.7rem;
+      i{
+        font-size:0.7rem;
+      }
+    }
+  }
   .popular-product .popularleft {
     margin-bottom: 1.5rem !important;
   }
