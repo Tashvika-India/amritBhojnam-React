@@ -13,11 +13,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartAdd } from "../../../redux/slices/cartSlice";
 import Loading from "../../../components/ui/Loading";
 import ProductCard from "../web-home/components/ProductCard";
+import fireImg from "../../../assets/images/web/Fire.png";
+import { Checkbox } from "@mui/material";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import ShareIcon from "@mui/icons-material/Share";
 
 const ProudctDetail = () => {
   const [showCart, setShowCart] = useState(false);
   const [radioValue, setRadioValue] = useState("1");
   const [filters, setFilters] = useURLFilters();
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const toggleCart = () => setShowCart(!showCart);
@@ -39,17 +44,17 @@ const ProudctDetail = () => {
     }
   };
 
-  const fetchYouMayAlsoLike = async (product_id) => { 
+  const fetchYouMayAlsoLike = async (product_id) => {
     setLoading(true);
     try {
-      const response = await getYouMayAlsoLikeApi({ product_id }); 
+      const response = await getYouMayAlsoLikeApi({ product_id });
       const recommendedProducts = response?.data || [];
       setRecommendedProducts(recommendedProducts);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching 'You May Also Like' products", error);
     }
-  };  
+  };
   const addToCart = async (product_id, quantity) => {
     setLoading(true);
     try {
@@ -90,6 +95,27 @@ const ProudctDetail = () => {
             </div>
             <div className="col-lg-6 col-12">
               <div className="product-detail-content ps-4">
+                <div className="d-flex justify-content-between">
+                  <p className="fb-fs-18 fw-600 d-flex text-brown">
+                    <span>
+                      <img
+                        className="img-fluid mt-1 me-2"
+                        src={fireImg}
+                        alt="fire"
+                      />
+                    </span>
+                    80 Calories
+                  </p>
+                  <div className="ms-auto">
+                    <Checkbox
+                      {...label}
+                      icon={<FavoriteBorder />}
+                      checkedIcon={<Favorite />}
+                      style={{ color: "#F26722" }}
+                    />
+                    <ShareIcon style={{ color: "#F26722" }} className="ms-2" />
+                  </div>
+                </div>
                 <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
                 <div className="d-flex mb-4 mt-4">
                   <Rating
@@ -106,12 +132,13 @@ const ProudctDetail = () => {
                 <p>{detail?.short_description}</p>
                 <div className="d-flex mt-4 mb-3">
                   <p className="fw-600 pt-2">Size / Weight:</p>
-                  <ButtonGroup className="weight-check ms-3">
+                  <ButtonGroup className="weight-check ms-3 d-inline-flex align-items-center">
                     {radios.map((radio, idx) => (
                       <ToggleButton
                         key={idx}
                         id={`radio-${idx}`}
                         type="radio"
+                        className="py-1 px-2 fw-500" style={{ fontSize: "1rem" }}
                         variant={idx % 2 ? "bg-orange" : "bg-orange"}
                         name="radio"
                         value={radio.value}
@@ -153,7 +180,7 @@ const ProudctDetail = () => {
                     </>
                   )}
                 </div>
-                {/* <div className="mt-5">
+                <div className="mt-5">
                   <p className="fw-600">Check Availability</p>
                   <div
                     className="border-gray border-raidus-10 mt-2 input-box"
@@ -162,21 +189,20 @@ const ProudctDetail = () => {
                     <div className="input-group mb-2 mt-2 ">
                       <input
                         type="text"
-                        className="form-control border-0 box-shadow-0"
+                        className="form-control border-0 box-shadow-0 fw-600"
                         placeholder="Enter Pincode"
                         aria-label="Enter Pincode"
                         aria-describedby="basic-addon2"
                       />
-                      <span
+                      <button
                         className="input-group-text border-0 text-orange fw-600  bg-transparent border-start border-2 ps-4 me-3"
-                        id="basic-addon2"
                       >
                         CHECK
-                      </span>
+                      </button>
                     </div>
                   </div>
-                </div> */}
-                {/* <p className="d-flex fb-fs-18 fw-500 my-3">
+                </div>
+                <p className="d-flex fb-fs-18 fw-500 my-3">
                   <span>
                     <img
                       className="img-fluid"
@@ -186,12 +212,16 @@ const ProudctDetail = () => {
                   </span>
                   <span className="text-orange me-2 ms-2 mt-1">Get it by</span>
                   <span className="mt-1">Monday, 16 Sep</span>
-                </p> */}
+                </p>
                 <div className="d-flex mt-4  ms-4 ">
                   <ul className="me-5 pe-4 disc-style w-50">
-                    <li className="my-2">Type:{detail?.product_type}</li>
-                    <li className="my-2">MFG: {detail?.mfg_date}</li>
-                    <li className="my-2">LIFE:{detail?.days}</li>
+                    <li className="my-2">Type: {detail?.product_type}</li>
+                    <li className="my-2">MFG:  {new Date(detail.mfg_date).toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                    }).replace(',', '.')}</li>
+                    <li className="my-2">LIFE: {detail?.days} days</li>
                   </ul>
                   <ul className="me-5 pe-4 disc-style w-50">
                     <li className="my-2">SKU: FWM15VKT</li>
@@ -229,7 +259,7 @@ const ProudctDetail = () => {
                             Description
                           </Nav.Link>
                         </Nav.Item>
-                        {/* <Nav.Item>
+                        <Nav.Item>
                           <Nav.Link
                             as="button"
                             className="fb-fs-18 btn-tab"
@@ -246,7 +276,7 @@ const ProudctDetail = () => {
                           >
                             Reviews(12)
                           </Nav.Link>
-                        </Nav.Item> */}
+                        </Nav.Item>
                       </Nav>
                     </div>
                     <div className="col-md-12">
@@ -271,23 +301,22 @@ const ProudctDetail = () => {
       </section>
       <section className="similar-product">
         <div className="container fb-container">
-        <div
-                  className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
-                  style={{
-                    gridTemplateColumns:
-                      window.innerWidth > 768
-                        ? "repeat(5, 1fr)"
-                        : "repeat(2, 1fr)",
-                  }}
-                >
-                  {loading ? (
-                    <Loading />
-                  ) : (
-                    recommendedProducts?.map((item, index) => (
-                      <ProductCard product={item} key={index} />
-                    ))
-                  )}
-                </div>
+          <div className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
+            style={{
+              gridTemplateColumns:
+                window.innerWidth > 768
+                  ? "repeat(5, 1fr)"
+                  : "repeat(2, 1fr)",
+            }}
+          >
+            {loading ? (
+              <Loading />
+            ) : (
+              recommendedProducts?.map((item, index) => (
+                <ProductCard product={item} key={index} />
+              ))
+            )}
+          </div>
         </div>
       </section>
       <Footer />

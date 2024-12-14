@@ -42,58 +42,33 @@
     font-style: normal !important;
   }
 
-  .nav-item-link{
-    .active{
+  .nav-item-link {
+    .active {
       color: $yellow !important;
     }
   }
-  
 
   // Responsive Headings with Clamp
   h1 {
-    font-size: clamp(
-      2.5rem,
-      5vw + 1rem,
-      4.3325rem
-    ); //69.32px Min 2.5rem, Max 4.3325rem
+    font-size: clamp(2.5rem, 5vw + 1rem, 4.3325rem); //69.32px Min 2.5rem, Max 4.3325rem
   }
   h2 {
     font-size: clamp(2rem, 4vw + 1rem, 3.75rem); //60px Min 2rem, Max 3.75rem
   }
   h3 {
-    font-size: clamp(
-      1.5rem,
-      3vw + 1rem,
-      2.25rem
-    ); //36px Min 1.5rem, Max 2.25rem
+    font-size: clamp(1.5rem, 3vw + 1rem, 2.25rem); //36px Min 1.5rem, Max 2.25rem
   }
   h4 {
-    font-size: clamp(
-      1.25rem,
-      2.5vw + 1rem,
-      2.0219rem
-    ); //32.35px Min 1.25rem, Max 2.0219rem
+    font-size: clamp(1.25rem, 2.5vw + 1rem, 2.0219rem); //32.35px Min 1.25rem, Max 2.0219rem
   }
   h5 {
-    font-size: clamp(
-      1rem,
-      2vw + 0.5rem,
-      1.375rem
-    ); //22px Min 1rem, Max 1.375rem
+    font-size: clamp(1rem, 2vw + 0.5rem, 1.375rem); //22px Min 1rem, Max 1.375rem
   }
   h6 {
-    font-size: clamp(
-      0.875rem,
-      1.5vw + 0.5rem,
-      1.25rem
-    ); //20px Min 0.875rem, Max 1.25rem
+    font-size: clamp(0.875rem, 1.5vw + 0.5rem, 1.25rem); //20px Min 0.875rem, Max 1.25rem
   }
   p {
-    font-size: clamp(
-      0.875rem,
-      1vw + 0.5rem,
-      1rem
-    ); //16px Min 0.875rem, Max 1rem
+    font-size: clamp(0.875rem, 1vw + 0.5rem, 1rem); //16px Min 0.875rem, Max 1rem
     margin-bottom: 0;
   }
 
@@ -108,36 +83,20 @@
     font-size: clamp(0.8rem, 1vw + 0.5rem, 1rem); //16px Min 0.875rem, Max 1rem
   }
   .fb-fs-18 {
-    font-size: clamp(
-      1rem,
-      1.5vw + 0.5rem,
-      1.125rem
-    ); //18px Min 1rem, Max 1.125rem
+    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.125rem); //18px Min 1rem, Max 1.125rem
   }
   .fb-fs-14 {
-    font-size: clamp(
-      0.75rem,
-      1vw + 0.5rem,
-      0.9281rem
-    ); //14.85px Min 0.75rem, Max 0.9281rem
+    font-size: clamp(0.75rem, 1vw + 0.5rem, 0.9281rem); //14.85px Min 0.75rem, Max 0.9281rem
   }
   .fb-fs-30 {
     font-size: 1.875rem; // 30px
   }
   .fb-fs-12 {
-    font-size: clamp(
-      0.625rem,
-      0.75vw + 0.5rem,
-      0.8119rem
-    ); //12.99px Min 0.625rem, Max 0.8119rem
+    font-size: clamp(0.625rem, 0.75vw + 0.5rem, 0.8119rem); //12.99px Min 0.625rem, Max 0.8119rem
   }
 
   .fb-fs-16-big {
-    font-size: clamp(
-      0.875rem,
-      1vw + 0.5rem,
-      1.0444rem
-    ); //16.71px Min 0.875rem, Max 1.0444rem
+    font-size: clamp(0.875rem, 1vw + 0.5rem, 1.0444rem); //16.71px Min 0.875rem, Max 1.0444rem
   }
   .fb-fs-26 {
     font-size: 1.625rem;
@@ -153,7 +112,7 @@
   }
 
   section {
-    padding-block: 5rem;
+    padding-block: 4rem;
   }
   .fb-pt-5 {
     padding-top: 5rem;
@@ -295,8 +254,8 @@ footer {
   }
 }
 
-.banner-slider{
-  img{
+.banner-slider {
+  img {
     height: 39rem !important;
     width: 100% !important;
   }
@@ -742,7 +701,7 @@ footer {
   .content-sec {
     height: 100%;
     width: 100%;
-    padding: 4rem 13rem 6rem 8rem;
+    padding: 4rem 13rem 3rem 8rem;
   }
 }
 
@@ -752,6 +711,27 @@ footer {
     border-radius: 1.25rem;
     width: 39rem;
     height: 35.125rem;
+  }
+}
+.slider-bottom-thumbs {
+  // display: flex;
+  // .slick-slide{
+  //   margin-right: 2rem;
+  // }
+  .slider-bottom-item {
+    border-radius: 0.625rem !important;
+    border: 1px solid $border;
+    overflow: hidden;
+    &:hover {
+      transition: all 0.3s ease-in-out;
+      border-color: $orange;
+    }
+  }
+  .custom-arrow {
+    &:hover {
+      transition: all 0.3s ease-in-out;
+      background-color: $orange !important;
+    }
   }
 }
 
@@ -901,8 +881,8 @@ footer {
   }
 }
 
-.custom-tabview{
-  .p-tabview-nav-container{
+.custom-tabview {
+  .p-tabview-nav-container {
     display: none !important;
   }
 }
@@ -950,93 +930,92 @@ footer {
     background-size: contain !important;
     padding-top: 2rem !important;
   }
-  .contact-us .card{
+  .contact-us .card {
     margin-bottom: 2.8rem !important;
   }
-  .contact-us .container{
+  .contact-us .container {
     margin-bottom: 0 !important;
   }
-  .contact-us .orange-section{
+  .contact-us .orange-section {
     padding: 2.7rem 2.6rem !important;
   }
   .contact-us .card .white-section {
     padding: 2.5rem 2.6rem;
-}
-  .summary-card .bg-transparent{
+  }
+  .summary-card .bg-transparent {
     margin-left: 1.2rem !important;
   }
-  .cart-offcanvas .total-amount-wrapper .checkout-content{
-    font-size: 0.6875rem !Important;
+  .cart-offcanvas .total-amount-wrapper .checkout-content {
+    font-size: 0.6875rem !important;
   }
-  .fb-fs-40{
+  .fb-fs-40 {
     font-size: 2.1875rem !important;
   }
   .about-us .about-bottom {
     height: 37rem !important;
   }
-.about-us .about-bottom .white-background{
-  padding: 1rem 2rem 1rem 2rem;
-  h3{
-    padding-bottom: 0rem !important;
+  .about-us .about-bottom .white-background {
+    padding: 1rem 2rem 1rem 2rem;
+    h3 {
+      padding-bottom: 0rem !important;
+    }
+    p {
+      padding-top: 8px !important;
+    }
   }
-  p{
-    padding-top: 8px !important;
-  }
-}
-  p{
+  p {
     font-size: 0.875rem !important;
   }
-  .fb-fs-26{
-    font-size: 1.2rem !important
+  .fb-fs-26 {
+    font-size: 1.2rem !important;
   }
   .about-us {
-    .bottom-image{
-      .bottom-sec{
+    .bottom-image {
+      .bottom-sec {
         margin-top: 0.5rem !important;
         padding-top: 0 !important;
       }
-     
     }
-    .about-right{
+    .about-right {
       padding-left: 2rem !important;
-      .about-con-inner{
+      .about-con-inner {
         font-size: 0.875rem !important;
       }
     }
   }
-  
-  .banner-slider img{
+
+  .banner-slider img {
     height: 30rem !important;
   }
-  .amrit_bhojanam .millets .millet-content p{
-    br{
+  .amrit_bhojanam .millets .millet-content p {
+    br {
       display: none !important;
     }
   }
-  .card-left .con-ban{
+  .card-left .con-ban {
     font-size: 0.7rem !important;
   }
-  .product-list .max-border{
-    p{
+  .product-list .max-border {
+    p {
       font-size: 12px !important;
     }
   }
-  .card-center .con-ban{
+  .card-center .con-ban {
     font-size: 0.7rem !important;
   }
-  .banner-ads .content-sec{
+  .banner-ads .content-sec {
     padding-left: 10rem !important;
   }
-  .card-right .con-ban{
+  .card-right .con-ban {
     font-size: 0.7rem !important;
   }
-  .popular-product .slick-slider{
+  .popular-product .slick-slider {
     margin-left: 2rem !important;
   }
-  .fb-fs-24{
+  .fb-fs-24 {
     font-size: 1rem !important;
   }
-  .fb-fs-28{
+  .fb-fs-28 {
     font-size: 1.2rem !important;
   }
   footer .footer-upper form input {
@@ -1125,12 +1104,12 @@ footer {
   .first_purchase .purchase-bg .purchase-content {
     padding: 3.5rem 0rem 1rem 5.9rem;
   }
-  .login-offcanvas{
+  .login-offcanvas {
     width: 30% !important;
-      }
-      .cart-offcanvas{
-        width: 30% !important;
-      }
+  }
+  .cart-offcanvas {
+    width: 30% !important;
+  }
   .home-banner-wrapper {
     .card-left {
       background-size: cover;
@@ -1278,12 +1257,12 @@ footer {
   .download-section .download-content img {
     display: none;
   }
-  .login-offcanvas{
+  .login-offcanvas {
     width: 40% !important;
-      }
-      .cart-offcanvas{
-        width: 40% !important;
-      }
+  }
+  .cart-offcanvas {
+    width: 40% !important;
+  }
   .home-banner-wrapper {
     .card-left {
       background-size: cover;
@@ -1312,11 +1291,11 @@ footer {
     }
   }
   .offer-cards {
-    .protein-right-top button {
+    .protein-right-top a {
       margin-bottom: 1rem !important;
       margin-left: 2rem !important;
     }
-    .protein-right-bottom button {
+    .protein-right-bottom a {
       margin-left: 2rem !important;
       margin-bottom: 1rem !important;
     }
@@ -1489,39 +1468,34 @@ footer {
     padding: 0.625rem;
     margin-top: 0.625rem;
   }
+  .popular-product .popularleft img{
+    margin-left: 0 !important;
+  }
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
-  .login-offcanvas{
+  .banner-slider img{
+    height: 21rem !important;
+  }
+  .popular-product .popularleft{
+    margin-bottom: 1rem;
+  }
+  .login-offcanvas {
     width: 50% !important;
-      }
-      .cart-offcanvas{
-        width: 50% !important;
-      }
+  }
+  .cart-offcanvas {
+    width: 50% !important;
+  }
   .home-banner-wrapper {
-    .card-left {
-      background-size: cover;
-      border-radius: 2rem;
-      padding-bottom: 12px;
-      p {
-        padding-left: 1rem;
-        width: 50%;
-      }
-    }
-    .card-center {
-      background-size: cover;
-      border-radius: 2rem;
-      p {
-        padding-left: 1rem;
-        width: 50%;
-      }
-    }
+    .card-left,
+    .card-center,
     .card-right {
-      background-size: cover;
-      border-radius: 2rem;
-      p {
-        padding-left: 1rem;
-        width: 50%;
+      height: 12rem !important;
+      background-size: cover !important;
+      padding-left: 0.2rem !important;
+      border-radius: 1.125rem !important;
+      p{
+        width: 60%  !important;
       }
     }
   }
@@ -1529,11 +1503,11 @@ footer {
     .protein-right-top .button-primary {
       margin-bottom: 1rem !important;
     }
-    .protein-right-bottom button {
+    .protein-right-bottom a {
       margin-left: 1rem !important;
     }
   }
-  .protein-right-top button {
+  .protein-right-top a {
     margin-bottom: 1rem !important;
   }
   .download-section .download-content img {
@@ -1671,14 +1645,14 @@ footer {
   }
   .offer-cards {
     .protein-left {
-      height: 85vh;
+      height: 64vh;
       margin-bottom: 1rem;
       border-radius: 1rem;
       .left-content {
         padding-left: 1rem !important;
         padding-right: 1rem !important;
       }
-      button {
+      a {
         margin-left: 1rem !important;
       }
     }
@@ -1688,7 +1662,7 @@ footer {
         padding-right: 1rem !important;
         padding-top: 1.5rem !important;
       }
-      button {
+      a {
         margin-left: 1rem !important;
       }
     }
@@ -1768,24 +1742,34 @@ footer {
 }
 
 @media (max-width: 576px) {
-  .popular-product .popularleft{
+  .popular-product .popularleft {
     margin-bottom: 1.5rem !important;
   }
-  .home-banner-wrapper .card-center{
+  .home-banner-wrapper .card-center {
     background-size: cover !important;
     border-radius: 1rem !important;
   }
-  .banner-slider{
-    img{
+  .home-banner-wrapper {
+    .card-left,
+    .card-center,
+    .card-right {
+      height: 12rem !important;
+      background-size: cover !important;
+      padding-left: 0.2rem !important;
+      border-radius: 0.625rem !important;
+    }
+  }
+  .banner-slider {
+    img {
       height: 10rem !important;
       width: 100% !important;
     }
   }
-  .cart-offcanvas{
+  .cart-offcanvas {
     width: 100% !important;
   }
-  .login-offcanvas{
-width: 100% !important;
+  .login-offcanvas {
+    width: 100% !important;
   }
   .contact-us .card .orange-section {
     padding: 2rem 1rem;

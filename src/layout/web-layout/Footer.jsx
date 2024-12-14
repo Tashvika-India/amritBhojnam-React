@@ -15,7 +15,7 @@ const Footer = () => {
           <div className="text-center pt-3">
             <h1 className="text-white bangers-regular">JOIN FOR HOT OFFERS</h1>
             <p className="fw-500 fb-fs-22 text-white">
-              If we go all out...We do it well! Subscribe to the newsletter{" "}
+              If we go all out...We do it well! Subscribe to the newsletter
               <br></br> to get the most exclusive promos.
             </p>
             <form>
@@ -32,11 +32,11 @@ const Footer = () => {
         </div>
         <div className="bg-footer-bg">
           <div className="container fb-container">
-            <div className="row py-lg-5 py-4">
+            <div className="row pb-lg-5 pb-4">
               <div className="col-lg-5 col-md-12 mb-4">
                 <div className="footer-detail">
                   <img src={logo} alt="logo" />
-                  <p className="my-4 text-balance fb-fs-14  pe-5">
+                  <p className="my-4 text-balance   pe-5">
                     At Amrit Bhojanam, we bring the incredible health benefits
                     of millet to your table. We promote a healthier lifestyle
                     with our range of nutritious, millet-based products.
@@ -46,38 +46,38 @@ const Footer = () => {
                   </p>
                   <ul className="footer-detail-links d-flex flex-column gap-md-3 gap-2 pt-lg-3 pt-0 mb-3 mt-3">
                     <li className="d-flex align-items-center fw-500">
-                      <span className="me-3">
+                      <span className="me-2">
                         <img src={call} alt="call" />
-                      </span>{" "}
-                      <span className="text-orange me-2">Call US :</span>{" "}
-                      <a href="tel:+91-1234567890">+91 7678320459</a>{" "}
+                      </span>
+                      <span className="text-orange fb-fs-18 d-inline-block" style={{ width: "5rem" }}>Call US :</span>
+                      <a href="tel:+91-1234567890" className="fb-fs-18">+91 7678320459</a>
                     </li>
                     <li className="d-flex align-items-center fw-500">
                       <span className="me-3">
                         <img src={mail} alt="email" />
-                      </span>{" "}
-                      <span className="text-orange me-2">Email : </span>{" "}
-                      <a href="mailto: ">info@amritbhojanam.com</a>{" "}
+                      </span>
+                      <span className="text-orange fb-fs-18 d-inline-block" style={{ width: "5rem" }}>Email : </span>
+                      <a href="mailto: info@amritbhojanam.com " className="fb-fs-18">info@amritbhojanam.com</a>
                     </li>
                     <li className="d-flex align-items-center fw-500">
                       <span className="me-3">
                         <img src={clock} alt="hours" />
-                      </span>{" "}
-                      <span className="text-orange me-2">Hours : </span>{" "}
-                      <time>10:00 - 18:00, Mon - Sat</time>{" "}
+                      </span>
+                      <span className="text-orange  fb-fs-18d-inline-block" style={{ width: "5rem" }}>Hours : </span>
+                      <time className="fb-fs-18">10:00 - 18:00, Mon - Sat</time>
                     </li>
                   </ul>
                   <div className="d-flex gap-4 py-lg-3 py-2">
-                    <small className="fw-500 text-black">Follow Us</small>{" "}
+                    <small className="fw-500 text-black">Follow Us</small>
                     <div className="d-inline-flex gap-2 align-items-center">
                       <a href="https://www.instagram.com/amrit_bhojanam/profilecard/#/">
                         <AiFillInstagram size={24} color="#f26722" />
-                      </a>{" "}
+                      </a>
                       <a href="https://www.instagram.com/">
-                        <FaLinkedin size={20} color="#f26722" />{" "}
-                      </a>{" "}
+                        <FaLinkedin size={20} color="#f26722" />
+                      </a>
                       <a href="https://www.facebook.com/">
-                        <FaFacebook size={20} color="#f26722" />{" "}
+                        <FaFacebook size={20} color="#f26722" />
                       </a>
                     </div>
                   </div>
@@ -100,12 +100,12 @@ const Footer = () => {
                       <li>
                         <Link to="/term-conditions">Term & Conditions</Link>
                       </li>
-                      <li>
+                      {/* <li>
                         <Link to="/refund-policy">Refund policy</Link>
-                      </li>
-                      <li>
+                      </li> */}
+                      {/* <li>
                         <Link to="/shiping-policy">Shiping policy</Link>
-                      </li>
+                      </li> */}
                       <li>
                         <Link to="/contact-us">Contact Us</Link>
                       </li>
@@ -173,7 +173,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="footer-bottom bg-yellow text-center py-2">
+          <div className="footer-bottom bg-semi-orange text-center py-2">
             <p className="text-white">
               © 2024 - Amrit Bhojanam. All rights reserved.
             </p>
