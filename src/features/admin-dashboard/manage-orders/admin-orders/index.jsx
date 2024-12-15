@@ -15,9 +15,6 @@ function AdminOrders() {
         <div className="col-md-6">
           <Heading value={"Orders"} />
         </div>
-        <div className="col-md-6 text-end">
-          <YellowButton lable={"+ Add Orders"} />
-        </div>
       </div>
 
       <div className="">
