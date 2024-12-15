@@ -179,12 +179,12 @@ function MenuItems() {
           { path: "/returns-refunds", label: "Returns & Refunds" },
         ])}
           <Link
-          to="/product"
+          to="/coupons"
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <ListItemButton sx={isActive("/coupons") ? activeStyles : {}}>
             <ListItemIcon sx={listItemIconStyle}>
-            <BiSolidOffer size={23} />
+              <BiSolidOffer size={23} />
             </ListItemIcon>
             <ListItemText primary="Coupons" sx={listItemTextStyle} />
           </ListItemButton>

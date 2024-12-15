@@ -18,7 +18,6 @@ function AdminCustomer() {
           <YellowButton lable={"+ Add Customers"} />
         </div>
       </div>
-
       <div className="">
         <div className="card">
           <div className="card-body">

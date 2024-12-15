@@ -30,6 +30,7 @@ import TermsAndConditions from "../features/website/web-terms-conditions";
 import PrivacyPolicy from "../features/website/web-privacy";
 import RefundPolicy from "../features/website/web-refund";
 import ShipingPolicy from "../features/website/web-shiping";
+import AdminCoupon from "../features/admin-dashboard/manage-coupon";
 function AppRoutes() {
   return (
     <Routes>
@@ -142,7 +143,18 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
-       <Route
+      <Route
+        exact
+        path="/coupons"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <AdminCoupon />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+      <Route
         exact
         path="/contact"
         element={
