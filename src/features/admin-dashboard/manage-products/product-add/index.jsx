@@ -68,7 +68,7 @@ const ProductAdd = () => {
   const handleKeywordChange = (index, value) => {
     const updatedKeyword = [...keyword];
     updatedKeyword[index] = value;
-    setTags(updatedKeyword);
+    setKeyword(updatedKeyword);
     setFieldValue('meta_keywords', updatedKeyword);
   };
 
