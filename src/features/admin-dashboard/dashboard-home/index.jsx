@@ -4,6 +4,7 @@ import DashboardCategoryTable from "./components/DashboardCategoryTable";
 import { Link } from "react-router-dom";
 import Heading from "@/components/ui/Heading";
 import LineChart from "../../../components/charts/LineChart";
+import DashboardOrderTable from "./components/DashboardOrderTable";
 
 function DashboardHome() {
   return (
@@ -14,7 +15,6 @@ function DashboardHome() {
       <div className="row mb-5">
         <OverviewCardsSection />
       </div>
-
       <div className="mb-5">
         <div className="card h-100">
           <div className="card-body">
@@ -22,7 +22,6 @@ function DashboardHome() {
           </div>
         </div>
       </div>
-
       <div className="row mb-5">
         <div className="col-md-6">
           <div className="card">
@@ -47,16 +46,15 @@ function DashboardHome() {
           </div>
         </div>
       </div>
-
       <div className="row">
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
               <div className="d-between align-items-center p-3">
-                <h5 className="mb-0 fw-500">Categories</h5>
-                <Link className="text-orange">View All</Link>
+                <h5 className="mb-0 fw-500">Recent Orders</h5>
+                <Link className="text-orange">View All </Link>
               </div>
-              <DashboardCategoryTable />
+              <DashboardOrderTable />
             </div>
           </div>
         </div>
