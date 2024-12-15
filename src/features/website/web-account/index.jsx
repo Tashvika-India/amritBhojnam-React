@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import pencilImg from "../../../assets/images/web/account/pencil.png";
 import profileBg from "../../../assets/images/web/account/profile-bg.png";
-import profilePic from "../../../assets/images/web/account/profile-picture.png";
+import pp from "../../../assets/images/web/account/profile-picture.png";
 import tickImg from "../../../assets/images/web/account/tick-image.png";
 import homeImg from "../../../assets/images/web/account/home-img.png";
 import editButton from "../../../assets/images/web/account/edit-button.png";
@@ -42,8 +42,10 @@ const UserProfile = () => {
   const [order, setOrder] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [profileEdit, setProfileEdit] = useState(false);
-  const location = useLocation();
-
+  const location = useLocation(); 
+  const profilePicture = baseURL + userDetail?.pp;
+ 
+  
   const formik = useFormik({
     initialValues: {
       ads_name: "",
@@ -178,7 +180,7 @@ const UserProfile = () => {
 
   const profile = useFormik({
     initialValues: {
-      pp: "",
+      pp: null,
       full_name: "",
       email: "",
       gender: "",
@@ -201,6 +203,7 @@ const UserProfile = () => {
     formData.append("email", values.email);
     formData.append("gender", values.gender);
     formData.append("date_of_birth", values.date_of_birth);
+    if (values.pp) formData.append("pp", values.pp);
     try {
       setLoading(true);
       const response = await putProfileApi(userDetail.id, formData);
@@ -210,6 +213,20 @@ const UserProfile = () => {
       console.error("Error updating profile:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      profile.setFieldValue("pp", file);
+
+      // Generate preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        setProfilePic(reader.result); // Update the profile picture preview
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -228,6 +245,7 @@ const UserProfile = () => {
         gender: userDetail.gender || "",
         date_of_birth: userDetail.date_of_birth || "00-00-0000",
       });
+      
     }
   }, [userDetail]);
 
@@ -274,7 +292,7 @@ const UserProfile = () => {
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center">
                   <img
                     className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center"
-                    src={profilePic}
+                    src={profilePicture}
                     alt="Card image cap"
                   />
                   <div className="image-content mt-5 mt-md-3 pt-md-5 ms-md-3">
@@ -361,7 +379,19 @@ const UserProfile = () => {
                               }
                             />
                           </div>
-                          <div className="col-md-6 mb-4">
+                          <div className="col-md-4 mb-4">
+                            <TextField
+                              fullWidth
+                              className="rounded-20 me-5"
+                              id="pp" 
+                              name="pp"
+                              variant="outlined"
+                              disabled={!profileEdit}
+                              type="file" 
+                              onChange={handleImageChange} 
+                            />
+                          </div>
+                          <div className="col-md-4 mb-4">
                             <FormControl fullWidth>
                               <InputLabel id="demo-simple-select-label">
                                 Gender
@@ -390,7 +420,7 @@ const UserProfile = () => {
                               </Select>
                             </FormControl>
                           </div>
-                          <div className="col-md-6 mb-4">
+                          <div className="col-md-4 mb-4">
                             <TextField
                               fullWidth
                               className="rounded-20 me-5"
@@ -415,7 +445,7 @@ const UserProfile = () => {
                           </div>
                           {
                             profileEdit &&
-                            <div className="col-12 mt-4 text-end"> 
+                            <div className="col-12 mt-4 text-end">
                               <button
                                 type="submit"
                                 className="button-primary"
@@ -441,7 +471,7 @@ const UserProfile = () => {
                               <p>
                                 Order ID:
                                 <span className="fw-600" title={item?.id}>&nbsp;&nbsp;
-                                {item?.id?.slice(0, 12)}...
+                                  {item?.id?.slice(0, 12)}...
                                 </span>
                               </p>
                             </div>
@@ -458,7 +488,7 @@ const UserProfile = () => {
                             <div className="col-6 col-md-3">
                               <p>
                                 Total Amount:
-                                <span className="fw-600">&nbsp;&nbsp; 
+                                <span className="fw-600">&nbsp;&nbsp;
                                   ₹ {item?.amount_to_pay}
                                 </span>
                               </p>

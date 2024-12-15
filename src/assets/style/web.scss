@@ -837,12 +837,18 @@ footer {
 }
 .profile-tabs {
   button {
-    padding: 1rem 1.5rem;  
+    padding: 1rem 1.5rem;
     font-size: 1.125rem;
-    i{
+    i {
       font-size: 1.125rem;
     }
   }
+}
+.img-profile {
+  aspect-ratio: 1 / 1;
+  width: fit-content;
+  height: 12rem;
+  object-fit: contain;
 }
 
 .no-caret {
@@ -1764,26 +1770,25 @@ footer {
     }
   }
   .user-profile-img {
-    height: 7.5rem; 
-
+    height: 7.5rem;
   }
-  .img-profile{
+  .img-profile {
     height: 10.5rem;
   }
-  .default-btn{
-    font-size: .8rem;
+  .default-btn {
+    font-size: 0.8rem;
   }
-  .order-date{ 
-    img{
-      height: 4rem; 
+  .order-date {
+    img {
+      height: 4rem;
     }
   }
   .profile-tabs {
-    button { 
+    button {
       padding: 0.7rem 0.5rem 0.5rem;
-      font-size:0.7rem;
-      i{
-        font-size:0.7rem;
+      font-size: 0.7rem;
+      i {
+        font-size: 0.7rem;
       }
     }
   }
