@@ -44,17 +44,13 @@ function CategoryTable({ categories, setEditData, setVisible, categoriesStatusCh
         Edit <FaRegEdit />
       </button>
     );
-  };
-
-  console.log('cat' ,categories);
+  }; 
   
-
   return (
     <DataTable value={categories} responsiveLayout="scroll" paginator rows={10} rowkey="id">
       <Column field="id" header="ID" body={(index) => categories.indexOf(index) + 1}></Column>
       <Column field="image" header="Image" body={imageBodyTemplate}></Column>
       <Column field="name" header="Name"></Column>
-      <Column field="sub_category" header="Sub Category"></Column>
       {/* <Column field="quantity" header="Products"></Column> */}
       <Column field="is_active" header="Status" body={iosSwitchTemplate}></Column>
       <Column header="Action" body={editButtonTemplate}></Column>

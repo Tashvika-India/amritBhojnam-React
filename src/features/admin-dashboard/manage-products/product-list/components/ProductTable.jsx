@@ -77,26 +77,25 @@ function ProductTable({ products , getProductList }) {
     </div>
   );
 
-  const iosSwitch = () => (
-    <span className="d-flex gap-2 align-items-center">
-      <FaStar className="text-warning" /> 5
-    </span>
+  const iosSwitch = (rowData) => (
+    <Link to="/product/product-reviews" className="d-flex gap-2 align-items-center">
+      <FaStar className="text-warning" /> {Math.round(rowData.ratings)}
+    </Link>
   );
 
   return (
     <>
       <DataTable value={products} responsiveLayout="scroll" paginator rows={10}>
         <Column field="s.no" header="ID" body={(index) => products.indexOf(index) + 1}></Column>
-        <Column field="images" header="Image" body={imageBodyTemplate}></Column>
-        <Column field="name" header="Name" body={linkToReview}></Column>
-        <Column field="category" header="Category"></Column>
-        <Column field="quantity" header="Stocks"></Column>
-        <Column field="quantity_unit" header="Unit"></Column>
-        <Column field="max_price" header="Price"></Column>
-        <Column field="offer_price" header="Selling"></Column>
-        <Column field="status" header="Status"></Column>
-        <Column field="ratings" header="Rating" body={iosSwitch}></Column>
-        <Column header="Action" body={editButtonTemplate}></Column>
+        <Column field="images" header="IMAGE" body={imageBodyTemplate}></Column>
+        <Column field="name" header="NAME" body={linkToReview}></Column>
+        {/* <Column field="category" header="Category"></Column> */}
+        <Column field="quantity" header="STOCK"></Column>
+        <Column field="quantity_unit" header="UNIT"></Column>
+        <Column field="max_price" header="PRICE RS."></Column>
+        <Column field="offer_price" header="SELLING"></Column> 
+        <Column field="ratings" header="RATING" body={iosSwitch}></Column>
+        <Column header="ACTION" body={editButtonTemplate}></Column>
       </DataTable>
 
       {/* Delete Modal */}

@@ -11,11 +11,7 @@ function CategoriesSubTable({ categories, setEditData, setVisible, categoriesSta
     setEditData(rowData);
     setVisible(true);
   };
-  const actionBodyTemplate = () => {
-    return (
-        <Button icon="pi pi-pencil" className="p-button-rounded p-button-text" />
-    );
-};
+  
   const iosSwitchTemplate = (rowData) => {
     const handleToggleChange = (event) => {
       const updatedStatus = event.target.checked;
@@ -53,13 +49,11 @@ function CategoriesSubTable({ categories, setEditData, setVisible, categoriesSta
 
   return (
     <DataTable value={categories} responsiveLayout="scroll" paginator rows={10} rowkey="id">
-      <Column field="id" header="CUSTOMER ID" body={(index) => categories.indexOf(index) + 1}></Column>
+      <Column field="id" header="ID" body={(index) => categories.indexOf(index) + 1}></Column>
       <Column field="name" header="NAME"></Column>
-      <Column field="email" header="EMAIL"></Column>
-      <Column field="phone" header="PHONE"></Column>
-      <Column field="role" header="ROLE"></Column>
+      <Column field="category_name" header="CATEGORY"></Column>
       <Column field="is_active" header="STATUS" body={iosSwitchTemplate}></Column>
-      <Column header="Action" body={actionBodyTemplate}></Column>
+      <Column header="Action" body={editButtonTemplate}></Column>
     </DataTable>
   );
 }
