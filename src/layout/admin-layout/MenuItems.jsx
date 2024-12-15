@@ -17,6 +17,18 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { FaBox } from "react-icons/fa";
 import { HiPhoto } from "react-icons/hi2";
+import { BiSolidOffer } from "react-icons/bi";
+import { FaUserCog } from "react-icons/fa";
+import { FaBuildingUser } from "react-icons/fa6";
+import { FaRegImage } from "react-icons/fa6";
+import { IoReceipt } from "react-icons/io5";
+import { TbMessageUser } from "react-icons/tb";
+
+
+
+
+
+
 
 function MenuItems() {
   const [openSections, setOpenSections] = React.useState({
@@ -63,7 +75,7 @@ function MenuItems() {
   };
 
   const listItemIconStyle = {
-    minWidth: "30px",
+    minWidth: "1.875rem",
   };
 
   const listItemTextStyle = {
@@ -125,15 +137,12 @@ function MenuItems() {
         variant="subtitle2"
         color="textSecondary"
       >
-        Items
+        ITEMS
       </Typography>
       <List>
         <ListItemButton
           onClick={() => handleToggle("category")}
-          sx={
-            isActive("/category") || openSections.category ? activeStyles : {}
-          }
-        >
+          sx={isActive("/category") || openSections.category ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
             <CategoryIcon />
           </ListItemIcon>
@@ -144,7 +153,6 @@ function MenuItems() {
           { path: "/category", label: "Category" },
           { path: "/sub-category", label: "Sub Category" },
         ])}
-
         <Link
           to="/product"
           style={{ textDecoration: "none", color: "inherit" }}
@@ -170,20 +178,29 @@ function MenuItems() {
           { path: "/orders", label: "Orders" },
           { path: "/returns-refunds", label: "Returns & Refunds" },
         ])}
+          <Link
+          to="/product"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <ListItemButton sx={isActive("/coupons") ? activeStyles : {}}>
+            <ListItemIcon sx={listItemIconStyle}>
+            <BiSolidOffer size={23} />
+            </ListItemIcon>
+            <ListItemText primary="Coupons" sx={listItemTextStyle} />
+          </ListItemButton>
+        </Link>
       </List>
       <Divider />
       <Typography
         sx={{ pl: 2, pt: 1, pb: 1 }}
         variant="subtitle2"
-        color="textSecondary"
-      >
-        Manage Roles
+        color="textSecondary">
+        Manage Customers
       </Typography>
       <List>
         <Link
           to="/customers"
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
+          style={{ textDecoration: "none", color: "inherit" }}>
           <ListItemButton sx={isActive("/customers") ? activeStyles : {}}>
             <ListItemIcon sx={listItemIconStyle}>
               <PeopleAltIcon />
@@ -191,13 +208,31 @@ function MenuItems() {
             <ListItemText primary="Customers" sx={listItemTextStyle} />
           </ListItemButton>
         </Link>
+      </List>
+      <Divider />
+      <Typography
+        sx={{ pl: 2, pt: 1, pb: 1 }}
+        variant="subtitle2"
+        color="textSecondary">
+        Manage Employee
+      </Typography>
+      <List>
+        <Link
+          to="/roles"
+          style={{ textDecoration: "none", color: "inherit" }}>
+          <ListItemButton sx={isActive("/roles") ? activeStyles : {}}>
+            <ListItemIcon sx={listItemIconStyle}>
+              <FaUserCog size={23} />
+            </ListItemIcon>
+            <ListItemText primary="Roles" sx={listItemTextStyle} />
+          </ListItemButton>
+        </Link>
         <Link
           to="/employees"
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
+          style={{ textDecoration: "none", color: "inherit" }}>
           <ListItemButton sx={isActive("/employees") ? activeStyles : {}}>
             <ListItemIcon sx={listItemIconStyle}>
-              <BadgeIcon />
+              <FaBuildingUser size={23} />
             </ListItemIcon>
             <ListItemText primary="Employees" sx={listItemTextStyle} />
           </ListItemButton>
@@ -207,14 +242,13 @@ function MenuItems() {
       <Typography
         sx={{ pl: 2, pt: 1, pb: 1 }}
         variant="subtitle2"
-        color="textSecondary"
-      >
+        color="textSecondary">
         Business
       </Typography>
       <Link to="/banner" style={{ textDecoration: "none", color: "inherit" }}>
         <ListItemButton sx={isActive("/banner") ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
-            <HiPhoto size={23} />
+            <FaRegImage size={21} />
           </ListItemIcon>
           <ListItemText primary="Banners" sx={listItemTextStyle} />
         </ListItemButton>
@@ -222,9 +256,17 @@ function MenuItems() {
       <Link to="/contact" style={{ textDecoration: "none", color: "inherit" }}>
         <ListItemButton sx={isActive("/contact") ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
-            <HiPhoto size={23} />
+            <TbMessageUser size={24} />
           </ListItemIcon>
           <ListItemText primary="Contact" sx={listItemTextStyle} />
+        </ListItemButton>
+      </Link>
+      <Link to="/report" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/report") ? activeStyles : {}}>
+          <ListItemIcon sx={listItemIconStyle}>
+            <IoReceipt size={23} />
+          </ListItemIcon>
+          <ListItemText primary="Report" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
     </>

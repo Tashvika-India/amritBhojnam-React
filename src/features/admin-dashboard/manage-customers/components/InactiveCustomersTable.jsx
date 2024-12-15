@@ -94,12 +94,6 @@ return (
             <Column field="phone" header="PHONE"></Column>
             <Column header="Action" body={actionBodyTemplate}></Column>
         </DataTable>
-
-        {/* <Stack direction="row" spacing={2}>
-      <Avatar {...stringAvatar('Kent Dodds')} />
-      <Avatar {...stringAvatar('Jed Watson')} />
-      <Avatar {...stringAvatar('Tim Neutkens')} />
-    </Stack> */}
     </div>
 )};
 
