@@ -31,6 +31,7 @@ import PrivacyPolicy from "../features/website/web-privacy";
 import RefundPolicy from "../features/website/web-refund";
 import ShipingPolicy from "../features/website/web-shiping";
 import AdminCoupon from "../features/admin-dashboard/manage-coupon";
+import AddCoupon from "../features/admin-dashboard/manage-coupon/components/AddCoupon";
 function AppRoutes() {
   return (
     <Routes>
@@ -150,6 +151,28 @@ function AppRoutes() {
           <PrivateRoute>
             <DashboardSidebar>
               <AdminCoupon />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        exact
+        path="/add-coupon"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <AddCoupon />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        exact
+        path="/edit-coupon/:id"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <AddCoupon />
             </DashboardSidebar>
           </PrivateRoute>
         }
