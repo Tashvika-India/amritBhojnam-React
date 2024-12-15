@@ -1,58 +1,52 @@
-import React from 'react';
+import React  from 'react';
 import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
-import { Rating } from 'primereact/rating';
-import { Avatar } from 'primereact/avatar';
+import { Column } from 'primereact/column'; 
+import { BsCheckCircle } from "react-icons/bs"; 
+import { FaRegEdit } from 'react-icons/fa'; 
+import { useNavigate } from 'react-router-dom';
 
-const CouponTable = () => {
-    const reviews = [
-        { customerId: '367332', customerName: 'Aman Kumar', phone: '+91 1234567890', review: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 5, initials: 'AK' },
-        { customerId: '634782', customerName: 'Raj Singh', phone: '+91 1234567890', review: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 4, initials: 'RS' },
-        { customerId: '745883', customerName: 'David', phone: '+91 1234567890', review: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 5, initials: 'D' },
-        { customerId: '846272', customerName: 'Piyush', phone: '+91 1234567890', review: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 4.5, initials: 'P' },
-        { customerId: '857353', customerName: 'Rahul Singh', phone: '+91 1234567890', review: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 4.5, initials: 'RS' },
-        { customerId: '634782', customerName: 'Mohit Kumar', phone: '+91 1234567890', review: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 4, initials: 'MK' }
-    ];
 
-    const customerBodyTemplate = (rowData) => {
-        return (
-            <div className="d-flex align-items-center gap-3">
-                <Avatar label={rowData.initials} shape="circle" className="" />
-                <div>
-                    <span>{rowData.customerName}</span>
-                    <br />
-                    <span>{rowData.phone}</span>
-                </div>
-            </div>
-        );
-    };
 
-    const dateTimeTemplate = (rowData) => {
-        return `${rowData.date} ${rowData.time}`;
-    };
+const CouponTable = ({coupons,setEditData}) => {
+
+    const navigate = useNavigate();
 
     const ratingBodyTemplate = (rowData) => {
-        return <Rating value={rowData.rating} readOnly stars={5} cancel={false} />;
+        return (
+            <div className=''>
+                {/* <RxCrossCircled color='red'  size={28}/> */}
+                <BsCheckCircle color='green' size={24} />
+            </div>
+        )
+    };
+  
+    const actionBodyTemplate = (rowData) => {
+        return (
+        <button className="text-orange d-flex gap-2 align-items-center border-0 bg-white" onClick={() => navigate(`/edit-coupon/${rowData.id}`)}>
+                Edit <FaRegEdit />
+            </button>
+        );
     };
 
-    const actionBodyTemplate = () => {
+    const duration = (rowData) => {
         return (
-            <Button icon="pi pi-pencil" className="p-button-rounded p-button-text" />
-        );
+            <div className=''>
+                {rowData.valid_from} - {rowData.valid_to}
+            </div>
+        )
     };
 
     return (
         <div className="card">
-            <DataTable value={reviews} paginator rows={10} responsiveLayout="scroll">
-                <Column field="customerId" header="ID"></Column>
-                <Column field='code' header="CODE"  ></Column>
-                <Column field="Duration" header="DURATION"></Column>
-                <Column field='discount'  header="DISCOUNT"  ></Column>
-                <Column field='min-order' header="MIN ORDER"  ></Column>
-                <Column field='max-discount' header="MAX DISCOUNT"  ></Column>
-                <Column field='delivery-free' header="DELIVERY FREE"  ></Column>
-                <Column field='limit' header="LIMIT"  ></Column>
+            <DataTable value={coupons} paginator rows={10} responsiveLayout="scroll">
+                <Column field="id" header="ID" body={(index) => coupons.indexOf(index) + 1}></Column>
+                <Column field='coupon_code' header="CODE"  ></Column>
+                <Column field='coupon_type' header="COUPON TYPE"  ></Column>
+                <Column body={duration} header="DURATION"></Column>
+                <Column field='discount_value' header="DISCOUNT"  ></Column>
+                <Column field='description' header="DESCRIPTION"  ></Column>
+                <Column field='max_discount' header="MAX DISCOUNT"  ></Column>
+                <Column header="DELIVERY FREE" body={ratingBodyTemplate} ></Column>
                 <Column header="Action" body={actionBodyTemplate}></Column>
             </DataTable>
         </div>

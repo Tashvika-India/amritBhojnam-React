@@ -178,3 +178,8 @@ export const postPayuCallbackApi = (url,payload) => API.post(url, payload);
 export const getOrderApi = () => API.get(`/orders/`); 
 
 export const postContactApi = (payload) => API.post(`/contact/`, payload);
+
+//coupon
+
+export const getCouponApi = () => API.get(`/coupons/`);
+export const postCouponApi = (payload) => API.post(`/coupons/`, payload);
