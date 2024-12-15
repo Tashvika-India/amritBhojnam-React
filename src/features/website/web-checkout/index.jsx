@@ -240,25 +240,47 @@ const CheckoutPage = () => {
                       <Loading />
                     ) : cartList?.length > 0 ? (
                       cartList?.map((item, index) => (
-                        <div className="cart-items mt-4" key={index}>
-                          <div className="product-item p-1">
-                            <img
-                              src={baseURL + item?.product?.images[0]?.img_files}
-                              className="img-fluid"
-                              alt={item?.product?.name}
-                            />
+                        <>
+                          <div className="cart-items mt-4" key={index}>
+                            <div className="product-item p-1">
+                              <img
+                                src={baseURL + item?.product?.images[0]?.img_files}
+                                className="img-fluid"
+                                alt={item?.product?.name}
+                              />
+                            </div>
+                            <div className="product-details w-100 ms-3">
+                              <p className="item-name  text-black fw-500 mb-0">
+                                {item?.product?.name}
+                              </p>
+                              <small className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity} ${item?.product?.quantity_unit}`}</small>
+                              <h6 className="item-amount mt-2 fw-600">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</h6>
+                            </div>
+                            <div className="product-quantity text-end d-flex align-items-center">
+                              <h6 style={{ fontWeight: "800" }}>{`₹${Math.trunc(item?.price) * item?.item_quantity}`}</h6>
+                            </div>
                           </div>
-                          <div className="product-details w-100 ms-3">
-                            <p className="item-name  text-black fw-500 mb-0">
-                              {item?.product?.name}
-                            </p>
-                            <small className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity} ${item?.product?.quantity_unit}`}</small>
-                            <h6 className="item-amount mt-2 fw-600">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</h6>
+                          <div className="mt-5"> 
+                            <div
+                              className="border-gray border-raidus-10 mt-2 input-box"
+                              style={{ width: "100%" }}
+                            >
+                              <div className="input-group mb-2 mt-2">
+                                <input
+                                  type="text"
+                                  className="form-control border-0 box-shadow-0 fw-600"
+                                  placeholder="Apply Coupon" 
+                                  aria-describedby="basic-addon2"
+                                />
+                                <button
+                                  className="input-group-text border-0 text-orange fw-bold bg-transparent border-start border-2 ps-4 me-3"
+                                >
+                                  Apply
+                                </button>
+                              </div>
+                            </div>
                           </div>
-                          <div className="product-quantity text-end d-flex align-items-center">
-                            <h6 style={{ fontWeight: "800" }}>{`₹${Math.trunc(item?.price) * item?.item_quantity}`}</h6>
-                          </div>
-                        </div>
+                        </>
                       ))
                     ) : (
                       <div className="text-center py-4">
@@ -269,7 +291,7 @@ const CheckoutPage = () => {
                       </div>
                     )}
 
-                    <div className="cart-items mt-5">
+                    <div className="cart-items mt-2">
                       <ul className="list-unstyled w-100">
                         <li className="d-flex justify-content-between my-2">
                           <span className="fw-500">Sub Total</span>
@@ -293,6 +315,7 @@ const CheckoutPage = () => {
                         </li> */}
                       </ul>
                     </div>
+
                     <div className="cart-items mt-4 border-top mb-2">
                       <div className="product-details w-100 ms-3 pt-4">
                         <h6 className="fw-bolder">Total Amount </h6>
