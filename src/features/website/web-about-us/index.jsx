@@ -107,6 +107,7 @@ const AboutUs = () => {
             </div>
           </div>
           {/* Marquee section with Framer Motion */}
+          <div className="mb-4">
           <motion.div
             initial={{ x: "-100%" }}
             animate={{ x: 0 }}
@@ -160,6 +161,7 @@ const AboutUs = () => {
               MILLET POWER
             </span>
           </motion.div>
+          </div>
           <div className="row mx-xl-5 mx-lg-0 px-xl-4 px-lg-4">
             <div className="col-lg-4 col-sm-6">
               <div className="card rounded-20">
