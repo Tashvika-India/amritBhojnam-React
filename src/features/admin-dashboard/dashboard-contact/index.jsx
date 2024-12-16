@@ -64,7 +64,7 @@ function ManageCategories() {
     <>
       <div className="mt-3 mb-5 row">
         <div className="col-md-6">
-          <Heading value={"Categories"} />
+          <Heading value={"Contact"} />
         </div>
         <div className="col-md-6 text-end">
           <YellowButton

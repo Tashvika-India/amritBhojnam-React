@@ -71,7 +71,7 @@ const arrowStyles = {
   cursor: "pointer",
   transition: "background-color 0.3s ease",
   position: "absolute",
-  top: "50%",
+  top: "25%",
   transform: "translateY(-50%)",
   zIndex: "10",
 };
