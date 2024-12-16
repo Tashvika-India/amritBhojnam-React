@@ -2,7 +2,7 @@ import React from 'react'
 
 function Heading({value}) {
   return (
-    <h4 className='dsh-heading fw-600'>{value}</h4>
+    <h4 className='dsh-heading fw-500'>{value}</h4>
   )
 }
 

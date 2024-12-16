@@ -32,7 +32,7 @@ function CategoryTable({ categories, setEditData, setVisible, categoriesStatusCh
         <img
           src={baseURL + rowData?.img_file}
           alt={rowData?.name}
-          className="img-fluid img-table-thumbnail"
+          className="img-fluid" style={{ width: "3.5rem", height: "4.5rem" }}
         />
       </div>
     );
@@ -49,8 +49,8 @@ function CategoryTable({ categories, setEditData, setVisible, categoriesStatusCh
   return (
     <DataTable value={categories} responsiveLayout="scroll" paginator rows={10} rowkey="id">
       <Column field="id" header="ID" body={(index) => categories.indexOf(index) + 1}></Column>
-      <Column field="image" header="Image" body={imageBodyTemplate}></Column>
-      <Column field="name" header="Name"></Column>
+      <Column field="image" header="IMAGE" body={imageBodyTemplate}></Column>
+      <Column field="name" header="NAME"></Column>
       {/* <Column field="quantity" header="Products"></Column> */}
       <Column field="is_active" header="Status" body={iosSwitchTemplate}></Column>
       <Column header="Action" body={editButtonTemplate}></Column>
