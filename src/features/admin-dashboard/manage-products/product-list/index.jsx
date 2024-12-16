@@ -57,8 +57,8 @@ function ProductList() {
 
   return (
     <>
-      <div className="mt-3 mb-5 row">
-        <div className="col-md-6">
+      <div className="mt-3 mb-4  row">
+        <div className="col-md-6 ps-4">
           <Heading value={"Products"} />
         </div>
         <div className="col-md-6 text-end">
@@ -73,8 +73,14 @@ function ProductList() {
           <div className="card-body">
             <div className="row mb-3">
               <div className="col-md-5"></div>
-              <div className="col-md-2"></div>
-              <div className="col-md-2"></div>
+              <div className="col-md-1"></div>
+              <div className="col-md-2 ms-auto">
+                <InputText
+                  value={search}
+                  onChange={onSearchChange}
+                  placeholder="Search Product" 
+                />
+              </div>
               <div className="col-md-3">
                 <InputText
                   value={filter.name}

@@ -8,6 +8,8 @@ import DeleteModal from "../../../../../components/ui/DeleteModal";
 import { MdDelete } from "react-icons/md"; 
 import { deleteProductApi } from "../../../../../services/adminApiRoutes";
 import { baseURL } from "../../../../../utils/constant-variable";
+import { RiPencilFill } from "react-icons/ri";
+
 
 function ProductTable({ products , getProductList }) {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -48,14 +50,14 @@ function ProductTable({ products , getProductList }) {
         <img
           src={imageUrl}
           alt={rowData?.name}
-          className="img-fluid img-table-thumbnail"
+          className="img-fluid" style={{ width: "3.5rem", height: "4rem" }}
         />
       </div>
     );
   };
 
   const linkToReview = (rowData) => (
-    <Link to="/product/product-reviews" className="text-dark">
+    <Link to="/product/product-reviews" className="text-dark fw-normal">
       {rowData.name}
     </Link>
   );
@@ -64,14 +66,15 @@ function ProductTable({ products , getProductList }) {
     <div className="w-100 d-flex gap-1 ">
       <button
         onClick={() => handleEditClick(rowData)} title="Edit"
-        className="text-orange d-flex gap-2 align-items-center border-0 bg-white"
+        className="d-flex gap-2 align-items-center border-0 rounded me-3"
+        style={{ color: "#1F5FBE", backgroundColor: "#EDF1FF", padding:".5rem .45rem" }}
       >
-        <FaRegEdit size={23} />
+        <RiPencilFill size={22} />
       </button>
       <button
-        className="text-danger d-flex gap-2 align-items-center border-0 bg-white" title="Delete"
-        onClick={() => showDeleteModal(rowData)}  // Pass the entire rowData
-      >
+        className="text-danger d-flex gap-2 align-items-center border-0 rounded" title="Delete"
+        style={{ backgroundColor: "#d5768f38", paddingBlock:".5rem" }}
+        onClick={() => showDeleteModal(rowData)}  >
         <MdDelete size={25} />
       </button>
     </div>
@@ -86,10 +89,10 @@ function ProductTable({ products , getProductList }) {
   return (
     <>
       <DataTable value={products} responsiveLayout="scroll" paginator rows={10}>
-        <Column field="s.no" header="ID" body={(index) => products.indexOf(index) + 1}></Column>
+        <Column field="id" header="ID" body={(index) => products.indexOf(index) + 1}></Column>
         <Column field="images" header="IMAGE" body={imageBodyTemplate}></Column>
-        <Column field="name" header="NAME" body={linkToReview}></Column>
-        {/* <Column field="category" header="Category"></Column> */}
+        <Column field="name" header="NAME" body={linkToReview}></Column> 
+        <Column field="category_id" header="CATEGORY"></Column>
         <Column field="quantity" header="STOCK"></Column>
         <Column field="quantity_unit" header="UNIT"></Column>
         <Column field="max_price" header="PRICE RS."></Column>
