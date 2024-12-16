@@ -12,6 +12,7 @@ import ProductAdd from "../features/admin-dashboard/manage-products/product-add"
 import HomePage from "../features/website/web-home";
 import LoginPage from "../components/pages/auth-pages/LoginPage";
 import ManageBanner from "../features/admin-dashboard/manage-banner";
+import ManageReport from "../features/admin-dashboard/manage-report";
 import ProudctDetail from "../features/website/web-product-detail";
 import ProudctList from "../features/website/web-product-list";
 import UserProfile from "../features/website/web-account";
@@ -32,6 +33,7 @@ import RefundPolicy from "../features/website/web-refund";
 import ShipingPolicy from "../features/website/web-shiping";
 import AdminCoupon from "../features/admin-dashboard/manage-coupon";
 import AddCoupon from "../features/admin-dashboard/manage-coupon/components/AddCoupon";
+import PaymentSuccess from "../features/website/web-payment-success";
 function AppRoutes() {
   return (
     <Routes>
@@ -201,6 +203,17 @@ function AppRoutes() {
       />
       <Route
         exact
+        path="/report"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ManageReport />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        exact
         path="/returns-refunds"
         element={
           <PrivateRoute>
@@ -258,6 +271,7 @@ function AppRoutes() {
       <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route exact path="/refund-policy" element={<RefundPolicy />} />
       <Route exact path="/shiping-policy" element={<ShipingPolicy />} />
+      <Route exact path="/payment-success" element={<PaymentSuccess />} />
 
 
     </Routes>

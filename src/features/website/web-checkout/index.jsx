@@ -265,6 +265,8 @@ const CheckoutPage = () => {
                               className="border-gray border-raidus-10 mt-2 input-box"
                               style={{ width: "100%" }}
                             >
+
+                            
                               <div className="input-group mb-2 mt-2">
                                 <input
                                   type="text"
