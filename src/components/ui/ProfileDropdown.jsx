@@ -21,11 +21,11 @@ const ProfileDropdown = ({ userDetail }) => {
                 {(window.innerWidth > 768) ?
                     <div className="d-inline-flex flex-column align-items-center position-relative justify-content-center">
                         <FaRegUser size={"1.625rem"} />
-                        <span className="d-inline-block ms-2 fb-fs-14 fw-600">Profile</span>
+                        <span className="d-inline-block ms-2 fb-fs-14 fw-600">Account</span>
                     </div>
                     :
                     <ul>
-                        <li className="border-bottom py-3"> Profile  </li>
+                        <li className="border-bottom py-3"> Account </li>
                     </ul>
                 }
 

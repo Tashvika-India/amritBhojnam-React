@@ -171,7 +171,7 @@
 .back-home{
   border: 1px solid $orange !important;
   border-radius: 10px;
-  padding: 14px 2rem;
+  padding: 0.875rem 2rem;
   font-weight: 600;
   font-size: 1.125rem;
   color: $orange !important;
@@ -538,10 +538,14 @@ footer {
     .purchase-content {
       padding: 3.5rem 1rem 1rem 5.9rem;
       .button-white {
-        margin-top: 2.8rem;
+        margin-top: 2rem;
       }
     }
   }
+}
+
+.rs-input-group-lg.rs-input-group>.rs-input, .rs-input-group-lg.rs-input-group>.rs-input-group-addon{
+  height: 52px !important;
 }
 
 //home-banner-wrapper
@@ -574,7 +578,7 @@ footer {
   display: grid;
   grid-template-columns: repeat(auto-fit, 12.2312rem);
   justify-content: center;
-  gap: 2.5rem;
+  gap: 1.2rem;
   .cat-card {
     .cat-itmes {
       text-align: center;
@@ -719,9 +723,9 @@ footer {
   }
 }
 
-.slider-bottom-thumbs .slick-slide {
-  margin-right: 1rem; /* Adjust the value for your desired gap */
-}
+// .slider-bottom-thumbs .slick-slide {
+//   margin-right: 1rem; /* Adjust the value for your desired gap */
+// }
 
 //product-detail-page
 .product-detail-slider {
@@ -1002,9 +1006,9 @@ footer {
       padding-top: 8px !important;
     }
   }
-  p {
-    font-size: 0.875rem !important;
-  }
+  // p {
+  //   font-size: 0.875rem !important;
+  // }
   .fb-fs-26 {
     font-size: 1.2rem !important;
   }
@@ -1510,11 +1514,21 @@ footer {
   .popular-product .popularleft img {
     margin-left: 0 !important;
   }
+  .payment-success h5{
+    br{
+      display: none;
+    }
+  }
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
   .banner-slider img {
     height: 21rem !important;
+  }
+  .payment-success h5{
+    br{
+      display: none;
+    }
   }
   .popular-product .popularleft {
     margin-bottom: 1rem;
@@ -1784,6 +1798,20 @@ footer {
   .web-wrapper-main {
     .fb-fs-26 {
       font-size: 1.4rem;
+    }
+  }
+  .success-primary-button{
+    padding-inline: 2rem;
+  } 
+  .back-home{
+    padding: 0.875rem 1rem;
+  }
+  .fb-fs-50{
+    font-size: 2.1rem !important;
+  }
+  .payment-success h5{
+    br{
+      display: none;
     }
   }
   .user-profile-img {
@@ -2172,8 +2200,11 @@ footer {
   .button-primary {
     font-size: 0.6875rem;
   }
+  .success-primary-button {
+    font-size: 0.6875rem;
+  }
   .button-primary-reverse {
-    font-size: 9.38px;
+    font-size: 0.5863rem;
   }
   .offer-cards .protein-right-top {
     padding-bottom: 1rem;

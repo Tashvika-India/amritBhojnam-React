@@ -19,6 +19,7 @@ $mid-gray: #918e92;
 $background: #F7F7F7;
 $blue: #0073C6;
 $yellow-bg: #FFF7EA;
+$icon-background: #FFF0E9;
 
 
 $font-Poppins: "Poppins", sans-serif;
@@ -139,7 +140,11 @@ td {
 }
 
 .bg-orange {
-    background-color: $orange;
+    background-color: $orange !important;
+}
+
+.bg-icon-background{
+    background-color: $icon-background !important;
 }
 
 .bg-background{
@@ -283,6 +288,26 @@ td {
     }
 }
 
+.success-primary-button{
+    background-color: $orange !important;
+    border-radius: 0.625rem;
+    color: $white !important;
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding-inline: 3.3rem;
+    border: 1px solid transparent;
+    padding-block: 0.75rem;
+    text-decoration: none;
+    line-height: normal;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        background-color: $white !important;
+        color: $orange !important;
+        border-color: $orange !important;
+    }
+}
+
+
 .button-primary {
     background-color: $orange !important;
     border-radius: 0.625rem;
@@ -345,8 +370,8 @@ td {
     border-radius: 3.125rem;
     color: $black;
     font-size: 1rem;
-    font-weight: 600;
-    padding-inline: 1.5rem;
+    font-weight: 500;
+    padding-inline: 2.5rem;
     border: 1px solid transparent;
     padding-block: 0.75rem;
     text-decoration: none;
