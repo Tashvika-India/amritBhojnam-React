@@ -4,23 +4,16 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Rating } from 'primereact/rating';
 import { Avatar } from 'primereact/avatar';
+import { RiPencilFill } from 'react-icons/ri';
 
-const ProductReviewTable = () => {
-    const reviews = [
-        { customerId: '367332', customerName: 'Aman Kumar', phone: '+91 1234567890', review: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 5, initials: 'AK' },
-        { customerId: '634782', customerName: 'Raj Singh', phone: '+91 1234567890', review: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 4, initials: 'RS' },
-        { customerId: '745883', customerName: 'David', phone: '+91 1234567890', review: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 5, initials: 'D' },
-        { customerId: '846272', customerName: 'Piyush', phone: '+91 1234567890', review: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 4.5, initials: 'P' },
-        { customerId: '857353', customerName: 'Rahul Singh', phone: '+91 1234567890', review: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 4.5, initials: 'RS' },
-        { customerId: '634782', customerName: 'Mohit Kumar', phone: '+91 1234567890', review: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 4, initials: 'MK' }
-    ];
+const ProductReviewTable = ({ reviews }) => {
 
     const customerBodyTemplate = (rowData) => {
         return (
             <div className="d-flex align-items-center gap-3">
-                <Avatar label={rowData.initials} shape="circle" className="" />
+                <Avatar style={{ width: "3rem", height: "3rem", aspectRatio: "1/1" }} label={"R"} shape="circle" />
                 <div>
-                    <span>{rowData.customerName}</span>
+                    <span className='fw-normal'>{rowData.user_id}</span>
                     <br />
                     <span>{rowData.phone}</span>
                 </div>
@@ -29,28 +22,58 @@ const ProductReviewTable = () => {
     };
 
     const dateTimeTemplate = (rowData) => {
-        return `${rowData.date} ${rowData.time}`;
+        const date = new Date(rowData?.created_at);
+        const optionsDate = { day: 'numeric', month: 'short', year: 'numeric' };
+        const optionsTime = { hour: 'numeric', minute: 'numeric', hour12: true };
+
+        const formattedDate = new Intl.DateTimeFormat('en-US', optionsDate).format(date);
+        const formattedTime = new Intl.DateTimeFormat('en-US', optionsTime).format(date);
+        return (
+            <>
+                <span className='d-block fw-normal'>{formattedDate}</span>
+                <span className='d-block fw-normal'>{formattedTime}</span>
+            </>
+        )
     };
 
     const ratingBodyTemplate = (rowData) => {
-        return <Rating value={rowData.rating} readOnly stars={5} cancel={false} />;
+        return (
+            <>
+                <div className='d-inline-flex align-items-center gap-2'>
+                    <span>{rowData.rating}</span> <Rating value={1} readOnly stars={1} cancel={false} />
+                </div>
+            </>
+        )
+    };
+
+    const reviewTemplate = (rowData) => {
+        return (
+            <>
+                <small class="fw-normal ">{rowData.comment}</small>
+            </>
+        )
     };
 
     const actionBodyTemplate = () => {
         return (
-            <Button icon="pi pi-pencil" className="p-button-rounded p-button-text" />
+            <button
+                onClick={() => handleEditClick(rowData)} title="Edit"
+                className="d-flex gap-2 align-items-center border-0 rounded me-3"
+                style={{ color: "#1F5FBE", backgroundColor: "#EDF1FF", padding: ".45rem .45rem" }}>
+                <RiPencilFill size={20} />
+            </button>
         );
     };
 
     return (
         <div className="card">
             <DataTable value={reviews} paginator rows={10} responsiveLayout="scroll">
-                <Column field="customerId" header="Customer ID"></Column>
-                <Column header="Customer" body={customerBodyTemplate}></Column>
-                <Column field="review" header="Review"></Column>
-                <Column header="Date & Time" body={dateTimeTemplate}></Column>
-                <Column header="Rating" body={ratingBodyTemplate}></Column>
-                <Column header="Action" body={actionBodyTemplate}></Column>
+                <Column field="id" header="Customer ID" style={{ width: '200px' }}></Column>
+                <Column header="user_id" body={customerBodyTemplate} style={{ width: '250px' }}></Column>
+                <Column field="comment" header="Review" body={reviewTemplate} style={{ width: '600px' }}></Column>
+                <Column header="Date & Time" body={dateTimeTemplate} ></Column>
+                <Column header="Rating" body={ratingBodyTemplate} ></Column>
+                <Column header="Action" body={actionBodyTemplate} ></Column>
             </DataTable>
         </div>
     );

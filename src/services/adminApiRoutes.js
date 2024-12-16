@@ -183,3 +183,7 @@ export const postContactApi = (payload) => API.post(`/contact/`, payload);
 
 export const getCouponApi = () => API.get(`/coupons/`);
 export const postCouponApi = (payload) => API.post(`/coupons/`, payload);
+
+//rating
+
+export const getRatingApi = (product_id) => API.get(`/product/rating/?product_id=${product_id}`);

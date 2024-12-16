@@ -209,7 +209,7 @@ const Header = () => {
                         className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
                       >
                         <div className="position-relative">
-                          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
+                          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
                             {cartItems.length}
                           </span>
                           <CgShoppingBag size={"1.625rem"} />
@@ -224,7 +224,7 @@ const Header = () => {
                         className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
                       >
                         <div className="position-relative">
-                          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
+                          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
                             {cartItems.length}
                           </span>
                           <CgShoppingBag size={"1.625rem"} />
@@ -244,7 +244,7 @@ const Header = () => {
                     className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
                   >
                     <div className="position-relative">
-                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-yellow">
+                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
                         {cartItems.length}
                         <span className="visually-hidden">unread messages</span>
                       </span>

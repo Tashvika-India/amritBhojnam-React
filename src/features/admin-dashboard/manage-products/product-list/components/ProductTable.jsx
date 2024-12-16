@@ -67,21 +67,21 @@ function ProductTable({ products , getProductList }) {
       <button
         onClick={() => handleEditClick(rowData)} title="Edit"
         className="d-flex gap-2 align-items-center border-0 rounded me-3"
-        style={{ color: "#1F5FBE", backgroundColor: "#EDF1FF", padding:".5rem .45rem" }}
+        style={{ color: "#1F5FBE", backgroundColor: "#EDF1FF", padding:".1rem .45rem" }}
       >
-        <RiPencilFill size={22} />
+        <RiPencilFill size={20} />
       </button>
       <button
         className="text-danger d-flex gap-2 align-items-center border-0 rounded" title="Delete"
-        style={{ backgroundColor: "#d5768f38", paddingBlock:".5rem" }}
+        style={{ backgroundColor: "#d5768f38", paddingBlock:".3rem" }}
         onClick={() => showDeleteModal(rowData)}  >
-        <MdDelete size={25} />
+        <MdDelete size={20} />
       </button>
     </div>
   );
 
   const iosSwitch = (rowData) => (
-    <Link to="/product/product-reviews" className="d-flex gap-2 align-items-center">
+    <Link to={`/product/product-reviews/${rowData.id}`} className="d-flex gap-2 align-items-center">
       <FaStar className="text-warning" /> {Math.round(rowData.ratings)}
     </Link>
   );
@@ -91,12 +91,12 @@ function ProductTable({ products , getProductList }) {
       <DataTable value={products} responsiveLayout="scroll" paginator rows={10}>
         <Column field="id" header="ID" body={(index) => products.indexOf(index) + 1}></Column>
         <Column field="images" header="IMAGE" body={imageBodyTemplate}></Column>
-        <Column field="name" header="NAME" body={linkToReview}></Column> 
+        <Column field="name" header="NAME" ></Column> 
         <Column field="category_id" header="CATEGORY"></Column>
         <Column field="quantity" header="STOCK"></Column>
         <Column field="quantity_unit" header="UNIT"></Column>
-        <Column field="max_price" header="PRICE RS."></Column>
-        <Column field="offer_price" header="SELLING"></Column> 
+        <Column field="max_price" header="PRICE (₹)"></Column>
+        <Column field="offer_price" header="SALE PRICE (₹)"></Column> 
         <Column field="ratings" header="RATING" body={iosSwitch}></Column>
         <Column header="ACTION" body={editButtonTemplate}></Column>
       </DataTable>

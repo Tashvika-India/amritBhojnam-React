@@ -11,13 +11,13 @@ function OverviewCardsSection() {
         <OverviewCard title="Revenue" icon={revenueIcon} />
       </div>
       <div className="col-md-3">
-        <OverviewCard title="Products" icon={productIcon} />
-      </div>
-      <div className="col-md-3">
         <OverviewCard title="Orders" icon={orderIcon} />
       </div>
       <div className="col-md-3">
-        <OverviewCard title="Categories" icon={categoryIcon} />
+        <OverviewCard title="Total Products" icon={productIcon} />
+      </div>
+      <div className="col-md-3">
+        <OverviewCard title="Total Categories" icon={categoryIcon} />
       </div>
     </>
   );
@@ -30,10 +30,10 @@ function OverviewCard({ title, icon }) {
     <div className="card">
       <div className="card-body">
         <div className="d-between mb-3">
-          <h4 className="">{title}</h4>
+          <h5 className="">{title}</h5>
           <img src={icon}></img>
         </div>
-        <h5 className="mb-2 fw-600">8,676 Rs</h5>
+        <h5 className="mb-2 fw-600">3855  <small className="fw-400" style={{ fontSize: "12px" }}>Rs</small> </h5>
         <div className="d-between">
           <span className="text-secondary text-sm">35% vs last month</span>
           <span className="text-sm">View all transactions</span>

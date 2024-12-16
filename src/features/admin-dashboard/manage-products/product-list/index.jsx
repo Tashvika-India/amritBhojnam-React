@@ -74,14 +74,10 @@ function ProductList() {
             <div className="row mb-3">
               <div className="col-md-5"></div>
               <div className="col-md-1"></div>
-              <div className="col-md-2 ms-auto">
-                <InputText
-                  value={search}
-                  onChange={onSearchChange}
-                  placeholder="Search Product" 
-                />
-              </div>
               <div className="col-md-3">
+              
+              </div>
+              <div className="col-md-3 ms-atuo">
                 <InputText
                   value={filter.name}
                   onChange={(e)=>setFilter({...filter,name:e.target.value})}
