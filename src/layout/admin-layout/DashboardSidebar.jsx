@@ -81,6 +81,7 @@ export default function DashboardSidebar({ children }) {
           variant="persistent"
           anchor="left"
           open={open}
+          className="dashboard-drawer"
         >
           <DrawerHeader className="d-flex justify-content-between align-items-center mb-3">
             <Link to="/dashboard">  <img src={mainLogo} alt="Logo" style={{ height: "60px" }} /></Link>
@@ -92,7 +93,6 @@ export default function DashboardSidebar({ children }) {
               )}
             </IconButton>
           </DrawerHeader>
-          <Divider />
           <MenuItems />
         </Drawer>
         <Main open={open}>

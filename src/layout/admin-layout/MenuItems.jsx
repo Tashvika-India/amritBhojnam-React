@@ -22,11 +22,7 @@ import { FaUserCog } from "react-icons/fa";
 import { FaBuildingUser } from "react-icons/fa6";
 import { FaRegImage } from "react-icons/fa6";
 import { IoReceipt } from "react-icons/io5";
-import { TbMessageUser } from "react-icons/tb";
-
-
-
-
+import { TbMessageUser } from "react-icons/tb"; 
 
 
 
@@ -50,7 +46,7 @@ function MenuItems() {
   const activeStyles = {
     backgroundColor: "#FFEDE3",
     color: "#F26722",
-    fontWeight: "bold",
+    fontWeight: "500",
     "& .MuiListItemIcon-root": {
       color: "#F26722",
     },
@@ -64,7 +60,7 @@ function MenuItems() {
 
   const activeColorOnly = {
     color: "#F26722",
-    fontWeight: "bold",
+    fontWeight: "500",
     "& .MuiListItemIcon-root": {
       color: "#F26722",
     },
@@ -79,7 +75,7 @@ function MenuItems() {
   };
 
   const listItemTextStyle = {
-    fontWeight: "600",
+    fontWeight: "500", 
   };
 
   React.useEffect(() => {
@@ -131,7 +127,7 @@ function MenuItems() {
           </ListItemButton>
         </Link>
       </List>
-      <Divider />
+      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
       <Typography
         sx={{ pl: 2, pt: 1, pb: 1 }}
         variant="subtitle2"
@@ -190,7 +186,7 @@ function MenuItems() {
           </ListItemButton>
         </Link>
       </List>
-      <Divider />
+      <span className="d-inline-block w-100" style={{ border: "0.2px dashed #DADADA" }}></span>
       <Typography
         sx={{ pl: 2, pt: 1, pb: 1 }}
         variant="subtitle2"
@@ -209,7 +205,7 @@ function MenuItems() {
           </ListItemButton>
         </Link>
       </List>
-      <Divider />
+      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
       <Typography
         sx={{ pl: 2, pt: 1, pb: 1 }}
         variant="subtitle2"
@@ -238,7 +234,7 @@ function MenuItems() {
           </ListItemButton>
         </Link>
       </List>
-      <Divider />
+      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
       <Typography
         sx={{ pl: 2, pt: 1, pb: 1 }}
         variant="subtitle2"

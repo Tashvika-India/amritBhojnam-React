@@ -17,7 +17,8 @@ function DashboardHome() {
       </div>
       <div className="mb-5">
         <div className="card h-100">
-          <div className="card-body">
+          <div className="card-body p-4">
+          <h5 className="mb-3 fw-500">Revenue Stats</h5>
             <LineChart height={400} />
           </div>
         </div>

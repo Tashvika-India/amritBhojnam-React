@@ -126,7 +126,7 @@ function AppRoutes() {
     />
       <Route
         exact
-        path="/product/product-reviews"
+        path="/product/product-reviews/:id" 
         element={
           <PrivateRoute>
             <DashboardSidebar>

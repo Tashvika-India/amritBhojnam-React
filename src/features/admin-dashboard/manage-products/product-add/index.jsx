@@ -229,7 +229,7 @@ const ProductAdd = () => {
     getSubCaterioes();
     if (isEditMode) {
       setValues(product);
-      setTags(product?.tags);
+      // setTags(product?.tags);
       setKeyword(product?.meta_keywords);
     }
   }, [product]);
@@ -242,15 +242,15 @@ const ProductAdd = () => {
         </div>
       </div>
       <form className="" onSubmit={formik.handleSubmit}>
-        <div className="card mb-4">
+        <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
-            <h6 className="mb-4">Image</h6>
+            <h5 className="mb-4">Image</h5>
             <div className="">
               <MultiFileUpload formik={formik} name="images" baseURL={baseURL} />
             </div>
           </div>
         </div>
-        <div className="card mb-4">
+        <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <h6 className="mb-4">Product</h6>
             <div className="row">
@@ -384,7 +384,7 @@ const ProductAdd = () => {
             </div>
           </div>
         </div>
-        <div className="card mb-4">
+        <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <h6 className="mb-4">Product Detail</h6>
             <div className="row">
@@ -451,7 +451,7 @@ const ProductAdd = () => {
             </div>
           </div>
         </div>
-        <div className="card mb-4">
+        <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <h6 className="mb-4">Options</h6>
             <div className="row">
@@ -531,7 +531,7 @@ const ProductAdd = () => {
             </div>
           </div>
         </div>
-        <div className="card mb-4">
+        <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <h6 className="mb-4">Meta Details</h6>
             <div className="row">
@@ -593,7 +593,7 @@ const ProductAdd = () => {
             </div>
           </div>
         </div>
-        <div className="card mb-4">
+        <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <div className="d-flex gap-3 justify-content-end">
               <YellowButton

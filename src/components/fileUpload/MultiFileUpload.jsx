@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Image } from "primereact/image";
 import { RxCross2 } from "react-icons/rx";
+import { SlPicture } from "react-icons/sl";
+
 
 export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
   const { values, setFieldValue } = formik;
@@ -81,20 +83,10 @@ export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
             onDragOver={!isMobile ? (e) => e.preventDefault() : null}
           >
             <span className="mb-3">
-              <svg
-                width="29"
-                height="32"
-                viewBox="0 0 29 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12.6875 24V7.7L7.975 12.9L5.4375 10L14.5 0L23.5625 10L21.025 12.9L16.3125 7.7V24H12.6875ZM3.625 32C2.62812 32 1.77504 31.6087 1.06575 30.826C0.356458 30.0433 0.00120833 29.1013 0 28V22H3.625V28H25.375V22H29V28C29 29.1 28.6454 30.042 27.9361 30.826C27.2268 31.61 26.3731 32.0013 25.375 32H3.625Z"
-                  fill="#D59615"
-                />
-              </svg>
+              <SlPicture color="#918E92" size={100}/>
             </span>
             {dragActive ? "Drop Images Here" : isMobile ? "Tap to Upload Images" : "Upload Images"}
+            <span className="text-orange fw-500">Click to browse</span>
           </label>
         </div>
       </div>
@@ -103,28 +95,27 @@ export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
       <div className="col-md-6">
         {/* Preview Section */}
         {Array.isArray(values[name]) && values[name].length > 0 && (
-          <div className="file-previews">
-            <div className="row">
+          <div className="file-previews ">
+            <div className="multi-pre-list">
               {values[name].map((file, index) => {
                 const filePreviewUrl = file instanceof File
                   ? URL.createObjectURL(file) // New file (uploaded by user)
                   : `${baseURL}/${file.img_files}`; // Preloaded file from database
 
                 return (
-                  <div className="col-md-6 mb-3" key={index}>
-                    <div className="file-preview d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 mb-2">
-                      <div className="d-inline-flex align-items-center gap-3">
+                  <div className="grid-item" key={index}>
+                    <div className="file-preview position-relative d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 mb-2">
+                      <div className="h-100">
                         <Image
                           src={filePreviewUrl}
                           zoomSrc={filePreviewUrl}
                           alt="Uploaded File"
-                          width="80"
-                          height="60"
+                          className="multi-file-preview"
                           preview
                         />
-                        <span>{file.name}</span>
+                        {/* <span>{file.name}</span> */}
                       </div>
-                      <div>
+                      <div className="position-absolute top-0 end-0">
                         <RxCross2
                           color="red"
                           size={25}
