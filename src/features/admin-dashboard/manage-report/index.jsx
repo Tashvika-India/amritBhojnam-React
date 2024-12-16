@@ -7,8 +7,7 @@ import ProductTable from "../manage-products/product-list/components/ProductTabl
 import { InputText } from "primereact/inputtext";
 import OverviewCardsSection from "../../admin-dashboard/dashboard-home/components/OverviewCardsSection";
 import Loading from "../../../components/ui/Loading";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import 'rsuite/dist/rsuite.min.css';
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"; 
 import { DateRangePicker } from 'rsuite';
 
 const ManageReport = () => {

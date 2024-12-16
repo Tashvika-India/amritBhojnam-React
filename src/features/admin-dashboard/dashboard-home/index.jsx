@@ -9,13 +9,13 @@ import DashboardOrderTable from "./components/DashboardOrderTable";
 function DashboardHome() {
   return (
     <>
-      <div className="mt-3 mb-5">
+      <div className="mt-3 mb-4">
         <Heading value={"Dashboard"}/>
       </div>
-      <div className="row mb-5">
+      <div className="row mb-4">
         <OverviewCardsSection />
       </div>
-      <div className="mb-5">
+      <div className="mb-4">
         <div className="card h-100">
           <div className="card-body p-4">
           <h5 className="mb-3 fw-500">Revenue Stats</h5>
@@ -23,7 +23,7 @@ function DashboardHome() {
           </div>
         </div>
       </div>
-      <div className="row mb-5">
+      <div className="row mb-4">
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
@@ -62,7 +62,8 @@ function DashboardHome() {
         <div className="col-md-6 h-100">
           <div className="card h-100">
             <div className="card-body h-100">
-              <LineChart height={430} />
+            <h5 className="mb-3 mt-3 fw-500">Orders</h5>
+              <LineChart height={370} />
             </div>
           </div>
         </div>
