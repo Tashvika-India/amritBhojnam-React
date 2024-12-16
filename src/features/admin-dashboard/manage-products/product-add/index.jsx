@@ -6,7 +6,9 @@ import {
   MenuItem,
   Select,
   TextField,
-  Button, IconButton
+  Button, IconButton,
+  Box,
+  Chip
 } from "@mui/material";
 import { Add, Remove } from '@mui/icons-material';
 import RejectButton from "@/components/buttons/RejectButton";
@@ -35,10 +37,33 @@ const ProductAdd = () => {
   const isEditMode = !!product;
   const navigate = useNavigate();
 
-  const [tags, setTags] = useState([""]);
+  const handleTagAdd = (event) => {
+    if (event.key === "Enter" && event.target.value.trim()) {
+      event.preventDefault();
+      const newTags = [...values.tags, event.target.value.trim()];
+      setFieldValue("tags", newTags);
+      event.target.value = ""; // Clear input after adding
+    }
+  };
 
-  const addTag = () => setTags([...tags, ""]);
-  const removeTag = (index) => setTags(tags.filter((_, i) => i !== index));
+  const handleTagRemove = (index) => {
+    const newTags = values.tags.filter((_, i) => i !== index);
+    setFieldValue("tags", newTags);
+  };
+
+  const handleMetaKeywordAdd = (event) => {
+    if (event.key === "Enter" && event.target.value.trim()) {
+      event.preventDefault();
+      const newKeywords = [...values.meta_keywords, event.target.value.trim()];
+      setFieldValue("meta_keywords", newKeywords);
+      event.target.value = ""; // Clear the input field
+    }
+  };
+
+  const handleMetaKeywordRemove = (index) => {
+    const newKeywords = values.meta_keywords.filter((_, i) => i !== index);
+    setFieldValue("meta_keywords", newKeywords);
+  };
 
 
   const [keyword, setKeyword] = useState([""]);
@@ -54,16 +79,9 @@ const ProductAdd = () => {
       isEditMode ? updateProduct(values) : addProduct(values);
     },
   });
-  const { values, handleSubmit, resetForm, setValues, handleBlur, handleChange , setFieldValue} = formik;
+  const { values, handleSubmit, resetForm, setValues, handleBlur, handleChange, setFieldValue } = formik;
   const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
-
-  const handleTagsChange = (index, value) => {
-    const updatedTags = [...tags];
-    updatedTags[index] = value;
-    setTags(updatedTags);
-    setFieldValue('tags', updatedTags);
-  };
 
   const handleKeywordChange = (index, value) => {
     const updatedKeyword = [...keyword];
@@ -93,14 +111,7 @@ const ProductAdd = () => {
     formData.append("mfg_date", values.mfg_date);
     formData.append("ratings", values.ratings);
     formData.append("meta_title", values.meta_title);
-    formData.append("meta_description", values.meta_description); 
-
-    // Append tags
-    values.tags?.forEach((tag, index) => {
-      if (tag.trim()) {
-        formData.append(`tags[${index}]`, tag.trim());
-      }
-    });
+    formData.append("meta_description", values.meta_description);
 
     values.keyword?.forEach((key, index) => {
       if (key.trim()) {
@@ -136,7 +147,7 @@ const ProductAdd = () => {
       throw error;
     }
   }
-  
+
   async function updateProduct(values) {
     const formData = new FormData();
     formData.append("name", values.name);
@@ -158,16 +169,8 @@ const ProductAdd = () => {
     formData.append("mfg_date", values.mfg_date);
     formData.append("ratings", values.ratings);
     formData.append("meta_title", values.meta_title);
-    formData.append("meta_description", values.meta_description);  
+    formData.append("meta_description", values.meta_description);
 
-    // Append tags
-    values.tags?.forEach((tag, index) => {
-      if (tag.trim()) {
-        formData.append(`tags[${index}]`, tag.trim());
-      }
-    });
-
-    
     values.keyword?.forEach((key, index) => {
       if (key.trim()) {
         formData.append(`meta_keywords[${index}]`, key.trim());
@@ -229,7 +232,7 @@ const ProductAdd = () => {
       setTags(product?.tags);
       setKeyword(product?.meta_keywords);
     }
-  }, [product]); 
+  }, [product]);
 
   return (
     <>
@@ -256,7 +259,7 @@ const ProductAdd = () => {
                   id="outlined-basic"
                   name="name"
                   value={values?.name}
-                  onChange={handleChange}
+                  onChange={formik.handleChange}
                   label="Product Name"
                   variant="outlined"
                   fullWidth
@@ -315,7 +318,7 @@ const ProductAdd = () => {
                     id="demo-simple-select"
                     name="sub_category_id"
                     value={formik.values?.sub_category_id}
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     label="Select Sub Category"
                   >
                     {subCategories?.map((sub) => (
@@ -332,9 +335,9 @@ const ProductAdd = () => {
                   id="outlined-basic"
                   variant="outlined"
                   name="mfg_date"
-                  label="Manufacturing Date" 
+                  label="Manufacturing Date"
                   value={formik.values?.mfg_date}
-                  onChange={handleChange}
+                  onChange={formik.handleChange}
                   fullWidth
                 />
               </div>
@@ -344,33 +347,39 @@ const ProductAdd = () => {
                   label="Days"
                   name="days"
                   value={formik.values?.days}
-                  onChange={handleChange}
+                  onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
                 />
               </div>
               <div className="col-md-12 mb-4">
-                <h4>Tags</h4>
-                <div className="d-flex flex-wrap">
-                  {tags.map((tag, index) => (
-                    <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-                      <TextField
-                        label="Enter Tags"
-                        variant="outlined"
-                        name={`tags[${index}]`}
-                        fullWidth
-                        value={tag}
-                        onChange={(e) => handleTagsChange(index, e.target.value)}
+                <Box mb={2}> 
+                  <TextField
+                    label="Enter Tags"
+                    variant="outlined"
+                    fullWidth
+                    onKeyDown={handleTagAdd}
+                    placeholder="Press Enter to add a tag"
+                  />
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    flexWrap="wrap"
+                    className="mt-2"
+                    gap={1}
+                    sx={{ marginBottom: "8px" }}
+                  >
+                    {values.tags.map((tag, index) => (
+                      <Chip
+                        key={index}
+                        label={tag}
+                        onDelete={() => handleTagRemove(index)}
+                        sx={{ marginBottom: "8px" }}
+                        color="primary"
                       />
-                      <IconButton onClick={() => removeTag(index)}>
-                        <Remove />
-                      </IconButton>
-                    </div>
-                  ))}
-                  <Button variant="contained" color="primary" onClick={addTag} startIcon={<Add />}>
-                    Add Tag
-                  </Button>
-                </div>
+                    ))}
+                  </Box>
+                </Box>
               </div>
             </div>
           </div>
@@ -400,6 +409,31 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   fullWidth
                 />
+              </div>
+              <div className="col-md-4 mb-4">
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Quantity Type
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    name="quantity_unit"
+                    value={formik.values?.quantity_unit}
+                    onChange={formik.handleChange}
+                    label="Quantity Type">
+                    <MenuItem value=" ">&nbsp;</MenuItem>
+                    <MenuItem value="10 gm">10 gm</MenuItem>
+                    <MenuItem value="20 gm">20 gm</MenuItem>
+                    <MenuItem value="50 gm">50 gm</MenuItem>
+                    <MenuItem value="100 gm">100 gm</MenuItem>
+                    <MenuItem value="200 gm">200 gm</MenuItem>
+                    <MenuItem value="500 gm">500 gm</MenuItem>
+                    <MenuItem value="1 kg">1 kg</MenuItem>
+                    <MenuItem value="2 kg">2 kg</MenuItem>
+                    <MenuItem value="5 kg">5 kg</MenuItem>
+                  </Select>
+                </FormControl>
               </div>
               <div className="col-md-12 mb-4">
                 <TextField
@@ -501,7 +535,7 @@ const ProductAdd = () => {
           <div className="card-body">
             <h6 className="mb-4">Meta Details</h6>
             <div className="row">
-              <div className="col-md-4 mb-4">
+              <div className="col-md-6 mb-4">
                 <TextField
                   id="outlined-basic"
                   label="Meta Title"
@@ -512,29 +546,38 @@ const ProductAdd = () => {
                   fullWidth
                 />
               </div>
-              <div className="col-md-4">
-              <div className="d-flex flex-wrap">
-                  {keyword.map((key, index) => (
-                    <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-                      <TextField
-                        label="Enter Keyword"
-                        variant="outlined"
-                        name={`meta_keywords[${index}]`}
-                        fullWidth
-                        value={key}
-                        onChange={(e) => handleKeywordChange(index, e.target.value)}
-                      />
-                      <IconButton onClick={() => removeKeyword(index)}>
-                        <Remove />
-                      </IconButton>
-                    </div>
-                  ))}
-                  <Button variant="contained" color="primary" onClick={addKeyword} startIcon={<Add />}>
-                    Add 
-                  </Button>
+              <div className="col-md-6">
+                <div className="d-flex flex-wrap">
+                  <Box mb={2} className="w-100">
+                    <TextField
+                      label="Enter Meta Keywords"
+                      variant="outlined"
+                      fullWidth
+                      onKeyDown={handleMetaKeywordAdd}
+                      placeholder="Press Enter to add a keyword"
+                    />
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      flexWrap="wrap"
+                      className="mt-2"
+                      gap={1}
+                      sx={{ marginBottom: "8px" }}
+                    >
+                      {values.meta_keywords.map((keyword, index) => (
+                        <Chip
+                          key={index}
+                          label={keyword}
+                          onDelete={() => handleMetaKeywordRemove(index)}
+                          sx={{ marginBottom: "8px" }}
+                          color="primary"
+                        />
+                      ))}
+                    </Box>
+                  </Box>
                 </div>
               </div>
-              <div className="col-md-8 mb-4">
+              <div className="col-md-12 mb-4">
                 <TextField
                   id="outlined-basic"
                   label="Meta Description"
