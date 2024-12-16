@@ -12,7 +12,7 @@ export const productInitalValues = {
     is_manually_popular: false,
     is_manually_best_choice: false,
     is_delicious: false,
-    is_deleted: true,
+    is_deleted: false,
     tags: [],
     nutritions: [], 
     images: [],
