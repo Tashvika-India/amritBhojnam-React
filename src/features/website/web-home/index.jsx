@@ -421,13 +421,13 @@ const HomePage = () => {
             </div>
             <div className="col-lg-7 col-md-12">
               <div className="content-sec">
-                <h2 className="pb-3 fw-normal text-white lh-1">
-                  Good For
+                <h2 className="pb-3 text-white" style={{lineHeight:"68px"}}>
+                  <span className="fw-400">Good For&nbsp;</span>
                   <span className="fw-bold">
                     You <br></br> and the Planet
                   </span>
                 </h2>
-                <p className="pb-5 text-white w-75">
+                <p className="pb-5 text-white mt-3 mb-2 w-75">
                   Our commitment to sustainability ensures that every choice you
                   make with us positively impacts both you and the planet. By
                   prioritizing eco-friendly solutions, we create a future that
@@ -534,7 +534,7 @@ const HomePage = () => {
         src={bestBackgroundBottom}
         alt="purchase-page"
       />
-      <section className="first_purchase">
+      <section className="first_purchase mt-5 py-5">
         <div className="container fb-container">
           <div className="purchase-bg">
             <div className="row">
@@ -547,10 +547,10 @@ const HomePage = () => {
                       className="text-white"
                       style={{ fontSize: "23.11px", fontWeight: "400" }}
                     >
-                      On your first purchase
+                     &nbsp;&nbsp;&nbsp;On your first purchase
                     </span>
                   </h1>
-                  <p className="text-white pt-1">
+                  <p className="text-white pt-3">
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
                     standard dummy text ever since the 1500s, when an unknown
@@ -591,13 +591,13 @@ const HomePage = () => {
                     className="img-fluid millet-img"
                   />
                 </span>
-                <h2 className="pb-3 fw-normal lh-1 text-black pb-4 mt-4">
+                <h2 className="fw-normal lh-1 text-black pb-4 mb-2 mt-4">
                   Download Our
                   <span className="fw-bold text-orange">
                     <br></br>Mobile App
                   </span>
                 </h2>
-                <p className="pb-5 mb-lg-4 mb-0 pe-5">
+                <p className="pb-4 mb-lg-4 mb-0 pe-5">
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
                   standard dummy text ever since the 1500s, when an unknown

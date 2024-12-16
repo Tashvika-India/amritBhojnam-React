@@ -48,7 +48,7 @@ function AsNavFor({ data }) {
       >
         {/* Slider thumbnails */}
         {data?.map((item, index) => (
-          <div key={index} className="slider-bottom-item">
+          <div key={index} className="slider-bottom-item w-75">
             <img loading="lazy" className="img-fluid" src={baseURL+item?.img_files} alt={`slider-bottom-${index}`} />
           </div>
         ))}
@@ -71,7 +71,7 @@ const arrowStyles = {
   cursor: "pointer",
   transition: "background-color 0.3s ease",
   position: "absolute",
-  top: "25%",
+  top: "50%",
   transform: "translateY(-50%)",
   zIndex: "10",
 };

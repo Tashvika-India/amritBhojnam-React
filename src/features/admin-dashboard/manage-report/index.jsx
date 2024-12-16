@@ -2,23 +2,44 @@ import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
 import YellowButton from "../../../components/buttons/YellowButton";
 import { Link } from "react-router-dom";
-import { useFormik } from 'formik';
+import { useFormik } from "formik";
 import ProductTable from "../manage-products/product-list/components/ProductTable";
 import { InputText } from "primereact/inputtext";
 import OverviewCardsSection from "../../admin-dashboard/dashboard-home/components/OverviewCardsSection";
 import Loading from "../../../components/ui/Loading";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import 'rsuite/dist/rsuite.min.css';
+import { DateRangePicker } from 'rsuite';
 
 const ManageReport = () => {
-
   return (
     <>
       <div className="mt-3 mb-5 row">
         <div className="col-md-6">
           <Heading value={"Report"} />
         </div>
-        <div className="col-md-6 text-end">
+        <div className="col-md-1">
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Age"
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        <div className="col-md-3">
+        <div>
+        <DateRangePicker size="lg" placeholder="Start Date  -  End Date" style={{fontSize: "1rem"}} />
+        </div> 
+        </div>
+        <div className="col-md-2 text-end">
           <Link to="/add-coupon">
-            <YellowButton lable={"+ Add New Coupons"} />
+            <YellowButton lable={"Filter"} />
           </Link>
         </div>
       </div>
@@ -33,22 +54,11 @@ const ManageReport = () => {
               <div className="col-md-2"></div>
               <div className="col-md-2"></div>
               <div className="col-md-3">
-                <InputText
-                  value={filter.name}
-                  onChange={(e)=>setFilter({...filter,name:e.target.value})}
-                  placeholder="Search Product" 
-                />
+                <InputText placeholder="Search Product" />
               </div>
             </div>
             <div className="">
-              {loading ? (
-                <Loading />
-              ) : (
-                <ProductTable
-                  products={products}
-                  getProductList={getProductList}
-                />
-              )}
+              <ProductTable />
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@ const PaymentSuccess = () => {
                 alt="logo"
                 loading="lazy"
               />
-              <p className="fb-fs-50 fw-bold text-orange pt-4">
+              <p className="fb-fs-50 fw-bold text-orange pt-lg-4">
                 Order Successfully Placed
               </p>
               <h5 className="fb-fs-22 text-dark-grey py-4 fw-400">
@@ -32,18 +32,18 @@ const PaymentSuccess = () => {
                 confirmation shortly with <br></br> the order details. Thank you for
                 choosing us.
               </h5>
-              <div className="d-flex gap-4 my-5 justify-content-center">
+              <div className="d-flex gap-lg-4 gap-3 my-lg-5 my-md-4 my-sm-4 justify-content-center">
                 <Link className="back-home d-flex gap-2" to="/">
                   <MdKeyboardArrowLeft
                     style={{ color: "#F26722", fontSize: "1.6rem" }}
                   />
-                  Back to home
+                  Back&nbsp;to&nbsp;home
                 </Link>
                 <Link
-                  className="button-primary pt-3"
-                  to="/profile?tab=orders" style={{padding: "0 3rem"}}
+                  className="success-primary-button lh-lg"
+                  to="/profile?tab=orders"
                 >
-                  View Detail
+                  View&nbsp;Detail
                 </Link>
               </div>
             </div>

@@ -64,7 +64,7 @@ const ItemSlide = () => {
         </div>
         <div className="item-slide px-2 px-lg-0">
         <div
-            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-3"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">
@@ -85,7 +85,7 @@ const ItemSlide = () => {
         </div>
         <div className="item-slide px-2 px-lg-0">
         <div
-            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-3"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">
@@ -106,7 +106,7 @@ const ItemSlide = () => {
         </div>
         <div className="item-slide px-2 px-lg-0">
           <div
-            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-3"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">
@@ -127,7 +127,7 @@ const ItemSlide = () => {
         </div>
         <div className="item-slide px-2 px-lg-0">
           <div
-            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-3"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">
@@ -148,7 +148,7 @@ const ItemSlide = () => {
         </div>
         <div className="item-slide px-2 px-lg-0">
           <div
-            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-3"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">
@@ -169,7 +169,7 @@ const ItemSlide = () => {
         </div>
         <div className="item-slide px-2 px-lg-0">
           <div
-            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
+            className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-3"
             style={{ borderRadius: "25px" }}
           >
             <div className="saver-card h-100 w-100 text-center">
@@ -197,12 +197,12 @@ const arrowStyles = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  width: "40px",
-  height: "40px",
+  width: "50px",
+  height: "50px",
   borderRadius: "50%",
   backgroundColor: "#fff",
   color: "#3B3B3B",
-  boxShadow: "0px 4.83px 10px 0px rgba(0, 0, 0, 0.05)",
+  boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.1)",
   fontSize: "1rem",
   cursor: "pointer",
   transition: "background-color 0.3s ease",
@@ -214,12 +214,12 @@ const arrowStyles = {
 
 const nextArrowStyles = {
   ...arrowStyles,
-  right: "-1rem",
+  right: "-0.5rem",
 };
 
 const prevArrowStyles = {
   ...arrowStyles,
-  left: "-1rem",
+  left: "-0.5rem",
 };
 
 const spanStyles = {
