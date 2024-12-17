@@ -8,8 +8,10 @@ import AsNavFor from "../web-home/components/MultiSlide";
 import { ButtonGroup, Nav, Tab, ToggleButton } from "react-bootstrap";
 import {
   getProductApi,
+  getRatingApi,
   getYouMayAlsoLikeApi,
   postCartApi,
+  postRatingApi,
 } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import MyCartMenu from "../../../components/ui/MyCartMenu";
@@ -18,11 +20,11 @@ import { cartAdd } from "../../../redux/slices/cartSlice";
 import Loading from "../../../components/ui/Loading";
 import ProductCard from "../web-home/components/ProductCard";
 import fireImg from "../../../assets/images/web/Fire.png";
-import { Checkbox } from "@mui/material";
+import { Checkbox, TextField } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import ShareIcon from "@mui/icons-material/Share";
 import MobileLogin from "../../../components/ui/MobileLogin";
-import { set } from "lodash";
+import { baseURL } from "../../../utils/constant-variable";
 
 const ProudctDetail = () => {
   const [showCart, setShowCart] = useState(false);
@@ -35,10 +37,59 @@ const ProudctDetail = () => {
   const [quantity, setQuantity] = useState(0);
   const toggleCart = () => setShowCart(!showCart);
   const [detail, setDetail] = useState({});
+  const [reviews, setReviews] = useState([]);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
+  // const [reviewData, setReviewData] = useState({
+  //   product_id: filters?.product_id,
+  //   rating: 0,
+  //   comment: "",
+  // }) 
+  // const handleRatingChange = (e) => {
+  //   setReviewData({ ...reviewData, rating: e.value });  
+  // };
+ 
+  // const handleCommentChange = (e) => {
+  //   setReviewData({ ...reviewData, comment: e.target.value });
+  // };
+ 
+  // const handleSubmit = async () => {
+  //   try {
+  //     const payload = {
+  //       product_id: reviewData.product_id,
+  //       rating: reviewData.rating,
+  //       comment: reviewData.comment,
+  //     };
+  //     console.log("Payload:", payload); 
+  //     const response = await postRatingApi(payload);
+  //     console.log("API Response:", response.data);
+  //     alert("Review submitted successfully!");
+  //   } catch (error) {
+  //     console.error("Error submitting review:", error);
+  //     alert("Failed to submit review.");
+  //   }
+  // };
+
+
   const { cartItems, finalCart, error, cartId } = useSelector(
     (state) => state.cart
   );
+
+
+  const reviewList = async () => {
+    setLoading(true);
+    try {
+      const response = await getRatingApi(filters?.product_id);
+      setReviews(response?.data || []);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching product review data:', error);
+    }
+  }; 
+  
+
+  useEffect(() => {
+    reviewList();
+  }, []);
 
   const [pincode, setPincode] = useState("");
   const [message, setMessage] = useState("");
@@ -170,7 +221,6 @@ const ProudctDetail = () => {
     "122026",
     "122027",
   ];
-
   const noidaPincodes = [
     "201301",
     "201302",
@@ -184,6 +234,8 @@ const ProudctDetail = () => {
     "201310",
     "201311",
   ];
+
+
   const combinedPincodes = Array.from(
     new Set([...delhiPincodes, ...gurugramPincodes, ...noidaPincodes])
   );
@@ -308,7 +360,6 @@ const ProudctDetail = () => {
                     ({Math.round(detail?.ratings)} Reviews)
                   </p>
                 </div>
-
                 <p>{detail?.short_description}</p>
                 <div className="d-flex mt-4 mb-3">
                   <p className="fw-600 pt-2">Size / Weight:</p>
@@ -377,7 +428,6 @@ const ProudctDetail = () => {
                     </>
                   )}
                 </div>
-
                 <div className="mt-5">
                   <p className="fw-600">Check Availability</p>
                   <div
@@ -422,8 +472,9 @@ const ProudctDetail = () => {
                 <div className="d-flex mt-4  ms-4 ">
                   <ul className="me-5 pe-4 disc-style w-50">
                     <li className="my-2">Type: {detail?.product_type}</li>
-                    <li className="my-2">
-                      MFG:{" "}
+                    <li className="my-2">Tags:{detail?.tags}</li>
+                    {/* <li className="my-2">
+                      MFG:
                       {new Date(detail.mfg_date)
                         .toLocaleDateString("en-US", {
                           month: "short",
@@ -431,15 +482,15 @@ const ProudctDetail = () => {
                           year: "numeric",
                         })
                         .replace(",", ".")}
-                    </li>
-                    <li className="my-2">LIFE: {detail?.days} days</li>
+                    </li> */}
+                    {/* <li className="my-2">LIFE: {detail?.days} days</li> */}
                   </ul>
                   <ul className="me-5 pe-4 disc-style w-50">
                     <li className="my-2">SKU: FWM15VKT</li>
-                    <li className="my-2">Tags:{detail?.tags}</li>
-                    <li className="my-2">
+                    {/* <li className="my-2">Tags:{detail?.tags}</li> */}
+                    {/* <li className="my-2">
                       Stock: {detail?.quantity} Items In Stock
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>
@@ -459,12 +510,12 @@ const ProudctDetail = () => {
                     <div className="col-md-12">
                       <Nav
                         variant="pills"
-                        className="flex-row tab-nav-wrapper my-5 px-4"
+                        className="flex-row tab-nav-wrapper my-3  mt-md-5 mb-md-3 px-4 gap-3 gap-md-4"
                       >
                         <Nav.Item className="nav">
                           <Nav.Link
                             as="button"
-                            className="fb-fs-18 btn-tab"
+                            className="btn-tab me-0"
                             eventKey="Description"
                           >
                             Description
@@ -473,7 +524,7 @@ const ProudctDetail = () => {
                         <Nav.Item>
                           <Nav.Link
                             as="button"
-                            className="fb-fs-18 btn-tab"
+                            className="btn-tab me-0"
                             eventKey="Additional Info"
                           >
                             Additional Info
@@ -482,10 +533,10 @@ const ProudctDetail = () => {
                         <Nav.Item>
                           <Nav.Link
                             as="button"
-                            className="fb-fs-18 btn-tab"
+                            className="btn-tab me-0"
                             eventKey="Reviews(12)"
                           >
-                            Reviews(12)
+                            Reviews({reviews?.length})
                           </Nav.Link>
                         </Nav.Item>
                       </Nav>
@@ -496,10 +547,67 @@ const ProudctDetail = () => {
                           <p className="mb-4">{detail?.long_description}</p>
                         </Tab.Pane>
                         <Tab.Pane eventKey="Additional Info">
-                          Second tab content
+                          Additional
                         </Tab.Pane>
                         <Tab.Pane eventKey="Reviews(12)">
-                          Second tab content
+                          <div className="p-3 p-lg-4">
+                            <div className="row">
+                              {loading ? <Loading /> : (
+                                reviews.map((data) => (
+                                  <div className="col-12  mb-3" key={data?.id}>
+                                    <div className="d-inline-flex gap-3">
+                                      <span className="d-inline-block">
+                                        <img className="img-fluid border-orange" src={`${baseURL}/media/${data?.user_img}`} alt="P" style={{ width: "50px", height: "50px", borderRadius: "50%", aspectRatio: "1/1" }} />
+                                      </span>
+                                      <div className="d-inline-block">
+                                        <h6 className="fs-6 fw-bold">{data?.user_name}</h6>
+                                        <span className="d-inline-block"><Rating value={data?.rating} readOnly stars={5} cancel={false} /></span>
+                                      </div>
+                                    </div>
+                                    <p>{data?.comment}</p>
+                                  </div>
+                                ))
+                              )}
+                              {/* <div className="col-12">
+                                <form className="d-flex flex-column"> 
+                                  <div className="mb-3">
+                                    <h6>Add Your Review</h6>
+                                    <span className="d-inline-block">
+                                      <Rating
+                                        value={reviewData.rating}
+                                        onChange={handleRatingChange}  
+                                        stars={5}
+                                        cancel={false}  
+                                        disabled
+                                      />
+                                    </span>
+                                  </div> 
+                                  <TextField
+                                    id="outlined-basic"
+                                    label="Comment"
+                                    name="comment"
+                                    value={reviewData.comment}
+                                    onChange={handleCommentChange}  
+                                    disabled
+                                    variant="outlined"
+                                    fullWidth
+                                    multiline
+                                    rows={3}
+                                  />
+                                  <div className="text-end">
+                                    <button
+                                      type="button"
+                                      className="button-primary mt-3 opacity-50"
+                                      onClick={handleSubmit}  
+                                      disabled
+                                    >
+                                      Submit
+                                    </button>
+                                  </div>
+                                </form>
+                              </div> */}
+                            </div>
+                          </div>
                         </Tab.Pane>
                       </Tab.Content>
                     </div>

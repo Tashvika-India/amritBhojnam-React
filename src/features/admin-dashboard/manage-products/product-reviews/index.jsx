@@ -8,17 +8,17 @@ import Loading from "../../../../components/ui/Loading";
 
 function ProductReviews() {
 
-  const [loding, setLoding] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { id } = useParams();
   const [reviews, setReviews] = useState([]); 
 
   const reviewList = async ( ) => {
-    setLoding(true);
+    setLoading(true);
     try {
       const response = await getRatingApi(id);  
       setReviews(response?.data || []);
-      setLoding(false);
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching product review data:', error);
     }
@@ -43,7 +43,7 @@ function ProductReviews() {
       <div className="">
         <div className="card">
           <div className="card-body">
-            { loding ? ( <Loading />) :  <ProductReviewTable reviews={reviews} /> }
+            { loading ? ( <Loading />) :  <ProductReviewTable reviews={reviews} /> }
           </div>
         </div>
       </div>
