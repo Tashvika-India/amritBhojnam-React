@@ -17,7 +17,7 @@ const ProfileDropdown = ({ userDetail }) => {
             <Dropdown.Toggle
                 id="dropdown-basic"
                 as="a"
-                href="javascript:void(0);" className='no-caret'>
+                style={{cursor:"pointer"}} className='no-caret'>
                 {(window.innerWidth > 768) ?
                     <div className="d-inline-flex flex-column align-items-center position-relative justify-content-center">
                         <FaRegUser size={"1.625rem"} />

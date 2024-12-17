@@ -49,7 +49,7 @@ const ProductReviewTable = ({ reviews }) => {
     const reviewTemplate = (rowData) => {
         return (
             <>
-                <small class="fw-normal ">{rowData.comment}</small>
+                <small className="fw-normal ">{rowData.comment}</small>
             </>
         )
     };

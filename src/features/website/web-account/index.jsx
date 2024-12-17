@@ -42,10 +42,10 @@ const UserProfile = () => {
   const [order, setOrder] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [profileEdit, setProfileEdit] = useState(false);
-  const location = useLocation(); 
+  const location = useLocation();
   const profilePicture = baseURL + userDetail?.pp;
- 
-  
+
+
   const formik = useFormik({
     initialValues: {
       ads_name: "",
@@ -245,7 +245,7 @@ const UserProfile = () => {
         gender: userDetail.gender || "",
         date_of_birth: userDetail.date_of_birth || "00-00-0000",
       });
-      
+
     }
   }, [userDetail]);
 
@@ -383,12 +383,12 @@ const UserProfile = () => {
                             <TextField
                               fullWidth
                               className="rounded-20 me-5"
-                              id="pp" 
+                              id="pp"
                               name="pp"
                               variant="outlined"
                               disabled={!profileEdit}
-                              type="file" 
-                              onChange={handleImageChange} 
+                              type="file"
+                              onChange={handleImageChange}
                             />
                           </div>
                           <div className="col-md-4 mb-4">
@@ -569,24 +569,24 @@ const UserProfile = () => {
                       <h4 className="fb-fs-26 fw-bold text-dark-grey my-md-4">
                         Saved Address
                       </h4>
-                      <button
-                        type="button"
-                        className="d-flex align-items-center border-0 bg-transparent"
-                        onClick={() => {
-                          setOpen(!open);
-                          setEditData(null);
-                        }}
-                        aria-controls="example-collapse-text"
-                        aria-expanded={open}
-                      >
-                        <i className="pi pi-plus text-yellow me-2 mt-md-1"></i>
-                        <p className="fw-500">Add New Address</p>
-                      </button>
+                      {addressList.length > 0 && (
+                        <button
+                          type="button"
+                          className="d-flex align-items-center border-0 bg-transparent"
+                          onClick={() => {
+                            setOpen(!open);
+                            setEditData(null);
+                          }}
+                          aria-controls="example-collapse-text"
+                          aria-expanded={open}
+                        >
+                          <i className="pi pi-plus text-yellow me-2 mt-md-1"></i>
+                          <p className="fw-500">Add New Address</p>
+                        </button>
+                      )}
                     </div>
                     <div className="">
-                      {loading ? (
-                        <Loading />
-                      ) : addressList.length > 0 ? (
+                      {addressList.length > 0 ? (
                         addressList.map((item, index) => (
                           <div
                             className={`summary-card ${item?.selected ? "active" : ""

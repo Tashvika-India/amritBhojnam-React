@@ -311,56 +311,56 @@ const HomePage = () => {
             >
               <div className="d-flex">
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.

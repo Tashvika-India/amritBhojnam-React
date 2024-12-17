@@ -552,7 +552,7 @@ const ProudctDetail = () => {
                         <Tab.Pane eventKey="Reviews(12)">
                           <div className="p-3 p-lg-4">
                             <div className="row">
-                              {loading ? <Loading /> : (
+                              {  
                                 reviews.map((data) => (
                                   <div className="col-12  mb-3" key={data?.id}>
                                     <div className="d-inline-flex gap-3">
@@ -567,7 +567,7 @@ const ProudctDetail = () => {
                                     <p>{data?.comment}</p>
                                   </div>
                                 ))
-                              )}
+                              }
                               {/* <div className="col-12">
                                 <form className="d-flex flex-column"> 
                                   <div className="mb-3">
