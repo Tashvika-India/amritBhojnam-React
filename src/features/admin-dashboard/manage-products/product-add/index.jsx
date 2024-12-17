@@ -388,7 +388,7 @@ const ProductAdd = () => {
           <div className="card-body">
             <h6 className="mb-4">Product Detail</h6>
             <div className="row">
-              <div className="col-md-4 mb-4">
+              {/* <div className="col-md-4 mb-4">
                 <TextField
                   id="outlined-basic"
                   label="Quantity"
@@ -409,26 +409,30 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   fullWidth
                 />
-              </div>
+              </div> */}
               <div className="col-md-4 mb-4">
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">
-                    Quantity Type
+                    Quantity 
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    name="quantity_unit"
-                    value={formik.values?.quantity_unit}
+                    name="quantity"
+                    value={formik.values?.quantity}
                     onChange={formik.handleChange}
-                    label="Quantity Type">
+                    label="Quantity">
                     <MenuItem value=" ">&nbsp;</MenuItem>
                     <MenuItem value="10 gm">10 gm</MenuItem>
                     <MenuItem value="20 gm">20 gm</MenuItem>
                     <MenuItem value="50 gm">50 gm</MenuItem>
-                    <MenuItem value="100 gm">100 gm</MenuItem>
+                    <MenuItem value="100 gm">100 gm</MenuItem> 
+                    <MenuItem value="150 gm">150 gm</MenuItem>
                     <MenuItem value="200 gm">200 gm</MenuItem>
+                    <MenuItem value="300 gm">300 gm</MenuItem>
+                    <MenuItem value="250 gm">200 gm</MenuItem>
                     <MenuItem value="500 gm">500 gm</MenuItem>
+                    <MenuItem value="750 gm">750 gm</MenuItem>
                     <MenuItem value="1 kg">1 kg</MenuItem>
                     <MenuItem value="2 kg">2 kg</MenuItem>
                     <MenuItem value="5 kg">5 kg</MenuItem>

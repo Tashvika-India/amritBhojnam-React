@@ -93,7 +93,7 @@ function ProductTable({ products , getProductList }) {
         <Column field="images" header="IMAGE" body={imageBodyTemplate}></Column>
         <Column field="name" header="NAME" ></Column> 
         <Column field="category_id" header="CATEGORY"></Column>
-        <Column field="quantity" header="STOCK"></Column>
+        <Column field="quantity" header="QUANTITY(type)"></Column>
         <Column field="quantity_unit" header="UNIT"></Column>
         <Column field="max_price" header="PRICE (₹)"></Column>
         <Column field="offer_price" header="SALE PRICE (₹)"></Column> 
