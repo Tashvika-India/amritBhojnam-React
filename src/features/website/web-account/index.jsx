@@ -29,8 +29,7 @@ import {
 } from "../../../services/adminApiRoutes";
 import { Collapse } from "@mui/material";
 import { useFormik } from "formik";
-import Address from "../../../assets/common-components/website/Address";
-import Loading from "../../../components/ui/Loading";
+import Address from "../../../assets/common-components/website/Address"; 
 import { baseURL } from "../../../utils/constant-variable";
 import { useLocation } from "react-router-dom";
 const UserProfile = () => {
@@ -292,13 +291,13 @@ const UserProfile = () => {
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center">
                   <img
                     className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center"
-                    src={profilePicture}
+                    src={(profilePicture === undefined) ? profilePicture : pp}
                     alt="Card image cap"
                   />
                   <div className="image-content mt-5 mt-md-3 pt-md-5 ms-md-3">
                     <h4 className="text-dark-grey fw-bold">{userDetail?.full_name}</h4>
                     <p className="fw-500 text-mid-grey fb-fs-18 text-start">
-                      {userDetail?.phone_number}
+                    {(userDetail?.phone_number === null) ? userDetail?.email : userDetail?.phone_number}
                     </p>
                   </div>
                 </div>

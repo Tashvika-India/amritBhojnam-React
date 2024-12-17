@@ -3,110 +3,118 @@ import { Offcanvas } from "react-bootstrap";
 import logo from "../../assets/images/web/logo.svg";
 import { InputText } from "primereact/inputtext";
 import { sendOtpApi, verifyOtpApi } from "../../services/authApiRoutes";
+import { Link } from "react-router-dom";
+
 const MobileLogin = ({ otpShow, onOtpClose, align }) => {
   const [showOTPInputs, setShowOTPInputs] = useState(false);
   const [otpValues, setOtpValues] = useState(new Array(6).fill(""));
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [inputValue, setInputValue] = useState(""); // Combined input for phone or email
+  const [isEmail, setIsEmail] = useState(false); // Flag to determine input type
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const otpRefs = useRef([]);
 
-
-
   useEffect(() => {
-    // Focus the first OTP input when showing OTP inputs
     if (showOTPInputs) {
-      otpRefs.current[0].focus();
+      otpRefs.current[0]?.focus();
     }
   }, [showOTPInputs]);
 
-  // Handle phone number input change
-  const handlePhoneNumberChange = (e) => {
-    const value = e.target.value;
-    setPhoneNumber(value);
-
-    // Show OTP inputs when 10-digit phone number is entered
-    if (value.length === 10) {
-      setShowOTPInputs(true);
-    } else {
-      setShowOTPInputs(false);
+  // Validate Email and Phone Number
+  const validateInput = (value) => {
+    const phoneRegex = /^[0-9]{10}$/; // 10-digit phone number
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email regex
+    if (phoneRegex.test(value)) {
+      setIsEmail(false);
+      return true;
+    } else if (emailRegex.test(value)) {
+      setIsEmail(true);
+      return true;
     }
+    return false;
   };
 
-  // Handle OTP input change
-  const handleChange = (value, index) => {
+  // Handle Input Change
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    // if (validateInput(value)) {
+    //   setErrorMessage(null);
+    //   setShowOTPInputs(false);
+    // } else {
+    //   setErrorMessage("Please enter a valid phone number or email.");
+    //   setShowOTPInputs(false);
+    // }
+  };
+
+  // Handle OTP Input Change
+  const handleOTPChange = (value, index) => {
     const newOtpValues = [...otpValues];
     newOtpValues[index] = value;
     setOtpValues(newOtpValues);
 
-    // Focus next OTP input if current is filled
     if (value && index < otpRefs.current.length - 1) {
-      otpRefs.current[index + 1].focus();
+      otpRefs.current[index + 1]?.focus();
     }
   };
 
-  // Handle backspace key to move focus to previous OTP input
+  // Handle OTP Backspace Navigation
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace" && !otpValues[index] && index > 0) {
-      otpRefs.current[index - 1].focus();
+      otpRefs.current[index - 1]?.focus();
     }
   };
 
-  // Handle OTP clearing
+  // Clear OTP
   const handleClearOTP = () => {
     setOtpValues(new Array(6).fill(""));
-    otpRefs.current[0].focus();
+    otpRefs.current[0]?.focus();
   };
 
-  // Handle sending OTP
+  // Send OTP
   const handleSendOTP = async () => {
-    setShowOTPInputs(true);
-    if (phoneNumber.length === 10) {
-      setLoading(true);
-      try {
-        await sendOtpApi({ phone: phoneNumber }); // Call API to send OTP
-      } catch (error) {
-        setErrorMessage("Failed to send OTP. Please try again.");
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      setErrorMessage("Please enter a valid 10-digit phone number.");
+    if (!validateInput(inputValue)) {
+      setErrorMessage("Invalid phone number or email.");
+      return;
+    }
+    setLoading(true);
+    try {
+      const payload = isEmail
+        ? { phone_or_email: inputValue }
+        : { phone_or_email: inputValue };
+
+      await sendOtpApi(payload);
+      setShowOTPInputs(true);
+      setErrorMessage(null);
+    } catch (error) {
+      setErrorMessage("Failed to send OTP. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Handle OTP verification
+  // Verify OTP
   const handleVerifyOTP = async () => {
     setLoading(true);
     try {
-      const otp = otpValues.join(""); // Join OTP values into a single string
-      const data = await verifyOtpApi({ phone_or_email: phoneNumber, otp })
+      const otp = otpValues.join("");
+      const payload = isEmail
+        ? { phone_or_email: inputValue, otp }
+        : { phone_or_email: inputValue, otp };
+
+      const data = await verifyOtpApi(payload);
 
       const accessToken = data?.data?.access;
       const refreshToken = data?.data?.refresh;
-      const user = data?.data?.user_detail;
 
       if (accessToken && refreshToken) {
-        // Store tokens in localStorage
         localStorage.setItem("access", accessToken);
         localStorage.setItem("refresh", refreshToken);
-        localStorage.setItem("user", user);
-
-        // Decode token payload (Base64)
-        const tokenParts = accessToken.split(".");
-        const payload = JSON.parse(atob(tokenParts[1])); 
         window.location.reload(true);
 
-        // Navigate to dashboard if admin role
-        // if (payload?.is_admin) {
-        //   navigate( "/");
-        // } else {
-        //   setErrorMessage("Access Denied: Not an admin user.");
-        //
+        onOtpClose();
       }
-
-      onOtpClose(); // Close the OTP modal on successful verification
-
     } catch (error) {
       setErrorMessage("Invalid OTP. Please try again.");
     } finally {
@@ -114,38 +122,35 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
     }
   };
 
+
+
   return (
-    <Offcanvas show={otpShow} onHide={onOtpClose} placement={align} className="bg-white rounded-start-4 login-offcanvas" style={{ width: "28%" }}>
+    <Offcanvas
+      show={otpShow}
+      onHide={onOtpClose}
+      placement={align}
+      className="bg-white rounded-start-4 login-offcanvas"
+      style={{ width: "28%" }}
+    >
       <Offcanvas.Header closeButton>
         <img src={logo} alt="logo" className="img-fluid p-2" loading="lazy" />
       </Offcanvas.Header>
       <Offcanvas.Body className="p-4">
         <div className="d-inline-flex w-100 align-self-center justify-content-between">
-          <h4 className="fw-bold">Login</h4>
-          {/* <p className="fb-fs-14 fw-600">Or <span className="text-orange text-decoration-underline"> Create an account</span></p> */}
+          <h3 className="">Login</h3>
         </div>
         <div className="flex flex-column gap-4 py-3 phone-input">
-          {/* <label htmlFor="phone">
-            Phone No <span style={{ color: "red" }}>*</span>
-          </label> */}
           <InputText
             className="w-100 mt-3 p-3 mb-2 p-inputtext-lg border-radius-8"
-            placeholder="Phone No*"
-            id="phone"
-            maxLength="10"
-            value={phoneNumber}
-            onChange={handlePhoneNumberChange}
+            placeholder="Phone Number or Email*"
+            value={inputValue}
+            onChange={handleInputChange}
             style={{ border: "1px solid #918e92" }}
-            aria-describedby="phone-help"
-            onKeyPress={(e) => {
-              if (!/[0-9]/.test(e.key)) {
-                e.preventDefault();
-              }
-            }}
           />
-        </div>
-
-        {/* OTP input section */}
+          {errorMessage && (
+            <small className="text-danger">{errorMessage}</small>
+          )}
+        </div> 
         {showOTPInputs && (
           <div className="pb-3 text-center">
             {otpValues.map((otp, index) => (
@@ -155,62 +160,44 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
                 type="text"
                 maxLength="1"
                 value={otp}
-                onChange={(e) => handleChange(e.target.value, index)}
+                onChange={(e) => handleOTPChange(e.target.value, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 style={{
                   width: "55px",
                   height: "55px",
-                  backgroundColor: "white",
-                  border: "1px solid #918e92",
                   margin: "12px",
+                  border: "1px solid #918e92",
                   borderRadius: "10px",
                   textAlign: "center",
                 }}
-
               />
             ))}
             {errorMessage && <div className="text-danger">{errorMessage}</div>}
-
-            {!otpValues.some((val) => val) && (
-              <>
-                <p className="pt-3 text-center">please enter the OTP sent to your mobile number</p></>
-            )}
-            {otpValues.some((val) => val) && (
-              <>
-                <button onClick={handleClearOTP} className="btn btn-link text-danger">
-                  Clear OTP
-                </button>
-                <div className="pt-3">
-                  <button
-                    className="button-primary fs-6 w-100"
-                    onClick={handleVerifyOTP}
-                    disabled={loading}
-                  >
-                    {loading ? "Verifying..." : "Verify OTP"}
-                  </button>
-                </div>
-                <div className="mt-4">
-                  <small id="phone-help" className="text-dark-grey">By clicking on Login, I accept the Terms & Conditions and Privacy Policy Recovery Account</small>
-                </div>
-              </>
-            )}
+            <div className="pt-3">
+              <button
+                className="button-primary fs-6 w-100"
+                onClick={handleVerifyOTP}
+                disabled={loading}
+              >
+                {loading ? "Verifying..." : "Verify OTP"}
+              </button>
+            </div>
           </div>
+        )} 
+        {!showOTPInputs && (
+          <>
+          <button
+            className="button-primary fs-6 w-100 mt-3"
+            onClick={handleSendOTP}
+            disabled={loading}
+          >
+            {loading ? "Sending OTP..." : "Send OTP"}
+          </button>
+          <p className="text-muted mt-3 d-inline-block" style={{ fontSize: "0.875rem" }}>By clicking on Login, I accept the <Link to="/term-conditions">Terms & Conditions</Link> and <Link to="/privacy-policy"> Privacy Policy</Link> Recovery Account</p>
+          </>
         )}
-
-        {/* Send OTP button */}
-        {/* {!showOTPInputs && (
-          <div>
-            <button
-              className="button-primary fs-6 w-100 mt-3"
-              onClick={handleSendOTP}
-              disabled={loading}
-            >
-              {loading ? "Sending OTP..." : "Send OTP"}
-            </button>
-          </div>
-        )} */}
       </Offcanvas.Body>
-    </Offcanvas >
+    </Offcanvas>
   );
 };
 
