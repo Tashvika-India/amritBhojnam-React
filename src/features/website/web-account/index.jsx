@@ -29,8 +29,7 @@ import {
 } from "../../../services/adminApiRoutes";
 import { Collapse } from "@mui/material";
 import { useFormik } from "formik";
-import Address from "../../../assets/common-components/website/Address";
-import Loading from "../../../components/ui/Loading";
+import Address from "../../../assets/common-components/website/Address"; 
 import { baseURL } from "../../../utils/constant-variable";
 import { useLocation } from "react-router-dom";
 const UserProfile = () => {
@@ -42,10 +41,10 @@ const UserProfile = () => {
   const [order, setOrder] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [profileEdit, setProfileEdit] = useState(false);
-  const location = useLocation(); 
+  const location = useLocation();
   const profilePicture = baseURL + userDetail?.pp;
- 
-  
+
+
   const formik = useFormik({
     initialValues: {
       ads_name: "",
@@ -245,7 +244,7 @@ const UserProfile = () => {
         gender: userDetail.gender || "",
         date_of_birth: userDetail.date_of_birth || "00-00-0000",
       });
-      
+
     }
   }, [userDetail]);
 
@@ -292,13 +291,13 @@ const UserProfile = () => {
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center">
                   <img
                     className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center"
-                    src={profilePicture}
+                    src={(profilePicture === undefined) ? profilePicture : pp}
                     alt="Card image cap"
                   />
                   <div className="image-content mt-5 mt-md-3 pt-md-5 ms-md-3">
                     <h4 className="text-dark-grey fw-bold">{userDetail?.full_name}</h4>
                     <p className="fw-500 text-mid-grey fb-fs-18 text-start">
-                      {userDetail?.phone_number}
+                    {(userDetail?.phone_number === null) ? userDetail?.email : userDetail?.phone_number}
                     </p>
                   </div>
                 </div>
@@ -383,12 +382,12 @@ const UserProfile = () => {
                             <TextField
                               fullWidth
                               className="rounded-20 me-5"
-                              id="pp" 
+                              id="pp"
                               name="pp"
                               variant="outlined"
                               disabled={!profileEdit}
-                              type="file" 
-                              onChange={handleImageChange} 
+                              type="file"
+                              onChange={handleImageChange}
                             />
                           </div>
                           <div className="col-md-4 mb-4">
@@ -569,24 +568,24 @@ const UserProfile = () => {
                       <h4 className="fb-fs-26 fw-bold text-dark-grey my-md-4">
                         Saved Address
                       </h4>
-                      <button
-                        type="button"
-                        className="d-flex align-items-center border-0 bg-transparent"
-                        onClick={() => {
-                          setOpen(!open);
-                          setEditData(null);
-                        }}
-                        aria-controls="example-collapse-text"
-                        aria-expanded={open}
-                      >
-                        <i className="pi pi-plus text-yellow me-2 mt-md-1"></i>
-                        <p className="fw-500">Add New Address</p>
-                      </button>
+                      {addressList.length > 0 && (
+                        <button
+                          type="button"
+                          className="d-flex align-items-center border-0 bg-transparent"
+                          onClick={() => {
+                            setOpen(!open);
+                            setEditData(null);
+                          }}
+                          aria-controls="example-collapse-text"
+                          aria-expanded={open}
+                        >
+                          <i className="pi pi-plus text-yellow me-2 mt-md-1"></i>
+                          <p className="fw-500">Add New Address</p>
+                        </button>
+                      )}
                     </div>
                     <div className="">
-                      {loading ? (
-                        <Loading />
-                      ) : addressList.length > 0 ? (
+                      {addressList.length > 0 ? (
                         addressList.map((item, index) => (
                           <div
                             className={`summary-card ${item?.selected ? "active" : ""

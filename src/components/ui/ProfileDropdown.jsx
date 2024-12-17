@@ -17,7 +17,7 @@ const ProfileDropdown = ({ userDetail }) => {
             <Dropdown.Toggle
                 id="dropdown-basic"
                 as="a"
-                href="javascript:void(0);" className='no-caret'>
+                style={{cursor:"pointer"}} className='no-caret'>
                 {(window.innerWidth > 768) ?
                     <div className="d-inline-flex flex-column align-items-center position-relative justify-content-center">
                         <FaRegUser size={"1.625rem"} />
@@ -37,7 +37,7 @@ const ProfileDropdown = ({ userDetail }) => {
                             <Avatar style={{ width: '3rem', height: '3rem', color: '#D59615', backgroundColor: '#FFF7E7', border: '1px solid #D59615' }} />
                             <div className="d-inline-block ms-2 account-profile-content">
                                 <h6>{userDetail?.full_name}</h6>
-                                <p className="mb-0">{userDetail?.phone_number}</p>
+                                <p className="mb-0">{(userDetail?.phone_number === null) ? userDetail?.email : userDetail?.phone_number}</p>
                             </div>
                         </div>
                     </Link>
