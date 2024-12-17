@@ -7,6 +7,7 @@ import LineChart from "../../../components/charts/LineChart";
 import DashboardOrderTable from "./components/DashboardOrderTable";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import DashboardRecentOrderTable from "./components/DashboardRecentOrderTable";
 
 function DashboardHome() {
   return (
@@ -24,13 +25,12 @@ function DashboardHome() {
               <h5 className="mb-3 fw-500">Revenue Stats</h5>
               <div style={{ width: "11%" }}>
                 <FormControl fullWidth w-50>
-                  <InputLabel id="demo-simple-select-label">Monthly</InputLabel>
+                  <InputLabel id="demo-simple-select-label" size="small">Monthly</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value=""
-                    label="Discount Type"
-                  >
+                    label="Monthly"
+                    size="small">
                     <MenuItem value={10}>January</MenuItem>
                     <MenuItem value={20}>Februrary</MenuItem>
                     <MenuItem value={30}>March</MenuItem>
@@ -73,7 +73,7 @@ function DashboardHome() {
                   />
                 </Link>
               </div>
-              <DashboardCategoryTable />
+              <DashboardRecentOrderTable />
             </div>
           </div>
         </div>
@@ -102,14 +102,15 @@ function DashboardHome() {
                 <h5 className="mb-3 mt-3 fw-500">Orders</h5>
                 <div style={{ width: "24%" }}>
                   <FormControl fullWidth w-50>
-                    <InputLabel id="demo-simple-select-label">
+                    <InputLabel id="demo-simple-select-label" size="small">
                       Monthly
                     </InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       value=""
-                      label="Discount Type"
+                      label="Monthly"
+                      size="small"
                     >
                       <MenuItem value={10}>January</MenuItem>
                       <MenuItem value={20}>Februrary</MenuItem>
