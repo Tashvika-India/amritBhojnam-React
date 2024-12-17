@@ -10,8 +10,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
+import { VscBellDot } from "react-icons/vsc";
 import harry from "@/assets/images/dashboard/harry.jpg";
-import { FaAngleDown, FaRegBell } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 280;
@@ -80,20 +81,23 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
 
           <div className="d-flex me-2 align-items-center gap-3">
             <div className="me-3">
-              <FaRegBell
-                className="text-orange bg-light-orange p-2 rounded"
-                size={40}
-              />
+              <VscBellDot className="text-white bg-yellow p-2 rounded"
+                size={43}
+                 />
             </div>
             <IconButton sx={{ p: 0 }}>
               <Avatar alt="Avatar" src={harry} />
             </IconButton>
             <div className="ms-1">
-              <h6 className="m-0">Avatar</h6>
+            <div className="d-flex gap-5">
+            <p className="m-0 fb-fs-14 fw-600">Avatar</p>
+            <IoIosArrowDown color="#F26722"/>
+            </div>
+              
               <span className="m-0 text-secondary">Admin</span>
             </div>
             <div className="ms-1 cursor-pointer" onClick={handleClick}>
-              <FaAngleDown />
+              
             </div>
           </div>
         </Toolbar>

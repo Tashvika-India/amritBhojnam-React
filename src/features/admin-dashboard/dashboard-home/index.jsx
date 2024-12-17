@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 import Heading from "@/components/ui/Heading";
 import LineChart from "../../../components/charts/LineChart";
 import DashboardOrderTable from "./components/DashboardOrderTable";
+import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 function DashboardHome() {
   return (
     <>
-      <div className="mt-3 mb-4">
-        <Heading value={"Dashboard"}/>
+      <div className="mt-3 mb-5">
+        <Heading value={"Dashboard"} />
       </div>
       <div className="row mb-4">
         <OverviewCardsSection />
@@ -18,7 +20,26 @@ function DashboardHome() {
       <div className="mb-4">
         <div className="card h-100">
           <div className="card-body p-4">
-          <h5 className="mb-3 fw-500">Revenue Stats</h5>
+            <div className="d-flex justify-content-between">
+              <h5 className="mb-3 fw-500">Revenue Stats</h5>
+              <div style={{ width: "11%" }}>
+                <FormControl fullWidth w-50>
+                  <InputLabel id="demo-simple-select-label">Monthly</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value=""
+                    label="Discount Type"
+                  >
+                    <MenuItem value={10}>January</MenuItem>
+                    <MenuItem value={20}>Februrary</MenuItem>
+                    <MenuItem value={30}>March</MenuItem>
+                    <MenuItem value={40}>April</MenuItem>
+                    <MenuItem value={30}>May</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+            </div>
             <LineChart height={400} />
           </div>
         </div>
@@ -29,7 +50,12 @@ function DashboardHome() {
             <div className="card-body">
               <div className="d-between align-items-center p-3">
                 <h5 className="mb-0 fw-500">Categories</h5>
-                <Link className="text-orange">View All</Link>
+                <Link className="text-orange d-flex align-items-center fw-500 gap-1">
+                  View All
+                  <MdOutlineKeyboardDoubleArrowRight
+                    style={{ fontSize: "large" }}
+                  />
+                </Link>
               </div>
               <DashboardCategoryTable />
             </div>
@@ -40,7 +66,12 @@ function DashboardHome() {
             <div className="card-body">
               <div className="d-between align-items-center p-3">
                 <h5 className="mb-0 fw-500">Top Selling Products</h5>
-                <Link className="text-orange">View All</Link>
+                <Link className="text-orange d-flex align-items-center fw-500 gap-1">
+                  View All
+                  <MdOutlineKeyboardDoubleArrowRight
+                    style={{ fontSize: "large" }}
+                  />
+                </Link>
               </div>
               <DashboardCategoryTable />
             </div>
@@ -53,7 +84,12 @@ function DashboardHome() {
             <div className="card-body">
               <div className="d-between align-items-center p-3">
                 <h5 className="mb-0 fw-500">Recent Orders</h5>
-                <Link className="text-orange">View All </Link>
+                <Link className="text-orange d-flex align-items-center fw-500 gap-1">
+                  View All
+                  <MdOutlineKeyboardDoubleArrowRight
+                    style={{ fontSize: "large" }}
+                  />
+                </Link>
               </div>
               <DashboardOrderTable />
             </div>
@@ -62,7 +98,28 @@ function DashboardHome() {
         <div className="col-md-6 h-100">
           <div className="card h-100">
             <div className="card-body h-100">
-            <h5 className="mb-3 mt-3 fw-500">Orders</h5>
+              <div className="d-flex justify-content-between">
+                <h5 className="mb-3 mt-3 fw-500">Orders</h5>
+                <div style={{ width: "24%" }}>
+                  <FormControl fullWidth w-50>
+                    <InputLabel id="demo-simple-select-label">
+                      Monthly
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value=""
+                      label="Discount Type"
+                    >
+                      <MenuItem value={10}>January</MenuItem>
+                      <MenuItem value={20}>Februrary</MenuItem>
+                      <MenuItem value={30}>March</MenuItem>
+                      <MenuItem value={40}>April</MenuItem>
+                      <MenuItem value={30}>May</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
               <LineChart height={370} />
             </div>
           </div>

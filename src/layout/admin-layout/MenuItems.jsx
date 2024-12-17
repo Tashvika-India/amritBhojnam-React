@@ -11,12 +11,13 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { Link, useLocation } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
-import CategoryIcon from "@mui/icons-material/Category";
+import { BiSolidCategory } from "react-icons/bi";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { FaBox } from "react-icons/fa";
 import { HiPhoto } from "react-icons/hi2";
+import { BsFillBoxSeamFill } from "react-icons/bs";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaUserCog } from "react-icons/fa";
 import { FaBuildingUser } from "react-icons/fa6";
@@ -140,7 +141,7 @@ function MenuItems() {
           onClick={() => handleToggle("category")}
           sx={isActive("/category") || openSections.category ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
-            <CategoryIcon />
+          <BiSolidCategory fontSize={"1.3rem"}/>
           </ListItemIcon>
           <ListItemText primary="Category" sx={listItemTextStyle} />
           {openSections.category ? <ExpandLess /> : <ExpandMore />}
@@ -155,7 +156,7 @@ function MenuItems() {
         >
           <ListItemButton sx={isActive("/product") ? activeStyles : {}}>
             <ListItemIcon sx={listItemIconStyle}>
-              <FaBox />
+            <BsFillBoxSeamFill fontSize={"1.3rem"} />
             </ListItemIcon>
             <ListItemText primary="Products" sx={listItemTextStyle} />
           </ListItemButton>
