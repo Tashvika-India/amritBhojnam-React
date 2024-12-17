@@ -9,7 +9,10 @@
   font-weight: 600;
   font-size: 1.6rem;
 }
- 
+ thead th{
+  background-color: #FEF7F3;
+  color: $orange;
+ }
 .card {
   border: 0.5px solid #eeeeee !important;
   border-radius: 10px !important;
@@ -245,6 +248,7 @@
   }
   .css-1udopwe-MuiButtonBase-root-MuiListItemButton-root{
     border-radius: 5px !important;
+    margin-bottom: .8rem !important;
   }
   .css-221fs9-MuiButtonBase-root-MuiListItemButton-root{
     border-radius: 5px !important;

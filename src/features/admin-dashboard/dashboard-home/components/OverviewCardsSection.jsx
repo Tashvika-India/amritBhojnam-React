@@ -3,6 +3,7 @@ import revenueIcon from "../../../../assets/images/dashboard/revenue-icon.png";
 import productIcon from "../../../../assets/images/dashboard/product-icon.png";
 import orderIcon from "../../../../assets/images/dashboard/order-icon.png";
 import categoryIcon from "../../../../assets/images/dashboard/category-icon.png";
+import dashboardArrow from "../../../../assets/images/dashboard/dashboard-arrow.png";
 
 function OverviewCardsSection() {
   return (
@@ -35,7 +36,7 @@ function OverviewCard({ title, icon }) {
         </div>
         <h5 className="mb-2 fw-600">3855  <small className="fw-400" style={{ fontSize: "12px" }}>Rs</small> </h5>
         <div className="d-between">
-          <span className="text-secondary text-sm">35% vs last month</span>
+          <span className="text-secondary text-sm d-flex gap-2"> <img src={dashboardArrow}></img>35% vs last month</span>
           <span className="text-sm">View all transactions</span>
         </div>
       </div>

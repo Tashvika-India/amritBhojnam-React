@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
-import Footer from "../../../layout/web-layout/Footer"; 
-import amritGroup from "../../../assets/images/web/amrit-group.png"; 
-import milletImg from "../../../assets/images/web/millets-img.png";  
+import Footer from "../../../layout/web-layout/Footer";
+import amritGroup from "../../../assets/images/web/amrit-group.png";
+import milletImg from "../../../assets/images/web/millets-img.png";
 import phoneImg from "../../../assets/images/web/phone.png";
 import bestBackgroundTop from "../../../assets/images/web/best-background-top.png";
 import bestBackgroundBottom from "../../../assets/images/web/best-background-bottom.png";
@@ -17,9 +17,9 @@ import grain2 from "../../../assets/images/web/grain-2.png";
 import earthImage from "../../../assets/images/web/earth-image.png";
 import grain3 from "../../../assets/images/web/grain-3.png";
 import WebBanner from "./components/WebBanner";
-import ItemSlide from "./components/ItemSlide"; 
+import ItemSlide from "./components/ItemSlide";
 import astrick from "../../../assets/images/web/asterisk.png";
-import popProduct from "../../../assets/images/web/popular-product.png"; 
+import popProduct from "../../../assets/images/web/popular-product.png";
 import firstPurchase from "../../../assets/images/web/first-purchase.png";
 import ProductCard from "./components/ProductCard";
 import { Link } from "react-router-dom";
@@ -68,7 +68,7 @@ const HomePage = () => {
 
   async function getBestPrice() {
     try {
-      const response = await getBestPriceApi(); 
+      const response = await getBestPriceApi();
       setBestPrice(Array.isArray(response?.data) ? response.data : []);
     } catch (error) {
       console.log("Error on Best Price", error);
@@ -78,7 +78,7 @@ const HomePage = () => {
   async function getCategory() {
     setLoading(true);
     try {
-      const response = await getCategoriesApi(); 
+      const response = await getCategoriesApi();
       const filteredData = (response?.data || []).filter(
         (item) => item.is_active === true
       );
@@ -99,7 +99,6 @@ const HomePage = () => {
 
   return (
     <div className="web-wrapper-main">
-
       <Header />
       <section>
         <div
@@ -255,7 +254,10 @@ const HomePage = () => {
                     fiber, protein, vitamins, and minerals, offering
                   </p>
                 </div>
-                <Link to="/products" className="button-primary d-inlin-block ms-5  mb-4 text-center">
+                <Link
+                  to="/products"
+                  className="button-primary d-inlin-block ms-5  mb-4 text-center"
+                >
                   Shop Now
                 </Link>
                 {/* <img src={protein1} alt="millet-rice" /> */}
@@ -308,7 +310,7 @@ const HomePage = () => {
               style={{ whiteSpace: "nowrap" }}
             >
               <div className="d-flex">
-              <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
+                <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
@@ -316,49 +318,49 @@ const HomePage = () => {
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
-                <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
+                  <img class="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
                     Next your pro enjoy 12 months of zilly for $50/month on
                     select plans.
@@ -421,7 +423,7 @@ const HomePage = () => {
             </div>
             <div className="col-lg-7 col-md-12">
               <div className="content-sec">
-                <h2 className="pb-3 text-white" style={{lineHeight:"68px"}}>
+                <h2 className="pb-3 text-white" style={{ lineHeight: "68px" }}>
                   <span className="fw-400">Good For&nbsp;</span>
                   <span className="fw-bold">
                     You <br></br> and the Planet
@@ -433,7 +435,12 @@ const HomePage = () => {
                   prioritizing eco-friendly solutions, we create a future that
                   is healthier, greener, and more equitable for everyone.
                 </p>
-                <Link to="/products" className="button-white rounded-3 d-inline-block">Shop Now</Link>
+                <Link
+                  to="/products"
+                  className="button-white rounded-3 d-inline-block"
+                >
+                  Shop Now
+                </Link>
               </div>
             </div>
           </div>
@@ -517,11 +524,14 @@ const HomePage = () => {
         <div className="container-fluid">
           <div className="h-100">
             <h3 className="fw-bold mb-5 pb-2 text-center text-white">
-              Our Trending Products 
+              Our Trending Products
             </h3>
             <BestProduct products={popularProduct} />
             <div className="mt-5 text-center">
-              <Link to="/products" className="white-button fw-500 mt-4 d-inline-block">
+              <Link
+                to="/products"
+                className="white-button fw-500 mt-4 d-inline-block"
+              >
                 See all Products
               </Link>
             </div>
@@ -547,14 +557,14 @@ const HomePage = () => {
                       className="text-white"
                       style={{ fontSize: "23.11px", fontWeight: "400" }}
                     >
-                     &nbsp;&nbsp;&nbsp;On your first purchase
+                      &nbsp;&nbsp;&nbsp;On your first purchase
                     </span>
                   </h1>
                   <p className="text-white pt-3">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer
+                    Get 25% off your first purchase of premium millet-based
+                    products. Embrace nutritious, sustainable eating with this
+                    special offer. Don't miss out—order now and start your
+                    healthy journey!
                   </p>
                   <button className="button-white">Shop Now</button>
                 </div>
@@ -598,10 +608,12 @@ const HomePage = () => {
                   </span>
                 </h2>
                 <p className="pb-4 mb-lg-4 mb-0 pe-5">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer
+                  Enjoy the convenience of shopping for your favorite
+                  millet-based products directly from your phone. Our app offers
+                  a user-friendly interface, exclusive deals, and personalized
+                  recommendations to enhance your shopping experience. Download
+                  now and start exploring a healthier lifestyle at your
+                  fingertips.
                 </p>
                 <div className="download-btn d-flex">
                   <div className="apple-btn me-3">

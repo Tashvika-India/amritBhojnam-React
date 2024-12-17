@@ -9,6 +9,7 @@ $brown: #ac562d;
 $dark-grey: #3b3b3b;
 $black: #231d25;
 $red: #E50000;
+$bright-red: #FF0000;
 $semi-orange: #FB9300;
 $grey: #979797;
 $border: #dcdad5;
@@ -113,6 +114,9 @@ td {
 }
 .text-orange {
     color: $orange !important;
+}
+.text-bright-red {
+    color: $bright-red !important;
 }
 .text-green{
     color:#287E00  !important;
@@ -304,6 +308,44 @@ td {
         background-color: $white !important;
         color: $orange !important;
         border-color: $orange !important;
+    }
+}
+
+.bright-red-button{
+    background-color: $bright-red !important;
+    border-radius: 0.625rem;
+    color: $white !important;
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding-inline: 4rem;
+    border: 1px solid transparent;
+    padding-block: 0.75rem;
+    text-decoration: none;
+    line-height: normal;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        background-color: $white !important;
+        color: $bright-red !important;
+        border-color: $bright-red !important;
+    }
+}
+.bright-red-button-reverse{
+    background-color: $white !important;
+    color: $bright-red !important;
+    border: 1px solid $bright-red !important;
+    border-radius: 0.625rem;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-inline: 3rem;
+    border: 1px solid transparent;
+    padding-block: 0.75rem;
+    text-decoration: none;
+    line-height: normal;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+        background-color: $bright-red !important;
+        border-color: transparent;
+        color: $white !important;
     }
 }
 
