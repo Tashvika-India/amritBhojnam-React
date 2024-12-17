@@ -9,6 +9,22 @@ import { useNavigate } from 'react-router-dom';
 
 const CouponTable = ({coupons,setEditData}) => {
 
+    const formatDateTime = (dateString) => {
+        const date = new Date(dateString);
+      
+        const options = {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true, // Use 12-hour format
+        };
+      
+        return date.toLocaleString("en-US", options).replace(",", "");
+      };
+      
+
     const navigate = useNavigate();
 
     const ratingBodyTemplate = (rowData) => {
@@ -29,9 +45,12 @@ const CouponTable = ({coupons,setEditData}) => {
     };
 
     const duration = (rowData) => {
+        const formattedValidFrom = formatDateTime(rowData.valid_from + "T18:00:00"); 
+        const formattedValidTo = formatDateTime(rowData.valid_to + "T18:00:00");
+        const formattedDateRange = `${formattedValidFrom} - ${formattedValidTo}`;
         return (
             <div className=''>
-                {rowData.valid_from} - {rowData.valid_to}
+                {formattedDateRange}
             </div>
         )
     };
@@ -40,7 +59,7 @@ const CouponTable = ({coupons,setEditData}) => {
         <div className="card">
             <DataTable value={coupons} paginator rows={10} responsiveLayout="scroll">
                 <Column field="id" header="ID" body={(index) => coupons.indexOf(index) + 1}></Column>
-                <Column field='coupon_code' header="CODE"  ></Column>
+                <Column field='coupon_code' header="CODE" className='fw-600' ></Column>
                 <Column field='coupon_type' header="COUPON TYPE"  ></Column>
                 <Column body={duration} header="DURATION"></Column>
                 <Column field='discount_value' header="DISCOUNT"  ></Column>
@@ -54,3 +73,5 @@ const CouponTable = ({coupons,setEditData}) => {
 };
 
 export default CouponTable;
+
+
