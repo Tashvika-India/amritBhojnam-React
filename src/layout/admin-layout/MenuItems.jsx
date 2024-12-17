@@ -18,6 +18,8 @@ import BadgeIcon from "@mui/icons-material/Badge";
 import { FaBox } from "react-icons/fa";
 import { HiPhoto } from "react-icons/hi2";
 import { BsFillBoxSeamFill } from "react-icons/bs";
+import { IoReceiptSharp } from "react-icons/io5";
+import { BsImage } from "react-icons/bs";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaUserCog } from "react-icons/fa";
 import { FaBuildingUser } from "react-icons/fa6";
@@ -245,7 +247,7 @@ function MenuItems() {
       <Link to="/banner" style={{ textDecoration: "none", color: "inherit" }}>
         <ListItemButton sx={isActive("/banner") ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
-            <FaRegImage size={21} />
+          <BsImage />
           </ListItemIcon>
           <ListItemText primary="Banners" sx={listItemTextStyle} />
         </ListItemButton>
@@ -261,7 +263,7 @@ function MenuItems() {
       <Link to="/report" style={{ textDecoration: "none", color: "inherit" }}>
         <ListItemButton sx={isActive("/report") ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
-            <IoReceipt size={23} />
+          <IoReceiptSharp />
           </ListItemIcon>
           <ListItemText primary="Report" sx={listItemTextStyle} />
         </ListItemButton>
