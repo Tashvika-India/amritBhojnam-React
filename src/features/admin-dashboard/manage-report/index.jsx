@@ -9,6 +9,7 @@ import OverviewCardsSection from "../../admin-dashboard/dashboard-home/component
 import Loading from "../../../components/ui/Loading";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"; 
 import { DateRangePicker } from 'rsuite';
+import filterIcon from "../../../assets/images/dashboard/filter-icon.png";
 
 const ManageReport = () => {
   return (
@@ -38,6 +39,7 @@ const ManageReport = () => {
         </div>
         <div className="col-md-2 text-end">
           <Link to="/add-coupon">
+          <img src={filterIcon} className="img-fluid"/>
             <YellowButton lable={"Filter"} />
           </Link>
         </div>

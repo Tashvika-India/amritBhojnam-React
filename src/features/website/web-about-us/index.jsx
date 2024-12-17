@@ -176,9 +176,7 @@ const AboutUs = () => {
                     Best Prices & Offers
                   </p>
                   <p className=" mb-5">
-                    There are many variations of passages of Lorem Ipsum
-                    available, but the majority have suffered alteration in some
-                    form
+                  Enjoy unbeatable prices and exclusive deals on a wide range of millet-based products. Healthy eating has never been more affordable!
                   </p>
                 </div>
               </div>
@@ -196,9 +194,7 @@ const AboutUs = () => {
                     Wide Assortment
                   </p>
                   <p className=" mb-5">
-                    There are many variations of passages of Lorem Ipsum
-                    available, but the majority have suffered alteration in some
-                    form
+                  Explore a diverse selection of millet food products tailored to meet your every need—snacks, staples, and more, all in one place.
                   </p>
                 </div>
               </div>
@@ -216,9 +212,7 @@ const AboutUs = () => {
                     Free Delivery
                   </p>
                   <p className=" mb-5">
-                    There are many variations of passages of Lorem Ipsum
-                    available, but the majority have suffered alteration in some
-                    form
+                  Get your favorite millet products delivered to your doorstep at no extra cost. Convenience and savings, guaranteed!
                   </p>
                 </div>
               </div>
@@ -236,9 +230,7 @@ const AboutUs = () => {
                     Easy Returns
                   </p>
                   <p className=" mb-5">
-                    There are many variations of passages of Lorem Ipsum
-                    available, but the majority have suffered alteration in some
-                    form
+                  Changed your mind? No worries! Our hassle-free return policy ensures a smooth and stress-free experience every time.
                   </p>
                 </div>
               </div>
@@ -256,9 +248,7 @@ const AboutUs = () => {
                     100% Satisfaction
                   </p>
                   <p className=" mb-5">
-                    There are many variations of passages of Lorem Ipsum
-                    available, but the majority have suffered alteration in some
-                    form
+                  Your satisfaction is our top priority. We’re committed to providing the best quality and service for every purchase.
                   </p>
                 </div>
               </div>
@@ -276,9 +266,7 @@ const AboutUs = () => {
                     Best Prices & Offers
                   </p>
                   <p className=" mb-5">
-                    There are many variations of passages of Lorem Ipsum
-                    available, but the majority have suffered alteration in some
-                    form
+                  Don’t miss out on amazing daily discounts! Find incredible offers on millet food products every single day.
                   </p>
                 </div>
               </div>
