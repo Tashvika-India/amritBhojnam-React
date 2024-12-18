@@ -1,15 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Offcanvas } from "react-bootstrap";
 import logo from "../../assets/images/web/logo.svg";
-import { InputText } from "primereact/inputtext";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { sendOtpApi, verifyOtpApi } from "../../services/authApiRoutes";
 import { Link } from "react-router-dom";
 
 const MobileLogin = ({ otpShow, onOtpClose, align }) => {
   const [showOTPInputs, setShowOTPInputs] = useState(false);
   const [otpValues, setOtpValues] = useState(new Array(6).fill(""));
-  const [inputValue, setInputValue] = useState(""); // Combined input for phone or email
-  const [isEmail, setIsEmail] = useState(false); // Flag to determine input type
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const otpRefs = useRef([]);
@@ -20,33 +19,30 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
     }
   }, [showOTPInputs]);
 
-  // Validate Email and Phone Number
-  const validateInput = (value) => {
-    const phoneRegex = /^[0-9]{10}$/; // 10-digit phone number
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email regex
-    if (phoneRegex.test(value)) {
-      setIsEmail(false);
-      return true;
-    } else if (emailRegex.test(value)) {
-      setIsEmail(true);
-      return true;
-    }
-    return false;
-  };
-
-  // Handle Input Change
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
-
-    // if (validateInput(value)) {
-    //   setErrorMessage(null);
-    //   setShowOTPInputs(false);
-    // } else {
-    //   setErrorMessage("Please enter a valid phone number or email.");
-    //   setShowOTPInputs(false);
-    // }
-  };
+  // Formik configuration for email validation
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email format")
+        .required("Email is required"),
+    }),
+    onSubmit: async (values) => {
+      setLoading(true);
+      try {
+        const payload = { phone_or_email: values.email };
+        await sendOtpApi(payload);
+        setShowOTPInputs(true);
+        setErrorMessage(null);
+      } catch (error) {
+        setErrorMessage("Failed to send OTP. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    },
+  });
 
   // Handle OTP Input Change
   const handleOTPChange = (value, index) => {
@@ -66,53 +62,19 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
     }
   };
 
-  // Clear OTP
-  const handleClearOTP = () => {
-    setOtpValues(new Array(6).fill(""));
-    otpRefs.current[0]?.focus();
-  };
-
-  // Send OTP
-  const handleSendOTP = async () => {
-    if (!validateInput(inputValue)) {
-      setErrorMessage("Invalid phone number or email.");
-      return;
-    }
-    setLoading(true);
-    try {
-      const payload = isEmail
-        ? { phone_or_email: inputValue }
-        : { phone_or_email: inputValue };
-
-      await sendOtpApi(payload);
-      setShowOTPInputs(true);
-      setErrorMessage(null);
-    } catch (error) {
-      setErrorMessage("Failed to send OTP. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   // Verify OTP
   const handleVerifyOTP = async () => {
     setLoading(true);
     try {
       const otp = otpValues.join("");
-      const payload = isEmail
-        ? { phone_or_email: inputValue, otp }
-        : { phone_or_email: inputValue, otp };
-
+      const payload = { phone_or_email: formik.values.email, otp };
       const data = await verifyOtpApi(payload);
-
       const accessToken = data?.data?.access;
       const refreshToken = data?.data?.refresh;
-
       if (accessToken && refreshToken) {
         localStorage.setItem("access", accessToken);
         localStorage.setItem("refresh", refreshToken);
         window.location.reload(true);
-
         onOtpClose();
       }
     } catch (error) {
@@ -121,8 +83,6 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
       setLoading(false);
     }
   };
-
-
 
   return (
     <Offcanvas
@@ -139,18 +99,34 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
         <div className="d-inline-flex w-100 align-self-center justify-content-between">
           <h3 className="">Login</h3>
         </div>
-        <div className="flex flex-column gap-4 py-3 phone-input">
-          <InputText
-            className="w-100 mt-3 p-3 mb-2 p-inputtext-lg border-radius-8"
-            placeholder="Phone Number or Email*"
-            value={inputValue}
-            onChange={handleInputChange}
-            style={{ border: "1px solid #918e92" }}
-          />
-          {errorMessage && (
-            <small className="text-danger">{errorMessage}</small>
-          )}
-        </div> 
+        {!showOTPInputs && (
+          <form onSubmit={formik.handleSubmit} className="flex flex-column gap-4 py-3">
+            <div>
+              <input
+                type="text"
+                name="email"
+                className={`form-control ${
+                  formik.touched.email && formik.errors.email ? "is-invalid" : ""
+                }`}
+                placeholder="Enter Email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                style={{ borderRadius: "8px", padding: "10px" }}
+              />
+              {formik.touched.email && formik.errors.email && (
+                <small className="text-danger">{formik.errors.email}</small>
+              )}
+            </div>
+            <button
+              type="submit"
+              className="button-primary fs-6 w-100 mt-3"
+              disabled={loading}
+            >
+              {loading ? "Sending OTP..." : "Send OTP"}
+            </button>
+          </form>
+        )}
         {showOTPInputs && (
           <div className="pb-3 text-center">
             {otpValues.map((otp, index) => (
@@ -183,18 +159,16 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
               </button>
             </div>
           </div>
-        )} 
+        )}
         {!showOTPInputs && (
-          <>
-          <button
-            className="button-primary fs-6 w-100 mt-3"
-            onClick={handleSendOTP}
-            disabled={loading}
+          <p
+            className="text-muted mt-3 d-inline-block"
+            style={{ fontSize: "0.875rem" }}
           >
-            {loading ? "Sending OTP..." : "Send OTP"}
-          </button>
-          <p className="text-muted mt-3 d-inline-block" style={{ fontSize: "0.875rem" }}>By clicking on Login, I accept the <Link to="/term-conditions">Terms & Conditions</Link> and <Link to="/privacy-policy"> Privacy Policy</Link> Recovery Account</p>
-          </>
+            By clicking on Login, I accept the{" "}
+            <Link to="/term-conditions">Terms & Conditions</Link> and{" "}
+            <Link to="/privacy-policy"> Privacy Policy</Link>.
+          </p>
         )}
       </Offcanvas.Body>
     </Offcanvas>

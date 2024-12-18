@@ -10,8 +10,9 @@
   font-size: 1.6rem;
 }
  thead th{
-  background-color: #FEF7F3;
-  color: $orange;
+  background-color: $background;
+  color: $mid-gray;
+  text-transform: uppercase;
  }
 .card {
   border: 0.5px solid #eeeeee !important;

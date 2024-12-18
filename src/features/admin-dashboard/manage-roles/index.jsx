@@ -1,16 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
 import YellowButton from "@/components/buttons/YellowButton";
-import ProductTable from "./components/ProductTable";
 import { Link } from "react-router-dom";
-import {
-  getProductApi,
-  searchProductApi,
-} from "../../../../services/adminApiRoutes";
-import Loading from "../../../../components/ui/Loading";
+import { getProductApi } from "../../../services/adminApiRoutes";
+import ProductTable from "../manage-products/product-list/components/ProductTable";
+import Loading from "../../../components/ui/Loading";
 import { InputText } from "primereact/inputtext";
-import useURLFilters from "../../../../custom-compoents/useURLFilters";
-import TabsButtons from "../../../../components/ui/TabsButton";
+import useURLFilters from "../../../custom-compoents/useURLFilters";
+import TabsButtons from "../../../components/ui/TabsButton";
 
 function debounce(func, delay) {
   let timeout;
@@ -20,7 +17,7 @@ function debounce(func, delay) {
   };
 }
 
-function ProductList() {
+function Roles() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useURLFilters([]);
   const [loading, setLoading] = useState(false);
@@ -60,7 +57,7 @@ function ProductList() {
     <>
       <div className="mt-3 mb-4  row">
         <div className="col-md-6 ps-4">
-          <Heading value={"Products"} />
+          <Heading value={"Roles"} />
         </div>
         <div className="col-md-6 text-end">
           <Link to="/add-product">
@@ -117,4 +114,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default Roles;
