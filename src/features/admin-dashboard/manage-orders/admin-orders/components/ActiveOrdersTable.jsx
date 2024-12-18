@@ -10,7 +10,7 @@ import AcceptButton from "@/components/buttons/AcceptButton";
 import RejectButton from "@/components/buttons/RejectButton";
 import { Link } from "react-router-dom";
 
-const ActiveOrdersTable = () => {
+const ActiveOrdersTable = ({order}) => {
   const [orders, setOrders] = useState([
     {
       id: "#634782",
@@ -74,7 +74,7 @@ const ActiveOrdersTable = () => {
   const orderTemplate = (rowData) => {
     return (
       <div>
-        <img src={rowData?.order?.image} alt="" srcset="" />
+        <img src={rowData?.order?.image} alt="img" />
         <h6>{rowData?.order?.name}</h6>
       </div>
     );
