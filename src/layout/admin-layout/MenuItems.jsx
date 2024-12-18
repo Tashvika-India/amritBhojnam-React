@@ -21,8 +21,6 @@ import { BiSolidOffer } from "react-icons/bi";
 import { FaUserCog } from "react-icons/fa";
 import { TbMessageUser } from "react-icons/tb"; 
 
-
-
 function MenuItems() {
   const [openSections, setOpenSections] = React.useState({
     category: false,
