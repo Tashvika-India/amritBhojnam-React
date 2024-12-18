@@ -4,26 +4,12 @@ import { Column } from 'primereact/column';
 import { BsCheckCircle } from "react-icons/bs"; 
 import { FaRegEdit } from 'react-icons/fa'; 
 import { useNavigate } from 'react-router-dom';
+import { formatDateTime } from '../../../../utils/constant-variable';
 
 
 
 const CouponTable = ({coupons,setEditData}) => {
 
-    const formatDateTime = (dateString) => {
-        const date = new Date(dateString);
-      
-        const options = {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true, // Use 12-hour format
-        };
-      
-        return date.toLocaleString("en-US", options).replace(",", "");
-      };
-      
 
     const navigate = useNavigate();
 

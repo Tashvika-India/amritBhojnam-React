@@ -4,6 +4,7 @@ import YellowButton from "@/components/buttons/YellowButton";
 import ProductTable from "./components/ProductTable";
 import { Link } from "react-router-dom";
 import {
+  getCategoriesApi,
   getProductApi,
   searchProductApi,
 } from "../../../../services/adminApiRoutes";
@@ -26,6 +27,7 @@ function ProductList() {
   const [filter, setFilter] = useURLFilters([]);
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [activeTab, setActiveTab] = useState("Active Orders");
 
   async function getProductList() {
@@ -40,21 +42,35 @@ function ProductList() {
     }
   }
 
-  const debouncedSearch = useCallback(
-    debounce((value) => {
-      searchProducts(value);
-    }, 300),
-    []
-  );
+  async function getCaterioes() {
+    try {
+      const response = await getCategoriesApi();
+      const filteredData = (response?.data || []).filter(
+        (item) => item.is_active === true
+      );
+      setCategories(filteredData);
+    } catch (error) {
+      console.log("Error on Category List", error);
+    }
+  }
 
-  const onSearchChange = (e) => {
-    const value = e.target.value;
-    setSearch(value);
-    debouncedSearch(value);
-  };
+
+  // const debouncedSearch = useCallback(
+  //   debounce((value) => {
+  //     searchProducts(value);
+  //   }, 300),
+  //   []
+  // );
+
+  // const onSearchChange = (e) => {
+  //   const value = e.target.value;
+  //   setSearch(value);
+  //   debouncedSearch(value);
+  // };
 
   useEffect(() => {
     getProductList();
+    getCaterioes();
   }, [filter]);
 
   return (
@@ -73,10 +89,10 @@ function ProductList() {
       <div className="">
         <div className="card">
           <div className="card-body">
-            <div className="row mb-3">
+            <div className="row mb-3 justify-content-end">
               <div className="col-md-4">
                 <div>
-                  <div className="mb-3">
+                  {/* <div className="mb-3">
                     <TabsButtons
                       activeTab={activeTab}
                       setActiveTab={setActiveTab}
@@ -84,49 +100,52 @@ function ProductList() {
                       labelTwo={"New Orders"}
                     />
                   </div>
-                  {/* {activeTab === "Active Orders" && <ProductTable />}
+                  {activeTab === "Active Orders" && <ProductTable />}
                   {activeTab === "New Orders" && <ProductTable />} */}
                 </div>
               </div>
-              <div className="col-md-2">
-                <div>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label" size="small">In Stock</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Monthly"
-                    size="small">
-                    <MenuItem value={10}>One</MenuItem>
-                    <MenuItem value={20}>Two</MenuItem>
-                    <MenuItem value={30}>Three</MenuItem>
-                    <MenuItem value={40}>Four</MenuItem>
-                    <MenuItem value={30}>Five</MenuItem>
-                  </Select>
-                </FormControl>
+              <div className="col-md-auto">
+                <div style={{ width: "10rem" }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label" size="small">In Stock</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Monthly"
+                      size="small">
+                      <MenuItem value={10}>10</MenuItem>
+                      <MenuItem value={20}>20</MenuItem>
+                      <MenuItem value={30}>30</MenuItem>
+                      <MenuItem value={40}>40</MenuItem>
+                      <MenuItem value={30}>50</MenuItem>
+                    </Select>
+                  </FormControl>
                 </div>
               </div>
-              <div className="col-md-2 text-end">
-              <div>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label" size="small">Category</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Monthly"
-                    size="small">
-                    <MenuItem value={10}>Rice</MenuItem>
-                    <MenuItem value={20}>Millet</MenuItem>
-                    <MenuItem value={30}>Flour</MenuItem>
-                    <MenuItem value={40}>Snacks</MenuItem>
-                    <MenuItem value={30}>Instant Mixes</MenuItem>
-                  </Select>
-                </FormControl>
+              <div className="col-md-auto">
+                <div style={{ width: "14rem" }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label" size="small">Category</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Category"
+                      onChange={(e) =>
+                        setFilter({ ...filter, category_id: e.target.value })
+                      }
+                      size="small">
+                      {categories?.map((category) => (
+                        <MenuItem key={category.id} value={category.id}>
+                          {category.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </div>
               </div>
-              <div className="col-md-3 ms-auto text-end">
+              <div className="col-md-3 text-end">
                 <InputText
-                className="w-100"
+                  className="w-100"
                   value={filter.name}
                   onChange={(e) =>
                     setFilter({ ...filter, name: e.target.value })
