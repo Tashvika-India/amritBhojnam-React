@@ -34,6 +34,7 @@ import ShipingPolicy from "../features/website/web-shiping";
 import AdminCoupon from "../features/admin-dashboard/manage-coupon";
 import AddCoupon from "../features/admin-dashboard/manage-coupon/components/AddCoupon";
 import PaymentSuccess from "../features/website/web-payment-success";
+import Roles from "../features/admin-dashboard/manage-roles";
 function AppRoutes() {
   return (
     <Routes>
@@ -113,7 +114,19 @@ function AppRoutes() {
             </DashboardSidebar>
           </PrivateRoute>
         }
-      /><Route
+      />
+       <Route
+        exact
+        path="/roles"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <Roles />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+      <Route
       exact
       path="/product-option"
       element={

@@ -17,6 +17,7 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { FaBox } from "react-icons/fa";
 import { HiPhoto } from "react-icons/hi2";
+import { FaUserTie } from "react-icons/fa";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { IoReceiptSharp } from "react-icons/io5";
 import { BsImage } from "react-icons/bs";
@@ -231,7 +232,7 @@ function MenuItems() {
           style={{ textDecoration: "none", color: "inherit" }}>
           <ListItemButton sx={isActive("/employees") ? activeStyles : {}}>
             <ListItemIcon sx={listItemIconStyle}>
-              <FaBuildingUser size={23} />
+            <FaUserTie  size={22}/>
             </ListItemIcon>
             <ListItemText primary="Employees" sx={listItemTextStyle} />
           </ListItemButton>
