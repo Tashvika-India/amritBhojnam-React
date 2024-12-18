@@ -20,7 +20,7 @@ import { cartAdd } from "../../../redux/slices/cartSlice";
 import Loading from "../../../components/ui/Loading";
 import ProductCard from "../web-home/components/ProductCard";
 import fireImg from "../../../assets/images/web/Fire.png";
-import { Checkbox, TextField } from "@mui/material";
+import { Button, Checkbox, Menu, MenuItem, TextField } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import ShareIcon from "@mui/icons-material/Share";
 import MobileLogin from "../../../components/ui/MobileLogin";
@@ -43,15 +43,15 @@ const ProudctDetail = () => {
   //   product_id: filters?.product_id,
   //   rating: 0,
   //   comment: "",
-  // }) 
+  // })
   // const handleRatingChange = (e) => {
-  //   setReviewData({ ...reviewData, rating: e.value });  
+  //   setReviewData({ ...reviewData, rating: e.value });
   // };
- 
+
   // const handleCommentChange = (e) => {
   //   setReviewData({ ...reviewData, comment: e.target.value });
   // };
- 
+
   // const handleSubmit = async () => {
   //   try {
   //     const payload = {
@@ -59,7 +59,7 @@ const ProudctDetail = () => {
   //       rating: reviewData.rating,
   //       comment: reviewData.comment,
   //     };
-  //     console.log("Payload:", payload); 
+  //     console.log("Payload:", payload);
   //     const response = await postRatingApi(payload);
   //     console.log("API Response:", response.data);
   //     alert("Review submitted successfully!");
@@ -69,11 +69,9 @@ const ProudctDetail = () => {
   //   }
   // };
 
-
   const { cartItems, finalCart, error, cartId } = useSelector(
     (state) => state.cart
   );
-
 
   const reviewList = async () => {
     setLoading(true);
@@ -82,10 +80,9 @@ const ProudctDetail = () => {
       setReviews(response?.data || []);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching product review data:', error);
+      console.error("Error fetching product review data:", error);
     }
-  }; 
-  
+  };
 
   useEffect(() => {
     reviewList();
@@ -235,7 +232,6 @@ const ProudctDetail = () => {
     "201311",
   ];
 
-
   const combinedPincodes = Array.from(
     new Set([...delhiPincodes, ...gurugramPincodes, ...noidaPincodes])
   );
@@ -310,6 +306,15 @@ const ProudctDetail = () => {
     checkItemInCart();
   }, [cartItems]);
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -332,19 +337,46 @@ const ProudctDetail = () => {
                     </span>
                     80 Calories
                   </p>
-                  <div className="ms-auto gap-3 d-inline-flex">
+                  <div className="gap-3 d-inline-flex">
+                  <span className="pt-2">
                     <Checkbox
                       {...label}
                       icon={<FavoriteBorder />}
                       checkedIcon={<Favorite />}
-                      style={{ color: "#F26722" }}
+                      style={{ color: "#F26722", padding: "11px" }}
                       className="bg-icon-background"
+                    
                     />
-                    <span className="d-inline-block bg-icon-background rounded-circle">
-                      <ShareIcon
-                        style={{ color: "#F26722" }}
-                        className="mx-2 mt-2"
-                      />
+                    </span>
+                    <span>
+                      <Button
+                        id="basic-button"
+                        aria-controls={open ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                        onClick={handleClick}
+                      >
+                        <span className="d-inline-block bg-icon-background rounded-circle p-2">
+                          <ShareIcon
+                            style={{ color: "#F26722" }}
+                            className=""
+                          />
+                        </span>
+                      </Button>
+                      <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        MenuListProps={{
+                          "aria-labelledby": "basic-button",
+                        }}
+                      >
+                        <MenuItem onClick={handleClose}>Whatsapp</MenuItem>
+                        <MenuItem onClick={handleClose}>Facebook</MenuItem>
+                        <MenuItem onClick={handleClose}>Twitter</MenuItem>
+                        <MenuItem onClick={handleClose}>Copy Link</MenuItem>
+                      </Menu>
                     </span>
                   </div>
                 </div>
@@ -552,22 +584,39 @@ const ProudctDetail = () => {
                         <Tab.Pane eventKey="Reviews(12)">
                           <div className="p-3 p-lg-4">
                             <div className="row">
-                              {  
-                                reviews.map((data) => (
-                                  <div className="col-12  mb-3" key={data?.id}>
-                                    <div className="d-inline-flex gap-3">
+                              {reviews.map((data) => (
+                                <div className="col-12  mb-3" key={data?.id}>
+                                  <div className="d-inline-flex gap-3">
+                                    <span className="d-inline-block">
+                                      <img
+                                        className="img-fluid border-orange"
+                                        src={`${baseURL}/media/${data?.user_img}`}
+                                        alt="P"
+                                        style={{
+                                          width: "50px",
+                                          height: "50px",
+                                          borderRadius: "50%",
+                                          aspectRatio: "1/1",
+                                        }}
+                                      />
+                                    </span>
+                                    <div className="d-inline-block">
+                                      <h6 className="fs-6 fw-bold">
+                                        {data?.user_name}
+                                      </h6>
                                       <span className="d-inline-block">
-                                        <img className="img-fluid border-orange" src={`${baseURL}/media/${data?.user_img}`} alt="P" style={{ width: "50px", height: "50px", borderRadius: "50%", aspectRatio: "1/1" }} />
+                                        <Rating
+                                          value={data?.rating}
+                                          readOnly
+                                          stars={5}
+                                          cancel={false}
+                                        />
                                       </span>
-                                      <div className="d-inline-block">
-                                        <h6 className="fs-6 fw-bold">{data?.user_name}</h6>
-                                        <span className="d-inline-block"><Rating value={data?.rating} readOnly stars={5} cancel={false} /></span>
-                                      </div>
                                     </div>
-                                    <p>{data?.comment}</p>
                                   </div>
-                                ))
-                              }
+                                  <p>{data?.comment}</p>
+                                </div>
+                              ))}
                               {/* <div className="col-12">
                                 <form className="d-flex flex-column"> 
                                   <div className="mb-3">

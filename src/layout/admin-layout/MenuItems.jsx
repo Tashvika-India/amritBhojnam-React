@@ -4,7 +4,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
-import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -14,18 +13,12 @@ import HomeIcon from "@mui/icons-material/Home";
 import { BiSolidCategory } from "react-icons/bi";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import BadgeIcon from "@mui/icons-material/Badge";
-import { FaBox } from "react-icons/fa";
-import { HiPhoto } from "react-icons/hi2";
 import { FaUserTie } from "react-icons/fa";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { IoReceiptSharp } from "react-icons/io5";
 import { BsImage } from "react-icons/bs";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaUserCog } from "react-icons/fa";
-import { FaBuildingUser } from "react-icons/fa6";
-import { FaRegImage } from "react-icons/fa6";
-import { IoReceipt } from "react-icons/io5";
 import { TbMessageUser } from "react-icons/tb"; 
 
 

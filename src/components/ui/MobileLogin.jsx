@@ -112,7 +112,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                style={{ borderRadius: "8px", padding: "10px" }}
+                style={{ borderRadius: "8px", padding: "14px" }}
               />
               {formik.touched.email && formik.errors.email && (
                 <small className="text-danger">{formik.errors.email}</small>
@@ -120,7 +120,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
             </div>
             <button
               type="submit"
-              className="button-primary fs-6 w-100 mt-3"
+              className="button-primary fs-6 w-100 mt-5"
               disabled={loading}
             >
               {loading ? "Sending OTP..." : "Send OTP"}

@@ -11,6 +11,7 @@ import Loading from "../../../../components/ui/Loading";
 import { InputText } from "primereact/inputtext";
 import useURLFilters from "../../../../custom-compoents/useURLFilters";
 import TabsButtons from "../../../../components/ui/TabsButton";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 function debounce(func, delay) {
   let timeout;
@@ -73,7 +74,7 @@ function ProductList() {
         <div className="card">
           <div className="card-body">
             <div className="row mb-3">
-              <div className="col-md-5">
+              <div className="col-md-4">
                 <div>
                   <div className="mb-3">
                     <TabsButtons
@@ -87,8 +88,42 @@ function ProductList() {
                   {activeTab === "New Orders" && <ProductTable />} */}
                 </div>
               </div>
-              <div className="col-md-1"></div>
-              <div className="col-md-3"></div>
+              <div className="col-md-2">
+                <div>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label" size="small">In Stock</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Monthly"
+                    size="small">
+                    <MenuItem value={10}>One</MenuItem>
+                    <MenuItem value={20}>Two</MenuItem>
+                    <MenuItem value={30}>Three</MenuItem>
+                    <MenuItem value={40}>Four</MenuItem>
+                    <MenuItem value={30}>Five</MenuItem>
+                  </Select>
+                </FormControl>
+                </div>
+              </div>
+              <div className="col-md-2 text-end">
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label" size="small">Category</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Monthly"
+                    size="small">
+                    <MenuItem value={10}>Rice</MenuItem>
+                    <MenuItem value={20}>Millet</MenuItem>
+                    <MenuItem value={30}>Flour</MenuItem>
+                    <MenuItem value={40}>Snacks</MenuItem>
+                    <MenuItem value={30}>Instant Mixes</MenuItem>
+                  </Select>
+                </FormControl>
+                </div>
+              </div>
               <div className="col-md-3 ms-auto text-end">
                 <InputText
                 className="w-100"

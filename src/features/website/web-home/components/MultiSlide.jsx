@@ -2,8 +2,6 @@ import React from "react";
 import Slider from "react-slick";
 import { useState, useEffect, useRef } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import sliderBottom from "../../../../assets/images/web/product-detail/slider-bottom-img.png";
-import productDetail from "../../../../assets/images/web/product-detail/product-detail-image.png";
 import { baseURL } from "../../../../utils/constant-variable";
 
 
