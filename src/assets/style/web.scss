@@ -862,14 +862,18 @@ footer {
   height: 12.5rem;
   width: 100%;
 }
+
 .profile-tabs {
   button {
-    padding: 1rem 1.5rem;
+    padding: 1rem 3.5rem;
     font-size: 1.125rem;
     i {
       font-size: 1.125rem;
     }
   }
+}
+.user-profile-detail{
+  margin-top: -5rem;
 }
 .img-profile {
   aspect-ratio: 1 / 1;
@@ -1821,10 +1825,18 @@ footer {
     }
   }
   .user-profile-img {
-    height: 7.5rem;
+    height: 5.5rem;
+  }
+  .user-profile-detail{
+    margin-top: -2rem;
+  }
+  .image-content{
+    p{
+      font-size: .85rem !important;
+    }
   }
   .img-profile {
-    height: 10.5rem;
+    height: 5.5rem;
   }
   .default-btn {
     font-size: 0.8rem;
@@ -1832,6 +1844,16 @@ footer {
   .order-date {
     img {
       height: 4rem;
+    }
+  }
+  .more-option{
+    button{
+      font-size: .81rem;
+    }
+  }
+  .custom-tabview{
+    .p-tabview-panels{
+      padding: 0 !important;
     }
   }
   .profile-tabs {
