@@ -35,6 +35,7 @@ import AdminCoupon from "../features/admin-dashboard/manage-coupon";
 import AddCoupon from "../features/admin-dashboard/manage-coupon/components/AddCoupon";
 import PaymentSuccess from "../features/website/web-payment-success";
 import Roles from "../features/admin-dashboard/manage-roles";
+import AddRoles from "../features/admin-dashboard/manage-roles/components/AddRoles";
 function AppRoutes() {
   return (
     <Routes>
@@ -100,6 +101,17 @@ function AppRoutes() {
           <PrivateRoute>
             <DashboardSidebar>
               <ProductAdd />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        exact
+        path="/add-roles"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <AddRoles />
             </DashboardSidebar>
           </PrivateRoute>
         }
@@ -285,6 +297,7 @@ function AppRoutes() {
       <Route exact path="/refund-policy" element={<RefundPolicy />} />
       <Route exact path="/shiping-policy" element={<ShipingPolicy />} />
       <Route exact path="/payment-success" element={<PaymentSuccess />} />
+      <Route exact path="/add-roles" element={<AddRoles />} />
 
 
     </Routes>

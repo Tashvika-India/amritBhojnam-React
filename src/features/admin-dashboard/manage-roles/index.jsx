@@ -4,54 +4,17 @@ import YellowButton from "@/components/buttons/YellowButton";
 import { Link } from "react-router-dom";
 import { getProductApi } from "../../../services/adminApiRoutes";
 import ProductTable from "../manage-products/product-list/components/ProductTable";
+import RolesTable from "./components/RolesTable";
 import Loading from "../../../components/ui/Loading";
 import { InputText } from "primereact/inputtext";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
-import TabsButtons from "../../../components/ui/TabsButton";
+import TabsButtons from "../../../components/ui/TabsButton"; 
 
-function debounce(func, delay) {
-  let timeout;
-  return function (...args) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, args), delay);
-  };
-}
+ 
 
 function Roles() {
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useURLFilters([]);
-  const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState([]);
   const [activeTab, setActiveTab] = useState("Active Orders");
-
-  async function getProductList() {
-    setLoading(true);
-    try {
-      const response = await getProductApi({ ...filter, maxPrice: 5000 });
-      setProducts(response?.data?.results || []);
-    } catch (error) {
-      console.log("Error on Product List", error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const debouncedSearch = useCallback(
-    debounce((value) => {
-      searchProducts(value);
-    }, 300),
-    []
-  );
-
-  const onSearchChange = (e) => {
-    const value = e.target.value;
-    setSearch(value);
-    debouncedSearch(value);
-  };
-
-  useEffect(() => {
-    getProductList();
-  }, [filter]);
+  const [loading, setLoading] = useState(false)
 
   return (
     <>
@@ -60,8 +23,8 @@ function Roles() {
           <Heading value={"Roles"} />
         </div>
         <div className="col-md-6 text-end">
-          <Link to="/add-product">
-            <YellowButton lable={"+ Add New Product"} />
+          <Link to="/add-roles">
+            <YellowButton lable={"+ Add New"} />
           </Link>
         </div>
       </div>
@@ -89,11 +52,7 @@ function Roles() {
               <div className="col-md-3 ms-auto text-end">
                 <InputText
                 className="w-100"
-                  value={filter.name}
-                  onChange={(e) =>
-                    setFilter({ ...filter, name: e.target.value })
-                  }
-                  placeholder="Search Product"
+                  placeholder="Search Roles..."
                 />
               </div>
             </div>
@@ -101,9 +60,7 @@ function Roles() {
               {loading ? (
                 <Loading />
               ) : (
-                <ProductTable
-                  products={products}
-                  getProductList={getProductList}
+                <RolesTable
                 />
               )}
             </div>
