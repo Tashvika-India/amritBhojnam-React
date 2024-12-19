@@ -16,12 +16,12 @@ function BannerTable({banner , setEditData , setVisible, bannerStatusChange}) {
   const imageBodyTemplate = (rowData) => {
     return (
       <div style={{ display: "flex", alignItems: "center" }}>
-        <img
-          src={baseURL+rowData.img_file	}
-          alt={rowData.name}
-          className="img-fluid img-table-thumbnail"
-        />
-      </div>
+              <img
+                src={baseURL + rowData?.img_file}
+                alt={rowData?.name}
+                className="img-fluid" style={{ width: "3.5rem", height: "4.5rem" }}
+              />
+            </div>
     );
   };
 
