@@ -341,7 +341,7 @@ const ProudctDetail = () => {
             <div className="col-lg-6 col-12">
               <div className="product-detail-content ps-4">
                 <div className="d-flex justify-content-between">
-                  <p className="fb-fs-18 fw-600 d-flex text-brown">
+                  {/* <p className="fb-fs-18 fw-600 d-flex text-brown">
                     <span>
                       <img
                         className="img-fluid mt-1 me-2"
@@ -350,8 +350,8 @@ const ProudctDetail = () => {
                       />
                     </span>
                     80 Calories
-                  </p>
-                  <div className="gap-3 d-inline-flex">
+                  </p> */}
+                  <div className="gap-3 d-inline-flex ms-auto">
                     <span className="pt-2">
                       <Checkbox
                         {...label}
@@ -361,7 +361,6 @@ const ProudctDetail = () => {
                         style={{ color: "#F26722", padding: "11px" }}
                         className="bg-icon-background"
                         onChange={handleWishlistChange}
-
                       />
                     </span>
                     <span>
@@ -602,15 +601,15 @@ const ProudctDetail = () => {
                             <div className="row">
                               {reviews.map((data) => (
                                 <div className="col-12  mb-3" key={data?.id}>
-                                  <div className="d-inline-flex gap-3">
+                                  <div className="d-inline-flex align-items-center gap-3">
                                     <span className="d-inline-block">
                                       <img
                                         className="img-fluid border-orange"
-                                        src={`${baseURL}/media/${data?.user_img}`}
+                                        src={`${baseURL}/${data?.user_img}`}
                                         alt="P"
                                         style={{
-                                          width: "50px",
-                                          height: "50px",
+                                          width: "4rem",
+                                          height: "4rem",
                                           borderRadius: "50%",
                                           aspectRatio: "1/1",
                                         }}
@@ -630,7 +629,12 @@ const ProudctDetail = () => {
                                       </span>
                                     </div>
                                   </div>
-                                  <p>{data?.comment}</p>
+                                  <p className="mb-3">{data?.comment}</p>
+                                  <p className="mb-3 text-grey fw-500">  {new Intl.DateTimeFormat("en-GB", {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric",
+                                  }).format(new Date(data?.created_at))}</p>
                                 </div>
                               ))}
                               {/* <div className="col-12">
