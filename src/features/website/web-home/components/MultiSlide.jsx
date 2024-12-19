@@ -18,7 +18,7 @@ function AsNavFor({ data }) {
 
   return (
     <div className="slider-container ms-lg-5">
-      <Slider asNavFor={nav2} ref={(slider) => (sliderRef1 = slider)}>
+      <Slider infinite={false}  asNavFor={nav2} ref={(slider) => (sliderRef1 = slider)}>
         {data?.map((item, index) => ( 
           <div className="product-detail-slider" key={index}>
             <div className="product-detail-image bg-background p-3">
@@ -35,6 +35,7 @@ function AsNavFor({ data }) {
       <Slider
         className="mt-5 slider-bottom-thumbs"
         asNavFor={nav1}
+        infinite={false} 
         ref={(slider) => (sliderRef2 = slider)}
         slidesToShow={4}
         swipeToSlide={true}
