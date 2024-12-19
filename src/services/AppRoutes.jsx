@@ -36,6 +36,7 @@ import AddCoupon from "../features/admin-dashboard/manage-coupon/components/AddC
 import PaymentSuccess from "../features/website/web-payment-success";
 import Roles from "../features/admin-dashboard/manage-roles";
 import AddRoles from "../features/admin-dashboard/manage-roles/components/AddRoles";
+import ManageContact from "../features/admin-dashboard/dashboard-contact";
 function AppRoutes() {
   return (
     <Routes>
@@ -210,7 +211,7 @@ function AppRoutes() {
         element={
           <PrivateRoute>
             <DashboardSidebar>
-              <ManageBanner />
+              <ManageContact />
             </DashboardSidebar>
           </PrivateRoute>
         }

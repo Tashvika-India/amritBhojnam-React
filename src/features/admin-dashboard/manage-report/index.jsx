@@ -10,6 +10,9 @@ import Loading from "../../../components/ui/Loading";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"; 
 import { DateRangePicker } from 'rsuite';
 import filterIcon from "../../../assets/images/dashboard/filter-icon.png";
+import { VscSettings } from "react-icons/vsc";
+import ReportTable from "./components/ReportTable";
+
 
 const ManageReport = () => {
   return (
@@ -18,29 +21,32 @@ const ManageReport = () => {
         <div className="col-md-6">
           <Heading value={"Report"} />
         </div>
-        <div className="col-md-1">
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Age"
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        <div className="col-md-3">
-        <div>
-        <DateRangePicker size="lg" placeholder="Start Date  -  End Date" style={{fontSize: "1rem"}} />
-        </div> 
-        </div>
         <div className="col-md-2 text-end">
+         <div style={{ width: "70%" }}>
+                        <FormControl fullWidth w-50 className="bg-white">
+                          <InputLabel id="demo-simple-select-label" size="small">Today</InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="Monthly"
+                            size="small">
+                            <MenuItem value={10}>Yesterday</MenuItem>
+                            <MenuItem value={20}>Tomorrow</MenuItem>
+                            <MenuItem value={30}>Day After Tomorrow</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </div>
+        </div>
+        <div className="col-md-3 text-end">
+        {/* <div>
+        <DateRangePicker size="lg" placeholder="Start Date  -  End Date" style={{fontSize: "1rem"}} />
+        </div>  */}
+        </div>
+        <div className="col-md-1 text-end position-relative">
           <Link to="/add-coupon">
-          <img src={filterIcon} className="img-fluid"/>
-            <YellowButton lable={"Filter"} />
+          
+
+            <YellowButton lable={<span><img src={filterIcon} className="img-fluid position-absolute" style={{top: "1rem", left: "2rem"}}/> &nbsp; &nbsp; &nbsp;Filter</span>}/>
           </Link>
         </div>
       </div>
@@ -54,12 +60,12 @@ const ManageReport = () => {
               <div className="col-md-5"></div>
               <div className="col-md-2"></div>
               <div className="col-md-2"></div>
-              <div className="col-md-3">
-                <InputText placeholder="Search Product" />
+              <div className="col-md-3 text-end">
+                <InputText className="w-100" placeholder="Search...." />
               </div>
             </div>
             <div className="">
-              <ProductTable />
+              <ReportTable />
             </div>
           </div>
         </div>
