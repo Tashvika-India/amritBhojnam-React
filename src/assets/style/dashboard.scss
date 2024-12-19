@@ -51,6 +51,10 @@
 //   border-radius: 0.625rem !important;
 // }
 
+.p-datatable .p-datatable-tbody > tr{
+  color: $dark-grey !important;
+}
+
 .btn-orange {
   background-color: $orange;
   color: white;

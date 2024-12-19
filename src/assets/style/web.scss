@@ -676,15 +676,13 @@ footer {
   .tab-nav-wrapper {
     .nav-item {
       .nav-link {
-        transition: all 0.9s ease-in-out;
         border-radius: 0.625rem;
-        padding: 12px 1.4rem;
-        font-size: 18px;
-        font-weight: 600;
-        &:is(.active, :hover) {
+        padding: 0.75rem 1.4rem;
+        font-size: 1.125rem;
+        font-weight: 500;
+        &:is(.active, :hover) { 
           color: $white;
-          background-color: $yellow;
-          font-weight: 700;
+          background-color: $semi-orange; 
         }
       }
     }

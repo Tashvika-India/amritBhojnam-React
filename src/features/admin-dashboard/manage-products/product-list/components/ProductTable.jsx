@@ -89,14 +89,14 @@ function ProductTable({ products , getProductList }) {
   return (
     <>
       <DataTable value={products} responsiveLayout="scroll" paginator rows={10}>
-        <Column field="id" header="ID" body={(index) => products.indexOf(index) + 1}></Column>
+        <Column field="id" header="ID" body={(index) => products.indexOf(index) + 1} className="fw-400"></Column>
         <Column field="images" header="IMAGE" body={imageBodyTemplate}></Column>
-        <Column field="name" header="NAME" ></Column> 
-        <Column field="category_id" header="CATEGORY"></Column>
-        <Column field="quantity" header="QUANTITY(type)"></Column>
-        <Column field="quantity_unit" header="UNIT"></Column>
-        <Column field="max_price" header="PRICE (₹)"></Column>
-        <Column field="offer_price" header="SALE PRICE (₹)"></Column> 
+        <Column field="name" header="NAME" className="fw-400"></Column> 
+        <Column field="category_name" header="CATEGORY" className="fw-400"></Column>
+        <Column field="quantity" header="QUANTITY(type)" className="fw-400"></Column>
+        <Column field="quantity_unit" header="UNIT" className="fw-400"></Column>
+        <Column field="max_price" header="PRICE (₹)" className="fw-400"></Column>
+        <Column field="offer_price" header="SALE PRICE (₹)" className="fw-400"> </Column> 
         <Column field="ratings" header="RATING" body={iosSwitch}></Column>
         <Column header="ACTION" body={editButtonTemplate}></Column>
       </DataTable>

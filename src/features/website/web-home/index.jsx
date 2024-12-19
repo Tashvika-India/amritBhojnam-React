@@ -224,7 +224,7 @@ const HomePage = () => {
                   {loading ? (
                     <Loading />
                   ) : (
-                    products?.slice(0, 9).map((item, index) => (
+                    products?.slice(0, 10).map((item, index) => (
                       <ProductCard product={item} key={index} />
                     ))
                   )}
