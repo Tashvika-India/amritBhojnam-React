@@ -106,19 +106,17 @@ const HomePage = () => {
           style={{ maxWidth: "93%", maxHeight: "90%", margin: "0 auto" }}
         >
           <WebBanner />
-          <div>
+          <div className="mt-lg-5">
             <div className="row my-4 px-lg-3 gap-sm-3 gap-xl-0">
               <div className="col-xl-4 col-lg-12 col-md-12">
                 <div className="card-left mb-3">
                   <div className="row">
-                    <div className="col-md-6 ps-xxl-5 ps-4">
-                      <div className="pt-xxl-4 pt-2 mt-2">
+                    <div className="col-md-6">
+                      <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3 ps-2">
                         <p className="text-white fb-fs-24">Beyond Business,</p>
                         <p className="text-white fb-fs-28 fw-bold lh-1">
                           Backing Farmers
                         </p>
-                      </div>
-                      <div>
                         <p className="text-white py-xxl-4 py-xxl-3 mt-2 mb-xxl-5 con-ban">
                           Farmers are the backbone of our organic journey. We
                           strive to build communities, support organic
@@ -134,14 +132,12 @@ const HomePage = () => {
               <div className="col-xl-4 col-lg-12 col-md-12 mb-3 mb-xl-0">
                 <div className="card-center mb-md-3">
                   <div className="row">
-                    <div className="col-md-6 ps-xxl-5 ps-4">
-                      <div className="pt-xxl-4 pt-2 mt-2">
-                        <p className="text-white fb-fs-24">Wholesome Food,</p>
+                  <div className="col-md-6">
+                      <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3  ps-2">
+                      <p className="text-white fb-fs-24">Wholesome Food,</p>
                         <p className="text-white fb-fs-28 fw-bold lh-1">
                           Fulfilling Life
                         </p>
-                      </div>
-                      <div>
                         <p className="text-white py-xxl-3 mt-2 mb-xxl-5 con-ban">
                           Organic is a lifestyle, a habit, and a practice
                           combined. It embodies the methods of growing and
@@ -156,14 +152,12 @@ const HomePage = () => {
               <div className="col-xl-4 col-lg-12 col-md-12">
                 <div className="card-right">
                   <div className="row">
-                    <div className="col-md-6 ps-xxl-5 ps-4 ms-2">
-                      <div className="pt-xxl-4 pt-2 mt-2">
-                        <p className="text-white fb-fs-24">Healthy Bites,</p>
+                  <div className="col-md-6">
+                      <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3  ps-2">
+                      <p className="text-white fb-fs-24">Healthy Bites,</p>
                         <p className="text-white fb-fs-28 fw-bold lh-1">
                           Greener Future
                         </p>
-                      </div>
-                      <div>
                         <p className="text-white py-xxl-4 mt-2 mb-5 con-ban">
                           Every healthy bite you take nurtures your body and the
                           planet. Together, let's build a greener future, one
@@ -214,7 +208,7 @@ const HomePage = () => {
         <div className="container fb-container">
           <div className="row">
             <div className="col-md-6">
-              <h3 className="fw-bold">Our Best Selling Products</h3>
+              <h3 className="fw-bold mb-3">Our Best Selling Products</h3>
             </div>
             <div className="col-md-12">
               <div className="row">
@@ -230,7 +224,7 @@ const HomePage = () => {
                   {loading ? (
                     <Loading />
                   ) : (
-                    products?.map((item, index) => (
+                    products?.slice(0, 9).map((item, index) => (
                       <ProductCard product={item} key={index} />
                     ))
                   )}

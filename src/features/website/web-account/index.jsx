@@ -29,7 +29,7 @@ import {
 } from "../../../services/adminApiRoutes";
 import { Collapse } from "@mui/material";
 import { useFormik } from "formik";
-import Address from "../../../assets/common-components/website/Address"; 
+import Address from "../../../assets/common-components/website/Address";
 import { baseURL } from "../../../utils/constant-variable";
 import { useLocation } from "react-router-dom";
 const UserProfile = () => {
@@ -283,10 +283,9 @@ const UserProfile = () => {
                 style={{ height: "200px" }}
               /> */}
             </div>
-            <div className="p-4 pt-0">
+            <div className="p-4 pt-0 ">
               <div
-                className="position-relative text-start pb-3"
-                style={{ marginTop: "-5rem" }}
+                className="user-profile-detail position-relative text-start pb-3"
               >
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center">
                   <img
@@ -294,10 +293,10 @@ const UserProfile = () => {
                     src={(profilePicture === undefined) ? profilePicture : pp}
                     alt="Card image cap"
                   />
-                  <div className="image-content mt-5 mt-md-3 pt-md-5 ms-md-3">
+                  <div className="image-content mt-4 mt-md-3 pt-md-5 ms-md-3">
                     <h4 className="text-dark-grey fw-bold">{userDetail?.full_name}</h4>
                     <p className="fw-500 text-mid-grey fb-fs-18 text-start">
-                    {(userDetail?.phone_number === null) ? userDetail?.email : userDetail?.phone_number}
+                      {(userDetail?.phone_number === null) ? userDetail?.email : userDetail?.phone_number}
                     </p>
                   </div>
                 </div>
@@ -459,7 +458,7 @@ const UserProfile = () => {
                     </form>
                   </div>
                 </TabPanel>
-                <TabPanel header="Order History"  >
+                <TabPanel header="Order History"   >
                   <div className="order-section">
                     <p className="fb-fs-26 fw-bold my-4">Order History</p>
                     {order.map((item, index) => (
@@ -493,71 +492,77 @@ const UserProfile = () => {
                               </p>
                             </div>
                             <div className="col-6 col-md-3 text-end">
-                             <a href="profile?tab=orders/" download> <p className="text-orange fw-500">
+                              <a href="profile?tab=orders/" download> <p className="text-orange fw-500">
                                 Download Invoice
                               </p>
                               </a>
                             </div>
                           </div>
                           {item?.product_details.map((data) => (
-                            <div className="row px-2 px-md-3 pt-3 py-md-4">
-                              <div className="col-md-8">
-                                <div className="prod-detail d-flex align-items-center">
-                                  <img
-                                    className="img-fluid me-4 rounded-4"
-                                    style={{ height: "7rem", width: "7rem" }}
-                                    src={
-                                      baseURL +
-                                      data?.product?.images[0]?.img_files
-                                    }
-                                    alt="pencil"
-                                  />
-                                  <div>
-                                    <p className="fb-fs-18 fw-600 text-dark-grey">
-                                      {data?.product?.name}
-                                    </p>
-                                    <p className="mt-2">
-                                      Qty: <span className="fw-600"> {data?.item_quantity}</span>
-                                    </p>
-                                    <p className="mt-2">
-                                      Size:
-                                      <span className="fw-600">{`${data?.product?.quantity}${data?.product?.quantity_unit}`}</span>
-                                    </p>
+                            <div className="border-bottom">
+                              <div className="row px-2 px-md-3 pt-3 py-md-4">
+                                <div className="col-md-8">
+                                  <div className="prod-detail d-flex align-items-center">
+                                    <img
+                                      className="img-fluid me-4 rounded-4"
+                                      style={{ height: "6rem", width: "6rem" }}
+                                      src={
+                                        baseURL +
+                                        data?.product?.images[0]?.img_files
+                                      }
+                                      alt="pencil"
+                                    />
+                                    <div>
+                                      <p className="fb-fs-18 fw-600 text-dark-grey">
+                                        {data?.product?.name}
+                                      </p>
+                                      <p className="mt-2">
+                                        Qty: <span className="fw-600"> {data?.item_quantity}</span>
+                                      </p>
+                                      <p className="mt-2">
+                                        Size:
+                                        <span className="fw-600"> {`${data?.product?.quantity}${data?.product?.quantity_unit}`}</span>
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="col-md-4">
+                                  <div className="price-sec text-end text-dark-grey">
+                                    <p className="fb-fs-24 fw-bold">₹{data?.price}</p>
                                   </div>
                                 </div>
                               </div>
-                              <div className="col-md-4">
-                                <div className="price-sec text-end text-dark-grey">
-                                  <p className="fb-fs-24 fw-bold">₹{data?.price}</p>
+                              <div className="row m-md-3">
+                                <div className="col-md-6">
+                                  <div className="d-flex mb-2 mb-md-0">
+                                    <img
+                                      className="img-fluid me-2"
+                                      style={{ height: "1.3rem", width: "1.3rem", aspectRatio: "1/1" }}
+                                      src={tickImg}
+                                      alt="pencil"
+                                    />
+                                    <p className="text-dark-grey">
+                                      Delivered within 5-7 days
+                                      {/* {new Date(item?.delivered_on).toLocaleDateString("en-US", {year: "numeric",month: "long",day: "numeric",})} */}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="col-md-6 text-md-end">
+                                  <div className="more-option d-flex mb-2 mb-lg-0 justify-content-md-end">
+                                    <button className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end  pe-md-4">
+                                      Add Review
+                                    </button>
+                                    <button className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end   px-md-4">
+                                      View Product
+                                    </button>
+                                    <button className="fw-500 text-center border-0 text-orange bg-transparent ms-lg-3">
+                                      Buy Again
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           ))}
-                          <div className="row p-2 p-md-3">
-                            <div className="col-md-6">
-                              <div className="d-flex mb-2 mb-md-0">
-                                <img
-                                  className="img-fluid me-2"
-                                  src={tickImg}
-                                  alt="pencil"
-                                />
-                                <p className="text-dark-grey">
-                                  Delivered within 5-7 days
-                                  {/* {new Date(item?.delivered_on).toLocaleDateString("en-US", {year: "numeric",month: "long",day: "numeric",})} */}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="col-md-6 text-md-end">
-                              <div className="more-option d-flex justify-content-md-end">
-                                <button className="fw-bold border-0 text-dark-grey bg-transparent border-end pe-4">
-                                  View Product
-                                </button>
-                                <button className="fw-bold border-0 text-orange bg-transparent ms-3">
-                                  Buy Again
-                                </button>
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     ))}
