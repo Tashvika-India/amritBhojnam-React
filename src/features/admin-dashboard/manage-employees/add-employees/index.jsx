@@ -1,6 +1,6 @@
 import React, {  useState } from "react";
 import Heading from "@/components/ui/Heading";
-import {TextField} from "@mui/material";
+import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import ProfileAvatar from "../../../../assets/images/dashboard/profile-avatar.png";  
 import { Checkbox } from "primereact/checkbox";
 
@@ -15,8 +15,8 @@ const EmployeeAdd = () => {
           <Heading value={isEditMode ? "Edit Employee" : "Add New Employee"} />
         </div>
       </div>
-      <form className=" ">
-        <div className="card mb-4">
+      <form className="col-md-7">
+        <div className="card mb-4 p-3">
           <div className="card-body">
             <h6 className="mb-4">Avatar</h6>
             <div className="d-flex align-items-center">
@@ -94,6 +94,26 @@ const EmployeeAdd = () => {
                   </div>
                 </div>
                 <div className="col-md-6 mt-4">
+                <div className="rounded-20">
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Select Role
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value=""
+                    label="Discount Type"
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+                </div>
+                
+                </div>
+                <div className="col-md-6 mt-4">
                   <TextField
                     fullWidth
                     className="rounded-20"
@@ -102,6 +122,7 @@ const EmployeeAdd = () => {
                     variant="outlined"
                   />
                 </div>
+                
               </div>
             </div>
           </div>

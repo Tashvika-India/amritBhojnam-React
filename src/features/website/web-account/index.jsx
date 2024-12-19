@@ -493,9 +493,10 @@ const UserProfile = () => {
                               </p>
                             </div>
                             <div className="col-6 col-md-3 text-end">
-                              <p className="text-orange fw-500">
+                             <a href="profile?tab=orders/" download> <p className="text-orange fw-500">
                                 Download Invoice
                               </p>
+                              </a>
                             </div>
                           </div>
                           {item?.product_details.map((data) => (

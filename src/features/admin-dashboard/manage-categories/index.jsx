@@ -108,7 +108,7 @@ function ManageCategories() {
                   onChange={(e) =>
                     setFilter({ ...filter, name: e.target.value })
                   }
-                  placeholder="Search Product"
+                  placeholder="Search Categories"
                 />
               </div>
             </div>
