@@ -13,7 +13,9 @@ import {
 import pencilImg from "../../../assets/images/web/account/pencil.png";
 import profileBg from "../../../assets/images/web/account/profile-bg.png";
 import pp from "../../../assets/images/web/account/profile-picture.png";
+import { Button } from "primereact/button";
 import tickImg from "../../../assets/images/web/account/tick-image.png";
+import milletIcon from "../../../assets/images/web/millet-icon.png";
 import homeImg from "../../../assets/images/web/account/home-img.png";
 import editButton from "../../../assets/images/web/account/edit-button.png";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
@@ -31,7 +33,10 @@ import { Collapse } from "@mui/material";
 import { useFormik } from "formik";
 import Address from "../../../assets/common-components/website/Address";
 import { baseURL } from "../../../utils/constant-variable";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { Dialog } from "primereact/dialog";
+import { Rating } from "primereact/rating";
+
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -40,10 +45,10 @@ const UserProfile = () => {
   const [userDetail, setUserDetail] = useState({});
   const [order, setOrder] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [visible, setVisible] = useState(false);
   const [profileEdit, setProfileEdit] = useState(false);
   const location = useLocation();
   const profilePicture = baseURL + userDetail?.pp;
-
 
   const formik = useFormik({
     initialValues: {
@@ -65,7 +70,9 @@ const UserProfile = () => {
       ads_email: Yup.string()
         .email("Invalid email format")
         .required("Email is required"),
-      house_flat_block_no: Yup.string().required("House/Flat/Block No is required"),
+      house_flat_block_no: Yup.string().required(
+        "House/Flat/Block No is required"
+      ),
       road_area_colony: Yup.string().required("Road/Area/Colony is required"),
       city: Yup.string().required("City is required"),
       state: Yup.string().required("State is required"),
@@ -97,7 +104,7 @@ const UserProfile = () => {
     } finally {
       formik.setSubmitting(false);
     }
-  }
+  };
 
   const updateAddress = async (values) => {
     try {
@@ -115,8 +122,7 @@ const UserProfile = () => {
     } finally {
       formik.setSubmitting(false);
     }
-  }
-
+  };
 
   // Fetch Profile Data
   const getProfileList = async () => {
@@ -153,7 +159,6 @@ const UserProfile = () => {
     } finally {
     }
   };
-
 
   const handleSelectAddress = async (address_id) => {
     try {
@@ -244,7 +249,6 @@ const UserProfile = () => {
         gender: userDetail.gender || "",
         date_of_birth: userDetail.date_of_birth || "00-00-0000",
       });
-
     }
   }, [userDetail]);
 
@@ -259,15 +263,18 @@ const UserProfile = () => {
     } else {
       setActiveIndex(0);
     }
-
   }, [location.search]);
 
   useEffect(() => {
-    if (userDetail?.full_name === null && userDetail?.email === null && userDetail?.gender === null && userDetail?.date_of_birth === null) {
+    if (
+      userDetail?.full_name === null &&
+      userDetail?.email === null &&
+      userDetail?.gender === null &&
+      userDetail?.date_of_birth === null
+    ) {
       setProfileEdit(true);
     }
   }, [userDetail]);
-
 
   return (
     <div className="web-wrapper-main">
@@ -284,19 +291,21 @@ const UserProfile = () => {
               /> */}
             </div>
             <div className="p-4 pt-0 ">
-              <div
-                className="user-profile-detail position-relative text-start pb-3"
-              >
+              <div className="user-profile-detail position-relative text-start pb-3">
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center">
                   <img
                     className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center"
-                    src={(profilePicture === undefined) ? profilePicture : pp}
+                    src={profilePicture === undefined ? profilePicture : pp}
                     alt="Card image cap"
                   />
                   <div className="image-content mt-4 mt-md-3 pt-md-5 ms-md-3">
-                    <h4 className="text-dark-grey fw-bold">{userDetail?.full_name}</h4>
+                    <h4 className="text-dark-grey fw-bold">
+                      {userDetail?.full_name}
+                    </h4>
                     <p className="fw-500 text-mid-grey fb-fs-18 text-start">
-                      {(userDetail?.phone_number === null) ? userDetail?.email : userDetail?.phone_number}
+                      {userDetail?.phone_number === null
+                        ? userDetail?.email
+                        : userDetail?.phone_number}
                     </p>
                   </div>
                 </div>
@@ -304,19 +313,72 @@ const UserProfile = () => {
             </div>
             <div>
               <div className="flex mb-2 gap-2 justify-content-end border-bottom profile-tabs">
-                <button className={`border-0 bg-white fw-600 ${activeIndex === 0 ? "text-yellow bg-footer-bg border-bottom border-yellow-color" : 'text-dark-grey'}`} onClick={() => setActiveIndex(0)} rounded outlined={activeIndex !== 0} label="1" > <span className="me-1"><i className="pi pi-user"></i> </span> My Account</button>
-                <button className={`border-0 bg-white fw-600 ${activeIndex === 1 ? "text-yellow bg-footer-bg border-bottom border-yellow-color" : 'text-dark-grey'}`} onClick={() => setActiveIndex(1)} rounded outlined={activeIndex !== 1} label="2"> <span className="me-1"><i className="pi pi-box"></i> </span>  Order History</button>
-                <button className={`border-0 bg-white fw-600 ${activeIndex === 2 ? "text-yellow bg-footer-bg border-bottom border-yellow-color" : 'text-dark-grey'}`} onClick={() => setActiveIndex(2)} rounded outlined={activeIndex !== 2} label="3" > <span className="me-1"><i className="pi pi-map-marker"></i> </span>  Address Book</button>
+                <button
+                  className={`border-0 bg-white fw-600 ${
+                    activeIndex === 0
+                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                      : "text-dark-grey"
+                  }`}
+                  onClick={() => setActiveIndex(0)}
+                  rounded
+                  outlined={activeIndex !== 0}
+                  label="1"
+                >
+                  {" "}
+                  <span className="me-1">
+                    <i className="pi pi-user"></i>{" "}
+                  </span>{" "}
+                  My Account
+                </button>
+                <button
+                  className={`border-0 bg-white fw-600 ${
+                    activeIndex === 1
+                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                      : "text-dark-grey"
+                  }`}
+                  onClick={() => setActiveIndex(1)}
+                  rounded
+                  outlined={activeIndex !== 1}
+                  label="2"
+                >
+                  {" "}
+                  <span className="me-1">
+                    <i className="pi pi-box"></i>{" "}
+                  </span>{" "}
+                  Order History
+                </button>
+                <button
+                  className={`border-0 bg-white fw-600 ${
+                    activeIndex === 2
+                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                      : "text-dark-grey"
+                  }`}
+                  onClick={() => setActiveIndex(2)}
+                  rounded
+                  outlined={activeIndex !== 2}
+                  label="3"
+                >
+                  {" "}
+                  <span className="me-1">
+                    <i className="pi pi-map-marker"></i>{" "}
+                  </span>{" "}
+                  Address Book
+                </button>
               </div>
-              <TabView className="custom-tabview" activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
-                <TabPanel header="My Account"  >
+              <TabView
+                className="custom-tabview"
+                activeIndex={activeIndex}
+                onTabChange={(e) => setActiveIndex(e.index)}
+              >
+                <TabPanel header="My Account">
                   <div className="account-section mb-md-4">
                     <div className="d-flex justify-content-between">
                       <p className="fb-fs-26 fw-bold">My Account</p>
                       <div className="d-flex">
                         <button
                           className="d-inline-flex align-items-end border-0 bg-transparent"
-                          onClick={() => setProfileEdit(true)}>
+                          onClick={() => setProfileEdit(true)}
+                        >
                           <img
                             className="img-fluid"
                             src={pencilImg}
@@ -408,7 +470,8 @@ const UserProfile = () => {
                                   Boolean(profile.errors.gender)
                                 }
                                 helperText={
-                                  profile.touched.gender && profile.errors.gender
+                                  profile.touched.gender &&
+                                  profile.errors.gender
                                 }
                               >
                                 <MenuItem value={""}>Select</MenuItem>
@@ -441,8 +504,7 @@ const UserProfile = () => {
                               }
                             />
                           </div>
-                          {
-                            profileEdit &&
+                          {profileEdit && (
                             <div className="col-12 mt-4 text-end">
                               <button
                                 type="submit"
@@ -452,13 +514,13 @@ const UserProfile = () => {
                                 {loading ? "Saving..." : "Save"}
                               </button>
                             </div>
-                          }
+                          )}
                         </div>
                       </div>
                     </form>
                   </div>
                 </TabPanel>
-                <TabPanel header="Order History"   >
+                <TabPanel header="Order History">
                   <div className="order-section">
                     <p className="fb-fs-26 fw-bold my-4">Order History</p>
                     {order.map((item, index) => (
@@ -468,7 +530,8 @@ const UserProfile = () => {
                             <div className="col-md-3">
                               <p>
                                 Order ID:
-                                <span className="fw-600" title={item?.id}>&nbsp;&nbsp;
+                                <span className="fw-600" title={item?.id}>
+                                  &nbsp;&nbsp;
                                   {item?.id?.slice(0, 12)}...
                                 </span>
                               </p>
@@ -476,25 +539,28 @@ const UserProfile = () => {
                             <div className="col-md-3">
                               <p>
                                 Order Placed:
-                                <span className="fw-600">&nbsp;&nbsp;
-                                  {new Date(item?.created_at).toLocaleDateString(
-                                    "en-GB"
-                                  )}
+                                <span className="fw-600">
+                                  &nbsp;&nbsp;
+                                  {new Date(
+                                    item?.created_at
+                                  ).toLocaleDateString("en-GB")}
                                 </span>
                               </p>
                             </div>
                             <div className="col-6 col-md-3">
                               <p>
                                 Total Amount:
-                                <span className="fw-600">&nbsp;&nbsp;
-                                  ₹ {item?.amount_to_pay}
+                                <span className="fw-600">
+                                  &nbsp;&nbsp; ₹ {item?.amount_to_pay}
                                 </span>
                               </p>
                             </div>
                             <div className="col-6 col-md-3 text-end">
-                              <a href="profile?tab=orders/" download> <p className="text-orange fw-500">
-                                Download Invoice
-                              </p>
+                              <a href="profile?tab=orders/" download>
+                                {" "}
+                                <p className="text-orange fw-500">
+                                  Download Invoice
+                                </p>
                               </a>
                             </div>
                           </div>
@@ -517,18 +583,27 @@ const UserProfile = () => {
                                         {data?.product?.name}
                                       </p>
                                       <p className="mt-2">
-                                        Qty: <span className="fw-600"> {data?.item_quantity}</span>
+                                        Qty:{" "}
+                                        <span className="fw-600">
+                                          {" "}
+                                          {data?.item_quantity}
+                                        </span>
                                       </p>
                                       <p className="mt-2">
                                         Size:
-                                        <span className="fw-600"> {`${data?.product?.quantity}${data?.product?.quantity_unit}`}</span>
+                                        <span className="fw-600">
+                                          {" "}
+                                          {`${data?.product?.quantity}${data?.product?.quantity_unit}`}
+                                        </span>
                                       </p>
                                     </div>
                                   </div>
                                 </div>
                                 <div className="col-md-4">
                                   <div className="price-sec text-end text-dark-grey">
-                                    <p className="fb-fs-24 fw-bold">₹{data?.price}</p>
+                                    <p className="fb-fs-24 fw-bold">
+                                      ₹{data?.price}
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -537,7 +612,11 @@ const UserProfile = () => {
                                   <div className="d-flex mb-2 mb-md-0">
                                     <img
                                       className="img-fluid me-2"
-                                      style={{ height: "1.3rem", width: "1.3rem", aspectRatio: "1/1" }}
+                                      style={{
+                                        height: "1.3rem",
+                                        width: "1.3rem",
+                                        aspectRatio: "1/1",
+                                      }}
                                       src={tickImg}
                                       alt="pencil"
                                     />
@@ -549,7 +628,7 @@ const UserProfile = () => {
                                 </div>
                                 <div className="col-md-6 text-md-end">
                                   <div className="more-option d-flex mb-2 mb-lg-0 justify-content-md-end">
-                                    <button className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end  pe-md-4">
+                                    <button   onClick={() => setVisible(true)} className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end  pe-md-4">
                                       Add Review
                                     </button>
                                     <button className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end   px-md-4">
@@ -568,7 +647,7 @@ const UserProfile = () => {
                     ))}
                   </div>
                 </TabPanel>
-                <TabPanel header="Address Book" >
+                <TabPanel header="Address Book">
                   <div className="address-section">
                     <div className="d-flex justify-content-between align-items-center">
                       <h4 className="fb-fs-26 fw-bold text-dark-grey my-md-4">
@@ -594,8 +673,9 @@ const UserProfile = () => {
                       {addressList.length > 0 ? (
                         addressList.map((item, index) => (
                           <div
-                            className={`summary-card ${item?.selected ? "active" : ""
-                              } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                            className={`summary-card ${
+                              item?.selected ? "active" : ""
+                            } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
                             key={index}
                             onClick={() => handleSelectAddress(item?.id)}
                           >
@@ -604,14 +684,18 @@ const UserProfile = () => {
                                 <div className="col-md-12">
                                   <div className="order-date d-flex gap-2">
                                     <img
-                                      className={`img-fluid me-1 rounded-4 ${item?.selected ? "shadow" : ""
-                                        }`}
+                                      className={`img-fluid me-1 rounded-4 ${
+                                        item?.selected ? "shadow" : ""
+                                      }`}
                                       src={homeImg}
                                       alt="pencil"
                                     />
                                     <div className="ms-md-3">
                                       <div className="d-flex mt-2 gap-1 align-items-center">
-                                        <p className="fw-600 fb-fs-18">{item?.user_detail?.full_name} | {item?.user_detail?.phone_number}</p>
+                                        <p className="fw-600 fb-fs-18">
+                                          {item?.user_detail?.full_name} |{" "}
+                                          {item?.user_detail?.phone_number}
+                                        </p>
                                         {item?.selected && (
                                           <button className="button-yellow default-btn ms-md-3 fw-normal lh-base align-self-center">
                                             Default
@@ -685,6 +769,57 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
+
+     {/* Add review modal */}
+      <Dialog
+        header="Add Review"
+        visible={visible}
+        modal={false}
+        style={{ width: "50vw" }}
+        onHide={() => {
+          if (!visible) return;
+          setVisible(false);
+        }}
+      >
+      <div>
+      <div className="d-flex gap-4 align-items-center">
+      <img style={{border: "1px solid  #D6D6D6", padding: "8px", borderRadius: "1rem"}} src={milletIcon}  />
+      <p className="fb-fs-20 fw-600 mb-0">Masala Millets (Veggie Masala)</p>
+      </div>
+      
+      </div>
+        <div className="d-flex mb-4 mt-4 gap-4">
+          <p className="fw-bold mb-0">Give Ratings</p>
+          <Rating
+            className="me-3"
+            value={0}
+            readOnly
+            cancel={false}
+            size={40}
+            stars={5}
+            style={{
+              "--star-border-color": "#FDC040",
+              "--star-fill-color": "yellow",
+            }}
+          />
+        </div>
+        <p className="fw-bold mb-0">Write your review</p>
+        <TextField
+          fullWidth
+          multiline
+          className="rounded-20 mt-3"
+          id="review"
+          placeholder="Write your detailed review here"
+          name="review"
+          minRows={8}
+          variant="outlined"
+        />
+        <div className="mt-5 text-end mb-3">
+          <Link className="button-primary-reverse me-4 px-5">Cancel</Link>
+          <Link className="success-primary-button">Submit</Link>
+        </div>
+      </Dialog>
+
       <Footer />
     </div>
   );
