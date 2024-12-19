@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
 import YellowButton from "@/components/buttons/YellowButton";
-import CategoriesTable from "./components/CategoriesTable";
-import AddCategoryModal from "./components/AddCategoryModal";
 import { getCategoriesApi, patchCategoriesApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
+import ContactTable from "./components/ContactTable";
 
-function ManageCategories() {
+function ManageContact() {
   const [visible, setVisible] = useState(false);
   const [categories, setCategories] = useState([]);
   const [editData, setEditData] = useState(null);
@@ -69,7 +68,7 @@ function ManageCategories() {
         <div className="col-md-6 text-end">
           <YellowButton
             handleClick={() => setVisible(true)}
-            lable={"+ Add New Category"}
+            lable={"+ Add New Contact"}
           />
         </div>
       </div>
@@ -80,24 +79,14 @@ function ManageCategories() {
             {loading ? (
               <Loading />
             ) : (
-              <CategoriesTable
-                categories={categories}
-                setEditData={setEditData}
-                setVisible={setVisible}
-                categoriesStatusChange={categoriesStatusChange}
+              <ContactTable
               />
             )}
           </div>
         </div>
       </div>
-      <AddCategoryModal
-        visible={visible}
-        setVisible={setVisible}
-        getCategories={getCategories}
-        editData={editData}
-      />
     </>
   );
 }
 
-export default ManageCategories;
+export default ManageContact;
