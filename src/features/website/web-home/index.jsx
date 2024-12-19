@@ -103,7 +103,7 @@ const HomePage = () => {
       <section>
         <div
           className="home-banner-wrapper"
-          style={{ maxWidth: "90%", maxHeight: "90%", margin: "0 auto" }}
+          style={{ maxWidth: "93%", maxHeight: "90%", margin: "0 auto" }}
         >
           <WebBanner />
           <div>

@@ -22,11 +22,11 @@ const AboutUs = () => {
       <section className="about-us pb-0 about-linear">
         <div className="container fb-container mb-lg-5 pb-lg-5">
           <div className="row">
-            <div className="col-md-6 pe-lg-0 ps-md-0">
-              <div className="main-logo">
+            <div className="col-md-6">
+              <div className="main-logo pe-lg-5">
                 <img
                   src={MainImg}
-                  className="img-fluid ps-lg-4"
+                  className="img-fluid ps-lg-5 mx-auto"
                   alt="logo"
                   loading="lazy"
                 />
@@ -49,7 +49,7 @@ const AboutUs = () => {
                   diets and highlight its many benefits.
                 </p>
                 <p className="pt-lg-4 pt-2 mt-1 about-con-inner">
-                  {" "}
+                  
                   With a lot of research and dedication, Amrit Bhojanam came to
                   life. We’re here to make millet accessible to everyone by
                   offering a variety of delicious, millet-based products. We
@@ -59,7 +59,7 @@ const AboutUs = () => {
                 </p>
               </div>
               <div className="pt-3 bottom-image">
-                <div className="row mt-xl-5 mt-lg-0 pt-lg-5 bottom-sec">
+                <div className="row pt-lg-5 bottom-sec">
                   <div className="col-4 ">
                     <img
                       src={About1}
@@ -271,7 +271,7 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-          </div>{" "}
+          </div>
         </div>
 
         <div className="about-bottom">
@@ -290,7 +290,7 @@ const AboutUs = () => {
               <div className="col-md-6">
                 <div className="white-background">
                   <h3 className="fw-bold pb-lg-4">
-                    <span className="fb-fs-26 fw-400 pb-4">Eat Healthy,</span>{" "}
+                    <span className="fb-fs-26 fw-400 pb-4">Eat Healthy,</span>
                     <br></br>
                     Stay Blessed
                   </h3>
