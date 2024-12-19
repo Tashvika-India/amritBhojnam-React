@@ -25,6 +25,7 @@ import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import ShareIcon from "@mui/icons-material/Share";
 import MobileLogin from "../../../components/ui/MobileLogin";
 import { baseURL } from "../../../utils/constant-variable";
+import { updateWishlist } from "../../../redux/slices/wishlistSlice";
 
 const ProudctDetail = () => {
   const [showCart, setShowCart] = useState(false);
@@ -39,6 +40,9 @@ const ProudctDetail = () => {
   const [detail, setDetail] = useState({});
   const [reviews, setReviews] = useState([]);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
+  const dispatch = useDispatch();
+
+
   // const [reviewData, setReviewData] = useState({
   //   product_id: filters?.product_id,
   //   rating: 0,
@@ -252,7 +256,6 @@ const ProudctDetail = () => {
     { name: `${detail?.quantity}${detail?.quantity_unit}`, value: "1" },
   ];
 
-  const dispatch = useDispatch();
   const fetchProductDetail = async () => {
     try {
       const response = await getProductApi(filters);
@@ -315,6 +318,17 @@ const ProudctDetail = () => {
     setAnchorEl(null);
   };
 
+  async function handleWishlistChange() {
+    setDetail({
+      ...detail,
+      is_wishlist: !detail?.is_wishlist,
+    });
+    const data = { product_id: detail?.id, action: !detail?.is_wishlist };
+    dispatch(updateWishlist(data));
+  }
+
+
+
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -338,15 +352,17 @@ const ProudctDetail = () => {
                     80 Calories
                   </p>
                   <div className="gap-3 d-inline-flex">
-                  <span className="pt-2">
-                    <Checkbox
-                      {...label}
-                      icon={<FavoriteBorder />}
-                      checkedIcon={<Favorite />}
-                      style={{ color: "#F26722", padding: "11px" }}
-                      className="bg-icon-background"
-                    
-                    />
+                    <span className="pt-2">
+                      <Checkbox
+                        {...label}
+                        icon={<FavoriteBorder />}
+                        checkedIcon={<Favorite />}
+                        checked={detail?.is_wishlist ? true : false}
+                        style={{ color: "#F26722", padding: "11px" }}
+                        className="bg-icon-background"
+                        onChange={handleWishlistChange}
+
+                      />
                     </span>
                     <span>
                       <Button

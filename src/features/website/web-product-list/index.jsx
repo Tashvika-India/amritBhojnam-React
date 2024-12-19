@@ -124,7 +124,7 @@ const ProudctList = () => {
                           {/* <img src={item?.image} className="img-fluid" alt="icon" /> */}
                           {item?.name}
                         </span>
-                        {/* <span className="pill-circle">{item?.product_count}</span> */}
+                        <span className="pill-circle">{item?.product_count}</span>
                       </li>
                     ))}
                   </ul>
@@ -145,7 +145,7 @@ const ProudctList = () => {
                     <div className="col-5 pe-0">
                       <div className="max-border">
                         <p className="ms-2 fw-300">
-                          Min:{" "}
+                          Min:
                           <span className="fw-500 ms-2">
                             <span>Rs.</span> {/* Rs. prefix */}
                             <InputText
@@ -164,7 +164,7 @@ const ProudctList = () => {
                     <div className="col-5 ps-0">
                       <div className="max-border">
                         <p className="ms-2 fw-300">
-                          Max:{" "}
+                          Max:
                           <span className="fw-500 ms-2">
                             <span>Rs.</span>
                             <InputText
