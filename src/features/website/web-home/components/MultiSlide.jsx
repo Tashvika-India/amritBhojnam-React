@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import { useState, useEffect, useRef } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { baseURL } from "../../../../utils/constant-variable";
-
+import { AspectRatio } from "@mui/icons-material";
 
 function AsNavFor({ data }) {
   const [nav1, setNav1] = useState(null);
@@ -40,7 +40,8 @@ function AsNavFor({ data }) {
         slidesToShow={4}
         swipeToSlide={true}
         focusOnSelect={true}  
-        arrows={true}   
+        arrows={true}  
+        style={{AspectRatio: "1/1"}} 
         nextArrow={<SampleNextArrow />}
         prevArrow={<SamplePrevArrow />}
         onMouseEnter={(e) => e.currentTarget.style.background = "#fff"}  

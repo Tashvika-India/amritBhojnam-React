@@ -223,6 +223,9 @@
   box-shadow: none;
   background-color: #eeeeee;
 }
+.slider-bottom-thumbs .slider-bottom-item{
+  aspect-ratio: 1/1;
+}
 .dashboard-sidebar .css-txj0o0-MuiDrawer-docked .MuiDrawer-paper{
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */

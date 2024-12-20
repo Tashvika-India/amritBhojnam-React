@@ -13,6 +13,7 @@ $bright-red: #FF0000;
 $semi-orange: #FB9300;
 $grey: #979797;
 $border: #dcdad5;
+$recipe-background: #FEF0E9;
 $border-light: #d7d7d7;
 $light-orange: #ffede3;
 $light-yellow: #fff2d7;
@@ -147,6 +148,9 @@ td {
     background-color: $orange !important;
 }
 
+.bg-recipe-background{
+    background-color: $recipe-background !important;
+}
 .bg-icon-background{
     background-color: $icon-background !important;
 }

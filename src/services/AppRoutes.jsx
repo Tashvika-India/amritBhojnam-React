@@ -37,6 +37,7 @@ import PaymentSuccess from "../features/website/web-payment-success";
 import Roles from "../features/admin-dashboard/manage-roles";
 import AddRoles from "../features/admin-dashboard/manage-roles/components/AddRoles";
 import ManageContact from "../features/admin-dashboard/dashboard-contact";
+import ManageNutrition from "../features/admin-dashboard/manage-nutrition";
 function AppRoutes() {
   return (
     <Routes>
@@ -234,6 +235,17 @@ function AppRoutes() {
           <PrivateRoute>
             <DashboardSidebar>
               <ManageReport />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+       <Route
+        exact
+        path="/nutrition"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ManageNutrition />
             </DashboardSidebar>
           </PrivateRoute>
         }
