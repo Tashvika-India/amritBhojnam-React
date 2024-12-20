@@ -64,7 +64,7 @@ const AddRoles = () => {
       };
       try {
         await postCouponApi(payload);
-        navigate("/coupons");
+        navigate("/admin/coupons");
       } catch (error) {
         alert("Failed to add coupon.");
       }
@@ -181,7 +181,7 @@ const AddRoles = () => {
           <div className="col-md-12">
             <div className="row">
               <div className="col-md-12 mb-4 text-end d-flex justify-content-end">
-                <Link to="/add-coupon">
+                <Link to="/admin/add-coupon">
                   <YellowButton lable={"+ Add Coupons"} />
                 </Link>
                 <button

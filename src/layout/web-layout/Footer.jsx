@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/images/web/logo.svg";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
@@ -6,8 +6,26 @@ import { Link } from "react-router-dom";
 import call from "../../assets/images/web/call.svg";
 import clock from "../../assets/images/web/clock.svg";
 import mail from "../../assets/images/web/mail.svg";
+import { getPopularProducts } from "../../services/adminApiRoutes";
+import MyCartMenu from "../../components/ui/MyCartMenu";
 
-const Footer = () => {
+const Footer = () => { 
+  const [showCart, setShowCart] = useState(false);
+  const [popularProduct, setPopularProduct] = useState([]); 
+  const currentYear = new Date().getFullYear();
+  const toggleCart = () => setShowCart(!showCart);
+  async function getPopularProduct() {
+    try {
+      const response = await getPopularProducts();
+      setPopularProduct(response?.data?.results);
+    } catch (error) {
+      throw error;
+    }
+  } 
+
+  useEffect(() => { 
+    getPopularProduct(); 
+  }, []);
   return (
     <>
       <footer>
@@ -106,33 +124,33 @@ const Footer = () => {
                       {/* <li>
                         <Link to="/shiping-policy">Shiping policy</Link>
                       </li> */}
-                      <li>
+                      {/* <li>
                         <Link to="/contact-us">Contact Us</Link>
                       </li>
                       <li>
-                        <Link>Support Center</Link>
-                      </li>
-                      <li>
+                        <Link to="/contact-us">Support Center</Link>
+                      </li> */}
+                      {/* <li>
                         <Link>Careers</Link>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                   <div className="col-md-4 col-6 mb-4">
                     <h5 className="text-orange">HELP & SUPPORT</h5>
                     <ul className="footer-links mt-lg-4 mt-0 pt-3 d-flex flex-column gap-md-3 gap-2">
-                      <li>
+                      {/* <li>
                         <Link>Sign In</Link>
                       </li>
                       <li>
                         <Link to="/login">Login</Link>
-                      </li>
+                      </li> */}
                       <li>
-                        <Link>View Cart </Link>
+                        <button className="border-0 bg-transparent px-0 text-dark-grey" onClick={() => toggleCart()}>View Cart </button>
                       </li>
                       <li>
                         <Link to="/wishlist">Wishlist</Link>
                       </li>
-                      <li>
+                      {/* <li>
                         <Link>Downloads</Link>
                       </li>
                       <li>
@@ -140,7 +158,7 @@ const Footer = () => {
                       </li>
                       <li>
                         <Link>Video Tutorials</Link>
-                      </li>
+                      </li> */}
                       <li>
                         <Link to="/contact-us">Contact & Support</Link>
                       </li>
@@ -149,24 +167,13 @@ const Footer = () => {
                   <div className="col-md-4 col-12 mb-md-4 mb-0">
                     <h5 className="text-orange">POPULAR</h5>
                     <ul className="footer-links mt-lg-4 mt-0 pt-3 d-flex flex-column gap-md-3 gap-2">
-                      <li>
-                        <Link>Sorghum Millet (Jowar)</Link>
-                      </li>
-                      <li>
-                        <Link>Proso Millet (Chena / Barri)</Link>
-                      </li>
-                      <li>
-                        <Link>Pearl Millet (Bajra) </Link>
-                      </li>
-                      <li>
-                        <Link>Foxtail Millet (Kakum / Kangni)</Link>
-                      </li>
-                      <li>
-                        <Link>Barnyard Millet (Sanwa)</Link>
-                      </li>
-                      <li>
-                        <Link>Little Millet (Moraiyo)</Link>
-                      </li>
+                      {
+                        popularProduct?.slice(0, 6).map((item) => (
+                          <li key={item?._id}>
+                            <Link to={`/products/?name=${decodeURIComponent(item?.name)}`}>{item?.name}</Link>
+                          </li>
+                        ))
+                      }
                     </ul>
                   </div>
                 </div>
@@ -175,11 +182,12 @@ const Footer = () => {
           </div>
           <div className="footer-bottom bg-semi-orange text-center py-2">
             <p className="text-white">
-              © 2024 - Amrit Bhojanam. All rights reserved.
+              © {currentYear} - Amrit Bhojanam. All rights reserved.
             </p>
           </div>
         </div>
       </footer>
+      <MyCartMenu show={showCart} onClose={toggleCart}/>
     </>
   );
 };

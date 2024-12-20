@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
-import fireImg from "../../../assets/images/web/Fire.png";
-import productCard from "../../../assets/images/web/product-card.png";
-import { FiHeart, FiMinus } from "react-icons/fi";
-import catIcon from "../../../assets/images/web/products/product-cat.svg";
-import bakeryImg from "../../../assets/images/web/products/bakery.png";
-import beveragesImg from "../../../assets/images/web/products/beverages.png";
-import flourImg from "../../../assets/images/web/products/flour-img.png";
-import mixesImg from "../../../assets/images/web/products/mixes.png";
-import snacksImg from "../../../assets/images/web/products/snacks.png";
+import { BiReset } from "react-icons/bi"; 
+import {   FiMinus } from "react-icons/fi"; 
 import { Slider } from "primereact/slider";
-import starImg from "../../../assets/images/web/products/star.png";
-import { grey } from "@mui/material/colors";
+import starImg from "../../../assets/images/web/products/star.png"; 
 import { Checkbox } from "primereact/checkbox";
 import ProductCard from "../web-home/components/ProductCard";
 import { InputText } from "primereact/inputtext";
@@ -21,19 +13,16 @@ import {
   getCategoriesApi,
   getProductApi,
 } from "../../../services/adminApiRoutes";
-import useURLFilters from "../../../custom-compoents/useURLFilters";
-import { Icon } from "@mui/material";
+import useURLFilters from "../../../custom-compoents/useURLFilters"; 
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import { scrollToTop } from "../../../utils/constant-variable";
 
 const ProudctList = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [minValue, setMinValue] = useState(100);
+  const [loading, setLoading] = useState(false); 
   const navigate = useNavigate();
-  const [categoryList, setCategoryList] = useState([]);
-  const [maxValue, setMaxValue] = useState(200);
+  const [categoryList, setCategoryList] = useState([]); 
   const [filters, setFilters] = useURLFilters();
   const [ingredients, setIngredients] = useState([]);
   const onIngredientsChange = (e) => {
@@ -107,7 +96,8 @@ const ProudctList = () => {
           <div className="row">
             <div className="col-lg-3 col-12">
               <div className="bg-white product-detail-shadow rounded-20 p-4 mb-5">
-                <h6 className="underline-heading fw-bold">Category</h6>
+              <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span>Category</span>  <button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset" className="bg-transparent border-0 text-yellow fs-3"><BiReset />
+              </button> </h6>
                 <div className="">
                   <ul className="category-select-list">
                     {categoryList?.map((item, index) => (

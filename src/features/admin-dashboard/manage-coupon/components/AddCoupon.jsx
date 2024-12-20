@@ -64,7 +64,7 @@ const AddCoupon = () => {
       };
       try {
         await postCouponApi(payload);
-        navigate("/coupons");
+        navigate("/admin/coupons");
       } catch (error) {
         alert("Failed to add coupon.");
       }
@@ -383,7 +383,7 @@ const AddCoupon = () => {
                     />
                   </div>
                   <div className="col-md-12 mb-4 text-end">
-                    <Link to="/add-coupon">
+                    <Link to="/admin/add-coupon">
                       <YellowButton lable={"+ Add Coupons"} />
                     </Link>
                     <button

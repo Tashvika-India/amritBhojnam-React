@@ -50,7 +50,7 @@ function DashboardHome() {
             <div className="card-body">
               <div className="d-between align-items-center p-3">
                 <h5 className="mb-0 fw-500">Categories</h5>
-                <Link to="/category" className="text-orange d-flex align-items-center fw-500 gap-1">
+                <Link to="/admin/category" className="text-orange d-flex align-items-center fw-500 gap-1">
                   View All
                   <MdOutlineKeyboardDoubleArrowRight
                     style={{ fontSize: "large" }}
@@ -66,7 +66,7 @@ function DashboardHome() {
             <div className="card-body">
               <div className="d-between align-items-center p-3">
                 <h5 className="mb-0 fw-500">Top Selling Products</h5>
-                <Link to="/product" className="text-orange d-flex align-items-center fw-500 gap-1">
+                <Link to="/admin/product" className="text-orange d-flex align-items-center fw-500 gap-1">
                   View All
                   <MdOutlineKeyboardDoubleArrowRight
                     style={{ fontSize: "large" }}
@@ -84,7 +84,7 @@ function DashboardHome() {
             <div className="card-body">
               <div className="d-between align-items-center p-3">
                 <h5 className="mb-0 fw-500">Recent Orders</h5>
-                <Link to="/orders" className="text-orange d-flex align-items-center fw-500 gap-1">
+                <Link to="/admin/orders" className="text-orange d-flex align-items-center fw-500 gap-1">
                   View All
                   <MdOutlineKeyboardDoubleArrowRight
                     style={{ fontSize: "large" }}

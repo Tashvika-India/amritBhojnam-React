@@ -36,7 +36,7 @@ const AdminCoupon = () => {
                     <Heading value={"Coupons"} />
                 </div>
                 <div className="col-md-6 text-end">
-                    <Link to="/add-coupon">
+                    <Link to="/admin/add-coupon">
                         <YellowButton lable={"+ Add New Coupons"} />
                     </Link>
                 </div>
