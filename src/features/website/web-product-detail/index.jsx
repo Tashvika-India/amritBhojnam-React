@@ -42,6 +42,12 @@ const ProudctDetail = () => {
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const dispatch = useDispatch();
 
+  const truncateToWords = (text, limit) => {
+    if (!text) return "";
+    const words = text.trim().split(/\s+/);
+    return words.length > limit ? words.slice(0, limit).join(" ") + "..." : text;
+  };
+
 
   // const [reviewData, setReviewData] = useState({
   //   product_id: filters?.product_id,
@@ -407,7 +413,7 @@ const ProudctDetail = () => {
                     ({Math.round(detail?.ratings)} Reviews)
                   </p>
                 </div>
-                <p>{detail?.short_description}</p>
+                <p>{truncateToWords(detail?.short_description, 25)}</p>
                 <div className="d-flex mt-4 mb-3">
                   <p className="fw-600 pt-2">Size / Weight:</p>
                   <ButtonGroup className="weight-check ms-3 d-inline-flex align-items-center">
@@ -518,8 +524,8 @@ const ProudctDetail = () => {
                 </p>
                 <div className="d-flex mt-4  ms-4 ">
                   <ul className="me-5 pe-4 disc-style w-50">
-                    <li className="my-2">Type: {detail?.product_type}</li>
-                    <li className="my-2">Tags:{detail?.tags}</li>
+                   {detail?.product_type && <li className="my-2">Type: {detail?.product_type}</li>}
+                   {detail?.category && <li className="my-2">Category: {detail?.category}</li>}  
                     {/* <li className="my-2">
                       MFG:
                       {new Date(detail.mfg_date)
@@ -533,7 +539,7 @@ const ProudctDetail = () => {
                     {/* <li className="my-2">LIFE: {detail?.days} days</li> */}
                   </ul>
                   <ul className="me-5 pe-4 disc-style w-50">
-                    <li className="my-2">SKU: FWM15VKT</li>
+                    {/* <li className="my-2">SKU: FWM15VKT</li> */}
                     {/* <li className="my-2">Tags:{detail?.tags}</li> */}
                     {/* <li className="my-2">
                       Stock: {detail?.quantity} Items In Stock
