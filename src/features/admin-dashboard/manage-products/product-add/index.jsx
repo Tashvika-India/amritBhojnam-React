@@ -38,38 +38,40 @@ const ProductAdd = () => {
   const navigate = useNavigate();
 
   const handleTagAdd = (event) => {
-    if (event.key === "Enter" && event.target.value.trim()) {
-      event.preventDefault();
-      const newTags = [...values.tags, event.target.value.trim()];
-      setFieldValue("tags", newTags);
-      event.target.value = ""; // Clear input after adding
+    if (event.key === "Enter" && event.target.value.trim() !== "") {
+      const newTag = event.target.value.trim();
+      setValues((prevValues) => ({
+        ...prevValues,
+        tags: [...prevValues.tags, newTag],
+      }));
+      event.target.value = ""; // Clear input after adding a tag
     }
   };
 
   const handleTagRemove = (index) => {
-    const newTags = values.tags.filter((_, i) => i !== index);
-    setFieldValue("tags", newTags);
+    setValues((prevValues) => ({
+      ...prevValues,
+      tags: prevValues.tags.filter((_, i) => i !== index),
+    }));
   };
 
   const handleMetaKeywordAdd = (event) => {
-    if (event.key === "Enter" && event.target.value.trim()) {
-      event.preventDefault();
-      const newKeywords = [...values.meta_keywords, event.target.value.trim()];
-      setFieldValue("meta_keywords", newKeywords);
-      event.target.value = ""; // Clear the input field
+    if (event.key === "Enter" && event.target.value.trim() !== "") {
+      const newKeyword = event.target.value.trim();
+      setValues((prevValues) => ({
+        ...prevValues,
+        meta_keywords: [...prevValues.meta_keywords, newKeyword],
+      }));
+      event.target.value = ""; // Clear input after adding a keyword
     }
   };
 
   const handleMetaKeywordRemove = (index) => {
-    const newKeywords = values.meta_keywords.filter((_, i) => i !== index);
-    setFieldValue("meta_keywords", newKeywords);
+    setValues((prevValues) => ({
+      ...prevValues,
+      meta_keywords: prevValues.meta_keywords.filter((_, i) => i !== index),
+    }));
   };
-
-
-  const [keyword, setKeyword] = useState([""]);
-
-  const addKeyword = () => setKeyword([...keyword, ""]);
-  const removeKeyword = (index) => setKeyword(keyword.filter((_, i) => i !== index));
 
 
   const formik = useFormik({
@@ -83,12 +85,6 @@ const ProductAdd = () => {
   const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 
-  const handleKeywordChange = (index, value) => {
-    const updatedKeyword = [...keyword];
-    updatedKeyword[index] = value;
-    setKeyword(updatedKeyword);
-    setFieldValue('meta_keywords', updatedKeyword);
-  };
 
   async function addProduct(values) {
     const formData = new FormData();
@@ -113,11 +109,16 @@ const ProductAdd = () => {
     formData.append("meta_title", values.meta_title);
     formData.append("meta_description", values.meta_description);
 
-    values.keyword?.forEach((key, index) => {
-      if (key.trim()) {
-        formData.append(`meta_keywords[${index}]`, key.trim());
-      }
-    });
+    // Add tags as a comma-separated string
+    if (values.tags && Array.isArray(values.tags)) {
+      formData.append("tags", values.tags.join(","));
+    }
+
+
+    // Add meta_keywords as a comma-separated string
+    if (values.meta_keywords && Array.isArray(values.meta_keywords)) {
+      formData.append("meta_keywords", values.meta_keywords.join(","));
+    }
 
     if (values.images && Array.isArray(values.images)) {
       values.images.forEach((image, index) => {
@@ -171,11 +172,15 @@ const ProductAdd = () => {
     formData.append("meta_title", values.meta_title);
     formData.append("meta_description", values.meta_description);
 
-    values.keyword?.forEach((key, index) => {
-      if (key.trim()) {
-        formData.append(`meta_keywords[${index}]`, key.trim());
-      }
-    });
+    // Add tags as a comma-separated string
+    if (values.tags && Array.isArray(values.tags)) {
+      formData.append("tags", values.tags.join(","));
+    }
+
+    // Add meta_keywords as a comma-separated string
+    if (values.meta_keywords && Array.isArray(values.meta_keywords)) {
+      formData.append("meta_keywords", values.meta_keywords.join(","));
+    }
 
 
     if (values.images && Array.isArray(values.images)) {
@@ -229,8 +234,6 @@ const ProductAdd = () => {
     getSubCaterioes();
     if (isEditMode) {
       setValues(product);
-      // setTags(product?.tags);
-      setKeyword(product?.meta_keywords);
     }
   }, [product]);
 
@@ -353,7 +356,7 @@ const ProductAdd = () => {
                 />
               </div>
               <div className="col-md-12 mb-4">
-                <Box mb={2}> 
+                <Box mb={2}>
                   <TextField
                     label="Enter Tags"
                     variant="outlined"
@@ -413,7 +416,7 @@ const ProductAdd = () => {
               <div className="col-md-4 mb-4">
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">
-                    Quantity 
+                    Quantity
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
@@ -425,11 +428,11 @@ const ProductAdd = () => {
                     <MenuItem value=" ">&nbsp;</MenuItem>
                     <MenuItem value="10 gm">10 gm</MenuItem>
                     <MenuItem value="20 gm">20 gm</MenuItem>
-                    <MenuItem value="20 gm">30 gm</MenuItem>
+                    <MenuItem value="30 gm">30 gm</MenuItem>
                     <MenuItem value="50 gm">50 gm</MenuItem>
                     <MenuItem value="50 gm">75 gm</MenuItem>
                     <MenuItem value="100 gm">100 gm</MenuItem> 
-                    <MenuItem value="100 gm">120 gm</MenuItem> 
+                    <MenuItem value="120 gm">120 gm</MenuItem> 
                     <MenuItem value="150 gm">150 gm</MenuItem>
                     <MenuItem value="200 gm">200 gm</MenuItem>
                     <MenuItem value="300 gm">300 gm</MenuItem>
