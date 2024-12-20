@@ -80,7 +80,7 @@ function ProductList() {
           <Heading value={"Products"} />
         </div>
         <div className="col-md-6 text-end">
-          <Link to="/add-product">
+          <Link to="/admin/add-product">
             <YellowButton lable={"+ Add New Product"} />
           </Link>
         </div>

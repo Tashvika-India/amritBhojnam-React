@@ -80,7 +80,7 @@ API.interceptors.response.use(
         isRefreshing = false;
         localStorage.removeItem("access");
         localStorage.removeItem("refresh");
-        // window.location.href = "/login"; // Redirect to login page
+        // window.location.href = "/admin/login"; // Redirect to login page
         return Promise.reject(err);
       }
     }

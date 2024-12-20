@@ -23,7 +23,7 @@ function Roles() {
           <Heading value={"Roles"} />
         </div>
         <div className="col-md-6 text-end">
-          <Link to="/add-roles">
+          <Link to="/admin/add-roles">
             <YellowButton lable={"+ Add New"} />
           </Link>
         </div>

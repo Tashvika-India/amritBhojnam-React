@@ -6,7 +6,7 @@ function LoginPage() {
     const token = localStorage.getItem("access") ? localStorage.getItem("access") : localStorage.getItem("refresh");
 
     if (token) {
-        return <Navigate to="/dashboard" />;
+        return <Navigate to="/admin/dashboard" />;
     }
 
     return <Login />;

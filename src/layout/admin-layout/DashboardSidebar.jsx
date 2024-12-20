@@ -84,7 +84,7 @@ export default function DashboardSidebar({ children }) {
           className="dashboard-drawer"
         >
           <DrawerHeader className="d-flex justify-content-between align-items-center mb-3">
-            <Link to="/dashboard">  <img src={mainLogo} alt="Logo" style={{ height: "60px" }} /></Link>
+            <Link to="/admin/dashboard">  <img src={mainLogo} alt="Logo" style={{ height: "60px" }} /></Link>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? (
                 <ChevronLeftIcon />
