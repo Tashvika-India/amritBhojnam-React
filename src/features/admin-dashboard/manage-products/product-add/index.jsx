@@ -140,7 +140,7 @@ const ProductAdd = () => {
     }
     try {
       const response = await postProductApi(formData);
-      navigate("/product");
+      navigate("/admin/product");
       resetForm();
       setLoading(false);
     } catch (error) {
@@ -204,7 +204,7 @@ const ProductAdd = () => {
     try {
       const response = await putProductApi(product?.id, formData);
       resetForm();
-      navigate("/product");
+      navigate("/admin/product");
       setLoading(false);
     } catch (error) {
       setLoading(false);

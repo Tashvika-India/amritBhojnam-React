@@ -57,7 +57,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
       setLoading(false);  
-      navigate("/login");
+      navigate("/admin/login");
     }, 1000); 
   };
 

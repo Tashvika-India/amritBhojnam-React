@@ -43,7 +43,7 @@ const ManageReport = () => {
         </div>  */}
         </div>
         <div className="col-md-1 text-end position-relative">
-          <Link to="/add-coupon">
+          <Link to="/admin/add-coupon">
           
 
             <YellowButton lable={<span><img src={filterIcon} className="img-fluid position-absolute" style={{top: "1rem", left: "2rem"}}/> &nbsp; &nbsp; &nbsp;Filter</span>}/>

@@ -43,7 +43,7 @@ function AppRoutes() {
     <Routes>
       <Route
         exact
-        path="/dashboard"
+        path="/admin/dashboard"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -54,7 +54,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/dashboard"
+        path="/admin/dashboard"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -65,7 +65,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/category"
+        path="/admin/category"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -76,7 +76,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/sub-category"
+        path="/admin/sub-category"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -87,7 +87,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/product"
+        path="/admin/product"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -98,7 +98,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/add-product"
+        path="/admin/add-product"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -109,7 +109,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/add-roles"
+        path="/admin/add-roles"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -120,7 +120,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/edit-product"
+        path="/admin/edit-product"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -129,9 +129,9 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
-       <Route
+      <Route
         exact
-        path="/roles"
+        path="/admin/roles"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -142,7 +142,7 @@ function AppRoutes() {
       />
       <Route
       exact
-      path="/product-option"
+      path="/admin/product-option"
       element={
         <PrivateRoute>
           <DashboardSidebar>
@@ -153,7 +153,7 @@ function AppRoutes() {
     />
       <Route
         exact
-        path="/product/product-reviews/:id" 
+        path="/admin/product/product-reviews/:id" 
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -164,7 +164,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/banner"
+        path="/admin/banner"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -175,7 +175,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/coupons"
+        path="/admin/coupons"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -186,7 +186,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/add-coupon"
+        path="/admin/add-coupon"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -197,7 +197,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/edit-coupon/:id"
+        path="/admin/edit-coupon/:id"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -208,7 +208,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/contact"
+        path="/admin/contact"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -219,7 +219,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/orders"
+        path="/admin/orders"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -230,7 +230,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/report"
+        path="/admin/report"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -252,7 +252,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/returns-refunds"
+        path="/admin/returns-refunds"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -263,7 +263,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/customers"
+        path="/admin/customers"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -274,7 +274,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/employees"
+        path="/admin/employees"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -285,7 +285,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/add-employee"
+        path="/admin/add-employee"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -294,7 +294,7 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
-      <Route exact path="/login" element={<LoginPage />} />
+      <Route exact path="/admin/login" element={<LoginPage />} />
 
       {/* web routes */}
       <Route exact path="/" element={<HomePage />} />
@@ -310,7 +310,7 @@ function AppRoutes() {
       <Route exact path="/refund-policy" element={<RefundPolicy />} />
       <Route exact path="/shiping-policy" element={<ShipingPolicy />} />
       <Route exact path="/payment-success" element={<PaymentSuccess />} />
-      <Route exact path="/add-roles" element={<AddRoles />} />
+      <Route exact path="/admin/add-roles" element={<AddRoles />} />
 
 
     </Routes>

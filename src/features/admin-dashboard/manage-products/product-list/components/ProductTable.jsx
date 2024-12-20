@@ -40,7 +40,7 @@ function ProductTable({ products , getProductList }) {
   };
 
   const handleEditClick = (rowData) => {
-    navigate("/edit-product", { state: rowData });
+    navigate("/admin/edit-product", { state: rowData });
   };
 
   const imageBodyTemplate = (rowData) => {

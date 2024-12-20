@@ -86,7 +86,7 @@ function ManageEmployees() {
           <Heading value={"Employees"} />
         </div>
         <div className="col-md-6 text-end">
-        <Link to="/add-employee">
+        <Link to="/admin/add-employee">
           <YellowButton
             handleClick={() => setVisible(true)}
             lable={"+ Add Employee"}

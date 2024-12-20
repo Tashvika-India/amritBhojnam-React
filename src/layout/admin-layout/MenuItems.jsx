@@ -74,9 +74,9 @@ function MenuItems() {
   };
 
   React.useEffect(() => {
-    if (isActive("/category-one") || isActive("/category-two")) {
+    if (isActive("/admin/category-one") || isActive("/admin/category-two")) {
       setOpenSections((prev) => ({ ...prev, category: true }));
-    } else if (isActive("/orders") || isActive("/returns-refunds")) {
+    } else if (isActive("/admin/orders") || isActive("/admin/returns-refunds")) {
       setOpenSections((prev) => ({ ...prev, orders: true }));
     }
   }, [location.pathname]);
@@ -111,10 +111,10 @@ function MenuItems() {
     <>
       <List>
         <Link
-          to="/dashboard"
+          to="/admin/dashboard"
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <ListItemButton sx={isActive("/dashboard") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/dashboard") ? activeStyles : {}}>
             <ListItemIcon sx={listItemIconStyle}>
               <HomeIcon />
             </ListItemIcon>
@@ -133,7 +133,7 @@ function MenuItems() {
       <List>
         <ListItemButton
           onClick={() => handleToggle("category")}
-          sx={isActive("/category") || openSections.category ? activeStyles : {}}>
+          sx={isActive("/admin/category") || openSections.category ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
           <BiSolidCategory fontSize={"1.3rem"}/>
           </ListItemIcon>
@@ -141,14 +141,14 @@ function MenuItems() {
           {openSections.category ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         {renderCollapse("category", [
-          { path: "/category", label: "Category" },
-          { path: "/sub-category", label: "Sub Category" },
+          { path: "/admin/category", label: "Category" },
+          { path: "/admin/sub-category", label: "Sub Category" },
         ])}
         <Link
-          to="/product"
+          to="/admin/product"
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <ListItemButton sx={isActive("/product") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/product") ? activeStyles : {}}>
             <ListItemIcon sx={listItemIconStyle}>
             <BsFillBoxSeamFill fontSize={"1.3rem"} />
             </ListItemIcon>
@@ -157,7 +157,7 @@ function MenuItems() {
         </Link>
         <ListItemButton
           onClick={() => handleToggle("orders")}
-          sx={isActive("/orders") || openSections.orders ? activeStyles : {}}
+          sx={isActive("/admin/orders") || openSections.orders ? activeStyles : {}}
         >
           <ListItemIcon sx={listItemIconStyle}>
             <Inventory2Icon />
@@ -166,14 +166,14 @@ function MenuItems() {
           {openSections.orders ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         {renderCollapse("orders", [
-          { path: "/orders", label: "Orders" },
-          { path: "/returns-refunds", label: "Returns & Refunds" },
+          { path: "/admin/orders", label: "Orders" },
+          { path: "/admin/returns-refunds", label: "Returns & Refunds" },
         ])}
           <Link
-          to="/coupons"
+          to="/admin/coupons"
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <ListItemButton sx={isActive("/coupons") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/coupons") ? activeStyles : {}}>
             <ListItemIcon sx={listItemIconStyle}>
               <BiSolidOffer size={23} />
             </ListItemIcon>
@@ -190,9 +190,9 @@ function MenuItems() {
       </Typography>
       <List>
         <Link
-          to="/customers"
+          to="/admin/customers"
           style={{ textDecoration: "none", color: "inherit" }}>
-          <ListItemButton sx={isActive("/customers") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/customers") ? activeStyles : {}}>
             <ListItemIcon sx={listItemIconStyle}>
               <PeopleAltIcon />
             </ListItemIcon>
@@ -209,9 +209,9 @@ function MenuItems() {
       </Typography>
       <List>
         <Link
-          to="/roles"
+          to="/admin/roles"
           style={{ textDecoration: "none", color: "inherit" }}>
-          <ListItemButton sx={isActive("/roles") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/roles") ? activeStyles : {}}>
             <ListItemIcon sx={listItemIconStyle}>
               <FaUserCog size={23} />
             </ListItemIcon>
@@ -219,9 +219,9 @@ function MenuItems() {
           </ListItemButton>
         </Link>
         <Link
-          to="/employees"
+          to="/admin/employees"
           style={{ textDecoration: "none", color: "inherit" }}>
-          <ListItemButton sx={isActive("/employees") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/employees") ? activeStyles : {}}>
             <ListItemIcon sx={listItemIconStyle}>
             <FaUserTie  size={22}/>
             </ListItemIcon>
@@ -236,16 +236,16 @@ function MenuItems() {
         color="textSecondary">
         Business
       </Typography>
-      <Link to="/banner" style={{ textDecoration: "none", color: "inherit" }}>
-        <ListItemButton sx={isActive("/banner") ? activeStyles : {}}>
+      <Link to="/admin/banner" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/admin/banner") ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
           <BsImage />
           </ListItemIcon>
           <ListItemText primary="Banners" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
-      <Link to="/contact" style={{ textDecoration: "none", color: "inherit" }}>
-        <ListItemButton sx={isActive("/contact") ? activeStyles : {}}>
+      <Link to="/admin/contact" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/admin/contact") ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
             <TbMessageUser size={24} />
           </ListItemIcon>
@@ -260,16 +260,16 @@ function MenuItems() {
           <ListItemText primary="Nutrition" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
-      <Link to="/nutrition value" style={{ textDecoration: "none", color: "inherit" }}>
+      {/* <Link to="/nutritionvalue" style={{ textDecoration: "none", color: "inherit" }}>
         <ListItemButton sx={isActive("/nutrition value") ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
             <IoNutrition  size={24}/>
           </ListItemIcon>
           <ListItemText primary="Nutrition Value" sx={listItemTextStyle} />
         </ListItemButton>
-      </Link>
-      <Link to="/report" style={{ textDecoration: "none", color: "inherit" }}>
-        <ListItemButton sx={isActive("/report") ? activeStyles : {}}>
+      </Link> */}
+      <Link to="/admin/report" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/admin/report") ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
           <IoReceiptSharp />
           </ListItemIcon>

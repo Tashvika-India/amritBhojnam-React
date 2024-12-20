@@ -53,7 +53,7 @@ function LoginForm() {
 
         // Navigate to dashboard if admin role
         if (payload?.is_admin) {
-          navigate("/dashboard");
+          navigate("/admin/dashboard");
         } else {
           setErrorMessage("Access Denied: Not an admin user.");
         }

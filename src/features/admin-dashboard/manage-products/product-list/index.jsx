@@ -28,7 +28,7 @@ function ProductList() {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [activeTab, setActiveTab] = useState("Active Orders");
+  const [activeTab, setActiveTab] = useState("Active Orders"); 
 
   async function getProductList() {
     setLoading(true);
@@ -80,7 +80,7 @@ function ProductList() {
           <Heading value={"Products"} />
         </div>
         <div className="col-md-6 text-end">
-          <Link to="/add-product">
+          <Link to="/admin/add-product">
             <YellowButton lable={"+ Add New Product"} />
           </Link>
         </div>
@@ -134,6 +134,7 @@ function ProductList() {
                         setFilter({ ...filter, category_id: e.target.value })
                       }
                       size="small">
+                      <MenuItem value={""}>All</MenuItem>
                       {categories?.map((category) => (
                         <MenuItem key={category.id} value={category.id}>
                           {category.name}
