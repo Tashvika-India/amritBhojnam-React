@@ -15,7 +15,7 @@ import Inventory2Icon from "@mui/icons-material/Inventory2";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { FaUserTie } from "react-icons/fa";
 import { BsFillBoxSeamFill } from "react-icons/bs";
-import { IoReceiptSharp } from "react-icons/io5";
+import { IoNutrition, IoReceiptSharp } from "react-icons/io5";
 import { BsImage } from "react-icons/bs";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaUserCog } from "react-icons/fa";
@@ -250,6 +250,22 @@ function MenuItems() {
             <TbMessageUser size={24} />
           </ListItemIcon>
           <ListItemText primary="Contact" sx={listItemTextStyle} />
+        </ListItemButton>
+      </Link>
+      <Link to="/nutrition" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/nutrition") ? activeStyles : {}}>
+          <ListItemIcon sx={listItemIconStyle}>
+            <IoNutrition  size={24}/>
+          </ListItemIcon>
+          <ListItemText primary="Nutrition" sx={listItemTextStyle} />
+        </ListItemButton>
+      </Link>
+      <Link to="/nutrition value" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/nutrition value") ? activeStyles : {}}>
+          <ListItemIcon sx={listItemIconStyle}>
+            <IoNutrition  size={24}/>
+          </ListItemIcon>
+          <ListItemText primary="Nutrition Value" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
       <Link to="/report" style={{ textDecoration: "none", color: "inherit" }}>
