@@ -113,7 +113,7 @@ const Header = () => {
     <>
           <ScrollTopBehaviour/>
 
-      <header className="fb-bottom-shadow sticky-top bg-white">
+      <header className="fb-bottom-shadow sticky-top bg-white z-100">
         <div className="header-top bg-semi-orange py-2">
           <div className="container fb-container d-flex flex-wrap gap-2 justify-content-center justify-content-lg-between align-items-center">
             <p className="text-white fw-500 fb-fs-14 d-none d-lg-block">

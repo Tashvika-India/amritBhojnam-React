@@ -693,6 +693,15 @@ const ProudctDetail = () => {
           </div>
         </div>
       </section>
+      <section className="recipe-section">
+<div className="container fb-container">
+<div className="row">
+<div>
+  <h3></h3>
+</div>
+</div>
+</div>
+      </section>
       <section className="similar-product">
         <div className="container fb-container">
           <div className="row ms-5">
