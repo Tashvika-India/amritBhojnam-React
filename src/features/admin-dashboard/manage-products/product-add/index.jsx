@@ -430,14 +430,14 @@ const ProductAdd = () => {
                     <MenuItem value="20 gm">20 gm</MenuItem>
                     <MenuItem value="30 gm">30 gm</MenuItem>
                     <MenuItem value="50 gm">50 gm</MenuItem>
-                    <MenuItem value="50 gm">75 gm</MenuItem>
+                    <MenuItem value="75 gm">75 gm</MenuItem>
                     <MenuItem value="100 gm">100 gm</MenuItem> 
                     <MenuItem value="120 gm">120 gm</MenuItem> 
+                    <MenuItem value="125 gm">125 gm</MenuItem> 
                     <MenuItem value="150 gm">150 gm</MenuItem>
                     <MenuItem value="200 gm">200 gm</MenuItem>
-                    <MenuItem value="300 gm">300 gm</MenuItem>
-                    <MenuItem value="250 gm">200 gm</MenuItem>
                     <MenuItem value="250 gm">250 gm</MenuItem>
+                    <MenuItem value="300 gm">300 gm</MenuItem> 
                     <MenuItem value="500 gm">500 gm</MenuItem>
                     <MenuItem value="750 gm">750 gm</MenuItem>
                     <MenuItem value="1 kg">1 kg</MenuItem>
