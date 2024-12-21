@@ -407,9 +407,9 @@ const ProudctDetail = () => {
                 </div>
                 <p className="fb-fs-40 text-orange fw-bold original-price">
                   ₹{detail?.offer_price}
-                  <small className="fw-500 fb-fs-30 text-grey ms-3">
+                  {detail?.offer_price !== detail?.max_price &&  <small className="fw-500 fb-fs-30 text-grey ms-3">
                     <strike>₹{detail?.max_price}</strike>
-                  </small>
+                  </small>}
                 </p>
                 <p style={{ fontSize: "0.875rem" }} className="fw-500">
                   (Inclusive of all taxes)
