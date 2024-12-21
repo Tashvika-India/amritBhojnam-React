@@ -269,7 +269,7 @@ const CheckoutPage = () => {
                   </Collapse>
                 </div>
                 <div className="col-lg-5 col-md-12">
-                  <div className="my-card-section product-detail-shadow rounded-20 p-4 mb-4 sticky-top">
+                  <div className="my-card-section product-detail-shadow rounded-20 p-4 mb-4 sticky-top " style={{zIndex: 10}}>
                     <p className="fb-fs-26 fw-bold mb-4">My Cart</p>
 
                     {loading ? (
