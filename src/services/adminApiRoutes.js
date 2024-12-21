@@ -192,3 +192,8 @@ export const postRatingApi = (payload) => API.post(`/product/rating/`, payload);
 // order
 export const getAdminOrderApi = ( ) => API.get(`/orders/`);
 
+//nutrition
+export const getNutritionApi = () => API.get(`/nutritions/`);
+export const postNutritionApi = (payload) => API.post(`/nutritions/`, payload); 
+
+

@@ -19,6 +19,7 @@ import { cartAdd } from "../../../redux/slices/cartSlice";
 import Loading from "../../../components/ui/Loading";
 import ProductCard from "../web-home/components/ProductCard";
 import fireImg from "../../../assets/images/web/Fire.png";
+import recipeImg from "../../../assets/images/web/recipe-image.png";
 import { Button, Checkbox, Menu, MenuItem, TextField } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import ShareIcon from "@mui/icons-material/Share";
@@ -44,10 +45,11 @@ const ProudctDetail = () => {
   const truncateToWords = (text, limit) => {
     if (!text) return "";
     const words = text.trim().split(/\s+/);
-    return words.length > limit ? words.slice(0, limit).join(" ") + "..." : text;
+    return words.length > limit
+      ? words.slice(0, limit).join(" ") + "..."
+      : text;
   };
-
-
+ 
 
   const { cartItems, finalCart, error, cartId } = useSelector(
     (state) => state.cart
@@ -303,8 +305,6 @@ const ProudctDetail = () => {
     dispatch(updateWishlist(data));
   }
 
-
-
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -494,8 +494,12 @@ const ProudctDetail = () => {
                 </p>
                 <div className="d-flex mt-4  ms-4 ">
                   <ul className="me-5 pe-4 disc-style w-50">
-                   {detail?.product_type && <li className="my-2">Type: {detail?.product_type}</li>}
-                   {detail?.category && <li className="my-2">Category: {detail?.category}</li>}  
+                    {detail?.product_type && (
+                      <li className="my-2">Type: {detail?.product_type}</li>
+                    )}
+                    {detail?.category && (
+                      <li className="my-2">Category: {detail?.category}</li>
+                    )}
                     {/* <li className="my-2">
                       MFG:
                       {new Date(detail.mfg_date)
@@ -606,11 +610,14 @@ const ProudctDetail = () => {
                                     </div>
                                   </div>
                                   <p className="mb-3">{data?.comment}</p>
-                                  <p className="mb-3 text-grey fw-500">  {new Intl.DateTimeFormat("en-GB", {
-                                    day: "2-digit",
-                                    month: "short",
-                                    year: "numeric",
-                                  }).format(new Date(data?.created_at))}</p>
+                                  <p className="mb-3 text-grey fw-500">
+                                    {" "}
+                                    {new Intl.DateTimeFormat("en-GB", {
+                                      day: "2-digit",
+                                      month: "short",
+                                      year: "numeric",
+                                    }).format(new Date(data?.created_at))}
+                                  </p>
                                 </div>
                               ))}
                             </div>
@@ -625,14 +632,111 @@ const ProudctDetail = () => {
           </div>
         </div>
       </section>
-      <section className="recipe-section">
-<div className="container fb-container">
-<div className="row">
-<div>
-  <h3></h3>
-</div>
-</div>
-</div>
+      <section className="recipe-section ms-5">
+        <div className="container fb-container ">
+          <div className="row">
+            <div className="bg-recipe-background ms-5 rounded-20">
+              <h3 className="fw-bold ms-5 pt-4 mt-2">Recipes</h3>
+              <div>
+                <div className="container fb-container">
+                  <Tab.Container
+                    id="left-tabs-example"
+                    defaultActiveKey="Description"
+                  >
+                    <div className="row">
+                      <div className="col-md-12">
+                        <Nav
+                          variant="pills"
+                          className="flex-row tab-nav-wrapper my-3  mt-md-4 mb-md-3 px-4 gap-3 gap-md-4"
+                        >
+                          <Nav.Item className="nav button-yellow text-white">
+                            <Nav.Link
+                              as="button"
+                              className="btn-tab me-0 text-white"
+                              eventKey="Description"
+                            >
+                              Description
+                            </Nav.Link>
+                          </Nav.Item>
+                          <Nav.Item className="button-set-default">
+                            <Nav.Link
+                              as="button"
+                              className="btn-tab me-0"
+                              eventKey="Additional Info"
+                            >
+                              Additional Info
+                            </Nav.Link>
+                          </Nav.Item>
+                        </Nav>
+                      </div>
+                      <div className="col-md-12">
+                        <Tab.Content className="px-4 pb-4">
+                          <Tab.Pane eventKey="Description">
+                            <div className="d-flex gap-5 pt-2">
+                              <div className="me-4">
+                                <p className="fb-fs-18 my-4 py-1">
+                                  <span className="fw-bold text-orange">
+                                    {" "}
+                                    Step 1.
+                                  </span>{" "}
+                                  Lorem Ipsum is simply dummy text of the
+                                  printing and typesetting industry. Lorem Ipsum
+                                  has been the
+                                </p>
+                                <p className="fb-fs-18 my-4 py-1">
+                                  <span className="fw-bold text-orange">
+                                    {" "}
+                                    Step 2.
+                                  </span>{" "}
+                                  Lorem Ipsum is simply dummy text of the
+                                  printing and typesetting industry. Lorem Ipsum
+                                  has been the
+                                </p>
+                                <p className="fb-fs-18 my-4 py-1">
+                                  <span className="fw-bold text-orange">
+                                    {" "}
+                                    Step 3.
+                                  </span>{" "}
+                                  Lorem Ipsum is simply dummy text of the
+                                  printing and typesetting industry. Lorem Ipsum
+                                  has been the
+                                </p>
+                                <p className="fb-fs-18 my-4 py-1">
+                                  <span className="fw-bold text-orange">
+                                    {" "}
+                                    Step 4.
+                                  </span>{" "}
+                                  Lorem Ipsum is simply dummy text of the
+                                  printing and typesetting industry. Lorem Ipsum
+                                  has been the
+                                </p>
+                                <p className="fb-fs-18 my-4 py-1">
+                                  <span className="fw-bold text-orange">
+                                    {" "}
+                                    Step 5.
+                                  </span>{" "}
+                                  Lorem Ipsum is simply dummy text of the
+                                  printing and typesetting industry. Lorem Ipsum
+                                  has been the
+                                </p>
+                              </div>
+                              <div>
+                                <img src={recipeImg} className="img-fluid mt-4" style={{width: "50rem", aspectRatio: "16 / 10"}} />
+                              </div>
+                            </div>
+                          </Tab.Pane>
+                          <Tab.Pane eventKey="Additional Info">
+                            Additional
+                          </Tab.Pane>
+                        </Tab.Content>
+                      </div>
+                    </div>
+                  </Tab.Container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
       <section className="similar-product">
         <div className="container fb-container">
