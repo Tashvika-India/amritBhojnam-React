@@ -13,8 +13,7 @@ function LoginForm() {
 
 
   const initialValues = {
-    // email: "user@example.com",
-    // password: "string",
+
     email: "",
     password: "",
   };

@@ -27,6 +27,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../../../components/ui/Loading";
 import * as Yup from "yup";
 import { baseURL } from "../../../../utils/constant-variable";
+import IosSwitch from "../../../../components/ui/IosSwitch";
+import { productSchema } from "../../../../schemas/product-schema";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Product name is required"),
@@ -37,6 +39,7 @@ const ProductAdd = () => {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const location = useLocation();
+  const ifError = (key) => errors[key] && touched[key];
   const product = location?.state;
   const isEditMode = !!product;
   const navigate = useNavigate();
@@ -79,83 +82,20 @@ const ProductAdd = () => {
 
   const formik = useFormik({
     initialValues: productInitalValues,
-    validationSchema: validationSchema,
+    validationSchema: productSchema,
     onSubmit: async (values) => {
-      isEditMode ? updateProduct(values) : addProduct(values);
+      isEditMode
+        ? updateProduct(values)
+        : addProduct({ ...values, discount: values.discount || 0 });
     },
   });
   const {
     values,
-    handleSubmit,
     resetForm,
     setValues,
-    handleBlur,
-    handleChange,
-    setFieldValue,
-  } = formik;
-  const MAX_FILE_SIZE = 5 * 1024 * 1024;
-
-  // async function addProduct(values) {
-  //   const formData = new FormData();
-  //   formData.append("name", values.name);
-  //   formData.append("category_id", values.category_id);
-  //   formData.append("sub_category_id", values.sub_category_id);
-  //   formData.append("short_description", values.short_description);
-  //   formData.append("long_description", values.long_description);
-  //   formData.append("quantity", values.quantity);
-  //   formData.append("quantity_unit", values.quantity_unit);
-  //   formData.append("max_price", values.max_price);
-  //   formData.append("offer_price", values.offer_price);
-  //   formData.append("nutritions", values.nutritions);
-  //   formData.append("is_manually_popular", values.is_manually_popular);
-  //   formData.append("is_manually_best_choice", values.is_manually_best_choice);
-  //   formData.append("is_delicious", values.is_delicious);
-  //   formData.append("is_deleted", values.is_deleted);
-  //   formData.append("product_type", values.product_type);
-  //   formData.append("days", values.days);
-  //   formData.append("mfg_date", values.mfg_date);
-  //   formData.append("ratings", values.ratings);
-  //   formData.append("meta_title", values.meta_title);
-  //   formData.append("meta_description", values.meta_description);
-
-  //   // Add tags as a comma-separated string
-  //   if (values.tags && Array.isArray(values.tags)) {
-  //     formData.append("tags", values.tags.join(","));
-  //   }
-
-  //   // Add meta_keywords as a comma-separated string
-  //   if (values.meta_keywords && Array.isArray(values.meta_keywords)) {
-  //     formData.append("meta_keywords", values.meta_keywords.join(","));
-  //   }
-
-  //   if (values.images && Array.isArray(values.images)) {
-  //     values.images.forEach((image, index) => {
-  //       if (image instanceof File) {
-  //         if (image.size > MAX_FILE_SIZE) {
-  //           console.error(`Image at index ${index} exceeds the size limit.`);
-  //           return; // Skip this image or set an error state
-  //         }
-  //         const validFormats = ['image/jpeg', 'image/png', 'image/gif'];
-  //         if (!validFormats.includes(image.type)) {
-  //           console.error(`Image at index ${index} is not a valid format.`);
-  //           return; // Skip this image or set an error state
-  //         }
-  //         formData.append("images", image);
-  //       } else {
-  //         console.error(`Image at index ${index} is not a valid File instance.`);
-  //       }
-  //     });
-  //   }
-  //   try {
-  //     const response = await postProductApi(formData);
-  //     navigate("/admin/product");
-  //     resetForm();
-  //     setLoading(false);
-  //   } catch (error) {
-  //     setLoading(false);
-  //     throw error;
-  //   }
-  // }
+    errors,
+    touched,
+  } = formik;  
 
   async function addProduct(values) {
     try {
@@ -206,6 +146,8 @@ const ProductAdd = () => {
     }
   }, [product]);
 
+  console.log("Errors", errors);
+
   return (
     <>
       <div className="mt-3 mb-5 row">
@@ -224,6 +166,9 @@ const ProductAdd = () => {
                 baseURL={baseURL}
               />
             </div>
+            {ifError("images") && (
+              <span className="text-danger">{errors.images}</span>
+            )}
           </div>
         </div>
         <div className="card mb-4 px-3 pt-2">
@@ -238,9 +183,9 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   label="Product Name"
                   variant="outlined"
+                  error={ifError("name")}
+                  helperText={ifError("name") && errors.name}
                   fullWidth
-                  error={!!formik.errors.name && formik.touched.name}
-                  helperText={formik.touched.name && formik.errors.name}
                 />
               </div>
               <div className="col-md-8 mb-4">
@@ -250,6 +195,10 @@ const ProductAdd = () => {
                   value={formik.values?.short_description}
                   onChange={formik.handleChange}
                   label="Short description"
+                  error={ifError("short_description")}
+                  helperText={
+                    ifError("short_description") && errors.short_description
+                  }
                   variant="outlined"
                   fullWidth
                 />
@@ -275,6 +224,7 @@ const ProductAdd = () => {
                     name="category_id"
                     value={formik.values?.category_id}
                     onChange={formik.handleChange}
+                    error={ifError("category_id")}
                   >
                     {categories?.map((category) => (
                       <MenuItem key={category.id} value={category.id}>
@@ -283,6 +233,9 @@ const ProductAdd = () => {
                     ))}
                   </Select>
                 </FormControl>
+                {ifError("category_id") && (
+                  <p className="text-danger">{errors.category_id}</p>
+                )}
               </div>
               <div className="col-md-4 mb-4">
                 <FormControl fullWidth>
@@ -295,6 +248,7 @@ const ProductAdd = () => {
                     name="sub_category_id"
                     value={formik.values?.sub_category_id}
                     onChange={formik.handleChange}
+                    error={ifError("sub_category_id")}
                     label="Select Sub Category"
                   >
                     {subCategories?.map((sub) => (
@@ -304,8 +258,11 @@ const ProductAdd = () => {
                     ))}
                   </Select>
                 </FormControl>
+                {ifError("sub_category_id") && (
+                  <p className="text-danger">{errors.sub_category_id}</p>
+                )}
               </div>
-              <div className="col-md-4 mb-4">
+              {/* <div className="col-md-4 mb-4">
                 <TextField
                   type="date"
                   id="outlined-basic"
@@ -316,8 +273,8 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   fullWidth
                 />
-              </div>
-              <div className="col-md-4 mb-4">
+              </div> */}
+              {/* <div className="col-md-4 mb-4">
                 <TextField
                   id="outlined-basic"
                   label="Days"
@@ -327,7 +284,7 @@ const ProductAdd = () => {
                   variant="outlined"
                   fullWidth
                 />
-              </div>
+              </div> */}
               <div className="col-md-12 mb-4">
                 <Box mb={2}>
                   <TextField
@@ -364,29 +321,7 @@ const ProductAdd = () => {
           <div className="card-body">
             <h6 className="mb-4">Product Detail</h6>
             <div className="row">
-              {/* <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Quantity"
-                  variant="outlined"
-                  name="quantity"
-                  value={formik.values?.quantity}
-                  onChange={formik.handleChange}
-                  fullWidth
-                />
-              </div>
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Quantity Type"
-                  variant="outlined"
-                  name="quantity_unit"
-                  value={formik.values?.quantity_unit}
-                  onChange={formik.handleChange}
-                  fullWidth
-                />
-              </div> */}
-              <div className="col-md-4 mb-4">
+              <div className="col-md-3 mb-4">
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">
                     Quantity
@@ -397,6 +332,7 @@ const ProductAdd = () => {
                     name="quantity"
                     value={formik.values?.quantity}
                     onChange={formik.handleChange}
+                    error={ifError("quantity")}
                     label="Quantity"
                   >
                     <MenuItem value=" ">&nbsp;</MenuItem>
@@ -419,6 +355,84 @@ const ProductAdd = () => {
                     <MenuItem value="5 kg">5 kg</MenuItem>
                   </Select>
                 </FormControl>
+                {ifError("quantity") && (
+                  <p className="text-danger">{errors.quantity}</p>
+                )}
+              </div>
+              <div className="col-md-3 mb-4">
+                <div
+                  className={`switch-container ${
+                    formik.values.is_manually_popular && "active"
+                  }`}
+                  onClick={() =>
+                    formik.setFieldValue(
+                      "is_manually_popular",
+                      !formik.values.is_manually_popular
+                    )
+                  }
+                >
+                  <div className="">Product Popular</div>
+                  <div>
+                    <IosSwitch
+                      checked={formik.values.is_manually_popular}
+                      onChange={(e) =>
+                        formik.setFieldValue(
+                          "is_manually_popular",
+                          e.target.checked
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-3 mb-4">
+                <div
+                  className={`switch-container ${
+                    formik.values.is_manually_best_choice && "active"
+                  }`}
+                  onClick={() =>
+                    formik.setFieldValue(
+                      "is_manually_best_choice",
+                      !formik.values.is_manually_best_choice
+                    )
+                  }
+                >
+                  <div className="">Best Choice</div>
+                  <div>
+                    <IosSwitch
+                      checked={formik.values.is_manually_best_choice}
+                      onChange={(e) =>
+                        formik.setFieldValue(
+                          "is_manually_best_choice",
+                          e.target.checked
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-3 mb-4">
+                <div
+                  className={`switch-container ${
+                    formik.values.is_delicious && "active"
+                  }`}
+                  onClick={() =>
+                    formik.setFieldValue(
+                      "is_delicious",
+                      !formik.values.is_delicious
+                    )
+                  }
+                >
+                  <div className="">Delicious</div>
+                  <div>
+                    <IosSwitch
+                      checked={formik.values.is_delicious}
+                      onChange={(e) =>
+                        formik.setFieldValue("is_delicious", e.target.checked)
+                      }
+                    />
+                  </div>
+                </div>
               </div>
               <div className="col-md-12 mb-4">
                 <TextField
@@ -427,6 +441,10 @@ const ProductAdd = () => {
                   name="long_description"
                   value={formik.values?.long_description}
                   onChange={formik.handleChange}
+                  error={ifError("long_description")}
+                  helperText={
+                    ifError("long_description") && errors.long_description
+                  }
                   multiline
                   rows={3}
                   variant="outlined"
@@ -449,6 +467,8 @@ const ProductAdd = () => {
                   name="stock"
                   value={formik.values?.stock}
                   onChange={formik.handleChange}
+                  error={ifError("stock")}
+                  helperText={ifError("stock") && errors.stock}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -459,28 +479,24 @@ const ProductAdd = () => {
                   name="max_price"
                   value={formik.values?.max_price}
                   onChange={formik.handleChange}
+                  error={ifError("max_price")}
+                  helperText={ifError("max_price") && errors.max_price}
                   fullWidth
                 />
               </div>
               <div className="col-md-4 mb-4">
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Discount Type
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    name="discount"
-                    value={formik.values?.discount}
-                    onChange={formik.handleChange}
-                    label="Discount"
-                  >
-                    <MenuItem value={0}>No Discount</MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
+                <TextField
+                  id="outlined-basic"
+                  label="Discount"
+                  variant="outlined"
+                  name="discount"
+                  type="number"
+                  value={formik.values?.discount}
+                  onChange={formik.handleChange}
+                  error={ifError("discount")}
+                  helperText={ifError("discount") && errors.discount}
+                  fullWidth
+                />
               </div>
             </div>
           </div>
