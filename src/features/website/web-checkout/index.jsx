@@ -223,7 +223,7 @@ const CheckoutPage = () => {
                                 <div className="ms-md-3">
                                   <div className="d-flex mt-2">
                                     <p className="fw-600 fb-fs-18">
-                                      {item?.user_detail?.full_name} |{" "}
+                                      {item?.user_detail?.full_name} |
                                       {item?.user_detail?.phone_number}
                                     </p>
                                     {item?.selected && (
@@ -233,8 +233,8 @@ const CheckoutPage = () => {
                                     )}
                                   </div>
                                   <p className="mt-2 text-wrap">
-                                    {item?.house_flat_block_no},{" "}
-                                    {item?.road_area_colony}, {item?.city},{" "}
+                                    {item?.house_flat_block_no},
+                                    {item?.road_area_colony}, {item?.city},
                                     {item?.state} - {item?.pincode}
                                   </p>
                                 </div>
@@ -301,7 +301,7 @@ const CheckoutPage = () => {
                               }`}</h6>
                             </div>
                           </div>
-                          <div className="mt-5">
+                          {/* <div className="mt-5">
                             <div
                               className="border-gray border-raidus-10 mt-2 input-box"
                               style={{ width: "100%" }}
@@ -318,7 +318,7 @@ const CheckoutPage = () => {
                                 </button>
                               </div>
                             </div>
-                          </div>
+                          </div> */}
                         </>
                       ))
                     ) : (
@@ -415,13 +415,13 @@ const CheckoutPage = () => {
                         <div className="w-100 text-center">
                           {cartList.length > 0 ? (
                             <h6 className="text-danger text-uppercase fs-6">
-                              {" "}
-                              Please Add Your address{" "}
+                              
+                              Please Add Your address
                             </h6>
                           ) : (
                             <h6 className="text-danger text-uppercase fs-6">
-                              {" "}
-                              Please Add Product in Cart{" "}
+                              
+                              Please Add Product in Cart
                             </h6>
                           )}
                         </div>
