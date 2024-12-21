@@ -2,8 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import { useState, useEffect, useRef } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { baseURL } from "../../../../utils/constant-variable";
-import { AspectRatio } from "@mui/icons-material";
+import { baseURL } from "../../../../utils/constant-variable"; 
 
 function AsNavFor({ data }) {
   const [nav1, setNav1] = useState(null);
@@ -14,7 +13,8 @@ function AsNavFor({ data }) {
   useEffect(() => {
     setNav1(sliderRef1);
     setNav2(sliderRef2);
-  }, []);
+  }, []); 
+  
 
   return (
     <div className="slider-container ms-lg-5">
@@ -24,8 +24,8 @@ function AsNavFor({ data }) {
             <div className="product-detail-image bg-background p-3">
               <img loading="lazy"
                 className="img-fluid w-100 h-100"
-                src={baseURL+item?.img_files}   
-                alt={`banner-ads-${index}`}  
+                src={item?.image || ""}   
+                alt={item?.name || "img"}  
               />
             </div>
           </div>
@@ -49,7 +49,9 @@ function AsNavFor({ data }) {
         {/* Slider thumbnails */}
         {data?.map((item, index) => (
           <div key={index} className="slider-bottom-item w-75">
-            <img loading="lazy" className="img-fluid" src={baseURL+item?.img_files} alt={`slider-bottom-${index}`} />
+            <img loading="lazy" className="img-fluid"  
+            src={item?.image || ""}   
+            alt={item?.name || "img"} />
           </div>
         ))}
       </Slider>
