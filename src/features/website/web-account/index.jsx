@@ -36,6 +36,7 @@ import { baseURL } from "../../../utils/constant-variable";
 import { Link, useLocation } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
 import { Rating } from "primereact/rating";
+import ReviewModal from "../../../components/ui/ReviewModal";
 
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
@@ -48,6 +49,7 @@ const UserProfile = () => {
   const [visible, setVisible] = useState(false);
   const [profileEdit, setProfileEdit] = useState(false);
   const location = useLocation();
+  const [productId, setProductId] = useState("");
   const profilePicture = baseURL + userDetail?.pp;
 
   const formik = useFormik({
@@ -220,6 +222,11 @@ const UserProfile = () => {
     }
   };
 
+  const handleReviewClick = (id) => {
+    setVisible(true);
+    setProductId(id);
+  };
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -314,54 +321,51 @@ const UserProfile = () => {
             <div>
               <div className="flex mb-2 gap-2 justify-content-end border-bottom profile-tabs">
                 <button
-                  className={`border-0 bg-white fw-600 ${
-                    activeIndex === 0
-                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                      : "text-dark-grey"
-                  }`}
+                  className={`border-0 bg-white fw-600 ${activeIndex === 0
+                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                    : "text-dark-grey"
+                    }`}
                   onClick={() => setActiveIndex(0)}
                   rounded
                   outlined={activeIndex !== 0}
                   label="1"
                 >
-                  {" "}
+
                   <span className="me-1">
-                    <i className="pi pi-user"></i>{" "}
-                  </span>{" "}
+                    <i className="pi pi-user"></i>
+                  </span>
                   My Account
                 </button>
                 <button
-                  className={`border-0 bg-white fw-600 ${
-                    activeIndex === 1
-                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                      : "text-dark-grey"
-                  }`}
+                  className={`border-0 bg-white fw-600 ${activeIndex === 1
+                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                    : "text-dark-grey"
+                    }`}
                   onClick={() => setActiveIndex(1)}
                   rounded
                   outlined={activeIndex !== 1}
                   label="2"
                 >
-                  {" "}
+
                   <span className="me-1">
-                    <i className="pi pi-box"></i>{" "}
-                  </span>{" "}
+                    <i className="pi pi-box"></i>
+                  </span>
                   Order History
                 </button>
                 <button
-                  className={`border-0 bg-white fw-600 ${
-                    activeIndex === 2
-                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                      : "text-dark-grey"
-                  }`}
+                  className={`border-0 bg-white fw-600 ${activeIndex === 2
+                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                    : "text-dark-grey"
+                    }`}
                   onClick={() => setActiveIndex(2)}
                   rounded
                   outlined={activeIndex !== 2}
                   label="3"
                 >
-                  {" "}
+
                   <span className="me-1">
-                    <i className="pi pi-map-marker"></i>{" "}
-                  </span>{" "}
+                    <i className="pi pi-map-marker"></i>
+                  </span>
                   Address Book
                 </button>
               </div>
@@ -557,7 +561,7 @@ const UserProfile = () => {
                             </div>
                             <div className="col-6 col-md-3 text-end">
                               <a href="profile?tab=orders/" download>
-                                {" "}
+
                                 <p className="text-orange fw-500">
                                   Download Invoice
                                 </p>
@@ -572,10 +576,7 @@ const UserProfile = () => {
                                     <img
                                       className="img-fluid me-4 rounded-4"
                                       style={{ height: "6rem", width: "6rem" }}
-                                      src={
-                                        baseURL +
-                                        data?.product?.images[0]?.img_files
-                                      }
+                                      src={data?.product?.images[0]?.image}
                                       alt="pencil"
                                     />
                                     <div>
@@ -583,16 +584,16 @@ const UserProfile = () => {
                                         {data?.product?.name}
                                       </p>
                                       <p className="mt-2">
-                                        Qty:{" "}
+                                        Qty:
                                         <span className="fw-600">
-                                          {" "}
+
                                           {data?.item_quantity}
                                         </span>
                                       </p>
                                       <p className="mt-2">
                                         Size:
                                         <span className="fw-600">
-                                          {" "}
+
                                           {`${data?.product?.quantity}${data?.product?.quantity_unit}`}
                                         </span>
                                       </p>
@@ -628,12 +629,12 @@ const UserProfile = () => {
                                 </div>
                                 <div className="col-md-6 text-md-end">
                                   <div className="more-option d-flex mb-2 mb-lg-0 justify-content-md-end">
-                                    <button   onClick={() => setVisible(true)} className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end  pe-md-4">
+                                    <button onClick={() => handleReviewClick(data?.product?.id)} className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end  pe-md-4">
                                       Add Review
                                     </button>
-                                    <button className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end   px-md-4">
+                                    <Link  to={`/product-detail?product_id=${data?.product?.id}`} className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end   px-md-4">
                                       View Product
-                                    </button>
+                                    </Link>
                                     <button className="fw-500 text-center border-0 text-orange bg-transparent ms-lg-3">
                                       Buy Again
                                     </button>
@@ -673,9 +674,8 @@ const UserProfile = () => {
                       {addressList.length > 0 ? (
                         addressList.map((item, index) => (
                           <div
-                            className={`summary-card ${
-                              item?.selected ? "active" : ""
-                            } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                            className={`summary-card ${item?.selected ? "active" : ""
+                              } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
                             key={index}
                             onClick={() => handleSelectAddress(item?.id)}
                           >
@@ -684,16 +684,15 @@ const UserProfile = () => {
                                 <div className="col-md-12">
                                   <div className="order-date d-flex gap-2">
                                     <img
-                                      className={`img-fluid me-1 rounded-4 ${
-                                        item?.selected ? "shadow" : ""
-                                      }`}
+                                      className={`img-fluid me-1 rounded-4 ${item?.selected ? "shadow" : ""
+                                        }`}
                                       src={homeImg}
                                       alt="pencil"
                                     />
                                     <div className="ms-md-3">
                                       <div className="d-flex mt-2 gap-1 align-items-center">
                                         <p className="fw-600 fb-fs-18">
-                                          {item?.user_detail?.full_name} |{" "}
+                                          {item?.user_detail?.full_name} |
                                           {item?.user_detail?.phone_number}
                                         </p>
                                         {item?.selected && (
@@ -769,56 +768,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-
-     {/* Add review modal */}
-      <Dialog
-        header="Add Review"
-        visible={visible}
-        modal={false}
-        style={{ width: "50vw" }}
-        onHide={() => {
-          if (!visible) return;
-          setVisible(false);
-        }}
-      >
-      <div>
-      <div className="d-flex gap-4 align-items-center">
-      <img style={{border: "1px solid  #D6D6D6", padding: "8px", borderRadius: "1rem"}} src={milletIcon}  />
-      <p className="fb-fs-20 fw-600 mb-0">Masala Millets (Veggie Masala)</p>
-      </div>
-      
-      </div>
-        <div className="d-flex mb-4 mt-4 gap-4">
-          <p className="fw-bold mb-0">Give Ratings</p>
-          <Rating
-            className="me-3"
-            value={0}
-            readOnly
-            cancel={false}
-            size={40}
-            stars={5}
-            style={{
-              "--star-border-color": "#FDC040",
-              "--star-fill-color": "yellow",
-            }}
-          />
-        </div>
-        <p className="fw-bold mb-0">Write your review</p>
-        <TextField
-          fullWidth
-          multiline
-          className="rounded-20 mt-3"
-          id="review"
-          placeholder="Write your detailed review here"
-          name="review"
-          minRows={8}
-          variant="outlined"
-        />
-        <div className="mt-5 text-end mb-3">
-          <Link className="button-primary-reverse me-4 px-5">Cancel</Link>
-          <Link className="success-primary-button">Submit</Link>
-        </div>
-      </Dialog>
+      <ReviewModal visible={visible} setVisible={setVisible} product_id={productId} />
 
       <Footer />
     </div>

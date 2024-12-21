@@ -86,12 +86,12 @@ function ManageCategories() {
               <div className="col-md-4">
                 <div>
                   <div className="mb-3">
-                    <TabsButtons
+                    {/* <TabsButtons
                       activeTab={activeTab}
                       setActiveTab={setActiveTab}
                       labelOne={"Active Orders"}
                       labelTwo={"New Orders"}
-                    />
+                    /> */}
                   </div>
                   {/* {activeTab === "Active Orders" && <ProductTable />}
                   {activeTab === "New Orders" && <ProductTable />} */}
