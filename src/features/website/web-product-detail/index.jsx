@@ -339,7 +339,7 @@ const ProudctDetail = () => {
                         onChange={handleWishlistChange}
                       />
                     </span>
-                    <span>
+                    {/* <span>
                       <Button
                         id="basic-button"
                         aria-controls={open ? "basic-menu" : undefined}
@@ -368,7 +368,7 @@ const ProudctDetail = () => {
                         <MenuItem onClick={handleClose}>Twitter</MenuItem>
                         <MenuItem onClick={handleClose}>Copy Link</MenuItem>
                       </Menu>
-                    </span>
+                    </span> */}
                   </div>
                 </div>
                 <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
@@ -481,7 +481,7 @@ const ProudctDetail = () => {
                   <p className="mt-2 fw-600 text-dark">{message}</p>
                 )}
               </div> */}
-                <p className="d-flex fb-fs-18 fw-500 my-3">
+                {/* <p className="d-flex fb-fs-18 fw-500 my-3">
                   <span>
                     <img
                       className="img-fluid"
@@ -491,15 +491,15 @@ const ProudctDetail = () => {
                   </span>
                   <span className="text-orange me-2 ms-2 mt-1">Get it by</span>
                   <span className="mt-1">Monday, 16 Sep</span>
-                </p>
+                </p> */}
                 <div className="d-flex mt-4  ms-4 ">
                   <ul className="me-5 pe-4 disc-style w-50">
-                    {detail?.product_type && (
+                    {/* {detail?.product_type && (
                       <li className="my-2">Type: {detail?.product_type}</li>
                     )}
                     {detail?.category && (
                       <li className="my-2">Category: {detail?.category}</li>
-                    )}
+                    )} */}
                     {/* <li className="my-2">
                       MFG:
                       {new Date(detail.mfg_date)

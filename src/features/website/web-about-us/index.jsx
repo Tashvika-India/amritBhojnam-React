@@ -12,7 +12,7 @@ import FreeDelivery from "../../../assets/images/web/free-delivery.png";
 import ReturnEasy from "../../../assets/images/web/return-easy.png";
 import Satisfaction from "../../../assets/images/web/satisfaction.png";
 import GreatDeal from "../../../assets/images/web/great-deal-daily.png";
-import GreyBg from "../../../assets/images/web/grey-background.png";
+import GreyBg from "../../../assets/images/web/grey-background.jpeg";
 
 const AboutUs = () => {
   return (
@@ -113,52 +113,42 @@ const AboutUs = () => {
             animate={{ x: 0 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
             className="marquee flex-shrink-0 mb-md-5 mb-lg-0 mb-xl-5 pb-lg-5 pb-sm-5 pt-md-4  pt-sm-4"
-            style={{ whiteSpace: "nowrap" }}
-          >
-            {/* Add text or images that you want to animate in the marquee */}
+            style={{ whiteSpace: "nowrap" }}>
             <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
+            Healthy, Nutritious, and Sustainable
             </span>
             <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
-            </span>
-
+            Rediscover the Goodness of Millets!
+            </span> 
             <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
-            </span>
-
+            Crafting Wellness, One Millet at a Time.
+            </span> 
             <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
+            Gluten-Free, Nutrient-Rich, and Delicious!
             </span>
             <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
+            oin the Millet Revolution Today!
             </span>
             <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
+            Millets: The Superfood of the Future!
             </span>
             <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
+            Healthy, Nutritious, and Sustainable
             </span>
             <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
+            Rediscover the Goodness of Millets!
+            </span> 
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+            Crafting Wellness, One Millet at a Time.
+            </span> 
+            <span className="marquee-content text-yellow fb-fs-30  px-5">
+            Gluten-Free, Nutrient-Rich, and Delicious!
             </span>
             <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
+            oin the Millet Revolution Today!
             </span>
             <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
-            </span>
-            <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
-            </span>
-            <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
-            </span>
-            <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
-            </span>
-            <span className="marquee-content text-yellow fb-fs-30  px-5">
-              MILLET POWER
+            Millets: The Superfood of the Future!
             </span>
           </motion.div>
           </div>

@@ -307,57 +307,53 @@ const HomePage = () => {
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                    Next your pro enjoy 12 months of zilly for $50/month on
-                    select plans.
+                  Discover the Power of Millets – Nutritious, Delicious, and Sustainable!
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                    Next your pro enjoy 12 months of zilly for $50/month on
-                    select plans.
+                  Shop Fresh, Organic Millet Products Delivered Right to Your Doorstep!
+ 
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                    Next your pro enjoy 12 months of zilly for $50/month on
-                    select plans.
+                  Join the Millet Revolution – Healthy Living Starts Here!
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                    Next your pro enjoy 12 months of zilly for $50/month on
-                    select plans.
+                  Millets for Every Meal – Your Path to a Healthier Lifestyle!
+ 
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                    Next your pro enjoy 12 months of zilly for $50/month on
-                    select plans.
+                  Discover the Power of Millets – Nutritious, Delicious, and Sustainable!
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                    Next your pro enjoy 12 months of zilly for $50/month on
-                    select plans.
+                  Shop Fresh, Organic Millet Products Delivered Right to Your Doorstep!
+ 
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                    Next your pro enjoy 12 months of zilly for $50/month on
-                    select plans.
+                  Join the Millet Revolution – Healthy Living Starts Here!
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                    Next your pro enjoy 12 months of zilly for $50/month on
-                    select plans.
+                  Millets for Every Meal – Your Path to a Healthier Lifestyle!
+ 
                   </span>
                 </span>
               </div>
@@ -499,6 +495,7 @@ const HomePage = () => {
                     crafted to provide essential nutrients while also supporting
                     sustainable farming.
                   </p>
+                  <Link to="/about-us" className="button-primary d-inline-block mt-4">About us</Link>
                 </div>
               </div>
             </div>
@@ -560,7 +557,7 @@ const HomePage = () => {
                     special offer. Don't miss out—order now and start your
                     healthy journey!
                   </p>
-                  <button className="button-white">Shop Now</button>
+                  <Link to="/products" className="button-white d-inline-block">Shop Now</Link>
                 </div>
               </div>
               <div className="col-lg-6 col-md-12">
@@ -609,7 +606,7 @@ const HomePage = () => {
                   now and start exploring a healthier lifestyle at your
                   fingertips.
                 </p>
-                <div className="download-btn d-flex">
+                {/* <div className="download-btn d-flex">
                   <div className="apple-btn me-3">
                     <img
                       src={appleBtn}
@@ -624,7 +621,7 @@ const HomePage = () => {
                       className="img-fluid android-img"
                     />
                   </div>
-                </div>
+                </div> */}
                 <span className="millet-bottom">
                   <img
                     src={milletBottom}
