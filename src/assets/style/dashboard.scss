@@ -290,6 +290,25 @@
    }
  }
 
+ @media (min-width: 1200px) and (max-width: 1600px) {
+  .login-wrapper{
+    .left-section{
+      padding: 1rem 3rem;
+      h2{ 
+        font-size: 1.35rem;
+      }
+      p{
+        font-size: 
+        0.875rem;
+      }
+    }
+    .admin-login-image{
+      width: 95%;
+    }
+  }
+
+  
+ }
 
 
  @media screen and (max-width: 768px) {
@@ -327,3 +346,4 @@
    padding: 0.4rem 1rem;
    background-color: $light-orange;
  }
+
