@@ -11,19 +11,18 @@ function AdminOrders() {
 
   const [order, setOrder] = useState([]);
 
-  const getOrderList = async(id,name) => {
-    try{
-      const response = await getAdminOrderApi(id,name); 
+  const getOrderList = async (id, name) => {
+    try {
+      const response = await getAdminOrderApi(id, name);
       setOrder(response?.data);
-    }catch(error){
-      console.log(error); 
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     getOrderList();
-  },[])
-
+  }, []);
 
   return (
     <>
@@ -36,16 +35,8 @@ function AdminOrders() {
       <div className="">
         <div className="card">
           <div className="card-body">
-            <div className="mb-4">
-              <TabsButtons
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-                labelOne={"Active"}
-                labelTwo={"New Orders"}
-              />
-            </div>
-            {activeTab === "Active" && <ActiveOrdersTable order={order} />}
-            {activeTab === "New Orders" && <NewOrdersTable order={order} />}
+          
+           <NewOrdersTable order={order} />
           </div>
         </div>
       </div>

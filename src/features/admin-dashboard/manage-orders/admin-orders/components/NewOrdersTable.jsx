@@ -7,7 +7,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { MdEdit } from "react-icons/md";
-import { IoMdPrint } from "react-icons/io";   
+import { IoMdPrint } from "react-icons/io";
 import { formatDateTime } from "../../../../../utils/constant-variable";
 const NewOrdersTable = ({ order }) => {
   // const [orders, setOrders] = useState([
@@ -64,14 +64,21 @@ const NewOrdersTable = ({ order }) => {
   const paymentStatusTemplate = (rowData) => {
     return (
       <div>
-        <p className="mb-0 fw-500">{rowData?.fulfillment_status === "Paid" ? "Upi" : "Card"}</p>
-        <p className={
-    rowData?.fulfillment_status === "pending" 
-      ? "text-warning fw-normal" 
-      : rowData?.fulfillment_status === "success" 
-        ? "text-success fw-normal" 
-        : "text-danger fw-normal"
-  }> {rowData?.fulfillment_status}</p>
+        <p className="mb-0 fw-500">
+          {rowData?.fulfillment_status === "Paid" ? "Upi" : "Card"}
+        </p>
+        <p
+          className={
+            rowData?.fulfillment_status === "pending"
+              ? "text-warning fw-normal"
+              : rowData?.fulfillment_status === "success"
+              ? "text-success fw-normal"
+              : "text-danger fw-normal"
+          }
+        >
+          {" "}
+          {rowData?.fulfillment_status}
+        </p>
       </div>
     );
   };
@@ -87,52 +94,51 @@ const NewOrdersTable = ({ order }) => {
   };
 
   const duration = (rowData) => {
-    const formattedDateRange = formatDateTime(rowData.created_at + "T18:00:00");  
-    return (
-        <div className=''>
-            {formattedDateRange}
-        </div>
-    )
-};
+    const formattedDateRange = formatDateTime(rowData.created_at + "T18:00:00");
+    return <div className="">{formattedDateRange}</div>;
+  };
 
-const statusBodyTemplate = (rowData) => {
-  return ( 
-    <>
-    {rowData?.status === "confirmed" ? (
+  const statusBodyTemplate = (rowData) => {
+    return (
       <>
-        <button className="lt-green-button py-0 lh-lg">Success</button>
-        {/* <button className="lt-blue-button">Failed</button>
+        {rowData?.status === "confirmed" ? (
+          <>
+            <button className="lt-green-button py-0 lh-lg">Success</button>
+            {/* <button className="lt-blue-button">Failed</button>
         <button className="lt-yellow-button">Pending</button> */}
+          </>
+        ) : (
+          <button className="lt-yellow-button">Pending</button>
+        )}
       </>
-    ) : (
-      <button className="lt-yellow-button">Pending</button>
-    )}
-  </>
-  );
-};
+    );
+  };
 
   const actionBodyTemplate = () => {
     return (
       <div className="d-flex gap-3">
         <button className="lt-green-button">Accept</button>
         <button className="lt-red-button">Reject</button>
-
       </div>
     );
   };
 
   const customerTemplate = (rowData) => {
-    const initials =   "Ankit Sharma"
+    const initials = "Ankit Sharma"
       .split(" ")
       .map((n) => n[0])
       .join("");
     return (
       <div className="d-flex alighn-items-center gap-3">
-        <Avatar label={initials} style={{ height: "3.3rem", width: "3.3rem", aspectRatio: "1/1" }} shape="circle" className="p-mr-2" />
+        <Avatar
+          label={initials}
+          style={{ height: "3.3rem", width: "3.3rem", aspectRatio: "1/1" }}
+          shape="circle"
+          className="p-mr-2"
+        />
         <div>
           {/* {rowData.customer.name} <br /> <small>{rowData.customer.phone}</small> */}
           <span>{rowData?.user_id.slice(-8)}</span>
-          
         </div>
       </div>
     );
@@ -141,14 +147,22 @@ const statusBodyTemplate = (rowData) => {
   return (
     <div className="datatable">
       <DataTable value={order} paginator rows={10}>
-        <Column field="id" header="ID" body={rowData => `#${rowData.id.slice(-8)}`}></Column>
+        <Column
+          field="id"
+          header="ID"
+          body={(rowData) => `#${rowData.id.slice(-8)}`}
+        ></Column>
         <Column header="ORDER" body={orderTemplate}></Column>
         <Column header="CUSTOMER" body={customerTemplate}></Column>
         <Column field="amount_to_pay" header="AMOUNT"></Column>
-        <Column field="status" header="STATUS" body={statusBodyTemplate} ></Column>
+        <Column
+          field="status"
+          header="STATUS"
+          body={statusBodyTemplate}
+        ></Column>
         <Column header="PAYMENT" body={paymentStatusTemplate}></Column>
-        <Column header="ORDER DATE" body={duration}></Column>
-        <Column header="ACTION" body={actionBodyTemplate}></Column>
+        {/* <Column header="ORDER DATE" body={duration}></Column> */}
+        {/* <Column header="ACTION" body={actionBodyTemplate}></Column> */}
       </DataTable>
     </div>
   );
