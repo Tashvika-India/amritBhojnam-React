@@ -129,7 +129,7 @@ const ProudctList = () => {
                     className="w-14rem"
                     range
                     min={0} // Set minimum range value
-                    max={500} // Set maximum range value
+                    max={5000} // Set maximum range value
                   />
                   <div className="row mt-4">
                     <div className="col-5 pe-0">

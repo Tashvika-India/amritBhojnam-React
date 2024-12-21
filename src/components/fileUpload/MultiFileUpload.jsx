@@ -2,19 +2,37 @@ import React, { useState, useEffect } from "react";
 import { Image } from "primereact/image";
 import { RxCross2 } from "react-icons/rx";
 import { SlPicture } from "react-icons/sl";
-
+import { multiImageUploadApi } from "../../services/adminApiRoutes";
 
 export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
   const { values, setFieldValue } = formik;
   const [dragActive, setDragActive] = useState(false);
-
+  const [uploading, setUploading] = useState(false); // To manage upload state
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  // Upload files to API
+  const uploadFiles = async (files) => {
+    const formData = new FormData();
+    files.forEach((file) => formData.append("images", file));
+
+    try {
+      setUploading(true);
+      const response = await multiImageUploadApi(formData);
+      console.log("Form" , response);
+      const uploadedFiles = response.data; // Assuming response contains the array of objects
+      setFieldValue(name, [...(values[name] || []), ...uploadedFiles]);
+    } catch (error) {
+      console.error("Error uploading files:", error);
+    } finally {
+      setUploading(false);
+    }
+  };
 
   // Handle file input change
   const handleFileChange = (e) => {
     const uploadedFiles = Array.from(e.target.files);
     const validFiles = uploadedFiles.filter((file) => file instanceof File);
-    setFieldValue(name, [...(values[name] || []), ...validFiles]);
+    uploadFiles(validFiles);
   };
 
   // Handle drag and drop for desktop
@@ -36,14 +54,11 @@ export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
     setDragActive(false);
     const droppedFiles = Array.from(e.dataTransfer.files);
     const validFiles = droppedFiles.filter((file) => file instanceof File);
-    setFieldValue(name, [...(values[name] || []), ...validFiles]);
+    uploadFiles(validFiles);
   };
 
   // Remove a specific file
   const removeFile = (fileToRemove) => {
-    if (fileToRemove instanceof File) {
-      URL.revokeObjectURL(fileToRemove.preview);
-    }
     setFieldValue(
       name,
       values[name].filter((file) => file !== fileToRemove)
@@ -83,37 +98,32 @@ export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
             onDragOver={!isMobile ? (e) => e.preventDefault() : null}
           >
             <span className="mb-3">
-              <SlPicture color="#918E92" size={100}/>
+              <SlPicture color="#918E92" size={100} />
             </span>
             {dragActive ? "Drop Images Here" : isMobile ? "Tap to Upload Images" : "Upload Images"}
             <span className="text-orange fw-500">Click to browse</span>
           </label>
         </div>
+        {uploading && <p>Uploading files...</p>}
       </div>
 
       {/* Preview Section */}
       <div className="col-md-6">
-        {/* Preview Section */}
         {Array.isArray(values[name]) && values[name].length > 0 && (
-          <div className="file-previews ">
+          <div className="file-previews">
             <div className="multi-pre-list">
-              {values[name].map((file, index) => {
-                const filePreviewUrl = file instanceof File
-                  ? URL.createObjectURL(file) // New file (uploaded by user)
-                  : `${baseURL}/${file.img_files}`; // Preloaded file from database
-
+              {values[name]?.map((file, index) => {
                 return (
                   <div className="grid-item" key={index}>
                     <div className="file-preview position-relative d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 mb-2">
                       <div className="h-100">
                         <Image
-                          src={filePreviewUrl}
-                          zoomSrc={filePreviewUrl}
+                          src={file.image}
+                          zoomSrc={file.image}
                           alt="Uploaded File"
                           className="multi-file-preview"
                           preview
                         />
-                        {/* <span>{file.name}</span> */}
                       </div>
                       <div className="position-absolute top-0 end-0">
                         <RxCross2
@@ -131,7 +141,6 @@ export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
           </div>
         )}
       </div>
-
     </div>
   );
 });

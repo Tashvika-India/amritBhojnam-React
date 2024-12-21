@@ -5,31 +5,29 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import DeleteModal from "../../../../../components/ui/DeleteModal";
-import { MdDelete } from "react-icons/md"; 
+import { MdDelete } from "react-icons/md";
 import { deleteProductApi } from "../../../../../services/adminApiRoutes";
 import { baseURL } from "../../../../../utils/constant-variable";
 import { RiPencilFill } from "react-icons/ri";
 
-
-function ProductTable({ products , getProductList }) {
+function ProductTable({ products, getProductList }) {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [currentProduct, setCurrentProduct] = useState(null);  // Store the current product in one state
+  const [currentProduct, setCurrentProduct] = useState(null); // Store the current product in one state
   const navigate = useNavigate();
 
-
   const showDeleteModal = (product) => {
-    setCurrentProduct(product);  // Store the product to delete
+    setCurrentProduct(product); // Store the product to delete
     setModalVisible(true);
   };
 
   const hideDeleteModal = () => {
     setModalVisible(false);
-    setCurrentProduct(null);  // Reset current product after modal is closed
+    setCurrentProduct(null); // Reset current product after modal is closed
   };
 
   const handleDelete = async () => {
     try {
-      await deleteProductApi(currentProduct.id);  // Use currentProduct directly
+      await deleteProductApi(currentProduct.id); // Use currentProduct directly
       getProductList();
       console.log("Record deleted successfully");
       hideDeleteModal();
@@ -44,15 +42,15 @@ function ProductTable({ products , getProductList }) {
   };
 
   const imageBodyTemplate = (rowData) => {
-    const imageUrl = rowData?.images[0]?.image;  
-    console.log("Image URL:", imageUrl);
-    
+
+    const imageUrl = rowData?.images[0]?.image;   
     return (
       <div style={{ display: "flex", alignItems: "center" }}>
         <img
-          src={imageUrl}
+          src={rowData?.images?.[0]?.image}
           alt={rowData?.name}
-          className="img-fluid" style={{ width: "3.5rem", height: "4rem" }}
+          className="img-fluid"
+          style={{ width: "3.5rem", height: "4rem" }}
         />
       </div>
     );
@@ -67,23 +65,33 @@ function ProductTable({ products , getProductList }) {
   const editButtonTemplate = (rowData) => (
     <div className="w-100 d-flex gap-1 ">
       <button
-        onClick={() => handleEditClick(rowData)} title="Edit"
+        onClick={() => handleEditClick(rowData)}
+        title="Edit"
         className="d-flex gap-2 align-items-center border-0 rounded me-3"
-        style={{ color: "#1F5FBE", backgroundColor: "#EDF1FF", padding:".1rem .45rem" }}
+        style={{
+          color: "#1F5FBE",
+          backgroundColor: "#EDF1FF",
+          padding: ".1rem .45rem",
+        }}
       >
         <RiPencilFill size={20} />
       </button>
       <button
-        className="text-danger d-flex gap-2 align-items-center border-0 rounded" title="Delete"
-        style={{ backgroundColor: "#d5768f38", paddingBlock:".3rem" }}
-        onClick={() => showDeleteModal(rowData)}  >
+        className="text-danger d-flex gap-2 align-items-center border-0 rounded"
+        title="Delete"
+        style={{ backgroundColor: "#d5768f38", paddingBlock: ".3rem" }}
+        onClick={() => showDeleteModal(rowData)}
+      >
         <MdDelete size={20} />
       </button>
     </div>
   );
 
   const iosSwitch = (rowData) => (
-    <Link to={`/product/product-reviews/${rowData.id}`} className="d-flex gap-2 align-items-center">
+    <Link
+      to={`/product/product-reviews/${rowData.id}`}
+      className="d-flex gap-2 align-items-center"
+    >
       <FaStar className="text-warning" /> {Math.round(rowData.ratings)}
     </Link>
   );
@@ -91,15 +99,34 @@ function ProductTable({ products , getProductList }) {
   return (
     <>
       <DataTable value={products} responsiveLayout="scroll" paginator rows={10}>
-        <Column field="id" header="ID" body={(index) => products.indexOf(index) + 1} className="fw-400"></Column>
+        <Column
+          field="id"
+          header="ID"
+          body={(index) => products.indexOf(index) + 1}
+          className="fw-400"
+        ></Column>
         <Column field="images" header="IMAGE" body={imageBodyTemplate}></Column>
-        <Column field="name" header="NAME" className="fw-400"></Column> 
-        <Column field="category_name" header="CATEGORY" className="fw-400"></Column>
-        <Column field="quantity" header="QUANTITY(type)" className="fw-400"></Column>
-        <Column field="quantity_unit" header="UNIT" className="fw-400"></Column>
-        <Column field="max_price" header="PRICE (₹)" className="fw-400"></Column>
-        <Column field="offer_price" header="SALE PRICE (₹)" className="fw-400"> </Column> 
-        <Column field="ratings" header="RATING" body={iosSwitch}></Column>
+        <Column field="name" header="NAME" className="fw-400"></Column>
+        {/* <Column
+          field="category_name"
+          header="CATEGORY"
+          className="fw-400"
+        ></Column> */}
+        <Column
+          field="quantity"
+          header="QUANTITY(type)"
+          className="fw-400"
+        ></Column>
+        <Column field="stock" header="Stocks Left" className="fw-400"></Column>
+        <Column
+          field="max_price"
+          header="PRICE (₹)"
+          className="fw-400"
+        ></Column>
+        <Column field="offer_price" header="SALE PRICE (₹)" className="fw-400">
+          {" "}
+        </Column>
+        {/* <Column field="ratings" header="RATING" body={iosSwitch}></Column> */}
         <Column header="ACTION" body={editButtonTemplate}></Column>
       </DataTable>
 
@@ -107,7 +134,7 @@ function ProductTable({ products , getProductList }) {
       <DeleteModal
         visible={isModalVisible}
         onHide={hideDeleteModal}
-        onDelete={handleDelete}  // Directly pass handleDelete
+        onDelete={handleDelete} // Directly pass handleDelete
       />
     </>
   );

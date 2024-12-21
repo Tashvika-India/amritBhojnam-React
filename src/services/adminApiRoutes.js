@@ -108,7 +108,7 @@ export const patchSubCategoriesApi = (id, payload) =>
 // product api
 export const getProductApi = ({ product_id, category_id, name , minPrice , maxPrice , rating }) =>
   API.get(
-    `/products/?category_id=${category_id}&product_id=${product_id}&name=${name}&min_amount=${minPrice}&max_amount=${maxPrice}&rating=${rating}`
+    `/products/?category_id=${category_id}&product_id=${product_id}&name=${name}&min_amount=${minPrice}&max_amount=${maxPrice}&rating=${rating}&page=1&page_size=100`
   );
 export const postProductApi = (payload) => API.post(`/products/`, payload);
 export const putProductApi = (id, payload) =>
@@ -200,3 +200,4 @@ export const postNutritionApi = (payload) => API.post(`/nutritions/`, payload);
 export const getNutritionValueApi = () => API.get(`/product-nutritions/`); 
 export const postNutritionValueApi = (payload) => API.post(`/product-nutritions/`, payload); 
 
+export const multiImageUploadApi = (payload) => API.post(`/multi_img_upload/`, payload);
