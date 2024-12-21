@@ -576,10 +576,7 @@ const UserProfile = () => {
                                     <img
                                       className="img-fluid me-4 rounded-4"
                                       style={{ height: "6rem", width: "6rem" }}
-                                      src={
-                                        baseURL +
-                                        data?.product?.images[0]?.img_files
-                                      }
+                                      src={data?.product?.images[0]?.image}
                                       alt="pencil"
                                     />
                                     <div>

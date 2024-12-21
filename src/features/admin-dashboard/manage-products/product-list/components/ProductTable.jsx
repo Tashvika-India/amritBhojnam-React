@@ -44,7 +44,9 @@ function ProductTable({ products , getProductList }) {
   };
 
   const imageBodyTemplate = (rowData) => {
-    const imageUrl = baseURL+rowData?.images?.[0]?.img_files;  
+    const imageUrl = rowData?.images[0]?.image;  
+    console.log("Image URL:", imageUrl);
+    
     return (
       <div style={{ display: "flex", alignItems: "center" }}>
         <img

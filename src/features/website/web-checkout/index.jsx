@@ -76,7 +76,7 @@ const CheckoutPage = () => {
 
       // Step 2: Prepare Payment Details
       const payDetails = {
-        amount: 1,
+        amount: amount,
         firstname: user.full_name || "N/A",
         email: user.email || "N/A",
         phone: user.phone || "N/A",
@@ -280,8 +280,7 @@ const CheckoutPage = () => {
                           <div className="cart-items mt-4" key={index}>
                             <div className="product-item p-1">
                               <img
-                                src={
-                                  baseURL + item?.product?.images[0]?.img_files
+                                src={item?.product?.images[0]?.image
                                 }
                                 className="img-fluid"
                                 alt={item?.product?.name}

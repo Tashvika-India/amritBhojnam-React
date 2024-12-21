@@ -20,8 +20,8 @@ const ProductCard = ({ product }) => {
     const data = { product_id: product?.id, action: updatedChecked };
     dispatch(updateWishlist(data));
     dispatch(removeFromWishlist(product?.id));
-  };
-
+  }; 
+  
   return (
     <Link to={`/product-detail?product_id=${product?.id}`}>
       <div className="product-card border pb-3 d-flex flex-column justify-content-between bg-white">
@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
         <div className="product-image">
           <img
             className="img-fluid pb-3"
-            src={baseURL + product?.images[0]?.img_files}
+            src={product?.images[0]?.image}
             alt="product"
           />
         </div>
