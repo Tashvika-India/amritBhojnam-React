@@ -12,7 +12,7 @@ import DashboardRecentOrderTable from "./components/DashboardRecentOrderTable";
 function DashboardHome() {
   return (
     <>
-<Alert severity="info">Currently, the dashboard data is static and under development. It will be dynamic once the order flow is complete.</Alert>
+      <Alert severity="info">Currently, the dashboard data is static and under development. It will be dynamic once the order flow is complete.</Alert>
 
       <div className="mt-3 mb-5">
         <Heading value={"Dashboard"} />
