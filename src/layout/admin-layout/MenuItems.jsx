@@ -12,8 +12,6 @@ import { Link, useLocation } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import { BiSolidCategory } from "react-icons/bi";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import { FaUserTie } from "react-icons/fa";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { IoNutrition, IoReceiptSharp } from "react-icons/io5";
 import { BsImage } from "react-icons/bs";
@@ -157,7 +155,7 @@ function MenuItems() {
             <ListItemText primary="Products" sx={listItemTextStyle} />
           </ListItemButton>
         </Link>
-        <ListItemButton
+        {/* <ListItemButton
           onClick={() => handleToggle("nutrition")}
           sx={isActive("/admin/category") || openSections.category ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
@@ -169,7 +167,7 @@ function MenuItems() {
         {renderCollapse("nutrition", [
           { path: "/admin/nutrition", label: "Nutrition" },
           { path: "/admin/nutrition-value", label: "Nutrition Value" },
-        ])}
+        ])} */}
         <ListItemButton
           onClick={() => handleToggle("orders")}
           sx={isActive("/admin/orders") || openSections.orders ? activeStyles : {}}
@@ -182,9 +180,8 @@ function MenuItems() {
         </ListItemButton>
         {renderCollapse("orders", [
           { path: "/admin/orders", label: "Orders" },
-          { path: "/admin/returns-refunds", label: "Returns & Refunds" },
         ])}
-          <Link
+          {/* <Link
           to="/admin/coupons"
           style={{ textDecoration: "none", color: "inherit" }}
         >
@@ -194,17 +191,17 @@ function MenuItems() {
             </ListItemIcon>
             <ListItemText primary="Coupons" sx={listItemTextStyle} />
           </ListItemButton>
-        </Link>
+        </Link> */}
       </List>
-      <span className="d-inline-block w-100" style={{ border: "0.2px dashed #DADADA" }}></span>
-      <Typography
+      {/* <span className="d-inline-block w-100" style={{ border: "0.2px dashed #DADADA" }}></span> */}
+      {/* <Typography
         sx={{ pl: 2, pt: 1, pb: 1 }}
         variant="subtitle2"
         color="textSecondary">
         Manage Customers
-      </Typography>
+      </Typography> */}
       <List>
-        <Link
+        {/* <Link
           to="/admin/customers"
           style={{ textDecoration: "none", color: "inherit" }}>
           <ListItemButton sx={isActive("/admin/customers") ? activeStyles : {}}>
@@ -213,17 +210,17 @@ function MenuItems() {
             </ListItemIcon>
             <ListItemText primary="Customers" sx={listItemTextStyle} />
           </ListItemButton>
-        </Link>
+        </Link> */}
       </List>
-      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
+      {/* <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
       <Typography
         sx={{ pl: 2, pt: 1, pb: 1 }}
         variant="subtitle2"
         color="textSecondary">
         Manage Employee
-      </Typography>
+      </Typography> */}
       <List>
-        <Link
+        {/* <Link
           to="/admin/roles"
           style={{ textDecoration: "none", color: "inherit" }}>
           <ListItemButton sx={isActive("/admin/roles") ? activeStyles : {}}>
@@ -232,8 +229,8 @@ function MenuItems() {
             </ListItemIcon>
             <ListItemText primary="Roles" sx={listItemTextStyle} />
           </ListItemButton>
-        </Link>
-        <Link
+        </Link> */}
+        {/* <Link
           to="/admin/employees"
           style={{ textDecoration: "none", color: "inherit" }}>
           <ListItemButton sx={isActive("/admin/employees") ? activeStyles : {}}>
@@ -242,7 +239,7 @@ function MenuItems() {
             </ListItemIcon>
             <ListItemText primary="Employees" sx={listItemTextStyle} />
           </ListItemButton>
-        </Link>
+        </Link> */}
       </List>
       <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
       <Typography
@@ -259,14 +256,14 @@ function MenuItems() {
           <ListItemText primary="Banners" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
-      <Link to="/admin/contact" style={{ textDecoration: "none", color: "inherit" }}>
+      {/* <Link to="/admin/contact" style={{ textDecoration: "none", color: "inherit" }}>
         <ListItemButton sx={isActive("/admin/contact") ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
             <TbMessageUser size={24} />
           </ListItemIcon>
           <ListItemText primary="Contact" sx={listItemTextStyle} />
         </ListItemButton>
-      </Link>
+      </Link> */}
     
       <Link to="/admin/report" style={{ textDecoration: "none", color: "inherit" }}>
         <ListItemButton sx={isActive("/admin/report") ? activeStyles : {}}>
