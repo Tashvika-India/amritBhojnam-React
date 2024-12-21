@@ -6,12 +6,14 @@ import Heading from "@/components/ui/Heading";
 import LineChart from "../../../components/charts/LineChart";
 import DashboardOrderTable from "./components/DashboardOrderTable";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Alert, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import DashboardRecentOrderTable from "./components/DashboardRecentOrderTable";
 
 function DashboardHome() {
   return (
     <>
+      <Alert severity="info">Currently, the dashboard data is static and under development. It will be dynamic once the order flow is complete.</Alert>
+
       <div className="mt-3 mb-5">
         <Heading value={"Dashboard"} />
       </div>
