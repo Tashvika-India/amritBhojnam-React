@@ -73,8 +73,8 @@ const MyCartMenu = ({ show, onClose }) => {
                   <div className="cart-items mb-2" key={item?.product.id}>
                     <div className="product-item p-1">
                       <img
-                        src={baseURL + item?.product?.images[0]?.img_files || product}
-                        className="img-fluid"
+                        src={item?.product?.images[0]?.image || product}
+                        className="img-fluid" 
                         alt={item?.product?.name}
                       />
                     </div>

@@ -38,6 +38,7 @@ import Roles from "../features/admin-dashboard/manage-roles";
 import AddRoles from "../features/admin-dashboard/manage-roles/components/AddRoles";
 import ManageContact from "../features/admin-dashboard/dashboard-contact";
 import ManageNutrition from "../features/admin-dashboard/manage-nutrition";
+import ManageNutritionValue from "../features/admin-dashboard/manage-nutrition-value";
 function AppRoutes() {
   return (
     <Routes>
@@ -241,11 +242,22 @@ function AppRoutes() {
       />
        <Route
         exact
-        path="/nutrition"
+        path="admin/nutrition"
         element={
           <PrivateRoute>
             <DashboardSidebar>
               <ManageNutrition />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+       <Route
+        exact
+        path="admin/nutrition-value"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ManageNutritionValue />
             </DashboardSidebar>
           </PrivateRoute>
         }

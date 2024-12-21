@@ -78,6 +78,8 @@ function MenuItems() {
       setOpenSections((prev) => ({ ...prev, category: true }));
     } else if (isActive("/admin/orders") || isActive("/admin/returns-refunds")) {
       setOpenSections((prev) => ({ ...prev, orders: true }));
+    }  else if (isActive("/admin/nutrition") || isActive("/admin/nutrition-value")) {
+      setOpenSections((prev) => ({ ...prev, orders: true }));
     }
   }, [location.pathname]);
 
@@ -155,6 +157,19 @@ function MenuItems() {
             <ListItemText primary="Products" sx={listItemTextStyle} />
           </ListItemButton>
         </Link>
+        <ListItemButton
+          onClick={() => handleToggle("nutrition")}
+          sx={isActive("/admin/category") || openSections.category ? activeStyles : {}}>
+          <ListItemIcon sx={listItemIconStyle}>
+          <IoNutrition  size={24}/>
+          </ListItemIcon>
+          <ListItemText primary="Nutrition" sx={listItemTextStyle} />
+          {openSections.category ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        {renderCollapse("nutrition", [
+          { path: "/admin/nutrition", label: "Nutrition" },
+          { path: "/admin/nutrition-value", label: "Nutrition Value" },
+        ])}
         <ListItemButton
           onClick={() => handleToggle("orders")}
           sx={isActive("/admin/orders") || openSections.orders ? activeStyles : {}}
@@ -252,22 +267,7 @@ function MenuItems() {
           <ListItemText primary="Contact" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
-      <Link to="/nutrition" style={{ textDecoration: "none", color: "inherit" }}>
-        <ListItemButton sx={isActive("/nutrition") ? activeStyles : {}}>
-          <ListItemIcon sx={listItemIconStyle}>
-            <IoNutrition  size={24}/>
-          </ListItemIcon>
-          <ListItemText primary="Nutrition" sx={listItemTextStyle} />
-        </ListItemButton>
-      </Link>
-      {/* <Link to="/nutritionvalue" style={{ textDecoration: "none", color: "inherit" }}>
-        <ListItemButton sx={isActive("/nutrition value") ? activeStyles : {}}>
-          <ListItemIcon sx={listItemIconStyle}>
-            <IoNutrition  size={24}/>
-          </ListItemIcon>
-          <ListItemText primary="Nutrition Value" sx={listItemTextStyle} />
-        </ListItemButton>
-      </Link> */}
+    
       <Link to="/admin/report" style={{ textDecoration: "none", color: "inherit" }}>
         <ListItemButton sx={isActive("/admin/report") ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>

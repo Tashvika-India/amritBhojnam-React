@@ -10,8 +10,7 @@ import {
   getProductApi,
   getRatingApi,
   getYouMayAlsoLikeApi,
-  postCartApi,
-  postRatingApi,
+  postCartApi, 
 } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import MyCartMenu from "../../../components/ui/MyCartMenu";
@@ -50,36 +49,7 @@ const ProudctDetail = () => {
       ? words.slice(0, limit).join(" ") + "..."
       : text;
   };
-
-  // const [reviewData, setReviewData] = useState({
-  //   product_id: filters?.product_id,
-  //   rating: 0,
-  //   comment: "",
-  // })
-  // const handleRatingChange = (e) => {
-  //   setReviewData({ ...reviewData, rating: e.value });
-  // };
-
-  // const handleCommentChange = (e) => {
-  //   setReviewData({ ...reviewData, comment: e.target.value });
-  // };
-
-  // const handleSubmit = async () => {
-  //   try {
-  //     const payload = {
-  //       product_id: reviewData.product_id,
-  //       rating: reviewData.rating,
-  //       comment: reviewData.comment,
-  //     };
-  //     console.log("Payload:", payload);
-  //     const response = await postRatingApi(payload);
-  //     console.log("API Response:", response.data);
-  //     alert("Review submitted successfully!");
-  //   } catch (error) {
-  //     console.error("Error submitting review:", error);
-  //     alert("Failed to submit review.");
-  //   }
-  // };
+ 
 
   const { cartItems, finalCart, error, cartId } = useSelector(
     (state) => state.cart
@@ -437,9 +407,9 @@ const ProudctDetail = () => {
                 </div>
                 <p className="fb-fs-40 text-orange fw-bold original-price">
                   ₹{detail?.offer_price}
-                  <small className="fw-500 fb-fs-30 text-grey ms-3">
+                  {detail?.offer_price !== detail?.max_price &&  <small className="fw-500 fb-fs-30 text-grey ms-3">
                     <strike>₹{detail?.max_price}</strike>
-                  </small>
+                  </small>}
                 </p>
                 <p style={{ fontSize: "0.875rem" }} className="fw-500">
                   (Inclusive of all taxes)
@@ -481,36 +451,36 @@ const ProudctDetail = () => {
                     </>
                   )}
                 </div>
-                <div className="mt-5">
-                  <p className="fw-600">Check Availability</p>
-                  <div
-                    className="border-gray border-raidus-10 mt-2 input-box"
-                    style={{ width: "60%" }}
-                  >
-                    <div className="input-group mb-2 mt-2">
-                      <input
-                        type="number"
-                        className="form-control border-0 box-shadow-0 fw-600"
-                        placeholder="Enter Pincode"
-                        aria-label="Enter Pincode"
-                        aria-describedby="basic-addon2"
-                        maxLength={6}
-                        minLength={6}
-                        value={pincode}
-                        onChange={(e) => setPincode(e.target.value)}
-                      />
-                      <button
-                        className="input-group-text border-0 text-orange fw-600 bg-transparent border-start border-2 ps-4 me-3"
-                        onClick={handleCheckPincode}
-                      >
-                        CHECK
-                      </button>
-                    </div>
+              {/* <div className="mt-5">
+                <p className="fw-600">Check Availability</p>
+                <div
+                  className="border-gray border-raidus-10 mt-2 input-box"
+                  style={{ width: "60%" }}
+                >
+                  <div className="input-group mb-2 mt-2">
+                    <input
+                      type="number"
+                      className="form-control border-0 box-shadow-0 fw-600"
+                      placeholder="Enter Pincode"
+                      aria-label="Enter Pincode"
+                      aria-describedby="basic-addon2"
+                      maxLength={6}
+                      minLength={6}
+                      value={pincode}
+                      onChange={(e) => setPincode(e.target.value)}
+                    />
+                    <button
+                      className="input-group-text border-0 text-orange fw-600 bg-transparent border-start border-2 ps-4 me-3"
+                      onClick={handleCheckPincode}
+                    >
+                      CHECK
+                    </button>
                   </div>
-                  {message && (
-                    <p className="mt-2 fw-600 text-dark">{message}</p>
-                  )}
                 </div>
+                {message && (
+                  <p className="mt-2 fw-600 text-dark">{message}</p>
+                )}
+              </div> */}
                 <p className="d-flex fb-fs-18 fw-500 my-3">
                   <span>
                     <img
@@ -578,7 +548,7 @@ const ProudctDetail = () => {
                             Description
                           </Nav.Link>
                         </Nav.Item>
-                        <Nav.Item>
+                        {/* <Nav.Item>
                           <Nav.Link
                             as="button"
                             className="btn-tab me-0"
@@ -586,7 +556,7 @@ const ProudctDetail = () => {
                           >
                             Additional Info
                           </Nav.Link>
-                        </Nav.Item>
+                        </Nav.Item> */}
                         <Nav.Item>
                           <Nav.Link
                             as="button"
@@ -641,7 +611,7 @@ const ProudctDetail = () => {
                                   </div>
                                   <p className="mb-3">{data?.comment}</p>
                                   <p className="mb-3 text-grey fw-500">
-                                    {" "}
+                                    
                                     {new Intl.DateTimeFormat("en-GB", {
                                       day: "2-digit",
                                       month: "short",
@@ -650,44 +620,6 @@ const ProudctDetail = () => {
                                   </p>
                                 </div>
                               ))}
-                              {/* <div className="col-12">
-                                <form className="d-flex flex-column"> 
-                                  <div className="mb-3">
-                                    <h6>Add Your Review</h6>
-                                    <span className="d-inline-block">
-                                      <Rating
-                                        value={reviewData.rating}
-                                        onChange={handleRatingChange}  
-                                        stars={5}
-                                        cancel={false}  
-                                        disabled
-                                      />
-                                    </span>
-                                  </div> 
-                                  <TextField
-                                    id="outlined-basic"
-                                    label="Comment"
-                                    name="comment"
-                                    value={reviewData.comment}
-                                    onChange={handleCommentChange}  
-                                    disabled
-                                    variant="outlined"
-                                    fullWidth
-                                    multiline
-                                    rows={3}
-                                  />
-                                  <div className="text-end">
-                                    <button
-                                      type="button"
-                                      className="button-primary mt-3 opacity-50"
-                                      onClick={handleSubmit}  
-                                      disabled
-                                    >
-                                      Submit
-                                    </button>
-                                  </div>
-                                </form>
-                              </div> */}
                             </div>
                           </div>
                         </Tab.Pane>
@@ -700,7 +632,7 @@ const ProudctDetail = () => {
           </div>
         </div>
       </section>
-      <section className="recipe-section ms-5">
+      {/* <section className="recipe-section ms-5">
         <div className="container fb-container ">
           <div className="row">
             <div className="bg-recipe-background ms-5 rounded-20">
@@ -744,45 +676,45 @@ const ProudctDetail = () => {
                               <div className="me-4">
                                 <p className="fb-fs-18 my-4 py-1">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 1.
-                                  </span>{" "}
+                                  </span>
                                   Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
                                 </p>
                                 <p className="fb-fs-18 my-4 py-1">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 2.
-                                  </span>{" "}
+                                  </span>
                                   Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
                                 </p>
                                 <p className="fb-fs-18 my-4 py-1">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 3.
-                                  </span>{" "}
+                                  </span>
                                   Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
                                 </p>
                                 <p className="fb-fs-18 my-4 py-1">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 4.
-                                  </span>{" "}
+                                  </span>
                                   Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
                                 </p>
                                 <p className="fb-fs-18 my-4 py-1">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 5.
-                                  </span>{" "}
+                                  </span>
                                   Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
@@ -805,7 +737,7 @@ const ProudctDetail = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <section className="similar-product">
         <div className="container fb-container">
           <div className="row ms-5">
@@ -818,7 +750,7 @@ const ProudctDetail = () => {
               }}
             >
               {recommendedProducts?.length > 0 ? (
-                recommendedProducts.map((item, index) => (
+                recommendedProducts?.slice(0, 5).map((item, index) => (
                   <ProductCard product={item} key={index} />
                 ))
               ) : (

@@ -196,5 +196,8 @@ export const getAdminOrderApi = ( ) => API.get(`/orders/`);
 export const getNutritionApi = () => API.get(`/nutritions/`);
 export const postNutritionApi = (payload) => API.post(`/nutritions/`, payload); 
 
+//nutriton-value
+export const getNutritionValueApi = () => API.get(`/product-nutritions/`); 
+export const postNutritionValueApi = (payload) => API.post(`/product-nutritions/`, payload); 
 
 export const multiImageUploadApi = (payload) => API.post(`/multi_img_upload/`, payload);

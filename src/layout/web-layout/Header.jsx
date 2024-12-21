@@ -307,7 +307,7 @@ const Header = () => {
                 </ul>
               </div>
               <div className="header-divider-action">
-                <ul className="d-flex gap-5">
+                {/* <ul className="d-flex gap-5">
                   <li>
                     <a href="#">Track Your Order</a>
                   </li>
@@ -319,7 +319,7 @@ const Header = () => {
                       </span>
                     </a>
                   </li>
-                </ul>
+                </ul> */}
               </div>
             </div>
           </div>

@@ -365,12 +365,12 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <section>
+      {/* <section>
         <div className="container fb-container">
           <h3 className="fw-bold text-center mb-5">Super Saver of the Week</h3>
           <ItemSlide />
         </div>
-      </section>
+      </section> */}
       <section className="banner-ads mt-5">
         <div className="container-fluid">
           <div className="row">

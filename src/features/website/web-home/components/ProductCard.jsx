@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
     const data = { product_id: product?.id, action: updatedChecked };
     dispatch(updateWishlist(data));
     dispatch(removeFromWishlist(product?.id));
-  };
+  }; 
 
   return (
     <Link to={`/product-detail?product_id=${product?.id}`}>
@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
         <div className="product-image">
           <img
             className="img-fluid pb-3"
-            src={baseURL + product?.images[0]?.img_files}
+            src={product?.images[0]?.image}
             alt="product"
           />
         </div>
@@ -62,9 +62,9 @@ const ProductCard = ({ product }) => {
           </h5>
           <div className="d-flex justify-content-between align-items-end mt-3">
             <h6 className="fb-fs-20 fw-bold mb-0">
-              <small className="fw-500 fb-fs-16 text-grey pe-2">
+              {product?.max_price !== product?.offer_price &&  <small className="fw-500 fb-fs-16 text-grey pe-2">
                 <strike>₹ {product?.max_price}</strike>
-              </small>
+              </small>}
               ₹ {product?.offer_price}
             </h6>
           </div>
