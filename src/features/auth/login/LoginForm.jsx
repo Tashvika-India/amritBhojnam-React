@@ -86,9 +86,9 @@ function LoginForm() {
         <p className="text-danger mt-2">{errorMessage}</p>
       )}
       
-      <a className="text-orange text-end m-0 fw-600 d-block">
+      {/* <a className="text-orange text-end m-0 fw-600 d-block">
         Forgot Password?
-      </a>
+      </a> */}
 
       <div className="mt-5">
         <button
