@@ -89,37 +89,37 @@ const ProductAdd = () => {
         : addProduct({ ...values, discount: values.discount || 0 });
     },
   });
-  const {
-    values,
-    resetForm,
-    setValues,
-    errors,
-    touched,
-  } = formik;  
+  const { values, resetForm, setValues, errors, touched } = formik;
 
   async function addProduct(values) {
     try {
+      setLoading(true);
       const response = await postProductApi(values);
       navigate("/admin/product");
       resetForm();
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      notifyError("Failed to add product, please try again!");
       throw error;
     }
   }
 
   async function updateProduct(values) {
     try {
+      setLoading(true);
       const response = await putProductApi(product?.id, values);
       resetForm();
       navigate("/admin/product");
       setLoading(false);
     } catch (error) {
+      notifyError("Failed to update product, please try again!");
       setLoading(false);
+
       throw error;
     }
   }
+
   async function getCaterioes() {
     try {
       const response = await getCategoriesApi();
@@ -145,8 +145,6 @@ const ProductAdd = () => {
       setValues(product);
     }
   }, [product]);
-
-  console.log("Errors", errors);
 
   return (
     <>
@@ -569,7 +567,7 @@ const ProductAdd = () => {
               <YellowButton
                 lable={
                   loading ? (
-                    <Loading size={24} color="inherit" />
+                    "Updating..."
                   ) : isEditMode ? (
                     "Update Product"
                   ) : (

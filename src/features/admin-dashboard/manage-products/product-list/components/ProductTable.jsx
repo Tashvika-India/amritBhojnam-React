@@ -96,10 +96,10 @@ function ProductTable({ products, getProductList }) {
 
   return (
     <>
-      <DataTable value={products} responsiveLayout="scroll" paginator rows={10}>
+      <DataTable value={products} responsiveLayout="scroll" paginator rows={50}>
         <Column
           field="id"
-          header="ID"
+          header="SR.NO"
           body={(index) => products.indexOf(index) + 1}
           className="fw-400"
         ></Column>
