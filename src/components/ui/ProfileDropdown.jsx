@@ -53,7 +53,7 @@ const ProfileDropdown = ({ userDetail }) => {
                             </Link>
                         </li>
                         <li>
-                            <button type="button" className="d-inline-flex align-items-center fb-fs-16 fw-500 border-0 bg-transparent" onClick={() => handleLogout()}>
+                            <button type="button" className="d-inline-flex align-items-center fb-fs-16 fw-500 border-0 bg-transparent ps-0" onClick={() => handleLogout()}>
                                 <span className="me-2" style={{ minWidth: "1.8rem" }}><CiLogout size={'1.5rem'} color='#D59615' /></span> Logout
                             </button>
                         </li>

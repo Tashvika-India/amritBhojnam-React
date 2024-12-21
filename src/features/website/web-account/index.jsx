@@ -5,6 +5,7 @@ import Footer from "../../../layout/web-layout/Footer";
 import { TabPanel, TabView } from "primereact/tabview";
 import {
   FormControl,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
@@ -50,6 +51,7 @@ const UserProfile = () => {
   const [profileEdit, setProfileEdit] = useState(false);
   const location = useLocation();
   const [productId, setProductId] = useState("");
+  const [preview, setPreview] = useState("");
   const profilePicture = baseURL + userDetail?.pp;
 
   const formik = useFormik({
@@ -230,12 +232,12 @@ const UserProfile = () => {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      profile.setFieldValue("pp", file);
+      profile.setFieldValue("pp", file); // Store the file in Formik's state
 
       // Generate preview
       const reader = new FileReader();
       reader.onload = () => {
-        setProfilePic(reader.result); // Update the profile picture preview
+        setPreview(reader.result); // Update the preview state
       };
       reader.readAsDataURL(file);
     }
@@ -289,7 +291,7 @@ const UserProfile = () => {
       <div className="container fb-container mb-md-5 pb-md-5">
         <div className="row">
           <div className="col-md-10 mx-auto">
-            <div className="user-profile-img mt-5">
+            <div className="user-profile-img  mt-5">
               {/* <img
                 className="img-fluid profile-img profile-foreground-img rounded-top w-100 mt-5"
                 src={profileBg}
@@ -298,10 +300,10 @@ const UserProfile = () => {
               /> */}
             </div>
             <div className="p-4 pt-0 ">
-              <div className="user-profile-detail position-relative text-start pb-3">
+              <div className="user-profile-detail  position-relative text-start pb-3">
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center">
                   <img
-                    className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center"
+                    className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center p-2 bg-white"
                     src={profilePicture === undefined ? profilePicture : pp}
                     alt="Card image cap"
                   />
@@ -443,19 +445,20 @@ const UserProfile = () => {
                               }
                             />
                           </div>
-                          <div className="col-md-4 mb-4">
+                          {/* <div className="col-md-4 mb-4">
                             <TextField
                               fullWidth
-                              className="rounded-20 me-5"
+                              className="rounded-20 me-5" 
                               id="pp"
-                              name="pp"
+                              name="pp" 
                               variant="outlined"
+                              value={profile.values.pp}
                               disabled={!profileEdit}
                               type="file"
-                              onChange={handleImageChange}
-                            />
-                          </div>
-                          <div className="col-md-4 mb-4">
+                              onChange={handleImageChange} 
+                            />  
+                          </div> */}
+                          <div className="col-md-6 mb-4">
                             <FormControl fullWidth>
                               <InputLabel id="demo-simple-select-label">
                                 Gender
@@ -485,7 +488,7 @@ const UserProfile = () => {
                               </Select>
                             </FormControl>
                           </div>
-                          <div className="col-md-4 mb-4">
+                          <div className="col-md-6 mb-4">
                             <TextField
                               fullWidth
                               className="rounded-20 me-5"
@@ -632,7 +635,7 @@ const UserProfile = () => {
                                     <button onClick={() => handleReviewClick(data?.product?.id)} className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end  pe-md-4">
                                       Add Review
                                     </button>
-                                    <Link  to={`/product-detail?product_id=${data?.product?.id}`} className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end   px-md-4">
+                                    <Link to={`/product-detail?product_id=${data?.product?.id}`} className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end   px-md-4">
                                       View Product
                                     </Link>
                                     <button className="fw-500 text-center border-0 text-orange bg-transparent ms-lg-3">

@@ -56,7 +56,7 @@ const MyCartMenu = ({ show, onClose }) => {
       <Offcanvas.Body className="px-0 pb-0">
         <div className="d-flex flex-column justify-content-between h-100">
           <div>
-            <div className="mb-4 px-3">
+            {/* <div className="mb-4 px-3">
               <p className="d-flex">
                 <span>
                   <img lazyload="true" className="img-fluid me-3" src={deliveryImg} alt="delivery-img" />
@@ -66,7 +66,7 @@ const MyCartMenu = ({ show, onClose }) => {
                 <span className="mt-2">MORE FOR FREE SHIPPING</span>
               </p>
               <ProgressBar variant="yellow" now={80} style={{ height: "5px" }} />
-            </div>
+            </div> */}
             <div className="mb-2 px-3" style={{ maxHeight: "60dvh", overflowY: "auto" }}>
               { cartItems?.length > 0 ? (
                 cartItems?.map((item) => (
@@ -133,7 +133,7 @@ const MyCartMenu = ({ show, onClose }) => {
               </div>
               <div className="">
                 <h5 className="total-amount d-inline-block text-orange">
-                  {finalCart?.total ? `₹ ${finalCart.total}` : "₹ 0"}
+                  {finalCart?.total ? `₹ ${finalCart.total}` : "₹0"}
                 </h5>
               </div>
             </div>
