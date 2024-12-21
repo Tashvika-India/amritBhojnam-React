@@ -1,29 +1,44 @@
 import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
 import YellowButton from "@/components/buttons/YellowButton";
-import { getBannerApi, getNutritionApi, patchBannerApi } from "../../../services/adminApiRoutes";
-import AddNutritionModal from "./components/AddNutritionModal";
+import { getBannerApi, getNutritionApi, getNutritionValueApi, patchBannerApi } from "../../../services/adminApiRoutes";
+import AddNutritionValueModal from "./components/AddNutritionValueModal";
 import Loading from "../../../components/ui/Loading";
-import NutritionTable from "./components/NutritionTable";  
+import NutritionValueTable from "./components/NutritionValueTable"; 
 
 
-function ManageNutrition() {
+function ManageNutritionValue() {
   const [visible, setVisible] = useState(false);
+  const [nutritionValue, setNutritionValue] = useState([]);
   const [nutrition, setNutrition] = useState([]);
   const [editData, setEditData] = useState(null);
   const [loading, setLoading] = useState(false);
+ 
+  
 
-  async function getNutrition() {
+  async function getNutritionValue() {
     setLoading(true);
     try {
-      const response = await getNutritionApi();
-      setNutrition(response?.data || []);
+      const response = await getNutritionValueApi();
+      setNutritionValue(response?.data || []);
     } catch (error) {
       console.log("Error on Nutrition List", error);
     } finally {
       setLoading(false);
     }
   }
+
+   async function getNutrition() {
+      setLoading(true);
+      try {
+        const response = await getNutritionApi();
+        setNutrition(response?.data || []);
+      } catch (error) {
+        console.log("Error on Nutrition List", error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
   useEffect(() => {
     if (!visible) {
@@ -33,6 +48,7 @@ function ManageNutrition() {
 
 
   useEffect(() => {
+    getNutritionValue();
     getNutrition();
   }, []);
 
@@ -42,12 +58,12 @@ function ManageNutrition() {
     <>
       <div className="mt-3 mb-5 row">
         <div className="col-md-6">
-          <Heading value={"Nutrition"} />
+          <Heading value={"Nutrition Value"} />
         </div>
         <div className="col-md-6 text-end">
           <YellowButton
             handleClick={() => setVisible(true)}
-            lable={"+ Add Nutrition"}
+            lable={"+ Add Nutrition value"}
           />
         </div>
       </div>
@@ -58,21 +74,22 @@ function ManageNutrition() {
             {loading ? (
               <Loading />
             ) : (
-              <NutritionTable nutrition={nutrition}/>
+              <NutritionValueTable nutritionValue={nutritionValue}/>
             )}
           </div>
         </div>
       </div>
 
-      <AddNutritionModal
+      <AddNutritionValueModal
         visible={visible}
         setVisible={setVisible} 
-        setBanner={setNutrition}
+        nutrition={nutrition}
+        setNutritionValue={setNutritionValue}
         editData={editData}
-        getNutrition={getNutrition}
+        getNutritionValue={getNutritionValue}
       />
     </>
   );
 }
 
-export default ManageNutrition;
+export default ManageNutritionValue;
