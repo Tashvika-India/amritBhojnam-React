@@ -10,8 +10,7 @@ import {
   getProductApi,
   getRatingApi,
   getYouMayAlsoLikeApi,
-  postCartApi,
-  postRatingApi,
+  postCartApi, 
 } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import MyCartMenu from "../../../components/ui/MyCartMenu";
@@ -49,35 +48,6 @@ const ProudctDetail = () => {
   };
 
 
-  // const [reviewData, setReviewData] = useState({
-  //   product_id: filters?.product_id,
-  //   rating: 0,
-  //   comment: "",
-  // })
-  // const handleRatingChange = (e) => {
-  //   setReviewData({ ...reviewData, rating: e.value });
-  // };
-
-  // const handleCommentChange = (e) => {
-  //   setReviewData({ ...reviewData, comment: e.target.value });
-  // };
-
-  // const handleSubmit = async () => {
-  //   try {
-  //     const payload = {
-  //       product_id: reviewData.product_id,
-  //       rating: reviewData.rating,
-  //       comment: reviewData.comment,
-  //     };
-  //     console.log("Payload:", payload);
-  //     const response = await postRatingApi(payload);
-  //     console.log("API Response:", response.data);
-  //     alert("Review submitted successfully!");
-  //   } catch (error) {
-  //     console.error("Error submitting review:", error);
-  //     alert("Failed to submit review.");
-  //   }
-  // };
 
   const { cartItems, finalCart, error, cartId } = useSelector(
     (state) => state.cart
@@ -643,44 +613,6 @@ const ProudctDetail = () => {
                                   }).format(new Date(data?.created_at))}</p>
                                 </div>
                               ))}
-                              {/* <div className="col-12">
-                                <form className="d-flex flex-column"> 
-                                  <div className="mb-3">
-                                    <h6>Add Your Review</h6>
-                                    <span className="d-inline-block">
-                                      <Rating
-                                        value={reviewData.rating}
-                                        onChange={handleRatingChange}  
-                                        stars={5}
-                                        cancel={false}  
-                                        disabled
-                                      />
-                                    </span>
-                                  </div> 
-                                  <TextField
-                                    id="outlined-basic"
-                                    label="Comment"
-                                    name="comment"
-                                    value={reviewData.comment}
-                                    onChange={handleCommentChange}  
-                                    disabled
-                                    variant="outlined"
-                                    fullWidth
-                                    multiline
-                                    rows={3}
-                                  />
-                                  <div className="text-end">
-                                    <button
-                                      type="button"
-                                      className="button-primary mt-3 opacity-50"
-                                      onClick={handleSubmit}  
-                                      disabled
-                                    >
-                                      Submit
-                                    </button>
-                                  </div>
-                                </form>
-                              </div> */}
                             </div>
                           </div>
                         </Tab.Pane>
