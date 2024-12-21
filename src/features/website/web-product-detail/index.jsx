@@ -451,36 +451,36 @@ const ProudctDetail = () => {
                     </>
                   )}
                 </div>
-                <div className="mt-5">
-                  <p className="fw-600">Check Availability</p>
-                  <div
-                    className="border-gray border-raidus-10 mt-2 input-box"
-                    style={{ width: "60%" }}
-                  >
-                    <div className="input-group mb-2 mt-2">
-                      <input
-                        type="number"
-                        className="form-control border-0 box-shadow-0 fw-600"
-                        placeholder="Enter Pincode"
-                        aria-label="Enter Pincode"
-                        aria-describedby="basic-addon2"
-                        maxLength={6}
-                        minLength={6}
-                        value={pincode}
-                        onChange={(e) => setPincode(e.target.value)}
-                      />
-                      <button
-                        className="input-group-text border-0 text-orange fw-600 bg-transparent border-start border-2 ps-4 me-3"
-                        onClick={handleCheckPincode}
-                      >
-                        CHECK
-                      </button>
-                    </div>
+              {/* <div className="mt-5">
+                <p className="fw-600">Check Availability</p>
+                <div
+                  className="border-gray border-raidus-10 mt-2 input-box"
+                  style={{ width: "60%" }}
+                >
+                  <div className="input-group mb-2 mt-2">
+                    <input
+                      type="number"
+                      className="form-control border-0 box-shadow-0 fw-600"
+                      placeholder="Enter Pincode"
+                      aria-label="Enter Pincode"
+                      aria-describedby="basic-addon2"
+                      maxLength={6}
+                      minLength={6}
+                      value={pincode}
+                      onChange={(e) => setPincode(e.target.value)}
+                    />
+                    <button
+                      className="input-group-text border-0 text-orange fw-600 bg-transparent border-start border-2 ps-4 me-3"
+                      onClick={handleCheckPincode}
+                    >
+                      CHECK
+                    </button>
                   </div>
-                  {message && (
-                    <p className="mt-2 fw-600 text-dark">{message}</p>
-                  )}
                 </div>
+                {message && (
+                  <p className="mt-2 fw-600 text-dark">{message}</p>
+                )}
+              </div> */}
                 <p className="d-flex fb-fs-18 fw-500 my-3">
                   <span>
                     <img
@@ -548,7 +548,7 @@ const ProudctDetail = () => {
                             Description
                           </Nav.Link>
                         </Nav.Item>
-                        <Nav.Item>
+                        {/* <Nav.Item>
                           <Nav.Link
                             as="button"
                             className="btn-tab me-0"
@@ -556,7 +556,7 @@ const ProudctDetail = () => {
                           >
                             Additional Info
                           </Nav.Link>
-                        </Nav.Item>
+                        </Nav.Item> */}
                         <Nav.Item>
                           <Nav.Link
                             as="button"
@@ -632,7 +632,7 @@ const ProudctDetail = () => {
           </div>
         </div>
       </section>
-      <section className="recipe-section ms-5">
+      {/* <section className="recipe-section ms-5">
         <div className="container fb-container ">
           <div className="row">
             <div className="bg-recipe-background ms-5 rounded-20">
@@ -737,7 +737,7 @@ const ProudctDetail = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <section className="similar-product">
         <div className="container fb-container">
           <div className="row ms-5">
