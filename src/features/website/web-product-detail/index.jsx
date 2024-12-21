@@ -611,7 +611,7 @@ const ProudctDetail = () => {
                                   </div>
                                   <p className="mb-3">{data?.comment}</p>
                                   <p className="mb-3 text-grey fw-500">
-                                    {" "}
+                                    
                                     {new Intl.DateTimeFormat("en-GB", {
                                       day: "2-digit",
                                       month: "short",
@@ -676,45 +676,45 @@ const ProudctDetail = () => {
                               <div className="me-4">
                                 <p className="fb-fs-18 my-4 py-1">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 1.
-                                  </span>{" "}
+                                  </span>
                                   Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
                                 </p>
                                 <p className="fb-fs-18 my-4 py-1">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 2.
-                                  </span>{" "}
+                                  </span>
                                   Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
                                 </p>
                                 <p className="fb-fs-18 my-4 py-1">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 3.
-                                  </span>{" "}
+                                  </span>
                                   Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
                                 </p>
                                 <p className="fb-fs-18 my-4 py-1">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 4.
-                                  </span>{" "}
+                                  </span>
                                   Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
                                 </p>
                                 <p className="fb-fs-18 my-4 py-1">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 5.
-                                  </span>{" "}
+                                  </span>
                                   Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
@@ -750,7 +750,7 @@ const ProudctDetail = () => {
               }}
             >
               {recommendedProducts?.length > 0 ? (
-                recommendedProducts.map((item, index) => (
+                recommendedProducts?.slice(0, 5).map((item, index) => (
                   <ProductCard product={item} key={index} />
                 ))
               ) : (
