@@ -7,18 +7,17 @@ import { baseURL } from "../../../../utils/constant-variable";
 import { Link } from "react-router-dom";
 const WebBanner = () => {
   const [banner, setBanner] = useState([]);
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(false); 
 
   const settings = {
     dots: false,
-    infinite: banner.length > 1, 
+    infinite: banner.length > 1,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: banner.length > 1, 
+    autoplay: banner.length > 1,
     autoplaySpeed: 3000,
-    arrows: banner.length > 1,  
+    arrows: banner.length > 1,
     nextArrow: banner.length > 1 ? <SampleNextArrow /> : null,
     prevArrow: banner.length > 1 ? <SamplePrevArrow /> : null,
   };
@@ -27,7 +26,10 @@ const WebBanner = () => {
     setLoading(true);
     try {
       const response = await getBannerApi();
-      setBanner(response?.data || []);
+      const filteredBanners = (response?.data || []).filter(
+        (item) => item.is_active === true && item.platform === "web"
+      ); 
+      setBanner(filteredBanners);
     } catch (error) {
       console.log("Error on Banner List", error);
     } finally {
