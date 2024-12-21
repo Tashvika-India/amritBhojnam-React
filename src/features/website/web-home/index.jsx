@@ -108,7 +108,7 @@ const HomePage = () => {
           <WebBanner />
           <div className="mt-lg-5">
             <div className="row my-4 px-lg-3 gap-sm-3 gap-xl-0">
-              <div className="col-xl-4 col-lg-12 col-md-12">
+              <div className="col-xl-4 col-lg-12 ">
                 <div className="card-left mb-3">
                   <div className="row">
                     <div className="col-md-6">
@@ -129,7 +129,7 @@ const HomePage = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-4 col-lg-12 col-md-12 mb-3 mb-xl-0">
+              <div className="col-xl-4 col-lg-12 mb-3 mb-xl-0">
                 <div className="card-center mb-md-3">
                   <div className="row">
                   <div className="col-md-6">
@@ -149,7 +149,7 @@ const HomePage = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-4 col-lg-12 col-md-12">
+              <div className="col-xl-4 col-lg-12 ">
                 <div className="card-right">
                   <div className="row">
                   <div className="col-md-6">
@@ -207,7 +207,7 @@ const HomePage = () => {
       <section>
         <div className="container fb-container">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-lg-6">
               <h3 className="fw-bold mb-3">Our Best Selling Products</h3>
             </div>
             <div className="col-md-12">
@@ -216,9 +216,11 @@ const HomePage = () => {
                   className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
                   style={{
                     gridTemplateColumns:
-                      window.innerWidth > 768
-                        ? "repeat(5, 1fr)"
-                        : "repeat(2, 1fr)",
+                    window.innerWidth > 992
+                    ? "repeat(5, 1fr)"
+                    : window.innerWidth > 768
+                    ? "repeat(3, 1fr)"
+                    : "repeat(2, 1fr)",
                   }}
                 >
                   {loading ? (
@@ -473,25 +475,25 @@ const HomePage = () => {
                   <h3>Amrit Bhojanam</h3>
                   <p className="mt-4">
                     Amrit Bhojanam started with a simple yet powerful discovery:
-                    the incredible benefits <br />
+                    the incredible benefits <br className="d-none d-lg-inline-block"/>
                     of millet. Our founders, who are passionate about
-                    sustainable and nutritious food, <br />
+                    sustainable and nutritious food, <br className="d-none d-lg-inline-block"/>
                     realized just how incredible this ancient grain is. Millet
-                    has been a staple in many <br />
+                    has been a staple in many <br className="d-none d-lg-inline-block"/>
                     cultures for centuries, known for its nutritional value and
-                    ability to thrive in different <br />
+                    ability to thrive in different <br className="d-none d-lg-inline-block"/>
                     climates. Seeing its potential to tackle today's health
-                    challenges, our founders set out <br />
+                    challenges, our founders set out <br className="d-none d-lg-inline-block"/>
                     on a mission to bring millet back into modern diets and
                     highlight its many benefits.
                   </p>
                   <p className="mt-3">
                     With a lot of research and dedication, Amrit Bhojanam came
-                    to life. We’re here to make <br />
+                    to life. We’re here to make <br className="d-none d-lg-inline-block"/>
                     millet accessible to everyone by offering a variety of
-                    delicious, millet-based products. <br />
+                    delicious, millet-based products. <br className="d-none d-lg-inline-block"/>
                     We believe that a healthier lifestyle starts with mindful
-                    eating, and our products are <br />
+                    eating, and our products are <br className="d-none d-lg-inline-block"/>
                     crafted to provide essential nutrients while also supporting
                     sustainable farming.
                   </p>
@@ -575,8 +577,8 @@ const HomePage = () => {
       </section>
       <section className="download-section">
         <div className="container fb-container">
-          <div className="row">
-            <div className="col-lg-6 col-md-6 mt-5 align-self-center">
+          <div className="row align-items-center">
+            <div className="col-lg-6 col-md-6 mt-5">
               <div className="download-content ms-5 mt-5 p-0">
                 <span className="millet-top">
                   <img

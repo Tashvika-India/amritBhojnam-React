@@ -299,9 +299,11 @@ const ProudctList = () => {
                     className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
                     style={{
                       gridTemplateColumns:
-                        window.innerWidth > 768
-                          ? "repeat(4, 1fr)"
-                          : "repeat(2, 1fr)",
+                      window.innerWidth > 992
+                      ? "repeat(4, 1fr)"
+                      : window.innerWidth > 768
+                      ? "repeat(3, 1fr)"
+                      : "repeat(2, 1fr)",
                     }}
                   >
                     {products.map((item) => (
