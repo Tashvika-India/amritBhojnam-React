@@ -22,7 +22,7 @@ const AboutUs = () => {
       <section className="about-us pb-0 about-linear">
         <div className="container fb-container mb-lg-5 pb-lg-5">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-6 align-self-center">
               <div className="main-logo pe-lg-5">
                 <img
                   src={MainImg}

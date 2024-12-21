@@ -18,7 +18,7 @@ const ProfileDropdown = ({ userDetail }) => {
                 id="dropdown-basic"
                 as="a"
                 style={{cursor:"pointer"}} className='no-caret'>
-                {(window.innerWidth > 768) ?
+                {(window.innerWidth > 992) ?
                     <div className="d-inline-flex flex-column align-items-center position-relative justify-content-center">
                         <FaRegUser size={"1.625rem"} />
                         <span className="d-inline-block ms-2 fb-fs-14 fw-600">Account</span>

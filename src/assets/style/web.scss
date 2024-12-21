@@ -1142,12 +1142,7 @@ footer {
   .fb-container-xxl {
     max-width: 900px !important;
   }
-  .about-us .main-logo img {
-    aspect-ratio: 11/16;
-    width: fit-content;
-    padding-left: 0 !important;
-    padding-right: 2rem;
-  }
+  
   .fb-fs-40 {
     font-size: 1.8rem !important;
   }
@@ -1313,8 +1308,22 @@ footer {
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
+  .web-wrapper-main .fb-fs-40{
+    font-size: 2rem;
+  }
+  .profile-tabs button{
+    padding-inline: 2rem;
+  }
   .download-section .download-content img {
     display: none;
+  }
+  .download-section .download-content {
+    h2{
+      font-size: 2.7rem;
+    }
+  }
+  .banner-slider img {
+    height: 21rem !important;
   }
   .login-offcanvas {
     width: 40% !important;
@@ -1373,7 +1382,7 @@ footer {
     font-size: 1rem !important;
   }
   .contact-us .card .white-section {
-    padding: 3rem 1rem;
+    padding: 3rem 1rem 0 0;
   }
   .about-us .about-bottom .grey-background img {
     width: 21rem;
@@ -1389,12 +1398,7 @@ footer {
     margin-right: 0;
   }
   .about-us {
-    .main-logo {
-      img {
-        aspect-ratio: 9 / 16;
-        width: 22rem;
-      }
-    }
+   
     .fb-fs-40 {
       font-size: 1.6rem;
     }
@@ -1439,8 +1443,7 @@ footer {
       border-bottom-right-radius: 2.7rem;
       border-bottom-left-radius: 2.7rem;
       .purchase-content {
-        padding: 2rem;
-        padding-top: 2.5rem;
+        padding: 2rem; 
         h4 {
           font-size: 1.6rem;
           margin-bottom: 0.5rem !important;
@@ -1472,7 +1475,7 @@ footer {
   }
   .offer-cards {
     .protein-left {
-      height: 100vh;
+      height: 51vh;
       margin-bottom: 1rem;
       border-radius: 16px;
       .left-content {
@@ -1579,6 +1582,7 @@ footer {
   .protein-right-top a {
     margin-bottom: 1rem !important;
   }
+ 
   .download-section .download-content img {
     display: none;
   }
@@ -1616,11 +1620,11 @@ footer {
   .fb-fs-26 {
     font-size: 1.3rem !important;
   }
-  .about-us .about-bottom .grey-background img {
-    margin-top: 1rem;
-    width: 32.5rem;
-    aspect-ratio: 29/16;
-  }
+  // .about-us .about-bottom .grey-background img {
+  //   margin-top: 1rem;
+  //   width: 32.5rem;
+  //   aspect-ratio: 29/16;
+  // }
   .about-us .about-bottom .white-background {
     margin-top: 0;
     margin-right: 0;
@@ -1646,12 +1650,7 @@ footer {
     }
   }
   .about-us {
-    .main-logo {
-      img {
-        aspect-ratio: 10 / 16;
-        width: 34rem;
-      }
-    }
+    
     .fb-fs-40 {
       font-size: 1.6rem;
     }
@@ -1976,9 +1975,9 @@ footer {
   .about-us .about-bottom .grey-background img {
     margin-top: 1rem;
   }
-  .about-us .about-bottom .grey-background img {
-    aspect-ratio: 20/16;
-  }
+  // .about-us .about-bottom .grey-background img {
+  //   aspect-ratio: 20/16;
+  // }
   .about-us .about-bottom .white-background {
     margin-top: 0rem;
     margin-right: 0rem;

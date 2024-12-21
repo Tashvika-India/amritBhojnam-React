@@ -290,7 +290,7 @@ const UserProfile = () => {
       <Header />
       <div className="container fb-container mb-md-5 pb-md-5">
         <div className="row">
-          <div className="col-md-10 mx-auto">
+          <div className=" col-lg-10 mx-auto">
             <div className="user-profile-img  mt-5">
               {/* <img
                 className="img-fluid profile-img profile-foreground-img rounded-top w-100 mt-5"
