@@ -6,23 +6,27 @@ import {
   MenuItem,
   Select,
   TextField,
-  Button, IconButton,
+  Button,
+  IconButton,
   Box,
-  Chip
+  Chip,
 } from "@mui/material";
-import { Add, Remove } from '@mui/icons-material';
+import { Add, Remove } from "@mui/icons-material";
 import RejectButton from "@/components/buttons/RejectButton";
 import YellowButton from "@/components/buttons/YellowButton";
 import MultiFileUpload from "../../../../components/fileUpload/MultiFileUpload";
 import { getCategoriesApi } from "@/services/adminApiRoutes";
 import { useFormik } from "formik";
 import { productInitalValues } from "@/utils/form-inital-values/InitalValues";
-import { getSubCategoriesApi, postProductApi, putProductApi } from "../../../../services/adminApiRoutes";
+import {
+  getSubCategoriesApi,
+  postProductApi,
+  putProductApi,
+} from "../../../../services/adminApiRoutes";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../../../components/ui/Loading";
 import * as Yup from "yup";
 import { baseURL } from "../../../../utils/constant-variable";
-
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Product name is required"),
@@ -73,7 +77,6 @@ const ProductAdd = () => {
     }));
   };
 
-
   const formik = useFormik({
     initialValues: productInitalValues,
     validationSchema: validationSchema,
@@ -81,65 +84,82 @@ const ProductAdd = () => {
       isEditMode ? updateProduct(values) : addProduct(values);
     },
   });
-  const { values, handleSubmit, resetForm, setValues, handleBlur, handleChange, setFieldValue } = formik;
+  const {
+    values,
+    handleSubmit,
+    resetForm,
+    setValues,
+    handleBlur,
+    handleChange,
+    setFieldValue,
+  } = formik;
   const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
+  // async function addProduct(values) {
+  //   const formData = new FormData();
+  //   formData.append("name", values.name);
+  //   formData.append("category_id", values.category_id);
+  //   formData.append("sub_category_id", values.sub_category_id);
+  //   formData.append("short_description", values.short_description);
+  //   formData.append("long_description", values.long_description);
+  //   formData.append("quantity", values.quantity);
+  //   formData.append("quantity_unit", values.quantity_unit);
+  //   formData.append("max_price", values.max_price);
+  //   formData.append("offer_price", values.offer_price);
+  //   formData.append("nutritions", values.nutritions);
+  //   formData.append("is_manually_popular", values.is_manually_popular);
+  //   formData.append("is_manually_best_choice", values.is_manually_best_choice);
+  //   formData.append("is_delicious", values.is_delicious);
+  //   formData.append("is_deleted", values.is_deleted);
+  //   formData.append("product_type", values.product_type);
+  //   formData.append("days", values.days);
+  //   formData.append("mfg_date", values.mfg_date);
+  //   formData.append("ratings", values.ratings);
+  //   formData.append("meta_title", values.meta_title);
+  //   formData.append("meta_description", values.meta_description);
 
+  //   // Add tags as a comma-separated string
+  //   if (values.tags && Array.isArray(values.tags)) {
+  //     formData.append("tags", values.tags.join(","));
+  //   }
+
+  //   // Add meta_keywords as a comma-separated string
+  //   if (values.meta_keywords && Array.isArray(values.meta_keywords)) {
+  //     formData.append("meta_keywords", values.meta_keywords.join(","));
+  //   }
+
+  //   if (values.images && Array.isArray(values.images)) {
+  //     values.images.forEach((image, index) => {
+  //       if (image instanceof File) {
+  //         if (image.size > MAX_FILE_SIZE) {
+  //           console.error(`Image at index ${index} exceeds the size limit.`);
+  //           return; // Skip this image or set an error state
+  //         }
+  //         const validFormats = ['image/jpeg', 'image/png', 'image/gif'];
+  //         if (!validFormats.includes(image.type)) {
+  //           console.error(`Image at index ${index} is not a valid format.`);
+  //           return; // Skip this image or set an error state
+  //         }
+  //         formData.append("images", image);
+  //       } else {
+  //         console.error(`Image at index ${index} is not a valid File instance.`);
+  //       }
+  //     });
+  //   }
+  //   try {
+  //     const response = await postProductApi(formData);
+  //     navigate("/admin/product");
+  //     resetForm();
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setLoading(false);
+  //     throw error;
+  //   }
+  // }
 
   async function addProduct(values) {
-    const formData = new FormData();
-    formData.append("name", values.name);
-    formData.append("category_id", values.category_id);
-    formData.append("sub_category_id", values.sub_category_id);
-    formData.append("short_description", values.short_description);
-    formData.append("long_description", values.long_description);
-    formData.append("quantity", values.quantity);
-    formData.append("quantity_unit", values.quantity_unit);
-    formData.append("max_price", values.max_price);
-    formData.append("offer_price", values.offer_price);
-    formData.append("nutritions", values.nutritions);
-    formData.append("is_manually_popular", values.is_manually_popular);
-    formData.append("is_manually_best_choice", values.is_manually_best_choice);
-    formData.append("is_delicious", values.is_delicious);
-    formData.append("is_deleted", values.is_deleted);
-    formData.append("product_type", values.product_type);
-    formData.append("days", values.days);
-    formData.append("mfg_date", values.mfg_date);
-    formData.append("ratings", values.ratings);
-    formData.append("meta_title", values.meta_title);
-    formData.append("meta_description", values.meta_description);
-
-    // Add tags as a comma-separated string
-    if (values.tags && Array.isArray(values.tags)) {
-      formData.append("tags", values.tags.join(","));
-    }
-
-
-    // Add meta_keywords as a comma-separated string
-    if (values.meta_keywords && Array.isArray(values.meta_keywords)) {
-      formData.append("meta_keywords", values.meta_keywords.join(","));
-    }
-
-    if (values.images && Array.isArray(values.images)) {
-      values.images.forEach((image, index) => {
-        if (image instanceof File) {
-          if (image.size > MAX_FILE_SIZE) {
-            console.error(`Image at index ${index} exceeds the size limit.`);
-            return; // Skip this image or set an error state
-          }
-          const validFormats = ['image/jpeg', 'image/png', 'image/gif'];
-          if (!validFormats.includes(image.type)) {
-            console.error(`Image at index ${index} is not a valid format.`);
-            return; // Skip this image or set an error state
-          }
-          formData.append("images", image);
-        } else {
-          console.error(`Image at index ${index} is not a valid File instance.`);
-        }
-      });
-    }
     try {
-      const response = await postProductApi(formData);
+      const response = await postProductApi(values);
       navigate("/admin/product");
       resetForm();
       setLoading(false);
@@ -150,59 +170,8 @@ const ProductAdd = () => {
   }
 
   async function updateProduct(values) {
-    const formData = new FormData();
-    formData.append("name", values.name);
-    formData.append("category_id", values.category_id);
-    formData.append("sub_category_id", values.sub_category_id);
-    formData.append("short_description", values.short_description);
-    formData.append("long_description", values.long_description);
-    formData.append("quantity", values.quantity);
-    formData.append("quantity_unit", values.quantity_unit);
-    formData.append("max_price", values.max_price);
-    formData.append("offer_price", values.offer_price);
-    formData.append("nutritions", values.nutritions);
-    formData.append("is_manually_popular", values.is_manually_popular);
-    formData.append("is_manually_best_choice", values.is_manually_best_choice);
-    formData.append("is_delicious", values.is_delicious);
-    formData.append("is_deleted", values.is_deleted);
-    formData.append("product_type", values.product_type);
-    formData.append("days", values.days);
-    formData.append("mfg_date", values.mfg_date);
-    formData.append("ratings", values.ratings);
-    formData.append("meta_title", values.meta_title);
-    formData.append("meta_description", values.meta_description);
-
-    // Add tags as a comma-separated string
-    if (values.tags && Array.isArray(values.tags)) {
-      formData.append("tags", values.tags.join(","));
-    }
-
-    // Add meta_keywords as a comma-separated string
-    if (values.meta_keywords && Array.isArray(values.meta_keywords)) {
-      formData.append("meta_keywords", values.meta_keywords.join(","));
-    }
-
-
-    if (values.images && Array.isArray(values.images)) {
-      values.images.forEach((image, index) => {
-        if (image instanceof File) {
-          if (image.size > MAX_FILE_SIZE) {
-            console.error(`Image at index ${index} exceeds the size limit.`);
-            return; // Skip this image or set an error state
-          }
-          const validFormats = ['image/jpeg', 'image/png', 'image/gif'];
-          if (!validFormats.includes(image.type)) {
-            console.error(`Image at index ${index} is not a valid format.`);
-            return; // Skip this image or set an error state
-          }
-          formData.append("images", image);
-        } else {
-          console.error(`Image at index ${index} is not a valid File instance.`);
-        }
-      });
-    }
     try {
-      const response = await putProductApi(product?.id, formData);
+      const response = await putProductApi(product?.id, values);
       resetForm();
       navigate("/admin/product");
       setLoading(false);
@@ -249,7 +218,11 @@ const ProductAdd = () => {
           <div className="card-body">
             <h5 className="mb-4">Image</h5>
             <div className="">
-              <MultiFileUpload formik={formik} name="images" baseURL={baseURL} />
+              <MultiFileUpload
+                formik={formik}
+                name="images"
+                baseURL={baseURL}
+              />
             </div>
           </div>
         </div>
@@ -424,20 +397,21 @@ const ProductAdd = () => {
                     name="quantity"
                     value={formik.values?.quantity}
                     onChange={formik.handleChange}
-                    label="Quantity">
+                    label="Quantity"
+                  >
                     <MenuItem value=" ">&nbsp;</MenuItem>
                     <MenuItem value="10 gm">10 gm</MenuItem>
                     <MenuItem value="20 gm">20 gm</MenuItem>
                     <MenuItem value="30 gm">30 gm</MenuItem>
                     <MenuItem value="50 gm">50 gm</MenuItem>
                     <MenuItem value="75 gm">75 gm</MenuItem>
-                    <MenuItem value="100 gm">100 gm</MenuItem> 
-                    <MenuItem value="120 gm">120 gm</MenuItem> 
-                    <MenuItem value="125 gm">125 gm</MenuItem> 
+                    <MenuItem value="100 gm">100 gm</MenuItem>
+                    <MenuItem value="120 gm">120 gm</MenuItem>
+                    <MenuItem value="125 gm">125 gm</MenuItem>
                     <MenuItem value="150 gm">150 gm</MenuItem>
                     <MenuItem value="200 gm">200 gm</MenuItem>
                     <MenuItem value="250 gm">250 gm</MenuItem>
-                    <MenuItem value="300 gm">300 gm</MenuItem> 
+                    <MenuItem value="300 gm">300 gm</MenuItem>
                     <MenuItem value="500 gm">500 gm</MenuItem>
                     <MenuItem value="750 gm">750 gm</MenuItem>
                     <MenuItem value="1 kg">1 kg</MenuItem>
@@ -469,38 +443,21 @@ const ProductAdd = () => {
               <div className="col-md-4 mb-4">
                 <TextField
                   id="outlined-basic"
-                  label="Option"
+                  label="Stock"
                   variant="outlined"
                   fullWidth
+                  name="stock"
+                  value={formik.values?.stock}
+                  onChange={formik.handleChange}
                 />
               </div>
               <div className="col-md-4 mb-4">
                 <TextField
                   id="outlined-basic"
                   label="Price"
+                  variant="outlined"
                   name="max_price"
                   value={formik.values?.max_price}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                />
-              </div>
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Stock"
-                  variant="outlined"
-                  fullWidth
-                />
-              </div>
-              <div className="col-md-4 mb-4"></div>
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Dicsount"
-                  variant="outlined"
-                  name="offer_price"
-                  value={formik.values?.offer_price}
                   onChange={formik.handleChange}
                   fullWidth
                 />
@@ -513,31 +470,17 @@ const ProductAdd = () => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value=""
-                    label="Discount Type"
+                    name="discount"
+                    value={formik.values?.discount}
+                    onChange={formik.handleChange}
+                    label="Discount"
                   >
+                    <MenuItem value={0}>No Discount</MenuItem>
                     <MenuItem value={10}>Ten</MenuItem>
                     <MenuItem value={20}>Twenty</MenuItem>
                     <MenuItem value={30}>Thirty</MenuItem>
                   </Select>
                 </FormControl>
-              </div>
-              <div className="col-md-4 mb-4"></div>
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="SKU"
-                  variant="outlined"
-                  fullWidth
-                />
-              </div>
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Unique Barcode(If you want)"
-                  variant="outlined"
-                  fullWidth
-                />
               </div>
             </div>
           </div>
@@ -611,14 +554,22 @@ const ProductAdd = () => {
                 lable={
                   loading ? (
                     <Loading size={24} color="inherit" />
-                  ) : isEditMode ? "Update Product" : "Add Product"
+                  ) : isEditMode ? (
+                    "Update Product"
+                  ) : (
+                    "Add Product"
+                  )
                 }
                 handleClick={formik.handleSubmit}
                 disabled={loading}
               />
-              <RejectButton lable="Cancel" disabled={loading} handleClick={() => {
-                resetForm();
-              }} />
+              <RejectButton
+                lable="Cancel"
+                disabled={loading}
+                handleClick={() => {
+                  resetForm();
+                }}
+              />
             </div>
           </div>
         </div>
