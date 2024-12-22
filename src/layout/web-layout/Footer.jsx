@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import * as Yup from "yup";
 import logo from "../../assets/images/web/logo.svg";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
@@ -6,12 +7,14 @@ import { Link } from "react-router-dom";
 import call from "../../assets/images/web/call.svg";
 import clock from "../../assets/images/web/clock.svg";
 import mail from "../../assets/images/web/mail.svg";
-import { getPopularProducts } from "../../services/adminApiRoutes";
+import { getPopularProducts, postContactApi } from "../../services/adminApiRoutes";
 import MyCartMenu from "../../components/ui/MyCartMenu";
+import { useFormik } from "formik";
+import { notifyError, notifySuccess } from "../../components/ui/Notification";
 
-const Footer = () => { 
+const Footer = () => {
   const [showCart, setShowCart] = useState(false);
-  const [popularProduct, setPopularProduct] = useState([]); 
+  const [popularProduct, setPopularProduct] = useState([]);
   const currentYear = new Date().getFullYear();
   const toggleCart = () => setShowCart(!showCart);
   async function getPopularProduct() {
@@ -21,10 +24,44 @@ const Footer = () => {
     } catch (error) {
       throw error;
     }
-  } 
+  }
 
-  useEffect(() => { 
-    getPopularProduct(); 
+
+  const contact = useFormik({
+    initialValues: {
+      name: "subscribe",
+      phone: "0000000000",
+      email: "",
+      message: "subscribe",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email("Invalid email").required("Email is required"),
+    }),
+    validateOnBlur: true, // Validate when the field loses focus
+    validateOnChange: true, // Validate as the user types
+    onSubmit: async (values, { resetForm }) => {
+      await Subscribe(values, resetForm);
+    },
+  });
+  
+  const Subscribe = async (values, resetForm) => {
+    const formData = new FormData(); 
+    Object.keys(values).forEach((key) => {
+      formData.append(key, values[key]);
+    });
+  
+    try {
+      const response = await postContactApi(formData);  
+      notifySuccess("Subscribe submitted Successfully"); 
+      resetForm();  
+    } catch (error) {
+      console.error("Error submitting the Subscribe form:", error);
+      notifyError("Failed to add submitted subscribe!");
+    }
+  };
+
+  useEffect(() => {
+    getPopularProduct();
   }, []);
   return (
     <>
@@ -36,16 +73,27 @@ const Footer = () => {
               If we go all out...We do it well! Subscribe to the newsletter
               <br></br> to get the most exclusive promos.
             </p>
-            <form>
-              <input
-                type="text"
-                className="py-3 ps-3 rounded-3 border-0 w-25"
-                placeholder="Email address"
-              />
-              <button className="fb-fs-18 text-white fw-600 brown-button ms-4 mt-lg-5 mt-3">
-                Subscribe
-              </button>
-            </form>
+            <div className="d-inline-block mx-auto">
+              <form onSubmit={contact.handleSubmit}>
+                <input
+                  type="text"
+                  className="py-3 ps-3 rounded-3 border-0"
+                  style={{ width: "25rem" }}
+                  placeholder="Email address" 
+                  name="email"
+                  value={contact.values.email}
+                  onChange={contact.handleChange}  
+                  onBlur={contact.handleBlur}  />
+                <button
+                  className="fb-fs-18 text-white fw-600 brown-button ms-4 mt-lg-5 mt-3"
+                  type="submit">
+                  Subscribe
+                </button>
+              </form>
+              {contact.touched.email && contact.errors.email && (
+                <div className="text-danger mt-2 text-start ms-2">{contact.errors.email}</div>
+              )}
+            </div>
           </div>
         </div>
         <div className="bg-footer-bg">
@@ -187,7 +235,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <MyCartMenu show={showCart} onClose={toggleCart}/>
+      <MyCartMenu show={showCart} onClose={toggleCart} />
     </>
   );
 };

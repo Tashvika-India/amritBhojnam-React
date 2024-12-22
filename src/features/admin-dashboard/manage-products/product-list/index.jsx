@@ -114,7 +114,7 @@ function ProductList() {
                 </div> */}
               </div>
               <div className="col-md-auto">
-                {/* <div style={{ width: "14rem" }}>
+                <div style={{ width: "14rem" }}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label" size="small">Category</InputLabel>
                     <Select
@@ -133,7 +133,7 @@ function ProductList() {
                       ))}
                     </Select>
                   </FormControl>
-                </div> */}
+                </div>
               </div>
               <div className="col-md-3 text-end">
                 <InputText

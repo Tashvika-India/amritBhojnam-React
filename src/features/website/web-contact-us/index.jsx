@@ -6,6 +6,7 @@ import Footer from "../../../layout/web-layout/Footer";
 import { Call, DirectboxNotif, LocationMinus } from "iconsax-react";
 import { TextField } from "@mui/material";
 import { postContactApi } from "../../../services/adminApiRoutes";
+import { notifyError, notifySuccess } from "../../../components/ui/Notification";
 
 const ContactUs = () => {
   const [loading, setLoading] = useState(false);
@@ -13,15 +14,15 @@ const ContactUs = () => {
 
   const contact = useFormik({
     initialValues: {
-      full_name: "",
-      phone_number: "",
+      name: "",
+      phone: "",
       email: "",
       message: "",
     },
     validationSchema: Yup.object({
-      full_name: Yup.string().required("Full name is required"),
+      name: Yup.string().required("Full name is required"),
       email: Yup.string().email("Invalid email").required("Email is required"),
-      phone_number: Yup.string()
+      phone: Yup.string()
         .matches(/^[0-9]{10}$/, "Enter a valid 10-digit phone number")
         .required("Phone Number is required"),
       message: Yup.string().required("Message is required"),
@@ -33,16 +34,17 @@ const ContactUs = () => {
 
   const addContactUs = async (values) => {
     const formData = new FormData();
-    formData.append("name ", values.full_name);
+    formData.append("name ", values.name);
     formData.append("email", values.email);
-    formData.append("phone", values.phone_number);
+    formData.append("phone", values.phone);
     formData.append("message", values.message);
     try {
       const response = await postContactApi(formData); 
+      notifySuccess("Contact submitted Successfully"); 
       contact.resetForm();
     } catch (error) {
       console.log("Error submitting the form:", error);
-      // alert("Something went wrong! Please try again.");
+      notifyError("Failed to add submitted Contact!"); 
     } finally {
       setLoading(false);
     }
@@ -126,7 +128,6 @@ const ContactUs = () => {
                         Your email address will not be published. Required
                         fields are marked *
                       </p>
-
                       <form onSubmit={contact.handleSubmit}>
                         <div className="container fb-container pt-4">
                           <div className="row">
@@ -134,20 +135,20 @@ const ContactUs = () => {
                               <TextField
                                 fullWidth
                                 className="rounded-20 me-5 mt-4"
-                                id="full_name"
+                                id="name"
                                 label="Name"
-                                name="full_name"
+                                name="name"
                                 variant="outlined"
-                                value={contact.values.full_name}
+                                value={contact.values.name}
                                 onChange={contact.handleChange}
                                 onBlur={contact.handleBlur}
                                 error={
-                                  contact.touched.full_name &&
-                                  Boolean(contact.errors.full_name)
+                                  contact.touched.name &&
+                                  Boolean(contact.errors.name)
                                 }
                                 helperText={
-                                  contact.touched.full_name &&
-                                  contact.errors.full_name
+                                  contact.touched.name &&
+                                  contact.errors.name
                                 }
                               />
                             </div>
@@ -155,20 +156,20 @@ const ContactUs = () => {
                               <TextField
                                 fullWidth
                                 className="rounded-20 me-5 mt-4"
-                                id="phone_number"
+                                id="phone"
                                 label="Phone Number"
-                                name="phone_number"
+                                name="phone"
                                 variant="outlined"
-                                value={contact.values.phone_number}
+                                value={contact.values.phone}
                                 onChange={contact.handleChange}
                                 onBlur={contact.handleBlur}
                                 error={
-                                  contact.touched.phone_number &&
-                                  Boolean(contact.errors.phone_number)
+                                  contact.touched.phone &&
+                                  Boolean(contact.errors.phone)
                                 }
                                 helperText={
-                                  contact.touched.phone_number &&
-                                  contact.errors.phone_number
+                                  contact.touched.phone &&
+                                  contact.errors.phone
                                 }
                               />
                             </div>
