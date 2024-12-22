@@ -20,11 +20,11 @@ const MobileMenu = ({ show, onClose, showMobileLogin, toggleMobileLogin, handleS
         <div className="header-search d-inline-flex w-100 align-self-center">
           <div className="search-input position-relative d-flex align-items-center z-1 w-100">
             <InputText
-              placeholder="Search for products"
-              className="border-0 ps-1 w-100"
+              placeholder="Search for a product and click the icon"
+              className="border-0 ps-1 w-100 mob-search-input"
               onChange={(e) => setFilters({ ...filters, name: e.target.value })}
             />
-            <button onClick={handleSearchSubmit} className="search-icon z-2 border-0 bg-white">
+            <button onClick={handleSearchSubmit} className="search-icon z-2 border-0 bg-white border-start border-orange ps-2">
               <IoSearchOutline color="#f26722" size={"1.25rem"} />
             </button>
           </div>
@@ -49,6 +49,7 @@ const MobileMenu = ({ show, onClose, showMobileLogin, toggleMobileLogin, handleS
         <div className="link-button ">
           <ul>
             <li className="border-bottom py-3"><Link to="/">Home </Link></li>
+            <li className="border-bottom py-3"><Link to="/wishlist">Wishlist </Link></li>
             <li className="border-bottom py-3"><Link to="/products">Products </Link></li>
             <li className="border-bottom py-3"><Link to="/#best">Best deals </Link></li>
             <li className="border-bottom py-3"><Link to="/#popular">Trending Products </Link></li>

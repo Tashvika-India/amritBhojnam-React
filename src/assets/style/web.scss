@@ -1820,6 +1820,11 @@ footer {
       font-size: 1.4rem;
     }
   }
+  .mob-search-input{
+    &::placeholder{
+      font-size: .78rem !important;
+    }
+  }
   .success-primary-button{
     padding-inline: 2rem;
   } 
@@ -1862,9 +1867,14 @@ footer {
   .default-btn {
     font-size: 0.8rem;
   }
+  .add-address-button {
+    padding: .5rem 0rem;
+    font-size: .85rem;
+    margin: 1.5rem 0rem;
+  }
   .order-date {
     img {
-      height: 4rem;
+      height: 3rem;
     }
   }
   .more-option{
