@@ -111,7 +111,7 @@ const Header = () => {
 
   return (
     <>
-          <ScrollTopBehaviour/>
+      <ScrollTopBehaviour />
 
       <header className="fb-bottom-shadow sticky-top bg-white z-100">
         <div className="header-top bg-semi-orange py-2">
@@ -248,7 +248,7 @@ const Header = () => {
                         {cartItems.length}
                         <span className="visually-hidden">unread messages</span>
                       </span>
-                      <CgShoppingBag size={"1.625rem"} />
+                      <CgShoppingBag size={"1.625rem"} color="#231d25" />
                     </div>
                   </button>
                 </li>
@@ -257,7 +257,7 @@ const Header = () => {
                     onClick={toggleMobileMenu}
                     className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
                   >
-                    <IoMdMenu size={"1.625rem"} />
+                    <IoMdMenu size={"1.625rem"} color="#231d25" />
                   </button>
                   <MobileMenu
                     show={showMobileMenu}

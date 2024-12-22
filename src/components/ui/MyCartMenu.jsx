@@ -112,8 +112,8 @@ const MyCartMenu = ({ show, onClose }) => {
                 ))
               ) : (
                 <div className="text-center py-4">
-                  <h4 className="text-muted mb-4">Your cart is empty!</h4>
-                  <Link className="button-primary fs-6" to="/products">
+                  <h4 className="text-muted pb-4">Your cart is empty!</h4>
+                  <Link className="button-primary fs-6 d-inline-block" to="/products">
                     Browse Products
                   </Link>
                 </div>
