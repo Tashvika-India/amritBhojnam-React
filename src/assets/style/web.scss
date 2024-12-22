@@ -1810,6 +1810,11 @@ footer {
 }
 
 @media (max-width: 576px) {
+  .logo{
+    img{
+      width: 6rem !important;
+    }
+  }
   .web-wrapper-main {
     .fb-fs-26 {
       font-size: 1.4rem;
@@ -1834,6 +1839,17 @@ footer {
   }
   .user-profile-detail{
     margin-top: -2rem;
+  }
+  .item-weight{
+    font-size: .82rem;
+  }
+  .total-amount-wrapper{
+    h5{
+      font-size: 1rem !important;
+    }
+    .button-primary{
+      font-size: .9rem !important;
+    }
   }
   .image-content{
     p{

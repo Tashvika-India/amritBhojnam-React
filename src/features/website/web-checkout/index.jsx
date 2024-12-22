@@ -223,8 +223,8 @@ const CheckoutPage = () => {
                                 <div className="ms-md-3">
                                   <div className="d-flex mt-2">
                                     <p className="fw-600 fb-fs-18">
-                                      {item?.user_detail?.full_name} |
-                                      {item?.user_detail?.phone_number}
+                                      {item?.ads_name} |&nbsp;
+                                      {item?.ads_phone}
                                     </p>
                                     {item?.selected && (
                                       <button className="button-yellow ms-3">

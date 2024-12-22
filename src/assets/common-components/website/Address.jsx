@@ -55,10 +55,10 @@ const Address = ({ formik, loading, setOpen, editData }) => {
         <form onSubmit={formik.handleSubmit}>
           <div className="container fb-container">
             <div className="row">
-              <div className="col-md-6 ps-md-0">
+              <div className="col-md-6">
                 <TextField
                   fullWidth
-                  className="rounded-20 me-5 mt-4" 
+                  className="rounded-20  mt-4" 
                   id="ads_name" 
                   name="ads_name" 
                   label="Name"
@@ -73,10 +73,10 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   </div>
                 ) : null}
               </div>
-              <div className="col-md-6 pe-md-0">
+              <div className="col-md-6 ">
                 <TextField
                   fullWidth
-                  className="rounded-20 me-5 mt-4"
+                  className="rounded-20  mt-4"
                   id="ads_phone"
                   label="Phone Number"
                   name="ads_phone"
@@ -91,10 +91,10 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   </div>
                 ) : null}
               </div>
-              <div className="col-md-12 px-md-0 mb-2">
+              <div className="col-md-12 mb-2">
                 <TextField
                   fullWidth
-                  className="rounded-20 me-5 mt-4"
+                  className="rounded-20 mt-4"
                   id="outlined-basic"
                   label="Email Address"
                   name="ads_email"
@@ -116,10 +116,10 @@ const Address = ({ formik, loading, setOpen, editData }) => {
 
           <div className="container fb-container">
             <div className="row">
-              <div className="col-md-4 ps-0">
+              <div className="col-md-4 mb-3">
                 <TextField
                   fullWidth
-                  className="rounded-20 me-5"
+                  className="rounded-20 "
                   id="pincode"
                   label="Pincode"
                   name="pincode"
@@ -134,12 +134,12 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   </div>
                 ) : null}
               </div>
-              <div className="col-md-4">
+              <div className="col-md-4 mb-3">
                 <FormControl fullWidth>
                   <TextField
                     id="state"
                     fullWidth
-                    className="rounded-20 me-5"
+                    className="rounded-20 "
                     name="state"
                     label="State"
                     variant="outlined"
@@ -156,14 +156,14 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   ) : null}
                 </FormControl>
               </div>
-              <div className="col-md-4 pe-0">
+              <div className="col-md-4 mb-3">
                 <FormControl fullWidth>
                   <TextField
                     id="city"
                     readOnly
                     fullWidth
                     disabled
-                    className="rounded-20 me-5"
+                    className="rounded-20 "
                     label="City"
                     name="city"
                     variant="outlined"
@@ -179,10 +179,10 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   ) : null}
                 </FormControl>
               </div>
-              <div className="col-md-12 px-md-0">
+              <div className="col-md-12 mb-3">
                 <TextField
                   fullWidth
-                  className="rounded-20 me-5 mt-4"
+                  className="rounded-20  "
                   id="house_flat_block_no"
                   name="house_flat_block_no"
                   label="House / Flat / Block No."
@@ -198,10 +198,10 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   </div>
                 ) : null}
               </div>
-              <div className="col-md-12 px-md-0">
+              <div className="col-md-12 mb-3">
                 <TextField
                   fullWidth
-                  className="rounded-20 me-5 mt-4"
+                  className="rounded-20  "
                   id="road_area_colony"
                   name="road_area_colony"
                   label="Road / Area / Colony"
@@ -217,7 +217,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   </div>
                 ) : null}
               </div>
-              <div className="d-flex my-5 ps-md-0 gap-3">
+              <div className="d-flex my-3 my-lg-5 ps-md-0 gap-3">
                 <button
                   type="button"
                   className={`d-flex align-items-center border-0 bg-transparent" ${formik.values.save_as === "home" ? "home-btn" : "office-btn"}`}

@@ -84,7 +84,7 @@ const MyCartMenu = ({ show, onClose }) => {
                       <p className="item-weight mb-0 mt-1">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</p>
                     </div>
                     <div className="product-quantity text-end">
-                      <div className="quantity-manage mb-4">
+                      <div className="quantity-manage mb-lg-4 mb-1">
                         <button
                           className="quantity-minu d-inline-block border-0 bg-white text-orange fw-600"
                           onClick={() => handleDecreaseQuantity(item?.product.id, item?.item_quantity)}
