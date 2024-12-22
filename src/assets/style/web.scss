@@ -1142,7 +1142,12 @@ footer {
   .fb-container-xxl {
     max-width: 900px !important;
   }
-  
+  .popular-product .popularleft img{
+    margin-left: 0;
+  }
+  .product-detail-slider .product-detail-image{
+    height: 100%;
+  }
   .fb-fs-40 {
     font-size: 1.8rem !important;
   }
@@ -1475,7 +1480,7 @@ footer {
   }
   .offer-cards {
     .protein-left {
-      height: 51vh;
+      height: 31rem;
       margin-bottom: 1rem;
       border-radius: 16px;
       .left-content {
@@ -1810,6 +1815,10 @@ footer {
 }
 
 @media (max-width: 576px) {
+  .filter-heading{
+    font-size: 1.12rem !important;
+    font-weight: 500 !important;
+  }
   .logo{
     img{
       width: 6rem !important;
@@ -2236,7 +2245,7 @@ footer {
   }
   .offer-cards {
     .protein-left {
-      height: 63vh;
+      height: 26rem;
       margin-bottom: 1rem;
       border-radius: 1rem;
       .left-content {

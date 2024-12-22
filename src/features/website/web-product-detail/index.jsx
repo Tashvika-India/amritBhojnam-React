@@ -525,7 +525,7 @@ const ProudctDetail = () => {
           </div>
           <div className="row ms-1 mt-5 description-slider">
             <div
-              className="card tabs-slider ms-5 mt-4"
+              className="card tabs-slider ms-xxl-5 mt-4"
               style={{ border: "1px solid #E1E1E1" }}
             >
               <div className="container fb-container">
@@ -738,9 +738,9 @@ const ProudctDetail = () => {
           </div>
         </div>
       </section> */}
-      <section className="similar-product">
+      <section className="similar-product pt-0">
         <div className="container fb-container">
-          <div className="row ms-5">
+          <div className="row ms-xxl-5">
             <h3 className="fw-bold mb-5 pb-2">Similar Products</h3>
             <div
               className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
