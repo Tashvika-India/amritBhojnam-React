@@ -39,6 +39,7 @@ import AddRoles from "../features/admin-dashboard/manage-roles/components/AddRol
 import ManageContact from "../features/admin-dashboard/dashboard-contact";
 import ManageNutrition from "../features/admin-dashboard/manage-nutrition";
 import ManageNutritionValue from "../features/admin-dashboard/manage-nutrition-value";
+import PaymentFailed from "../features/website/web-payment-failed";
 function AppRoutes() {
   return (
     <Routes>
@@ -322,6 +323,7 @@ function AppRoutes() {
       <Route exact path="/refund-policy" element={<RefundPolicy />} />
       <Route exact path="/shiping-policy" element={<ShipingPolicy />} />
       <Route exact path="/payment-success" element={<PaymentSuccess />} />
+      <Route exact path="/payment-failed" element={<PaymentFailed />} />
       <Route exact path="/admin/add-roles" element={<AddRoles />} />
 
 
