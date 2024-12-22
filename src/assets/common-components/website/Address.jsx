@@ -9,6 +9,7 @@ import {
 import { IoHomeOutline } from "react-icons/io5";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import { getPincodeApi } from "../../../services/adminApiRoutes";
+import { notifyError, notifySuccess } from "../../../components/ui/Notification";
 
 const Address = ({ formik, loading, setOpen, editData }) => { 
 
@@ -27,10 +28,10 @@ const Address = ({ formik, loading, setOpen, editData }) => {
 
       formik.setFieldValue('state', state);
       formik.setFieldValue('city', district);
-
+      notifySuccess("Address added Successfully"); 
     } catch (error) {
       console.error('Error fetching pincode details:', error);
-      alert('Invalid pincode or server error.');
+      notifyError("Address failed to add!"); 
     } finally {
     }
   }

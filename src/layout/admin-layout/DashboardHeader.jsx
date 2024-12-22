@@ -52,13 +52,13 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setLoading(true);  
+    setLoading(true);
     setTimeout(() => {
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
-      setLoading(false);  
+      setLoading(false);
       navigate("/admin/login");
-    }, 1000); 
+    }, 1000);
   };
 
   return (
@@ -78,43 +78,35 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
             AMRIT BHOJANAM
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-
-          <div className="d-flex me-2 align-items-center gap-3">
+          <div className="d-flex me-1 align-items-center gap-1 pe-2">
             <div className="me-3">
-              <VscBellDot className="text-white bg-yellow p-2 rounded"
-                size={43}
-                 />
+              <VscBellDot className="text-white bg-yellow p-2 rounded" size={43} />
             </div>
             <IconButton sx={{ p: 0 }}>
               <Avatar alt="Avatar" src={harry} />
             </IconButton>
-            <div className="ms-1">
-            <div className="d-flex gap-5">
-            <p className="m-0 fb-fs-14 fw-600">Avatar</p>
-            <IoIosArrowDown color="#F26722"/>
-            </div>
-              
-              <span className="m-0 text-secondary">Admin</span>
-            </div>
-            <div className="ms-1 cursor-pointer" onClick={handleClick}>
-              
-            </div>
+            <button  className="ms-1 cursor-pointer border-0 bg-transparent d-inline-flex align-items-center gap-2" onClick={handleClick}>
+              <div className="ms-1">
+                <span className="m-0 text-secondary">Admin</span>
+              </div>
+              <div className="d-flex gap-5">
+                <IoIosArrowDown color="#F26722" />
+              </div>
+            </button>
           </div>
         </Toolbar>
       </AppBar>
 
       <Menu
         id="fade-menu"
-        MenuListProps={{
-          "aria-labelledby": "fade-button",
-        }}
+        MenuListProps={{ "aria-labelledby": "fade-button" }}
         anchorEl={anchorEl}
         open={openMenu}
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem> */}
         <MenuItem onClick={handleLogout} disabled={loading}>{loading ? "Logging out..." : "Logout"}</MenuItem>
       </Menu>
     </>

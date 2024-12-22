@@ -23,9 +23,9 @@ import AdminCustomer from "../features/admin-dashboard/manage-customers";
 import ReturnRefund from "../features/admin-dashboard/manage-orders/refund-return";
 import ManageEmployees from "../features/admin-dashboard/manage-employees";
 import EmployeeAdd from "../features/admin-dashboard/manage-employees/add-employees";
-import ContactUs from "../features/website/web-contact-us"; 
-import ProductOption from "../features/admin-dashboard/manage-products/product-option"; 
-import AboutUs from "../features/website/web-about-us"; 
+import ContactUs from "../features/website/web-contact-us";
+import ProductOption from "../features/admin-dashboard/manage-products/product-option";
+import AboutUs from "../features/website/web-about-us";
 import Wishlist from "../features/website/web-wishlist";
 import TermsAndConditions from "../features/website/web-terms-conditions";
 import PrivacyPolicy from "../features/website/web-privacy";
@@ -40,20 +40,11 @@ import ManageContact from "../features/admin-dashboard/dashboard-contact";
 import ManageNutrition from "../features/admin-dashboard/manage-nutrition";
 import ManageNutritionValue from "../features/admin-dashboard/manage-nutrition-value";
 import PaymentFailed from "../features/website/web-payment-failed";
+import Web404 from "../notfound/Web404";
+import Admin404 from "../notfound/Admin404";
 function AppRoutes() {
   return (
     <Routes>
-      <Route
-        exact
-        path="/admin/dashboard"
-        element={
-          <PrivateRoute>
-            <DashboardSidebar>
-              <DashboardHome />
-            </DashboardSidebar>
-          </PrivateRoute>
-        }
-      />
       <Route
         exact
         path="/admin/dashboard"
@@ -143,19 +134,19 @@ function AppRoutes() {
         }
       />
       <Route
-      exact
-      path="/admin/product-option"
-      element={
-        <PrivateRoute>
-          <DashboardSidebar>
-            <ProductOption />
-          </DashboardSidebar>
-        </PrivateRoute>
-      }
-    />
+        exact
+        path="/admin/product-option"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <ProductOption />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
       <Route
         exact
-        path="/admin/product/product-reviews/:id" 
+        path="/admin/product/product-reviews/:id"
         element={
           <PrivateRoute>
             <DashboardSidebar>
@@ -241,7 +232,7 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
-       <Route
+      <Route
         exact
         path="admin/nutrition"
         element={
@@ -252,7 +243,7 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
-       <Route
+      <Route
         exact
         path="admin/nutrition-value"
         element={
@@ -307,9 +298,9 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
+      <Route path="/admin/*" element={<Admin404 />} />
       <Route exact path="/admin/login" element={<LoginPage />} />
-
-      {/* web routes */}
+      <Route path="*" element={<Web404 />} />
       <Route exact path="/" element={<HomePage />} />
       <Route exact path="/products" element={<ProudctList />} />
       <Route exact path="/product-detail" element={<ProudctDetail />} />
@@ -324,8 +315,7 @@ function AppRoutes() {
       <Route exact path="/shiping-policy" element={<ShipingPolicy />} />
       <Route exact path="/payment-success" element={<PaymentSuccess />} />
       <Route exact path="/payment-failed" element={<PaymentFailed />} />
-      <Route exact path="/admin/add-roles" element={<AddRoles />} />
-
+      <Route exact path="/admin/add-roles" element={<AddRoles />} /> 
 
     </Routes>
   );

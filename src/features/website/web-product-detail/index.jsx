@@ -26,6 +26,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import MobileLogin from "../../../components/ui/MobileLogin";
 import { baseURL } from "../../../utils/constant-variable";
 import { updateWishlist } from "../../../redux/slices/wishlistSlice";
+import { notifyError, notifySuccess } from "../../../components/ui/Notification";
 
 const ProudctDetail = () => {
   const [showCart, setShowCart] = useState(false);
@@ -263,9 +264,11 @@ const ProudctDetail = () => {
         item_quantity: quantity,
       });
       dispatch(cartAdd(response?.data));
+      notifySuccess("Product added to cart successfully");
       setLoading(false);
     } catch (error) {
       console.log("Error adding to cart:", error);
+      notifyError("Failed to add to cart!");
     } finally {
       setLoading(false);
     }
