@@ -270,7 +270,7 @@ const HomePage = () => {
                         alternative for those with gluten sensitivities
                       </p>
                     </div>
-                    <Link className="button-primary mt-0 m-lg-5 text-center d-inline-block">
+                    <Link  to="/products" className="button-primary mt-0 m-lg-5 text-center d-inline-block">
                       Shop Now
                     </Link>
                   </div>
@@ -284,7 +284,7 @@ const HomePage = () => {
                         sugar levels, making them ideal.
                       </p>
                     </div>
-                    <Link className="button-primary  d-inline-block mt-0 m-lg-5 text-center">
+                    <Link  to="/products" className="button-primary  d-inline-block mt-0 m-lg-5 text-center">
                       Shop Now
                     </Link>
                   </div>

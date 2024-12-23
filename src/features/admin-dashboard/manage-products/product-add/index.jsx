@@ -319,7 +319,7 @@ const ProductAdd = () => {
           <div className="card-body">
             <h6 className="mb-4">Product Detail</h6>
             <div className="row">
-              <div className="col-md-3 mb-4">
+              <div className="col-md-4 mb-4">
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">
                     Quantity
@@ -357,7 +357,7 @@ const ProductAdd = () => {
                   <p className="text-danger">{errors.quantity}</p>
                 )}
               </div>
-              <div className="col-md-3 mb-4">
+              <div className="col-md-4 mb-4">
                 <div
                   className={`switch-container ${
                     formik.values.is_manually_popular && "active"
@@ -383,7 +383,7 @@ const ProductAdd = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-3 mb-4">
+              <div className="col-md-4 mb-4">
                 <div
                   className={`switch-container ${
                     formik.values.is_manually_best_choice && "active"
@@ -409,7 +409,7 @@ const ProductAdd = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-3 mb-4">
+              <div className="col-md-4 mb-4">
                 <div
                   className={`switch-container ${
                     formik.values.is_delicious && "active"
@@ -427,6 +427,52 @@ const ProductAdd = () => {
                       checked={formik.values.is_delicious}
                       onChange={(e) =>
                         formik.setFieldValue("is_delicious", e.target.checked)
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 mb-4">
+                <div
+                  className={`switch-container ${
+                    formik.values.is_best_price && "active"
+                  }`}
+                  onClick={() =>
+                    formik.setFieldValue(
+                      "is_best_price",
+                      !formik.values.is_best_price
+                    )
+                  }
+                >
+                  <div className="">Best Price</div>
+                  <div>
+                    <IosSwitch
+                      checked={formik.values.is_best_price}
+                      onChange={(e) =>
+                        formik.setFieldValue("is_best_price", e.target.checked)
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 mb-4">
+                <div
+                  className={`switch-container ${
+                    formik.values.is_healthy_bites && "active"
+                  }`}
+                  onClick={() =>
+                    formik.setFieldValue(
+                      "is_healthy_bites",
+                      !formik.values.is_healthy_bites
+                    )
+                  }
+                >
+                  <div className="">Quick Healthy Bites</div>
+                  <div>
+                    <IosSwitch
+                      checked={formik.values.is_healthy_bites}
+                      onChange={(e) =>
+                        formik.setFieldValue("is_healthy_bites", e.target.checked)
                       }
                     />
                   </div>
