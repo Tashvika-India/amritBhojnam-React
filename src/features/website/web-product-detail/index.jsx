@@ -765,7 +765,6 @@ const ProudctDetail = () => {
             </div>
           </div>
         </section>
-     
     }
       <Footer />
     </div>
