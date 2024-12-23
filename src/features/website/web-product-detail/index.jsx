@@ -10,7 +10,7 @@ import {
   getProductApi,
   getRatingApi,
   getYouMayAlsoLikeApi,
-  postCartApi, 
+  postCartApi,
 } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import MyCartMenu from "../../../components/ui/MyCartMenu";
@@ -50,7 +50,7 @@ const ProudctDetail = () => {
       ? words.slice(0, limit).join(" ") + "..."
       : text;
   };
- 
+
 
   const { cartItems, finalCart, error, cartId } = useSelector(
     (state) => state.cart
@@ -319,7 +319,7 @@ const ProudctDetail = () => {
             </div>
             <div className="col-lg-6 col-12">
               <div className="product-detail-content ps-4">
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-lg-between">
                   {/* <p className="fb-fs-18 fw-600 d-flex text-brown">
                     <span>
                       <img
@@ -330,7 +330,7 @@ const ProudctDetail = () => {
                     </span>
                     80 Calories
                   </p> */}
-                  <div className="gap-3 d-inline-flex ms-auto">
+                  <div className="gap-3 d-inline-flex ms-lg-auto mb-3">
                     <span className="pt-2">
                       <Checkbox
                         {...label}
@@ -375,14 +375,14 @@ const ProudctDetail = () => {
                   </div>
                 </div>
                 <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
-                <div className="d-flex mb-4 mt-4">
+                <div className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4">
                   <Rating
                     className="me-3"
                     value={Math.round(detail?.ratings)}
                     readOnly
                     cancel={false}
                   />
-                  <p className="text-mid-grey">
+                  <p className="text-mid-grey ">
                     ({Math.round(detail?.ratings)} Reviews)
                   </p>
                 </div>
@@ -410,7 +410,7 @@ const ProudctDetail = () => {
                 </div>
                 <p className="fb-fs-40 text-orange fw-bold original-price">
                   ₹{detail?.offer_price}
-                  {detail?.offer_price !== detail?.max_price &&  <small className="fw-500 fb-fs-30 text-grey ms-3">
+                  {detail?.offer_price !== detail?.max_price && <small className="fw-500 fb-fs-30 text-grey ms-3">
                     <strike>₹{detail?.max_price}</strike>
                   </small>}
                 </p>
@@ -454,7 +454,7 @@ const ProudctDetail = () => {
                     </>
                   )}
                 </div>
-              {/* <div className="mt-5">
+                {/* <div className="mt-5">
                 <p className="fw-600">Check Availability</p>
                 <div
                   className="border-gray border-raidus-10 mt-2 input-box"
@@ -614,7 +614,7 @@ const ProudctDetail = () => {
                                   </div>
                                   <p className="mb-3">{data?.comment}</p>
                                   <p className="mb-3 text-grey fw-500">
-                                    
+
                                     {new Intl.DateTimeFormat("en-GB", {
                                       day: "2-digit",
                                       month: "short",
@@ -741,28 +741,31 @@ const ProudctDetail = () => {
           </div>
         </div>
       </section> */}
-      <section className="similar-product pt-0">
-        <div className="container fb-container">
-          <div className="row ms-xxl-5">
-            <h3 className="fw-bold mb-5 pb-2">Similar Products</h3>
-            <div
-              className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
-              style={{
-                gridTemplateColumns:
-                  window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)",
-              }}
-            >
-              {recommendedProducts?.length > 0 ? (
-                recommendedProducts?.slice(0, 5).map((item, index) => (
-                  <ProductCard product={item} key={index} />
-                ))
-              ) : (
-                <p>There is no similar product.</p>
-              )}
+      {
+      (recommendedProducts?.length > 0) &&
+        <section className="similar-product pt-0">
+          <div className="container fb-container">
+            <div className="row ms-xxl-5">
+              <h3 className="fw-bold mb-5 pb-2">Similar Products</h3>
+              <div
+                className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
+                style={{
+                  gridTemplateColumns:
+                    window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)",
+                }}
+              >
+                {recommendedProducts?.length > 0 ? (
+                  recommendedProducts?.slice(0, 5).map((item, index) => (
+                    <ProductCard product={item} key={index} />
+                  ))
+                ) : (
+                  <p>There is no similar product.</p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+    }
       <Footer />
     </div>
   );

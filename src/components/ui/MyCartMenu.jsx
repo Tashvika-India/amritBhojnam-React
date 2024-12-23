@@ -49,7 +49,7 @@ const MyCartMenu = ({ show, onClose }) => {
   }, [show, dispatch, cartId]); 
 
   return (
-    <Offcanvas show={show} onHide={onClose} placement="end" className="cart-offcanvas" style={{ width: "30%" }}>
+    <Offcanvas show={show} onHide={onClose} placement="end" className="cart-offcanvas" style={{ width: "28%" }}>
       <Offcanvas.Header closeButton className="border-bottom">
         <Offcanvas.Title>Your Cart</Offcanvas.Title>
       </Offcanvas.Header>
@@ -70,7 +70,7 @@ const MyCartMenu = ({ show, onClose }) => {
             <div className="mb-2 px-3" style={{ maxHeight: "60dvh", overflowY: "auto" }}>
               { cartItems?.length > 0 ? (
                 cartItems?.map((item) => (
-                  <div className="cart-items mb-2" key={item?.product.id}>
+                  <div className="cart-items mb-3" key={item?.product.id}>
                     <div className="product-item p-1">
                       <img
                         src={item?.product?.images[0]?.image || product}
@@ -84,7 +84,7 @@ const MyCartMenu = ({ show, onClose }) => {
                       <p className="item-weight mb-0 mt-1">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</p>
                     </div>
                     <div className="product-quantity text-end">
-                      <div className="quantity-manage mb-lg-4 mb-1">
+                      <div className="quantity-manage mb-lg-3 mb-1">
                         <button
                           className="quantity-minu d-inline-block border-0 bg-white text-orange fw-600"
                           onClick={() => handleDecreaseQuantity(item?.product.id, item?.item_quantity)}

@@ -117,17 +117,18 @@ const Header = () => {
         <div className="header-top bg-semi-orange py-2">
           <div className="container fb-container d-flex flex-wrap gap-2 justify-content-center justify-content-lg-between align-items-center">
             <p className="text-white fw-500 fb-fs-14 d-none d-lg-block">
-              Free delivery & 40% discount for next 3 orders! Place your 1st
-              order now.
+              {/* Free delivery & 40% discount for next 3 orders! Place your 1st
+              order now. */}
+              &nbsp;
             </p>
             <p className="text-white fw-500 fb-fs-14">
-              Need Help? Call Us:
+              {/* Need Help? Call Us:
               <a
                 className="text-white text-decoration-none"
                 href="tel:+1800 900 5600"
               >
                 +1800 900 5600
-              </a>
+              </a> */}
             </p>
           </div>
         </div>

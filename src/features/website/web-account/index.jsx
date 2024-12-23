@@ -192,7 +192,7 @@ const UserProfile = () => {
       full_name: "",
       email: "",
       gender: "",
-      date_of_birth: "00-00-0000",
+      date_of_birth: "0000-00-00",
     },
     validationSchema: Yup.object({
       full_name: Yup.string().required("Full name is required"),
@@ -232,13 +232,13 @@ const UserProfile = () => {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      profile.setFieldValue("pp", file); // Store the file in Formik's state
+      profile.setFieldValue("pp", file);
 
       // Generate preview
       const reader = new FileReader();
-      reader.onload = () => {
-        setPreview(reader.result); // Update the preview state
-      };
+      // reader.onload = () => {
+      //   setProfilePic(reader.result); // Update the profile picture preview
+      // };
       reader.readAsDataURL(file);
     }
   };
@@ -285,6 +285,7 @@ const UserProfile = () => {
     }
   }, [userDetail]);
 
+
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -304,11 +305,11 @@ const UserProfile = () => {
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center">
                   <img
                     className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center p-2 bg-white"
-                    src={profilePicture === undefined ? profilePicture : pp}
+                    src={(userDetail?.pp) ? profilePicture : pp}
                     alt="Card image cap"
                   />
                   <div className="image-content mt-4 mt-md-3 pt-md-5 ms-md-3">
-                    <h4 className="text-dark-grey fw-bold">
+                    <h4 className="text-dark-grey fw-bold text-start">
                       {userDetail?.full_name}
                     </h4>
                     <p className="fw-500 text-mid-grey fb-fs-18 text-start">
@@ -445,20 +446,19 @@ const UserProfile = () => {
                               }
                             />
                           </div>
-                          {/* <div className="col-md-4 mb-4">
+                          <div className="col-md-4 mb-4">
                             <TextField
                               fullWidth
-                              className="rounded-20 me-5" 
-                              id="pp"
-                              name="pp" 
+                              className="rounded-20 me-5"
+                              id="pp" 
+                              name="pp"
                               variant="outlined"
-                              value={profile.values.pp}
                               disabled={!profileEdit}
-                              type="file"
+                              type="file" 
                               onChange={handleImageChange} 
-                            />  
-                          </div> */}
-                          <div className="col-md-6 mb-4">
+                            /> 
+                          </div>
+                          <div className="col-md-4 mb-4">
                             <FormControl fullWidth>
                               <InputLabel id="demo-simple-select-label">
                                 Gender
@@ -488,7 +488,7 @@ const UserProfile = () => {
                               </Select>
                             </FormControl>
                           </div>
-                          <div className="col-md-6 mb-4">
+                          <div className="col-md-4 mb-4">
                             <TextField
                               fullWidth
                               className="rounded-20 me-5"
