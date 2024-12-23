@@ -772,6 +772,7 @@ footer {
   color: $orange;
   .quantity-manage {
     border: 1px solid $orange;
+    width: 5rem;
     border-radius: 0.625rem;
     display: inline-flex;
     align-items: center;
@@ -779,7 +780,8 @@ footer {
     gap: 0.6rem;
     padding: 0.2rem;
   }
-  .remove-quantity {
+  .remove-quantity { 
+    font-size: 0.875rem;
   }
 }
 
@@ -897,6 +899,7 @@ footer {
 .cart-items {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   .product-item {
     border: 1px solid $border;
     border-radius: 0.625rem;
