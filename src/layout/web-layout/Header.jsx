@@ -122,13 +122,13 @@ const Header = () => {
               &nbsp;
             </p>
             <p className="text-white fw-500 fb-fs-14">
-              Need Help? Call Us:
+              {/* Need Help? Call Us:
               <a
                 className="text-white text-decoration-none"
                 href="tel:+1800 900 5600"
               >
                 +1800 900 5600
-              </a>
+              </a> */}
             </p>
           </div>
         </div>
