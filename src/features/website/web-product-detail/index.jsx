@@ -319,7 +319,7 @@ const ProudctDetail = () => {
             </div>
             <div className="col-lg-6 col-12">
               <div className="product-detail-content ps-4">
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-lg-between">
                   {/* <p className="fb-fs-18 fw-600 d-flex text-brown">
                     <span>
                       <img
@@ -330,7 +330,7 @@ const ProudctDetail = () => {
                     </span>
                     80 Calories
                   </p> */}
-                  <div className="gap-3 d-inline-flex ms-auto">
+                  <div className="gap-3 d-inline-flex ms-lg-auto mb-3">
                     <span className="pt-2">
                       <Checkbox
                         {...label}
@@ -375,14 +375,14 @@ const ProudctDetail = () => {
                   </div>
                 </div>
                 <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
-                <div className="d-flex mb-4 mt-4">
+                <div className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4">
                   <Rating
                     className="me-3"
                     value={Math.round(detail?.ratings)}
                     readOnly
                     cancel={false}
                   />
-                  <p className="text-mid-grey">
+                  <p className="text-mid-grey ">
                     ({Math.round(detail?.ratings)} Reviews)
                   </p>
                 </div>
