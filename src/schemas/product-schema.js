@@ -16,8 +16,7 @@ export const productSchema = Yup.object().shape({
   is_delicious: Yup.boolean().required("This field is required"),
   stock: Yup.number()
     .typeError("Stocks must be a number")
-    .required("Stocks are required")
-    .min(1, "Stocks cannot be negative"),
+    .required("Stocks are required") ,
   images: Yup.array()
     .min(1, "At least one image is required")
     .required("Images are required"),
