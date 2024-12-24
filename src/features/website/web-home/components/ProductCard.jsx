@@ -80,7 +80,7 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
         </div>
-        <span className="out-of-stock">Out Of Stock</span>
+        <span className="out-of-stock">Sold Out</span>
       </Link>
 
       <MobileLogin
