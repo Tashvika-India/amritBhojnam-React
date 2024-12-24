@@ -242,9 +242,9 @@ const HomePage = () => {
             <div className="col-lg-6 col-md-12 pe-lg-4">
               <div className="protein-left">
                 <div className="left-content p-5">
-                  <h4 className="fw-bold mb-lg-3">
+                  {/* <h4 className="fw-bold mb-lg-3">
                     Upto 40% Off on special Items
-                  </h4>
+                  </h4> */}
                   <p className="fw-500">
                     Millets are packed with essential nutrients, including
                     fiber, protein, vitamins, and minerals, offering
@@ -264,7 +264,7 @@ const HomePage = () => {
                 <div className="col-md-12 mb-lg-4 mb-md-3">
                   <div className="protein-right-top">
                     <div className="right-top-content p-5 pb-4">
-                      <h4 className="fw-bold mb-lg-3">Upto 40% Off </h4>
+                      {/* <h4 className="fw-bold mb-lg-3">Upto 40% Off </h4> */}
                       <p className="fw-500">
                         As naturally gluten-free grains, millets provide a great
                         alternative for those with gluten sensitivities
@@ -278,7 +278,7 @@ const HomePage = () => {
                 <div className="col-md-12 mt-lg-4">
                   <div className="protein-right-bottom">
                     <div className="right-bottom-content p-5 pb-4">
-                      <h4 className="fw-bold mb-lg-3">Upto 40% Off </h4>
+                      {/* <h4 className="fw-bold mb-lg-3">Upto 40% Off </h4> */}
                       <p className="fw-500">
                         With a low glycemic index, millets help regulate blood
                         sugar levels, making them ideal.
