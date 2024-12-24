@@ -541,6 +541,38 @@ footer {
   }
 }
 
+.out-of-stock{
+  display: none;
+}
+
+.product-card-link{ 
+  pointer-events: none;
+  position: relative; 
+  overflow: hidden;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  place-content: center; 
+  .out-of-stock{
+    position: absolute;
+    display: block;
+    background-color: #6F6F6F;
+    font-size: 0.875rem;
+    color: $white;
+    font-weight: 600;
+    border-radius: 0.3125rem;
+    padding: .5rem .75rem;
+  }
+  .product-card{
+    position: relative;
+    background: rgba(255, 255, 255, 1);
+    & > *{
+      filter: grayscale(1) opacity(0.76);
+    }
+  }
+}
+
 // first-purchase
 .first_purchase {
   .purchase-bg {
@@ -556,6 +588,7 @@ footer {
     }
   }
 }
+
 
 .rs-input-group-lg.rs-input-group>.rs-input, .rs-input-group-lg.rs-input-group>.rs-input-group-addon{
   height: 44px !important;
