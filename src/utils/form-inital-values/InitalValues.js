@@ -11,6 +11,8 @@ export const productInitalValues = {
   is_manually_popular: true,
   is_manually_best_choice: true,
   is_delicious: true,
+  is_healthy_bites: true,
+  is_best_price: true,
   is_deleted: false,
   tags: [],
   nutritions: [],
