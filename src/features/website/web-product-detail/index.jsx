@@ -386,7 +386,7 @@ const ProudctDetail = () => {
                     ({Math.round(detail?.ratings)} Reviews)
                   </p>
                 </div>
-                <p>{truncateToWords(detail?.short_description, 25)}</p>
+                <p>{truncateToWords(detail?.short_description, 25)}<a  href="/product-detail/#detail-description"><span className="text-orange">Read More</span></a></p>
                 <div className="d-flex mt-4 mb-3">
                   <p className="fw-600 pt-2">Size / Weight:</p>
                   <ButtonGroup className="weight-check ms-3 d-inline-flex align-items-center">
@@ -545,6 +545,7 @@ const ProudctDetail = () => {
                         <Nav.Item className="nav">
                           <Nav.Link
                             as="button"
+                           
                             className="btn-tab me-0"
                             eventKey="Description"
                           >
@@ -574,7 +575,7 @@ const ProudctDetail = () => {
                     <div className="col-md-12">
                       <Tab.Content className="px-4 pb-4">
                         <Tab.Pane eventKey="Description">
-                          <p className="mb-4">{detail?.long_description}</p>
+                          <p className="mb-4"  id="detail-description">{detail?.long_description}</p>
                         </Tab.Pane>
                         <Tab.Pane eventKey="Additional Info">
                           Additional

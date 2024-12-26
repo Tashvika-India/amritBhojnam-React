@@ -1189,9 +1189,6 @@ footer {
   .fb-container-xxl {
     max-width: 900px !important;
   }
-  .popular-product .popularleft img{
-    margin-left: 0;
-  }
   .product-detail-slider .product-detail-image{
     height: 100%;
   }
@@ -1212,6 +1209,10 @@ footer {
   }
   .login-offcanvas {
     width: 30% !important;
+  }
+  .popular-product .popularleft img {
+    aspect-ratio: 17/16;
+    margin-left: 0;
   }
   .cart-offcanvas {
     width: 30% !important;
@@ -1363,6 +1364,30 @@ footer {
   .web-wrapper-main .fb-fs-40{
     font-size: 2rem;
   }
+ 
+  .offer-cards{
+    .protein-left{
+      .left-content{
+        p{
+          font-size: 1rem;
+        }
+      }
+    }
+    .protein-right-top{
+     .right-top-content{
+      p{
+        font-size: 1rem;
+      }
+     }
+    }
+    .protein-right-bottom{
+      .right-bottom-content{
+        p{
+          font-size: 1rem;
+        }
+      }
+    }
+  }
   .profile-tabs button{
     padding-inline: 2rem;
   }
@@ -1484,6 +1509,13 @@ footer {
   .grain-3 {
     display: none; /* Hide these images */
   }
+  .banner-ads{
+    .content-sec{
+      h2{
+        line-height: 48px !important;
+      }
+    }
+  }
   // first-purchase
   .first_purchase {
     .purchase-bg {
@@ -1513,7 +1545,7 @@ footer {
       }
       .purchase-image-sec {
         img {
-          margin-top: 0 !important;
+          margin-top: -26px !important;
           position: sticky;
         }
       }
@@ -1583,6 +1615,7 @@ footer {
     margin-top: 0.625rem;
   }
   .popular-product .popularleft img {
+    aspect-ratio: 17 / 16;
     margin-left: 0 !important;
   }
   .payment-success h5{
@@ -1649,7 +1682,15 @@ footer {
   }
   footer {
     .footer-upper {
-      height: 32rem !important;
+      background-image: url(/src/assets/images/web/footer-upper-background.png);
+      background-repeat: no-repeat;
+      background-size: 150%;
+      width: 100% !important;
+      padding-top: 4rem !important;
+      background-position: bottom;
+      padding-bottom: 150px;
+      height: auto;
+      // height: 32rem !important;
       form {
         margin-top: 2rem;
         button {
