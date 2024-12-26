@@ -218,18 +218,17 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   </div>
                 ) : null}
               </div>
-              <div className="d-flex my-3 my-lg-5 ps-md-0 gap-3">
+              <div className="d-flex my-3 my-lg-4 ps-md-0 gap-3">
                 <button
                   type="button"
                   className={`d-flex align-items-center border-0 bg-transparent" ${formik.values.save_as === "home" ? "home-btn" : "office-btn"}`}
                   onClick={() => formik.setFieldValue("save_as", "home")}
                   onBlur={formik.handleBlur}>
                   <IoHomeOutline
-                    className="ms-lg-2 ms-0"
                     size={"20"}
                     color={formik.values.save_as === "home" ? "#F26722" : "#918E92"}
                   />
-                  <p className={`${formik.values.save_as === "home" ? "text-orange" : "text-mid-grey"} fw-500 ms-lg-3 ms-2`}>Home</p>
+                  <p className={`${formik.values.save_as === "home" ? "text-orange" : "text-mid-grey"} fw-500 ms-lg-2 ms-2`}>Home</p>
                 </button>
                 <button
                   type="button"
@@ -238,11 +237,10 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   onBlur={formik.handleBlur}
                 >
                   <HiBuildingOffice2
-                    className="ms-lg-2 ms-0"
                     size={"23"}
                     color={formik.values.save_as === "office" ? "#F26722" : "#918E92"}
                   />
-                  <p className={`${formik.values.save_as === "office" ? "text-orange" : "text-mid-grey"} fw-500 ms-lg-3 ms-2`}>Office</p> 
+                  <p className={`${formik.values.save_as === "office" ? "text-orange" : "text-mid-grey"} fw-500 ms-lg-2 ms-2`}>Office</p> 
                 </button>
                 <button
                   type="button"
@@ -251,11 +249,10 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   onBlur={formik.handleBlur}
                 >
                   <HiBuildingOffice2
-                    className="ms-lg-2 ms-0"
                     size={"23"}
                     color={formik.values.save_as === "other" ? "#F26722" : "#918E92"} 
                   />
-                  <p className={`${formik.values.save_as === "other" ? "text-orange" : "text-mid-grey"} fw-500 ms-lg-3 ms-2`}>Other</p>  
+                  <p className={`${formik.values.save_as === "other" ? "text-orange" : "text-mid-grey"} fw-500 ms-lg-2 ms-2`}>Other</p>  
                 </button>
                 {formik.touched.save_as &&
                   formik.errors.save_as ? (
