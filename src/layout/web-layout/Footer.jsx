@@ -116,7 +116,7 @@ const Footer = () => {
                         <img src={call} alt="call" />
                       </span>
                       <span className="text-orange fb-fs-18 d-inline-block" style={{ width: "5rem" }}>Call US :</span>
-                      <a href="tel:+91-1234567890" className="fb-fs-18">+91 7678320459</a>
+                      <a href="tel:+917678320459" className="fb-fs-18" aria-label="Call +91 7678320459">+91 7678320459</a>
                     </li>
                     <li className="d-flex align-items-center fw-500">
                       <span className="me-3">
