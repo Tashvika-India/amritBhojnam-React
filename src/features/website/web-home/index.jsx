@@ -245,7 +245,7 @@ const HomePage = () => {
                   {/* <h4 className="fw-bold mb-lg-3">
                     Upto 40% Off on special Items
                   </h4> */}
-                  <p className="fw-500">
+                  <p className="fw-bold">
                     Millets are packed with essential nutrients, including
                     fiber, protein, vitamins, and minerals, offering
                   </p>
@@ -265,7 +265,7 @@ const HomePage = () => {
                   <div className="protein-right-top">
                     <div className="right-top-content p-5 pb-4">
                       {/* <h4 className="fw-bold mb-lg-3">Upto 40% Off </h4> */}
-                      <p className="fw-500">
+                      <p className="fw-bold">
                         As naturally gluten-free grains, millets provide a great
                         alternative for those with gluten sensitivities
                       </p>
@@ -279,7 +279,7 @@ const HomePage = () => {
                   <div className="protein-right-bottom">
                     <div className="right-bottom-content p-5 pb-4">
                       {/* <h4 className="fw-bold mb-lg-3">Upto 40% Off </h4> */}
-                      <p className="fw-500">
+                      <p className="fw-bold">
                         With a low glycemic index, millets help regulate blood
                         sugar levels, making them ideal.
                       </p>
