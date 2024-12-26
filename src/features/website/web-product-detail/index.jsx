@@ -386,78 +386,78 @@ const ProudctDetail = () => {
                   />
                   <p className="text-mid-grey ">
                     ({Math.round(detail?.ratings)} Reviews)
-                  </p> 
-                </Link>
-                </div>
-                <p>{truncateToWords(detail?.short_description, 25)}<a  href="/product-detail/#detail-description"><span className="text-orange">Read More</span></a></p> 
-                <div className="d-flex mt-4 mb-3">
-                  <p className="fw-600 pt-2">Size / Weight:</p>
-                  <ButtonGroup className="weight-check ms-3 d-inline-flex align-items-center">
-                    {radios.map((radio, idx) => (
-                      <ToggleButton
-                        key={idx}
-                        id={`radio-${idx}`}
-                        type="radio"
-                        className="py-1 px-2 fw-500"
-                        style={{ fontSize: "1rem" }}
-                        variant={idx % 2 ? "bg-orange" : "bg-orange"}
-                        name="radio"
-                        value={radio.value}
-                        checked={radioValue === radio.value}
-                        onChange={(e) => setRadioValue(e.currentTarget.value)}
-                      >
-                        {radio.name}
-                      </ToggleButton>
-                    ))}
-                  </ButtonGroup>
-                </div>
-                <p className="fb-fs-40 text-orange fw-bold original-price">
-                  ₹{detail?.offer_price}
-                  {detail?.offer_price !== detail?.max_price && <small className="fw-500 fb-fs-30 text-grey ms-3">
-                    <strike>₹{detail?.max_price}</strike>
-                  </small>}
-                </p>
-                <p style={{ fontSize: "0.875rem" }} className="fw-500">
-                  (Inclusive of all taxes)
-                </p>
-                <div>
-                  {login ? (
-                    !checkItemInCart() ? (
-                      <button
-                        className="button-primary mt-4 fb-fs-18"
-                        onClick={() => addToCart(detail?.id, quantity || 1)}
-                        disabled={loading}
-                      >
-                        {loading ? "Adding..." : "Add to Cart"}
-                      </button>
-                    ) : (
-                      <>
-                        <button
-                          className="button-primary mt-4 fb-fs-18"
-                          onClick={toggleCart}
-                        >
-                          Go to Cart
-                        </button>
-                        <MyCartMenu show={showCart} onClose={toggleCart} />
-                      </>
-                    )
+                  </p>
+                </Link> 
+              <p>{truncateToWords(detail?.short_description, 25)}</p>
+                {/* <a href="/product-detail/#detail-description"><span className="text-orange">Read More</span></a> */}
+              <div className="d-flex mt-4 mb-3">
+                <p className="fw-600 pt-2">Size / Weight:</p>
+                <ButtonGroup className="weight-check ms-3 d-inline-flex align-items-center">
+                  {radios.map((radio, idx) => (
+                    <ToggleButton
+                      key={idx}
+                      id={`radio-${idx}`}
+                      type="radio"
+                      className="py-1 px-2 fw-500"
+                      style={{ fontSize: "1rem" }}
+                      variant={idx % 2 ? "bg-orange" : "bg-orange"}
+                      name="radio"
+                      value={radio.value}
+                      checked={radioValue === radio.value}
+                      onChange={(e) => setRadioValue(e.currentTarget.value)}
+                    >
+                      {radio.name}
+                    </ToggleButton>
+                  ))}
+                </ButtonGroup>
+              </div>
+              <p className="fb-fs-40 text-orange fw-bold original-price">
+                ₹{detail?.offer_price}
+                {detail?.offer_price !== detail?.max_price && <small className="fw-500 fb-fs-30 text-grey ms-3">
+                  <strike>₹{detail?.max_price}</strike>
+                </small>}
+              </p>
+              <p style={{ fontSize: "0.875rem" }} className="fw-500">
+                (Inclusive of all taxes)
+              </p>
+              <div>
+                {login ? (
+                  !checkItemInCart() ? (
+                    <button
+                      className="button-primary mt-4 fb-fs-18"
+                      onClick={() => addToCart(detail?.id, quantity || 1)}
+                      disabled={loading}
+                    >
+                      {loading ? "Adding..." : "Add to Cart"}
+                    </button>
                   ) : (
                     <>
                       <button
                         className="button-primary mt-4 fb-fs-18"
-                        onClick={() => setShowWebLogin(true)}
+                        onClick={toggleCart}
                       >
-                        Add to Cart
+                        Go to Cart
                       </button>
-                      <MobileLogin
-                        otpShow={showWebLogin}
-                        onOtpClose={toggleWebLogin}
-                        align="end"
-                      />
+                      <MyCartMenu show={showCart} onClose={toggleCart} />
                     </>
-                  )}
-                </div>
-                {/* <div className="mt-5">
+                  )
+                ) : (
+                  <>
+                    <button
+                      className="button-primary mt-4 fb-fs-18"
+                      onClick={() => setShowWebLogin(true)}
+                    >
+                      Add to Cart
+                    </button>
+                    <MobileLogin
+                      otpShow={showWebLogin}
+                      onOtpClose={toggleWebLogin}
+                      align="end"
+                    />
+                  </>
+                )}
+              </div>
+              {/* <div className="mt-5">
                 <p className="fw-600">Check Availability</p>
                 <div
                   className="border-gray border-raidus-10 mt-2 input-box"
@@ -487,7 +487,7 @@ const ProudctDetail = () => {
                   <p className="mt-2 fw-600 text-dark">{message}</p>
                 )}
               </div> */}
-                {/* <p className="d-flex fb-fs-18 fw-500 my-3">
+              {/* <p className="d-flex fb-fs-18 fw-500 my-3">
                   <span>
                     <img
                       className="img-fluid"
@@ -498,15 +498,15 @@ const ProudctDetail = () => {
                   <span className="text-orange me-2 ms-2 mt-1">Get it by</span>
                   <span className="mt-1">Monday, 16 Sep</span>
                 </p> */}
-                <div className="d-flex mt-4  ms-4 ">
-                  <ul className="me-5 pe-4 disc-style w-50">
-                    {/* {detail?.product_type && (
+              <div className="d-flex mt-4  ms-4 ">
+                <ul className="me-5 pe-4 disc-style w-50">
+                  {/* {detail?.product_type && (
                       <li className="my-2">Type: {detail?.product_type}</li>
                     )}
                     {detail?.category && (
                       <li className="my-2">Category: {detail?.category}</li>
                     )} */}
-                    {/* <li className="my-2">
+                  {/* <li className="my-2">
                       MFG:
                       {new Date(detail.mfg_date)
                         .toLocaleDateString("en-US", {
@@ -516,46 +516,46 @@ const ProudctDetail = () => {
                         })
                         .replace(",", ".")}
                     </li> */}
-                    {/* <li className="my-2">LIFE: {detail?.days} days</li> */}
-                  </ul>
-                  <ul className="me-5 pe-4 disc-style w-50">
-                    {/* <li className="my-2">SKU: FWM15VKT</li> */}
-                    {/* <li className="my-2">Tags:{detail?.tags}</li> */}
-                    {/* <li className="my-2">
+                  {/* <li className="my-2">LIFE: {detail?.days} days</li> */}
+                </ul>
+                <ul className="me-5 pe-4 disc-style w-50">
+                  {/* <li className="my-2">SKU: FWM15VKT</li> */}
+                  {/* <li className="my-2">Tags:{detail?.tags}</li> */}
+                  {/* <li className="my-2">
                       Stock: {detail?.quantity} Items In Stock
                     </li> */}
-                  </ul>
-                </div>
+                </ul>
               </div>
             </div>
           </div>
-          <div className="row ms-1 mt-5 description-slider">
-            <div
-              className="card tabs-slider ms-xxl-5 mt-4"
-              style={{ border: "1px solid #E1E1E1" }}
-            >
-              <div className="container fb-container">
-                <Tab.Container
-                  id="left-tabs-example"
-                  defaultActiveKey="Description"
-                >
-                  <div className="row">
-                    <div className="col-md-12">
-                      <Nav
-                        variant="pills"
-                        className="flex-row tab-nav-wrapper my-3  mt-md-5 mb-md-3 px-4 gap-3 gap-md-4"
-                      >
-                        <Nav.Item className="nav">
-                          <Nav.Link
-                            as="button"
-                           
-                            className="btn-tab me-0"
-                            eventKey="Description"
-                          >
-                            Description
-                          </Nav.Link>
-                        </Nav.Item>
-                        {/* <Nav.Item>
+        </div>
+        <div className="row ms-1 mt-5 description-slider">
+          <div
+            className="card tabs-slider ms-xxl-5 mt-4"
+            style={{ border: "1px solid #E1E1E1" }}
+          >
+            <div className="container fb-container">
+              <Tab.Container
+                id="left-tabs-example"
+                defaultActiveKey="Description"
+              >
+                <div className="row">
+                  <div className="col-md-12">
+                    <Nav
+                      variant="pills"
+                      className="flex-row tab-nav-wrapper my-3  mt-md-5 mb-md-3 px-4 gap-3 gap-md-4"
+                    >
+                      <Nav.Item className="nav">
+                        <Nav.Link
+                          as="button"
+
+                          className="btn-tab me-0"
+                          eventKey="Description"
+                        >
+                          Description
+                        </Nav.Link>
+                      </Nav.Item>
+                      {/* <Nav.Item>
                           <Nav.Link
                             as="button"
                             className="btn-tab me-0"
@@ -564,82 +564,82 @@ const ProudctDetail = () => {
                             Additional Info
                           </Nav.Link>
                         </Nav.Item> */}
-                        <Nav.Item>
-                          <Nav.Link
-                            as="button"
-                            className="btn-tab me-0"
-                            eventKey="Reviews(12)"
-                          >
-                            Reviews({reviews?.length})
-                          </Nav.Link>
-                        </Nav.Item>
-                      </Nav>
-                    </div>
-                    <div className="col-md-12">
-                      <Tab.Content className="px-4 pb-4">
-                        <Tab.Pane eventKey="Description">
-                          <p className="mb-4"  id="detail-description">{detail?.long_description}</p>
-                        </Tab.Pane>
-                        <Tab.Pane eventKey="Additional Info">
-                          Additional
-                        </Tab.Pane>
-                        <Tab.Pane eventKey="Reviews(12)" >
-                          <div className="p-3 p-lg-4" id="reviews-wapper">
-                            <div className="row">
-                              {reviews.map((data) => (
-                                <div className="col-12  mb-3" key={data?.id}>
-                                  <div className="d-inline-flex align-items-center gap-3">
+                      <Nav.Item>
+                        <Nav.Link
+                          as="button"
+                          className="btn-tab me-0"
+                          eventKey="Reviews(12)"
+                        >
+                          Reviews({reviews?.length})
+                        </Nav.Link>
+                      </Nav.Item>
+                    </Nav>
+                  </div>
+                  <div className="col-md-12">
+                    <Tab.Content className="px-4 pb-4">
+                      <Tab.Pane eventKey="Description">
+                        <p className="mb-4" id="detail-description">{detail?.long_description}</p>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="Additional Info">
+                        Additional
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="Reviews(12)" >
+                        <div className="p-3 p-lg-4" id="reviews-wapper">
+                          <div className="row">
+                            {reviews.map((data) => (
+                              <div className="col-12  mb-3" key={data?.id}>
+                                <div className="d-inline-flex align-items-center gap-3">
+                                  <span className="d-inline-block">
+                                    <img
+                                      className="img-fluid border-orange"
+                                      src={`${(data?.user_img) ? `${baseURL}/${data?.user_img}` : pp}`}
+                                      alt="pp"
+                                      style={{
+                                        width: "4rem",
+                                        height: "4rem",
+                                        borderRadius: "50%",
+                                        aspectRatio: "1/1",
+                                      }}
+                                    />
+                                  </span>
+                                  <div className="d-inline-block">
+                                    <h6 className="fs-6 fw-bold">
+                                      {data?.user_name}
+                                    </h6>
                                     <span className="d-inline-block">
-                                      <img
-                                        className="img-fluid border-orange"
-                                        src={`${(data?.user_img) ? `${baseURL}/${data?.user_img}` : pp}`}
-                                        alt="pp"
-                                        style={{
-                                          width: "4rem",
-                                          height: "4rem",
-                                          borderRadius: "50%",
-                                          aspectRatio: "1/1",
-                                        }}
+                                      <Rating
+                                        value={data?.rating}
+                                        readOnly
+                                        stars={5}
+                                        cancel={false}
                                       />
                                     </span>
-                                    <div className="d-inline-block">
-                                      <h6 className="fs-6 fw-bold">
-                                        {data?.user_name}
-                                      </h6>
-                                      <span className="d-inline-block">
-                                        <Rating
-                                          value={data?.rating}
-                                          readOnly
-                                          stars={5}
-                                          cancel={false}
-                                        />
-                                      </span>
-                                    </div>
                                   </div>
-                                  <p className="mb-3">{data?.comment}</p>
-                                  <p className="mb-3 text-grey fw-500">
-
-                                    {new Intl.DateTimeFormat("en-GB", {
-                                      day: "2-digit",
-                                      month: "short",
-                                      year: "numeric",
-                                    }).format(new Date(data?.created_at))}
-                                  </p>
                                 </div>
-                              ))}
-                            </div>
+                                <p className="mb-3">{data?.comment}</p>
+                                <p className="mb-3 text-grey fw-500">
+
+                                  {new Intl.DateTimeFormat("en-GB", {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric",
+                                  }).format(new Date(data?.created_at))}
+                                </p>
+                              </div>
+                            ))}
                           </div>
-                        </Tab.Pane>
-                      </Tab.Content>
-                    </div>
+                        </div>
+                      </Tab.Pane>
+                    </Tab.Content>
                   </div>
-                </Tab.Container>
-              </div>
+                </div>
+              </Tab.Container>
             </div>
           </div>
         </div>
-      </section>
-      {/* <section className="recipe-section ms-5">
+    </div>
+      </section >
+{/* <section className="recipe-section ms-5">
         <div className="container fb-container ">
           <div className="row">
             <div className="bg-recipe-background ms-5 rounded-20">
@@ -745,33 +745,33 @@ const ProudctDetail = () => {
           </div>
         </div>
       </section> */}
-      {
-      (recommendedProducts?.length > 0) &&
-        <section className="similar-product pt-0">
-          <div className="container fb-container">
-            <div className="row ms-xxl-5">
-              <h3 className="fw-bold mb-5 pb-2">Similar Products</h3>
-              <div
-                className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
-                style={{
-                  gridTemplateColumns:
-                    window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)",
-                }}
-              >
-                {recommendedProducts?.length > 0 ? (
-                  recommendedProducts?.slice(0, 5).map((item, index) => (
-                    <ProductCard product={item} key={index} />
-                  ))
-                ) : (
-                  <p>There is no similar product.</p>
-                )}
-              </div>
-            </div>
+{
+  (recommendedProducts?.length > 0) &&
+    <section className="similar-product pt-0">
+      <div className="container fb-container">
+        <div className="row ms-xxl-5">
+          <h3 className="fw-bold mb-5 pb-2">Similar Products</h3>
+          <div
+            className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
+            style={{
+              gridTemplateColumns:
+                window.innerWidth > 768 ? "repeat(5, 1fr)" : "repeat(2, 1fr)",
+            }}
+          >
+            {recommendedProducts?.length > 0 ? (
+              recommendedProducts?.slice(0, 5).map((item, index) => (
+                <ProductCard product={item} key={index} />
+              ))
+            ) : (
+              <p>There is no similar product.</p>
+            )}
           </div>
-        </section>
-    }
-      <Footer />
-    </div>
+        </div>
+      </div>
+    </section>
+}
+<Footer />
+    </div >
   );
 };
 
