@@ -12,6 +12,7 @@ import {
   getYouMayAlsoLikeApi,
   postCartApi,
 } from "../../../services/adminApiRoutes";
+import pp from "../../../assets/images/web/account/profile-picture.png";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import MyCartMenu from "../../../components/ui/MyCartMenu";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +28,7 @@ import MobileLogin from "../../../components/ui/MobileLogin";
 import { baseURL } from "../../../utils/constant-variable";
 import { updateWishlist } from "../../../redux/slices/wishlistSlice";
 import { notifyError, notifySuccess } from "../../../components/ui/Notification";
+import { Link } from "react-router-dom";
 
 const ProudctDetail = () => {
   const [showCart, setShowCart] = useState(false);
@@ -375,7 +377,7 @@ const ProudctDetail = () => {
                   </div>
                 </div>
                 <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
-                <div className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4">
+                <Link to="/product-detail#reviews-wapper" className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4">
                   <Rating
                     className="me-3"
                     value={Math.round(detail?.ratings)}
@@ -385,7 +387,7 @@ const ProudctDetail = () => {
                   <p className="text-mid-grey ">
                     ({Math.round(detail?.ratings)} Reviews)
                   </p>
-                </div>
+                </Link>
                 <p>{truncateToWords(detail?.short_description, 25)}</p>
                 <div className="d-flex mt-4 mb-3">
                   <p className="fw-600 pt-2">Size / Weight:</p>
@@ -579,8 +581,8 @@ const ProudctDetail = () => {
                         <Tab.Pane eventKey="Additional Info">
                           Additional
                         </Tab.Pane>
-                        <Tab.Pane eventKey="Reviews(12)">
-                          <div className="p-3 p-lg-4">
+                        <Tab.Pane eventKey="Reviews(12)" >
+                          <div className="p-3 p-lg-4" id="reviews-wapper">
                             <div className="row">
                               {reviews.map((data) => (
                                 <div className="col-12  mb-3" key={data?.id}>
@@ -588,8 +590,8 @@ const ProudctDetail = () => {
                                     <span className="d-inline-block">
                                       <img
                                         className="img-fluid border-orange"
-                                        src={`${baseURL}/${data?.user_img}`}
-                                        alt="P"
+                                        src={`${(data?.user_img) ? `${baseURL}/${data?.user_img}` : pp}`}
+                                        alt="pp"
                                         style={{
                                           width: "4rem",
                                           height: "4rem",

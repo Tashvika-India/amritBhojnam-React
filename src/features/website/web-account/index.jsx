@@ -695,8 +695,7 @@ const UserProfile = () => {
                                     <div className="ms-md-3">
                                       <div className="d-flex mt-2 gap-1 align-items-center">
                                         <p className="fw-600 fb-fs-18">
-                                          {item?.user_detail?.full_name} |
-                                          {item?.user_detail?.phone_number}
+                                          {item?.ads_name} | {item?.ads_phone}
                                         </p>
                                         {item?.selected && (
                                           <button className="button-yellow default-btn ms-md-3 fw-normal lh-base align-self-center">

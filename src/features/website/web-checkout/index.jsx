@@ -80,6 +80,7 @@ const CheckoutPage = () => {
         firstname: user.full_name || "N/A",
         email: user.email || "N/A",
         phone: user.phone || "N/A",
+        coupon_code: "",
         productinfo,
         surl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_success_web/`,
         furl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_failed_web/`,
@@ -203,9 +204,8 @@ const CheckoutPage = () => {
                   ) : addressList.length > 0 ? (
                     addressList.map((item, index) => (
                       <div
-                        className={`summary-card ${
-                          item?.selected ? "active" : ""
-                        } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                        className={`summary-card ${item?.selected ? "active" : ""
+                          } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
                         key={index}
                         onClick={() => handleSelectAddress(item?.id)}
                       >
@@ -214,9 +214,8 @@ const CheckoutPage = () => {
                             <div className="col-md-12">
                               <div className="order-date d-flex">
                                 <img
-                                  className={`img-fluid me-1 rounded-4 ${
-                                    item?.selected ? "shadow" : ""
-                                  }`}
+                                  className={`img-fluid me-1 rounded-4 ${item?.selected ? "shadow" : ""
+                                    }`}
                                   src={homeImg}
                                   alt="pencil"
                                 />
@@ -269,7 +268,7 @@ const CheckoutPage = () => {
                   </Collapse>
                 </div>
                 <div className="col-lg-5 col-md-12">
-                  <div className="my-card-section product-detail-shadow rounded-20 p-4 mb-4 sticky-top " style={{zIndex: 10}}>
+                  <div className="my-card-section product-detail-shadow rounded-20 p-4 mb-4 sticky-top " style={{ zIndex: 10 }}>
                     <p className="fb-fs-26 fw-bold mb-4">My Cart</p>
 
                     {loading ? (
@@ -296,29 +295,10 @@ const CheckoutPage = () => {
                               )} X ${item?.item_quantity}`}</h6>
                             </div>
                             <div className="product-quantity text-end d-flex align-items-center">
-                              <h6 style={{ fontWeight: "800" }}>{`₹${
-                                Math.trunc(item?.price) * item?.item_quantity
-                              }`}</h6>
+                              <h6 style={{ fontWeight: "800" }}>{`₹${Math.trunc(item?.price) * item?.item_quantity
+                                }`}</h6>
                             </div>
                           </div>
-                          {/* <div className="mt-5">
-                            <div
-                              className="border-gray border-raidus-10 mt-2 input-box"
-                              style={{ width: "100%" }}
-                            >
-                              <div className="input-group mb-2 mt-2">
-                                <input
-                                  type="text"
-                                  className="form-control border-0 box-shadow-0 fw-600"
-                                  placeholder="Apply Coupon"
-                                  aria-describedby="basic-addon2"
-                                />
-                                <button className="input-group-text border-0 text-orange fw-bold bg-transparent border-start border-2 ps-4 me-3">
-                                  Apply
-                                </button>
-                              </div>
-                            </div>
-                          </div> */}
                         </>
                       ))
                     ) : (
@@ -329,7 +309,24 @@ const CheckoutPage = () => {
                         </Link>
                       </div>
                     )}
-
+                    {/* <div className="mt-5">
+                      <div
+                        className="border-gray border-raidus-10 mt-2 input-box"
+                        style={{ width: "100%" }}
+                      >
+                        <div className="input-group mb-2 mt-2">
+                          <input
+                            type="text"
+                            className="form-control border-0 box-shadow-0 fw-600"
+                            placeholder="Apply Coupon"
+                            aria-describedby="basic-addon2"
+                          />
+                          <button className="input-group-text border-0 text-orange fw-bold bg-transparent border-start border-2 ps-4 me-3">
+                            Apply
+                          </button>
+                        </div>
+                      </div>
+                    </div>  */}
                     <div className="cart-items mt-2">
                       <ul className="list-unstyled w-100">
                         <li className="d-flex justify-content-between my-2">
@@ -366,7 +363,6 @@ const CheckoutPage = () => {
                         </li> */}
                       </ul>
                     </div>
-
                     <div className="cart-items mt-4 border-top mb-2">
                       <div className="product-details w-100 ms-3 pt-4">
                         <h6 className="fw-bolder">Total Amount </h6>
@@ -393,7 +389,7 @@ const CheckoutPage = () => {
                                 )
                               }
                             >
-                              Pay Now
+                              Proceed to Pay
                             </button>
                           ) : (
                             <button
@@ -415,12 +411,12 @@ const CheckoutPage = () => {
                         <div className="w-100 text-center">
                           {cartList.length > 0 ? (
                             <h6 className="text-danger text-uppercase fs-6">
-                              
+
                               Please Add Your address
                             </h6>
                           ) : (
                             <h6 className="text-danger text-uppercase fs-6">
-                              
+
                               Please Add Product in Cart
                             </h6>
                           )}
@@ -450,7 +446,7 @@ const CheckoutPage = () => {
           }}
         >
           <div className="text-center">
-            <img src={paymentFailed} alt="pencil" className="mx-auto"/>
+            <img src={paymentFailed} alt="pencil" className="mx-auto" />
             <p
               className="fw-600 text-bright-red mt-3"
               style={{ fontSize: "xx-large" }}
