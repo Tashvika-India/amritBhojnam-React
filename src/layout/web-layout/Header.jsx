@@ -18,8 +18,7 @@ import { getWishlist } from "../../services/adminApiRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../redux/slices/cartSlice";
 import ScrollTopBehaviour from "../../custom-compoents/ScrollTopBehaviour";
-const Header = () => {
-  const [search, setSearch] = useState("");
+const Header = () => { 
   const [showCart, setShowCart] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showMobileLogin, setShowMobileLogin] = useState(false);
@@ -33,9 +32,11 @@ const Header = () => {
 
   const navigate = useNavigate();
   const [category, setCategory] = useState([]);
-  const [showWebLogin, setShowWebLogin] = useState(false);
-
-  const toggleCart = () => setShowCart(!showCart);
+  const [showWebLogin, setShowWebLogin] = useState(false); 
+  const toggleCart = () => {    
+    setShowCart(!showCart)
+  };
+ 
 
   const toggleMobileMenu = () => setShowMobileMenu((prev) => !prev);
 
@@ -48,7 +49,6 @@ const Header = () => {
     loading: cartLoading,
     error,
   } = useSelector((state) => state.cart);
-
   const accessToken =
     localStorage.getItem("access") || localStorage.getItem("refresh");
 
@@ -235,7 +235,7 @@ const Header = () => {
                         </span>
                       </button>
                   }
-                  <MyCartMenu show={showCart} onClose={toggleCart} />
+                  <MyCartMenu showCart={showCart} onCloseCart={toggleCart} />
                 </li>
               </ul>
               <ul className="list-unstyled d-flex d-xl-none align-items-center justify-content-between gap-2 mobile-header-actions">

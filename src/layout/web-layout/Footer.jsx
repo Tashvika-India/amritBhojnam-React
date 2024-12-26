@@ -216,8 +216,8 @@ const Footer = () => {
                     <h5 className="text-orange">POPULAR</h5>
                     <ul className="footer-links mt-lg-4 mt-0 pt-3 d-flex flex-column gap-md-3 gap-2">
                       {
-                        popularProduct?.slice(0, 6).map((item) => (
-                          <li key={item?._id}>
+                        popularProduct?.slice(0, 6).map((item,index) => (
+                          <li key={index}>
                             <Link to={`/products/?name=${decodeURIComponent(item?.name)}`}>{item?.name}</Link>
                           </li>
                         ))

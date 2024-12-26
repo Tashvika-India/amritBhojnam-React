@@ -7,10 +7,11 @@ import Loading from "./Loading";
 import { Link } from "react-router-dom";
 import { fetchCart, fetchFinalCart, removeCart, updateCart } from "../../redux/slices/cartSlice";
 import { baseURL } from "../../utils/constant-variable";
+import { getProductApi } from "../../services/adminApiRoutes";
 
-const MyCartMenu = ({ show, onClose }) => {
+const MyCartMenu = ({ showCart, onCloseCart }) => {
   const dispatch = useDispatch();
-  const { cartItems, finalCart, loading, error  , cartId} = useSelector((state) => state.cart);
+  const { cartItems, finalCart, loading, error, cartId } = useSelector((state) => state.cart);
 
 
   const handleUpdateCart = (product_id, newQuantity) => {
@@ -27,29 +28,29 @@ const MyCartMenu = ({ show, onClose }) => {
   const handleDecreaseQuantity = (product_id, currentQuantity) => {
     const newQuantity = currentQuantity - 1;
     handleUpdateCart(product_id, Math.max(newQuantity, 0));
-    dispatch(fetchFinalCart(cartId)); 
-  }; 
+    dispatch(fetchFinalCart(cartId));
+  };
 
   const handleRemoveQuantity = (product_id) => {
-    dispatch(removeCart(product_id)); 
+    dispatch(removeCart(product_id));
     handleUpdateCart(product_id, 0);
-    dispatch(fetchFinalCart(cartId)); 
-  }; 
+    dispatch(fetchFinalCart(cartId));
+  };
 
   useEffect(() => {
-    if (show) {
-      dispatch(fetchCart());
-    }
-  }, [show, dispatch]);
+    if (showCart) {
+      dispatch(fetchCart()); 
+    } 
+  }, [showCart, dispatch]);
 
   useEffect(() => {
     if (cartId) {
       dispatch(fetchFinalCart(cartId));
     }
-  }, [show, dispatch, cartId]); 
+  }, [showCart, dispatch, cartId]);
 
   return (
-    <Offcanvas show={show} onHide={onClose} placement="end" className="cart-offcanvas" style={{ width: "28%" }}>
+    <Offcanvas show={showCart} onHide={onCloseCart} placement="end" className="cart-offcanvas" style={{ width: "28%" }}>
       <Offcanvas.Header closeButton className="border-bottom">
         <Offcanvas.Title>Your Cart</Offcanvas.Title>
       </Offcanvas.Header>
@@ -68,13 +69,13 @@ const MyCartMenu = ({ show, onClose }) => {
               <ProgressBar variant="yellow" now={80} style={{ height: "5px" }} />
             </div> */}
             <div className="mb-2 px-3" style={{ maxHeight: "60dvh", overflowY: "auto" }}>
-              { cartItems?.length > 0 ? (
+              {cartItems?.length > 0 ? (
                 cartItems?.map((item) => (
                   <div className="cart-items mb-3" key={item?.product.id}>
                     <div className="product-item p-1">
                       <img
                         src={item?.product?.images[0]?.image || product}
-                        className="img-fluid" 
+                        className="img-fluid"
                         alt={item?.product?.name}
                       />
                     </div>

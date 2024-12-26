@@ -89,7 +89,7 @@ function ProductTable({ products, getProductList }) {
 
   const iosSwitch = (rowData) => (
     <Link
-      to={`/product/product-reviews/${rowData.id}`}
+      to={`/admin/product/product-reviews/${rowData.id}`}
       className="d-flex gap-2 align-items-center"
     >
       <FaStar className="text-warning" /> {Math.round(rowData.ratings)}
@@ -124,9 +124,8 @@ function ProductTable({ products, getProductList }) {
           className="fw-400"
         ></Column>
         <Column field="offer_price" header="SALE PRICE (₹)" className="fw-400">
-          {" "}
         </Column>
-        {/* <Column field="ratings" header="RATING" body={iosSwitch}></Column> */}
+        <Column field="ratings" header="RATING" body={iosSwitch}></Column>
         <Column header="ACTION" body={editButtonTemplate}></Column>
       </DataTable>
 
