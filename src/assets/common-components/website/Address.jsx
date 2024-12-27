@@ -53,7 +53,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
       <div className="new-address">
         <p className="fb-fs-26 fw-bold my-3 checkout-save">Add New Address</p>
         <p className="text-mid-grey">BASIC DETAILS</p>
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit} key={editData?.id || "new"}>
           <div className="container fb-container">
             <div className="row">
               <div className="col-md-6">

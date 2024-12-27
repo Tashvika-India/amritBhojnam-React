@@ -201,3 +201,4 @@ export const getNutritionValueApi = () => API.get(`/product-nutritions/`);
 export const postNutritionValueApi = (payload) => API.post(`/product-nutritions/`, payload); 
 
 export const multiImageUploadApi = (payload) => API.post(`/multi_img_upload/`, payload);
+

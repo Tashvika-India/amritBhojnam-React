@@ -136,7 +136,7 @@ const ContactUs = () => {
                                 fullWidth
                                 className="rounded-20 me-5 mt-4"
                                 id="name"
-                                label="Name"
+                                label="Name*"
                                 name="name"
                                 variant="outlined"
                                 value={contact.values.name}
@@ -157,7 +157,7 @@ const ContactUs = () => {
                                 fullWidth
                                 className="rounded-20 me-5 mt-4"
                                 id="phone"
-                                label="Phone Number"
+                                label="Phone Number*"
                                 name="phone"
                                 variant="outlined"
                                 value={contact.values.phone}
@@ -178,7 +178,7 @@ const ContactUs = () => {
                                 fullWidth
                                 className="rounded-20 me-5 mt-4"
                                 id="email"
-                                label="Email Address"
+                                label="Email Address*"
                                 name="email"
                                 variant="outlined"
                                 value={contact.values.email}

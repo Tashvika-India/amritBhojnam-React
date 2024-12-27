@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 import { postCouponApi } from "../../../../services/adminApiRoutes";
 import { useNavigate } from "react-router-dom";
 import YellowButton from "../../../../components/buttons/YellowButton";
+import { ColorLensOutlined } from "@mui/icons-material";
 const AddCoupon = () => {
   const [isFirstOrder, setIsFirstOrder] = useState(false);
   const [isDeliveryFree, setIsDeliveryFree] = useState(false);
@@ -38,24 +39,24 @@ const AddCoupon = () => {
       buy_product: "",
       free_product: "",
     },
-    validationSchema: Yup.object({
-      title: Yup.string().required("Title is required"),
-      description: Yup.string().required("Description is required"),
-      coupon_code: Yup.string().required("Coupon code is required"),
-      coupon_type: Yup.string().required("Coupon type is required"),
-      discount_value: Yup.number().required("Discount value is required"),
-      max_discount: Yup.number().required("Max discount is required"),
-      valid_from: Yup.date().required("Valid from date is required"),
-      valid_to: Yup.date().required("Valid to date is required"),
-      buy_quantity: Yup.number().required("Buy quantity is required"),
-      buy_quantity_unit: Yup.string().required("Buy quantity unit is required"),
-      free_quantity: Yup.number().required("Free quantity is required"),
-      free_quantity_unit: Yup.string().required(
-        "Free quantity unit is required"
-      ),
-      buy_product: Yup.string().required("Buy product is required"),
-      free_product: Yup.string().required("Free product is required"),
-    }),
+    // validationSchema: Yup.object({
+    //   title: Yup.string().required("Title is required"),
+    //   description: Yup.string().required("Description is required"),
+    //   coupon_code: Yup.string().required("Coupon code is required"),
+    //   coupon_type: Yup.string().required("Coupon type is required"),
+    //   discount_value: Yup.number().required("Discount value is required"),
+    //   max_discount: Yup.number().required("Max discount is required"),
+    //   valid_from: Yup.date().required("Valid from date is required"),
+    //   valid_to: Yup.date().required("Valid to date is required"),
+    //   buy_quantity: Yup.number().required("Buy quantity is required"),
+    //   buy_quantity_unit: Yup.string().required("Buy quantity unit is required"),
+    //   free_quantity: Yup.number().required("Free quantity is required"),
+    //   free_quantity_unit: Yup.string().required(
+    //     "Free quantity unit is required"
+    //   ),
+    //   buy_product: Yup.string().required("Buy product is required"),
+    //   free_product: Yup.string().required("Free product is required"),
+    // }),
     onSubmit: async (values) => {
       const payload = {
         ...values,
@@ -345,7 +346,7 @@ const AddCoupon = () => {
                       }
                     />
                   </div>
-                  <div className="col-md-6 mb-4">
+                  {/* <div className="col-md-6 mb-4">
                     <TextField
                       fullWidth
                       id="buy_product"
@@ -381,10 +382,10 @@ const AddCoupon = () => {
                         formik.errors.free_product
                       }
                     />
-                  </div>
+                  </div> */}
                   <div className="col-md-12 mb-4 text-end">
                     <Link to="/admin/add-coupon">
-                      <YellowButton lable={"+ Add Coupons"} />
+                      <YellowButton lable={"+ Add Coupons"} handleClick={formik.handleSubmit} />
                     </Link>
                     <button
                   className="button-primary-reverse me-4 ms-3 py-2"
