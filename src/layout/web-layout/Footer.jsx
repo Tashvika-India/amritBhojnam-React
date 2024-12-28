@@ -16,7 +16,7 @@ const Footer = () => {
   const [showCart, setShowCart] = useState(false);
   const [popularProduct, setPopularProduct] = useState([]);
   const currentYear = new Date().getFullYear();
-  const toggleCart = () => setShowCart(!showCart);
+  const toggleCart = () => setShowCart(!showCart);;
   async function getPopularProduct() {
     try {
       const response = await getPopularProducts();
@@ -43,17 +43,17 @@ const Footer = () => {
       await Subscribe(values, resetForm);
     },
   });
-  
+
   const Subscribe = async (values, resetForm) => {
-    const formData = new FormData(); 
+    const formData = new FormData();
     Object.keys(values).forEach((key) => {
       formData.append(key, values[key]);
     });
-  
+
     try {
-      const response = await postContactApi(formData);  
-      notifySuccess("Subscribe submitted Successfully"); 
-      resetForm();  
+      const response = await postContactApi(formData);
+      notifySuccess("Subscribe submitted Successfully");
+      resetForm();
     } catch (error) {
       console.error("Error submitting the Subscribe form:", error);
       notifyError("Failed to add submitted subscribe!");
@@ -79,11 +79,11 @@ const Footer = () => {
                   type="text"
                   className="py-3 ps-3 rounded-3 border-0"
                   style={{ width: "25rem" }}
-                  placeholder="Email address" 
+                  placeholder="Email address"
                   name="email"
                   value={contact.values.email}
-                  onChange={contact.handleChange}  
-                  onBlur={contact.handleBlur}  />
+                  onChange={contact.handleChange}
+                  onBlur={contact.handleBlur} />
                 <button
                   className="fb-fs-18 text-white fw-600 brown-button ms-4 mt-lg-5 mt-3"
                   type="submit">
@@ -134,17 +134,17 @@ const Footer = () => {
                     </li>
                   </ul>
                   <div className="d-flex gap-4 py-lg-3 py-2">
-                    <small className="fw-500 text-black">Follow Us</small>
+                    <small className="fw-500 text-black">Follow Us:</small>
                     <div className="d-inline-flex gap-2 align-items-center">
                       <a href="https://www.instagram.com/amrit_bhojanam/profilecard/#/">
                         <AiFillInstagram size={24} color="#f26722" />
                       </a>
-                      <a href="https://www.instagram.com/">
+                      {/* <a href="https://www.instagram.com/">
                         <FaLinkedin size={20} color="#f26722" />
                       </a>
                       <a href="https://www.facebook.com/">
                         <FaFacebook size={20} color="#f26722" />
-                      </a>
+                      </a> */}
                     </div>
                   </div>
                 </div>
@@ -157,21 +157,21 @@ const Footer = () => {
                       <li>
                         <Link to="/about-us">About Us</Link>
                       </li>
-                      <li>
+                      {/* <li>
                         <Link>Delivery Information</Link>
-                      </li>
+                      </li> */}
                       <li>
                         <Link to="/privacy-policy">Privacy Policy</Link>
                       </li>
                       <li>
                         <Link to="/term-conditions">Term & Conditions</Link>
                       </li>
-                      {/* <li>
+                      <li>
                         <Link to="/refund-policy">Refund policy</Link>
-                      </li> */}
-                      {/* <li>
+                      </li>  
+                      <li>
                         <Link to="/shiping-policy">Shiping policy</Link>
-                      </li> */}
+                      </li>
                       {/* <li>
                         <Link to="/contact-us">Contact Us</Link>
                       </li>
@@ -193,7 +193,16 @@ const Footer = () => {
                         <Link to="/login">Login</Link>
                       </li> */}
                       <li>
-                        <button className="border-0 bg-transparent px-0 text-dark-grey" onClick={() => toggleCart()}>View Cart </button>
+                        <a
+                          href="#"
+                          className="border-0 bg-transparent px-0 text-dark-grey"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            toggleCart();
+                          }}
+                        >
+                          View Cart
+                        </a>
                       </li>
                       <li>
                         <Link to="/wishlist">Wishlist</Link>
@@ -216,7 +225,7 @@ const Footer = () => {
                     <h5 className="text-orange">POPULAR</h5>
                     <ul className="footer-links mt-lg-4 mt-0 pt-3 d-flex flex-column gap-md-3 gap-2">
                       {
-                        popularProduct?.slice(0, 6).map((item,index) => (
+                        popularProduct?.slice(0, 6).map((item, index) => (
                           <li key={index}>
                             <Link to={`/products/?name=${decodeURIComponent(item?.name)}`}>{item?.name}</Link>
                           </li>
@@ -235,7 +244,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <MyCartMenu show={showCart} onClose={toggleCart} />
+      <MyCartMenu showCart={showCart} onCloseCart={toggleCart} />
     </>
   );
 };

@@ -5,10 +5,11 @@ import Footer from "../../../layout/web-layout/Footer";
 const ShipingPolicy = () => {
   return (
     <>
+    <div className="web-wrapper-main">
       <Header />
       <section className="terms-conditions mt-5">
         <div className="container fb-container">
-          <div className="fb-pt-5">
+          <div className=" ">
             <h1 className="text-center text-orange fw-bold">Shipping policy</h1>
             <div className="py-5 mt-4">
               <p>
@@ -42,6 +43,7 @@ const ShipingPolicy = () => {
         </div>
       </section>
       <Footer />
+      </div>
     </>
   );
 };

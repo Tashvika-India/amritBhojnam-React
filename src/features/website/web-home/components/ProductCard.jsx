@@ -92,7 +92,7 @@ const ProductCard = ({ product }) => {
               10% off
             </span> */}
             </div>
-            <div className="bg-white rounded-circle whislist-icon" type="button" onClick={(event) => event.stopPropagation()}>
+            <div className="rounded-circle whislist-icon" type="button" onClick={(event) => event.stopPropagation()}>
               <Checkbox
                 icon={<FavoriteBorder />}
                 checkedIcon={<Favorite className="text-danger" />}

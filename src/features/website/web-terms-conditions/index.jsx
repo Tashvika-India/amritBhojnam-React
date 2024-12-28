@@ -5,10 +5,11 @@ import Footer from "../../../layout/web-layout/Footer";
 const TermsAndConditions = () => {
   return (
     <>
+    <div className="web-wrapper-main">
       <Header />
       <section className="terms-conditions mt-5">
         <div className="container fb-container">
-          <div className="fb-pt-5">
+          <div className=" ">
             <h1 className="text-center text-orange fw-bold">
               Terms of Service
             </h1>
@@ -562,6 +563,7 @@ const TermsAndConditions = () => {
         </div>
       </section>
       <Footer />
+      </div>
     </>
   );
 };
