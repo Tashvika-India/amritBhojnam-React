@@ -8,7 +8,7 @@ const PrivacyPolicy = () => {
       <Header />
       <section className="terms-conditions mt-5">
         <div className="container fb-container">
-          <div className="fb-pt-5">
+          <div className=" ">
             <h1 className="text-center text-orange fw-bold">Privacy policy</h1>
             <div className="py-5 mt-5">
               <p>Last updated: November 15, 2024</p>

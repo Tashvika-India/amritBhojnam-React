@@ -18,10 +18,11 @@ import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import { scrollToTop } from "../../../utils/constant-variable";
 import { Offcanvas } from "react-bootstrap";
+import { clearProductList, fetchProductList } from "../../../redux/slices/productSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProudctList = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]); 
   const navigate = useNavigate();
   const [categoryList, setCategoryList] = useState([]);
   const [filters, setFilters] = useURLFilters();
@@ -29,6 +30,9 @@ const ProudctList = () => {
 
   const [showFilter, setShowFilter] = useState(false);
   const toggleMobileFiter = () => setShowFilter((prev) => !prev);
+
+  const dispatch = useDispatch();
+  const { productList,loading, error } = useSelector((state) => state.product);
 
   const onIngredientsChange = (e) => {
     let _ingredients = [...ingredients];
@@ -62,9 +66,13 @@ const ProudctList = () => {
     }
   }
 
-  useEffect(() => {
-    getProductList();
-  }, [filters]);
+useEffect(() => {
+    dispatch(fetchProductList(filters));
+
+    return () => {
+      dispatch(clearProductList());  
+    };
+  }, [dispatch, filters]);
 
   useEffect(() => {
     getCategoryList();
@@ -282,7 +290,7 @@ const ProudctList = () => {
             <div className="col-lg-8 col-xxl-9 col-12">
               <div className="d-flex justify-content-between align-items-center mt-lg-0 mt-4">
                 <h5 className="text-mid-grey mb-0">
-                  Showing {products?.length} result
+                  Showing {productList?.length} result
                 </h5>
                 <button className="button-primary d-inline-block d-lg-none py-1" onClick={() => setShowFilter(true)}>Filter</button>
                 {/* <div className="sort-select d-flex">
@@ -301,7 +309,7 @@ const ProudctList = () => {
               <div className="row">
                 {loading ? (
                   <Loading />
-                ) : Array.isArray(products) && products.length > 0 ? (
+                ) : Array.isArray(productList) && productList.length > 0 ? (
                   <div
                     className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
                     style={{
@@ -313,13 +321,13 @@ const ProudctList = () => {
                             : "repeat(2, 1fr)",
                     }}
                   >
-                    {products.map((item) => (
+                    {productList.map((item) => (
                       <ProductCard product={item} key={item.id || item.index} />
                     ))}
                   </div>
                 ) : (
-                  <div className="d-flex justify-content-center w-100">
-                    <h3 className="text-center">No Product Found</h3>
+                  <div className="align-content-center w-100" style={{ height: "50dvh" }}>
+                    <h3 className="text-center text-orange fw-bold">No Product Found</h3>
                   </div>
                 )}
               </div>
@@ -416,7 +424,7 @@ const ProudctList = () => {
                           inputId="ingredient1"
                           value="4"
                           onChange={(e) =>
-                            setFilters({ ...filters, rating: 4 })
+                          setFilters({ ...filters, rating: 4 })
                           }
                           checked={filters.rating == 4}
                         />

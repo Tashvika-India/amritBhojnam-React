@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getCartApi, getFinalCartApi, postCartApi } from "../../services/adminApiRoutes";
+import {   getCartApi, getFinalCartApi , postCartApi } from "../../services/adminApiRoutes";
 
 const initialState = {
   cartItems: [],
@@ -39,6 +39,9 @@ export const updateCart = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await postCartApi(payload);
+      // await getProductApi({ product_id: "", category_id: "", name: "" , minPrice : 0 , maxPrice: 5000 , rating: "" });
+      // await getPopularProducts();
+      // await getBestPriceApi();
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);

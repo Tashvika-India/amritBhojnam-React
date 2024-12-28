@@ -8,14 +8,16 @@ import { Link } from "react-router-dom";
 import { fetchCart, fetchFinalCart, removeCart, updateCart } from "../../redux/slices/cartSlice";
 import { baseURL } from "../../utils/constant-variable";
 import { getProductApi } from "../../services/adminApiRoutes";
+import useURLFilters from "../../custom-compoents/useURLFilters";
+import { fetchBestPriceProducts, fetchPopularProducts, fetchProductList } from "../../redux/slices/productSlice";
 
 const MyCartMenu = ({ showCart, onCloseCart }) => {
   const dispatch = useDispatch();
-  const { cartItems, finalCart, loading, error, cartId } = useSelector((state) => state.cart);
-
-
+  const [filters, setFilters] = useURLFilters();
+  const { cartItems, finalCart, cartId } = useSelector((state) => state.cart);  
   const handleUpdateCart = (product_id, newQuantity) => {
-    dispatch(updateCart({ product_id, item_quantity: newQuantity }));
+    dispatch(updateCart({ product_id, item_quantity: newQuantity })); 
+    dispatch(fetchProductList(filters));
   };
 
   const handleIncreaseQuantity = (product_id, currentQuantity) => {

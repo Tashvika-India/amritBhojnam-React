@@ -25,58 +25,23 @@ import ProductCard from "./components/ProductCard";
 import { Link } from "react-router-dom";
 import {
   getCategoriesApi,
-  getPopularProducts,
-  getProductApi,
-  getBestPriceApi,
 } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
 import { motion } from "framer-motion";
 import { baseURL } from "../../../utils/constant-variable";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import ProductSlide from "./components/productSlide";
-import BestProduct from "./components/BestProduct";
-import { FaStarOfLife } from "react-icons/fa";
+import BestProduct from "./components/BestProduct"; 
+import { useDispatch, useSelector } from "react-redux";
+import { clearProductList, fetchBestPriceProducts, fetchPopularProducts, fetchProductList } from "../../../redux/slices/productSlice";
 
-const HomePage = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+const HomePage = () => {  
   const [category, setCategory] = useState([]);
-  const [filter, setFilter] = useURLFilters([]);
-  const [popularProduct, setPopularProduct] = useState([]);
-  const [bestPrice, setBestPrice] = useState([]);
+  const [filter, setFilter] = useURLFilters([]); 
+  const dispatch = useDispatch();
+  const { productList,popularProducts,bestPriceProducts, error,loading } = useSelector((state) => state.product);
 
-  async function getProductList() {
-    setLoading(true);
-    try {
-      const response = await getProductApi(filter);
-      setProducts(response?.data?.results || []);
-    } catch (error) {
-      console.log("Error on Product List", error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function getPopularProduct() {
-    try {
-      const response = await getPopularProducts();
-      setPopularProduct(response?.data?.results);
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async function getBestPrice() {
-    try {
-      const response = await getBestPriceApi();
-      setBestPrice(Array.isArray(response?.data) ? response.data : []);
-    } catch (error) {
-      console.log("Error on Best Price", error);
-    }
-  }
-
-  async function getCategory() {
-    setLoading(true);
+  async function getCategory() { 
     try {
       const response = await getCategoriesApi();
       const filteredData = (response?.data || []).filter(
@@ -85,17 +50,19 @@ const HomePage = () => {
       setCategory(filteredData);
     } catch (error) {
       console.log("Error on Banner List", error);
-    } finally {
-      setLoading(false);
-    }
+    }  
   }
 
-  useEffect(() => {
-    getProductList();
-    getPopularProduct();
-    getBestPrice();
+  useEffect(() => { 
     getCategory();
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchProductList(filter));
+    dispatch(fetchPopularProducts());
+    dispatch(fetchBestPriceProducts());
+    return () => {dispatch(clearProductList())};
+  }, [dispatch]);
 
   return (
     <div className="web-wrapper-main">
@@ -226,7 +193,7 @@ const HomePage = () => {
                   {loading ? (
                     <Loading />
                   ) : (
-                    products?.slice(0, 10).map((item, index) => (
+                    productList?.slice(0, 10).map((item, index) => (
                       <ProductCard product={item} key={index} />
                     ))
                   )}
@@ -448,7 +415,7 @@ const HomePage = () => {
               </div>
             </div>
             <div className="col-md-7">
-              <ProductSlide bestPriceProduct={bestPrice} />
+              <ProductSlide bestPriceProduct={bestPriceProducts} />
             </div>
           </div>
         </div>
@@ -519,7 +486,7 @@ const HomePage = () => {
             <h3 className="fw-bold mb-5 pb-2 text-center text-white">
               Our Trending Products
             </h3>
-            <BestProduct products={popularProduct} />
+            <BestProduct products={popularProducts} />
             <div className="mt-5 text-center">
               <Link
                 to="/products"
