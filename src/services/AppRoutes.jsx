@@ -42,6 +42,8 @@ import ManageNutritionValue from "../features/admin-dashboard/manage-nutrition-v
 import PaymentFailed from "../features/website/web-payment-failed";
 import Web404 from "../notfound/Web404";
 import Admin404 from "../notfound/Admin404";
+import AdminOrderDetail from "../features/admin-dashboard/manage-orders/order-detail";
+import AdminOrderInvoice from "../features/admin-dashboard/manage-orders/order-invoice";
 function AppRoutes() {
   return (
     <Routes>
@@ -223,6 +225,28 @@ function AppRoutes() {
       />
       <Route
         exact
+        path="/admin/order-detail/:id"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <AdminOrderDetail/>
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        exact
+        path="/admin/order-invoice/:id"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <AdminOrderInvoice/>
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        exact
         path="/admin/report"
         element={
           <PrivateRoute>
@@ -315,7 +339,7 @@ function AppRoutes() {
       <Route exact path="/shiping-policy" element={<ShipingPolicy />} />
       <Route exact path="/payment-success" element={<PaymentSuccess />} />
       <Route exact path="/payment-failed" element={<PaymentFailed />} />
-      <Route exact path="/admin/add-roles" element={<AddRoles />} /> 
+      <Route exact path="/admin/add-roles" element={<AddRoles />} />
 
     </Routes>
   );
