@@ -5,18 +5,26 @@ import ActiveOrdersTable from "./components/ActiveOrdersTable";
 import TabsButtons from "../../../../components/ui/TabsButton";
 import NewOrdersTable from "./components/NewOrdersTable";
 import { getAdminOrderApi } from "../../../../services/adminApiRoutes";
+import Loading from "../../../../components/ui/Loading";
 
 function AdminOrders() {
   const [activeTab, setActiveTab] = useState("Active");
+  const [loading, setLoading] = useState(false);
 
   const [order, setOrder] = useState([]);
 
+  console.log("order", order);
+  
+
   const getOrderList = async (id, name) => {
+    setLoading(true);
     try {
       const response = await getAdminOrderApi(id, name);
       setOrder(response?.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -35,8 +43,12 @@ function AdminOrders() {
       <div className="">
         <div className="card">
           <div className="card-body">
-          
-           <NewOrdersTable order={order} />
+            {loading ? (
+              <Loading/>
+            ) : (
+              // <ActiveOrdersTable order={order} />
+              <NewOrdersTable order={order}/>
+            )}
           </div>
         </div>
       </div>
