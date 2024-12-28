@@ -225,7 +225,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/admin/order-detail/:id"
+        path="/admin/order-detail/"
         element={
           <PrivateRoute>
             <DashboardSidebar>

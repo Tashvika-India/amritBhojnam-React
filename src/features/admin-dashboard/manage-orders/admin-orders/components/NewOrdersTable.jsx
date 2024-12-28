@@ -9,6 +9,7 @@ import "primeicons/primeicons.css";
 import { MdEdit } from "react-icons/md";
 import { IoMdPrint } from "react-icons/io";
 import { formatDateTime } from "../../../../../utils/constant-variable";
+import { Link } from "react-router-dom";
 const NewOrdersTable = ({ order }) => {
 
   const paymentStatusTemplate = (rowData) => {
@@ -108,7 +109,7 @@ const NewOrdersTable = ({ order }) => {
         <Column
           field="id"
           header="ID"
-          body={(rowData) => `#${rowData.id.slice(-8)}`} style={{ width: "8%", color: "#584EE0" }}
+          body={(rowData) => <><Link to={`/admin/order-detail/`} style={{ width: "100%", color: "#584EE0" }}>${rowData.id.slice(-8)}</Link></>}
         ></Column>
         <Column header="ORDER" body={orderTemplate} style={{ width: "25%" }}></Column>
         <Column header="CUSTOMER" body={customerTemplate} style={{ width: "15%" }}></Column>
