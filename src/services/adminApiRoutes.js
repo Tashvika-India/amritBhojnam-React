@@ -176,6 +176,9 @@ export const postPayuCallbackApi = (url,payload) => API.post(url, payload);
 
 //order history
 export const getOrderApi = () => API.get(`/orders/`); 
+export const getOrderAdminApi = (id,name) => API.get(`/orders/?order_id=${id}&product_name=${name}`); 
+export const getOrderSuccessAdminApi = (id,name) => API.get(`/orders_by_success/?order_id=${id}&product_name=${name}`); 
+
 
 export const postContactApi = (payload) => API.post(`/contact/`, payload);
 

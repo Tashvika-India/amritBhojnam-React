@@ -44,6 +44,7 @@ import Web404 from "../notfound/Web404";
 import Admin404 from "../notfound/Admin404";
 import AdminOrderDetail from "../features/admin-dashboard/manage-orders/order-detail";
 import AdminOrderInvoice from "../features/admin-dashboard/manage-orders/order-invoice";
+import AllOrderDetail from "../features/admin-dashboard/manage-orders/order-detail/orders";
 function AppRoutes() {
   return (
     <Routes>
@@ -236,11 +237,22 @@ function AppRoutes() {
       />
       <Route
         exact
+        path="/admin/order-detail/:id"
+        element={
+          <PrivateRoute>
+            <DashboardSidebar>
+              <AllOrderDetail />
+            </DashboardSidebar>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        exact
         path="/admin/order-invoice/:id"
         element={
           <PrivateRoute>
             <DashboardSidebar>
-              <AdminOrderInvoice/>
+              <AdminOrderInvoice />
             </DashboardSidebar>
           </PrivateRoute>
         }

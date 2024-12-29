@@ -12,14 +12,11 @@ function AdminOrders() {
   const [loading, setLoading] = useState(false);
 
   const [order, setOrder] = useState([]);
-
-  console.log("order", order);
-  
-
-  const getOrderList = async (id, name) => {
+ 
+  const getOrderList = async ( ) => {
     setLoading(true);
     try {
-      const response = await getAdminOrderApi(id, name);
+      const response = await getAdminOrderApi();
       setOrder(response?.data);
       setLoading(false);
     } catch (error) {
