@@ -11,11 +11,19 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
   const [otpValues, setOtpValues] = useState(new Array(6).fill(""));
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [timeRemaining, setTimeRemaining] = useState(30)
   const otpRefs = useRef([]);
 
   useEffect(() => {
     if (showOTPInputs) {
       otpRefs.current[0]?.focus();
+      if (timeRemaining > 0) {
+        const timer = setInterval(() => {
+          setTimeRemaining((prevTime) => prevTime - 1);
+        }, 1000); // Update every second
+  
+        return () => clearInterval(timer); // Cleanup the interval on component unmount
+      }
     }
   }, [showOTPInputs]);
 
@@ -96,69 +104,79 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
         <img src={logo} alt="logo" className="img-fluid p-2" loading="lazy" />
       </Offcanvas.Header>
       <Offcanvas.Body className="p-4">
-        <div className="d-inline-flex w-100 align-self-center justify-content-between">
-          <h3 className="">Login</h3>
-        </div>
         {!showOTPInputs && (
-          <form onSubmit={formik.handleSubmit} className="flex flex-column gap-4 py-3">
-            <div>
-              <input
-                type="text"
-                name="email"
-                className={`form-control ${
-                  formik.touched.email && formik.errors.email ? "is-invalid" : ""
-                }`}
-                placeholder="Enter Email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                style={{ borderRadius: "8px", padding: "14px" }}
-              />
-              {formik.touched.email && formik.errors.email && (
-                <small className="text-danger">{formik.errors.email}</small>
-              )}
+          <>
+            <div className="d-inline-flex w-100 align-self-center justify-content-between">
+              <h3 className="">Login</h3>
             </div>
-            <button
-              type="submit"
-              className="button-primary fs-6 w-100 mt-5"
-              disabled={loading}
-            >
-              {loading ? "Sending OTP..." : "Send OTP"}
-            </button>
-          </form>
-        )}
-        {showOTPInputs && (
-          <div className="pb-3 text-center">
-            {otpValues.map((otp, index) => (
-              <input
-                key={index}
-                ref={(el) => (otpRefs.current[index] = el)}
-                type="text"
-                maxLength="1"
-                value={otp}
-                onChange={(e) => handleOTPChange(e.target.value, index)}
-                onKeyDown={(e) => handleKeyDown(e, index)}
-                style={{
-                  width: "55px",
-                  height: "55px",
-                  margin: "12px",
-                  border: "1px solid #918e92",
-                  borderRadius: "10px",
-                  textAlign: "center",
-                }}
-              />
-            ))}
-            {errorMessage && <div className="text-danger">{errorMessage}</div>}
-            <div className="pt-3">
+            <form onSubmit={formik.handleSubmit} className="flex flex-column gap-4 py-3">
+              <div>
+                <input
+                  type="text"
+                  name="email"
+                  className={`form-control ${formik.touched.email && formik.errors.email ? "is-invalid" : ""
+                    }`}
+                  placeholder="Enter Email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  style={{ borderRadius: "8px", padding: "14px" }}
+                />
+                {formik.touched.email && formik.errors.email && (
+                  <small className="text-danger">{formik.errors.email}</small>
+                )}
+              </div>
               <button
-                className="button-primary fs-6 w-100"
-                onClick={handleVerifyOTP}
+                type="submit"
+                className="button-primary fs-6 w-100 mt-5"
                 disabled={loading}
               >
-                {loading ? "Verifying..." : "Verify OTP"}
+                {loading ? "Sending OTP..." : "Send OTP"}
               </button>
+            </form>
+          </>
+        )}
+        {showOTPInputs && (
+          <>
+            <div className="d-inline-flex flex-column w-100 align-self-center justify-content-between">
+              <h3 className="">OTP Verification</h3>
+              <p className="fw-light">OTP has been sent to your registered email address. Please enter it to proceed.</p>
             </div>
-          </div>
+            <div className="pb-3 text-center">
+              {otpValues.map((otp, index) => (
+                <input
+                  key={index}
+                  ref={(el) => (otpRefs.current[index] = el)}
+                  type="text"
+                  maxLength="1"
+                  value={otp}
+                  onChange={(e) => handleOTPChange(e.target.value, index)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                  style={{
+                    width: "55px",
+                    height: "55px",
+                    margin: "12px",
+                    border: "1px solid #918e92",
+                    borderRadius: "10px",
+                    textAlign: "center",
+                  }}
+                />
+              ))}
+              {errorMessage && <div className="text-danger">{errorMessage}</div>}
+              <div className="pt-3">
+                <button
+                  className="button-primary fs-6 w-100"
+                  onClick={handleVerifyOTP}
+                  disabled={loading}
+                >
+                  {loading ? "Verifying..." : "Verify OTP"}
+                </button>
+              </div>
+            </div>
+            <div className="text-center">
+              <span>Time Remaining : </span><span className="text-orange"> {timeRemaining > 0 ? `${timeRemaining} Seconds` : "00:00"}</span>
+            </div>
+          </>
         )}
         {!showOTPInputs && (
           <p
