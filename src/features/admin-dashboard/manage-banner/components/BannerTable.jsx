@@ -19,7 +19,7 @@ function BannerTable({banner , setEditData , setVisible, bannerStatusChange}) {
               <img
                 src={baseURL + rowData?.img_file}
                 alt={rowData?.name}
-                className="img-fluid" style={{ width: "3.5rem", height: "4.5rem" }}
+                className="img-fluid" style={{ width: "10rem", height: "5rem" , aspectRatio: "16/9" }}
               />
             </div>
     );
@@ -52,7 +52,7 @@ function BannerTable({banner , setEditData , setVisible, bannerStatusChange}) {
   return (
     <DataTable value={banner} responsiveLayout="scroll" paginator rows={10} rowkey="id">
       <Column field="id" header="ID" body={(index) => banner.indexOf(index) + 1}></Column>
-      <Column field="img_file" header="IMAGE" body={imageBodyTemplate}></Column>
+      <Column field="img_file" header="IMAGE" body={imageBodyTemplate} style={{ width: "15%" }}></Column>
       <Column field="title" header="Title"></Column> 
       <Column field="platform" header="PLATFORM"></Column> 
       <Column field="is_active" header="STATUS" body={iosSwitchTemplate}></Column>
