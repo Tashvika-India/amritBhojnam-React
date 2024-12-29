@@ -22,14 +22,15 @@ function AdminCustomer() {
         <div className="card">
           <div className="card-body">
             <div>
-              <TabView>
+              {/* <TabView>
                 <TabPanel header="Active">
-                <ActiveCustomersTable/>
+               
                 </TabPanel>
                 <TabPanel header="Inactive">
                   <InactiveCustomersTable/>
                 </TabPanel>
-              </TabView>
+              </TabView> */}
+               <ActiveCustomersTable/>
             </div>
         </div>
       </div>

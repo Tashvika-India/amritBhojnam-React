@@ -42,10 +42,10 @@ function DashboardCategoryTable() {
   };
 
   return (
-    <DataTable value={categories} responsiveLayout="scroll">
+    <DataTable value={categories} responsiveLayout="scroll" rows={3}>
       <Column field="name" header="Category" body={imageBodyTemplate}></Column>
       <Column field="quantity" header="Products"></Column>
-      <Column header="Action" body={editButtonTemplate}></Column>
+      {/* <Column header="Action" body={editButtonTemplate}></Column> */}
     </DataTable>
   );
 }

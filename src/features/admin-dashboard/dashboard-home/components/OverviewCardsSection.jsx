@@ -9,16 +9,16 @@ function OverviewCardsSection() {
   return (
     <>
       <div className="col-md-3">
-        <OverviewCard title="Revenue" icon={revenueIcon} />
+        <RevenueCard title="Revenue" icon={revenueIcon} />
       </div>
       <div className="col-md-3">
-        <OverviewCard title="Orders" icon={orderIcon} />
+        <OrderCard title="Orders" icon={orderIcon} />
       </div>
       <div className="col-md-3">
-        <OverviewCard title="Total Products" icon={productIcon} />
+        <TotalProductCard title="Total Products" icon={productIcon} />
       </div>
       <div className="col-md-3">
-        <OverviewCard title="Total Categories" icon={categoryIcon} />
+        <CategoriesCard title="Total Categories" icon={categoryIcon} />
       </div>
     </>
   );
@@ -26,7 +26,7 @@ function OverviewCardsSection() {
 
 export default OverviewCardsSection;
 
-function OverviewCard({ title, icon }) {
+function RevenueCard({ title, icon }) {
   return (
     <div className="card">
       <div className="card-body">
@@ -34,9 +34,62 @@ function OverviewCard({ title, icon }) {
           <h5 className="">{title}</h5>
           <img src={icon}></img>
         </div>
-        <h5 className="mb-2 fw-600">3855  <small className="fw-400" style={{ fontSize: "12px" }}>Rs</small> </h5>
+        <h5 className="mb-2 fw-600">3855  <small className="fw-400" style={{ fontSize: "0.75rem" }}>Rs</small> </h5>
         <div className="d-between">
           <span className="text-secondary text-sm d-flex gap-2"> <img src={dashboardArrow}></img>35% vs last month</span>
+          <span className="text-sm">View all transactions</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+function OrderCard({ title, icon }) {
+  return (
+    <div className="card">
+      <div className="card-body">
+        <div className="d-between mb-3">
+          <h5 className="">{title}</h5>
+          <img src={icon}></img>
+        </div>
+        <h5 className="mb-2 fw-600">223 </h5>
+        <div className="d-between">
+          <span className="text-secondary text-sm d-flex gap-2"> <img src={dashboardArrow}></img>35% vs last month</span>
+          <span className="text-sm">View all transactions</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TotalProductCard({ title, icon }) {
+  return (
+    <div className="card h-100">
+      <div className="card-body h-100 d-flex flex-column justify-content-between">
+        <div className="d-between mb-3">
+          <h5 className="">{title}</h5>
+          <img src={icon}></img>
+        </div>
+        <div className="d-between">
+          <span className=""> <h5 className="mb-0 fw-600">38 </h5></span>
+          <span className="text-sm">View all transactions</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CategoriesCard({ title, icon }) {
+  return (
+    <div className="card h-100">
+      <div className="card-body h-100 d-flex flex-column justify-content-between">
+        <div className="d-between mb-3">
+          <h5 className="">{title}</h5>
+          <img src={icon}></img>
+        </div>
+        <div className="d-between">
+          <span className=""> <h5 className="mb-0 fw-600">3855  <small className="fw-400" style={{ fontSize: "0.75rem" }}>Rs</small> </h5></span>
           <span className="text-sm">View all transactions</span>
         </div>
       </div>

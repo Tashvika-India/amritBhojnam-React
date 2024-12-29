@@ -3,27 +3,32 @@ import Heading from "@/components/ui/Heading";
 import YellowButton from "@/components/buttons/YellowButton";
 import CategoriesTable from "./components/CategoriesTable";
 import AddCategoryModal from "./components/AddCategoryModal";
-import { getCategoriesApi, patchCategoriesApi } from "../../../services/adminApiRoutes";
+import { getAdminCategoriesApi, getCategoriesApi, patchCategoriesApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
 import TabsButtons from "../../../components/ui/TabsButton";
 import { InputText } from "primereact/inputtext";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
+import { color } from "framer-motion";
 
 function ManageCategories() {
   const [visible, setVisible] = useState(false);
   const [categories, setCategories] = useState([]);
   const [editData, setEditData] = useState(null);
-  const [filter, setFilter] = useURLFilters([]);
+  const [filter, setFilter] = useState("");
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState("Active Orders");
+  const [activeTab, setActiveTab] = useState("Active"); 
 
   async function getCategories() {
     setLoading(true);
     try {
-      const response = await getCategoriesApi();
-      setCategories(response?.data || []);
+      const response = await getAdminCategoriesApi(filter.category_name || "");
+      const data = response?.data || [];
+      const filteredData = data.filter(
+        (item) => item.is_active === (activeTab === "Active")
+      );
+      setCategories(filteredData);
     } catch (error) {
-      console.log("Error on Category List", error);
+      console.error("Error on Category List:", error);
     } finally {
       setLoading(false);
     }
@@ -37,7 +42,8 @@ function ManageCategories() {
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [activeTab, filter.category_name]);
+  
 
   // This function will update the category status in real-time
   async function categoriesStatusChange(rowData, updatedIsActive) {
@@ -65,6 +71,7 @@ function ManageCategories() {
     }
   }
 
+
   return (
     <>
       <div className="mt-3 mb-5 row">
@@ -82,31 +89,26 @@ function ManageCategories() {
       <div className="">
         <div className="card">
           <div className="card-body">
-          <div className="row mb-3">
+          <div className="d-flex justify-content-between align-items-center my-3">
               <div className="col-md-4">
                 <div>
                   <div className="mb-3">
-                    {/* <TabsButtons
+                    <TabsButtons
                       activeTab={activeTab}
                       setActiveTab={setActiveTab}
-                      labelOne={"Active Orders"}
-                      labelTwo={"New Orders"}
-                    /> */}
+                      labelOne={"Active"}
+                      labelTwo={"Inactive"}
+                    />
                   </div>
-                  {/* {activeTab === "Active Orders" && <ProductTable />}
-                  {activeTab === "New Orders" && <ProductTable />} */}
                 </div>
-              </div>
-              <div className="col-md-2">
-              </div>
-              <div className="col-md-2 text-end">
               </div>
               <div className="col-md-3 ms-auto text-end">
                 <InputText
-                className="w-100"
-                  value={filter.name}
+                  className="w-100 ps-4"
+                  sx={{ fontFamily: "Poppins, sans-serif" }}
+                  value={filter.category_name || ""}
                   onChange={(e) =>
-                    setFilter({ ...filter, name: e.target.value })
+                    setFilter({ ...filter, category_name: e.target.value })
                   }
                   placeholder="Search Categories"
                 />

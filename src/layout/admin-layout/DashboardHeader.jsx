@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { VscBellDot } from "react-icons/vsc";
 import harry from "@/assets/images/dashboard/harry.jpg";
+import ap from "@/assets/images/web/account/profile-picture.png"
 import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
@@ -79,11 +80,11 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <div className="d-flex me-1 align-items-center gap-1 pe-2">
-            <div className="me-3">
+            {/* <div className="me-3">
               <VscBellDot className="text-white bg-yellow p-2 rounded" size={43} />
-            </div>
+            </div> */}
             <IconButton sx={{ p: 0 }}>
-              <Avatar alt="Avatar" src={harry} />
+              <Avatar alt="Avatar" src={ap} />
             </IconButton>
             <button  className="ms-1 cursor-pointer border-0 bg-transparent d-inline-flex align-items-center gap-2" onClick={handleClick}>
               <div className="ms-1">

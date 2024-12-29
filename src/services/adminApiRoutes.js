@@ -91,6 +91,7 @@ API.interceptors.response.use(
 
 
 export const getCategoriesApi = () => API.get(`/categories/`);
+export const getAdminCategoriesApi = (category_name) => API.get(`/categories/?category_name=${category_name}`);
 export const postCategoriesApi = (payload) => API.post(`/categories/`, payload);
 export const putCategoriesApi = (id, payload) =>
   API.put(`/categories/${id}/`, payload);

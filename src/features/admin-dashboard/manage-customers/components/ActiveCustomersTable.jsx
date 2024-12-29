@@ -8,12 +8,12 @@ import { Stack } from 'react-bootstrap';
 
 const ActiveCustomersTable = () => {
   const reviews = [
-    { customerId: '367332', customerName: 'Aman Kumar', phone: '+91 1234567890', email: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 5, initials: 'AK' },
-    { customerId: '634782', customerName: 'Raj Singh', phone: '+91 1234567890', email: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 4, initials: 'RS' },
-    { customerId: '745883', customerName: 'David', phone: '+91 1234567890', email: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 5, initials: 'D' },
-    { customerId: '846272', customerName: 'Piyush', phone: '+91 1234567890', email: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 4.5, initials: 'P' },
-    { customerId: '857353', customerName: 'Rahul Singh', phone: '+91 1234567890', email: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 4.5, initials: 'RS' },
-    { customerId: '634782', customerName: 'Mohit Kumar', phone: '+91 1234567890', email: 'Lorem ipsum is simply dummy text...', date: '5 Aug, 2024', time: '07:00PM', rating: 4, initials: 'MK' }
+    { customerId: '367332', customerName: 'Aman Kumar', phone: '+91 1234567890', email: 'user@gmail.com', date: '5 Aug, 2024', time: '07:00PM', rating: 5, initials: 'AK' },
+    { customerId: '634782', customerName: 'Raj Singh', phone: '+91 1234567890', email: 'user@gmail.com', date: '5 Aug, 2024', time: '07:00PM', rating: 4, initials: 'RS' },
+    { customerId: '745883', customerName: 'David', phone: '+91 1234567890', email: 'user@gmail.com', date: '5 Aug, 2024', time: '07:00PM', rating: 5, initials: 'D' },
+    { customerId: '846272', customerName: 'Piyush', phone: '+91 1234567890', email: 'user@gmail.com', date: '5 Aug, 2024', time: '07:00PM', rating: 4.5, initials: 'P' },
+    { customerId: '857353', customerName: 'Rahul Singh', phone: '+91 1234567890', email: 'user@gmail.com', date: '5 Aug, 2024', time: '07:00PM', rating: 4.5, initials: 'RS' },
+    { customerId: '634782', customerName: 'Mohit Kumar', phone: '+91 1234567890', email: 'user@gmail.com', date: '5 Aug, 2024', time: '07:00PM', rating: 4, initials: 'MK' }
 ];
 
 const getRandomColor = () => {

@@ -42,7 +42,7 @@ const NewOrdersTable = ({ order }) => {
               <img src={item?.product?.images[0]?.image} alt="img" style={{ width: "3.5rem", height: "4rem" }} />
               <div className="d-flex flex-column">
                 <p className="fw-400 mb-0" style={{ fontSize: ".9rem" }}>{item?.product?.name}</p>
-                <p className="fw-400 mb-0" style={{ fontSize: ".9rem" }}>{item?.item_quantity}</p>
+                <p className="fw-400 mb-0" style={{ fontSize: ".9rem" }}>Qty: {item?.item_quantity}</p>
                 <p className="fw-400 mb-0" style={{ fontSize: ".9rem" }}>Rs. {~~(item?.price)}</p>
               </div>
             </div>
