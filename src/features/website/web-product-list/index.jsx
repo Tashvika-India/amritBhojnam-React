@@ -22,7 +22,7 @@ import { clearProductList, fetchProductList } from "../../../redux/slices/produc
 import { useDispatch, useSelector } from "react-redux";
 
 const ProudctList = () => {
-  const [products, setProducts] = useState([]); 
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const [categoryList, setCategoryList] = useState([]);
   const [filters, setFilters] = useURLFilters();
@@ -32,7 +32,7 @@ const ProudctList = () => {
   const toggleMobileFiter = () => setShowFilter((prev) => !prev);
 
   const dispatch = useDispatch();
-  const { productList,loading, error } = useSelector((state) => state.product);
+  const { productList, loading, error } = useSelector((state) => state.product);
 
   const onIngredientsChange = (e) => {
     let _ingredients = [...ingredients];
@@ -66,11 +66,11 @@ const ProudctList = () => {
     }
   }
 
-useEffect(() => {
+  useEffect(() => {
     dispatch(fetchProductList(filters));
 
     return () => {
-      dispatch(clearProductList());  
+      dispatch(clearProductList());
     };
   }, [dispatch, filters]);
 
@@ -98,10 +98,10 @@ useEffect(() => {
     navigate(
       `/products?category_id=${filters.category_id}&name=${filters.name}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}&rating=${filters.rating}`
     );
-    scrollToTop() 
+    scrollToTop()
   }, [filters]);
 
-  
+
 
   return (
     <div className="web-wrapper-main">
@@ -111,7 +111,7 @@ useEffect(() => {
           <div className="row">
             <div className=" col-lg-4 col-xxl-3 col-12 d-none d-lg-block">
               <div className="bg-white product-detail-shadow rounded-20 p-4 mb-5">
-                <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span>Category</span>  <button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset" className="bg-transparent border-0 text-yellow fs-3"><BiReset />
+                <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span>Category</span>  <button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-orange fs-3"><BiReset />
                 </button> </h6>
                 <div className="">
                   <ul className="category-select-list">
@@ -415,7 +415,7 @@ useEffect(() => {
                   </div>
                 </div>
                 <div className="">
-                <h4 className="underline-heading filter-heading fw-bold mt-4">Customer Ratings</h4>
+                  <h4 className="underline-heading filter-heading fw-bold mt-4">Customer Ratings</h4>
                   <ul className="mt-2">
                     <li className="d-flex my-3">
                       <div className="d-flex align-items-center">
@@ -424,7 +424,7 @@ useEffect(() => {
                           inputId="ingredient1"
                           value="4"
                           onChange={(e) =>
-                          setFilters({ ...filters, rating: 4 })
+                            setFilters({ ...filters, rating: 4 })
                           }
                           checked={filters.rating == 4}
                         />

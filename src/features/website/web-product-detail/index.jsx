@@ -447,7 +447,7 @@ const ProudctDetail = () => {
                         >
                           Go to Cart
                         </button>
-                        <MyCartMenu show={showCart} onClose={toggleCart} />
+                        <MyCartMenu showCart={showCart} onCloseCart={toggleCart} />
                       </>
                     )
                   ) : (
