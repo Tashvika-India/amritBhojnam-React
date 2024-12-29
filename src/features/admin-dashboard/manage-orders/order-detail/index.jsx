@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
 import { Divider, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { Checkbox } from "primereact/checkbox";
@@ -6,8 +6,31 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Timeline } from "primereact/timeline";
 import { Avatar } from "primereact/avatar";
+import { useParams } from "react-router-dom";
+import { getOrderAdminApi } from "../../../../services/adminApiRoutes";
 
 const AdminOrderDetail = () => {
+
+    const { id } = useParams(); 
+    const [loading, setLoading] = useState(false);
+    const [order, setOrder] = useState([]);
+
+    const getOrderList = async (name="") => {
+        setLoading(true);
+        try {
+            const response = await getOrderAdminApi(id, name);
+            setOrder(response?.data);
+            setLoading(false);
+        } catch (error) {
+            console.log(error);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getOrderList();
+    }, []);
+
     const [orders, setOrders] = useState([
         {
             Id: "#634782",
@@ -113,9 +136,9 @@ const AdminOrderDetail = () => {
                                 <p className="fw-500 text-mid-gray mb-0">Email</p>
                                 <p className="fw-400">customer@gmail.com</p>
                             </div>
-                            <Divider/> 
+                            <Divider />
                             <div className="mt-4">
-                                <p className="fw-500 text-mid-gray mb-0">Payment Details</p> 
+                                <p className="fw-500 text-mid-gray mb-0">Payment Details</p>
                                 <ul>
                                     <li>Type:           Card</li>
                                     <li>Status:        Paid</li>
@@ -133,9 +156,9 @@ const AdminOrderDetail = () => {
                                 </div>
                             </div>
                             <div className="mt-4">
-                                <p className="fw-500 text-mid-gray mb-0">Payment Details</p> 
+                                <p className="fw-500 text-mid-gray mb-0">Payment Details</p>
                                 <ul>
-                                    <li>Type:           POS</li> 
+                                    <li>Type:           POS</li>
                                 </ul>
                             </div>
                         </div>

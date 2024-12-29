@@ -98,7 +98,7 @@ function ProductTable({ products, getProductList }) {
 
   return (
     <>
-      <DataTable value={products} responsiveLayout="scroll" paginator rows={50}>
+      <DataTable value={products} responsiveLayout="scroll" paginator rows={10}>
         <Column
           field="id"
           header="SR.NO"
