@@ -49,9 +49,9 @@ function CategoriesSubTable({ categories, setEditData, setVisible, categoriesSta
 
   return (
     <DataTable value={categories} responsiveLayout="scroll" paginator rows={10} rowkey="id">
-      <Column field="id" header="ID" body={(index) => categories.indexOf(index) + 1}></Column>
-      <Column field="name" header="NAME"></Column>
-      <Column field="category_name" header="CATEGORY"></Column>
+      <Column  header="S.NO" body={(index) => categories.indexOf(index) + 1}></Column>
+      <Column field="name" header="NAME" className="fw-400"></Column>
+      <Column field="category_name" header="CATEGORY" className="fw-400"></Column>
       <Column field="is_active" header="STATUS" body={iosSwitchTemplate}></Column>
       <Column header="Action" body={editButtonTemplate}></Column>
     </DataTable>

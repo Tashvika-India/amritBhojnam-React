@@ -48,9 +48,9 @@ function CategoryTable({ categories, setEditData, setVisible, categoriesStatusCh
   
   return (
     <DataTable value={categories} responsiveLayout="scroll" paginator rows={10} rowkey="id">
-      <Column field="id" header="ID" body={(index) => categories.indexOf(index) + 1}></Column>
+      <Column   header="S.NO" body={(index) => categories.indexOf(index) + 1}></Column>
       <Column field="image" header="IMAGE" body={imageBodyTemplate}></Column>
-      <Column field="name" header="NAME"></Column>
+      <Column field="name" header="NAME" className="fw-400"></Column>
       <Column field="product_count" header="Products"></Column>
       <Column field="is_active" header="Status" body={iosSwitchTemplate}></Column>
       <Column header="Action" body={editButtonTemplate}></Column>

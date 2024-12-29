@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getOrderAdminApi, getOrderSuccessAdminApi } from "../../../../services/adminApiRoutes";
 
 const AllOrderDetail = () => {
@@ -80,7 +80,10 @@ const AllOrderDetail = () => {
         <>
             <div className="mt-3 mb-5 row">
                 <div className="col-md-6">
-                    <Heading value={"Orders #367332"} />
+                    <Heading value={`Orders #${orderDetail[0]?.id.slice(-8)}...`}  />
+                </div>
+                <div className="col-md-6 text-end">
+                    <Link to={"/admin/order-detail/"} className="button-primary" type="button">Order Page</Link>
                 </div>
             </div>
             <div className="card p-3">
