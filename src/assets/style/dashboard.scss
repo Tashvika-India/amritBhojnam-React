@@ -255,7 +255,7 @@ thead th {
 
 //// Sidebar Start ////
 .dashboard-sidebar {
-  .css-txj0o0-MuiDrawer-docked .MuiDrawer-paper {
+  .MuiDrawer-paper {
     padding: 1rem !important;
   }
 
@@ -267,18 +267,13 @@ thead th {
     font-weight: 500 !important;
   }
 
-  .css-1udopwe-MuiButtonBase-root-MuiListItemButton-root {
+  .MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListItemButton-root  {
     border-radius: 5px !important;
-    margin-bottom: 0.8rem !important;
+    margin-bottom: 0.8rem !important; 
   }
-
-  .css-221fs9-MuiButtonBase-root-MuiListItemButton-root {
-    border-radius: 5px !important;
-  }
-
-  .css-1ovjgx7-MuiListItemIcon-root {
+  .MuiListItemIcon-root{
     color: #3b3b3b;
-  }
+  } 
 }
 
 /// Sidebar End //
