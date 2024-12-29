@@ -8,8 +8,7 @@ import {
 } from "@mui/material";
 import { IoHomeOutline } from "react-icons/io5";
 import { HiBuildingOffice2 } from "react-icons/hi2";
-import { getPincodeApi } from "../../../services/adminApiRoutes";
-import { notifyError, notifySuccess } from "../../../components/ui/Notification";
+import { getPincodeApi } from "../../../services/adminApiRoutes"; 
 
 const Address = ({ formik, loading, setOpen, editData }) => { 
 
@@ -27,11 +26,9 @@ const Address = ({ formik, loading, setOpen, editData }) => {
       const { state, district } = response?.data || {};
 
       formik.setFieldValue('state', state);
-      formik.setFieldValue('city', district);
-      notifySuccess("Address added Successfully"); 
+      formik.setFieldValue('city', district); 
     } catch (error) {
-      console.error('Error fetching pincode details:', error);
-      notifyError("Address failed to add!"); 
+      console.error('Error fetching pincode details:', error); 
     } finally {
     }
   }
@@ -221,7 +218,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
               <div className="d-flex my-3 my-lg-4 ps-md-0 gap-3">
                 <button
                   type="button"
-                  className={`d-flex align-items-center border-0 bg-transparent" ${formik.values.save_as === "home" ? "home-btn" : "office-btn"}`}
+                  className={`d-flex align-items-center border-0 bg-transparent ${formik.values.save_as === "home" ? "home-btn" : "office-btn"}`}
                   onClick={() => formik.setFieldValue("save_as", "home")}
                   onBlur={formik.handleBlur}>
                   <IoHomeOutline
@@ -232,7 +229,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                 </button>
                 <button
                   type="button"
-                  className={`d-flex align-items-center border-0 bg-transparent" ${formik.values.save_as === "office" ? "home-btn" : "office-btn"}`}
+                  className={`d-flex align-items-center border-0 bg-transparent ${formik.values.save_as === "office" ? "home-btn" : "office-btn"}`}
                   onClick={() => formik.setFieldValue("save_as", "office")}
                   onBlur={formik.handleBlur}
                 >
@@ -244,7 +241,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                 </button>
                 <button
                   type="button"
-                  className={`d-flex align-items-center border-0 bg-transparent" ${formik.values.save_as === "other" ? "home-btn" : "office-btn"}`}
+                  className={`d-flex align-items-center border-0 bg-transparent ${formik.values.save_as === "other" ? "home-btn" : "office-btn"}`}
                   onClick={() => formik.setFieldValue("save_as", "other")}
                   onBlur={formik.handleBlur}
                 >
@@ -268,6 +265,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   onClick={() => {
                     formik.resetForm();
                     setOpen(false);
+                    scrollTo(0, 0);
                   }}
                 >
                   Cancel

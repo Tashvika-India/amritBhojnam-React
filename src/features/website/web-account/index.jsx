@@ -38,6 +38,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
 import { Rating } from "primereact/rating";
 import ReviewModal from "../../../components/ui/ReviewModal";
+import { notifySuccess } from "../../../components/ui/Notification";
 
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
@@ -102,9 +103,12 @@ const UserProfile = () => {
       }
       setLoading(false);
       setOpen(false);
+      notifySuccess("Address added Successfully"); 
+      scrollTo(0, 0);
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
+      notifyError("Something went wrong, please try again.");
     } finally {
       formik.setSubmitting(false);
     }
@@ -119,10 +123,13 @@ const UserProfile = () => {
         getAddressList();
       }
       setLoading(false);
+      scrollTo(0, 0);
       setOpen(false);
+      notifySuccess("Address updated Successfully"); 
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
+      notifyError("Something went wrong, please try again.");
     } finally {
       formik.setSubmitting(false);
     }
