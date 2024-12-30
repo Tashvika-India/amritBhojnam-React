@@ -76,7 +76,7 @@ const CheckoutPage = () => {
 
       // Step 2: Prepare Payment Details
       const payDetails = {
-        amount: 1,
+        amount: amount,
         firstname: user.full_name || "N/A",
         email: user.email || "N/A",
         phone: user.phone || "N/A",
