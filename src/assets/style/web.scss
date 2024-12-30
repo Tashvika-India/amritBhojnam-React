@@ -167,7 +167,16 @@
   border: 1px solid $orange !important;
   color: $white;
 }
-
+.aqua-button{
+  background-color: #D2F2F4 !important;
+  border-radius: 7px;
+  padding: 13px 1.2rem;
+  border: 1px solid #D2F2F4 !important;
+  color: black;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
 .back-home {
   border: 1px solid $orange !important;
   align-items: center;
