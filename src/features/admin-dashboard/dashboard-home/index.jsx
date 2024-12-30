@@ -37,7 +37,14 @@ function DashboardHome() {
                     <MenuItem value={20}>Februrary</MenuItem>
                     <MenuItem value={30}>March</MenuItem>
                     <MenuItem value={40}>April</MenuItem>
-                    <MenuItem value={30}>May</MenuItem>
+                    <MenuItem value={50}>May</MenuItem>
+                    <MenuItem value={60}>June</MenuItem>
+                    <MenuItem value={70}>July</MenuItem>
+                    <MenuItem value={80}>August</MenuItem>
+                    <MenuItem value={90}>September</MenuItem>
+                    <MenuItem value={100}>October</MenuItem>
+                    <MenuItem value={110}>November</MenuItem>
+                    <MenuItem value={120}>December</MenuItem>
                   </Select>
                 </FormControl>
               </div>
@@ -115,10 +122,17 @@ function DashboardHome() {
                       size="small"
                     >
                       <MenuItem value={10}>January</MenuItem>
-                      <MenuItem value={20}>Februrary</MenuItem>
-                      <MenuItem value={30}>March</MenuItem>
-                      <MenuItem value={40}>April</MenuItem>
-                      <MenuItem value={30}>May</MenuItem>
+                    <MenuItem value={20}>Februrary</MenuItem>
+                    <MenuItem value={30}>March</MenuItem>
+                    <MenuItem value={40}>April</MenuItem>
+                    <MenuItem value={50}>May</MenuItem>
+                    <MenuItem value={60}>June</MenuItem>
+                    <MenuItem value={70}>July</MenuItem>
+                    <MenuItem value={80}>August</MenuItem>
+                    <MenuItem value={90}>September</MenuItem>
+                    <MenuItem value={100}>October</MenuItem>
+                    <MenuItem value={110}>November</MenuItem>
+                    <MenuItem value={120}>December</MenuItem>
                     </Select>
                   </FormControl>
                 </div>

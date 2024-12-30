@@ -477,9 +477,9 @@ const HomePage = () => {
         src={bestBackgroundTop}
         alt="purchase-page"
       />
-      <section
+      <section id="popular"
         className="best-product bg-semi-orange overflow-hidden"
-        id="popular"
+        
       >
         <div className="container-fluid">
           <div className="h-100">
@@ -498,6 +498,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+     
       <img
         className="img-fluid w-100"
         style={{ marginTop: "-1px" }}

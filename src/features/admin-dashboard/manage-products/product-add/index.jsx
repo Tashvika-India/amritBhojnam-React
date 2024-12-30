@@ -85,7 +85,7 @@ const ProductAdd = () => {
     validationSchema: productSchema,
     onSubmit: async (values) => {
       isEditMode
-        ? updateProduct(values)
+        ? updateProduct({...values , max_price : Number(formik.values.max_price)})
         : addProduct({ ...values, discount: values.discount || 0 });
     },
   });
@@ -518,6 +518,7 @@ const ProductAdd = () => {
               <div className="col-md-4 mb-4">
                 <TextField
                   id="outlined-basic"
+                  type="number"
                   label="Price"
                   variant="outlined"
                   name="max_price"
