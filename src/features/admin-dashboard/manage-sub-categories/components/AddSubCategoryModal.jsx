@@ -119,8 +119,8 @@ export default function AddSubCategoryModal({ visible, setVisible, getCategories
           <form onSubmit={formik.handleSubmit}>
             <div className="p-fluid">
               <div className="mb-4">
-                <FileUpload formik={formik} name="img_file" />
-                <p>{errors.img_file}</p>
+                {/* <FileUpload formik={formik} name="img_file" />
+                <p>{errors.img_file}</p> */}
               </div>
               <div className="mb-4">
                 <FormControl fullWidth>
