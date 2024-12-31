@@ -1,11 +1,15 @@
-import React  from "react"; 
+import React, { useEffect } from "react";
 import Header from "../../../layout/web-layout/Header";
-import Footer from "../../../layout/web-layout/Footer"; 
+import Footer from "../../../layout/web-layout/Footer";
 import { MdKeyboardArrowLeft } from "react-icons/md";
-import successImg from "../../../assets/images/web/success-payment-img.png"; 
+import successImg from "../../../assets/images/web/success-payment-img.png";
 import { Link } from "react-router-dom";
 
 const PaymentSuccess = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="web-wrapper-main">
       <Header />
