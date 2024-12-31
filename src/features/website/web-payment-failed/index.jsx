@@ -1,4 +1,4 @@
-import React from "react";  
+import React, { useEffect } from "react";  
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer"; 
 import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -6,6 +6,11 @@ import failImg from "../../../assets/images/web/fail-payment-img.png";
 import { Link } from "react-router-dom";
 
 const PaymentFailed = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 100);
+  }, []);
+
   return (
     <div className="web-wrapper-main">
       <Header />

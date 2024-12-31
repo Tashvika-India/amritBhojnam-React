@@ -21,7 +21,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
         const timer = setInterval(() => {
           setTimeRemaining((prevTime) => prevTime - 1);
         }, 1000); // Update every second
-  
+
         return () => clearInterval(timer); // Cleanup the interval on component unmount
       }
     }
@@ -103,7 +103,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
       <Offcanvas.Header closeButton>
         <img src={logo} alt="logo" className="img-fluid p-2" loading="lazy" />
       </Offcanvas.Header>
-      <Offcanvas.Body className="p-4">
+      <Offcanvas.Body className="p-md-4">
         {!showOTPInputs && (
           <>
             <div className="d-inline-flex w-100 align-self-center justify-content-between">
@@ -143,25 +143,29 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
               <p className="fw-light">OTP has been sent to your registered email address. Please enter it to proceed.</p>
             </div>
             <div className="pb-3 text-center">
-              {otpValues.map((otp, index) => (
-                <input
-                  key={index}
-                  ref={(el) => (otpRefs.current[index] = el)}
-                  type="text"
-                  maxLength="1"
-                  value={otp}
-                  onChange={(e) => handleOTPChange(e.target.value, index)}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  style={{
-                    width: "55px",
-                    height: "55px",
-                    margin: "12px",
-                    border: "1px solid #918e92",
-                    borderRadius: "10px",
-                    textAlign: "center",
-                  }}
-                />
-              ))}
+              <div className="d-flex justify-content-center gap-2 gap-md-4">
+                {otpValues.map((otp, index) => (
+                  <input
+                    key={index}
+                    ref={(el) => (otpRefs.current[index] = el)}
+                    type="text"
+                    maxLength="1"
+                    className="otp-input"
+                    value={otp}
+                    onChange={(e) => handleOTPChange(e.target.value, index)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    onInput={(e) => {
+                      e.target.value = e.target.value.replace(/[^0-9]/g, ""); // Restrict to numbers only
+                    }}
+                    inputMode="numeric" // Mobile keyboards show numeric keypad
+                    style={{
+                      border: "1px solid #918e92",
+                      borderRadius: "10px",
+                      textAlign: "center",
+                    }}
+                  />
+                ))}
+              </div>
               {errorMessage && <div className="text-danger">{errorMessage}</div>}
               <div className="pt-3">
                 <button

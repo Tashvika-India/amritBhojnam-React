@@ -640,6 +640,11 @@ footer {
   }
 }
 
+.otp-input{
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+}
+
 //category
 .offers-cards {
   grid-template-columns: repeat(auto-fit, 20.2312rem) !important;
@@ -1913,6 +1918,11 @@ footer {
 }
 
 @media (max-width: 576px) {
+  .otp-input{
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+  
   .filter-heading {
     font-size: 1.12rem !important;
     font-weight: 500 !important;
