@@ -85,7 +85,10 @@ const ProductAdd = () => {
     validationSchema: productSchema,
     onSubmit: async (values) => {
       isEditMode
-        ? updateProduct({...values , max_price : Number(formik.values.max_price)})
+        ? updateProduct({
+            ...values,
+            max_price: Number(formik.values.max_price),
+          })
         : addProduct({ ...values, discount: values.discount || 0 });
     },
   });
@@ -472,7 +475,10 @@ const ProductAdd = () => {
                     <IosSwitch
                       checked={formik.values.is_healthy_bites}
                       onChange={(e) =>
-                        formik.setFieldValue("is_healthy_bites", e.target.checked)
+                        formik.setFieldValue(
+                          "is_healthy_bites",
+                          e.target.checked
+                        )
                       }
                     />
                   </div>
@@ -608,18 +614,220 @@ const ProductAdd = () => {
             </div>
           </div>
         </div>
+
+        <div className="card mb-4 px-3 pt-2">
+          <div className="card-body">
+            <h6 className="mb-4">Package Dimensions & Weight</h6>
+            <div className="row">
+              <div className="col-md-3 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Length"
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-3 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Breadth"
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-3 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Height"
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-3 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Weight"
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <div className="card mb-4 px-3 pt-2">
+          <div className="card-body">
+            <h6 className="mb-3">Options</h6>
+            <div
+              className="mb-4 mt-4 pb-2"
+              style={{ borderTop: "1px solid #F0F0F0" }}
+            ></div>
+            <div className="row">
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Option"
+                  name="option"
+                  value={formik.values?.meta_title}
+                  onChange={formik.handleChange}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Option"
+                  name="option"
+                  value={formik.values?.meta_title}
+                  onChange={formik.handleChange}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Stock"
+                  name="stock"
+                  value={formik.values?.meta_title}
+                  onChange={formik.handleChange}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Discount"
+                  name="discount"
+                  value={formik.values?.meta_title}
+                  onChange={formik.handleChange}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Discount Type
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    name="quantity"
+                    value={formik.values?.quantity}
+                    onChange={formik.handleChange}
+                    error={ifError("quantity")}
+                    label="Quantity"
+                  >
+                    <MenuItem value=" ">&nbsp;</MenuItem>
+                    <MenuItem value="10 gm">10 gm</MenuItem>
+                    <MenuItem value="20 gm">20 gm</MenuItem>
+                    <MenuItem value="30 gm">30 gm</MenuItem>
+                    <MenuItem value="50 gm">50 gm</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="SKU"
+                  name="sku"
+                  value={formik.values?.meta_title}
+                  onChange={formik.handleChange}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Unique Barcode(If you want)"
+                  name="unique barcode"
+                  value={formik.values?.meta_title}
+                  onChange={formik.handleChange}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Reward Coins"
+                  name="reward coins"
+                  value={formik.values?.meta_title}
+                  onChange={formik.handleChange}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="card mb-4 px-3 pt-2">
+          <div className="card-body">
+            <h6 className="mb-3">Add Recipe</h6>
+            <div
+              className="mb-4 mt-4 pb-2"
+              style={{ borderTop: "1px solid #F0F0F0" }}
+            ></div>
+            <div className="row">
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Recipe Name"
+                  name="recipe name"
+                  value={formik.values?.meta_title}
+                  onChange={formik.handleChange}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Option"
+                  name="option"
+                  value={formik.values?.meta_title}
+                  onChange={formik.handleChange}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+              
+              </div>
+              <div className="col-md-8 mb-4">
+              <TextField
+                  id="outlined-basic"
+                  label="Add Recipe Description"
+                  name="Add Recipe Description"
+                  variant="outlined"
+                  fullWidth
+                  multiline
+                  rows={7}
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+               
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <div className="d-flex gap-3 justify-content-end">
               <YellowButton
                 lable={
-                  loading ? (
-                    "Updating..."
-                  ) : isEditMode ? (
-                    "Update Product"
-                  ) : (
-                    "Add Product"
-                  )
+                  loading
+                    ? "Updating..."
+                    : isEditMode
+                    ? "Update Product"
+                    : "Add Product"
                 }
                 handleClick={formik.handleSubmit}
                 disabled={loading}

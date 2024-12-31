@@ -77,7 +77,7 @@ const NewOrdersTable = ({ order }) => {
     return (
       <div className="d-flex gap-3">
         <button className="lt-green-button">Accept</button>
-        <button className="lt-red-button">Reject</button>
+        <button className="lt-red-button">Cancel</button>
       </div>
     );
   };

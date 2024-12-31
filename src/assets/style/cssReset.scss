@@ -6,6 +6,7 @@ $white: #ffffff;
 $light: #fafafa;
 $dark-brown: #843a17;
 $brown: #ac562d;
+$light-orange: #FFECE2;
 $dark-grey: #3b3b3b;
 $black: #231d25;
 $red: #E50000;
@@ -146,6 +147,10 @@ td {
 
 .bg-orange {
     background-color: $orange !important;
+}
+
+.bg-light-orange {
+    background-color: $light-orange !important;
 }
 
 .bg-recipe-background{
