@@ -13,11 +13,24 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Timeline } from "primereact/timeline";
 import { BsFillHandbagFill } from "react-icons/bs";
-import { FaGears } from "react-icons/fa6";
+import { FaGears, FaRoute } from "react-icons/fa6";
 import { ImPrinter } from "react-icons/im";
 import { Avatar } from "primereact/avatar";
+import { FaUser } from "react-icons/fa6";
+import { TbTruckDelivery } from "react-icons/tb";
+import { FaPhoneAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { getOrderAdminApi } from "../../../../services/adminApiRoutes";
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import StepConnector from '@mui/material/StepConnector';
+import Typography from '@mui/material/Typography';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import { styled } from '@mui/material/styles';
 
 const AdminOrderDetail = () => {
   const { id } = useParams();
@@ -91,6 +104,43 @@ const AdminOrderDetail = () => {
       </div>
     );
   };
+
+  const steps = [
+    {
+      label: 'Accepted',
+      description: '10 Aug, 2024 - 07:00 PM',
+    },
+    {
+      label: 'In Progress',
+      description: '11 Aug, 2024 - 09:00 AM',
+    },
+    {
+      label: 'Completed',
+      description: '12 Aug, 2024 - 05:30 PM',
+    },
+  ];
+
+  const CustomConnector = styled(StepConnector)(({ theme }) => ({
+    '& .MuiStepConnector-line': {
+      borderColor: theme.palette.mode === 'light' ? 'gray' : 'gray',
+      borderWidth: 3,
+      borderRadius: 1,
+    },
+  }));
+  
+  // Custom Step Icon Component
+  const StepIcon = ({ active, completed }) => {
+    if (completed) {
+      return <CheckCircleIcon sx={{ color: '#4BAE4F' }} />;
+    }
+    if (active) {
+      return <RadioButtonCheckedIcon sx={{ color: '#4BAE4F' }} />;
+    }
+    return <RadioButtonUncheckedIcon sx={{ color: 'gray' }} />;
+  };
+
+  const [activeStep, setActiveStep] = React.useState(1);
+
   return (
     <>
       <div className="mt-3 mb-5 row">
@@ -100,7 +150,7 @@ const AdminOrderDetail = () => {
       </div>
       <div className="row">
         <div className="col-md-8 mb-4">
-          <div className="card">
+          <div className="card px-3">
             <div className="card-body">
               <div className="d-flex justify-content-between mb-4 align-items-center">
                 <div className="d-flex gap-3">
@@ -136,34 +186,94 @@ const AdminOrderDetail = () => {
           </div>
         </div>
         <div className="col-md-4 mb-4">
-          <div className="card">
-            <div className="card-body">
+          <div className="card p-2">
+            <div className="card-body p-4">
               <div className="d-flex align-items-center gap-3 mb-4">
-                <div>
-                  <h6 className="fw-500">Track Order</h6>
+                <div className="d-flex gap-3">
+                  <FaRoute size={25} />
+                  <p className="fw-500 fb-fs-18 mb-0">Track Order</p>
                 </div>
                 <div>
-                  <button className="btn aqua-button py-1">Accepted</button>
+                  <button className="btn light-aqua-button py-1">
+                    Accepted
+                  </button>
                 </div>
               </div>
-              <div className="text-start">
-                <Timeline
-                  value={events}
-                  opposite={(item) => item.status}
-                  content={(item) => (
-                    <small className="text-color-secondary">{item.date}</small>
-                  )}
+              <div className="text-start Track-stepper pt-4">
+                <Box sx={{ maxWidth: 400 }}>
+      <Stepper
+        activeStep={activeStep}
+        orientation="vertical"
+        connector={<CustomConnector />}
+      >
+        {steps.map((step, index) => (
+          <Step key={step.label}>
+            <StepLabel
+              StepIconComponent={(props) => (
+                <StepIcon
+                  active={props.active}
+                  completed={props.completed}
                 />
+              )}
+            >
+              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                {step.label}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                {step.description}
+              </Typography>
+            </StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+        <button
+          onClick={() =>
+            setActiveStep((prevStep) =>
+              prevStep > 0 ? prevStep - 1 : prevStep
+            )
+          }
+          disabled={activeStep === 0}
+          style={{
+            padding: '10px 15px',
+            border: '1px solid gray',
+            borderRadius: '5px',
+            backgroundColor: activeStep === 0 ? 'lightgray' : 'white',
+            cursor: activeStep === 0 ? 'not-allowed' : 'pointer',
+          }}
+        >
+          Back
+        </button>
+        <button
+          onClick={() =>
+            setActiveStep((prevStep) =>
+              prevStep < steps.length - 1 ? prevStep + 1 : prevStep
+            )
+          }
+          style={{
+            padding: '10px 15px',
+            border: 'none',
+            borderRadius: '5px',
+            backgroundColor: 'green',
+            color: 'white',
+            cursor: 'pointer',
+          }}
+        >
+          {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+        </button>
+      </Box>
+    </Box>
               </div>
             </div>
           </div>
         </div>
         <div className="col-md-4">
-          <div className="card">
-            <div className="card-body">
+          <div className="card p-2">
+            <div className="card-body p-4">
               <div className="d-flex align-items-center gap-3 mb-4">
-                <div>
-                  <h6 className="fw-500">Customer Details</h6>
+                <div className="d-flex gap-3">
+                  <FaUser size={20} />
+                  <p className="fw-500 fb-fs-18 mb-0">Customer Details</p>
                 </div>
               </div>
               <div className="d-flex justify-content-between align-items-center mb-4">
@@ -182,49 +292,77 @@ const AdminOrderDetail = () => {
                   />
                   <div>
                     <p className="mb-0">Aman Kumar</p>
-                    <small className="fw-400" style={{ fontSize: ".88rem" }}>
+                    <small
+                      className="fw-400"
+                      style={{ fontSize: ".88rem", color: "#584EE0" }}
+                    >
                       +91 1234567890
                     </small>
                   </div>
                 </div>
+                <div class="rounded-2 bg-light-orange p-3 ">
+                  <FaPhoneAlt color="#F26722" size={20} />
+                </div>
                 <div className=""></div>
               </div>
               <div className="mb-4">
-                <p className="fw-500 text-mid-gray mb-0">Email</p>
-                <p className="fw-400">customer@gmail.com</p>
+                <p className="fw-500 text-mid-grey mb-0 pb-2 fb-fs-14">Email</p>
+                <p className="fw-400" style={{ color: "#584EE0" }}>
+                  customer@gmail.com
+                </p>
               </div>
               <Divider />
               <div className="mt-4">
-                <p className="fw-500 text-mid-gray mb-0">Payment Details</p>
-                <ul>
-                  <li>Type: Card</li>
-                  <li>Status: Paid</li>
-                </ul>
+                <p className="fw-500 text-mid-grey mb-0 fb-fs-14 pb-4">
+                  Payment Details
+                </p>
+                <div>
+                  <div className="d-flex align-items-start gap-5 pb-2">
+                    <p className="fw-500 mb-0">Type:</p>
+                    <p className="mb-0">Card</p>
+                  </div>
+                  <div className="d-flex align-items-start gap-4">
+                    <p className="fw-500 mb-0">Status:</p>
+                    <p className="mb-0 ps-3">Paid</p>
+                    <button
+                      style={{
+                        color: "#584EE0",
+                        fontSize: "0.875rem",
+                        backgroundColor: "#EDECFF",
+                        border: "none",
+                        padding: "4px 1.2rem",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      Set Paid
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className="col-md-4">
-          <div className="card">
-            <div className="card-body">
+          <div className="card p-2">
+            <div className="card-body p-4">
               <div className="d-flex align-items-center gap-3 mb-4">
-              <div className="d-flex gap-3">
-                  <FaGears size={25} />
+                <div className="d-flex gap-3">
+                  <TbTruckDelivery size={28} />
                   <p className="fw-500 fb-fs-18 mb-0">Delivery Type</p>
                 </div>
               </div>
-              <div className="mt-4">
-                <p className="fw-500 text-mid-gray mb-0">Payment Details</p>
-                <ul>
-                  <li>Type: POS</li>
-                </ul>
+              <div className="mt-4 pt-2">
+                <div className="d-flex align-items-start gap-5">
+                  <p className="fw-500 mb-0">Type:</p>
+                  <p className="mb-0">Card</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className="col-md-4">
-          <div className="card">
-            <div className="card-body">
+          <div className="card p-2">
+            <div className="card-body p-4">
               <div className="d-flex align-items-center gap-3 mb-4">
                 <div className="d-flex gap-3">
                   <FaGears size={25} />

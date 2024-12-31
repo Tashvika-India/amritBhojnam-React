@@ -170,12 +170,19 @@
 .aqua-button{
   background-color: #D2F2F4 !important;
   border-radius: 7px;
-  padding: 13px 1.2rem;
+  padding: 12px 1.2rem;
   border: 1px solid #D2F2F4 !important;
   color: black;
   display: flex;
   align-items: center;
   gap: 1.2rem;
+}
+.light-aqua-button{
+  background-color: #D4EDF4 !important;
+  border-radius: 7px;
+  padding: 13px 1.2rem;
+  border: 1px solid #D4EDF4 !important;
+  color: #54B7D3;
 }
 .back-home {
   border: 1px solid $orange !important;
@@ -267,7 +274,12 @@
     }
   }
 }
-
+.Track-stepper .css-ifbt3e-MuiStepLabel-root{
+  padding: 0 !important;
+}
+.Track-stepper .css-18ltxn-MuiStepConnector-line{
+  min-height: 3.75rem !important;
+}
 .p-tabview .p-tabview-nav {
   border: none;
 }
@@ -451,7 +463,7 @@ footer {
   height: 1.3rem;
 }
 .p-slider-horizontal .p-slider-handle {
-  top: 32%;
+  top: 37%;
 }
 .max-border {
   border: 1px solid $border;

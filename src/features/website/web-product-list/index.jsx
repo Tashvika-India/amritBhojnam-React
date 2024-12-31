@@ -146,7 +146,7 @@ const ProudctList = () => {
                     max={5000} // Set maximum range value
                   />
                   <div className="row mt-4">
-                    <div className="col-5 pe-0">
+                    <div className="col-5 pe-0" style={{width: "36%"}}>
                       <div className="max-border">
                         <p className="ms-2 fw-300">
                           Min:
@@ -165,7 +165,7 @@ const ProudctList = () => {
                     <div className="col-2 text-center">
                       <FiMinus size={40} color={"#918E92"} />
                     </div>
-                    <div className="col-5 ps-0">
+                    <div className="col-5 ps-0" style={{width: "47%"}}>
                       <div className="max-border">
                         <p className="ms-2 fw-300">
                           Max:

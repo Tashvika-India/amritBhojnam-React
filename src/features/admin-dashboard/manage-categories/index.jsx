@@ -91,7 +91,6 @@ function ManageCategories() {
           <div className="card-body">
           <div className="d-flex justify-content-between align-items-center my-3">
               <div className="col-md-4">
-                <div>
                   <div className="mb-3">
                     <TabsButtons
                       activeTab={activeTab}
@@ -99,8 +98,7 @@ function ManageCategories() {
                       labelOne={"Active"}
                       labelTwo={"Inactive"}
                     />
-                  </div>
-                </div>
+                  </div>    
               </div>
               <div className="col-md-3 ms-auto text-end">
                 <InputText
