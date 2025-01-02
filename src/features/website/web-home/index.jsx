@@ -336,7 +336,7 @@ const HomePage = () => {
       {/* <section>
         <div className="container fb-container">
           <h3 className="fw-bold text-center mb-5">Super Saver of the Week</h3>
-          <ItemSlide />
+          <ItemSlide healthyBitesProducts={healthyBitesProducts}/>
         </div>
       </section> */}
       <section className="banner-ads mt-5">
