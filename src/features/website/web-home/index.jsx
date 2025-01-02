@@ -83,7 +83,7 @@ const HomePage = () => {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3 ps-2">
-                        <p className="text-white fb-fs-24">Beyond Business,</p>
+                        <p className="text-white fb-fs-24 beyond-class">Beyond Business,</p>
                         <p className="text-white fb-fs-28 fw-bold lh-1">
                           Backing Farmers
                         </p>
