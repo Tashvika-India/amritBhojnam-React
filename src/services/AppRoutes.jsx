@@ -45,6 +45,7 @@ import Admin404 from "../notfound/Admin404";
 import AdminOrderDetail from "../features/admin-dashboard/manage-orders/order-detail";
 import AdminOrderInvoice from "../features/admin-dashboard/manage-orders/order-invoice";
 import AllOrderDetail from "../features/admin-dashboard/manage-orders/order-detail/orders";
+import AdminPrivateRoute from "./AdminPrivateRoute";
 function AppRoutes() {
   return (
     <Routes>
@@ -52,209 +53,209 @@ function AppRoutes() {
         exact
         path="/admin/dashboard"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <DashboardHome />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/category"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ManageCategories />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/sub-category"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ManageSubCategories />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/product"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ProductList />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/add-product"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ProductAdd />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/add-roles"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <AddRoles />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/edit-product"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ProductAdd />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/roles"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <Roles />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/product-option"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ProductOption />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/product/product-reviews/:id"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ProductReviews />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/banner"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ManageBanner />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/coupons"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <AdminCoupon />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/add-coupon"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <AddCoupon />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/edit-coupon/:id"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <AddCoupon />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/contact"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ManageContact />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/orders"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <AdminOrders />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/order-detail/"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
-              <AdminOrderDetail/>
+              <AdminOrderDetail />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/order-detail/:id"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <AllOrderDetail />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/order-invoice/:id"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <AdminOrderInvoice />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
@@ -272,55 +273,55 @@ function AppRoutes() {
         exact
         path="admin/nutrition"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ManageNutrition />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="admin/nutrition-value"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ManageNutritionValue />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/returns-refunds"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ReturnRefund />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/customers"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <AdminCustomer />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
         exact
         path="/admin/employees"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ManageEmployees />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
@@ -334,14 +335,19 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
+      <Route exact path="/admin/add-roles" element={<AddRoles />} />
+
       <Route path="/admin/*" element={<Admin404 />} />
       <Route exact path="/admin/login" element={<LoginPage />} />
+
+
+
+      {/* web routes */}
+
       <Route path="*" element={<Web404 />} />
       <Route exact path="/" element={<HomePage />} />
       <Route exact path="/products" element={<ProudctList />} />
       <Route exact path="/product-detail" element={<ProudctDetail />} />
-      <Route exact path="/profile" element={<UserProfile />} />
-      <Route exact path="/checkout" element={<CheckoutPage />} />
       <Route exact path="/contact-us" element={<ContactUs />} />
       <Route exact path="/about-us" element={<AboutUs />} />
       <Route exact path="/wishlist" element={<Wishlist />} />
@@ -349,9 +355,61 @@ function AppRoutes() {
       <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route exact path="/refund-policy" element={<RefundPolicy />} />
       <Route exact path="/shiping-policy" element={<ShipingPolicy />} />
-      <Route exact path="/payment-success" element={<PaymentSuccess />} />
-      <Route exact path="/payment-failed" element={<PaymentFailed />} />
-      <Route exact path="/admin/add-roles" element={<AddRoles />} />
+      <Route
+        exact
+        path="/payment-success"
+        element={
+          <PrivateRoute> 
+              <PaymentSuccess /> 
+          </PrivateRoute>
+        }
+      />
+      <Route
+        exact
+        path="/payment-failed"
+        element={
+          <PrivateRoute> 
+              <PaymentFailed /> 
+          </PrivateRoute>
+        }
+      />
+      <Route
+        exact
+        path="/profile"
+        element={
+          <PrivateRoute> 
+              <UserProfile /> 
+          </PrivateRoute>
+        }
+      />
+      <Route
+        exact
+        path="/profile"
+        element={
+          <PrivateRoute> 
+              <UserProfile /> 
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        exact
+        path="/checkout"
+        element={
+          <PrivateRoute>
+           
+              <CheckoutPage /> 
+          </PrivateRoute> 
+        }
+      />
+
+      {/* <Route exact path="/payment-success" element={<PaymentSuccess />} /> */}
+
+      {/* <Route exact path="/payment-failed" element={<PaymentFailed />} /> */}
+
+      {/* <Route exact path="/profile" element={<UserProfile />} /> */}
+
+      {/* <Route exact path="/checkout" element={<CheckoutPage />} /> */}
 
     </Routes>
   );

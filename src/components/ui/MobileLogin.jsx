@@ -79,9 +79,21 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
       const data = await verifyOtpApi(payload);
       const accessToken = data?.data?.access;
       const refreshToken = data?.data?.refresh;
+
+        // Decode token payload (Base64)
+        const tokenParts = accessToken.split(".");
+        const getTokenData = JSON.parse(atob(tokenParts[1])); 
+
+        const isAdmin = getTokenData?.is_admin; 
+
+        console.log("Admin Status:", isAdmin);
+        console.log("data Status:", getTokenData);
+        
+
       if (accessToken && refreshToken) {
         localStorage.setItem("access", accessToken);
         localStorage.setItem("refresh", refreshToken);
+        localStorage.setItem("admin", isAdmin); 
         window.location.reload(true);
         onOtpClose();
       }

@@ -57,6 +57,10 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
     setTimeout(() => {
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
+      localStorage.removeItem("admin");
+
+      localStorage.clear();
+
       setLoading(false);
       navigate("/admin/login");
     }, 1000);
