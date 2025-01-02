@@ -262,11 +262,11 @@ function AppRoutes() {
         exact
         path="/admin/report"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <ManageReport />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
       <Route
@@ -328,14 +328,24 @@ function AppRoutes() {
         exact
         path="/admin/add-employee"
         element={
-          <PrivateRoute>
+          <AdminPrivateRoute>
             <DashboardSidebar>
               <EmployeeAdd />
             </DashboardSidebar>
-          </PrivateRoute>
+          </AdminPrivateRoute>
         }
       />
-      <Route exact path="/admin/add-roles" element={<AddRoles />} />
+      <Route
+        exact
+        path="/admin/add-roles"
+        element={
+          <AdminPrivateRoute>
+            <DashboardSidebar>
+              <AddRoles />
+            </DashboardSidebar>
+          </AdminPrivateRoute>
+        }
+      /> 
 
       <Route path="/admin/*" element={<Admin404 />} />
       <Route exact path="/admin/login" element={<LoginPage />} />
