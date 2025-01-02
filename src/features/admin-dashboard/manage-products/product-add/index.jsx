@@ -430,7 +430,7 @@ const ProductAdd = () => {
                     )
                   }
                 >
-                  <div className="">Delicious</div>
+                  <div className="">Healthy & Tasty</div>
                   <div>
                     <IosSwitch
                       checked={formik.values.is_delicious}

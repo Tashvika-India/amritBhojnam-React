@@ -1035,7 +1035,17 @@ footer {
 
 // responsive styles
 
-@media (min-width: 1440px) and (max-width: 1600px) {
+@media (min-width: 1440px) and (max-width: 1800px) {
+  .fb-fs-24{
+    font-size: 1.25rem !important;
+  }
+  .fb-fs-28{
+    font-size: 1.5rem !important;
+  }
+  .con-ban{
+    padding-top: 0 !important;
+    font-size: 0.8125rem !important;
+  }
 }
 
 @media (min-width: 1400px) {
@@ -1071,6 +1081,7 @@ footer {
   .contact-us .container {
     margin-bottom: 0 !important;
   }
+  
   .contact-us .orange-section {
     padding: 2.7rem 2.6rem !important;
   }
@@ -1221,6 +1232,7 @@ footer {
   .product-detail-slider .product-detail-image {
     height: 100%;
   }
+  
   .fb-fs-40 {
     font-size: 1.8rem !important;
   }
@@ -1393,7 +1405,9 @@ footer {
   .web-wrapper-main .fb-fs-40 {
     font-size: 2rem;
   }
-
+ .beyond-class{
+  color: red;
+ }
   .offer-cards {
     .protein-left {
       .left-content {

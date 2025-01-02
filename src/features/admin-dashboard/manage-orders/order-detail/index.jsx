@@ -12,8 +12,8 @@ import { Checkbox } from "primereact/checkbox";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Timeline } from "primereact/timeline";
-import { BsFillHandbagFill } from "react-icons/bs";
-import { FaGears, FaRoute } from "react-icons/fa6";
+import { BsBoxFill, BsFillHandbagFill } from "react-icons/bs";
+import { FaGears, FaLocationDot, FaRoute } from "react-icons/fa6";
 import { ImPrinter } from "react-icons/im";
 import { Avatar } from "primereact/avatar";
 import { FaUser } from "react-icons/fa6";
@@ -21,16 +21,16 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { FaPhoneAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { getOrderAdminApi } from "../../../../services/adminApiRoutes";
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import StepConnector from '@mui/material/StepConnector';
-import Typography from '@mui/material/Typography';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import { styled } from '@mui/material/styles';
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import StepConnector from "@mui/material/StepConnector";
+import Typography from "@mui/material/Typography";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import { styled } from "@mui/material/styles";
 
 const AdminOrderDetail = () => {
   const { id } = useParams();
@@ -107,36 +107,36 @@ const AdminOrderDetail = () => {
 
   const steps = [
     {
-      label: 'Accepted',
-      description: '10 Aug, 2024 - 07:00 PM',
+      label: "Accepted",
+      description: "10 Aug, 2024 - 07:00 PM",
     },
     {
-      label: 'In Progress',
-      description: '11 Aug, 2024 - 09:00 AM',
+      label: "In Progress",
+      description: "11 Aug, 2024 - 09:00 AM",
     },
     {
-      label: 'Completed',
-      description: '12 Aug, 2024 - 05:30 PM',
+      label: "Completed",
+      description: "12 Aug, 2024 - 05:30 PM",
     },
   ];
 
   const CustomConnector = styled(StepConnector)(({ theme }) => ({
-    '& .MuiStepConnector-line': {
-      borderColor: theme.palette.mode === 'light' ? 'gray' : 'gray',
+    "& .MuiStepConnector-line": {
+      borderColor: theme.palette.mode === "light" ? "gray" : "gray",
       borderWidth: 3,
       borderRadius: 1,
     },
   }));
-  
+
   // Custom Step Icon Component
   const StepIcon = ({ active, completed }) => {
     if (completed) {
-      return <CheckCircleIcon sx={{ color: '#4BAE4F' }} />;
+      return <CheckCircleIcon sx={{ color: "#4BAE4F" }} />;
     }
     if (active) {
-      return <RadioButtonCheckedIcon sx={{ color: '#4BAE4F' }} />;
+      return <RadioButtonCheckedIcon sx={{ color: "#4BAE4F" }} />;
     }
-    return <RadioButtonUncheckedIcon sx={{ color: 'gray' }} />;
+    return <RadioButtonUncheckedIcon sx={{ color: "gray" }} />;
   };
 
   const [activeStep, setActiveStep] = React.useState(1);
@@ -201,68 +201,75 @@ const AdminOrderDetail = () => {
               </div>
               <div className="text-start Track-stepper pt-4">
                 <Box sx={{ maxWidth: 400 }}>
-      <Stepper
-        activeStep={activeStep}
-        orientation="vertical"
-        connector={<CustomConnector />}
-      >
-        {steps.map((step, index) => (
-          <Step key={step.label}>
-            <StepLabel
-              StepIconComponent={(props) => (
-                <StepIcon
-                  active={props.active}
-                  completed={props.completed}
-                />
-              )}
-            >
-              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                {step.label}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                {step.description}
-              </Typography>
-            </StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
-        <button
-          onClick={() =>
-            setActiveStep((prevStep) =>
-              prevStep > 0 ? prevStep - 1 : prevStep
-            )
-          }
-          disabled={activeStep === 0}
-          style={{
-            padding: '10px 15px',
-            border: '1px solid gray',
-            borderRadius: '5px',
-            backgroundColor: activeStep === 0 ? 'lightgray' : 'white',
-            cursor: activeStep === 0 ? 'not-allowed' : 'pointer',
-          }}
-        >
-          Back
-        </button>
-        <button
-          onClick={() =>
-            setActiveStep((prevStep) =>
-              prevStep < steps.length - 1 ? prevStep + 1 : prevStep
-            )
-          }
-          style={{
-            padding: '10px 15px',
-            border: 'none',
-            borderRadius: '5px',
-            backgroundColor: 'green',
-            color: 'white',
-            cursor: 'pointer',
-          }}
-        >
-          {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-        </button>
-      </Box>
-    </Box>
+                  <Stepper
+                    activeStep={activeStep}
+                    orientation="vertical"
+                    connector={<CustomConnector />}
+                  >
+                    {steps.map((step, index) => (
+                      <Step key={step.label}>
+                        <StepLabel
+                          StepIconComponent={(props) => (
+                            <StepIcon
+                              active={props.active}
+                              completed={props.completed}
+                            />
+                          )}
+                        >
+                          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                            {step.label}
+                          </Typography>
+                          <Typography variant="body2" color="textSecondary">
+                            {step.description}
+                          </Typography>
+                        </StepLabel>
+                      </Step>
+                    ))}
+                  </Stepper>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      mt: 3,
+                    }}
+                  >
+                    <button
+                      onClick={() =>
+                        setActiveStep((prevStep) =>
+                          prevStep > 0 ? prevStep - 1 : prevStep
+                        )
+                      }
+                      disabled={activeStep === 0}
+                      style={{
+                        padding: "10px 15px",
+                        border: "1px solid gray",
+                        borderRadius: "5px",
+                        backgroundColor:
+                          activeStep === 0 ? "lightgray" : "white",
+                        cursor: activeStep === 0 ? "not-allowed" : "pointer",
+                      }}
+                    >
+                      Back
+                    </button>
+                    <button
+                      onClick={() =>
+                        setActiveStep((prevStep) =>
+                          prevStep < steps.length - 1 ? prevStep + 1 : prevStep
+                        )
+                      }
+                      style={{
+                        padding: "10px 15px",
+                        border: "none",
+                        borderRadius: "5px",
+                        backgroundColor: "green",
+                        color: "white",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                    </button>
+                  </Box>
+                </Box>
               </div>
             </div>
           </div>
@@ -341,6 +348,34 @@ const AdminOrderDetail = () => {
               </div>
             </div>
           </div>
+          <div className="card p-2 mt-4">
+            <div className="card-body p-4">
+              <div className="d-flex align-items-center gap-3 mb-4">
+                <div className="d-flex gap-3">
+                  <BsBoxFill size={22} />
+                  <p className="fw-500 fb-fs-18 mb-0">
+                    Package Dimension & Weight
+                  </p>
+                </div>
+              </div>
+              <div className="d-flex gap-5 mt-5">
+                <p className="fw-500">Length</p>
+                <p className="">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30 Cm</p>
+              </div>
+              <div className="d-flex gap-4">
+                <p className="fw-500">Breadth</p>
+                <p className="ps-3">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 Cm</p>
+              </div>
+              <div className="d-flex gap-5">
+                <p className="fw-500">Height</p>
+                <p className="">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 Cm</p>
+              </div>
+              <div className="d-flex gap-5">
+                <p className="fw-500">Weight</p>
+                <p className="">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 Kg</p>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="col-md-4">
           <div className="card p-2">
@@ -370,6 +405,103 @@ const AdminOrderDetail = () => {
                 </div>
               </div>
               <div className="mt-4"></div>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-4"></div>
+        <div className="col-md-8">
+          <div className="card p-2 mt-4">
+            <div className="card-body p-4">
+              <div className="d-flex align-items-center gap-3 mb-4">
+                <div className="d-flex gap-3">
+                  <FaLocationDot size={23} />
+                  <p className="fw-500 fb-fs-18 mb-0">Address Details</p>
+                </div>
+              </div>
+              <div className="d-flex mt-4 pt-3">
+                <div className="w-50">
+                  <p className="fw-600 mb-0">Delivery Address</p>
+                  <div className="mt-4">
+                    <div className="d-flex align-items-start">
+                      <p className="fw-500 mb-0 w-25">Name</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Rahul Singh</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">Address</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Rahul Singh</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">Address Line 2</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Rahul Singh</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">City</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Delhi</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">Pin Code</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;110080</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">State</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;India</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">Country</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;India</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">Phone</p>
+                      <p className="mb-0 ps-4" style={{color: "#584EE0"}}>:&nbsp;&nbsp;&nbsp;&nbsp;+91 1234567890</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">Email</p>
+                      <p className="mb-0 ps-4" style={{color: "#584EE0"}}>:&nbsp;&nbsp;&nbsp;&nbsp;rahul.sharma@example.com</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-50">
+                  <p className="fw-600 mb-0">Shipping Address</p>
+                  <div className="mt-4">
+                    <div className="d-flex align-items-start">
+                      <p className="fw-500 mb-0 w-25">Name</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Rahul Singh</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">Address</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Rahul Singh</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">Address Line 2</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Rahul Singh</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">City</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Delhi</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">Pin Code</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;110080</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">State</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;India</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">Country</p>
+                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;India</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">Phone</p>
+                      <p className="mb-0 ps-4" style={{color: "#584EE0"}}>:&nbsp;&nbsp;&nbsp;&nbsp;+91 1234567890</p>
+                    </div>
+                    <div className="d-flex align-items-start pt-2">
+                      <p className="fw-500 mb-0 w-25">Email</p>
+                      <p className="mb-0 ps-4" style={{color: "#584EE0"}}>:&nbsp;&nbsp;&nbsp;&nbsp;rahul.sharma@example.com</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
