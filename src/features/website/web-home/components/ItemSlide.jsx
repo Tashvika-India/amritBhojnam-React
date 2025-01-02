@@ -4,8 +4,9 @@ import item from "../../../../assets/images/web/slide-product.png";
 import saveImg from "../../../../assets/images/web/save-image.png";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { Margin } from "@mui/icons-material";
+import ProductCard from "./ProductCard";
 
-const ItemSlide = () => {
+const ItemSlide = ({healthyBitesProducts}) => {
   const settings = {
     dots: false,
     infinite: false,
@@ -17,30 +18,36 @@ const ItemSlide = () => {
     arrows: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    centerMode: false, // Enables padding around slides
+    centerPadding: "20px", // Adjust spacing between slides
     responsive: [
       {
-        breakpoint: 1024, // For mid-sized screens (tablets, etc.)
+        breakpoint: 1024,
         settings: {
-          slidesToShow: 3, // Show 3 items
+          slidesToShow: 3,
+          centerPadding: "15px", // Adjust spacing for mid-sized screens
         },
       },
       {
-        breakpoint: 768, // For mobile screens
+        breakpoint: 768,
         settings: {
-          slidesToShow: 2, // Show 2 items 
+          slidesToShow: 2,
+          centerPadding: "10px", // Adjust spacing for mobile
         },
       },
       {
-        breakpoint: 480, // For very small screens
+        breakpoint: 480,
         settings: {
-          slidesToShow: 1, // Show 1 item
+          slidesToShow: 1,
+          centerPadding: "5px", // Adjust spacing for small screens
         },
       },
     ],
   };
+
   return (
     <>
-      <Slider {...settings} className="item-slider">
+      {/* <Slider {...settings} className="item-slider">
         <div className="item-slide px-2 px-lg-0">
           <div
             className="cat-itmes bg-orange p-4 gap-0 mx-0 mx-lg-2"
@@ -188,6 +195,13 @@ const ItemSlide = () => {
             </div>
           </div>
         </div>
+      </Slider> */}
+      <Slider {...settings} className="item-slider">
+        {
+          healthyBitesProducts?.slice(0, 10).map((item, index) => (
+            <ProductCard product={item} key={index} />
+          ))
+        }
       </Slider>
     </>
   );

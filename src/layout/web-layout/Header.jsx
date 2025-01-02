@@ -185,7 +185,7 @@ const Header = () => {
                         onClick={toggleWebLogin}
                       >
                         <FaRegUser size={"1.625rem"} />
-                        <span className="d-inline-block fb-fs-14 fw-600">
+                        <span className="d-inline-block fb-fs-14 fw-500">
                           Login
                         </span>
                       </button>
@@ -197,7 +197,7 @@ const Header = () => {
                     className="d-inline-flex flex-column justify-content-center align-items-center"
                   >
                     <FaRegHeart size={"1.625rem"} />
-                    <span className="d-inline-block fb-fs-14 fw-600">
+                    <span className="d-inline-block fb-fs-14 fw-500">
                       Wishlist
                     </span>
                   </Link>
@@ -215,7 +215,7 @@ const Header = () => {
                           </span>
                           <CgShoppingBag size={"1.625rem"} />
                         </div>
-                        <span className="d-inline-block fb-fs-14 fw-600">
+                        <span className="d-inline-block fb-fs-14 fw-500">
                           My Cart
                         </span>
                       </button>
@@ -230,7 +230,7 @@ const Header = () => {
                           </span>
                           <CgShoppingBag size={"1.625rem"} />
                         </div>
-                        <span className="d-inline-block fb-fs-14 fw-600">
+                        <span className="d-inline-block fb-fs-14 fw-500">
                           My Cart
                         </span>
                       </button>
