@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"; 
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getBestPriceApi, getPopularProducts, getProductApi } from "../../services/adminApiRoutes";
+
 // Async thunk to fetch product list
 export const fetchProductList = createAsyncThunk(
     "product/fetchProductList",
@@ -14,41 +15,16 @@ export const fetchProductList = createAsyncThunk(
     }
 );
 
-// Async thunk to fetch popular products
-export const fetchPopularProducts = createAsyncThunk(
-    "product/fetchPopularProducts",
-    async (_, { rejectWithValue }) => {
-        try {
-            const response = await getPopularProducts();
-            return response?.data?.results || [];
-        } catch (error) {
-            console.error("Error fetching popular products:", error);
-            return rejectWithValue(error.message);
-        }
-    }
-);
-
-// Async thunk to fetch best price products
-export const fetchBestPriceProducts = createAsyncThunk(
-    "product/fetchBestPriceProducts",
-    async (_, { rejectWithValue }) => {
-        try {
-            const response = await getBestPriceApi();
-            return Array.isArray(response?.data) ? response.data : [];
-        } catch (error) {
-            console.error("Error fetching best price products:", error);
-            return rejectWithValue(error.message);
-        }
-    }
-);
-
 // Slice for managing product list state
 const productSlice = createSlice({
     name: "product",
     initialState: {
         productList: [],
-        popularProducts: [],  
-        bestPriceProducts: [],  
+        popularProducts: [],
+        bestPriceProducts: [],
+        bestChoiceProducts: [],
+        deliciousProducts: [],
+        healthyBitesProducts: [],
         loading: false,
         error: null,
     },
@@ -57,6 +33,9 @@ const productSlice = createSlice({
             state.productList = [];
             state.popularProducts = [];
             state.bestPriceProducts = [];
+            state.bestChoiceProducts = [];
+            state.deliciousProducts = [];
+            state.healthyBitesProducts = [];
         },
     },
     extraReducers: (builder) => {
@@ -69,34 +48,13 @@ const productSlice = createSlice({
             .addCase(fetchProductList.fulfilled, (state, action) => {
                 state.loading = false;
                 state.productList = action.payload;
+                state.popularProducts = action.payload.filter(item => item.is_manually_popular);
+                state.bestPriceProducts = action.payload.filter(item => item.is_best_price);
+                state.bestChoiceProducts = action.payload.filter(item => item.is_manually_best_choice);
+                state.deliciousProducts = action.payload.filter(item => item.is_delicious);
+                state.healthyBitesProducts = action.payload.filter(item => item.is_healthy_bites);
             })
             .addCase(fetchProductList.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload;
-            })
-            // Popular Products
-            .addCase(fetchPopularProducts.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(fetchPopularProducts.fulfilled, (state, action) => {
-                state.loading = false;
-                state.popularProducts = action.payload;
-            })
-            .addCase(fetchPopularProducts.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload;
-            })
-            // Best Price Products
-            .addCase(fetchBestPriceProducts.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(fetchBestPriceProducts.fulfilled, (state, action) => {
-                state.loading = false;
-                state.bestPriceProducts = action.payload;
-            })
-            .addCase(fetchBestPriceProducts.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
