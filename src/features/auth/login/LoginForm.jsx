@@ -22,11 +22,11 @@ function LoginForm() {
     initialValues,
     validationSchema: loginSchema,
     onSubmit: async (submitValues) => {
-      setLoading(true);   
+      setLoading(true);
       try {
         await loginUser(submitValues);
       } finally {
-        setLoading(false);  
+        setLoading(false);
       }
     },
   });
@@ -41,17 +41,20 @@ function LoginForm() {
       const accessToken = response?.data?.access;
       const refreshToken = response?.data?.refresh;
 
-      if (accessToken && refreshToken) {
+      // Decode token payload (Base64)
+      const tokenParts = accessToken.split(".");
+      const payload = JSON.parse(atob(tokenParts[1]));
+
+      const isAdmin = payload?.is_admin;
+
+      if (accessToken && refreshToken && isAdmin) {
         // Store tokens in localStorage
         localStorage.setItem("access", accessToken);
-        localStorage.setItem("refresh", refreshToken);
-
-        // Decode token payload (Base64)
-        const tokenParts = accessToken.split(".");
-        const payload = JSON.parse(atob(tokenParts[1]));
+        localStorage.setItem("refresh", refreshToken); 
+        localStorage.setItem("admin", isAdmin); 
 
         // Navigate to dashboard if admin role
-        if (payload?.is_admin) {
+        if (isAdmin) {
           navigate("/admin/dashboard");
         } else {
           setErrorMessage("Access Denied: Not an admin user.");
@@ -81,11 +84,11 @@ function LoginForm() {
       <div className="mt-4">
         <PasswordInput formik={formik} name="password" ifError={ifError} />
       </div>
-      
+
       {errorMessage && (
         <p className="text-danger mt-2">{errorMessage}</p>
       )}
-      
+
       {/* <a className="text-orange text-end m-0 fw-600 d-block">
         Forgot Password?
       </a> */}

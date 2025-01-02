@@ -33,13 +33,13 @@ import useURLFilters from "../../../custom-compoents/useURLFilters";
 import ProductSlide from "./components/productSlide";
 import BestProduct from "./components/BestProduct"; 
 import { useDispatch, useSelector } from "react-redux";
-import { clearProductList, fetchBestPriceProducts, fetchPopularProducts, fetchProductList } from "../../../redux/slices/productSlice";
+import { clearProductList,fetchProductList } from "../../../redux/slices/productSlice";
 
 const HomePage = () => {  
   const [category, setCategory] = useState([]);
   const [filter, setFilter] = useURLFilters([]); 
   const dispatch = useDispatch();
-  const { productList,popularProducts,bestPriceProducts, error,loading } = useSelector((state) => state.product);
+  const { productList,popularProducts,bestPriceProducts,bestChoiceProducts,deliciousProducts,healthyBitesProducts, error,loading } = useSelector((state) => state.product);
 
   async function getCategory() { 
     try {
@@ -53,14 +53,17 @@ const HomePage = () => {
     }  
   }
 
+  console.log("Product List", productList);
+  console.log("popularProducts", popularProducts);
+  console.log("bestPriceProducts", bestPriceProducts);
+  
+
   useEffect(() => { 
     getCategory();
   }, []);
 
   useEffect(() => {
-    dispatch(fetchProductList(filter));
-    dispatch(fetchPopularProducts());
-    dispatch(fetchBestPriceProducts());
+    dispatch(fetchProductList(filter)); 
     return () => {dispatch(clearProductList())};
   }, [dispatch]);
 
@@ -193,7 +196,7 @@ const HomePage = () => {
                   {loading ? (
                     <Loading />
                   ) : (
-                    productList?.slice(0, 10).map((item, index) => (
+                    bestChoiceProducts?.slice(0, 10).map((item, index) => (
                       <ProductCard product={item} key={index} />
                     ))
                   )}

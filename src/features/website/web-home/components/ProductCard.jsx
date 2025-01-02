@@ -79,12 +79,11 @@ const ProductCard = ({ product }) => {
     else{
 
     }
-  };
- 
+  }; 
   
   return (
     <>
-      <Link to={`/product-detail?product_id=${product?.id}`} className={`${product?.stock === 0 ? "product-card-link" : ""}`}>
+      <Link to={`/product-detail?product_id=${product?.id}`} className={`${product?.stock <= 0 ? "product-card-link" : ""}`}>
         <div className="product-card border pb-3 d-flex flex-column justify-content-between bg-white">
           <div className="d-flex justify-content-between product-fav">
             <div>
@@ -133,16 +132,22 @@ const ProductCard = ({ product }) => {
                 }}
               >
                 {quantity === 0 ? (
-                  <button
-                    className="button-primary py-1 rounded fb-fs-14 fw-600"
-                    onClick={() => handleIncreaseQuantity(product?.id)}
-                  // disabled={loading}
-                  >
-                    Add
-                  </button>
+                  (login) ?  <button
+                  className="button-primary py-1 rounded fb-fs-14 fw-600"
+                  onClick={() => handleIncreaseQuantity(product?.id)}
+                // disabled={loading}
+                >
+                  Add
+                </button> : <button
+                  className="button-primary py-1 rounded fb-fs-14 fw-600"
+                  onClick={toggleWebLogin}
+                // disabled={loading}
+                >
+                  Add
+                </button>
                 ) : (
                   <div className="product-quantity text-end">
-                    <div className="quantity-manage">
+                    <div className="quantity-manage" style={{overflow: "hidden"}}>
                       <button
                         className="quantity-minus border-0 bg-white text-orange fw-600"
                         onClick={() => handleDecreaseQuantity(product?.id)}

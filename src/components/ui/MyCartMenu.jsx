@@ -9,7 +9,7 @@ import { fetchCart, fetchFinalCart, removeCart, updateCart } from "../../redux/s
 import { baseURL } from "../../utils/constant-variable";
 import { getProductApi } from "../../services/adminApiRoutes";
 import useURLFilters from "../../custom-compoents/useURLFilters";
-import { fetchBestPriceProducts, fetchPopularProducts, fetchProductList } from "../../redux/slices/productSlice";
+import { fetchProductList } from "../../redux/slices/productSlice";
 
 const MyCartMenu = ({ showCart, onCloseCart }) => {
   const dispatch = useDispatch();
@@ -87,7 +87,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                       <p className="item-weight mb-0 mt-1">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</p>
                     </div>
                     <div className="product-quantity text-end">
-                      <div className="quantity-manage mb-lg-3 mb-1">
+                      <div className="quantity-manage gap-1 mb-lg-3 mb-1" style={{overflow: "hidden"}}>
                         <button
                           className="quantity-minu d-inline-block border-0 bg-white text-orange fw-600"
                           onClick={() => handleDecreaseQuantity(item?.product.id, item?.item_quantity)}
