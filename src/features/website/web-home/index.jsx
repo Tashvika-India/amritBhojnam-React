@@ -53,11 +53,6 @@ const HomePage = () => {
     }  
   }
 
-  console.log("Product List", productList);
-  console.log("popularProducts", popularProducts);
-  console.log("bestPriceProducts", bestPriceProducts);
-  
-
   useEffect(() => { 
     getCategory();
   }, []);

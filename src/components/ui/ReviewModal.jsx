@@ -1,99 +1,117 @@
-import React, { useState } from 'react'
-import {
-    TextField,
-} from "@mui/material";
-// import milletIcon from "../../../assets/images/web/millet-icon.png"; 
+import React, { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { TextField } from "@mui/material";
 import { Dialog } from "primereact/dialog";
 import { Rating } from "primereact/rating";
-import { postRatingApi } from '../../services/adminApiRoutes'; 
-import { notifyError, notifySuccess } from './Notification';
+import { postRatingApi } from "../../services/adminApiRoutes";
+import { notifyError, notifySuccess } from "./Notification";
+import MultiImagesUploadWeb from "../fileUpload/MultiImagesUploadWeb ";
 
-const ReviewModal = ({ visible, setVisible, product_id }) => { 
+const ReviewModal = ({ visible, setVisible, data }) => {
 
-    const [loading, setLoading] = useState(false);
-    
-    const [reviewData, setReviewData] = useState({ 
-        rating: 0,
-        comment: "",
-    }) 
-    
-    const handleRatingChange = (e) => {
-        setReviewData({ ...reviewData, rating: e.value });
-    };
+    // Formik initialization
+    const formik = useFormik({
+        initialValues: {
+            rating: 0,
+            comment: "",
+            images: [],
+        },
+        validationSchema: Yup.object({
+            rating: Yup.number().min(1, "Rating is required").required("Rating is required"),
+            comment: Yup.string().required("Comment is required"),
+            images: Yup.array().of(Yup.mixed()), // Optional validation for images
+        }),
+        onSubmit: async (values, { resetForm }) => {
+            try {
+                await postRatingApi({ product_id: data?.id, ...values });
+                notifySuccess("Review Added Successfully");
+                resetForm();
+                setVisible(false);
+            } catch (error) {
+                console.log("Error submitting review:", error?.response?.data?.error);
+                notifyError(error?.response?.data?.error);
+            }
+        },
+    });
 
-    const handleCommentChange = (e) => {
-        setReviewData({ ...reviewData, comment: e.target.value });
-    };
-
-    const handleSubmit = async (e) => {
-         setLoading(true);
-        e.preventDefault();
-        try {
-            const payload = {
-                product_id: product_id,
-                rating: reviewData.rating,
-                comment: reviewData.comment,
-            };  
-            const response = await postRatingApi(payload); 
-            setVisible(false);
-            notifySuccess("Review Added Successfully");
-        } catch (error) {
-            console.error("Error submitting review:", error); 
-            notifyError("Failed to add Review!");
-        }
-        finally {
-            setLoading(false);
-        }
-    };
+    const { values, errors, touched, setFieldValue, handleSubmit, handleChange } = formik;
 
 
     return (
-        < >
-            <Dialog
-                header="Add Review"
-                visible={visible}
-                modal={false}
-                style={{ width: "50vw" }}
-                onHide={() => {
-                    if (!visible) return;
-                    setVisible(false);
-                }}
-            >
-                <form >
-                    <div className="d-flex gap-4 align-items-center">
-                        {/* <img style={{ border: "1px solid  #D6D6D6", padding: "8px", borderRadius: "1rem" }} src={milletIcon} /> */}
-                        <p className="fb-fs-20 fw-600 mb-0">Masala Millets (Veggie Masala)</p>
+        <Dialog header="Add Review" visible={visible} modal={false} style={{ width: "50vw", borderRadius: "1.25rem", overflow: "hidden" }} onHide={() => setVisible(false)}>
+            <form onSubmit={handleSubmit}>
+                <div className="px-3 pt-2">
+                    <div className="">
+                        <div className="d-flex justify-content-between gap-4 align-items-center mb-2">
+                            <div className="d-inline-flex align-items-center gap-3">
+                                <img style={{ border: "1px solid  #D6D6D6", padding: "8px", borderRadius: "1rem" }} src={data?.image} width={"80px"} height={"80px"} />
+                                <p className="fb-fs-20 fw-600 mb-0">{data?.name}</p>
+                            </div>
+                            <div className="">
+                                <h5 className="d-flex gap-2 align-items-center justify-content-end">Give Ratings :
+                                    <Rating
+                                        value={values.rating}
+                                        onChange={(e) => setFieldValue("rating", e.value)}
+                                        stars={5}
+                                        cancel={false}
+                                    />
+                                    {touched.rating && errors.rating && (
+                                        <span className="text-danger">{errors.rating}</span>
+                                    )}
+                                </h5>
+                            </div>
+                        </div>
                     </div>
-                    <div className="d-flex mb-4 mt-4 gap-4">
-                        <p className="fw-bold mb-0">Give Ratings</p>
-                        <Rating
-                            value={reviewData.rating}
-                            onChange={handleRatingChange}
-                            stars={5}
-                            cancel={false} 
+                </div>
+                <div className="px-3 pt-2">
+                    <div className="card-body">
+                        <h5 className="mb-4">Image</h5>
+                        <MultiImagesUploadWeb
+                            formik={formik}
+                            name="images"
+                        />
+                        {touched.images && errors.images && (
+                            <span className="text-danger">{errors.images}</span>
+                        )}
+                    </div>
+                </div>
+                <div className="mb-4 px-3 pt-2">
+                    <div className="card-body">
+                        <h5 className="mb-4">Write your review</h5>
+                        <TextField
+                            fullWidth
+                            multiline
+                            name="comment"
+                            placeholder="Write your detailed review here"
+                            rows={6}
+                            variant="outlined"
+                            value={values.comment}
+                            onChange={handleChange}
+                            error={touched.comment && Boolean(errors.comment)}
+                            helperText={touched.comment && errors.comment}
                         />
                     </div>
-                    <p className="fw-bold mb-0">Write your review</p>
-                    <TextField
-                        fullWidth
-                        multiline
-                        className="rounded-20 mt-3"
-                        id="review"
-                        placeholder="Write your detailed review here"
-                        name="comment"
-                        value={reviewData.comment}
-                        onChange={handleCommentChange}
-                        minRows={8}
-                        variant="outlined"
-                    />
-                    <div className="mt-5 text-end mb-3">
-                        <button className="button-primary-reverse me-4 px-5" type="button" onClick={() => setVisible(false)}>Cancel</button>
-                        <button className="success-primary-button" type="button" onClick={handleSubmit} disabled={loading}>{(loading) ? "loading..." : "Submit"}</button>
-                    </div>
-                </form>
-            </Dialog>
-        </>
-    )
-}
+                </div>
+                <div className="text-end mt-4">
+                    <button
+                        className="button-primary-reverse me-4 px-5"
+                        type="button"
+                        onClick={() => setVisible(false)}
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        className="success-primary-button"
+                        type="submit"
+                        disabled={formik.isSubmitting}
+                    >
+                        {formik.isSubmitting ? "Loading..." : "Submit"}
+                    </button>
+                </div>
+            </form>
+        </Dialog >
+    );
+};
 
-export default ReviewModal
+export default ReviewModal;

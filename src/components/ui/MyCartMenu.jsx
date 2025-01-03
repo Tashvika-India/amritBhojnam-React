@@ -10,13 +10,14 @@ import { baseURL } from "../../utils/constant-variable";
 import { getProductApi } from "../../services/adminApiRoutes";
 import useURLFilters from "../../custom-compoents/useURLFilters";
 import { fetchProductList } from "../../redux/slices/productSlice";
+import emptyCart from "../../assets/images/web/empty-cart.png";
 
 const MyCartMenu = ({ showCart, onCloseCart }) => {
   const dispatch = useDispatch();
   const [filters, setFilters] = useURLFilters();
-  const { cartItems, finalCart, cartId } = useSelector((state) => state.cart);  
+  const { cartItems, finalCart, cartId } = useSelector((state) => state.cart);
   const handleUpdateCart = (product_id, newQuantity) => {
-    dispatch(updateCart({ product_id, item_quantity: newQuantity })); 
+    dispatch(updateCart({ product_id, item_quantity: newQuantity }));
     dispatch(fetchProductList(filters));
   };
 
@@ -41,8 +42,8 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
 
   useEffect(() => {
     if (showCart) {
-      dispatch(fetchCart()); 
-    } 
+      dispatch(fetchCart());
+    }
   }, [showCart, dispatch]);
 
   useEffect(() => {
@@ -87,7 +88,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                       <p className="item-weight mb-0 mt-1">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</p>
                     </div>
                     <div className="product-quantity text-end">
-                      <div className="quantity-manage gap-1 mb-lg-3 mb-1" style={{overflow: "hidden"}}>
+                      <div className="quantity-manage gap-1 mb-lg-3 mb-1" style={{ overflow: "hidden" }}>
                         <button
                           className="quantity-minu d-inline-block border-0 bg-white text-orange fw-600"
                           onClick={() => handleDecreaseQuantity(item?.product.id, item?.item_quantity)}
@@ -114,36 +115,43 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                   </div>
                 ))
               ) : (
-                <div className="text-center py-4">
-                  <h4 className="text-muted pb-4">Your cart is empty!</h4>
-                  <Link className="button-primary fs-6 d-inline-block" to="/products">
-                    Browse Products
-                  </Link>
-                </div>
+                <>
+                  <div className="text-center py-4">
+                    <img src={emptyCart} alt="empty-cart" className="img-fluid mx-auto" />
+                    <h4 className="text-black">Your Cart is Empty!</h4>
+                    <p className="text-muted text-balance mb-4">Looks like you haven’t added anything to your cart yet</p>
+                    <Link className="button-primary fs-6 d-inline-block fw-normal" to="/products">
+                      Browse Products
+                    </Link>
+                  </div>
+                </>
               )}
             </div>
           </div>
-          <div
-            className="total-amount-wrapper p-3"
-            style={{ boxShadow: "0px -4px 30px 0px rgba(0, 0, 0, 0.07)" }}
-          >
-            <div className="d-flex justify-content-between ">
-              <div className="mb-3">
-                <h5>Total Amount:</h5>
-                <p className="text-black fw-normal mb-0 checkout-content">
-                  Taxes and shipping calculated at checkout
-                </p>
-              </div>
-              <div className="">
-                <h5 className="total-amount d-inline-block text-orange">
-                  {finalCart?.total ? `₹ ${finalCart.total}` : "₹0"}
-                </h5>
-              </div>
-            </div>
-            <Link to="/checkout" className="button-primary w-100 d-block text-center">
-              Checkout
-            </Link>
-          </div>
+          {
+            cartItems?.length > 0 && (
+              <>
+                <div
+                  className="total-amount-wrapper p-3" style={{ boxShadow: "0px -4px 30px 0px rgba(0, 0, 0, 0.07)" }}>
+                  <div className="d-flex justify-content-between ">
+                    <div className="mb-3">
+                      <h5>Total Amount:</h5>
+                      <p className="text-black fw-normal mb-0 checkout-content">
+                        Taxes and shipping calculated at checkout
+                      </p>
+                    </div>
+                    <div className="">
+                      <h5 className="total-amount d-inline-block text-orange">
+                        {finalCart?.total ? `₹ ${finalCart.total}` : "₹0"}
+                      </h5>
+                    </div>
+                  </div>
+                  <Link to="/checkout" className="button-primary w-100 d-block text-center">
+                    Checkout
+                  </Link>
+                </div>
+              </>
+            )} 
         </div>
       </Offcanvas.Body>
     </Offcanvas>

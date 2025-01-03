@@ -576,9 +576,9 @@ const ProudctDetail = () => {
                           <Nav.Link
                             as="button"
                             className="btn-tab me-0"
-                            eventKey="Reviews(12)"
+                            eventKey="Reviews"
                           >
-                            Reviews({(reviews?.length || 0)})
+                            Reviews({(reviews?.ratings_data?.length || 0)})
                           </Nav.Link>
                         </Nav.Item>
                       </Nav>
@@ -593,64 +593,76 @@ const ProudctDetail = () => {
                         <Tab.Pane eventKey="Additional Info">
                           Additional
                         </Tab.Pane>
-                        <Tab.Pane eventKey="Reviews(12)">
+                        <Tab.Pane eventKey="Reviews">
                           <div className="p-3 p-lg-4" id="reviews-wapper">
                             <div className="row">
-                              {loading ? (
-                                <Loading />
-                              ) : Array.isArray(reviews) && reviews.length > 0 ? (
-                                <>
-                                  {reviews.map((data) => (
-                                    <div className="col-12 mb-3" key={data?.id}>
-                                      <div className="d-inline-flex align-items-center gap-3">
-                                        <span className="d-inline-block">
-                                          <img
-                                            className="img-fluid border-orange"
-                                            src={
-                                              data?.user_img ? `${baseURL}/${data?.user_img}` : pp
-                                            }
-                                            alt="User Profile"
-                                            style={{
-                                              width: "4rem",
-                                              height: "4rem",
-                                              borderRadius: "50%",
-                                              aspectRatio: "1/1",
-                                            }}
-                                          />
-                                        </span>
-                                        <div className="d-inline-block">
-                                          <h6 className="fs-6 fw-bold">{data?.user_name || "Anonymous"}</h6>
+                              <div className="col-md-8">
+                                {loading ? (
+                                  <Loading />
+                                ) : reviews?.ratings_data?.length > 0 ? (
+                                  <>
+                                    {reviews?.ratings_data?.map((data) => (
+                                      <div className="col-12 mb-3" key={data?.id}>
+                                        <div className="d-inline-flex align-items-center gap-3">
                                           <span className="d-inline-block">
-                                            <Rating
-                                              value={data?.rating || 0}
-                                              readOnly
-                                              stars={5}
-                                              cancel={false}
+                                            <img
+                                              className="img-fluid border-orange"
+                                              src={
+                                                data?.user_img ? `${baseURL}/${data?.user_img}` : pp
+                                              }
+                                              alt="User Profile"
+                                              style={{
+                                                width: "4rem",
+                                                height: "4rem",
+                                                borderRadius: "50%",
+                                                aspectRatio: "1/1",
+                                              }}
                                             />
                                           </span>
+                                          <div className="d-inline-block">
+                                            <h6 className="fs-6 fw-bold">{data?.user_name || "Anonymous"}</h6>
+                                            <span className="d-inline-block">
+                                              <Rating
+                                                value={data?.rating || 0}
+                                                readOnly
+                                                stars={5}
+                                                cancel={false}
+                                              />
+                                            </span>
+                                          </div>
                                         </div>
+                                        <p className="mb-3">{data?.comment || "No comment provided."}</p>
+                                        <p className="mb-3 text-grey fw-500">
+                                          {data?.created_at
+                                            ? new Intl.DateTimeFormat("en-GB", {
+                                              day: "2-digit",
+                                              month: "short",
+                                              year: "numeric",
+                                            }).format(new Date(data.created_at))
+                                            : "Date not available"}
+                                        </p>
+                                        {
+                                          data?.images?.map((image, index) => (
+                                            <div className="d-inline-flex gap-3 flex-wrap align-items-center" key={index}>
+                                              <img src={image?.image} alt="review-img"  className="img-fluid border rounded" width={"80vw"} height={"100%"}/>
+                                            </div>
+                                          ))
+                                        }
                                       </div>
-                                      <p className="mb-3">{data?.comment || "No comment provided."}</p>
-                                      <p className="mb-3 text-grey fw-500">
-                                        {data?.created_at
-                                          ? new Intl.DateTimeFormat("en-GB", {
-                                            day: "2-digit",
-                                            month: "short",
-                                            year: "numeric",
-                                          }).format(new Date(data.created_at))
-                                          : "Date not available"}
-                                      </p>
-                                    </div>
-                                  ))}
-                                </>
-                              ) : (
-                                <div
-                                  className="align-content-center w-100"
-                                  style={{ height: "10dvh" }}
-                                >
-                                  <h3 className="text-center text-yellow fw-bold">No Reviews Found</h3>
-                                </div>
-                              )} 
+                                    ))}
+                                  </>
+                                ) : (
+                                  <div
+                                    className="align-content-center w-100"
+                                    style={{ height: "10dvh" }}
+                                  >
+                                    <h3 className="text-center text-yellow fw-bold">No Reviews Found</h3>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="col-md-4">
+
+                              </div>
                             </div>
                           </div>
                         </Tab.Pane>
