@@ -39,17 +39,17 @@ const ReviewModal = ({ visible, setVisible, data }) => {
 
 
     return (
-        <Dialog header="Add Review" visible={visible} modal={false} style={{ width: "50vw", borderRadius: "1.25rem", overflow: "hidden" }} onHide={() => setVisible(false)}>
+        <Dialog className="web-review-modal" header="Add Review" visible={visible} modal={false} style={{ minWidth: "50vw", borderRadius: "1.25rem", overflow: "hidden" }} onHide={() => setVisible(false)}>
             <form onSubmit={handleSubmit}>
-                <div className="px-3 pt-2">
+                <div className="px-lg-3 pt-2">
                     <div className="">
-                        <div className="d-flex justify-content-between gap-4 align-items-center mb-2">
+                        <div className="d-flex justify-content-between gap-2 gap-lg-4 align-items-center mb-2 flex-wrap">
                             <div className="d-inline-flex align-items-center gap-3">
                                 <img style={{ border: "1px solid  #D6D6D6", padding: "8px", borderRadius: "1rem" }} src={data?.image} width={"80px"} height={"80px"} />
-                                <p className="fb-fs-20 fw-600 mb-0">{data?.name}</p>
+                                <h6 className="fb-fs-20 fw-600 mb-0">{data?.name}</h6>
                             </div>
                             <div className="">
-                                <h5 className="d-flex gap-2 align-items-center justify-content-end">Give Ratings :
+                                <h5 className="d-flex gap-2 align-items-center justify-content-end mb-0">Give Ratings :
                                     <Rating
                                         value={values.rating}
                                         onChange={(e) => setFieldValue("rating", e.value)}
@@ -64,9 +64,9 @@ const ReviewModal = ({ visible, setVisible, data }) => {
                         </div>
                     </div>
                 </div>
-                <div className="px-3 pt-2">
+                <div className="px-lg-3 pt-lg-2">
                     <div className="card-body">
-                        <h5 className="mb-4">Image</h5>
+                        <h5 className="mb-2 mb-lg-4 ">Image</h5>
                         <MultiImagesUploadWeb
                             formik={formik}
                             name="images"
@@ -76,15 +76,15 @@ const ReviewModal = ({ visible, setVisible, data }) => {
                         )}
                     </div>
                 </div>
-                <div className="mb-4 px-3 pt-2">
+                <div className="mb-2 mb-lg-4 px-lg-3 pt-lg-2">
                     <div className="card-body">
-                        <h5 className="mb-4">Write your review</h5>
+                        <h5 className="mb-2 mb-lg-4">Write your review</h5>
                         <TextField
                             fullWidth
                             multiline
                             name="comment"
                             placeholder="Write your detailed review here"
-                            rows={6}
+                            rows={4}
                             variant="outlined"
                             value={values.comment}
                             onChange={handleChange}
@@ -93,9 +93,9 @@ const ReviewModal = ({ visible, setVisible, data }) => {
                         />
                     </div>
                 </div>
-                <div className="text-end mt-4">
+                <div className="text-end mt-4 d-flex justify-content-end align-items-center gap-3">
                     <button
-                        className="button-primary-reverse me-4 px-5"
+                        className="button-primary-reverse px-lg-5"
                         type="button"
                         onClick={() => setVisible(false)}
                     >

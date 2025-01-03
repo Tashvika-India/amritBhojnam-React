@@ -91,7 +91,7 @@ export default React.memo(function MultiImagesUploadWeb ({ formik, name, baseURL
           />
           <label
             htmlFor="image"
-            className={`multipule-image-uploader mb-4 ${dragActive ? "drag-active" : ""}`}
+            className={`multipule-image-uploader mb-3 mb-lg-4 ${dragActive ? "drag-active" : ""}`}
             onDragEnter={!isMobile ? handleDragEnter : null}
             onDragLeave={!isMobile ? handleDragLeave : null}
             onDrop={!isMobile ? handleDrop : null}
