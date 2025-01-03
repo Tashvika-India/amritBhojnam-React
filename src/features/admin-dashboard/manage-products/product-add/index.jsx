@@ -29,6 +29,7 @@ import * as Yup from "yup";
 import { baseURL } from "../../../../utils/constant-variable";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import { productSchema } from "../../../../schemas/product-schema";
+import {notifyError, notifySuccess} from "../../../../components/ui/Notification"
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Product name is required"),
@@ -101,6 +102,7 @@ const ProductAdd = () => {
       navigate("/admin/product");
       resetForm();
       setLoading(false);
+      notifySuccess("Product Added Successfully");
     } catch (error) {
       setLoading(false);
       notifyError("Failed to add product, please try again!");
@@ -114,6 +116,7 @@ const ProductAdd = () => {
       const response = await putProductApi(product?.id, values);
       resetForm();
       navigate("/admin/product");
+      notifySuccess("Product Updated Successfully");
       setLoading(false);
     } catch (error) {
       notifyError("Failed to update product, please try again!");
@@ -337,29 +340,29 @@ const ProductAdd = () => {
                     label="Quantity"
                   >
                     <MenuItem value=" ">&nbsp;</MenuItem>
-                    <MenuItem value="5">5 gm</MenuItem>
-                    <MenuItem value="10">10 gm</MenuItem>
-                    <MenuItem value="20">20 gm</MenuItem>
-                    <MenuItem value="25">25 gm</MenuItem>
-                    <MenuItem value="30">30 gm</MenuItem>
-                    <MenuItem value="50">50 gm</MenuItem>
-                    <MenuItem value="75">75 gm</MenuItem>
-                    <MenuItem value="100">100 gm</MenuItem>
-                    <MenuItem value="125">125 gm</MenuItem>
-                    <MenuItem value="150">150 gm</MenuItem>
-                    <MenuItem value="200">200 gm</MenuItem>
-                    <MenuItem value="250">250 gm</MenuItem>
-                    <MenuItem value="300">300 gm</MenuItem>
-                    <MenuItem value="350">350 gm</MenuItem>
-                    <MenuItem value="400">400 gm</MenuItem>
-                    <MenuItem value="500">500 gm</MenuItem>
-                    <MenuItem value="600">600 gm</MenuItem>
-                    <MenuItem value="750">750 gm</MenuItem>
-                    <MenuItem value="800">800 gm</MenuItem>
-                    <MenuItem value="900">900 gm</MenuItem>
-                    <MenuItem value="1000">1 kg</MenuItem>
-                    <MenuItem value="1500">1.5 kg</MenuItem>
-                    <MenuItem value="2000">2 kg</MenuItem>
+                    <MenuItem value="5 gm">5 gm</MenuItem>
+                    <MenuItem value="10 gm">10 gm</MenuItem>
+                    <MenuItem value="20 gm">20 gm</MenuItem>
+                    <MenuItem value="25 gm">25 gm</MenuItem>
+                    <MenuItem value="30 gm">30 gm</MenuItem>
+                    <MenuItem value="50 gm">50 gm</MenuItem>
+                    <MenuItem value="75 gm">75 gm</MenuItem>
+                    <MenuItem value="100 gm">100 gm</MenuItem>
+                    <MenuItem value="125 gm">125 gm</MenuItem>
+                    <MenuItem value="150 gm">150 gm</MenuItem>
+                    <MenuItem value="200 gm">200 gm</MenuItem>
+                    <MenuItem value="250 gm">250 gm</MenuItem>
+                    <MenuItem value="300 gm">300 gm</MenuItem>
+                    <MenuItem value="350 gm">350 gm</MenuItem>
+                    <MenuItem value="400 gm">400 gm</MenuItem>
+                    <MenuItem value="500 gm">500 gm</MenuItem>
+                    <MenuItem value="600 gm">600 gm</MenuItem>
+                    <MenuItem value="750 gm">750 gm</MenuItem>
+                    <MenuItem value="800 gm">800 gm</MenuItem>
+                    <MenuItem value="900 gm">900 gm</MenuItem>
+                    <MenuItem value="1000 gm">1 kg</MenuItem>
+                    <MenuItem value="1500 gm">1.5 kg</MenuItem>
+                    <MenuItem value="2000 gm">2 kg</MenuItem>
                   </Select>
                 </FormControl>
                 {ifError("quantity") && (

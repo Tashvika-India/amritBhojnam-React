@@ -9,6 +9,7 @@ import { MdDelete } from "react-icons/md";
 import { deleteProductApi } from "../../../../../services/adminApiRoutes";
 import { baseURL } from "../../../../../utils/constant-variable";
 import { RiPencilFill } from "react-icons/ri";
+import { notifyError, notifySuccess } from "../../../../../components/ui/Notification";
 
 function ProductTable({ products, getProductList }) {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -28,12 +29,13 @@ function ProductTable({ products, getProductList }) {
   const handleDelete = async () => {
     try {
       await deleteProductApi(currentProduct.id); // Use currentProduct directly
-      getProductList();
-      console.log("Record deleted successfully");
+      getProductList(); 
       hideDeleteModal();
+      notifySuccess("Product deleted successfully");
       // Optionally update your product list here (e.g., remove the deleted product from UI)
     } catch (error) {
       console.error("Error deleting product:", error);
+      notifyError("Error deleting product:",error);
     }
   };
 
