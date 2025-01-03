@@ -1399,6 +1399,16 @@ footer {
   .millets .millet-content {
     padding-left: 0rem !important;
   }
+
+  .profile-tabs {
+    button {
+      padding: 1rem 2rem 1rem;
+      font-size: 1rem;
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
@@ -1676,6 +1686,15 @@ footer {
       display: none;
     }
   }
+  .profile-tabs {
+    button {
+      padding: 1rem 1rem 1rem;
+      font-size: .9rem;
+      i {
+        font-size: 0.9rem;
+      }
+    }
+  }
   .popular-product .popularleft {
     margin-bottom: 1rem;
   }
@@ -1941,6 +1960,11 @@ footer {
       }
     }
   }
+  .web-review-modal{
+    .p-dialog-header{
+      padding: 1rem;
+    }
+  }
 }
 
 @media (max-width: 576px) {
@@ -1956,6 +1980,15 @@ footer {
   .logo {
     img {
       width: 6rem !important;
+    }
+  }
+  .web-review-modal{
+    .p-dialog-header{
+      padding: 1rem 1rem .5rem;
+      .p-dialog-title{
+        font-size: 1.125rem;
+        font-weight: 500;
+      }
     }
   }
   .web-wrapper-main {
