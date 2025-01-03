@@ -10,11 +10,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
-import { VscBellDot } from "react-icons/vsc";
-import harry from "@/assets/images/dashboard/harry.jpg";
-import ap from "@/assets/images/web/account/profile-picture.png"
 import { IoIosArrowDown } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Badge,
+  Divider,
+} from "@mui/material";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 const drawerWidth = 280;
 
@@ -39,81 +43,95 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 export default function DashboardHeader({ open, handleDrawerOpen }) {
-  const [loading, setLoading] = useState(false);
+  const [anchorElNotifications, setAnchorElNotifications] = useState(null);
+  const openNotificationsMenu = Boolean(anchorElNotifications);
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const openMenu = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleNotificationsClick = (event) => {
+    setAnchorElNotifications(event.currentTarget);
   };
 
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    setLoading(true);
-    setTimeout(() => {
-      localStorage.removeItem("access");
-      localStorage.removeItem("refresh");
-      localStorage.removeItem("admin");
-
-      localStorage.clear();
-
-      setLoading(false);
-      navigate("/admin/login");
-    }, 1000);
+  const handleNotificationsClose = () => {
+    setAnchorElNotifications(null);
   };
+
+  const notifications = [
+    { id: 1, text: "A Ticket Has Been Raised.", time: "3 months ago" },
+    { id: 2, text: "A Ticket Has Been Raised.", time: "3 months ago" },
+    { id: 3, text: "A Ticket Has Been Raised.", time: "3 months ago" },
+    { id: 4, text: "A Ticket Has Been Raised.", time: "3 months ago" },
+    { id: 5, text: "A Ticket Has Been Raised.", time: "3 months ago" },
+    { id: 6, text: "A Ticket Has Been Raised.", time: "3 months ago" },
+  ];
 
   return (
-    <>
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            AMRIT BHOJANAM
-          </Typography>
-          <Box sx={{ flexGrow: 1 }} />
-          <div className="d-flex me-1 align-items-center gap-1 pe-2">
-            {/* <div className="me-3">
-              <VscBellDot className="text-white bg-yellow p-2 rounded" size={43} />
-            </div> */}
-            <IconButton sx={{ p: 0 }}>
-              <Avatar alt="Avatar" src={ap} />
+    <AppBar position="fixed" open={open}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={handleDrawerOpen}
+          edge="start"
+          sx={{ mr: 2, ...(open && { display: "none" }) }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" noWrap component="div">
+          AMRIT BHOJANAM
+        </Typography>
+        <Box sx={{ flexGrow: 1 }} />
+        <div className="d-flex me-1 align-items-center gap-4 pe-2">
+          <div className="admin-header-notifications">
+            <IconButton onClick={handleNotificationsClick} color="inherit">
+              <Badge badgeContent={notifications.length} color="error">
+                <NotificationsIcon className="text-white bg-yellow fs-3 rounded"   />
+              </Badge>
             </IconButton>
-            <button  className="ms-1 cursor-pointer border-0 bg-transparent d-inline-flex align-items-center gap-2" onClick={handleClick}>
-              <div className="ms-1">
-                <span className="m-0 text-secondary">Admin</span>
-              </div>
-              <div className="d-flex gap-5">
-                <IoIosArrowDown color="#F26722" />
-              </div>
-            </button>
-          </div>
-        </Toolbar>
-      </AppBar>
+            {/* <div className="admin-header-notification"> */}
+            <Menu
+              anchorEl={anchorElNotifications}
+              open={openNotificationsMenu}
+              onClose={handleNotificationsClose}
+              PaperProps={{
+                style: { width: 300 },
+              }}
+            > 
 
-      <Menu
-        id="fade-menu"
-        MenuListProps={{ "aria-labelledby": "fade-button" }}
-        anchorEl={anchorEl}
-        open={openMenu}
-        onClose={handleClose}
-        TransitionComponent={Fade}
-      >
-        {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem> */}
-        <MenuItem onClick={handleLogout} disabled={loading}>{loading ? "Logging out..." : "Logout"}</MenuItem>
-      </Menu>
-    </>
+            {/* </div> */}
+              <Typography className="text-center" variant="h6" sx={{ padding: 1 }}>
+                Notifications
+              </Typography>
+              <Divider />
+              <List>
+                {notifications.map((notification) => (
+                  <ListItem key={notification.id} divider>
+                    <ListItemText
+                      primary={notification.text}
+                      secondary={notification.time}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+              <Divider />
+              <MenuItem  onClick={handleNotificationsClose}>
+                <Typography color="primary"  className="mx-auto">View More...</Typography>
+              </MenuItem>
+            </Menu>
+          </div>
+          <IconButton sx={{ p: 0 }}>
+            <Avatar alt="Avatar" src="your-avatar-url.png" />
+          </IconButton>
+          <button
+            className="ms-1 cursor-pointer border-0 bg-transparent d-inline-flex align-items-center gap-2"
+          >
+            <div className="ms-1">
+              <span className="m-0 text-secondary">Admin</span>
+            </div>
+            <div className="d-flex gap-5">
+              <IoIosArrowDown color="#F26722" />
+            </div>
+          </button>
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 }

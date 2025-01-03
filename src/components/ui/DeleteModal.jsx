@@ -16,7 +16,7 @@ const DeleteModal = ({ visible, onHide, onDelete }) => {
     <Dialog
       header="Delete Record"
       visible={visible}
-      style={{ width: '350px', borderRadius: '3rem' }}
+      style={{ width: '350px', borderRadius: '1rem',overflow: 'hidden' }}
       footer={renderFooter()}
       onHide={onHide}
     >

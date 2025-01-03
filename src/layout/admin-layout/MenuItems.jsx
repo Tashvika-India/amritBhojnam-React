@@ -143,8 +143,8 @@ function MenuItems() {
           {openSections.category ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         {renderCollapse("category", [
-          { path: "/admin/category", label: "Category" },
-          { path: "/admin/sub-category", label: "Sub Category" },
+          { path: "/admin/category", label: "Categories" },
+          { path: "/admin/sub-category", label: "Sub Categories" },
         ])}
         <Link
           to="/admin/product"
@@ -189,7 +189,7 @@ function MenuItems() {
           {openSections.orders ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         {renderCollapse("orders", [
-          { path: "/admin/orders", label: "Orders" },
+          { path: "/admin/orders", label: "Order List" },
         ])}
         <Link
           to="/admin/coupons"

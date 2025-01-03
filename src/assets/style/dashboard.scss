@@ -259,21 +259,21 @@ thead th {
     padding: 1rem !important;
   }
 
-  .css-1y2zrd1-MuiSvgIcon-root{
-    width: .75em !important;
+  .css-1y2zrd1-MuiSvgIcon-root {
+    width: 0.75em !important;
   }
 
   .css-11px2du-MuiTypography-root {
     font-weight: 500 !important;
   }
 
-  .MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListItemButton-root  {
+  .MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListItemButton-root {
     border-radius: 5px !important;
-    margin-bottom: 0.8rem !important; 
+    margin-bottom: 0.8rem !important;
   }
-  .MuiListItemIcon-root{
+  .MuiListItemIcon-root {
     color: #3b3b3b;
-  } 
+  }
 }
 
 /// Sidebar End //
@@ -281,13 +281,21 @@ thead th {
 /// Login Start ///
 .login-wrapper-conatiner {
   .left-section {
-    .login-main-logo{
+    .login-main-logo {
       width: 10rem;
     }
   }
-  .admin-login-image{
+  .admin-login-image {
     width: 90%;
     margin-inline: auto;
+  }
+}
+
+.admin-header-notifications {
+  .css-1u169s7-MuiList-root{
+    overflow-y: scroll !important;
+    height: 700px !important;
+    scrollbar-width: none;
   }
 }
 
@@ -309,7 +317,7 @@ thead th {
 }
 
 @media (min-width: 992px) and (max-width: 1400px) {
-  .login-wrapper-conatiner { 
+  .login-wrapper-conatiner {
     .left-section {
       h2 {
         font-size: 1.35rem;
