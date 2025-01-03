@@ -236,7 +236,7 @@ const ProudctDetail = () => {
   };
 
   const radios = [
-    { name: `${detail?.quantity}${detail?.quantity_unit}`, value: "1" },
+    { name: `${detail?.quantity}`, value: "1" },
   ];
 
   const fetchProductDetail = async () => {
