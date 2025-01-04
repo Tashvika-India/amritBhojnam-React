@@ -167,22 +167,22 @@
   border: 1px solid $orange !important;
   color: $white;
 }
-.aqua-button{
-  background-color: #D2F2F4 !important;
+.aqua-button {
+  background-color: #d2f2f4 !important;
   border-radius: 7px;
   padding: 12px 1.2rem;
-  border: 1px solid #D2F2F4 !important;
+  border: 1px solid #d2f2f4 !important;
   color: black;
   display: flex;
   align-items: center;
   gap: 1.2rem;
 }
-.light-aqua-button{
-  background-color: #D4EDF4 !important;
+.light-aqua-button {
+  background-color: #d4edf4 !important;
   border-radius: 7px;
   padding: 13px 1.2rem;
-  border: 1px solid #D4EDF4 !important;
-  color: #54B7D3;
+  border: 1px solid #d4edf4 !important;
+  color: #54b7d3;
 }
 .back-home {
   border: 1px solid $orange !important;
@@ -274,10 +274,10 @@
     }
   }
 }
-.Track-stepper .css-ifbt3e-MuiStepLabel-root{
+.Track-stepper .css-ifbt3e-MuiStepLabel-root {
   padding: 0 !important;
 }
-.Track-stepper .css-18ltxn-MuiStepConnector-line{
+.Track-stepper .css-18ltxn-MuiStepConnector-line {
   min-height: 3.75rem !important;
 }
 .p-tabview .p-tabview-nav {
@@ -652,7 +652,7 @@ footer {
   }
 }
 
-.otp-input{
+.otp-input {
   width: 3.5rem !important;
   height: 3.5rem !important;
 }
@@ -1036,13 +1036,13 @@ footer {
 // responsive styles
 
 @media (min-width: 1440px) and (max-width: 1800px) {
-  .fb-fs-24{
+  .fb-fs-24 {
     font-size: 1.25rem !important;
   }
-  .fb-fs-28{
+  .fb-fs-28 {
     font-size: 1.5rem !important;
   }
-  .con-ban{
+  .con-ban {
     padding-top: 0 !important;
     font-size: 0.8125rem !important;
   }
@@ -1081,7 +1081,7 @@ footer {
   .contact-us .container {
     margin-bottom: 0 !important;
   }
-  
+
   .contact-us .orange-section {
     padding: 2.7rem 2.6rem !important;
   }
@@ -1232,7 +1232,7 @@ footer {
   .product-detail-slider .product-detail-image {
     height: 100%;
   }
-  
+
   .fb-fs-40 {
     font-size: 1.8rem !important;
   }
@@ -1415,9 +1415,9 @@ footer {
   .web-wrapper-main .fb-fs-40 {
     font-size: 2rem;
   }
- .beyond-class{
-  color: red;
- }
+  .beyond-class {
+    color: red;
+  }
   .offer-cards {
     .protein-left {
       .left-content {
@@ -1689,7 +1689,7 @@ footer {
   .profile-tabs {
     button {
       padding: 1rem 1rem 1rem;
-      font-size: .9rem;
+      font-size: 0.9rem;
       i {
         font-size: 0.9rem;
       }
@@ -1960,19 +1960,19 @@ footer {
       }
     }
   }
-  .web-review-modal{
-    .p-dialog-header{
+  .web-review-modal {
+    .p-dialog-header {
       padding: 1rem;
     }
   }
 }
 
 @media (max-width: 576px) {
-  .otp-input{
+  .otp-input {
     width: 3rem !important;
     height: 3rem !important;
   }
-  
+
   .filter-heading {
     font-size: 1.12rem !important;
     font-weight: 500 !important;
@@ -1982,10 +1982,10 @@ footer {
       width: 6rem !important;
     }
   }
-  .web-review-modal{
-    .p-dialog-header{
-      padding: 1rem 1rem .5rem;
-      .p-dialog-title{
+  .web-review-modal {
+    .p-dialog-header {
+      padding: 1rem 1rem 0.5rem;
+      .p-dialog-title {
         font-size: 1.125rem;
         font-weight: 500;
       }
@@ -2175,12 +2175,35 @@ footer {
   .popular-product .popularleft img {
     margin-left: 0 !important;
   }
-  .cat-items-wrapper .cat-card .cat-itmes .item-image {
-    height: 9rem !important;
+  .cat-items-wrapper {
+    all: unset;
+    display: flex; /* Flex container */
+    gap: 1rem; /* Add spacing between items */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    scroll-snap-type: x mandatory; /* Smooth snapping */
+    padding-bottom: 1rem;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    .cat-card {
+      flex: 0 0 auto; /* Ensure items maintain their size */
+      width: calc(100% / 3 - 1rem); /* Adjust item width */
+      scroll-snap-align: center; /* Snap to center */
+      .cat-itmes {
+        .item-image {
+          height: 8rem;
+          img {
+            object-fit: fill;
+            width: 3.7rem;
+            aspect-ratio: 9/14;
+          }
+        }
+      }
+    }
   }
-  .cat-items-wrapper .cat-card .cat-itmes .item-image img {
-    aspect-ratio: 13/16;
+  .cat-items-wrapper::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
   }
+
   .contact-us .card .white-section {
     padding: 2.5rem 0.5625rem;
   }
@@ -2402,20 +2425,6 @@ footer {
     margin-left: 0.5rem !important;
     p {
       margin-bottom: 0rem !important;
-    }
-  }
-  .cat-items-wrapper {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    .cat-itmes {
-      .item-image {
-        height: 8rem;
-        img {
-          object-fit: fill;
-          width: 3.2rem;
-          aspect-ratio: 9/14;
-        }
-      }
     }
   }
 
