@@ -51,7 +51,7 @@ const HomePage = () => {
     } catch (error) {
       console.log("Error on Banner List", error);
     }  
-  }
+  } 
 
   useEffect(() => { 
     getCategory();

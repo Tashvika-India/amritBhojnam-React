@@ -25,24 +25,6 @@ const ProductSlide = ({ bestPriceProduct }) => {
           slidesToShow: 2, // Show 3 items
         },
       },
-      {
-        breakpoint: 1024, // For mid-sized screens (tablets, etc.)
-        settings: {
-          slidesToShow: 2, // Show 3 items
-        },
-      },
-      {
-        breakpoint: 768, // For mobile screens
-        settings: {
-          slidesToShow: 2, // Show 2 items
-        },
-      },
-      {
-        breakpoint: 480, // For very small screens
-        settings: {
-          slidesToShow: 1, // Show 1 item
-        },
-      },
     ],
   };
   return (
