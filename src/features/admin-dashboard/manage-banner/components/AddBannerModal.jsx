@@ -159,6 +159,7 @@ export default function AddBannerModal({ visible, setVisible, setBanner, getBann
                     onChange={formik.handleChange}
                     value={formik.values.platform}>
                     <MenuItem value="web">Web</MenuItem>
+                    <MenuItem value="webMobile">Web Mobile</MenuItem>
                     <MenuItem value="mobile">Mobile</MenuItem>
                   </Select>
                 </FormControl>

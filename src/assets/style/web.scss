@@ -121,7 +121,7 @@
   }
 
   section {
-    padding-block: 4rem;
+    padding-block: 4rem; 
   }
   .fb-pt-5 {
     padding-top: 5rem;
@@ -427,6 +427,7 @@ footer {
 }
 
 .popular-product {
+  scroll-margin-top: 11rem;
   .popularleft {
     img {
       margin-left: 2rem;
@@ -1679,7 +1680,7 @@ footer {
 
 @media (min-width: 576px) and (max-width: 768px) {
   .banner-slider img {
-    height: 21rem !important;
+    height: auto !important;
   }
   .payment-success h5 {
     br {
@@ -2099,7 +2100,7 @@ footer {
   }
   .banner-slider {
     img {
-      height: 10rem !important;
+      height: auto !important;
       width: 100% !important;
     }
   }

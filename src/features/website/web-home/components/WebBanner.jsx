@@ -7,7 +7,7 @@ import { baseURL } from "../../../../utils/constant-variable";
 import { Link } from "react-router-dom";
 const WebBanner = () => {
   const [banner, setBanner] = useState([]);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const settings = {
     dots: false,
@@ -26,9 +26,18 @@ const WebBanner = () => {
     setLoading(true);
     try {
       const response = await getBannerApi();
-      const filteredBanners = (response?.data || []).filter(
-        (item) => item.is_active === true && item.platform === "web"
-      ); 
+      let filteredBanners = [];
+      
+      if (window.innerWidth < 768) {
+        filteredBanners = (response?.data || []).filter(
+          (item) => item.is_active === true && item.platform === "webMobile"
+        );
+      } else {
+        filteredBanners = (response?.data || []).filter(
+          (item) => item.is_active === true && item.platform === "web"
+        );
+      }
+
       setBanner(filteredBanners);
     } catch (error) {
       console.log("Error on Banner List", error);
