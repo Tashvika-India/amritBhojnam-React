@@ -40,7 +40,7 @@ const BestProduct = ({ products }) => {
       {
         breakpoint: 480, // For very small screens
         settings: {
-          slidesToShow: 1, // Show 1 item
+          slidesToShow: 2, // Show 1 item
         },
       },
     ],
