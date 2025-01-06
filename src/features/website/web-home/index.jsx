@@ -31,17 +31,17 @@ import { motion } from "framer-motion";
 import { baseURL } from "../../../utils/constant-variable";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import ProductSlide from "./components/productSlide";
-import BestProduct from "./components/BestProduct"; 
+import BestProduct from "./components/BestProduct";
 import { useDispatch, useSelector } from "react-redux";
-import { clearProductList,fetchProductList } from "../../../redux/slices/productSlice";
+import { clearProductList, fetchProductList } from "../../../redux/slices/productSlice";
 
-const HomePage = () => {  
+const HomePage = () => {
   const [category, setCategory] = useState([]);
-  const [filter, setFilter] = useURLFilters([]); 
+  const [filter, setFilter] = useURLFilters([]);
   const dispatch = useDispatch();
-  const { productList,popularProducts,bestPriceProducts,bestChoiceProducts,deliciousProducts,healthyBitesProducts, error,loading } = useSelector((state) => state.product);
+  const { productList, popularProducts, bestPriceProducts, bestChoiceProducts, deliciousProducts, healthyBitesProducts, error, loading } = useSelector((state) => state.product);
 
-  async function getCategory() { 
+  async function getCategory() {
     try {
       const response = await getCategoriesApi();
       const filteredData = (response?.data || []).filter(
@@ -50,16 +50,16 @@ const HomePage = () => {
       setCategory(filteredData);
     } catch (error) {
       console.log("Error on Banner List", error);
-    }  
-  } 
+    }
+  }
 
-  useEffect(() => { 
+  useEffect(() => {
     getCategory();
   }, []);
 
   useEffect(() => {
-    dispatch(fetchProductList(filter)); 
-    return () => {dispatch(clearProductList())};
+    dispatch(fetchProductList(filter));
+    return () => { dispatch(clearProductList()) };
   }, [dispatch]);
 
   return (
@@ -97,9 +97,9 @@ const HomePage = () => {
               <div className="col-xl-4 col-lg-12 mb-3 mb-xl-0">
                 <div className="card-center mb-md-3">
                   <div className="row">
-                  <div className="col-md-6">
+                    <div className="col-md-6">
                       <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3  ps-2">
-                      <p className="text-white fb-fs-24">Wholesome Food,</p>
+                        <p className="text-white fb-fs-24">Wholesome Food,</p>
                         <p className="text-white fb-fs-28 fw-bold lh-1">
                           Fulfilling Life
                         </p>
@@ -117,9 +117,9 @@ const HomePage = () => {
               <div className="col-xl-4 col-lg-12 ">
                 <div className="card-right">
                   <div className="row">
-                  <div className="col-md-6">
+                    <div className="col-md-6">
                       <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3  ps-2">
-                      <p className="text-white fb-fs-24">Healthy Bites,</p>
+                        <p className="text-white fb-fs-24">Healthy Bites,</p>
                         <p className="text-white fb-fs-28 fw-bold lh-1">
                           Greener Future
                         </p>
@@ -181,11 +181,11 @@ const HomePage = () => {
                   className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
                   style={{
                     gridTemplateColumns:
-                    window.innerWidth > 992
-                    ? "repeat(5, 1fr)"
-                    : window.innerWidth > 768
-                    ? "repeat(3, 1fr)"
-                    : "repeat(2, 1fr)",
+                      window.innerWidth > 992
+                        ? "repeat(5, 1fr)"
+                        : window.innerWidth > 768
+                          ? "repeat(3, 1fr)"
+                          : "repeat(2, 1fr)",
                   }}
                 >
                   {loading ? (
@@ -235,7 +235,7 @@ const HomePage = () => {
                         alternative for those with gluten sensitivities
                       </p>
                     </div>
-                    <Link  to="/products" className="button-primary mt-0 m-lg-5 text-center d-inline-block">
+                    <Link to="/products" className="button-primary mt-0 m-lg-5 text-center d-inline-block">
                       Shop Now
                     </Link>
                   </div>
@@ -249,7 +249,7 @@ const HomePage = () => {
                         sugar levels, making them ideal.
                       </p>
                     </div>
-                    <Link  to="/products" className="button-primary  d-inline-block mt-0 m-lg-5 text-center">
+                    <Link to="/products" className="button-primary  d-inline-block mt-0 m-lg-5 text-center">
                       Shop Now
                     </Link>
                   </div>
@@ -274,53 +274,53 @@ const HomePage = () => {
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                  Discover the Power of Millets – Nutritious, Delicious, and Sustainable!
+                    Discover the Power of Millets – Nutritious, Delicious, and Sustainable!
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                  Shop Fresh, Organic Millet Products Delivered Right to Your Doorstep!
- 
+                    Shop Fresh, Organic Millet Products Delivered Right to Your Doorstep!
+
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                  Join the Millet Revolution – Healthy Living Starts Here!
+                    Join the Millet Revolution – Healthy Living Starts Here!
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                  Millets for Every Meal – Your Path to a Healthier Lifestyle!
- 
+                    Millets for Every Meal – Your Path to a Healthier Lifestyle!
+
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                  Discover the Power of Millets – Nutritious, Delicious, and Sustainable!
+                    Discover the Power of Millets – Nutritious, Delicious, and Sustainable!
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                  Shop Fresh, Organic Millet Products Delivered Right to Your Doorstep!
- 
+                    Shop Fresh, Organic Millet Products Delivered Right to Your Doorstep!
+
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                  Join the Millet Revolution – Healthy Living Starts Here!
+                    Join the Millet Revolution – Healthy Living Starts Here!
                   </span>
                 </span>
                 <span className="marquee-content fb-fs-18 fw-600 px-5 py-4 bg-background d-flex">
                   <img className="me-2 h-75 mt-1" src={astrick} alt="millet-rice" />
                   <span className="">
-                  Millets for Every Meal – Your Path to a Healthier Lifestyle!
- 
+                    Millets for Every Meal – Your Path to a Healthier Lifestyle!
+
                   </span>
                 </span>
               </div>
@@ -413,7 +413,9 @@ const HomePage = () => {
               </div>
             </div>
             <div className="col-md-7">
-              <ProductSlide bestPriceProduct={bestPriceProducts} />
+              {
+                loading ? <Loading /> : <ProductSlide bestPriceProduct={bestPriceProducts} />
+              }
             </div>
           </div>
         </div>
@@ -440,25 +442,25 @@ const HomePage = () => {
                   <h3>Amrit Bhojanam</h3>
                   <p className="mt-4">
                     Amrit Bhojanam started with a simple yet powerful discovery:
-                    the incredible benefits <br className="d-none d-lg-inline-block"/>
+                    the incredible benefits <br className="d-none d-lg-inline-block" />
                     of millet. Our founders, who are passionate about
-                    sustainable and nutritious food, <br className="d-none d-lg-inline-block"/>
+                    sustainable and nutritious food, <br className="d-none d-lg-inline-block" />
                     realized just how incredible this ancient grain is. Millet
-                    has been a staple in many <br className="d-none d-lg-inline-block"/>
+                    has been a staple in many <br className="d-none d-lg-inline-block" />
                     cultures for centuries, known for its nutritional value and
-                    ability to thrive in different <br className="d-none d-lg-inline-block"/>
+                    ability to thrive in different <br className="d-none d-lg-inline-block" />
                     climates. Seeing its potential to tackle today's health
-                    challenges, our founders set out <br className="d-none d-lg-inline-block"/>
+                    challenges, our founders set out <br className="d-none d-lg-inline-block" />
                     on a mission to bring millet back into modern diets and
                     highlight its many benefits.
                   </p>
                   <p className="mt-3">
                     With a lot of research and dedication, Amrit Bhojanam came
-                    to life. We’re here to make <br className="d-none d-lg-inline-block"/>
+                    to life. We’re here to make <br className="d-none d-lg-inline-block" />
                     millet accessible to everyone by offering a variety of
-                    delicious, millet-based products. <br className="d-none d-lg-inline-block"/>
+                    delicious, millet-based products. <br className="d-none d-lg-inline-block" />
                     We believe that a healthier lifestyle starts with mindful
-                    eating, and our products are <br className="d-none d-lg-inline-block"/>
+                    eating, and our products are <br className="d-none d-lg-inline-block" />
                     crafted to provide essential nutrients while also supporting
                     sustainable farming.
                   </p>
@@ -477,14 +479,16 @@ const HomePage = () => {
       />
       <section id="popular"
         className="best-product bg-semi-orange overflow-hidden"
-        
+
       >
         <div className="container-fluid">
           <div className="h-100">
             <h3 className="fw-bold mb-5 pb-2 text-center text-white">
               Our Trending Products
             </h3>
-            <BestProduct products={popularProducts} />
+            {
+              loading ? <Loading /> : <BestProduct products={bestPriceProducts} />
+            }
             <div className="mt-5 text-center">
               <Link
                 to="/products"
@@ -496,7 +500,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-     
+
       <img
         className="img-fluid w-100"
         style={{ marginTop: "-1px" }}
