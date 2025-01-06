@@ -2008,11 +2008,8 @@ footer {
     }
   }
   .product-quantity { 
-    .quantity-manage { 
-      width: fit-content; 
-      display: inline-flex; 
-      gap: 0.4rem;
-      padding: 0;
+    .quantity-manage {  
+      gap:0; 
     }
     .remove-quantity {
       font-size: 0.875rem;
