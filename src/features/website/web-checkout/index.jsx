@@ -289,7 +289,7 @@ const CheckoutPage = () => {
                               <p className="item-name  text-black fw-500 mb-0">
                                 {item?.product?.name}
                               </p>
-                              <small className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity} ${item?.product?.quantity_unit}`}</small>
+                              <small className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity}`}</small>
                               <h6 className="item-amount mt-2 fw-600">{`₹ ${Math.trunc(
                                 item?.price
                               )} X ${item?.item_quantity}`}</h6>

@@ -115,8 +115,7 @@ const ProductCard = ({ product }) => {
           <div className="px-3">
             <h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5>
             <h5 className="fb-fs-14 fw-600 text-grey">
-              {product?.quantity}
-              {product?.quantity_unit}
+              {product?.quantity} 
             </h5>
             <div className="d-flex justify-content-between align-items-end mt-3">
               <h6 className="fb-fs-20 fw-bold mb-0">
