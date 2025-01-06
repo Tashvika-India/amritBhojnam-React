@@ -2009,10 +2009,10 @@ footer {
   }
   .product-quantity { 
     .quantity-manage { 
-      width: 4.5rem; 
+      width: fit-content; 
       display: inline-flex; 
       gap: 0.4rem;
-      padding: 0.2rem;
+      padding: 0;
     }
     .remove-quantity {
       font-size: 0.875rem;

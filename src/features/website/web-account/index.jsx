@@ -603,7 +603,7 @@ const UserProfile = () => {
                                         <p className="mt-2">
                                           Size:
                                           <span className="fw-600">
-                                            {`${data?.product?.quantity}${data?.product?.quantity_unit}`}
+                                            {`${data?.product?.quantity}`}
                                           </span>
                                         </p>
                                       </div>
