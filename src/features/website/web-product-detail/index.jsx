@@ -32,6 +32,7 @@ import {
   notifySuccess,
 } from "../../../components/ui/Notification";
 import { Link } from "react-router-dom";
+import ImageGallery from "./components/ImageGallery";
 
 const ProudctDetail = () => {
   const [showCart, setShowCart] = useState(false);
@@ -643,9 +644,7 @@ const ProudctDetail = () => {
                                         </p>
                                         {
                                           data?.images?.map((image, index) => (
-                                            <div className="d-inline-flex gap-3 flex-wrap align-items-center" key={index}>
-                                              <img src={image?.image} alt="review-img"  className="img-fluid border rounded" width={"80vw"} height={"100%"}/>
-                                            </div>
+                                            <ImageGallery images={[image]} key={index}/>
                                           ))
                                         }
                                       </div>

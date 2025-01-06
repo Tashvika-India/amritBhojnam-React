@@ -340,6 +340,19 @@ footer {
   }
 }
 
+.modal-overlay {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 //contact-us page
 .contact-us {
   background-image: url("../images/web/contact-us-bg.png");
@@ -1992,6 +2005,17 @@ footer {
         font-size: 1.125rem;
         font-weight: 500;
       }
+    }
+  }
+  .product-quantity { 
+    .quantity-manage { 
+      width: 4.5rem; 
+      display: inline-flex; 
+      gap: 0.4rem;
+      padding: 0.2rem;
+    }
+    .remove-quantity {
+      font-size: 0.875rem;
     }
   }
   .web-wrapper-main {
