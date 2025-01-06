@@ -73,7 +73,7 @@
   }
 
   .fb-fs-20 {
-    font-size: 20px !important;
+    font-size: 1.25rem;
   }
   // Font Sizes for Special Classes
   .fb-fs-30 {
@@ -357,6 +357,19 @@ footer {
     right: 0;
     height: 100%;
     width: 13rem;
+  }
+}
+
+.modal-overlay {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -871,20 +884,42 @@ footer {
   color: $orange;
   .quantity-manage {
     border: 1px solid $orange;
-    width: 5rem;
+    width: 4.8rem;
     border-radius: 0.625rem;
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.6rem;
     padding: 0.2rem;
+    .quantity-minus,.quantity-count,.quantity-plus{
+      width: 30%;
+      padding: 0;
+      text-align: center;
+    }
   }
   .remove-quantity {
     font-size: 0.875rem;
   }
 }
 
-//download-section
+.cart-items{
+  .quantity-manage {
+    border: 1px solid $orange;
+    width: 100%;
+    border-radius: 0.625rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0 !important;
+    padding: 0.2rem 0;
+    .quantity-minus,.quantity-count,.quantity-plus{
+      width: 30%;
+      padding: 0;
+      text-align: center;
+    }
+  }
+}
+download-section
 
 .download-section {
   background: linear-gradient(180deg, #ffffff 0%, #fff6e8 50%, #ffffff 100%);
@@ -2001,6 +2036,13 @@ footer{
 }
 
 @media (max-width: 576px) {
+
+  .product-card{
+    h6{
+      font-size: 1rem !important;
+    }
+  }
+
   .otp-input {
     width: 3rem !important;
     height: 3rem !important;
@@ -2026,6 +2068,17 @@ footer{
       }
     }
   }
+  // .product-quantity { 
+  //   .quantity-manage {  
+  //     gap: 0 !important; 
+  //   }
+  //   .remove-quantity {
+  //     font-size: 0.875rem;
+  //   }
+  // }
+  // .cart-items .product-quantity .quantity-manage{
+  //   width: 100% !important; 
+  // }
   .web-wrapper-main {
     .fb-fs-26 {
       font-size: 1.4rem;
@@ -2055,6 +2108,9 @@ footer{
   }
   .user-profile-detail {
     margin-top: -2rem;
+  }
+  .item-name{
+    font-size: 0.88rem;
   }
   .item-weight {
     font-size: 0.82rem;

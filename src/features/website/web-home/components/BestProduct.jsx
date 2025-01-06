@@ -14,8 +14,8 @@ const BestProduct = ({ products }) => {
     slidesToShow: 6,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 1000,
-    arrows: false,
+    autoplaySpeed: 3000,
+    arrows: true,
     // nextArrow: <SampleNextArrow />,
     // prevArrow: <SamplePrevArrow />,
     responsive: [

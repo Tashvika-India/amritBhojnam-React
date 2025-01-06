@@ -50,10 +50,8 @@ const MobileMenu = ({ show, onClose, showMobileLogin, toggleMobileLogin, handleS
           <ul>
             <li className="border-bottom py-3"><Link to="/">Home </Link></li>
             <li className="border-bottom py-3"><Link to="/wishlist">Wishlist </Link></li>
-            <li className="border-bottom py-3"><Link to="/products">Products </Link></li>
-            <li className="border-bottom py-3"><Link to="/#best">Best deals </Link></li>
-            <li className="border-bottom py-3"><Link to="/#popular">Trending Products </Link></li>
-            <li className="border-bottom py-3"><Link to="/about-us">Trending Products </Link></li>
+            <li className="border-bottom py-3"><Link to="/products">Products </Link></li> 
+            <li className="border-bottom py-3"><Link to="/about-us">About Us </Link></li>
             <li className="border-bottom py-3"><Link to="/contact-us">Contact Us </Link></li>
           </ul>
         </div>

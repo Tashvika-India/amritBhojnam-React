@@ -84,7 +84,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                     </div>
                     <div className="product-details w-100 ms-3">
                       <p className="item-name text-black fw-500 mb-0">{item?.product?.name}</p>
-                      <p className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity} ${item?.product?.quantity_unit}`}</p>
+                      <p className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity}`}</p>
                       <p className="item-weight mb-0 mt-1">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</p>
                     </div>
                     <div className="product-quantity text-end">
