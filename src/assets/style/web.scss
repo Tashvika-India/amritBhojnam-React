@@ -2009,14 +2009,14 @@ footer {
   }
   .product-quantity { 
     .quantity-manage {  
-      gap:0; 
+      gap: 0 !important; 
     }
     .remove-quantity {
       font-size: 0.875rem;
     }
   }
   .cart-items .product-quantity .quantity-manage{
-    width: 5rem; 
+    width: 100% !important; 
   }
   .web-wrapper-main {
     .fb-fs-26 {
