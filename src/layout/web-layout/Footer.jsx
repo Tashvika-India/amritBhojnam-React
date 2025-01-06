@@ -7,16 +7,27 @@ import { Link } from "react-router-dom";
 import call from "../../assets/images/web/call.svg";
 import clock from "../../assets/images/web/clock.svg";
 import mail from "../../assets/images/web/mail.svg";
-import { getPopularProducts, postContactApi } from "../../services/adminApiRoutes";
+import {
+  getPopularProducts,
+  postContactApi,
+} from "../../services/adminApiRoutes";
 import MyCartMenu from "../../components/ui/MyCartMenu";
 import { useFormik } from "formik";
 import { notifyError, notifySuccess } from "../../components/ui/Notification";
+import Accordion from "@mui/material/Accordion";
+import AccordionActions from "@mui/material/AccordionActions";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Button from "@mui/material/Button";
+import AddIcon from '@mui/icons-material/Add';
 
 const Footer = () => {
   const [showCart, setShowCart] = useState(false);
   const [popularProduct, setPopularProduct] = useState([]);
   const currentYear = new Date().getFullYear();
-  const toggleCart = () => setShowCart(!showCart);;
+  const toggleCart = () => setShowCart(!showCart);
   async function getPopularProduct() {
     try {
       const response = await getPopularProducts();
@@ -25,7 +36,6 @@ const Footer = () => {
       throw error;
     }
   }
-
 
   const contact = useFormik({
     initialValues: {
@@ -83,15 +93,19 @@ const Footer = () => {
                   name="email"
                   value={contact.values.email}
                   onChange={contact.handleChange}
-                  onBlur={contact.handleBlur} />
+                  onBlur={contact.handleBlur}
+                />
                 <button
                   className="fb-fs-18 text-white fw-600 brown-button ms-4 mt-lg-5 mt-3"
-                  type="submit">
+                  type="submit"
+                >
                   Subscribe
                 </button>
               </form>
               {contact.touched.email && contact.errors.email && (
-                <div className="text-danger mt-2 text-start ms-2">{contact.errors.email}</div>
+                <div className="text-danger mt-2 text-start ms-2">
+                  {contact.errors.email}
+                </div>
               )}
             </div>
           </div>
@@ -115,21 +129,47 @@ const Footer = () => {
                       <span className="me-2">
                         <img src={call} alt="call" />
                       </span>
-                      <span className="text-orange fb-fs-18 d-inline-block" style={{ width: "5rem" }}>Call US :</span>
-                      <a href="tel:+917678320459" className="fb-fs-18" aria-label="Call +91 7678320459">+91 7678320459</a>
+                      <span
+                        className="text-orange fb-fs-18 d-inline-block"
+                        style={{ width: "5rem" }}
+                      >
+                        Call US :
+                      </span>
+                      <a
+                        href="tel:+917678320459"
+                        className="fb-fs-18"
+                        aria-label="Call +91 7678320459"
+                      >
+                        +91 7678320459
+                      </a>
                     </li>
                     <li className="d-flex align-items-center fw-500">
                       <span className="me-3">
                         <img src={mail} alt="email" />
                       </span>
-                      <span className="text-orange fb-fs-18 d-inline-block" style={{ width: "5rem" }}>Email : </span>
-                      <a href="mailto: info@amritbhojanam.com " className="fb-fs-18">info@amritbhojanam.com</a>
+                      <span
+                        className="text-orange fb-fs-18 d-inline-block"
+                        style={{ width: "5rem" }}
+                      >
+                        Email :{" "}
+                      </span>
+                      <a
+                        href="mailto: info@amritbhojanam.com "
+                        className="fb-fs-18"
+                      >
+                        info@amritbhojanam.com
+                      </a>
                     </li>
                     <li className="d-flex align-items-center fw-500">
                       <span className="me-3">
                         <img src={clock} alt="hours" />
                       </span>
-                      <span className="text-orange  fb-fs-18d-inline-block" style={{ width: "5rem" }}>Hours : </span>
+                      <span
+                        className="text-orange  fb-fs-18d-inline-block"
+                        style={{ width: "5rem" }}
+                      >
+                        Hours :{" "}
+                      </span>
                       <time className="fb-fs-18">10:00 - 18:00, Mon - Sat</time>
                     </li>
                   </ul>
@@ -149,7 +189,7 @@ const Footer = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-7 col-md-12">
+              <div className="col-lg-7 d-md-block d-none">
                 <div className="row pt-2">
                   <div className="col-md-4 col-6 mb-4">
                     <h5 className="text-orange">COMPANY</h5>
@@ -168,7 +208,7 @@ const Footer = () => {
                       </li>
                       <li>
                         <Link to="/refund-policy">Refund policy</Link>
-                      </li>  
+                      </li>
                       <li>
                         <Link to="/shiping-policy">Shiping policy</Link>
                       </li>
@@ -224,15 +264,108 @@ const Footer = () => {
                   <div className="col-md-4 col-12 mb-md-4 mb-0">
                     <h5 className="text-orange">POPULAR</h5>
                     <ul className="footer-links mt-lg-4 mt-0 pt-3 d-flex flex-column gap-md-3 gap-2">
-                      {
-                        popularProduct?.slice(0, 6).map((item, index) => (
-                          <li key={index}>
-                            <Link to={`/products/?name=${decodeURIComponent(item?.name)}`}>{item?.name}</Link>
-                          </li>
-                        ))
-                      }
+                      {popularProduct?.slice(0, 6).map((item, index) => (
+                        <li key={index}>
+                          <Link
+                            to={`/products/?name=${decodeURIComponent(
+                              item?.name
+                            )}`}
+                          >
+                            {item?.name}
+                          </Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
+                </div>
+              </div>
+              <div className="col-md-12 d-md-none d-block">
+                <div className="footer-accordian mb-5">
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<AddIcon style={{color: '#000000', fontWeight: 900}} />}
+                      aria-controls="panel1-content"
+                      id="panel1-header"
+                    >
+                      <Typography component="span" className="fb-fs-20 text-orange">COMPANY</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                    <ul className="footer-links d-flex flex-column gap-md-3 gap-2">
+                      <li>
+                        <Link to="/about-us">About Us</Link>
+                      </li>
+                      <li>
+                        <Link to="/privacy-policy">Privacy Policy</Link>
+                      </li>
+                      <li>
+                        <Link to="/term-conditions">Term & Conditions</Link>
+                      </li>
+                      <li>
+                        <Link to="/refund-policy">Refund policy</Link>
+                      </li>
+                      <li>
+                        <Link to="/shiping-policy">Shiping policy</Link>
+                      </li>
+                    </ul>
+                    </AccordionDetails>
+                  </Accordion>
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<AddIcon style={{color: '#000000', fontWeight: 900}} />}
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                    >
+                      <Typography component="span" className="fb-fs-20 text-orange">HELP & SUPPORT</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                    <ul className="footer-links d-flex flex-column gap-md-3 gap-2">
+                      <li>
+                        <a
+                          href="#"
+                          className="border-0 bg-transparent px-0 text-dark-grey"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            toggleCart();
+                          }}
+                        >
+                          View Cart
+                        </a>
+                      </li>
+                      <li>
+                        <Link to="/wishlist">Wishlist</Link>
+                      </li>
+                      <li>
+                        <Link to="/contact-us">Contact & Support</Link>
+                      </li>
+                    </ul>
+                    </AccordionDetails>
+                  </Accordion>
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<AddIcon style={{color: '#000000', fontWeight: 900}} />}
+                      aria-controls="panel3-content"
+                      id="panel3-header"
+                    >
+                      <Typography component="span" className="fb-fs-20 text-orange">
+                      POPULAR
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                    <ul className="footer-links d-flex flex-column gap-md-3 gap-2">
+                      {popularProduct?.slice(0, 6).map((item, index) => (
+                        <li key={index}>
+                          <Link
+                            to={`/products/?name=${decodeURIComponent(
+                              item?.name
+                            )}`}
+                          >
+                            {item?.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    </AccordionDetails>
+                  </Accordion>
                 </div>
               </div>
             </div>

@@ -205,6 +205,26 @@
   border-radius: 0.625rem;
   padding: 0.3125rem 0.75rem;
 }
+.footer-accordian{
+  .css-nt424e-MuiPaper-root-MuiAccordion-root{
+    background-color: transparent !important;
+    --Paper-shadow: none !important;
+    border: none !important;
+  }
+  .css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root{
+padding: 1.2rem 0.1rem;
+  }
+  .css-eqpfi5-MuiAccordionSummary-content{
+    margin: 0 !important;
+  }
+  .css-nt424e-MuiPaper-root-MuiAccordion-root::before {
+    background-color: transparent !important;
+  }
+  .css-11px2du-MuiTypography-root{
+    font-weight: 500 !important;
+  }
+}
+
 .underline-heading {
   position: relative;
   margin-bottom: 2rem;
@@ -578,6 +598,11 @@ footer {
   }
   .masala-con {
   }
+}
+
+.header-link-list .nav-item-link .active {
+  color: #ff0000; /* Example active color */
+  font-weight: bold;
 }
 
 .out-of-stock {
@@ -1435,7 +1460,16 @@ download-section
   .millets .millet-content {
     padding-left: 0rem !important;
   }
-
+footer{
+  .footer-upper{
+    height: auto !important;
+    padding-top: 40px !important;
+    background-position: center bottom;
+    background-size: 160%;
+    background-color: $semi-orange;
+    padding-bottom: 130px;
+  }
+}
   .profile-tabs {
     button {
       padding: 1rem 2rem 1rem;
@@ -1731,6 +1765,7 @@ download-section
       }
     }
   }
+  
   .popular-product .popularleft {
     margin-bottom: 1rem;
   }
@@ -1779,15 +1814,12 @@ download-section
   }
   footer {
     .footer-upper {
-      background-image: url(/src/assets/images/web/footer-upper-background.png);
-      background-repeat: no-repeat;
-      background-size: 150%;
-      width: 100% !important;
-      padding-top: 4rem !important;
-      background-position: bottom;
-      padding-bottom: 150px;
-      height: auto;
-      // height: 32rem !important;
+      height: auto !important;
+      padding-top: 40px !important;
+      background-position: center bottom;
+      background-size: 160%;
+      background-color: $semi-orange;
+      padding-bottom: 130px;
       form {
         margin-top: 2rem;
         button {
@@ -2213,7 +2245,12 @@ download-section
   }
   footer {
     .footer-upper {
-      height: 32rem !important;
+      height: auto !important;
+      padding-top: 40px !important;
+      background-position: center bottom;
+      background-size: 160%;
+      background-color: $semi-orange;
+      padding-bottom: 130px;
       form {
         margin-top: 2rem;
         button {
