@@ -877,6 +877,24 @@ footer {
   }
 }
 
+.cart-items{
+  .quantity-manage {
+    border: 1px solid $orange;
+    width: 100%;
+    border-radius: 0.625rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0 !important;
+    padding: 0.2rem 0;
+    .quantity-minus,.quantity-count,.quantity-plus{
+      width: 30%;
+      padding: 0;
+      text-align: center;
+    }
+  }
+}
+download-section
 
 .download-section {
   background: linear-gradient(180deg, #ffffff 0%, #fff6e8 50%, #ffffff 100%);
