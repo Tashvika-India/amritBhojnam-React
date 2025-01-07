@@ -280,7 +280,7 @@ function AppRoutes() {
           </AdminPrivateRoute>
         }
       />
-      <Route
+      {/* <Route
         exact
         path="admin/nutrition-value"
         element={
@@ -290,7 +290,7 @@ function AppRoutes() {
             </DashboardSidebar>
           </AdminPrivateRoute>
         }
-      />
+      /> */}
       <Route
         exact
         path="/admin/returns-refunds"

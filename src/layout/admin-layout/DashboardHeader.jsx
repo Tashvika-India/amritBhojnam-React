@@ -19,6 +19,7 @@ import {
   Divider,
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 280;
 
@@ -63,7 +64,35 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
     { id: 6, text: "A Ticket Has Been Raised.", time: "3 months ago" },
   ];
 
-  return (
+  const [loading, setLoading] = useState(false);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openMenu = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setLoading(true);
+    setTimeout(() => {
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
+      localStorage.removeItem("admin");
+
+      localStorage.clear();
+
+      setLoading(false);
+      navigate("/admin/login");
+    }, 1000);
+  };
+
+
+  return (<>
     <AppBar position="fixed" open={open}>
       <Toolbar>
         <IconButton
@@ -79,11 +108,11 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
           AMRIT BHOJANAM
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
-        <div className="d-flex me-1 align-items-center gap-4 pe-2">
-          <div className="admin-header-notifications">
+        <div className="d-flex me-1 align-items-center gap-1 pe-2">
+          <div className="admin-header-notifications me-2">
             <IconButton onClick={handleNotificationsClick} color="inherit">
               <Badge badgeContent={notifications.length} color="error">
-                <NotificationsIcon className="text-white bg-yellow fs-3 rounded"   />
+                <NotificationsIcon className="text-white bg-yellow fs-3 rounded" />
               </Badge>
             </IconButton>
             {/* <div className="admin-header-notification"> */}
@@ -94,9 +123,9 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
               PaperProps={{
                 style: { width: 300 },
               }}
-            > 
+            >
 
-            {/* </div> */}
+              {/* </div> */}
               <Typography className="text-center" variant="h6" sx={{ padding: 1 }}>
                 Notifications
               </Typography>
@@ -112,16 +141,16 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                 ))}
               </List>
               <Divider />
-              <MenuItem  onClick={handleNotificationsClose}>
-                <Typography color="primary"  className="mx-auto">View More...</Typography>
+              <MenuItem onClick={handleNotificationsClose}>
+                <Typography color="primary" className="mx-auto">View More...</Typography>
               </MenuItem>
             </Menu>
           </div>
           <IconButton sx={{ p: 0 }}>
             <Avatar alt="Avatar" src="your-avatar-url.png" />
           </IconButton>
-          <button
-            className="ms-1 cursor-pointer border-0 bg-transparent d-inline-flex align-items-center gap-2"
+          <button onClick={handleClick}
+            className="ps-0 cursor-pointer border-0 bg-transparent d-inline-flex align-items-center gap-2"
           >
             <div className="ms-1">
               <span className="m-0 text-secondary">Admin</span>
@@ -133,5 +162,19 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
         </div>
       </Toolbar>
     </AppBar>
+    <Menu
+      id="fade-menu"
+      MenuListProps={{ "aria-labelledby": "fade-button" }}
+      anchorEl={anchorEl}
+      open={openMenu}
+      onClose={handleClose}
+      TransitionComponent={Fade}
+    >
+      {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
+    <MenuItem onClick={handleClose}>My account</MenuItem> */}
+      <MenuItem onClick={handleLogout} disabled={loading}>{loading ? "Logging out..." : "Logout"}</MenuItem>
+    </Menu>
+  </>
+
   );
 }
