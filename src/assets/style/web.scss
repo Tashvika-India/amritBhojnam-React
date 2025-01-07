@@ -253,6 +253,13 @@ padding: 1.2rem 0.1rem;
     z-index: 1;
   }
 }
+.ready-cook{
+  background-image: url("../images/web/minutes-bg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+  height: 33rem;
+}
 .custom-checkbox .p-checkbox-box {
   border: none;
   box-shadow: none;
@@ -464,7 +471,7 @@ footer {
   .popularleft {
     img {
       margin-left: 2rem;
-      aspect-ratio: 26 / 16;
+      aspect-ratio: 26 / 17;
       width: fit-content;
     }
   }
@@ -843,7 +850,7 @@ footer {
   .content-sec {
     height: 100%;
     width: 100%;
-    padding: 4rem 13rem 3rem 8rem;
+    padding: 4rem 13rem 3rem 11rem;
   }
 }
 
@@ -1303,6 +1310,9 @@ download-section
   .thoughtful-content-bottom {
     font-size: 1rem !important;
   }
+  .amrit_bhojanam .millets .millet-content br{
+    display: none !important;
+  } 
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {

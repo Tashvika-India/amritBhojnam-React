@@ -71,7 +71,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
               </p>
               <ProgressBar variant="yellow" now={80} style={{ height: "5px" }} />
             </div> */}
-            <div className="mb-2 px-3" style={{ maxHeight: "70dvh", overflowY: "auto" }}>
+            <div className="mb-2 px-3" style={{ maxHeight: "100dvh", overflowY: "auto" }}>
               {cartItems?.length > 0 ? (
                 cartItems?.map((item) => (
                   <div className="cart-items mb-3" key={item?.product.id}>
