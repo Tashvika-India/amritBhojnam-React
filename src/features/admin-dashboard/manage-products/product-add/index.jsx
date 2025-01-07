@@ -19,6 +19,7 @@ import { getCategoriesApi } from "@/services/adminApiRoutes";
 import { useFormik } from "formik";
 import { productInitalValues } from "@/utils/form-inital-values/InitalValues";
 import {
+  getNutritionApi,
   getSubCategoriesApi,
   postProductApi,
   putProductApi,
@@ -29,7 +30,8 @@ import * as Yup from "yup";
 import { baseURL } from "../../../../utils/constant-variable";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import { productSchema } from "../../../../schemas/product-schema";
-import {notifyError, notifySuccess} from "../../../../components/ui/Notification"
+import { notifyError, notifySuccess } from "../../../../components/ui/Notification"
+import NutritionComponent from "../product-nutrition/NutritionComponent";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Product name is required"),
@@ -39,11 +41,13 @@ const ProductAdd = () => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
+  const [nutritionList, setNutritionList] = useState([]); 
   const location = useLocation();
   const ifError = (key) => errors[key] && touched[key];
   const product = location?.state;
   const isEditMode = !!product;
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
+
 
   const handleTagAdd = (event) => {
     if (event.key === "Enter" && event.target.value.trim() !== "") {
@@ -87,13 +91,15 @@ const ProductAdd = () => {
     onSubmit: async (values) => {
       isEditMode
         ? updateProduct({
-            ...values,
-            max_price: Number(formik.values.max_price),
-          })
+          ...values,
+          max_price: Number(formik.values.max_price),
+        })
         : addProduct({ ...values, discount: values.discount || 0 });
     },
   });
   const { values, resetForm, setValues, errors, touched } = formik;
+
+  console.log("values", values);
 
   async function addProduct(values) {
     try {
@@ -126,10 +132,31 @@ const ProductAdd = () => {
     }
   }
 
+
+  async function getNutrition() {
+    setLoading(true);
+    try {
+      const response = await getNutritionApi();
+      setNutritionList(response?.data || []);
+    } catch (error) {
+      console.log("Error on Nutrition List", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleNutritionChange = (data) => {
+    setFieldValue("nutritions[]", data);
+  };
+
+
   async function getCaterioes() {
     try {
       const response = await getCategoriesApi();
-      setCategories(response?.data || []);
+      const filteredData = (response?.data || []).filter(
+        (item) => item.is_active === true
+      );
+      setCategories(filteredData);
     } catch (error) {
       console.log("Error on Category List", error);
     }
@@ -138,15 +165,20 @@ const ProductAdd = () => {
   async function getSubCaterioes() {
     try {
       const response = await getSubCategoriesApi();
-      setSubCategories(response?.data || []);
+      const filteredSubData = (response?.data || []).filter(
+        (item) => item.is_active === true
+      );
+      setSubCategories(filteredSubData);
     } catch (error) {
       console.log("Error on Category List", error);
     }
   }
 
+
   useEffect(() => {
     getCaterioes();
     getSubCaterioes();
+    getNutrition();
     if (isEditMode) {
       setValues(product);
     }
@@ -266,7 +298,7 @@ const ProductAdd = () => {
                   <p className="text-danger">{errors.sub_category_id}</p>
                 )}
               </div>
-              {/* <div className="col-md-4 mb-4">
+              <div className="col-md-4 mb-4">
                 <TextField
                   type="date"
                   id="outlined-basic"
@@ -277,8 +309,8 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   fullWidth
                 />
-              </div> */}
-              {/* <div className="col-md-4 mb-4">
+              </div>
+              <div className="col-md-4 mb-4">
                 <TextField
                   id="outlined-basic"
                   label="Days"
@@ -288,7 +320,7 @@ const ProductAdd = () => {
                   variant="outlined"
                   fullWidth
                 />
-              </div> */}
+              </div>
               <div className="col-md-12 mb-4">
                 <Box mb={2}>
                   <TextField
@@ -326,54 +358,9 @@ const ProductAdd = () => {
             <h6 className="mb-4">Product Detail</h6>
             <div className="row">
               <div className="col-md-4 mb-4">
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Quantity
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    name="quantity"
-                    value={formik.values?.quantity}
-                    onChange={formik.handleChange}
-                    error={ifError("quantity")}
-                    label="Quantity"
-                  >
-                    <MenuItem value=" ">&nbsp;</MenuItem>
-                    <MenuItem value="5 gm">5 gm</MenuItem>
-                    <MenuItem value="10 gm">10 gm</MenuItem>
-                    <MenuItem value="20 gm">20 gm</MenuItem>
-                    <MenuItem value="25 gm">25 gm</MenuItem>
-                    <MenuItem value="30 gm">30 gm</MenuItem>
-                    <MenuItem value="50 gm">50 gm</MenuItem>
-                    <MenuItem value="75 gm">75 gm</MenuItem>
-                    <MenuItem value="100 gm">100 gm</MenuItem>
-                    <MenuItem value="125 gm">125 gm</MenuItem>
-                    <MenuItem value="150 gm">150 gm</MenuItem>
-                    <MenuItem value="200 gm">200 gm</MenuItem>
-                    <MenuItem value="250 gm">250 gm</MenuItem>
-                    <MenuItem value="300 gm">300 gm</MenuItem>
-                    <MenuItem value="350 gm">350 gm</MenuItem>
-                    <MenuItem value="400 gm">400 gm</MenuItem>
-                    <MenuItem value="500 gm">500 gm</MenuItem>
-                    <MenuItem value="600 gm">600 gm</MenuItem>
-                    <MenuItem value="750 gm">750 gm</MenuItem>
-                    <MenuItem value="800 gm">800 gm</MenuItem>
-                    <MenuItem value="900 gm">900 gm</MenuItem>
-                    <MenuItem value="1000 gm">1 kg</MenuItem>
-                    <MenuItem value="1500 gm">1.5 kg</MenuItem>
-                    <MenuItem value="2000 gm">2 kg</MenuItem>
-                  </Select>
-                </FormControl>
-                {ifError("quantity") && (
-                  <p className="text-danger">{errors.quantity}</p>
-                )}
-              </div>
-              <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${
-                    formik.values.is_manually_popular && "active"
-                  }`}
+                  className={`switch-container ${formik.values.is_manually_popular && "active"
+                    }`}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_manually_popular",
@@ -397,9 +384,8 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${
-                    formik.values.is_manually_best_choice && "active"
-                  }`}
+                  className={`switch-container ${formik.values.is_manually_best_choice && "active"
+                    }`}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_manually_best_choice",
@@ -423,9 +409,8 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${
-                    formik.values.is_delicious && "active"
-                  }`}
+                  className={`switch-container ${formik.values.is_delicious && "active"
+                    }`}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_delicious",
@@ -446,9 +431,8 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${
-                    formik.values.is_best_price && "active"
-                  }`}
+                  className={`switch-container ${formik.values.is_best_price && "active"
+                    }`}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_best_price",
@@ -469,9 +453,8 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${
-                    formik.values.is_healthy_bites && "active"
-                  }`}
+                  className={`switch-container ${formik.values.is_healthy_bites && "active"
+                    }`}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_healthy_bites",
@@ -510,6 +493,99 @@ const ProductAdd = () => {
                   fullWidth
                 />
               </div>
+            </div>
+          </div>
+        </div>
+        <div className="card mb-4 px-3 pt-2">
+          <div className="card-body">
+            <h6 className="mb-4">Package Dimensions & Weight</h6>
+            <div className="row">
+              <div className="col-md-3 mb-4">
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Weight
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    name="quantity"
+                    value={formik.values?.quantity}
+                    onChange={formik.handleChange}
+                    error={ifError("quantity")}
+                    label="Weight"
+                  >
+                    <MenuItem value=" ">&nbsp;</MenuItem>
+                    <MenuItem value="5 gm">5 gm</MenuItem>
+                    <MenuItem value="10 gm">10 gm</MenuItem>
+                    <MenuItem value="20 gm">20 gm</MenuItem>
+                    <MenuItem value="25 gm">25 gm</MenuItem>
+                    <MenuItem value="30 gm">30 gm</MenuItem>
+                    <MenuItem value="50 gm">50 gm</MenuItem>
+                    <MenuItem value="75 gm">75 gm</MenuItem>
+                    <MenuItem value="100 gm">100 gm</MenuItem>
+                    <MenuItem value="125 gm">125 gm</MenuItem>
+                    <MenuItem value="150 gm">150 gm</MenuItem>
+                    <MenuItem value="200 gm">200 gm</MenuItem>
+                    <MenuItem value="250 gm">250 gm</MenuItem>
+                    <MenuItem value="300 gm">300 gm</MenuItem>
+                    <MenuItem value="350 gm">350 gm</MenuItem>
+                    <MenuItem value="400 gm">400 gm</MenuItem>
+                    <MenuItem value="500 gm">500 gm</MenuItem>
+                    <MenuItem value="600 gm">600 gm</MenuItem>
+                    <MenuItem value="750 gm">750 gm</MenuItem>
+                    <MenuItem value="800 gm">800 gm</MenuItem>
+                    <MenuItem value="900 gm">900 gm</MenuItem>
+                    <MenuItem value="1000 gm">1 kg</MenuItem>
+                    <MenuItem value="1500 gm">1.5 kg</MenuItem>
+                    <MenuItem value="2000 gm">2 kg</MenuItem>
+                  </Select>
+                </FormControl>
+                {ifError("quantity") && (
+                  <p className="text-danger">{errors.quantity}</p>
+                )}
+              </div>
+              <div className="col-md-3 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Length (cm)"
+                  name="length"
+                  value={formik.values?.length}
+                  onChange={formik.handleChange}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-3 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Breadth (cm)"
+                  name="breadth"
+                  value={formik.values?.breadth}
+                  onChange={formik.handleChange}
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-3 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Height (cm)"
+                  variant="outlined"
+                  name="height"
+                  value={formik.values?.height}
+                  onChange={formik.handleChange}
+                  fullWidth
+                />
+              </div>
+              {/* <div className="col-md-3 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Weight"
+                  variant="outlined"
+                  fullWidth
+                />
+              </div> */}
+
             </div>
           </div>
         </div>
@@ -558,6 +634,18 @@ const ProductAdd = () => {
                   fullWidth
                 />
               </div>
+            </div>
+          </div>
+        </div>
+        <div className="card mb-4 px-3 pt-2">
+          <div className="card-body">
+            <h6 className="mb-4">Nutrition Details</h6>
+            
+            <div className="col-12">
+              <NutritionComponent
+                nutritionList={nutritionList}
+                formik={formik}
+              />
             </div>
           </div>
         </div>
@@ -624,48 +712,7 @@ const ProductAdd = () => {
           </div>
         </div>
 
-        <div className="card mb-4 px-3 pt-2">
-          <div className="card-body">
-            <h6 className="mb-4">Package Dimensions & Weight</h6>
-            <div className="row">
-              <div className="col-md-3 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Length"
-                  variant="outlined"
-                  fullWidth
-                />
-              </div>
-              <div className="col-md-3 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Breadth"
-                  variant="outlined"
-                  fullWidth
-                />
-              </div>
-              <div className="col-md-3 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Height"
-                  variant="outlined"
-                  fullWidth
-                />
-              </div>
-              <div className="col-md-3 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Weight"
-                  variant="outlined"
-                  fullWidth
-                />
-              </div>
-              
-            </div>
-          </div>
-        </div>
-
-        <div className="card mb-4 px-3 pt-2">
+        {/* <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <h6 className="mb-3">Options</h6>
             <div
@@ -774,9 +821,9 @@ const ProductAdd = () => {
               </div>
             </div>
           </div>
-        </div>
-        
-        <div className="card mb-4 px-3 pt-2">
+        </div> */}
+
+        {/* <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <h6 className="mb-3">Add Recipe</h6>
             <div
@@ -807,10 +854,10 @@ const ProductAdd = () => {
                 />
               </div>
               <div className="col-md-4 mb-4">
-              
+
               </div>
               <div className="col-md-8 mb-4">
-              <TextField
+                <TextField
                   id="outlined-basic"
                   label="Add Recipe Description"
                   name="Add Recipe Description"
@@ -821,11 +868,11 @@ const ProductAdd = () => {
                 />
               </div>
               <div className="col-md-4 mb-4">
-               
+
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
@@ -835,8 +882,8 @@ const ProductAdd = () => {
                   loading
                     ? "Updating..."
                     : isEditMode
-                    ? "Update Product"
-                    : "Add Product"
+                      ? "Update Product"
+                      : "Add Product"
                 }
                 handleClick={formik.handleSubmit}
                 disabled={loading}
