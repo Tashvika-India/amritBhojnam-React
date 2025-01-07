@@ -7,19 +7,20 @@ import { Margin } from "@mui/icons-material";
 import ProductCard from "./ProductCard";
 
 const ItemSlide = ({healthyBitesProducts}) => {
+  
   const settings = {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
     arrows: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
-    centerMode: false, // Enables padding around slides
-    centerPadding: "20px", // Adjust spacing between slides
+    // centerMode: false, // Enables padding around slides
+    // centerPadding: "20px", // Adjust spacing between slides
     responsive: [
       {
         breakpoint: 1024,

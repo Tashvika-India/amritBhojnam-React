@@ -3,11 +3,7 @@ import ProductCard from "../../web-home/components/ProductCard";
 import { getWishlist } from "../../../../services/adminApiRoutes";
 import { useSelector } from "react-redux";
 
-const WishList = () => {
-  const { wishlist=[], loading } = useSelector((state) => state.wishlist);
-
-
-  
+const WishList = ({ wishlist }) => {
   return (
     <>
       <div

@@ -4,11 +4,13 @@ import Footer from "../../../layout/web-layout/Footer";
 import WishList from "./components/wishlistProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWishlist } from "../../../redux/slices/wishlistSlice";
-
+import wishlistImage from "../../../assets/images/web/wishlist-empty.png";
+import { Link } from "react-router-dom";
 
 const Wishlist = () => {
-
   const dispatch = useDispatch();
+
+  const { wishlist=[], loading } = useSelector((state) => state.wishlist);
 
   useEffect(() => {
     dispatch(fetchWishlist());
@@ -26,8 +28,37 @@ const Wishlist = () => {
               </div>
             </div>
           </div>
-          <div className="row" >
-            <WishList />
+          <div></div>
+          <div className="row">
+          {
+            wishlist?.length > 0 ?
+            <div className="col-12">
+              <WishList wishlist={wishlist} />
+            </div>
+            :
+            <div className="mx-auto col-md-8 mt-5 pt-5 pt-md-0">
+              <img
+                className="img-fluid mx-auto mb-5"
+                src={wishlistImage}
+                alt="empty-wishlist"
+              />
+              <p className="fb-fs-40 fw-600 text-center">
+                Your wishlist is empty
+              </p>
+              <p className="fb-fs-20 text-center text-mid-grey py-4">
+                Your wishlist is empty. Start adding your favorite products to
+                keep track <br></br> of what you love!
+              </p>
+              <div className="text-center">
+                <Link
+                  to="/products"
+                  className="button-primary  d-inline-block mt-2 px-5 text-center"
+                >
+                  Shop Now
+                </Link>
+              </div>
+            </div>
+          }
           </div>
         </div>
       </section>
