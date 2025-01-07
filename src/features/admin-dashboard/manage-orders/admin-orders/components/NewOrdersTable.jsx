@@ -12,6 +12,40 @@ import { formatDateTime } from "../../../../../utils/constant-variable";
 import { Link } from "react-router-dom";
 const NewOrdersTable = ({ order }) => {
 
+  const getRandomColor = () => {
+    // Generate a random color in hex format
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+};
+
+const isGreyColor = (color) => {
+    // Check if the color is grey by comparing RGB values
+    const rgb = parseInt(color.slice(1), 16);
+    const r = (rgb >> 16) & 0xFF;
+    const g = (rgb >> 8) & 0xFF;
+    const b = rgb & 0xFF;
+    return r === g && g === b; // Check if all RGB components are equal
+};
+
+const lightenColor = (color, percent) => {
+    // Lighten the color by the given percentage
+    const rgb = parseInt(color.slice(1), 16);
+    let r = (rgb >> 16) & 0xFF;
+    let g = (rgb >> 8) & 0xFF;
+    let b = rgb & 0xFF;
+
+    r = Math.min(255, r + (255 - r) * percent);
+    g = Math.min(255, g + (255 - g) * percent);
+    b = Math.min(255, b + (255 - b) * percent);
+
+    return `#${((1 << 24) + (Math.round(r) << 16) + (Math.round(g) << 8) + Math.round(b)).toString(16).slice(1)}`;
+};
+
+
   const paymentStatusTemplate = (rowData) => {
     return (
       <div>
@@ -83,15 +117,22 @@ const NewOrdersTable = ({ order }) => {
   };
 
   const customerTemplate = (rowData) => {
-    const initials = "Ankit Sharma"
+    const initials = `${rowData?.delivering_to?.ads_name}`
       .split(" ")
       .map((n) => n[0])
       .join("");
+      let backgroundColor = getRandomColor();
+        let color = getRandomColor();
+
+        // If the color is grey, set the background color to a lighter shade
+        if (isGreyColor(backgroundColor)) {
+            backgroundColor = lightenColor(backgroundColor, 0.3); // 30% lighter
+        }
     return (
       <div className="d-flex align-items-center gap-3">
         <Avatar
           label={initials}
-          style={{ height: "3.3rem", width: "3.3rem", aspectRatio: "1/1", backgroundColor: "#D3F4D4", color: "#3C8B3E" }}
+          style={{ height: "3.3rem", width: "3.3rem", aspectRatio: "1/1", backgroundColor: backgroundColor, color: color, textTransform: 'uppercase' }}
           shape="circle"
           className="p-mr-2"
         />
