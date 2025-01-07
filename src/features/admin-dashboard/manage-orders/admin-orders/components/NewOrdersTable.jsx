@@ -10,28 +10,28 @@ import { MdEdit } from "react-icons/md";
 import { IoMdPrint } from "react-icons/io";
 import { formatDateTime } from "../../../../../utils/constant-variable";
 import { Link } from "react-router-dom";
-const NewOrdersTable = ({ order }) => {
+const NewOrdersTable = ({ order }) => { 
 
   const getRandomColor = () => {
     // Generate a random color in hex format
     const letters = '0123456789ABCDEF';
     let color = '#';
     for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
+      color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
-};
+  };
 
-const isGreyColor = (color) => {
+  const isGreyColor = (color) => {
     // Check if the color is grey by comparing RGB values
     const rgb = parseInt(color.slice(1), 16);
     const r = (rgb >> 16) & 0xFF;
     const g = (rgb >> 8) & 0xFF;
     const b = rgb & 0xFF;
     return r === g && g === b; // Check if all RGB components are equal
-};
+  };
 
-const lightenColor = (color, percent) => {
+  const lightenColor = (color, percent) => {
     // Lighten the color by the given percentage
     const rgb = parseInt(color.slice(1), 16);
     let r = (rgb >> 16) & 0xFF;
@@ -43,7 +43,7 @@ const lightenColor = (color, percent) => {
     b = Math.min(255, b + (255 - b) * percent);
 
     return `#${((1 << 24) + (Math.round(r) << 16) + (Math.round(g) << 8) + Math.round(b)).toString(16).slice(1)}`;
-};
+  };
 
 
   const paymentStatusTemplate = (rowData) => {
@@ -68,9 +68,11 @@ const lightenColor = (color, percent) => {
   };
 
   const orderTemplate = (rowData) => {
+    console.log('rowData', rowData);
+    
     return (
       <>
-        {(rowData?.product_details.map((item) => {
+        {/* {(rowData?.product_details.map((item) => {
           return (
             <div className="d-flex align-items-center gap-3 mb-2 border-bottom pb-2">
               <img src={item?.product?.images[0]?.image} alt="img" style={{ width: "3.5rem", height: "4rem" }} />
@@ -81,7 +83,15 @@ const lightenColor = (color, percent) => {
               </div>
             </div>
           );
-        }))}
+        }))} */}
+
+        <div className="d-flex align-items-center gap-3 mb-2 pb-2">
+          <img src={rowData?.product_details[0]?.product?.images[0]?.image} alt="img" style={{ width: "3.5rem", height: "4rem" }} />
+          <div className="d-flex flex-column">
+            <p className="fw-400 mb-0" style={{ fontSize: "1rem" }}>{rowData?.product_details[0]?.product?.name}</p>
+            <Link to={`/admin/order-details/${rowData.id}`} className="fw-400 mb-0 text-primary" style={{ fontSize: ".88rem" }}>View all orders</Link>
+          </div>
+        </div>
       </>
     );
   };
@@ -121,13 +131,13 @@ const lightenColor = (color, percent) => {
       .split(" ")
       .map((n) => n[0])
       .join("");
-      let backgroundColor = getRandomColor();
-        let color = getRandomColor();
+    let backgroundColor = getRandomColor();
+    let color = getRandomColor();
 
-        // If the color is grey, set the background color to a lighter shade
-        if (isGreyColor(backgroundColor)) {
-            backgroundColor = lightenColor(backgroundColor, 0.3); // 30% lighter
-        }
+    // If the color is grey, set the background color to a lighter shade
+    if (isGreyColor(backgroundColor)) {
+      backgroundColor = lightenColor(backgroundColor, 0.3); // 30% lighter
+    }
     return (
       <div className="d-flex align-items-center gap-3">
         <Avatar

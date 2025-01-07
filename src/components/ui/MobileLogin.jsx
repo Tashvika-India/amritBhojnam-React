@@ -33,7 +33,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
       const payload = { phone_or_email: formik.values.email };
       await sendOtpApi(payload);
       setErrorMessage(null);
-      setTimeRemaining(30); // Reset timer
+      setTimeRemaining(60); // Reset timer
       setResendEnabled(false); // Disable the resend button
     } catch (error) {
       setErrorMessage("Failed to resend OTP. Please try again.");
@@ -111,6 +111,14 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
     }
   };
 
+  const handleBack = () => {
+    setShowOTPInputs(false);
+    formik.resetForm(); 
+    setOtpValues(new Array(6).fill(""));  
+    setTimeRemaining(30); 
+    setErrorMessage(null);  
+  };
+
   return (
     <Offcanvas
       show={otpShow}
@@ -152,8 +160,11 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
         )}
         {showOTPInputs && (
           <>
-            <h3>OTP Verification</h3>
-            <p className="fw-light">OTP has been sent to your registered email address. Please enter it to proceed.</p>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <h3 className="mb-0">OTP Verification</h3>
+              <button className="bg-transparent border-0 text-orange text-decoration-underline" onClick={handleBack}>Back</button>
+            </div>
+            <p className="fw-light">OTP has been sent to <strong className="text-orange">{formik?.values?.email}</strong>. Please enter it to proceed.</p>
             <div className="d-flex justify-content-center gap-2 gap-md-4 my-4">
               {otpValues.map((otp, index) => (
                 <input
@@ -183,7 +194,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
               {loading ? "Verifying..." : "Verify OTP"}
             </button>
             <div className="text-center mt-3">
-              <span>Time Remaining : <span className="text-orange">{timeRemaining > 0 ? `${timeRemaining}s` : "00:00"}</span> </span>
+              <small >Time Remaining : <samll className="text-orange">{timeRemaining > 0 ? `${timeRemaining}s` : "00:00"}</samll> </small>
             </div>
             <div className="text-center mt-2">
               <button
@@ -196,7 +207,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
             </div>
           </>
         )}
-         {!showOTPInputs && (
+        {!showOTPInputs && (
           <p
             className="text-muted mt-3 d-inline-block"
             style={{ fontSize: "0.875rem" }}

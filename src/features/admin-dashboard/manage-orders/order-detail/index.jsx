@@ -35,13 +35,16 @@ import { styled } from "@mui/material/styles";
 const AdminOrderDetail = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
-  const [order, setOrder] = useState([]);
+  const [orderData, setOrderData] = useState([]);
+
+  console.log(orderData, "order");
+
 
   const getOrderList = async (name = "") => {
     setLoading(true);
     try {
       const response = await getOrderAdminApi(id, name);
-      setOrder(response?.data);
+      setOrderData(response?.data[0]);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -53,16 +56,6 @@ const AdminOrderDetail = () => {
     getOrderList();
   }, []);
 
-  const [orders, setOrders] = useState([
-    {
-      Id: "#634782",
-      Image: "../../../../../assets/images/dashboard/product-one.png",
-      Name: "Barri Proso Millet Rice",
-      Quanity: "2",
-      Amount: "299",
-      Total: "300",
-    },
-  ]);
 
   const events = [
     {
@@ -100,7 +93,7 @@ const AdminOrderDetail = () => {
   const orderTemplate = (rowData) => {
     return (
       <div>
-        <img src={rowData?.image} alt="img" width={"3.5rem"} height={"4rem"} />
+        <img src={rowData?.product?.images[0]?.image} alt="img" width={60} height={60} />
       </div>
     );
   };
@@ -145,7 +138,7 @@ const AdminOrderDetail = () => {
     <>
       <div className="mt-3 mb-5 row">
         <div className="col-md-6">
-          <Heading value={"Orders #367332"} />
+          <Heading value={`Order : ${orderData?.id}`} />
         </div>
       </div>
       <div className="row">
@@ -166,20 +159,20 @@ const AdminOrderDetail = () => {
               </div>
               <div className="w-100">
                 <DataTable
-                  value={orders}
+                  value={orderData?.product_details}
                   responsiveLayout="scroll"
                   paginator
-                  rows={10}
+                  rows={3}
                 >
                   <Column
                     filed="Image"
                     header="IMAGE"
                     body={orderTemplate}
                   ></Column>
-                  <Column filed="Name" header="NAME"></Column>
-                  <Column filed="Quanity" header="QUANTITY"></Column>
-                  <Column filed="Amount" header="AMOUNT"></Column>
-                  <Column field="Total" header="TOTAL"></Column>
+                  <Column filed="Name" header="NAME" body={rowData => rowData?.product?.name}></Column>
+                  <Column filed="Quanity" header="QUANTITY" body={rowData => rowData?.item_quantity}></Column>
+                  <Column filed="Amount" header="AMOUNT" body={rowData => rowData?.price}></Column>
+                  {/* <Column field="Total" header="TOTAL"></Column> */}
                 </DataTable>
               </div>
             </div>
@@ -298,12 +291,11 @@ const AdminOrderDetail = () => {
                     className="p-mr-2"
                   />
                   <div>
-                    <p className="mb-0">Aman Kumar</p>
+                    <p className="mb-0">{orderData?.delivering_to?.ads_name}</p>
                     <small
                       className="fw-400"
                       style={{ fontSize: ".88rem", color: "#584EE0" }}
-                    >
-                      +91 1234567890
+                    > {orderData?.delivering_to?.ads_phone}
                     </small>
                   </div>
                 </div>
@@ -315,7 +307,7 @@ const AdminOrderDetail = () => {
               <div className="mb-4">
                 <p className="fw-500 text-mid-grey mb-0 pb-2 fb-fs-14">Email</p>
                 <p className="fw-400" style={{ color: "#584EE0" }}>
-                  customer@gmail.com
+                  {orderData?.delivering_to?.ads_email || "N/A"}
                 </p>
               </div>
               <Divider />
@@ -452,11 +444,11 @@ const AdminOrderDetail = () => {
                     </div>
                     <div className="d-flex align-items-start pt-2">
                       <p className="fw-500 mb-0 w-25">Phone</p>
-                      <p className="mb-0 ps-4" style={{color: "#584EE0"}}>:&nbsp;&nbsp;&nbsp;&nbsp;+91 1234567890</p>
+                      <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;+91 1234567890</p>
                     </div>
                     <div className="d-flex align-items-start pt-2">
                       <p className="fw-500 mb-0 w-25">Email</p>
-                      <p className="mb-0 ps-4" style={{color: "#584EE0"}}>:&nbsp;&nbsp;&nbsp;&nbsp;rahul.sharma@example.com</p>
+                      <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;rahul.sharma@example.com</p>
                     </div>
                   </div>
                 </div>
@@ -493,11 +485,11 @@ const AdminOrderDetail = () => {
                     </div>
                     <div className="d-flex align-items-start pt-2">
                       <p className="fw-500 mb-0 w-25">Phone</p>
-                      <p className="mb-0 ps-4" style={{color: "#584EE0"}}>:&nbsp;&nbsp;&nbsp;&nbsp;+91 1234567890</p>
+                      <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;+91 1234567890</p>
                     </div>
                     <div className="d-flex align-items-start pt-2">
                       <p className="fw-500 mb-0 w-25">Email</p>
-                      <p className="mb-0 ps-4" style={{color: "#584EE0"}}>:&nbsp;&nbsp;&nbsp;&nbsp;rahul.sharma@example.com</p>
+                      <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;rahul.sharma@example.com</p>
                     </div>
                   </div>
                 </div>
