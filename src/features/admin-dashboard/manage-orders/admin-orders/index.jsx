@@ -6,14 +6,15 @@ import TabsButtons from "../../../../components/ui/TabsButton";
 import NewOrdersTable from "./components/NewOrdersTable";
 import { getAdminOrderApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
+import { InputText } from "primereact/inputtext";
 
 function AdminOrders() {
   const [activeTab, setActiveTab] = useState("Active");
   const [loading, setLoading] = useState(false);
 
   const [order, setOrder] = useState([]);
- 
-  const getOrderList = async ( ) => {
+
+  const getOrderList = async () => {
     setLoading(true);
     try {
       const response = await getAdminOrderApi();
@@ -40,12 +41,24 @@ function AdminOrders() {
       <div className="">
         <div className="card">
           <div className="card-body">
-            {loading ? (
-              <Loading/>
-            ) : (
-              // <ActiveOrdersTable order={order} />
-              <NewOrdersTable order={order}/>
-            )}
+            <div className="row">
+              <div className="col-12 mb-4">
+                <div className="col-md-3 ms-auto text-end">
+                  <InputText
+                    className="w-100"
+                    placeholder="Search Orders..."
+                  />
+                </div>
+              </div>
+              <div className="col-12">
+                {loading ? (
+                  <Loading />
+                ) : (
+                  // <ActiveOrdersTable order={order} />
+                  <NewOrdersTable order={order} />
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

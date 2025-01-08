@@ -97,9 +97,7 @@ const ProductAdd = () => {
         : addProduct({ ...values, discount: values.discount || 0 });
     },
   });
-  const { values, resetForm, setValues, errors, touched } = formik;
-
-  console.log("values", values);
+  const { values, resetForm, setValues, errors, touched } = formik; 
 
   async function addProduct(values) {
     try {

@@ -24,6 +24,7 @@ import Address from "../../../assets/common-components/website/Address";
 import MobileLogin from "../../../components/ui/MobileLogin";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
+import { notifyError, notifySuccess } from "../../../components/ui/Notification";
 
 const CheckoutPage = () => {
   const [loading, setLoading] = useState(false);
@@ -62,9 +63,8 @@ const CheckoutPage = () => {
     }
   };
 
-  const handlePayNow = async (amount, userId, productinfo, surl, furl) => {
-    setLoading(true);
-
+  const handlePayNow = async (amount, userId, cartId,delivery_charges,delivery_date,coupon_code, surl, furl) => {
+    setLoading(true); 
     try {
       // Step 1: Fetch User Profile
       const response = await getProfileApi(userId);
@@ -77,11 +77,13 @@ const CheckoutPage = () => {
       // Step 2: Prepare Payment Details
       const payDetails = {
         amount: 1,
-        firstname: user.full_name || "N/A",
-        email: user.email || "N/A",
-        phone: user.phone || "N/A",
-        coupon_code: "",
-        productinfo,
+        firstname: user?.full_name || "N/A",
+        email: user?.email || "N/A",
+        phone: user?.phone || "N/A",
+        coupon_code: coupon_code,
+        shipping_charge: delivery_charges,
+        delivery_date: delivery_date,
+        productinfo: cartId,
         surl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_success_web/`,
         furl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_failed_web/`,
       };
@@ -110,9 +112,10 @@ const CheckoutPage = () => {
       console.log(payment_url, form_data);
       document.body.appendChild(form);
       form.submit();
+      notifySuccess("Payment Initiated Successfully");
     } catch (error) {
       console.error("Error during payment:", error);
-      alert(`Payment failed: ${error.message}`);
+      notifyError(`Payment failed: ${error.message}`); 
     } finally {
       setLoading(false);
     }
@@ -161,12 +164,15 @@ const CheckoutPage = () => {
       if (address_id) {
         await postSelectAddressApi({ address_id });
         getAddressList();
+        getCartList();
+        notifySuccess("Address added Successfully");
       }
       setLoading(false);
       setOpen(false);
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
+      notifyError("Error submitting form:", error);
     } finally {
       formik.setSubmitting(false);
     }
@@ -174,10 +180,15 @@ const CheckoutPage = () => {
 
   const handleSelectAddress = async (address_id) => {
     try {
-      const response = await postSelectAddressApi({ address_id });
+      await postSelectAddressApi({ address_id });
+      console.log("Address Selected Successfully");
+
       getAddressList();
+      getCartList();
+      notifySuccess("Address Selected Successfully");
     } catch (error) {
       console.log("Error fetching cart data:", error);
+      notifyError("Something went wrong, please try again.");
     }
   };
 
@@ -207,8 +218,7 @@ const CheckoutPage = () => {
                         className={`summary-card ${item?.selected ? "active" : ""
                           } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
                         key={index}
-                        onClick={() => handleSelectAddress(item?.id)}
-                      >
+                        onClick={() => handleSelectAddress(item?.id)}>
                         <div className="container">
                           <div className="row">
                             <div className="col-md-12">
@@ -385,10 +395,12 @@ const CheckoutPage = () => {
                                 handlePayNow(
                                   finalCart?.amount_to_pay,
                                   finalCart?.user_id,
-                                  finalCart?.status
+                                  finalCart?.id,
+                                  finalCart?.delivery_charges,
+                                  finalCart?.delivery_date,
+                                  finalCart?.coupon_data?.coupon_code
                                 )
-                              }
-                            >
+                              }>
                               Proceed to Pay
                             </button>
                           ) : (

@@ -127,7 +127,7 @@ const AllOrderDetail = () => {
                         <div className="col-md-6">
                             <div className="section mb-3">
                                 <h4 className="mb-4">Order Items</h4>
-                                 {/* {orderDetail[0]?.order_items.length > 0 ? (
+                                {/* {orderDetail[0]?.order_items.length > 0 ? (
                                     <ul>
                                         {orderDetail[0]?.order_items.map((item, index) => (
                                             <li key={index}>{item}</li>
