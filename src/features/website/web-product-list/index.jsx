@@ -183,16 +183,6 @@ const ProudctList = () => {
                     </div>
                   </div>
                 </div>
-                <div>
-                  <p>
-                    customer review
-                  </p>
-                  <checkbox variant="filled"
-                  inputId="ingredient"
-                  pullrequest="">
-
-                  </checkbox>
-                </div>
                 <div className="">
                   <p className="fw-500 pb-2">Customer Ratings</p>
                   <ul className="mt-2">

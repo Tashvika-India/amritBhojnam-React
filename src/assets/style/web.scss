@@ -1028,7 +1028,7 @@ download-section
   aspect-ratio: 1 / 1;
   width: fit-content;
   height: 12rem;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .no-caret {
@@ -1139,6 +1139,14 @@ download-section
   .fb-container-xxl {
     max-width: 1100px !important;
   }
+  .product-card h6{
+    Small{
+      font-size: 12px !important;
+    }
+    span{
+      font-size: 15px;
+    }
+  }
   .contact-us {
     background-size: contain !important;
     padding-top: 2rem !important;
@@ -1232,8 +1240,18 @@ download-section
   .fb-fs-28 {
     font-size: 1.2rem !important;
   }
-  footer .footer-upper form input {
-    width: 35% !important;
+  footer .footer-upper form{
+    input {
+      width: 100% !important;
+      margin-top: 2rem;
+    }
+    button{
+      margin-top: 1rem !important;
+      margin-left: 0 !important;
+    }
+  } 
+  footer .footer-upper{
+    height: 34rem !important;
   }
   .banner-ads .image-sec {
     height: 100%;
@@ -1313,6 +1331,7 @@ download-section
   .amrit_bhojanam .millets .millet-content br{
     display: none !important;
   } 
+  
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
@@ -1489,11 +1508,20 @@ footer{
       }
     }
   }
+ 
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
   .web-wrapper-main .fb-fs-40 {
     font-size: 2rem;
+  }
+  .product-card h6{
+    Small{
+      font-size: 12px !important;
+    }
+    span{
+      font-size: 15px;
+    }
   }
   .beyond-class {
     color: red;
@@ -1687,7 +1715,7 @@ footer{
     font-size: 22px;
   }
   .web-wrapper-main p {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
   .offer-cards {
     .protein-left {
@@ -2046,7 +2074,14 @@ footer{
 }
 
 @media (max-width: 576px) {
-
+  .footer-detail-links li span{
+    a{
+      font-size: 0.8rem !important;
+    }
+    time{
+      font-size: 0.8rem !important;
+    }
+  } 
   .product-card{
     h6{
       font-size: 1rem !important;
@@ -2166,10 +2201,10 @@ footer{
   }
   .profile-tabs {
     button {
-      padding: 0.7rem 0.5rem 0.5rem;
-      font-size: 0.7rem;
+      padding: 0.7rem 0.7rem 0.5rem;
+      font-size: 0.9rem;
       i {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
       }
     }
   }
