@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Checkbox } from "@mui/material";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { Favorite, FavoriteBorder, SmartDisplay } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { baseURL } from "../../../../utils/constant-variable";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import MobileLogin from "../../../../components/ui/MobileLogin";
 import { notifySuccess } from "../../../../components/ui/Notification";
 import { postCartApi } from "../../../../services/adminApiRoutes";
 import { fetchCart, fetchFinalCart, updateCart } from "../../../../redux/slices/cartSlice";
+import { px } from "framer-motion";
 
 const ProductCard = ({ product }) => {
   const [loading, setLoading] = useState(false);
@@ -118,7 +119,7 @@ const ProductCard = ({ product }) => {
               {product?.quantity} 
             </h5>
             <div className="d-flex justify-content-between align-items-center align-items-lg-end mt-3">
-              <h6 className="fb-fs-20 fw-bold mb-0 d-inline-flex align-items-center flex-column flex-md-row">
+              <h6 className="fb-fs-20 fw-bold mb-0 d-inline-flex align-items-center flex-column flex-xxl-row">
                 {product?.max_price !== product?.offer_price && <small className="fw-500 fb-fs-16 text-grey pe-2">
                   <strike>₹ {product?.max_price}</strike>
                 </small>}

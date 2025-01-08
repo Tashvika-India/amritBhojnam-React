@@ -84,10 +84,10 @@ const HomePage = () => {
         >
           <WebBanner />
           <div className="mt-lg-5">
-            <div className="row my-4 px-lg-3 gap-sm-3 gap-xl-0">
+            <div className="row my-2 px-lg-3 gap-sm-3 gap-xl-0">
               <div className="col-xl-4 col-lg-12 ">
                 <div className="card-left mb-3">
-                  <div className="row">
+                  <div className="row w-100">
                     <div className="col-md-6">
                       <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3 ps-2">
                         <p className="text-white fb-fs-24 beyond-class">
@@ -297,7 +297,7 @@ const HomePage = () => {
                   </p>
                   <Link
                       to="/products"
-                      className="button-primary  d-inline-block mt-5 px-5 text-center"
+                      className="button-primary  d-inline-block mt-4 mt-lg-5 px-5 text-center"
                     >
                       View All
                     </Link>
