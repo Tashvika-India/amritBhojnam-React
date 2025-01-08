@@ -67,11 +67,10 @@ const NutritionComponent = ({ nutritionList, formik, isUpdate }) => {
                 />
               </div>
               <div className="col-md-2">
-                <button
+                <button type='button'
                   className="btn btn-outline-danger w-100 h-100 rounded-3"
                   disabled={values.nutritions.length === 1} // Keep at least one row
-                  onClick={() => handleRemoveRow(index)}
-                >
+                  onClick={() => handleRemoveRow(index)}>
                   Remove
                 </button>
               </div>

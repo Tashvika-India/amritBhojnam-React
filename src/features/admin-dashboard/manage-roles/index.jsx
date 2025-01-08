@@ -35,14 +35,14 @@ function Roles() {
             <div className="row mb-3">
               <div className="col-md-5">
                 <div>
-                  <div className="mb-3">
+                  {/* <div className="mb-3">
                     <TabsButtons
                       activeTab={activeTab}
                       setActiveTab={setActiveTab}
                       labelOne={"Active Orders"}
                       labelTwo={"New Orders"}
                     />
-                  </div>
+                  </div> */}
                   {/* {activeTab === "Active Orders" && <ProductTable />}
                   {activeTab === "New Orders" && <ProductTable />} */}
                 </div>

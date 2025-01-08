@@ -7,6 +7,8 @@ web product cart design and quanity
 wishlist empty design
 bredcum admin/ web
 
+while upading address refresh the checkout api too done
+
 
 
 

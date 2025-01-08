@@ -31,11 +31,14 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import { styled } from "@mui/material/styles";
+import { Calendar } from "primereact/calendar";
+import { FloatLabel } from 'primereact/floatlabel';
 
 const AdminOrderDetail = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [orderData, setOrderData] = useState([]);
+  const [datetime12h, setDateTime12h] = useState(null);
 
   console.log(orderData, "order");
 
@@ -174,6 +177,20 @@ const AdminOrderDetail = () => {
                   <Column filed="Amount" header="AMOUNT" body={rowData => rowData?.price}></Column>
                   {/* <Column field="Total" header="TOTAL"></Column> */}
                 </DataTable>
+                <div className="w-100">
+                  <ul>
+                    <li className="py-3 text-end"> 
+                      <span className="d-inline-block text-start" style={{ width: "15rem"}}>Sub Total</span> <span className="d-inline-block text-end" style={{ width: "5rem"}}>Rs. {~~(orderData?.amount_to_pay)}</span>
+                    </li>
+                    <li className="border-top py-3 text-end"> 
+                    <span className="d-inline-block text-start" style={{ width: "15rem"}}>Extra Charges</span> <span className="d-inline-block text-end" style={{ width: "5rem"}}>Rs. {~~(orderData?.delivery_charges)}</span>
+                    </li>
+                    <li className="border-top py-3 text-end"> 
+                    <span className="d-inline-block text-start" style={{ width: "15rem"}}>Total</span> <span className="d-inline-block text-end" style={{ width: "5rem"}}>Rs. {~~(orderData?.total)}</span>
+                    </li>
+                  </ul>
+
+                </div>
               </div>
             </div>
           </div>
@@ -350,146 +367,157 @@ const AdminOrderDetail = () => {
                   </p>
                 </div>
               </div>
-              <div className="d-flex gap-5 mt-5">
-                <p className="fw-500">Length</p>
-                <p className="">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30 Cm</p>
+              <div className="d-flex gap-4 mt-5">
+                <p className="fw-500" style={{width:"30%"}}>Length </p> <span>:</span>
+                <p className="">{~~(orderData?.length)} cm</p>
               </div>
               <div className="d-flex gap-4">
-                <p className="fw-500">Breadth</p>
-                <p className="ps-3">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 Cm</p>
+                <p className="fw-500" style={{width:"30%"}}>Breadth </p> <span>:</span>
+                <p className="">{~~(orderData?.breadth)} Cm</p>
               </div>
-              <div className="d-flex gap-5">
-                <p className="fw-500">Height</p>
-                <p className="">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 Cm</p>
+              <div className="d-flex gap-4">
+                <p className="fw-500" style={{width:"30%"}}>Height </p> <span>:</span>
+                <p className="">{~~(orderData?.height)} Cm</p>
               </div>
-              <div className="d-flex gap-5">
-                <p className="fw-500">Weight</p>
-                <p className="">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 Kg</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div className="card p-2">
-            <div className="card-body p-4">
-              <div className="d-flex align-items-center gap-3 mb-4">
-                <div className="d-flex gap-3">
-                  <TbTruckDelivery size={28} />
-                  <p className="fw-500 fb-fs-18 mb-0">Delivery Type</p>
-                </div>
-              </div>
-              <div className="mt-4 pt-2">
-                <div className="d-flex align-items-start gap-5">
-                  <p className="fw-500 mb-0">Type:</p>
-                  <p className="mb-0">Card</p>
-                </div>
+              <div className="d-flex gap-4">
+                <p className="fw-500" style={{width:"30%"}}>Weight </p> <span>:</span>
+                <p className="">{(orderData?.weight_in_g)} Kg</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-md-4">
-          <div className="card p-2">
-            <div className="card-body p-4">
-              <div className="d-flex align-items-center gap-3 mb-4">
-                <div className="d-flex gap-3">
-                  <FaGears size={25} />
-                  <p className="fw-500 fb-fs-18 mb-0">Action</p>
-                </div>
-              </div>
-              <div className="mt-4"></div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4"></div>
         <div className="col-md-8">
-          <div className="card p-2 mt-4">
-            <div className="card-body p-4">
-              <div className="d-flex align-items-center gap-3 mb-4">
-                <div className="d-flex gap-3">
-                  <FaLocationDot size={23} />
-                  <p className="fw-500 fb-fs-18 mb-0">Address Details</p>
-                </div>
-              </div>
-              <div className="d-flex mt-4 pt-3">
-                <div className="w-50">
-                  <p className="fw-600 mb-0">Delivery Address</p>
-                  <div className="mt-4">
-                    <div className="d-flex align-items-start">
-                      <p className="fw-500 mb-0 w-25">Name</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Rahul Singh</p>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="card p-2">
+                <div className="card-body p-4">
+                  <div className="d-flex align-items-center gap-3 mb-4">
+                    <div className="d-flex gap-3">
+                      <TbTruckDelivery size={28} />
+                      <p className="fw-500 fb-fs-18 mb-0">Delivery Type</p>
                     </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">Address</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Rahul Singh</p>
-                    </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">Address Line 2</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Rahul Singh</p>
-                    </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">City</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Delhi</p>
-                    </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">Pin Code</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;110080</p>
-                    </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">State</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;India</p>
-                    </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">Country</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;India</p>
-                    </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">Phone</p>
-                      <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;+91 1234567890</p>
-                    </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">Email</p>
-                      <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;rahul.sharma@example.com</p>
+                  </div>
+                  <div className="mt-4 pt-2">
+                    <div className="d-flex align-items-start gap-5">
+                      <p className="fw-500 mb-0">Type:</p>
+                      <p className="mb-0">Card</p>
                     </div>
                   </div>
                 </div>
-                <div className="w-50">
-                  <p className="fw-600 mb-0">Shipping Address</p>
-                  <div className="mt-4">
-                    <div className="d-flex align-items-start">
-                      <p className="fw-500 mb-0 w-25">Name</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Rahul Singh</p>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="card p-2">
+                <div className="card-body p-4">
+                  <div className="d-flex align-items-center gap-3 mb-4">
+                    <div className="d-flex gap-3">
+                      <FaGears size={25} />
+                      <p className="fw-500 fb-fs-18 mb-0">Action</p>
                     </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">Address</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Rahul Singh</p>
+                  </div>
+                  <div className="mt-4 d-flex gap-3">
+                    <FloatLabel>
+                      <Calendar inputId="birth_date" value={datetime12h} onChange={(e) => setDateTime12h(e.value)} showTime hourFormat="12" />
+                      <label htmlFor="birth_date">Enter Delivery Date</label>
+                    </FloatLabel>
+                    <div className="">
+                      <button className="lt-blue-button">Update</button>
                     </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">Address Line 2</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Rahul Singh</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-12">
+              <div className="card p-2 mt-4">
+                <div className="card-body p-4">
+                  <div className="d-flex align-items-center gap-3 mb-4">
+                    <div className="d-flex gap-3">
+                      <FaLocationDot size={23} />
+                      <p className="fw-500 fb-fs-18 mb-0">Address Details</p>
                     </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">City</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;Delhi</p>
+                  </div>
+                  <div className="d-flex mt-4 pt-3">
+                    <div className="w-50">
+                      <p className="fw-600 mb-0">Delivery Address</p>
+                      <div className="mt-4">
+                        <div className="d-flex align-items-start">
+                          <p className="fw-500 mb-0 w-25">Name</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_name}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">Address</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no} ${orderData?.delivering_to?.road_area_colony} ${orderData?.delivering_to?.state} ${orderData?.delivering_to?.pincode}`}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">Address Line 2</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no} ${orderData?.delivering_to?.road_area_colony} ${orderData?.delivering_to?.state} ${orderData?.delivering_to?.pincode}`}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">City</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.city}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">Pin Code</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.pincode}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">State</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.state}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">Country</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;India</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">Phone</p>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_phone}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">Email</p>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_email}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">Pin Code</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;110080</p>
-                    </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">State</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;India</p>
-                    </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">Country</p>
-                      <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;India</p>
-                    </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">Phone</p>
-                      <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;+91 1234567890</p>
-                    </div>
-                    <div className="d-flex align-items-start pt-2">
-                      <p className="fw-500 mb-0 w-25">Email</p>
-                      <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;rahul.sharma@example.com</p>
+                    <div className="w-50">
+                      <p className="fw-600 mb-0">Shipping Address</p>
+                      <div className="mt-4">
+                        <div className="d-flex align-items-start">
+                          <p className="fw-500 mb-0 w-25">Name</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_name}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">Address</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no} ${orderData?.delivering_to?.road_area_colony} ${orderData?.delivering_to?.state} ${orderData?.delivering_to?.pincode}`}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">Address Line 2</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no} ${orderData?.delivering_to?.road_area_colony} ${orderData?.delivering_to?.state} ${orderData?.delivering_to?.pincode}`}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">City</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.city}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">Pin Code</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.pincode}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">State</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.state}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">Country</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;India</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">Phone</p>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_phone}</p>
+                        </div>
+                        <div className="d-flex align-items-start pt-2">
+                          <p className="fw-500 mb-0 w-25">Email</p>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_email}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

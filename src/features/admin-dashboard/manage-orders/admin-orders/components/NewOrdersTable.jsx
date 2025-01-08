@@ -162,7 +162,7 @@ const NewOrdersTable = ({ order }) => {
           header="ID"
           body={(rowData) => <><Link to={`/admin/order-detail/${rowData.id}`} style={{ width: "100%", color: "#584EE0" }}>${rowData.id.slice(-8)}</Link></>}
         ></Column>
-        <Column header="ORDER" body={orderTemplate} style={{ width: "25%" }}></Column>
+        <Column header="ORDER" body={orderTemplate} style={{ width: "20%" }}></Column>
         <Column header="CUSTOMER" body={customerTemplate} style={{ width: "15%" }}></Column>
         <Column field="amount_to_pay" header="AMOUNT" body={(rowData) => `Rs. ${~~(rowData.amount_to_pay)}`}></Column>
         <Column
