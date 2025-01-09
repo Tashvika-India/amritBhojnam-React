@@ -10,7 +10,17 @@ import { MdEdit } from "react-icons/md";
 import { IoMdPrint } from "react-icons/io";
 import { formatDateTime } from "../../../../../utils/constant-variable";
 import { Link } from "react-router-dom";
-const NewOrdersTable = ({ order }) => { 
+import AcceptOrderModal from "./AcceptOrderModal";
+const NewOrdersTable = ({ order, getOrderList }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [orderStatus, setOrderStatus] = useState([]);
+
+  const showAcceptModal = (status, orderId) => {
+    const data = { status, orderId };
+    setModalVisible(true);
+    setOrderStatus(data);
+  };
+
 
   const getRandomColor = () => {
     // Generate a random color in hex format
@@ -21,7 +31,6 @@ const NewOrdersTable = ({ order }) => {
     }
     return color;
   };
-
   const isGreyColor = (color) => {
     // Check if the color is grey by comparing RGB values
     const rgb = parseInt(color.slice(1), 16);
@@ -46,30 +55,20 @@ const NewOrdersTable = ({ order }) => {
   };
 
 
-  const paymentStatusTemplate = (rowData) => {
+  const paymentStatusTemplate = (rowData) => { 
     return (
       <div>
         <p className="mb-0 fw-500">
-          {rowData?.fulfillment_status === "Paid" ? "Upi" : "Card"}
+          {rowData?.payment_details?.payment_mode}
         </p>
-        <p
-          className={
-            rowData?.fulfillment_status === "pending"
-              ? "text-warning fw-normal"
-              : rowData?.fulfillment_status === "success"
-                ? "text-success fw-normal"
-                : "text-danger fw-normal"
-          }
-        >
-          {rowData?.fulfillment_status}
+        <p className="mb-0 fw-400 text-orange">
+          {rowData?.status}
         </p>
       </div>
     );
   };
 
-  const orderTemplate = (rowData) => {
-    console.log('rowData', rowData);
-    
+  const orderTemplate = (rowData) => { 
     return (
       <>
         {/* {(rowData?.product_details.map((item) => {
@@ -106,23 +105,35 @@ const NewOrdersTable = ({ order }) => {
       <>
         {rowData?.status === "confirmed" ? (
           <>
-            <button className="fw-400 lt-green-button py-0 lh-lg">confirmed</button>
+            <button className="fw-400 lt-pending-button">Pending</button>
           </>
-        ) : rowData?.status === "pending" ? (
-          <button className="fw-400 lt-yellow-button">pending</button>
-        ) : (
-          <button className="fw-400 lt-red-button">Failed</button>
-        )}
+        ) : rowData?.status === "cancelled" ? (
+          <button className="fw-400 lt-red-button">Cancel</button>
+        ) : rowData?.status === "accepted" ? (
+          <button className="fw-400 lt-green-button">Accept</button>
+        ) : null}
       </>
     );
   };
 
-  const actionBodyTemplate = () => {
+  const actionBodyTemplate = (rowData) => {
     return (
-      <div className="d-flex gap-3">
-        <button className="lt-green-button">Accept</button>
-        <button className="lt-red-button">Cancel</button>
-      </div>
+      <>
+        {
+          rowData?.status === "confirmed"
+            ?
+            <div className="d-flex gap-3 align-items-center">
+              <button className="lt-green-button" onClick={() => showAcceptModal(true, rowData?.id)}>Accept</button>
+              <button className="lt-red-button" onClick={() => showAcceptModal(false, rowData?.id)}>Cancel</button>
+            </div>
+            :
+            <div>
+              {(rowData?.status === "accepted") && <button className="lt-green-button">Order Accepted</button>}
+              {(rowData?.status === "cancelled") && <button className="lt-red-button">Order cancelled</button>}
+            </div>
+        }
+
+      </>
     );
   };
 
@@ -136,7 +147,7 @@ const NewOrdersTable = ({ order }) => {
 
     // If the color is grey, set the background color to a lighter shade
     if (isGreyColor(backgroundColor)) {
-      backgroundColor = lightenColor(backgroundColor, 0.3); // 30% lighter
+      backgroundColor = lightenColor(backgroundColor, 0.5); // 30% lighter
     }
     return (
       <div className="d-flex align-items-center gap-3">
@@ -160,10 +171,10 @@ const NewOrdersTable = ({ order }) => {
         <Column
           field="id"
           header="ID"
-          body={(rowData) => <><Link to={`/admin/order-detail/${rowData.id}`} style={{ width: "100%", color: "#584EE0" }}>${rowData.id.slice(-8)}</Link></>}
+          body={(rowData) => <><Link to={`/admin/order-detail/${rowData.id}`} style={{ width: "100%", color: "#584EE0" }}>${rowData.id.slice(0,8)}</Link></>}
         ></Column>
         <Column header="ORDER" body={orderTemplate} style={{ width: "20%" }}></Column>
-        <Column header="CUSTOMER" body={customerTemplate} style={{ width: "15%" }}></Column>
+        <Column header="CUSTOMER" body={customerTemplate} style={{ width: "10%" }}></Column>
         <Column field="amount_to_pay" header="AMOUNT" body={(rowData) => `Rs. ${~~(rowData.amount_to_pay)}`}></Column>
         <Column
           field="status"
@@ -174,7 +185,9 @@ const NewOrdersTable = ({ order }) => {
         <Column header="ORDER DATE" body={duration}></Column>
         <Column header="ACTION" body={actionBodyTemplate}></Column>
       </DataTable>
+      <AcceptOrderModal visible={modalVisible} getOrderList={getOrderList} setVisible={() => setModalVisible(false)} orderStatus={orderStatus} />
     </div>
+
   );
 };
 
