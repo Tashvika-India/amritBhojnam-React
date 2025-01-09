@@ -46,7 +46,7 @@ const Wishlist = () => {
                 Your wishlist is empty
               </p>
               <p className="fb-fs-20 text-center text-mid-grey py-4">
-                Your wishlist is empty. Start adding your favorite products to
+                Your wishlist is empty. Start adding your favourite products to
                 keep track <br></br> of what you love!
               </p>
               <div className="text-center">

@@ -25,6 +25,7 @@ import { Button, Checkbox, Menu, MenuItem, TextField } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import ShareIcon from "@mui/icons-material/Share";
 import MobileLogin from "../../../components/ui/MobileLogin";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import { baseURL } from "../../../utils/constant-variable";
 import { updateWishlist } from "../../../redux/slices/wishlistSlice";
 import {
@@ -33,6 +34,7 @@ import {
 } from "../../../components/ui/Notification";
 import { Link } from "react-router-dom";
 import ImageGallery from "./components/ImageGallery";
+import RatingBar from "./components/RatingProgress";
 
 const ProudctDetail = () => {
   const [showCart, setShowCart] = useState(false);
@@ -236,9 +238,7 @@ const ProudctDetail = () => {
     }
   };
 
-  const radios = [
-    { name: `${detail?.quantity}`, value: "1" },
-  ];
+  const radios = [{ name: `${detail?.quantity}`, value: "1" }];
 
   const fetchProductDetail = async () => {
     try {
@@ -312,6 +312,14 @@ const ProudctDetail = () => {
     const data = { product_id: detail?.id, action: !detail?.is_wishlist };
     dispatch(updateWishlist(data));
   }
+  const ratingData = [
+    { star: 5, count: 27 },
+    { star: 4, count: 13 },
+    { star: 3, count: 8 },
+    { star: 2, count: 2 },
+    { star: 1, count: 6 },
+  ];
+
 
   return (
     <div className="web-wrapper-main">
@@ -448,7 +456,10 @@ const ProudctDetail = () => {
                         >
                           Go to Cart
                         </button>
-                        <MyCartMenu showCart={showCart} onCloseCart={toggleCart} />
+                        <MyCartMenu
+                          showCart={showCart}
+                          onCloseCart={toggleCart}
+                        />
                       </>
                     )
                   ) : (
@@ -579,7 +590,7 @@ const ProudctDetail = () => {
                             className="btn-tab me-0"
                             eventKey="Reviews"
                           >
-                            Reviews({(reviews?.ratings_data?.length || 0)})
+                            Reviews({reviews?.ratings_data?.length || 0})
                           </Nav.Link>
                         </Nav.Item>
                       </Nav>
@@ -597,19 +608,24 @@ const ProudctDetail = () => {
                         <Tab.Pane eventKey="Reviews">
                           <div className="p-3 p-lg-4" id="reviews-wapper">
                             <div className="row">
-                              <div className="col-md-8">
+                              <div className="col-md-7">
                                 {loading ? (
                                   <Loading />
                                 ) : reviews?.ratings_data?.length > 0 ? (
                                   <>
                                     {reviews?.ratings_data?.map((data) => (
-                                      <div className="col-12 mb-3" key={data?.id}>
+                                      <div
+                                        className="col-12 mb-3"
+                                        key={data?.id}
+                                      >
                                         <div className="d-inline-flex align-items-center gap-3">
                                           <span className="d-inline-block">
                                             <img
                                               className="img-fluid border-orange"
                                               src={
-                                                data?.user_img ? `${baseURL}/${data?.user_img}` : pp
+                                                data?.user_img
+                                                  ? `${baseURL}/${data?.user_img}`
+                                                  : pp
                                               }
                                               alt="User Profile"
                                               style={{
@@ -621,7 +637,9 @@ const ProudctDetail = () => {
                                             />
                                           </span>
                                           <div className="d-inline-block">
-                                            <h6 className="fs-6 fw-bold">{data?.user_name || "Anonymous"}</h6>
+                                            <h6 className="fs-6 fw-bold">
+                                              {data?.user_name || "Anonymous"}
+                                            </h6>
                                             <span className="d-inline-block">
                                               <Rating
                                                 value={data?.rating || 0}
@@ -632,21 +650,27 @@ const ProudctDetail = () => {
                                             </span>
                                           </div>
                                         </div>
-                                        <p className="mb-3">{data?.comment || "No comment provided."}</p>
+                                        <p className="mb-3">
+                                          {data?.comment ||
+                                            "No comment provided."}
+                                        </p>
                                         <p className="mb-3 text-grey fw-500">
                                           {data?.created_at
                                             ? new Intl.DateTimeFormat("en-GB", {
-                                              day: "2-digit",
-                                              month: "short",
-                                              year: "numeric",
-                                            }).format(new Date(data.created_at))
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric",
+                                              }).format(
+                                                new Date(data.created_at)
+                                              )
                                             : "Date not available"}
                                         </p>
-                                        {
-                                          data?.images?.map((image, index) => (
-                                            <ImageGallery images={[image]} key={index}/>
-                                          ))
-                                        }
+                                        {data?.images?.map((image, index) => (
+                                          <ImageGallery
+                                            images={[image]}
+                                            key={index}
+                                          />
+                                        ))}
                                       </div>
                                     ))}
                                   </>
@@ -655,12 +679,43 @@ const ProudctDetail = () => {
                                     className="align-content-center w-100"
                                     style={{ height: "10dvh" }}
                                   >
-                                    <h3 className="text-center text-yellow fw-bold">No Reviews Found</h3>
+                                    <h3 className="text-center text-yellow fw-bold">
+                                      No Reviews Found
+                                    </h3>
                                   </div>
                                 )}
                               </div>
-                              <div className="col-md-4">
-
+                              <div className="col-md-5">
+                                <div className="d-flex justify-content-between align-items-center mb-4">
+                                  <div>
+                                    <h4 className="fw-bold">
+                                      Rating & Reviews
+                                    </h4>
+                                  </div>
+                                  <div className="d-flex ">
+                                    <p className="text-orange fw-500">
+                                      View all reviews
+                                    </p>
+                                    <MdKeyboardArrowRight
+                                      color="#F26722"
+                                      className="mt-1 ms-1"
+                                      size={20}
+                                    />
+                                  </div>
+                                </div>
+                                <div className="row align-items-center">
+                                <div className="col-md-6">
+                                <div style={{borderRight: "1px solid #DADADA"}}>
+                                <p className="fb-fs-18 fw-500">Overall Rating</p>
+                                <p className="fb-fs-24 mt-2 fw-bold">4.0 <span className="text-mid-grey fb-fs-18 fw-400">(56 Rating)</span></p>
+                                </div>
+                                </div>
+                                <div className="col-md-6">
+                                  <div >
+                                  <RatingBar ratingData={ratingData} />
+                                  </div>
+                                </div>
+                                </div>
                               </div>
                             </div>
                           </div>
