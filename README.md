@@ -9,6 +9,9 @@ bredcum admin/ web
 
 while upading address refresh the checkout api too done
 
+rating review on anonymos add toggle
+
+while payment added a key of days
 
 
 

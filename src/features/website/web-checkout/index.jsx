@@ -63,7 +63,7 @@ const CheckoutPage = () => {
     }
   };
 
-  const handlePayNow = async (amount, userId, cartId,delivery_charges,delivery_date,coupon_code, surl, furl) => {
+  const handlePayNow = async (amount, userId, cartId,delivery_charges,delivery_date,delivery_days,coupon_code, surl, furl) => {
     setLoading(true); 
     try {
       // Step 1: Fetch User Profile
@@ -83,6 +83,7 @@ const CheckoutPage = () => {
         coupon_code: coupon_code,
         shipping_charge: delivery_charges,
         delivery_date: delivery_date,
+        delivery_days: delivery_days,
         productinfo: cartId,
         surl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_success_web/`,
         furl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_failed_web/`,
@@ -398,6 +399,7 @@ const CheckoutPage = () => {
                                   finalCart?.id,
                                   finalCart?.delivery_charges,
                                   finalCart?.delivery_date,
+                                  finalCart?.delivery_days,
                                   finalCart?.coupon_data?.coupon_code
                                 )
                               }>

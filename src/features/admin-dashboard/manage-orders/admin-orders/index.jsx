@@ -4,40 +4,42 @@ import YellowButton from "@/components/buttons/YellowButton";
 import ActiveOrdersTable from "./components/ActiveOrdersTable";
 import TabsButtons from "../../../../components/ui/TabsButton";
 import NewOrdersTable from "./components/NewOrdersTable";
-import { getAdminOrderApi } from "../../../../services/adminApiRoutes";
+import {getAdminOrderListApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
 import { InputText } from "primereact/inputtext";
+import { notifyError } from "../../../../components/ui/Notification"; 
 
 function AdminOrders() {
   const [activeTab, setActiveTab] = useState("Active");
   const [loading, setLoading] = useState(false);
 
   const [order, setOrder] = useState([]);
+  const [search , setSearch] = useState('');
 
-  const getOrderList = async () => {
+  const getOrderList = async ( ) => {
     setLoading(true);
     try {
-      const response = await getAdminOrderApi();
+      const response = await getAdminOrderListApi(search);
       setOrder(response?.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false);
+      notifyError(error?.response?.data?.message);
     }
-  };
+  }; 
 
   useEffect(() => {
     getOrderList();
-  }, []);
+  }, [search]);
 
   return (
     <>
       <div className="mt-3 mb-5 row">
         <div className="col-md-6">
-          <Heading value={"Orders"} />
+          <Heading value={"Orders List"} />
         </div>
       </div>
-
       <div className="">
         <div className="card">
           <div className="card-body">
@@ -46,7 +48,9 @@ function AdminOrders() {
                 <div className="col-md-3 ms-auto text-end">
                   <InputText
                     className="w-100"
-                    placeholder="Search Orders..."
+                    type="text"
+                    placeholder="Search Order by Id..."
+                    onChange={(e) => setSearch(e.target.value)}
                   />
                 </div>
               </div>
@@ -55,7 +59,7 @@ function AdminOrders() {
                   <Loading />
                 ) : (
                   // <ActiveOrdersTable order={order} />
-                  <NewOrdersTable order={order} />
+                  <NewOrdersTable order={order} getOrderList={getOrderList}/>
                 )}
               </div>
             </div>
