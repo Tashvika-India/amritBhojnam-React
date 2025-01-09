@@ -122,7 +122,9 @@
 
   section {
     padding-block: 4rem; 
+    scroll-margin-bottom: 4rem !important;
   }
+
   .fb-pt-5 {
     padding-top: 5rem;
   }
@@ -224,6 +226,30 @@ padding: 1.2rem 0.1rem;
     font-weight: 500 !important;
   }
 }
+
+  .rating-container {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .rating-row {
+    align-items: center;
+  }
+  
+  .progress-bar-container .p-progressbar {
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+ .p-progressbar .p-progressbar-label{
+    display: none !important;
+  }
+  .count {
+    width: 30px;
+    text-align: right;
+    font-weight: bold;
+  }
 
 .underline-heading {
   position: relative;
@@ -1786,6 +1812,9 @@ footer{
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
+  .ready-cook {
+    height: 40rem !important;
+  }
   .banner-slider img {
     height: auto !important;
   }
@@ -2074,6 +2103,9 @@ footer{
 }
 
 @media (max-width: 576px) {
+  .ready-cook {
+    height: 38rem !important;
+  }
   .footer-detail-links li span{
     a{
       font-size: 0.8rem !important;

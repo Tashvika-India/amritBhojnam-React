@@ -21,7 +21,8 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Button from "@mui/material/Button";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 const Footer = () => {
   const [showCart, setShowCart] = useState(false);
@@ -36,7 +37,11 @@ const Footer = () => {
       throw error;
     }
   }
+  const [expanded, setExpanded] = useState(false);
 
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : null); // Toggle the accordion
+  };
   const contact = useFormik({
     initialValues: {
       name: "subscribe",
@@ -281,89 +286,143 @@ const Footer = () => {
               </div>
               <div className="col-md-12 d-md-none d-block">
                 <div className="footer-accordian mb-5">
-                  <Accordion>
+                  <Accordion
+                    expanded={expanded === "panel1"}
+                    onChange={handleChange("panel1")}
+                  >
                     <AccordionSummary
-                      expandIcon={<AddIcon style={{color: '#000000', fontWeight: 900}} />}
+                      expandIcon={
+                        expanded === "panel1" ? (
+                          <RemoveIcon
+                            style={{ color: "#000000", fontWeight: 900 }}
+                          />
+                        ) : (
+                          <AddIcon
+                            style={{ color: "#000000", fontWeight: 900 }}
+                          />
+                        )
+                      }
                       aria-controls="panel1-content"
                       id="panel1-header"
                     >
-                      <Typography component="span" className="fb-fs-20 text-orange">COMPANY</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                    <ul className="footer-links d-flex flex-column gap-md-3 gap-2">
-                      <li>
-                        <Link to="/about-us">About Us</Link>
-                      </li>
-                      <li>
-                        <Link to="/privacy-policy">Privacy Policy</Link>
-                      </li>
-                      <li>
-                        <Link to="/term-conditions">Term & Conditions</Link>
-                      </li>
-                      <li>
-                        <Link to="/refund-policy">Refund policy</Link>
-                      </li>
-                      <li>
-                        <Link to="/shiping-policy">Shiping policy</Link>
-                      </li>
-                    </ul>
-                    </AccordionDetails>
-                  </Accordion>
-                  <Accordion>
-                    <AccordionSummary
-                      expandIcon={<AddIcon style={{color: '#000000', fontWeight: 900}} />}
-                      aria-controls="panel2-content"
-                      id="panel2-header"
-                    >
-                      <Typography component="span" className="fb-fs-20 text-orange">HELP & SUPPORT</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                    <ul className="footer-links d-flex flex-column gap-md-3 gap-2">
-                      <li>
-                        <a
-                          href="#"
-                          className="border-0 bg-transparent px-0 text-dark-grey"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            toggleCart();
-                          }}
-                        >
-                          View Cart
-                        </a>
-                      </li>
-                      <li>
-                        <Link to="/wishlist">Wishlist</Link>
-                      </li>
-                      <li>
-                        <Link to="/contact-us">Contact & Support</Link>
-                      </li>
-                    </ul>
-                    </AccordionDetails>
-                  </Accordion>
-                  <Accordion>
-                    <AccordionSummary
-                      expandIcon={<AddIcon style={{color: '#000000', fontWeight: 900}} />}
-                      aria-controls="panel3-content"
-                      id="panel3-header"
-                    >
-                      <Typography component="span" className="fb-fs-20 text-orange">
-                      POPULAR
+                      <Typography
+                        component="span"
+                        className="fb-fs-20 text-orange"
+                      >
+                        COMPANY
                       </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                    <ul className="footer-links d-flex flex-column gap-md-3 gap-2">
-                      {popularProduct?.slice(0, 6).map((item, index) => (
-                        <li key={index}>
-                          <Link
-                            to={`/products/?name=${decodeURIComponent(
-                              item?.name
-                            )}`}
-                          >
-                            {item?.name}
-                          </Link>
+                      <ul className="footer-links d-flex flex-column gap-md-3 gap-2">
+                        <li>
+                          <Link to="/about-us">About Us</Link>
                         </li>
-                      ))}
-                    </ul>
+                        <li>
+                          <Link to="/privacy-policy">Privacy Policy</Link>
+                        </li>
+                        <li>
+                          <Link to="/term-conditions">Term & Conditions</Link>
+                        </li>
+                        <li>
+                          <Link to="/refund-policy">Refund policy</Link>
+                        </li>
+                        <li>
+                          <Link to="/shiping-policy">Shipping policy</Link>
+                        </li>
+                      </ul>
+                    </AccordionDetails>
+                  </Accordion>
+
+                  <Accordion
+                    expanded={expanded === "panel2"}
+                    onChange={handleChange("panel2")}
+                  >
+                    <AccordionSummary
+                      expandIcon={
+                        expanded === "panel2" ? (
+                          <RemoveIcon
+                            style={{ color: "#000000", fontWeight: 900 }}
+                          />
+                        ) : (
+                          <AddIcon
+                            style={{ color: "#000000", fontWeight: 900 }}
+                          />
+                        )
+                      }
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                    >
+                      <Typography
+                        component="span"
+                        className="fb-fs-20 text-orange"
+                      >
+                        HELP & SUPPORT
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <ul className="footer-links d-flex flex-column gap-md-3 gap-2">
+                        <li>
+                          <a
+                            href="#"
+                            className="border-0 bg-transparent px-0 text-dark-grey"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              toggleCart();
+                            }}
+                          >
+                            View Cart
+                          </a>
+                        </li>
+                        <li>
+                          <Link to="/wishlist">Wishlist</Link>
+                        </li>
+                        <li>
+                          <Link to="/contact-us">Contact & Support</Link>
+                        </li>
+                      </ul>
+                    </AccordionDetails>
+                  </Accordion>
+
+                  <Accordion
+                    expanded={expanded === "panel3"}
+                    onChange={handleChange("panel3")}
+                  >
+                    <AccordionSummary
+                      expandIcon={
+                        expanded === "panel3" ? (
+                          <RemoveIcon
+                            style={{ color: "#000000", fontWeight: 900 }}
+                          />
+                        ) : (
+                          <AddIcon
+                            style={{ color: "#000000", fontWeight: 900 }}
+                          />
+                        )
+                      }
+                      aria-controls="panel3-content"
+                      id="panel3-header"
+                    >
+                      <Typography
+                        component="span"
+                        className="fb-fs-20 text-orange"
+                      >
+                        POPULAR
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <ul className="footer-links d-flex flex-column gap-md-3 gap-2">
+                        {popularProduct?.slice(0, 6).map((item, index) => (
+                          <li key={index}>
+                            <Link
+                              to={`/products/?name=${decodeURIComponent(
+                                item?.name
+                              )}`}
+                            >
+                              {item?.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </AccordionDetails>
                   </Accordion>
                 </div>

@@ -282,7 +282,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="ready-cook pb-5" id="best">
+      <section className="ready-cook pb-5">
         <div className="container fb-container">
           <div className="row">
             <div className="col-md-5 align-self-center">
@@ -387,7 +387,7 @@ const HomePage = () => {
       </section>
 
 
-      <section className="popular-product" id="best">
+      <section className="popular-product">
         <div className="container fb-container">
           <h3 className="fw-bold text-center mb-5 ms-lg-5">
             Quick Eats, Healthy Treats
@@ -511,7 +511,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section id="popular" className="best-product  overflow-hidden my-4">
+      <section id="best" className="best-product overflow-hidden my-4">
         <div className="container-fluid">
           <div className="h-100">
             <h3 className="fw-bold mb-5 pb-2 text-center">
