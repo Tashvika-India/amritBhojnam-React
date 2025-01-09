@@ -5,6 +5,9 @@ import {  getSubCategoriesApi, patchSubCategoriesApi } from "../../../services/a
 import Loading from "../../../components/ui/Loading";
 import CategoriesSubTable from "./components/CategoriesSubTable";
 import AddSubCategoryModal from "./components/AddSubCategoryModal";
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 
 function ManageSubCategories() {
   const [visible, setVisible] = useState(false);
@@ -62,7 +65,7 @@ function ManageSubCategories() {
 
   return (
     <>
-      <div className="mt-3 mb-5 row">
+      <div className="mt-3 mb-4 row">
         <div className="col-md-6">
           <Heading value={"Sub Categories"} />
         </div>
@@ -71,6 +74,12 @@ function ManageSubCategories() {
             handleClick={() => setVisible(true)}
             lable={"+ Add New Sub Category"}
           />
+        </div>
+        <div className="col-12 mt-3">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Typography className="text-black">Category</Typography>
+            <Typography className="text-orange">Sub Category list</Typography>
+          </Breadcrumbs>
         </div>
       </div>
 

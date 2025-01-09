@@ -13,6 +13,8 @@ import { InputText } from "primereact/inputtext";
 import useURLFilters from "../../../../custom-compoents/useURLFilters";
 import TabsButtons from "../../../../components/ui/TabsButton";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs'; 
 
 function debounce(func, delay) {
   let timeout;
@@ -28,7 +30,7 @@ function ProductList() {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [activeTab, setActiveTab] = useState("Active Orders"); 
+  const [activeTab, setActiveTab] = useState("Active Orders");
 
   async function getProductList() {
     setLoading(true);
@@ -84,6 +86,14 @@ function ProductList() {
             <YellowButton lable={"+ Add New Product"} />
           </Link>
         </div>
+        <div className="col-12 mt-3">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link to={"/admin/dashboard"} >
+              Dashboard
+            </Link>
+            <Typography className="text-orange">Product list</Typography>
+          </Breadcrumbs>
+        </div>
       </div>
 
       <div className="">
@@ -92,7 +102,7 @@ function ProductList() {
             <div className="row mb-3 justify-content-end">
               <div className="col-md-4">
                 <div>
-                
+
                 </div>
               </div>
               <div className="col-md-auto">
