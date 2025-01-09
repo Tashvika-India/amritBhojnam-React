@@ -7,8 +7,10 @@ import { getAdminCategoriesApi, getCategoriesApi, patchCategoriesApi } from "../
 import Loading from "../../../components/ui/Loading";
 import TabsButtons from "../../../components/ui/TabsButton";
 import { InputText } from "primereact/inputtext";
-import useURLFilters from "../../../custom-compoents/useURLFilters";
-import { color } from "framer-motion";
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+
 
 function ManageCategories() {
   const [visible, setVisible] = useState(false);
@@ -16,7 +18,7 @@ function ManageCategories() {
   const [editData, setEditData] = useState(null);
   const [filter, setFilter] = useState("");
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState("Active"); 
+  const [activeTab, setActiveTab] = useState("Active");
 
   async function getCategories() {
     setLoading(true);
@@ -43,7 +45,7 @@ function ManageCategories() {
   useEffect(() => {
     getCategories();
   }, [activeTab, filter.category_name]);
-  
+
 
   // This function will update the category status in real-time
   async function categoriesStatusChange(rowData, updatedIsActive) {
@@ -57,8 +59,8 @@ function ManageCategories() {
       );
       const formData = new FormData();
       formData.append("is_active", updatedIsActive);
-      await patchCategoriesApi(rowData.id, formData); 
-      
+      await patchCategoriesApi(rowData.id, formData);
+
     } catch (error) {
       setCategories((prevCategories) =>
         prevCategories.map((category) =>
@@ -74,7 +76,7 @@ function ManageCategories() {
 
   return (
     <>
-      <div className="mt-3 mb-5 row">
+      <div className="mt-3 mb-4 row">
         <div className="col-md-6">
           <Heading value={"Categories"} />
         </div>
@@ -84,21 +86,27 @@ function ManageCategories() {
             lable={"+ Add New Category"}
           />
         </div>
+        <div className="col-12 mt-3">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Typography className="text-black">Category</Typography>
+            <Typography className="text-orange">Categorie list</Typography>
+          </Breadcrumbs>
+        </div>
       </div>
 
       <div className="">
         <div className="card">
           <div className="card-body">
-          <div className="d-flex justify-content-between align-items-center my-3">
+            <div className="d-flex justify-content-between align-items-center my-3">
               <div className="col-md-4">
-                  <div className="mb-3">
-                    <TabsButtons
-                      activeTab={activeTab}
-                      setActiveTab={setActiveTab}
-                      labelOne={"Active"}
-                      labelTwo={"Inactive"}
-                    />
-                  </div>    
+                <div className="mb-3">
+                  <TabsButtons
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                    labelOne={"Active"}
+                    labelTwo={"Inactive"}
+                  />
+                </div>
               </div>
               <div className="col-md-3 ms-auto text-end">
                 <InputText

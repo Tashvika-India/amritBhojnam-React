@@ -13,12 +13,25 @@ import ReturnEasy from "../../../assets/images/web/return-easy.png";
 import Satisfaction from "../../../assets/images/web/satisfaction.png";
 import GreatDeal from "../../../assets/images/web/great-deal-daily.png";
 import GreyBg from "../../../assets/images/web/grey-background.jpeg";
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+
 
 const AboutUs = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
-
+      <div className="pt-5">
+        <div className="container fb-container">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link underline="hover" color="inherit" href="/">
+              Home
+            </Link>
+            <Typography className="text-orange">About Us</Typography>
+          </Breadcrumbs>
+        </div>
+      </div>
       <section className="about-us pb-0 about-linear">
         <div className="container fb-container mb-lg-5 pb-lg-5">
           <div className="row">

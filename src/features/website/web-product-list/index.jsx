@@ -20,9 +20,12 @@ import { scrollToTop } from "../../../utils/constant-variable";
 import { Offcanvas } from "react-bootstrap";
 import { clearProductList, fetchProductList } from "../../../redux/slices/productSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 
 const ProudctList = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]); 
   const navigate = useNavigate();
   const [categoryList, setCategoryList] = useState([]);
   const [filters, setFilters] = useURLFilters();
@@ -51,18 +54,6 @@ const ProudctList = () => {
     } catch (error) {
       console.log("Error on Product List", error);
     } finally {
-    }
-  }
-
-  async function getProductList() {
-    setLoading(true);
-    try {
-      const response = await getProductApi(filters);
-      setProducts(response?.data?.results || []);
-    } catch (error) {
-      console.log("Error on Product List", error);
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -106,7 +97,17 @@ const ProudctList = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
-      <section className="product-list">
+      <div className="pt-5">
+        <div className="container fb-container">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link underline="hover" color="inherit" href="/">
+              Home
+            </Link>
+            <Typography className="text-orange">Products</Typography>
+          </Breadcrumbs>
+        </div>
+      </div>
+      <section className="product-list pt-4">
         <div className="container fb-container">
           <div className="row">
             <div className=" col-lg-4 col-xxl-3 col-12 d-none d-lg-block">
@@ -146,7 +147,7 @@ const ProudctList = () => {
                     max={5000} // Set maximum range value
                   />
                   <div className="row mt-4">
-                    <div className="col-5 pe-0" style={{width: "36%"}}>
+                    <div className="col-5 pe-0" style={{ width: "36%" }}>
                       <div className="max-border">
                         <p className="ms-2 fw-300">
                           Min:
@@ -165,7 +166,7 @@ const ProudctList = () => {
                     <div className="col-2 text-center">
                       <FiMinus size={40} color={"#918E92"} />
                     </div>
-                    <div className="col-5 ps-0" style={{width: "47%"}}>
+                    <div className="col-5 ps-0" style={{ width: "47%" }}>
                       <div className="max-border">
                         <p className="ms-2 fw-300">
                           Max:
