@@ -546,9 +546,10 @@ const UserProfile = () => {
                               <div className="col-md-3">
                                 <p>
                                   Order ID:
-                                  <span className="fw-600" title={item?.id}>
+                                  <span className="fw-600" title={item?.display_order_id}>
                                     &nbsp;&nbsp;
-                                    {item?.id?.slice(0, 12)}...
+                                    {/* {item?.id?.slice(0, 12)}... */}
+                                    {item?.display_order_id}
                                   </span>
                                 </p>
                               </div>

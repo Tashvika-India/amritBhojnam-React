@@ -33,14 +33,13 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import { styled } from "@mui/material/styles";
 import { Calendar } from "primereact/calendar";
 import { FloatLabel } from 'primereact/floatlabel';
+import { notifyError } from "../../../../components/ui/Notification";
 
 const AdminOrderDetail = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [orderData, setOrderData] = useState([]);
   const [datetime12h, setDateTime12h] = useState(null);
-
-  console.log(orderData, "order");
 
 
   const getOrderList = async (name = "") => {
@@ -52,6 +51,7 @@ const AdminOrderDetail = () => {
     } catch (error) {
       console.log(error);
       setLoading(false);
+      notifyError("Something went wrong, please try again.");
     }
   };
 
@@ -137,6 +137,9 @@ const AdminOrderDetail = () => {
 
   const [activeStep, setActiveStep] = React.useState(1);
 
+  console.log(orderData?.payment_details?.payment_mode);
+  
+
   return (
     <>
       <div className="mt-3 mb-5 row">
@@ -179,17 +182,16 @@ const AdminOrderDetail = () => {
                 </DataTable>
                 <div className="w-100">
                   <ul>
-                    <li className="py-3 text-end"> 
-                      <span className="d-inline-block text-start" style={{ width: "15rem"}}>Sub Total</span> <span className="d-inline-block text-end" style={{ width: "5rem"}}>Rs. {~~(orderData?.amount_to_pay)}</span>
+                    <li className="py-3 text-end">
+                      <span className="d-inline-block text-start" style={{ width: "15rem" }}>Sub Total</span> <span className="d-inline-block text-end" style={{ width: "5rem" }}>Rs. {~~(orderData?.amount_to_pay)}</span>
                     </li>
-                    <li className="border-top py-3 text-end"> 
-                    <span className="d-inline-block text-start" style={{ width: "15rem"}}>Extra Charges</span> <span className="d-inline-block text-end" style={{ width: "5rem"}}>Rs. {~~(orderData?.delivery_charges)}</span>
+                    <li className="border-top py-3 text-end">
+                      <span className="d-inline-block text-start" style={{ width: "15rem" }}>Extra Charges</span> <span className="d-inline-block text-end" style={{ width: "5rem" }}>Rs. {~~(orderData?.delivery_charges)}</span>
                     </li>
-                    <li className="border-top py-3 text-end"> 
-                    <span className="d-inline-block text-start" style={{ width: "15rem"}}>Total</span> <span className="d-inline-block text-end" style={{ width: "5rem"}}>Rs. {~~(orderData?.total)}</span>
+                    <li className="border-top py-3 text-end">
+                      <span className="d-inline-block text-start" style={{ width: "15rem" }}>Total</span> <span className="d-inline-block text-end" style={{ width: "5rem" }}>Rs. {~~(orderData?.total)}</span>
                     </li>
                   </ul>
-
                 </div>
               </div>
             </div>
@@ -316,7 +318,7 @@ const AdminOrderDetail = () => {
                     </small>
                   </div>
                 </div>
-                <div class="rounded-2 bg-light-orange p-3 ">
+                <div className="rounded-2 bg-light-orange p-3 ">
                   <FaPhoneAlt color="#F26722" size={20} />
                 </div>
                 <div className=""></div>
@@ -335,12 +337,12 @@ const AdminOrderDetail = () => {
                 <div>
                   <div className="d-flex align-items-start gap-5 pb-2">
                     <p className="fw-500 mb-0">Type:</p>
-                    <p className="mb-0">Card</p>
+                    <p className="mb-0">{orderData?.payment_details?.payment_mode}</p>
                   </div>
                   <div className="d-flex align-items-start gap-4">
                     <p className="fw-500 mb-0">Status:</p>
-                    <p className="mb-0 ps-3">Paid</p>
-                    <button
+                    <p className="mb-0 ps-3">{orderData?.payment_details?.status}</p>
+                    {/* <button
                       style={{
                         color: "#584EE0",
                         fontSize: "0.875rem",
@@ -351,7 +353,7 @@ const AdminOrderDetail = () => {
                       }}
                     >
                       Set Paid
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
@@ -368,19 +370,19 @@ const AdminOrderDetail = () => {
                 </div>
               </div>
               <div className="d-flex gap-4 mt-5">
-                <p className="fw-500" style={{width:"30%"}}>Length </p> <span>:</span>
+                <p className="fw-500" style={{ width: "30%" }}>Length </p> <span>:</span>
                 <p className="">{~~(orderData?.length)} cm</p>
               </div>
               <div className="d-flex gap-4">
-                <p className="fw-500" style={{width:"30%"}}>Breadth </p> <span>:</span>
+                <p className="fw-500" style={{ width: "30%" }}>Breadth </p> <span>:</span>
                 <p className="">{~~(orderData?.breadth)} Cm</p>
               </div>
               <div className="d-flex gap-4">
-                <p className="fw-500" style={{width:"30%"}}>Height </p> <span>:</span>
+                <p className="fw-500" style={{ width: "30%" }}>Height </p> <span>:</span>
                 <p className="">{~~(orderData?.height)} Cm</p>
               </div>
               <div className="d-flex gap-4">
-                <p className="fw-500" style={{width:"30%"}}>Weight </p> <span>:</span>
+                <p className="fw-500" style={{ width: "30%" }}>Weight </p> <span>:</span>
                 <p className="">{(orderData?.weight_in_g)} Kg</p>
               </div>
             </div>
@@ -442,27 +444,27 @@ const AdminOrderDetail = () => {
                       <div className="mt-4">
                         <div className="d-flex align-items-start">
                           <p className="fw-500 mb-0 w-25">Name</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_name}</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_name || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">Address</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no} ${orderData?.delivering_to?.road_area_colony} ${orderData?.delivering_to?.state} ${orderData?.delivering_to?.pincode}`}</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">Address Line 2</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no} ${orderData?.delivering_to?.road_area_colony} ${orderData?.delivering_to?.state} ${orderData?.delivering_to?.pincode}`}</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">City</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.city}</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.city || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">Pin Code</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.pincode}</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.pincode || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">State</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.state}</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.state || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">Country</p>
@@ -470,11 +472,11 @@ const AdminOrderDetail = () => {
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">Phone</p>
-                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_phone}</p>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_phone || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">Email</p>
-                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_email}</p>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_email || ''}</p>
                         </div>
                       </div>
                     </div>
@@ -483,27 +485,27 @@ const AdminOrderDetail = () => {
                       <div className="mt-4">
                         <div className="d-flex align-items-start">
                           <p className="fw-500 mb-0 w-25">Name</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_name}</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_name || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">Address</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no} ${orderData?.delivering_to?.road_area_colony} ${orderData?.delivering_to?.state} ${orderData?.delivering_to?.pincode}`}</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">Address Line 2</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no} ${orderData?.delivering_to?.road_area_colony} ${orderData?.delivering_to?.state} ${orderData?.delivering_to?.pincode}`}</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">City</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.city}</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.city || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">Pin Code</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.pincode}</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.pincode || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">State</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.state}</p>
+                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.state || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">Country</p>
@@ -511,11 +513,11 @@ const AdminOrderDetail = () => {
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">Phone</p>
-                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_phone}</p>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_phone || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
                           <p className="fw-500 mb-0 w-25">Email</p>
-                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_email}</p>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_email || ''}</p>
                         </div>
                       </div>
                     </div>

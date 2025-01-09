@@ -92,9 +92,9 @@ thead th {
 }
 
 .btn-yellow {
-  background: var(--Yellow, #d59615);
+  background: #d59615;
   color: white;
-  border: 1px solid var(--Yellow, #d59615);
+  border: 1px solid #d59615;
   transition: 0.3s ease-in-out;
   border-radius: 4px;
   padding: 0.6rem 1.25rem;
@@ -120,6 +120,14 @@ thead th {
 .lt-red-button {
   background: #ffd9d9;
   color: #e50000;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+}
+
+.lt-pending-button {
+  background: #fdff86;
+  color: #222214;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   border: none;
