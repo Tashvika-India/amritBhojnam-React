@@ -13,8 +13,7 @@ import { InputText } from "primereact/inputtext";
 import useURLFilters from "../../../../custom-compoents/useURLFilters";
 import TabsButtons from "../../../../components/ui/TabsButton";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs'; 
+
 
 function debounce(func, delay) {
   let timeout;
@@ -23,7 +22,8 @@ function debounce(func, delay) {
     timeout = setTimeout(() => func.apply(this, args), delay);
   };
 }
-
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs'; 
 function ProductList() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useURLFilters([]);

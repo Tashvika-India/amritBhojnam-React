@@ -5,7 +5,9 @@ import WishList from "./components/wishlistProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWishlist } from "../../../redux/slices/wishlistSlice";
 import wishlistImage from "../../../assets/images/web/wishlist-empty.png";
-import { Link } from "react-router-dom";
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 
 const Wishlist = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,16 @@ const Wishlist = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
+      <div className="pt-5">
+        <div className="container fb-container">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link underline="hover" color="inherit" href="/">
+              Home
+            </Link>
+            <Typography className="text-orange">Wishlist</Typography>
+          </Breadcrumbs>
+        </div>
+      </div>
       <section>
         <div className="container fb-container">
           <div className="row">

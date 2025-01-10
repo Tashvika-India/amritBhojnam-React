@@ -89,7 +89,7 @@ function ManageCategories() {
         <div className="col-12 mt-3">
           <Breadcrumbs aria-label="breadcrumb">
             <Typography className="text-black">Category</Typography>
-            <Typography className="text-orange">Categorie list</Typography>
+            <Typography className="text-orange">Category list</Typography>
           </Breadcrumbs>
         </div>
       </div>

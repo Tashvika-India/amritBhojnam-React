@@ -12,12 +12,14 @@ import { DateRangePicker } from 'rsuite';
 import filterIcon from "../../../assets/images/dashboard/filter-icon.png";
 import { VscSettings } from "react-icons/vsc";
 import ReportTable from "./components/ReportTable";
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs'; 
 
 
 const ManageReport = () => {
   return (
     <>
-      <div className="mt-3 mb-5 row">
+      <div className="mt-3 mb-4 row">
         <div className="col-md-6">
           <Heading value={"Report"} />
         </div>
@@ -46,6 +48,12 @@ const ManageReport = () => {
           <Link to="/admin/add-coupon">
             <YellowButton lable={<span><img src={filterIcon} className="img-fluid position-absolute" style={{ top: "1rem", left: "2rem" }} /> &nbsp; &nbsp; &nbsp;Filter</span>} />
           </Link>
+        </div>
+        <div className="col-12 mt-4">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link to={"/admin/dashboard"}>Dashboard</Link>
+            <Typography className="text-orange">Report</Typography>
+          </Breadcrumbs>
         </div>
       </div>
       <div className="row mb-5">

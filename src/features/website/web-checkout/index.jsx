@@ -17,7 +17,7 @@ import {
 } from "../../../services/adminApiRoutes";
 import paymentFailed from "../../../assets/images/web/payment-failed.png";
 import Loading from "../../../components/ui/Loading";
-import { Link } from "react-router-dom";
+import Link from '@mui/material/Link';
 import { baseURL } from "../../../utils/constant-variable";
 import { useFormik } from "formik";
 import Address from "../../../assets/common-components/website/Address";
@@ -25,6 +25,9 @@ import MobileLogin from "../../../components/ui/MobileLogin";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { notifyError, notifySuccess } from "../../../components/ui/Notification";
+import Typography from "@mui/material/Typography";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+
 
 const CheckoutPage = () => {
   const [loading, setLoading] = useState(false);
@@ -201,6 +204,19 @@ const CheckoutPage = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
+      <div className="pt-5">
+          <div className="container fb-container">
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link underline="hover" color="inherit" href="/">
+                Home
+              </Link>
+              <Link underline="hover" color="inherit" href="/">
+                Cart
+              </Link>
+              <Typography className="text-orange">Checkout</Typography>
+            </Breadcrumbs>
+          </div>
+        </div>
       <div className="container fb-container">
         <div className="row">
           <div className="col-lg-11 col-md-12 mx-auto">
