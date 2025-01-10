@@ -207,27 +207,7 @@
   border-radius: 0.625rem;
   padding: 0.3125rem 0.75rem;
 }
-footer{
-  .footer-accordian{
-    .css-nt424e-MuiPaper-root-MuiAccordion-root{
-      background-color: transparent !important;
-      --Paper-shadow: none !important;
-      border: none !important;
-    }
-    .css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root{
-     padding: 1.2rem 0.1rem;
-    }
-    .css-eqpfi5-MuiAccordionSummary-content{
-      margin: 0 !important;
-    }
-    .css-nt424e-MuiPaper-root-MuiAccordion-root::before {
-      background-color: transparent !important;
-    }
-    .css-11px2du-MuiTypography-root{
-      font-weight: 500 !important;
-    }
-  }
-}
+
 
 
   .rating-container {
@@ -2107,9 +2087,51 @@ footer{
   .download-section{
     padding-top: 1rem !important;
   }
+  footer{
+    .footer-accordian{
+      .css-nt424e-MuiPaper-root-MuiAccordion-root{
+        background-color: transparent !important;
+        --Paper-shadow: none !important;
+        border: none !important;
+      }
+      .css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root{
+       padding: 1.2rem 0.1rem;
+      }
+      .css-eqpfi5-MuiAccordionSummary-content{
+        margin: 0 !important;
+      }
+      .css-nt424e-MuiPaper-root-MuiAccordion-root::before {
+        background-color: transparent !important;
+      }
+      .css-11px2du-MuiTypography-root{
+        font-weight: 500 !important;
+      }
+    }
+  }
 }
 
 @media (max-width: 576px) {
+  footer{
+    .footer-accordian{
+      .css-nt424e-MuiPaper-root-MuiAccordion-root{
+        background-color: transparent !important;
+        --Paper-shadow: none !important;
+        border: none !important;
+      }
+      .css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root{
+       padding: 1.2rem 0.1rem;
+      }
+      .css-eqpfi5-MuiAccordionSummary-content{
+        margin: 0 !important;
+      }
+      .css-nt424e-MuiPaper-root-MuiAccordion-root::before {
+        background-color: transparent !important;
+      }
+      .css-11px2du-MuiTypography-root{
+        font-weight: 500 !important;
+      }
+    }
+  }
   .ready-cook {
     height: 38rem !important;
   }
