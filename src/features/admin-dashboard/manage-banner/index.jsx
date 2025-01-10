@@ -4,7 +4,11 @@ import YellowButton from "@/components/buttons/YellowButton";
 import { getBannerApi, patchBannerApi } from "../../../services/adminApiRoutes";
 import BannerTable from "./components/BannerTable";
 import AddBannerModal from "./components/AddBannerModal";
-import Loading from "../../../components/ui/Loading";  
+import Loading from "../../../components/ui/Loading"; 
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs'; 
+import { Link } from "react-router-dom";
+
 function ManageBanner() {
   const [visible, setVisible] = useState(false);
   const [banner, setBanner] = useState([]);
@@ -60,7 +64,7 @@ function ManageBanner() {
 
   return (
     <>
-      <div className="mt-3 mb-5 row">
+      <div className="mt-3 mb-4 row">
         <div className="col-md-6">
           <Heading value={"Banners"} />
         </div>
@@ -69,6 +73,14 @@ function ManageBanner() {
             handleClick={() => setVisible(true)}
             lable={"+ Add New Banner"}
           />
+        </div>
+        <div className="col-12 mt-3">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link to={"/admin/dashboard"} >
+              Dashboard
+            </Link>
+            <Typography className="text-orange">Banner</Typography>
+          </Breadcrumbs>
         </div>
       </div>
 

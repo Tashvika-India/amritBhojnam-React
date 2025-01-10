@@ -9,7 +9,8 @@ import Loading from "../../../components/ui/Loading";
 import { InputText } from "primereact/inputtext";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import TabsButtons from "../../../components/ui/TabsButton"; 
-
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs'; 
  
 
 function Roles() {
@@ -26,6 +27,12 @@ function Roles() {
           <Link to="/admin/add-roles">
             <YellowButton lable={"+ Add New"} />
           </Link>
+        </div>
+        <div className="col-12 mt-3">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link to={"/admin/dashboard"}>Dashboard</Link>
+            <Typography className="text-orange">Roles</Typography>
+          </Breadcrumbs>
         </div>
       </div>
 

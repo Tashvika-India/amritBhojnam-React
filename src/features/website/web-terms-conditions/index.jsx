@@ -1,12 +1,27 @@
 import React from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+
+
 
 const TermsAndConditions = () => {
   return (
     <>
     <div className="web-wrapper-main">
       <Header />
+      <div className="pt-5">
+        <div className="container fb-container">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link underline="hover" color="inherit" href="/">
+              Home
+            </Link>
+            <Typography className="text-orange">Terms of Service</Typography>
+          </Breadcrumbs>
+        </div>
+      </div>
       <section className="terms-conditions mt-5">
         <div className="container fb-container">
           <div className=" ">

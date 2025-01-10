@@ -74,6 +74,7 @@ const HomePage = () => {
     };
   }, [dispatch]);
 
+ 
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -679,8 +680,8 @@ const HomePage = () => {
       <section className="download-section">
         <div className="container fb-container">
           <div className="row align-items-center">
-            <div className="col-lg-6 col-md-6 mt-5">
-              <div className="download-content ms-5 mt-5 p-0">
+            <div className="col-lg-6 col-md-6 mt-lg-5 mt-0">
+              <div className="download-content ms-5 mt-0 mt-lg-5 p-0">
                 <span className="millet-top">
                   <img
                     src={milletTop}
@@ -695,7 +696,7 @@ const HomePage = () => {
                     className="img-fluid millet-img"
                   />
                 </span>
-                <h2 className="fw-normal lh-1 text-black pb-4 mb-2 mt-4">
+                <h2 className="fw-normal lh-1 text-black pb-4 mb-2 mt-0 mt-lg-4">
                   Download Our
                   <span className="fw-bold text-orange">
                     <br></br>Mobile App

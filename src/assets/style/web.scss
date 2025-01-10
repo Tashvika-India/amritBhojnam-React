@@ -207,25 +207,28 @@
   border-radius: 0.625rem;
   padding: 0.3125rem 0.75rem;
 }
-.footer-accordian{
-  .css-nt424e-MuiPaper-root-MuiAccordion-root{
-    background-color: transparent !important;
-    --Paper-shadow: none !important;
-    border: none !important;
-  }
-  .css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root{
-padding: 1.2rem 0.1rem;
-  }
-  .css-eqpfi5-MuiAccordionSummary-content{
-    margin: 0 !important;
-  }
-  .css-nt424e-MuiPaper-root-MuiAccordion-root::before {
-    background-color: transparent !important;
-  }
-  .css-11px2du-MuiTypography-root{
-    font-weight: 500 !important;
+footer{
+  .footer-accordian{
+    .css-nt424e-MuiPaper-root-MuiAccordion-root{
+      background-color: transparent !important;
+      --Paper-shadow: none !important;
+      border: none !important;
+    }
+    .css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root{
+     padding: 1.2rem 0.1rem;
+    }
+    .css-eqpfi5-MuiAccordionSummary-content{
+      margin: 0 !important;
+    }
+    .css-nt424e-MuiPaper-root-MuiAccordion-root::before {
+      background-color: transparent !important;
+    }
+    .css-11px2du-MuiTypography-root{
+      font-weight: 500 !important;
+    }
   }
 }
+
 
   .rating-container {
     max-width: 600px;
@@ -917,13 +920,13 @@ footer {
   color: $orange;
   .quantity-manage {
     border: 1px solid $orange;
-    width: 4.8rem;
-    border-radius: 0.625rem;
+    // width: 4.8rem;
+    border-radius: 6px;
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.6rem;
-    padding: 0.2rem;
+    padding: 2px 17px;
     .quantity-minus,.quantity-count,.quantity-plus{
       width: 30%;
       padding: 0;
@@ -2089,7 +2092,8 @@ footer{
       }
       .purchase-image-sec {
         img {
-          margin-top: 0 !important;
+          margin-left: -1rem;
+          margin-top: -7px !important;
           position: sticky;
         }
       }
@@ -2100,12 +2104,16 @@ footer{
       padding: 1rem;
     }
   }
+  .download-section{
+    padding-top: 1rem !important;
+  }
 }
 
 @media (max-width: 576px) {
   .ready-cook {
     height: 38rem !important;
   }
+  
   .footer-detail-links li span{
     a{
       font-size: 0.8rem !important;
@@ -2584,7 +2592,7 @@ footer{
       }
       .purchase-image-sec {
         img {
-          margin-top: 0 !important;
+          margin-top: -1.75rem !important;
           position: sticky;
         }
       }

@@ -4,6 +4,9 @@ import YellowButton from "@/components/buttons/YellowButton";
 import { getCategoriesApi, patchCategoriesApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
 import ContactTable from "./components/ContactTable";
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs'; 
+import { Link } from "react-router-dom";
 
 function ManageContact() {
   const [visible, setVisible] = useState(false);
@@ -61,7 +64,7 @@ function ManageContact() {
 
   return (
     <>
-      <div className="mt-3 mb-5 row">
+      <div className="mt-3 mb-4 row">
         <div className="col-md-6">
           <Heading value={"Contact"} />
         </div>
@@ -70,6 +73,12 @@ function ManageContact() {
             handleClick={() => setVisible(true)}
             lable={"+ Add New Contact"}
           />
+        </div>
+        <div className="col-12 mt-4">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link to={"/admin/dashboard"}>Dashboard</Link>
+            <Typography className="text-orange">Contact</Typography>
+          </Breadcrumbs>
         </div>
       </div>
 
