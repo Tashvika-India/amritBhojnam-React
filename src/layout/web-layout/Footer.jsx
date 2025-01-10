@@ -194,7 +194,7 @@ const Footer = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-7 d-md-block d-none">
+              <div className="col-lg-7 col-md-12 d-md-block d-none">
                 <div className="row pt-2">
                   <div className="col-md-4 col-6 mb-4">
                     <h5 className="text-orange">COMPANY</h5>
