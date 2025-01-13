@@ -312,13 +312,6 @@ const ProudctDetail = () => {
     const data = { product_id: detail?.id, action: !detail?.is_wishlist };
     dispatch(updateWishlist(data));
   }
-  const ratingData = [
-    { star: 5, count: 27 },
-    { star: 4, count: 13 },
-    { star: 3, count: 8 },
-    { star: 2, count: 2 },
-    { star: 1, count: 6 },
-  ];
 
 
   return (
@@ -400,7 +393,7 @@ const ProudctDetail = () => {
                       cancel={false}
                     />
                     <p className="text-mid-grey">
-                      ({Math.round(detail.ratings)} Reviews)
+                      ({(detail?.ratings ?? 0).toFixed(1)} Reviews)
                     </p>
                   </Link>
                 )}
@@ -657,12 +650,12 @@ const ProudctDetail = () => {
                                         <p className="mb-3 text-grey fw-500">
                                           {data?.created_at
                                             ? new Intl.DateTimeFormat("en-GB", {
-                                                day: "2-digit",
-                                                month: "short",
-                                                year: "numeric",
-                                              }).format(
-                                                new Date(data.created_at)
-                                              )
+                                              day: "2-digit",
+                                              month: "short",
+                                              year: "numeric",
+                                            }).format(
+                                              new Date(data.created_at)
+                                            )
                                             : "Date not available"}
                                         </p>
                                         {data?.images?.map((image, index) => (
@@ -692,7 +685,7 @@ const ProudctDetail = () => {
                                       Rating & Reviews
                                     </h4>
                                   </div>
-                                  <div className="d-flex ">
+                                  {/* <div className="d-flex ">
                                     <p className="text-orange fw-500">
                                       View all reviews
                                     </p>
@@ -701,20 +694,20 @@ const ProudctDetail = () => {
                                       className="mt-1 ms-1"
                                       size={20}
                                     />
-                                  </div>
+                                  </div> */}
                                 </div>
                                 <div className="row align-items-center">
-                                <div className="col-md-6">
-                                <div style={{borderRight: "1px solid #DADADA"}}>
-                                <p className="fb-fs-18 fw-500">Overall Rating</p>
-                                <p className="fb-fs-24 mt-2 fw-bold">4.0 <span className="text-mid-grey fb-fs-18 fw-400">(56 Rating)</span></p>
-                                </div>
-                                </div>
-                                <div className="col-md-6">
-                                  <div >
-                                  <RatingBar ratingData={ratingData} />
+                                  <div className="col-md-6">
+                                    <div style={{ borderRight: "1px solid #DADADA" }}>
+                                      <p className="fb-fs-18 fw-500">Overall Rating</p>
+                                      <p className="fb-fs-24 mt-2 fw-bold">{(detail?.ratings ?? 0).toFixed(1)} <span className="text-mid-grey fb-fs-18 fw-400">({detail?.total_customer_rated})</span></p>
+                                    </div>
                                   </div>
-                                </div>
+                                  <div className="col-md-6">
+                                    <div >
+                                      <RatingBar ratingData={reviews?.rating_summary} />
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -729,112 +722,6 @@ const ProudctDetail = () => {
           </div>
         </div>
       </section>
-      {/* <section className="recipe-section ms-5">
-        <div className="container fb-container ">
-          <div className="row">
-            <div className="bg-recipe-background ms-5 rounded-20">
-              <h3 className="fw-bold ms-5 pt-4 mt-2">Recipes</h3>
-              <div>
-                <div className="container fb-container">
-                  <Tab.Container
-                    id="left-tabs-example"
-                    defaultActiveKey="Description"
-                  >
-                    <div className="row">
-                      <div className="col-md-12">
-                        <Nav
-                          variant="pills"
-                          className="flex-row tab-nav-wrapper my-3  mt-md-4 mb-md-3 px-4 gap-3 gap-md-4"
-                        >
-                          <Nav.Item className="nav button-yellow text-white">
-                            <Nav.Link
-                              as="button"
-                              className="btn-tab me-0 text-white"
-                              eventKey="Description"
-                            >
-                              Description
-                            </Nav.Link>
-                          </Nav.Item>
-                          <Nav.Item className="button-set-default">
-                            <Nav.Link
-                              as="button"
-                              className="btn-tab me-0"
-                              eventKey="Additional Info"
-                            >
-                              Additional Info
-                            </Nav.Link>
-                          </Nav.Item>
-                        </Nav>
-                      </div>
-                      <div className="col-md-12">
-                        <Tab.Content className="px-4 pb-4">
-                          <Tab.Pane eventKey="Description">
-                            <div className="d-flex gap-5 pt-2">
-                              <div className="me-4">
-                                <p className="fb-fs-18 my-4 py-1">
-                                  <span className="fw-bold text-orange">
-                                    
-                                    Step 1.
-                                  </span>
-                                  Lorem Ipsum is simply dummy text of the
-                                  printing and typesetting industry. Lorem Ipsum
-                                  has been the
-                                </p>
-                                <p className="fb-fs-18 my-4 py-1">
-                                  <span className="fw-bold text-orange">
-                                    
-                                    Step 2.
-                                  </span>
-                                  Lorem Ipsum is simply dummy text of the
-                                  printing and typesetting industry. Lorem Ipsum
-                                  has been the
-                                </p>
-                                <p className="fb-fs-18 my-4 py-1">
-                                  <span className="fw-bold text-orange">
-                                    
-                                    Step 3.
-                                  </span>
-                                  Lorem Ipsum is simply dummy text of the
-                                  printing and typesetting industry. Lorem Ipsum
-                                  has been the
-                                </p>
-                                <p className="fb-fs-18 my-4 py-1">
-                                  <span className="fw-bold text-orange">
-                                    
-                                    Step 4.
-                                  </span>
-                                  Lorem Ipsum is simply dummy text of the
-                                  printing and typesetting industry. Lorem Ipsum
-                                  has been the
-                                </p>
-                                <p className="fb-fs-18 my-4 py-1">
-                                  <span className="fw-bold text-orange">
-                                    
-                                    Step 5.
-                                  </span>
-                                  Lorem Ipsum is simply dummy text of the
-                                  printing and typesetting industry. Lorem Ipsum
-                                  has been the
-                                </p>
-                              </div>
-                              <div>
-                                <img src={recipeImg} className="img-fluid mt-4" style={{width: "50rem", aspectRatio: "16 / 10"}} />
-                              </div>
-                            </div>
-                          </Tab.Pane>
-                          <Tab.Pane eventKey="Additional Info">
-                            Additional
-                          </Tab.Pane>
-                        </Tab.Content>
-                      </div>
-                    </div>
-                  </Tab.Container>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
       {recommendedProducts?.length > 0 && (
         <section className="similar-product pt-0">
           <div className="container fb-container">

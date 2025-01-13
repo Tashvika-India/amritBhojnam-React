@@ -17,7 +17,7 @@ function ProductReviews() {
     setLoading(true);
     try {
       const response = await getRatingApi(id);  
-      setReviews(response?.data || []);
+      setReviews(response?.data?.ratings_data || []);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching product review data:', error);
