@@ -10,12 +10,13 @@ import { baseURL } from "../../utils/constant-variable";
 import { getProductApi } from "../../services/adminApiRoutes";
 import useURLFilters from "../../custom-compoents/useURLFilters";
 import { fetchProductList } from "../../redux/slices/productSlice";
-import emptyCart from "../../assets/images/web/empty-cart.png";
+import emptyCart from "../../assets/images/web/empty-cart.png"; 
 
 const MyCartMenu = ({ showCart, onCloseCart }) => {
   const dispatch = useDispatch();
   const [filters, setFilters] = useURLFilters();
-  const { cartItems, finalCart, cartId } = useSelector((state) => state.cart);
+  const { cartItems, finalCart, cartId, loading } = useSelector((state) => state.cart);
+
   const handleUpdateCart = (product_id, newQuantity) => {
     dispatch(updateCart({ product_id, item_quantity: newQuantity }));
     dispatch(fetchProductList(filters));
@@ -59,7 +60,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
       </Offcanvas.Header>
       <Offcanvas.Body className="px-0 pb-0">
         <div className="d-flex flex-column justify-content-between h-100">
-          <div>
+       
             {/* <div className="mb-4 px-3">
               <p className="d-flex">
                 <span>
@@ -71,8 +72,21 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
               </p>
               <ProgressBar variant="yellow" now={80} style={{ height: "5px" }} />
             </div> */}
-            <div className="mb-2 px-3" style={{ maxHeight: "100dvh", overflowY: "auto" }}>
-              {cartItems?.length > 0 ? (
+            <div className="mb-2 px-3 cart-items-contianer">
+              {loading ? (
+                <div className="prefetch-loading">
+                  {cartItems.map((_, index) => (
+                    <div key={index} className="cart-item-placeholder mb-3">
+                      <div className="product-item-placeholder  p-1" />
+                      <div className="product-details-placeholder ms-3">
+                        <div className="placeholder-line  w-50 mb-2" />
+                        <div className="placeholder-line  w-75 mb-2" />
+                        <div className="placeholder-line  w-50" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : cartItems?.length > 0 ? (
                 cartItems?.map((item) => (
                   <div className="cart-items mb-3" key={item?.product.id}>
                     <div className="product-item p-1">
@@ -126,8 +140,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                   </div>
                 </>
               )}
-            </div>
-          </div>
+            </div> 
           {
             cartItems?.length > 0 && (
               <>
@@ -151,7 +164,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                   </Link>
                 </div>
               </>
-            )} 
+            )}
         </div>
       </Offcanvas.Body>
     </Offcanvas>

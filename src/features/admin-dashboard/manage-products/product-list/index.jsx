@@ -88,9 +88,7 @@ function ProductList() {
         </div>
         <div className="col-12 mt-3">
           <Breadcrumbs aria-label="breadcrumb">
-            <Link to={"/admin/dashboard"} >
-              Dashboard
-            </Link>
+            <Typography >Products</Typography>
             <Typography className="text-orange">Product list</Typography>
           </Breadcrumbs>
         </div>

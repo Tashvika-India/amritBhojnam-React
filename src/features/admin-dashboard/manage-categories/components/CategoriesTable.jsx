@@ -4,6 +4,7 @@ import { Column } from "primereact/column";
 import { FaRegEdit } from "react-icons/fa";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import { baseURL } from "../../../../utils/constant-variable";
+import { notifySuccess } from "../../../../components/ui/Notification";
 
 function CategoryTable({ categories, setEditData, setVisible, categoriesStatusChange }) {
   const handleEditClick = (rowData) => {
@@ -14,7 +15,8 @@ function CategoryTable({ categories, setEditData, setVisible, categoriesStatusCh
   const iosSwitchTemplate = (rowData) => {
     const handleToggleChange = (event) => {
       const updatedStatus = event.target.checked;
-      categoriesStatusChange(rowData, updatedStatus); // Call the passed function
+      categoriesStatusChange(rowData, updatedStatus);  
+      notifySuccess("Status updated successfully");
     };
 
     return (

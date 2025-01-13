@@ -38,8 +38,10 @@ import { Link, useLocation } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
 import { Rating } from "primereact/rating";
 import ReviewModal from "../../../components/ui/ReviewModal";
-import { notifySuccess } from "../../../components/ui/Notification";
+import { notifyError, notifySuccess } from "../../../components/ui/Notification";
 import Loading from "../../../components/ui/Loading";
+import Typography from "@mui/material/Typography";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
@@ -187,7 +189,9 @@ const UserProfile = () => {
       const response = await deleteAddressApi(address_id);
       getAddressList();
       setLoading(false);
+      notifySuccess("Address deleted Successfully");
     } catch (error) {
+      notifyError("Something went wrong, please try again.");
       console.log("Error fetching cart data:", error);
     } finally {
       setLoading(false);
@@ -297,6 +301,14 @@ const UserProfile = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
+      <div className="pt-5">
+        <div className="container fb-container">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Typography>Home</Typography> 
+            <Typography className="text-orange">Profile</Typography>
+          </Breadcrumbs>
+        </div>
+      </div>
       <div className="container fb-container mb-md-5 pb-md-5">
         <div className="row">
           <div className=" col-lg-10 mx-auto">
@@ -664,7 +676,6 @@ const UserProfile = () => {
                       <h4 className="fb-fs-26 fw-bold text-dark-grey my-md-4">
                         Saved Address
                       </h4>
-                      {addressList.length > 0 && (
                         <button
                           type="button"
                           className="d-flex align-items-center border-0 bg-transparent"
@@ -677,8 +688,7 @@ const UserProfile = () => {
                         >
                           <i className="pi pi-plus text-yellow me-2 mt-md-1"></i>
                           <p className="fw-500">Add New Address</p>
-                        </button>
-                      )}
+                        </button> 
                     </div>
                     <div className="">
                       {addressList.length > 0 ? (

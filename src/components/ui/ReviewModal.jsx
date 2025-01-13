@@ -7,6 +7,7 @@ import { Rating } from "primereact/rating";
 import { postRatingApi } from "../../services/adminApiRoutes";
 import { notifyError, notifySuccess } from "./Notification";
 import MultiImagesUploadWeb from "../fileUpload/MultiImagesUploadWeb ";
+import IosSwitch from "./IosSwitch";
 
 const ReviewModal = ({ visible, setVisible, data }) => {
 
@@ -15,12 +16,13 @@ const ReviewModal = ({ visible, setVisible, data }) => {
         initialValues: {
             rating: 0,
             comment: "",
+            is_anonymous: false,
             images: [],
         },
         validationSchema: Yup.object({
             rating: Yup.number().min(1, "Rating is required").required("Rating is required"),
             comment: Yup.string().required("Comment is required"),
-            images: Yup.array().of(Yup.mixed()), // Optional validation for images
+            images: Yup.array().of(Yup.mixed()),
         }),
         onSubmit: async (values, { resetForm }) => {
             try {
@@ -49,10 +51,16 @@ const ReviewModal = ({ visible, setVisible, data }) => {
                                 <h6 className="fb-fs-20 fw-600 mb-0">{data?.name}</h6>
                             </div>
                             <div className="">
+                                <div className="">
+                                    <IosSwitch
+                                        checked={formik.values.is_anonymous}
+                                        onChange={(e) => formik.setFieldValue("is_anonymous", e.target.checked)}
+                                    />
+                                </div>
                                 <h5 className="d-flex gap-2 align-items-center justify-content-end mb-0">Give Ratings :
                                     <Rating
                                         value={values.rating}
-                                        onChange={(e) => setFieldValue("rating", e.value)}
+                                        onChange={(e) => formik.setFieldValue("rating", e.value)}
                                         stars={5}
                                         cancel={false}
                                     />

@@ -6,7 +6,7 @@ import { Rating } from 'primereact/rating';
 import { Avatar } from 'primereact/avatar';
 import { RiPencilFill } from 'react-icons/ri';
 
-const ProductReviewTable = ({ reviews }) => {
+const ProductReviewTable = ({ reviews }) => { 
 
     const customerBodyTemplate = (rowData) => {
         return (
@@ -68,9 +68,9 @@ const ProductReviewTable = ({ reviews }) => {
     return (
         <div className="card">
             <DataTable value={reviews} paginator rows={10} responsiveLayout="scroll">
-                <Column field="id" header="Customer ID" style={{ width: '200px' }}></Column>
-                <Column header="user_id" body={customerBodyTemplate} style={{ width: '250px' }}></Column>
-                <Column field="comment" header="Review" body={reviewTemplate} style={{ width: '600px' }}></Column>
+                <Column field="id" header="Customer ID"  style={{ width: '380px' }}></Column>
+                <Column field='user_name' header="User Name"  style={{ width: '180px' }}></Column>
+                <Column field="comment" header="Review" body={reviewTemplate} style={{ width: '500px' }}></Column>
                 <Column header="Date & Time" body={dateTimeTemplate} ></Column>
                 <Column header="Rating" body={ratingBodyTemplate} ></Column>
                 <Column header="Action" body={actionBodyTemplate} ></Column>

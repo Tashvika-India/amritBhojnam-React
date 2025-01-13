@@ -41,12 +41,12 @@ export default function DraggableFileUpload({ formik, name }) {
   };
 
   return (
-    <div className="file-upload-wrapper">
-      <div>
+    <div className="file-upload-wrapper d-flex gap-3">
+      <div className="w-75">
         <input type="file" id="image" hidden onChange={handleFileChange} />
         <label
           htmlFor="image"
-          className={`image-uploader mb-4 ${dragActive ? "drag-active" : ""}`}
+          className={`image-uploader ${dragActive ? "drag-active" : ""}`}
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
@@ -72,18 +72,18 @@ export default function DraggableFileUpload({ formik, name }) {
 
       {/* Preview Section */}
       {values[name] && (
-        <div className="file-preview d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2">
+        <div className="file-preview d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 position-relative" style={{width: "fit-content"}}>
           <div className="d-inline-flex align-items-center gap-3">
             <Image
               src={values[name] instanceof File ? URL.createObjectURL(values[name]) : `${baseURL}/${values[name]}` }
               zoomSrc={values[name] instanceof File ? URL.createObjectURL(values[name]) : `${baseURL}/${values[name]}` }
               alt="Uploaded File"
-              width="80"
-              height="60"
+              width="100"
+              height="auto"
               preview
             />
           </div>
-          <div>
+          <div className="position-absolute top-0 end-0" style={{ cursor: "pointer", zIndex: "1" }}>
             <RxCross2
               color="red"
               size={25}

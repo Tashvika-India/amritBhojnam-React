@@ -24,7 +24,7 @@ import {
   postProductApi,
   putProductApi,
 } from "../../../../services/adminApiRoutes";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../../../components/ui/Loading";
 import * as Yup from "yup";
 import { baseURL } from "../../../../utils/constant-variable";
@@ -46,7 +46,7 @@ const ProductAdd = () => {
   const ifError = (key) => errors[key] && touched[key];
   const product = location?.state;
   const isEditMode = !!product;
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();  
 
 
   const handleTagAdd = (event) => {
@@ -890,7 +890,7 @@ const ProductAdd = () => {
                 lable="Cancel"
                 disabled={loading}
                 handleClick={() => {
-                  resetForm();
+                  navigate(-1);
                 }}
               />
             </div>
