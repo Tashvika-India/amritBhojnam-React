@@ -131,7 +131,7 @@ const Footer = () => {
                   </p>
                   <ul className="footer-detail-links d-flex flex-column gap-md-3 gap-2 pt-lg-3 pt-0 mb-3 mt-3">
                     <li className="d-flex align-items-center fw-500">
-                      <span className="me-2">
+                      <span className="me-3">
                         <img src={call} alt="call" />
                       </span>
                       <span
@@ -149,7 +149,7 @@ const Footer = () => {
                       </a>
                     </li>
                     <li className="d-flex align-items-center fw-500">
-                      <span className="me-2 pe-1">
+                      <span className="me-3 pe-1">
                         <img src={mail} alt="email" />
                       </span>
                       <span
@@ -166,7 +166,7 @@ const Footer = () => {
                       </a>
                     </li>
                     <li className="d-flex align-items-center fw-500">
-                      <span className="me-2 pe-1">
+                      <span className="me-3 pe-1">
                         <img src={clock} alt="hours" />
                       </span>
                       <span
@@ -179,7 +179,7 @@ const Footer = () => {
                     </li>
                   </ul>
                   <div className="d-flex gap-4 py-lg-3 py-2">
-                    <p className="fw-500 text-black fb-fs-14">Follow Us:</p>
+                    <p className="fw-500 text-black" style={{fontSize: "14.32px;"}}>Follow Us</p>
                     <div className="d-inline-flex gap-2 align-items-center">
                       <a href="https://www.instagram.com/amrit_bhojanam/profilecard/#/">
                         <AiFillInstagram size={24} color="#f26722" />

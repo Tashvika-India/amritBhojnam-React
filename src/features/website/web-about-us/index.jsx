@@ -32,6 +32,7 @@ const AboutUs = () => {
           </Breadcrumbs>
         </div>
       </div>
+      
       <section className="about-us pb-0 about-linear">
         <div className="container fb-container mb-lg-5 pb-lg-5">
           <div className="row">
@@ -100,7 +101,7 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-            <div className="text-center my-lg-5 py-lg-5 ">
+            <div className="text-center my-lg-5 py-lg-5 thoughtfully">
               <p className="fb-fs-40 fw-600 pb-lg-4 mb-md-2 mt-5">
                 Thoughtfully Made,Inside & Out
               </p>

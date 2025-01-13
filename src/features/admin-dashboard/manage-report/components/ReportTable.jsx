@@ -46,7 +46,7 @@ function ReportTable({ products , getProductList }) {
     return (
       <div style={{ display: "flex", alignItems: "center" }}>
         <img
-          src={imageUrl}
+ src={imageUrl}
           alt={rowData?.name}
           className="img-fluid" style={{ width: "3.5rem", height: "4rem" }}
         />

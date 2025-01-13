@@ -935,7 +935,6 @@ footer {
     }
   }
 }
-download-section
 
 .download-section {
   background: linear-gradient(180deg, #ffffff 0%, #fff6e8 50%, #ffffff 100%);
@@ -967,13 +966,13 @@ download-section
   }
   .grain-2 {
     position: absolute;
-    bottom: 39%;
+    bottom: 38%;
     right: 12%;
   }
   .grain-3 {
     position: absolute;
-    bottom: 10%;
-    right: 12%;
+    bottom: 8%;
+    right: 11%;
   }
   .download-content {
     padding: 7rem;
@@ -1192,6 +1191,7 @@ download-section
     }
     p {
       padding-top: 8px !important;
+      font-size: 14px !important;
     }
   }
   // p {
@@ -1327,7 +1327,25 @@ download-section
   .product-detail-slider .product-detail-image {
     height: 100%;
   }
-
+  .about-us{
+    .main-logo{
+      img{
+        max-width: 26rem !important;
+        padding-left: 0 !important;
+      }
+    }
+    .about-right{
+      p{
+        padding: 0 !important;
+      }
+      .bottom-image{
+        max-width: 17rem !important;
+      }
+    }
+  }
+.thoughtfully{
+  margin: 0 !important;
+}
   .fb-fs-40 {
     font-size: 1.8rem !important;
   }
@@ -1385,16 +1403,23 @@ download-section
     }
   }
   footer .footer-upper form input {
-    width: 40% !important;
+    margin-top: 2rem;
+    width: 90% !important;
+  }
+  footer .footer-upper form button{
+    margin-top: 1rem !important;
   }
   .contact-us .card .orange-section {
     padding: 2.5rem 1rem;
   }
-  .about-us .about-bottom .grey-background img {
-    width: 21rem;
-    aspect-ratio: 13 / 16;
-    margin-top: 0;
-  }
+  .about-us .about-bottom .grey-background{
+    margin-left: 0 !important;
+    img {
+      width: 27rem;
+      aspect-ratio: 16 / 16;
+      margin-top: 0;
+    }
+  } 
   .about-us .about-bottom {
     height: 29rem;
   }
@@ -1500,12 +1525,12 @@ download-section
   }
 footer{
   .footer-upper{
-    height: auto !important;
-    padding-top: 40px !important;
-    background-position: center bottom;
-    background-size: 160%;
-    background-color: $semi-orange;
-    padding-bottom: 130px;
+    height: 34rem !important;
+        padding-top: 40px !important;
+        background-position: center bottom;
+        background-size: 116%;
+        background-color:  $semi-orange;
+        padding-bottom: 108px;
   }
 }
   .profile-tabs {
@@ -1523,6 +1548,9 @@ footer{
 @media (min-width: 768px) and (max-width: 992px) {
   .web-wrapper-main .fb-fs-40 {
     font-size: 2rem;
+  }
+  .ready-cook{
+    height: 25rem ;
   }
   .product-card h6{
     Small{
@@ -1616,7 +1644,8 @@ footer{
     }
   }
   footer .footer-upper form input {
-    width: 50% !important;
+    margin-top: 1rem !important;
+    width: 80% !important;
   }
   .banner-ads img {
     display: none !important;
@@ -1791,6 +1820,10 @@ footer{
     br {
       display: none;
     }
+  }
+  footer .footer-upper{
+    height: 22rem !important;
+    padding-top: 3rem !important;
   }
 }
 
