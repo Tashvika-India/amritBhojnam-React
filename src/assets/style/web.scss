@@ -208,6 +208,34 @@
   padding: 0.3125rem 0.75rem;
 }
 
+.prefetch-loading .cart-item-placeholder {
+  display: flex;
+  align-items: center;
+}
+
+.prefetch-loading .cart-item-placeholder {
+  display: flex;
+  align-items: center;
+}
+
+.product-item-placeholder {
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 4px;
+  background: #bebebe;
+}
+
+.product-details-placeholder {
+  flex-grow: 1;
+  margin-left: 1rem;
+}
+
+.placeholder-line {
+  height: 0.75rem;
+  border-radius: 4px;
+  background: #cccbcb;
+  margin-bottom: 0.5rem;
+}
 
 
   .rating-container {

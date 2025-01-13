@@ -27,22 +27,31 @@ import { Dialog } from "primereact/dialog";
 import { notifyError, notifySuccess } from "../../../components/ui/Notification";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFinalCart } from "../../../redux/slices/cartSlice";
 
 
 const CheckoutPage = () => {
   const [loading, setLoading] = useState(false);
   const [cartList, setCartList] = useState([]);
-  const [finalCart, setFinalCart] = useState({});
+  const [finalCartNew, setFinalCart] = useState({});
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
   const [showWebLogin, setShowWebLogin] = useState(false);
   const [visible, setVisible] = useState(false);
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
-
+  const dispatch = useDispatch();
   const accessToken =
     localStorage.getItem("access") || localStorage.getItem("refresh");
 
   const login = accessToken;
+
+  const { cartItems, finalCart, cartId } = useSelector((state) => state.cart);
+
+
+  console.log("cartItems", finalCart);
+  console.log("new", finalCartNew);
+  
 
   const getCartList = async () => {
     try {
@@ -168,11 +177,12 @@ const CheckoutPage = () => {
       if (address_id) {
         await postSelectAddressApi({ address_id });
         getAddressList();
-        getCartList();
+        dispatch(fetchFinalCart(cartId));
         notifySuccess("Address added Successfully");
       }
       setLoading(false);
       setOpen(false);
+      scrollTo(0, 0);
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -186,9 +196,9 @@ const CheckoutPage = () => {
     try {
       await postSelectAddressApi({ address_id });
       console.log("Address Selected Successfully");
-
+      scrollTo(0, 0);
       getAddressList();
-      getCartList();
+      dispatch(fetchFinalCart(cartId));
       notifySuccess("Address Selected Successfully");
     } catch (error) {
       console.log("Error fetching cart data:", error);
@@ -197,8 +207,7 @@ const CheckoutPage = () => {
   };
 
   useEffect(() => {
-    getAddressList();
-    getCartList();
+    getAddressList(); 
   }, []);
 
   return (
@@ -207,12 +216,8 @@ const CheckoutPage = () => {
       <div className="pt-5">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="/">
-              Home
-            </Link>
-            <Link underline="hover" color="inherit" href="/">
-              Cart
-            </Link>
+            <Typography>Home</Typography>
+            <Typography>Cart</Typography>
             <Typography className="text-orange">Checkout</Typography>
           </Breadcrumbs>
         </div>
@@ -300,8 +305,8 @@ const CheckoutPage = () => {
 
                     {loading ? (
                       <Loading />
-                    ) : cartList?.length > 0 ? (
-                      cartList?.map((item, index) => (
+                    ) : cartItems?.length > 0 ? (
+                      cartItems?.map((item, index) => (
                         <>
                           <div className="cart-items mt-4" key={index}>
                             <div className="product-item p-1">
@@ -402,7 +407,7 @@ const CheckoutPage = () => {
                         </h5>
                       </div>
                     </div>
-                    {cartList.length > 0 && addressList.length > 0 ? (
+                    {cartItems.length > 0 && addressList.length > 0 ? (
                       <>
                         <div className="w-100">
                           {login ? (
@@ -439,14 +444,12 @@ const CheckoutPage = () => {
                     ) : (
                       <>
                         <div className="w-100 text-center">
-                          {cartList.length > 0 ? (
-                            <h6 className="text-danger text-uppercase fs-6">
-
+                          {cartItems.length > 0 ? (
+                            <h6 className="text-danger text-uppercase fs-6"> 
                               Please Add Your address
                             </h6>
                           ) : (
-                            <h6 className="text-danger text-uppercase fs-6">
-
+                            <h6 className="text-danger text-uppercase fs-6"> 
                               Please Add Product in Cart
                             </h6>
                           )}
