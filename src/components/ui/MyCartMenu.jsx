@@ -10,8 +10,7 @@ import { baseURL } from "../../utils/constant-variable";
 import { getProductApi } from "../../services/adminApiRoutes";
 import useURLFilters from "../../custom-compoents/useURLFilters";
 import { fetchProductList } from "../../redux/slices/productSlice";
-import emptyCart from "../../assets/images/web/empty-cart.png";
-import BackDropLoading from "./BackDropLoading";
+import emptyCart from "../../assets/images/web/empty-cart.png"; 
 
 const MyCartMenu = ({ showCart, onCloseCart }) => {
   const dispatch = useDispatch();
@@ -61,7 +60,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
       </Offcanvas.Header>
       <Offcanvas.Body className="px-0 pb-0">
         <div className="d-flex flex-column justify-content-between h-100">
-          <div>
+       
             {/* <div className="mb-4 px-3">
               <p className="d-flex">
                 <span>
@@ -73,7 +72,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
               </p>
               <ProgressBar variant="yellow" now={80} style={{ height: "5px" }} />
             </div> */}
-            <div className="mb-2 px-3" style={{ maxHeight: "100dvh", overflowY: "auto" }}>
+            <div className="mb-2 px-3 cart-items-contianer">
               {loading ? (
                 <div className="prefetch-loading">
                   {cartItems.map((_, index) => (
@@ -141,8 +140,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                   </div>
                 </>
               )}
-            </div>
-          </div>
+            </div> 
           {
             cartItems?.length > 0 && (
               <>
