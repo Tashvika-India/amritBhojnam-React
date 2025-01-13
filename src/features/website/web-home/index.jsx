@@ -410,7 +410,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="overflow-hidden">
+      <section className="overflow-hidden p-md-0">
         <div className="container-fluid px-0 mt-3">
           <div className="row">
             {/* Marquee section with Framer Motion */}
