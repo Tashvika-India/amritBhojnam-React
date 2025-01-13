@@ -237,6 +237,11 @@
   margin-bottom: 0.5rem;
 }
 
+.cart-items-contianer{
+  max-height: calc(100dvh - (14rem - 4vw));
+  overflow-y: auto;
+}
+
 
   .rating-container {
     max-width: 600px;
@@ -1082,9 +1087,15 @@ download-section
     border: 1px solid $border;
     border-radius: 0.625rem;
     // padding: 0.4rem 0.8rem;
+    transition: all 0.3s ease-in-out;
     img {
       width: 8rem;
-      // height: 5rem;
+      height: 5rem;
+      object-fit: contain;
+    }
+    &:hover{ 
+      border-color: $orange;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
     }
   }
   .product-details {
@@ -1105,8 +1116,14 @@ download-section
       justify-content: space-between;
       gap: 0.6rem;
       padding: 0.2rem;
+      &:hover { 
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+      }
     }
     .remove-quantity {
+      &:hover { 
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+      }
     }
   }
 }
