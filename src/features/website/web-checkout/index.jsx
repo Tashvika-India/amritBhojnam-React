@@ -66,8 +66,8 @@ const CheckoutPage = () => {
     }
   };
 
-  const handlePayNow = async (amount, userId, cartId,delivery_charges,delivery_date,delivery_days,coupon_code, surl, furl) => {
-    setLoading(true); 
+  const handlePayNow = async (amount, userId, cartId, delivery_charges, delivery_date, delivery_days, coupon_code, surl, furl) => {
+    setLoading(true);
     try {
       // Step 1: Fetch User Profile
       const response = await getProfileApi(userId);
@@ -119,7 +119,7 @@ const CheckoutPage = () => {
       notifySuccess("Payment Initiated Successfully");
     } catch (error) {
       console.error("Error during payment:", error);
-      notifyError(`Payment failed: ${error.message}`); 
+      notifyError(`Payment failed: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -205,18 +205,18 @@ const CheckoutPage = () => {
     <div className="web-wrapper-main">
       <Header />
       <div className="pt-5">
-          <div className="container fb-container">
-            <Breadcrumbs aria-label="breadcrumb">
-              <Link underline="hover" color="inherit" href="/">
-                Home
-              </Link>
-              <Link underline="hover" color="inherit" href="/">
-                Cart
-              </Link>
-              <Typography className="text-orange">Checkout</Typography>
-            </Breadcrumbs>
-          </div>
+        <div className="container fb-container">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link underline="hover" color="inherit" href="/">
+              Home
+            </Link>
+            <Link underline="hover" color="inherit" href="/">
+              Cart
+            </Link>
+            <Typography className="text-orange">Checkout</Typography>
+          </Breadcrumbs>
         </div>
+      </div>
       <div className="container fb-container">
         <div className="row">
           <div className="col-lg-11 col-md-12 mx-auto">
@@ -330,8 +330,8 @@ const CheckoutPage = () => {
                       ))
                     ) : (
                       <div className="text-center py-4">
-                        <h4 className="text-muted pb-4">Your cart is empty!</h4>
-                        <Link className="button-primary fs-6 d-inline-block" to="/products">
+                        <h5 className="text-muted pb-4">Your cart is empty!</h5>
+                        <Link className="button-primary fs-6 d-inline-block text-decoration-none" href="/products">
                           Browse Products
                         </Link>
                       </div>

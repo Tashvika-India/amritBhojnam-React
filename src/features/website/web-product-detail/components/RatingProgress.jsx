@@ -3,29 +3,26 @@ import { ProgressBar } from "primereact/progressbar";
 import { FaStar } from "react-icons/fa";
 
 const RatingBar = ({ ratingData }) => {
-  const totalRatings = ratingData.reduce((acc, item) => acc + item.count, 0);
+  const ratings = [5, 4, 3, 2, 1];
 
   return (
-    <div  style={{ maxWidth: "600px", margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
-      {ratingData.map((item) => (
-        <div key={item.star} style={styles.row}>
-          {/* Star Label */}
+    <div style={{ maxWidth: "600px", margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
+      {ratings.map((star) => (
+        <div key={star} style={styles.row}>
           <div style={styles.starLabel}>
-            <span style={styles.starText}>{item.star}</span>
+            <span style={styles.starText}>{star}</span>
             <FaStar />
           </div>
-
-          {/* Progress Bar */}
           <div style={styles.progressBarContainer}>
             <ProgressBar
-              value={(item.count / totalRatings) * 100}
+              value={(ratingData?.[`${star}_star_count`] / 5) * 100}
               style={styles.progressBar}
-              color="#D59615"
+              color="#f26722"
             />
           </div>
-
-          {/* Count */}
-          <div className="text-mid-grey" style={styles.count}>{item.count}</div>
+          <div className="text-mid-grey" style={styles.count}>
+            {ratingData?.[`${star}_star_count`]}
+          </div>
         </div>
       ))}
     </div>
@@ -36,6 +33,7 @@ const styles = {
   row: {
     display: "flex",
     alignItems: "center",
+    marginBottom: "10px", 
   },
   starLabel: {
     display: "flex",
