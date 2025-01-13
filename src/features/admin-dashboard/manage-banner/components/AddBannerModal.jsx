@@ -133,7 +133,7 @@ export default function AddBannerModal({ visible, setVisible, setBanner, getBann
                   onChange={formik.handleChange}
                   value={formik.values.title}
                 />
-                <p>{errors.title}</p>
+                 <p className="text-danger">{errors.title}</p>
               </div>
               <div className="mb-4">
                 <TextField
@@ -144,7 +144,7 @@ export default function AddBannerModal({ visible, setVisible, setBanner, getBann
                   onChange={formik.handleChange}
                   value={formik.values.sub_title}
                 />
-                 <p>{errors.sub_title}</p>
+                  <p className="text-danger">{errors.sub_title}</p>
               </div>
               <div className="mb-4">
                 <FormControl fullWidth>

@@ -120,7 +120,7 @@ export default function AddSubCategoryModal({ visible, setVisible, getCategories
             <div className="p-fluid">
               <div className="mb-4">
                 {/* <FileUpload formik={formik} name="img_file" />
-                <p>{errors.img_file}</p> */}
+                 <p className="text-danger">{errors.img_file}</p> */}
               </div>
               <div className="mb-4">
                 <FormControl fullWidth>
@@ -150,7 +150,7 @@ export default function AddSubCategoryModal({ visible, setVisible, getCategories
                   onChange={formik.handleChange}
                   value={formik.values?.name}
                 />
-                <p>{errors.name}</p>
+                 <p className="text-danger">{errors.name}</p>
               </div>
             </div>
           </form>
