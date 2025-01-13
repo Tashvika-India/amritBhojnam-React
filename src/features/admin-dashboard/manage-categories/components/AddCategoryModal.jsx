@@ -101,7 +101,7 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
             <div className="p-fluid">
               <div className="mb-4">
                 <FileUpload formik={formik} name="img_file" />
-                <p>{errors.img_file}</p>
+                 <p className="text-danger">{errors.img_file}</p>
               </div>
               <div className="mb-4">
                 <TextField
@@ -112,7 +112,7 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
                   onChange={formik.handleChange}
                   value={formik.values.name}
                 />
-                 <p>{errors.name}</p>
+                  <p className="text-danger">{errors.name}</p>
               </div>
             </div>
           </form>
@@ -129,7 +129,7 @@ function CustomHeader({ formik }) {
         <h5 className="m-0 fs-bold">{formik.values.name ? 'Edit Category' : 'Add Category'}</h5>
         <div>
           <IosSwitch
-            checked={formik.values.active}
+            checked={formik.values.is_active}
             onChange={(e) => formik.setFieldValue("is_active", e.target.checked)}
           />
           <span className="fs-6 text-secondary fw-normal">Active</span>

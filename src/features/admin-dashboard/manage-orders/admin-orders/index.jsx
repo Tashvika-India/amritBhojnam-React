@@ -8,6 +8,7 @@ import {getAdminOrderListApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
 import { InputText } from "primereact/inputtext";
 import { notifyError } from "../../../../components/ui/Notification"; 
+import { Breadcrumbs, Typography } from "@mui/material";
 
 function AdminOrders() {
   const [activeTab, setActiveTab] = useState("Active");
@@ -40,6 +41,12 @@ function AdminOrders() {
           <Heading value={"Orders List"} />
         </div>
       </div>
+      <div className="col-12 my-3">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Typography >Orders</Typography>
+            <Typography className="text-orange">Order list</Typography>
+          </Breadcrumbs>
+        </div>
       <div className="">
         <div className="card">
           <div className="card-body">
