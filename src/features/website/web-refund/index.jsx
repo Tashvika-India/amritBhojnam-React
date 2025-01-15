@@ -20,11 +20,11 @@ const RefundPolicy = () => {
           </Breadcrumbs>
         </div>
       </div>
-        <section className="terms-conditions mt-5">
+        <section className="terms-conditions mt-lg-5">
           <div className="container fb-container">
             <div className=" ">
               <h1 className="text-center text-orange fw-bold">Refund policy</h1>
-              <div className="py-5 mt-3">
+              <div className="py-lg-5 py-4 mt-lg-3">
                 <p>
                   We have a 30-day return policy, which means you have 30 days
                   after receiving your item to request a return.
@@ -54,7 +54,7 @@ const RefundPolicy = () => {
               </div>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">Damages and issues</h5>
               <p className="fb-fs-12">
                 Please inspect your order upon reception and contact us
@@ -64,7 +64,7 @@ const RefundPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 Exceptions / non-returnable items
               </h5>
@@ -90,21 +90,21 @@ const RefundPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">Exchanges</h5>
               <p className="fb-fs-12">
                 The fastest way to ensure you get what you want is to return the item you have, and once the return is accepted, make a separate purchase for the new item.
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">European Union 14 day cooling off period</h5>
               <p className="fb-fs-12">
                 Notwithstanding the above, if the merchandise is being shipped into the European Union, you have the right to cancel or return your order within 14 days, for any reason and without a justification. As above, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. You’ll also need the receipt or proof of purchase.
               </p>
             </div>
 
-            <div className="section-1 mb-5 pb-5">
+            <div className="section-1 mb-lg-5 mb-4 pb-5">
               <h5 className="text-center pb-2 fw-600">Refunds</h5>
               <p className="fb-fs-12">
                 We will notify you once we’ve received and inspected your return, and let you know if the refund was approved or not. If approved, you’ll be automatically refunded on your original payment method within 10 business days. Please remember it can take some time for your bank or credit card company to process and post the refund too.

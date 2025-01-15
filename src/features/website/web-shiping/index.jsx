@@ -20,11 +20,11 @@ const ShipingPolicy = () => {
           </Breadcrumbs>
         </div>
       </div>
-      <section className="terms-conditions mt-5">
+      <section className="terms-conditions mt-lg-5">
         <div className="container fb-container">
           <div className=" ">
             <h1 className="text-center text-orange fw-bold">Shipping policy</h1>
-            <div className="py-5 mt-4">
+            <div className="py-lg-5 py-4 mt-lg-4">
               <p>
               ORDER PROCESSING: Please allow 1 business day to process your order. You will receive an email once your order is on its way! 
               </p>

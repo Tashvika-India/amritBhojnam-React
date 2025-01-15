@@ -13,18 +13,18 @@ import HomeIcon from "@mui/icons-material/Home";
 import { BiSolidCategory } from "react-icons/bi";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import { BsFillBoxSeamFill } from "react-icons/bs";
-import { IoNutrition, IoReceiptSharp } from "react-icons/io5";
+import { IoReceiptSharp } from "react-icons/io5";
 import { BsImage } from "react-icons/bs";
 import { BiSolidOffer } from "react-icons/bi";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { FaUserCog } from "react-icons/fa";
 import { TbMessageUser } from "react-icons/tb";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import { FaUserTie } from "react-icons/fa";
 
 function MenuItems() {
   const [openSections, setOpenSections] = React.useState({
     category: false,
     orders: false,
+    products: false,
   });
   const location = useLocation();
 
@@ -78,8 +78,8 @@ function MenuItems() {
       setOpenSections((prev) => ({ ...prev, category: true }));
     } else if (isActive("/admin/orders") || isActive("/admin/returns-refunds")) {
       setOpenSections((prev) => ({ ...prev, orders: true }));
-    } else if (isActive("/admin/nutrition") || isActive("/admin/nutrition-value")) {
-      setOpenSections((prev) => ({ ...prev, orders: true }));
+    } else if (isActive("/admin/product-list")) {
+      setOpenSections((prev) => ({ ...prev, products: true }));
     }
   }, [location.pathname]);
 
@@ -135,7 +135,8 @@ function MenuItems() {
       <List>
         <ListItemButton
           onClick={() => handleToggle("category")}
-          sx={isActive("/admin/category") || openSections.category ? activeStyles : {}}>
+          sx={isActive("/admin/category") || openSections.category ? activeStyles : {}}
+        >
           <ListItemIcon sx={listItemIconStyle}>
             <BiSolidCategory fontSize={"1.3rem"} />
           </ListItemIcon>
@@ -146,18 +147,21 @@ function MenuItems() {
           { path: "/admin/category", label: "Categories" },
           { path: "/admin/sub-category", label: "Sub Categories" },
         ])}
-        <Link
-          to="/admin/product"
-          style={{ textDecoration: "none", color: "inherit" }}
+        <ListItemButton
+          onClick={() => handleToggle("products")}
+          sx={isActive("/admin/product-list") || openSections.products ? activeStyles : {}}
         >
-          <ListItemButton sx={isActive("/admin/product") ? activeStyles : {}}>
-            <ListItemIcon sx={listItemIconStyle}>
-              <BsFillBoxSeamFill fontSize={"1.3rem"} />
-            </ListItemIcon>
-            <ListItemText primary="Products" sx={listItemTextStyle} />
-          </ListItemButton>
-        </Link>
-        {/* <ListItemButton
+          <ListItemIcon sx={listItemIconStyle}>
+            <BsFillBoxSeamFill fontSize={"1.3rem"} />
+          </ListItemIcon>
+          <ListItemText primary="Products" sx={listItemTextStyle} />
+          {openSections.products ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        {renderCollapse("products", [
+          { path: "/admin/product", label: "Product List" },
+          { path: "/admin/nutrition", label: "Nutrition" },
+        ])}
+          {/* <ListItemButton
           onClick={() => handleToggle("nutrition")}
           sx={isActive("/admin/category") || openSections.category ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
@@ -203,7 +207,7 @@ function MenuItems() {
           </ListItemButton>
         </Link>
       </List>
-      <span className="d-inline-block w-100" style={{ border: "0.2px dashed #DADADA" }}></span>
+      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
       <Typography
         sx={{ pl: 2, pt: 1, pb: 1 }}
         variant="subtitle2"
@@ -213,7 +217,7 @@ function MenuItems() {
       <List>
         <Link
           to="/admin/customers"
-          style={{ textDecoration: "none", color: "inherit" }}>
+          style={{ textDecoration: "none", color: "inherit" }} >
           <ListItemButton sx={isActive("/admin/customers") ? activeStyles : {}}>
             <ListItemIcon sx={listItemIconStyle}>
               <PeopleAltIcon />
@@ -240,16 +244,6 @@ function MenuItems() {
             <ListItemText primary="Roles" sx={listItemTextStyle} />
           </ListItemButton>
         </Link>
-        {/* <Link
-          to="/admin/employees"
-          style={{ textDecoration: "none", color: "inherit" }}>
-          <ListItemButton sx={isActive("/admin/employees") ? activeStyles : {}}>
-            <ListItemIcon sx={listItemIconStyle}>
-            <FaUserTie  size={22}/>
-            </ListItemIcon>
-            <ListItemText primary="Employees" sx={listItemTextStyle} />
-          </ListItemButton>
-        </Link> */}
       </List>
       <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
       <Typography
@@ -266,13 +260,12 @@ function MenuItems() {
           <ListItemText primary="Contact" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
-
       <Link to="/admin/report" style={{ textDecoration: "none", color: "inherit" }}>
         <ListItemButton sx={isActive("/admin/report") ? activeStyles : {}}>
           <ListItemIcon sx={listItemIconStyle}>
-            <IoReceiptSharp fontSize={"1.3rem"} />
+            <IoReceiptSharp size={23} />
           </ListItemIcon>
-          <ListItemText primary="Report" sx={listItemTextStyle} />
+          <ListItemText primary="Reports" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
     </>

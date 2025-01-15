@@ -138,7 +138,7 @@ const Footer = () => {
                         className="text-orange fb-fs-18 d-inline-block"
                         style={{ width: "5rem" }}
                       >
-                        Call US :
+                        Call Us :
                       </span>
                       <a
                         href="tel:+917678320459"

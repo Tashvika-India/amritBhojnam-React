@@ -20,13 +20,13 @@ const PrivacyPolicy = () => {
             </Breadcrumbs>
           </div>
         </div>
-        <section className="terms-conditions mt-5">
+        <section className="terms-conditions mt-lg-5 mt-0">
           <div className="container fb-container">
             <div className=" ">
               <h1 className="text-center text-orange fw-bold">
                 Privacy Policy
               </h1>
-              <div className="py-5 mt-5">
+              <div className="py-lg-5 py-3 mt-lg-5 mt-0">
                 <p>Last updated: November 15, 2024</p>
                 <p>
                   This Privacy Policy describes how Amrit Bhojanam (the "Site",
@@ -49,7 +49,7 @@ const PrivacyPolicy = () => {
               </div>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 Changes to This Privacy Policy
               </h5>
@@ -62,7 +62,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 How We Collect and Use Your Personal Information
               </h5>
@@ -82,7 +82,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 What Personal Information We Collect
               </h5>
@@ -96,7 +96,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 Information We Collect Directly from You
               </h5>
@@ -134,7 +134,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 Information We Collect about Your Usage
               </h5>
@@ -151,7 +151,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 Information We Obtain from Third Parties
               </h5>
@@ -187,7 +187,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 How We Use Your Personal Information
               </h5>
@@ -241,7 +241,7 @@ const PrivacyPolicy = () => {
               </ul>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">Cookies</h5>
               <p className="fb-fs-12">
                 Like many websites, we use Cookies on our Site. For specific
@@ -269,7 +269,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 How We Disclose Personal Information
               </h5>
@@ -356,7 +356,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 Third Party Websites and Links
               </h5>
@@ -378,7 +378,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">Children's Data</h5>
               <p className="fb-fs-12">
                 The Services are not intended to be used by children, and we do
@@ -395,7 +395,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 Security and Retention of Your Information
               </h5>
@@ -415,7 +415,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">Your Rights</h5>
               <p className="fb-fs-12">
                 Depending on where you live, you may have some or all of the
@@ -493,7 +493,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">Complaints</h5>
               <p className="fb-fs-12">
                 If you have complaints about how we process your personal
@@ -506,7 +506,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">International Users</h5>
               <p className="fb-fs-12">
                 Please note that we may transfer, store and process your
@@ -524,7 +524,7 @@ const PrivacyPolicy = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5 pb-5">
+            <div className="section-1 mb-lg-5 mb-4 pb-5">
               <h5 className="text-center pb-2 fw-600">Contact</h5>
               <p className="fb-fs-12">
                 Should you have any questions about our privacy practices or

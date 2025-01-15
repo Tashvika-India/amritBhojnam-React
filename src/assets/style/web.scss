@@ -962,7 +962,7 @@ footer {
     align-items: center;
     justify-content: space-between;
     gap: 0.6rem;
-    padding: 2px 17px;
+    padding: 0.125rem 1.0625rem;
     .quantity-minus,.quantity-count,.quantity-plus{
       width: 30%;
       padding: 0;
@@ -1902,6 +1902,12 @@ footer{
   .ready-cook {
     height: 40rem !important;
   }
+  .contact-us{
+    background-size: 500%;
+  }
+  li{
+    font-size: 0.75rem;
+  }
   .banner-slider img {
     height: auto !important;
   }
@@ -1919,7 +1925,9 @@ footer{
       }
     }
   }
-  
+  .p-slider {
+    transition: all 0.2s ease-in-out !important;
+  }
   .popular-product .popularleft {
     margin-bottom: 1rem;
   }
@@ -1942,6 +1950,7 @@ footer{
       }
     }
   }
+
   .offer-cards {
     .protein-right-top .button-primary {
       margin-bottom: 1rem !important;
@@ -1971,7 +1980,7 @@ footer{
       height: auto !important;
       padding-top: 40px !important;
       background-position: center bottom;
-      background-size: 160%;
+      background-size: 153%;
       background-color: $semi-orange;
       padding-bottom: 130px;
       form {
@@ -2116,6 +2125,9 @@ footer{
   .button-primary {
     font-size: 0.6875rem;
   }
+  .contact-us .card .orange-section {
+    padding: 3.5rem 3rem;
+}
   .offer-cards .protein-right-bottom .right-bottom-content {
     width: unset;
     padding: 22px 15rem 22px 1rem !important;
@@ -2191,6 +2203,15 @@ footer{
   .download-section{
     padding-top: 1rem !important;
   }
+  .product-card h6{
+    Small{
+      font-size: 11px !important;
+    }
+    span{
+      font-size: 14px;
+    }
+  }
+
 }
 
 @media (max-width: 576px) { 
@@ -2200,7 +2221,9 @@ footer{
   .ready-cook {
     height: 38rem !important;
   }
-  
+  li{
+    font-size: 0.75rem;
+  }
   .footer-detail-links li span{
     a{
       font-size: 0.8rem !important;
@@ -2209,9 +2232,12 @@ footer{
       font-size: 0.8rem !important;
     }
   } 
-  .product-card{
-    h6{
-      font-size: 1rem !important;
+  .product-card h6{
+    Small{
+      font-size: 11px !important;
+    }
+    span{
+      font-size: 13px;
     }
   }
 
@@ -2336,6 +2362,7 @@ footer{
     }
   }
   .home-banner-wrapper,
+  .ready-cook,
   .popular-product {
     .custom-arrow {
       display: none !important;
@@ -2362,6 +2389,7 @@ footer{
     img {
       height: auto !important;
       width: 100% !important;
+     
     }
   }
   .cart-offcanvas {

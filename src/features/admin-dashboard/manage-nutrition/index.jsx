@@ -5,7 +5,8 @@ import { getBannerApi, getNutritionApi, patchBannerApi } from "../../../services
 import AddNutritionModal from "./components/AddNutritionModal";
 import Loading from "../../../components/ui/Loading";
 import NutritionTable from "./components/NutritionTable";  
-
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs'; 
 
 function ManageNutrition() {
   const [visible, setVisible] = useState(false);
@@ -49,6 +50,12 @@ function ManageNutrition() {
             handleClick={() => setVisible(true)}
             lable={"+ Add Nutrition"}
           />
+        </div>
+        <div className="col-12 mt-3">
+          <Breadcrumbs aria-label="breadcrumb">
+          <Typography >Products</Typography>
+            <Typography className="text-orange">Nutrition</Typography>
+          </Breadcrumbs>
         </div>
       </div>
 

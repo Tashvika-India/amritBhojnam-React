@@ -211,7 +211,9 @@ const CheckoutPage = () => {
       <div className="pt-5">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-            <Typography>Home</Typography>
+          <Link underline="hover" color="inherit" href="/">
+              Home
+            </Link>
             <Typography>Cart</Typography>
             <Typography className="text-orange">Checkout</Typography>
           </Breadcrumbs>

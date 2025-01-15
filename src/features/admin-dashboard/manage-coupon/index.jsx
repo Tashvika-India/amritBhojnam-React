@@ -59,8 +59,8 @@ const AdminCoupon = () => {
                     <TabsButtons
                       activeTab={activeTab}
                       setActiveTab={setActiveTab}
-                      labelOne={"Active Orders"}
-                      labelTwo={"New Orders"}
+                      labelOne={"Active"}
+                      labelTwo={"Inactive"}
                     />
                   </div>
                   {/* {activeTab === "Active Orders" && <ProductTable />}
@@ -76,7 +76,7 @@ const AdminCoupon = () => {
                   onChange={(e) =>
                     setFilter({ ...filter, name: e.target.value })
                   }
-                  placeholder="Search Product"
+                  placeholder="Search Coupon"
                 />
               </div>
             </div>

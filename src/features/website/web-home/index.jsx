@@ -512,7 +512,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section id="best" className="best-product overflow-hidden my-4">
+      <section id="best" className="best-product overflow-hidden my-lg-5 my-2">
         <div className="container-fluid">
           <div className="h-100">
             <h3 className="fw-bold mb-5 pb-2 text-center">
@@ -681,7 +681,7 @@ const HomePage = () => {
         <div className="container fb-container">
           <div className="row align-items-center">
             <div className="col-lg-6 col-md-6 mt-lg-5 mt-0">
-              <div className="download-content ms-5 mt-0 mt-lg-5 p-0">
+              <div className="download-content ms-5 ms-sm-0 mt-0 mt-lg-5 p-0">
                 <span className="millet-top">
                   <img
                     src={milletTop}
@@ -702,7 +702,7 @@ const HomePage = () => {
                     <br></br>Mobile App
                   </span>
                 </h2>
-                <p className="pb-4 mb-lg-4 mb-0 pe-5">
+                <p className="pb-4 mb-lg-4 mb-0 pe-lg-5  pe-md-5 pe-0">
                   Enjoy the convenience of shopping for your favorite
                   millet-based products directly from your phone. Our app offers
                   a user-friendly interface, exclusive deals, and personalized

@@ -69,6 +69,7 @@ const ProudctList = () => {
     getCategoryList();
   }, []);
 
+
   const handleDebouncedChange = debounce((value) => {
     if (value[0] > value[1]) {
       setFilters((prevFilters) => ({
