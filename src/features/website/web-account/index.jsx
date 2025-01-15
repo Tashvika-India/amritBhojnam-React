@@ -34,7 +34,7 @@ import { Collapse } from "@mui/material";
 import { useFormik } from "formik";
 import Address from "../../../assets/common-components/website/Address";
 import { baseURL } from "../../../utils/constant-variable";
-import { Link, useLocation } from "react-router-dom";
+import {Link, useLocation } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
 import { Rating } from "primereact/rating";
 import ReviewModal from "../../../components/ui/ReviewModal";
@@ -304,7 +304,9 @@ const UserProfile = () => {
       <div className="pt-5">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-            <Typography>Home</Typography> 
+          <Link underline="hover" color="inherit" to="/">
+              Home
+            </Link>
             <Typography className="text-orange">Profile</Typography>
           </Breadcrumbs>
         </div>
@@ -312,7 +314,7 @@ const UserProfile = () => {
       <div className="container fb-container mb-md-5 pb-md-5">
         <div className="row">
           <div className=" col-lg-10 mx-auto">
-            <div className="user-profile-img  mt-5">
+            <div className="user-profile-img  mt-lg-5 mt-md-5 mt-4">
               {/* <img
                 className="img-fluid profile-img profile-foreground-img rounded-top w-100 mt-5"
                 src={profileBg}

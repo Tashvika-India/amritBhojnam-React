@@ -22,14 +22,14 @@ const TermsAndConditions = () => {
           </Breadcrumbs>
         </div>
       </div>
-      <section className="terms-conditions mt-5">
+      <section className="terms-conditions mt-lg-5 mt-0">
         <div className="container fb-container">
           <div className=" ">
             <h1 className="text-center text-orange fw-bold">
               Terms of Service
             </h1>
-            <div className="overview-section py-5">
-              <h5 className="text-center mt-4 pb-2 fw-600">OVERVIEW</h5>
+            <div className="overview-section py-lg-5 py-4">
+              <h5 className="text-center mt-lg-4 pb-2 fw-600">OVERVIEW</h5>
               <p>
                 This website is operated by My Store. Throughout the site, the
                 terms “we”, “us” and “our” refer to My Store. My Store offers
@@ -70,7 +70,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-1 mb-5">
+            <div className="section-1 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 1 - ONLINE STORE TERMS
               </h5>
@@ -97,7 +97,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-2 mb-5">
+            <div className="section-2 mb-lg-5 mb-4">
               <h5 className="text-center  pb-2 fw-600">
                 SECTION 2 - GENERAL CONDITIONS
               </h5>
@@ -126,7 +126,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-3 mb-5">
+            <div className="section-3 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 3 - ACCURACY, COMPLETENESS AND TIMELINESS OF INFORMATION
               </h5>
@@ -153,7 +153,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-4 mb-5">
+            <div className="section-4 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 4 - MODIFICATIONS TO THE SERVICE AND PRICES
               </h5>
@@ -172,7 +172,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-5 mb-5">
+            <div className="section-5 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 5 - PRODUCTS OR SERVICES (if applicable)
               </h5>
@@ -207,7 +207,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-6 mb-5">
+            <div className="section-6 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 6 - ACCURACY OF BILLING AND ACCOUNT INFORMATION
               </h5>
@@ -238,7 +238,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-7 mb-5">
+            <div className="section-7 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 7 - OPTIONAL TOOLS
               </h5>
@@ -265,7 +265,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-8 mb-5">
+            <div className="section-8 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 8 - THIRD-PARTY LINKS
               </h5>
@@ -293,7 +293,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-9 mb-5">
+            <div className="section-9 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 9 - USER COMMENTS, FEEDBACK AND OTHER SUBMISSIONS
               </h5>
@@ -330,7 +330,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-10 mb-5">
+            <div className="section-10 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 10 - PERSONAL INFORMATION
               </h5>
@@ -341,7 +341,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-11 mb-5">
+            <div className="section-11 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 11 - ERRORS, INACCURACIES AND OMISSIONS
               </h5>
@@ -367,7 +367,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-12 mb-5">
+            <div className="section-12 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 12 - PROHIBITED USES
               </h5>
@@ -397,7 +397,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-13 mb-5">
+            <div className="section-13 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 13 - DISCLAIMER OF WARRANTIES; LIMITATION OF LIABILITY
               </h5>
@@ -446,7 +446,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-14 mb-5">
+            <div className="section-14 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 14 - INDEMNIFICATION
               </h5>
@@ -462,7 +462,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-15 mb-5">
+            <div className="section-15 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 15 - SEVERABILITY
               </h5>
@@ -477,7 +477,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-16 mb-5">
+            <div className="section-16 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 16 - TERMINATION
               </h5>
@@ -500,7 +500,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-17 mb-5">
+            <div className="section-17 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 17 - ENTIRE AGREEMENT
               </h5>
@@ -525,7 +525,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-18 mb-5">
+            <div className="section-18 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 18 - GOVERNING LAW
               </h5>
@@ -536,7 +536,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-19 mb-5">
+            <div className="section-19 mb-lg-5 mb-4">
               <h5 className="text-center pb-2 fw-600">
                 SECTION 19 - CHANGES TO TERMS OF SERVICE
               </h5>
@@ -555,7 +555,7 @@ const TermsAndConditions = () => {
               </p>
             </div>
 
-            <div className="section-20 mb-5 pb-5">
+            <div className="section-20 mb-lg-5 mb-4 pb-5">
               <h5 className="text-center pb-2 fw-600">
               SECTION 20 - CONTACT INFORMATION
               </h5>

@@ -55,7 +55,7 @@ const WebBanner = () => {
     <>
       <Slider {...settings} className="banner-slider">
         {banner?.map((item, index) => (
-          <Link to="/products" className="banner-slide" key={index}>
+          <Link to="/products" className="banner-slide overflow-hidden rounded-20" key={index}>
             <img loading="lazy"
               src={baseURL + item.img_file}
               alt="banner"

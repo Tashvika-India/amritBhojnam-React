@@ -47,12 +47,7 @@ const CheckoutPage = () => {
   const login = accessToken;
 
   const { cartItems, finalCart, cartId } = useSelector((state) => state.cart);
-
-
-  console.log("cartItems", finalCart);
-  console.log("new", finalCartNew);
-  
-
+ 
   const getCartList = async () => {
     try {
       const response = await getCartApi();
@@ -216,7 +211,9 @@ const CheckoutPage = () => {
       <div className="pt-5">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-            <Typography>Home</Typography>
+          <Link underline="hover" color="inherit" href="/">
+              Home
+            </Link>
             <Typography>Cart</Typography>
             <Typography className="text-orange">Checkout</Typography>
           </Breadcrumbs>

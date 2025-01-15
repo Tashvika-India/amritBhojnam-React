@@ -138,7 +138,7 @@ const Footer = () => {
                         className="text-orange fb-fs-18 d-inline-block"
                         style={{ width: "5rem" }}
                       >
-                        Call US :
+                        Call Us :
                       </span>
                       <a
                         href="tel:+917678320459"
@@ -179,7 +179,7 @@ const Footer = () => {
                     </li>
                   </ul>
                   <div className="d-flex gap-4 py-lg-3 py-2">
-                    <p className="fw-500 text-black" style={{fontSize: "14.32px;"}}>Follow Us</p>
+                    <p className="fw-500 text-black" style={{ fontSize: "0.895rem" }}>Follow Us</p>
                     <div className="d-inline-flex gap-2 align-items-center">
                       <a href="https://www.instagram.com/amrit_bhojanam/profilecard/#/">
                         <AiFillInstagram size={24} color="#f26722" />
@@ -285,12 +285,24 @@ const Footer = () => {
                 </div>
               </div>
               <div className="col-md-12 d-md-none d-block">
-                <div className="footer-accordian mb-5">
+                <div className="footer-accordian">
                   <Accordion
+                    style={{ border: "none", boxShadow: "none", background: "transparent", marginBlock: "0" }}
+                    sx={{
+                      "&:before": {
+                        all: "unset",
+                      },
+                    }}
                     expanded={expanded === "panel1"}
                     onChange={handleChange("panel1")}
                   >
-                    <AccordionSummary
+                    <AccordionSummary className="px-0"
+                      sx={{
+                        "& .MuiAccordionSummary-content": {
+                          margin: 0,
+                        },
+                      }}
+
                       expandIcon={
                         expanded === "panel1" ? (
                           <RemoveIcon
@@ -307,7 +319,7 @@ const Footer = () => {
                     >
                       <Typography
                         component="span"
-                        className="fb-fs-20 text-orange"
+                        className="fs-5 text-orange"
                       >
                         COMPANY
                       </Typography>
@@ -331,13 +343,22 @@ const Footer = () => {
                         </li>
                       </ul>
                     </AccordionDetails>
-                  </Accordion>
-
-                  <Accordion
+                  </Accordion >
+                  <Accordion style={{ border: "none", boxShadow: "none", background: "transparent", marginBlock: "0" }}
+                    sx={{
+                      "&:before": {
+                        all: "unset",
+                      },
+                    }}
                     expanded={expanded === "panel2"}
-                    onChange={handleChange("panel2")}
-                  >
-                    <AccordionSummary
+                    onChange={handleChange("panel2")}>
+                    <AccordionSummary className="px-0"
+                      sx={{
+                        "& .MuiAccordionSummary-content": {
+                          margin: 0,
+                        },
+                      }}
+
                       expandIcon={
                         expanded === "panel2" ? (
                           <RemoveIcon
@@ -354,7 +375,7 @@ const Footer = () => {
                     >
                       <Typography
                         component="span"
-                        className="fb-fs-20 text-orange"
+                        className="fs-5 text-orange"
                       >
                         HELP & SUPPORT
                       </Typography>
@@ -382,12 +403,22 @@ const Footer = () => {
                       </ul>
                     </AccordionDetails>
                   </Accordion>
-
-                  <Accordion
+                  <Accordion style={{ border: "none", boxShadow: "none", background: "transparent", marginBlock: "0" }}
+                    sx={{
+                      "&:before": {
+                        all: "unset",
+                      },
+                    }}
                     expanded={expanded === "panel3"}
                     onChange={handleChange("panel3")}
                   >
-                    <AccordionSummary
+                    <AccordionSummary className="px-0"
+                      sx={{
+                        "& .MuiAccordionSummary-content": {
+                          margin: 0,
+                        },
+                      }}
+
                       expandIcon={
                         expanded === "panel3" ? (
                           <RemoveIcon
@@ -404,7 +435,7 @@ const Footer = () => {
                     >
                       <Typography
                         component="span"
-                        className="fb-fs-20 text-orange"
+                        className="fs-5 text-orange"
                       >
                         POPULAR
                       </Typography>

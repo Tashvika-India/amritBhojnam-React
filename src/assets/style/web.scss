@@ -939,7 +939,7 @@ footer {
     align-items: center;
     justify-content: space-between;
     gap: 0.6rem;
-    padding: 2px 17px;
+    padding: 0.125rem 1.0625rem;
     .quantity-minus,.quantity-count,.quantity-plus{
       width: 30%;
       padding: 0;
@@ -1876,6 +1876,12 @@ footer{
   .ready-cook {
     height: 40rem !important;
   }
+  .contact-us{
+    background-size: 500%;
+  }
+  li{
+    font-size: 0.75rem;
+  }
   .banner-slider img {
     height: auto !important;
   }
@@ -1893,7 +1899,9 @@ footer{
       }
     }
   }
-  
+  .p-slider {
+    transition: all 0.2s ease-in-out !important;
+  }
   .popular-product .popularleft {
     margin-bottom: 1rem;
   }
@@ -1916,6 +1924,7 @@ footer{
       }
     }
   }
+
   .offer-cards {
     .protein-right-top .button-primary {
       margin-bottom: 1rem !important;
@@ -2090,6 +2099,9 @@ footer{
   .button-primary {
     font-size: 0.6875rem;
   }
+  .contact-us .card .orange-section {
+    padding: 3.5rem 3rem;
+}
   .offer-cards .protein-right-bottom .right-bottom-content {
     width: unset;
     padding: 22px 15rem 22px 1rem !important;
@@ -2165,27 +2177,6 @@ footer{
   .download-section{
     padding-top: 1rem !important;
   }
-  footer{
-    .footer-accordian{
-      .css-nt424e-MuiPaper-root-MuiAccordion-root{
-        background-color: transparent !important;
-        --Paper-shadow: none !important;
-        border: none !important;
-      }
-      .css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root{
-       padding: 1.2rem 0.1rem;
-      }
-      .css-eqpfi5-MuiAccordionSummary-content{
-        margin: 0 !important;
-      }
-      .css-nt424e-MuiPaper-root-MuiAccordion-root::before {
-        background-color: transparent !important;
-      }
-      .css-11px2du-MuiTypography-root{
-        font-weight: 500 !important;
-      }
-    }
-  }
   .product-card h6{
     Small{
       font-size: 11px !important;
@@ -2197,32 +2188,13 @@ footer{
 
 }
 
-@media (max-width: 576px) {
-  footer{
-    .footer-accordian{
-      .css-nt424e-MuiPaper-root-MuiAccordion-root{
-        background-color: transparent !important;
-        --Paper-shadow: none !important;
-        border: none !important;
-      }
-      .css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root{
-       padding: 1.2rem 0.1rem;
-      }
-      .css-eqpfi5-MuiAccordionSummary-content{
-        margin: 0 !important;
-      }
-      .css-nt424e-MuiPaper-root-MuiAccordion-root::before {
-        background-color: transparent !important;
-      }
-      .css-11px2du-MuiTypography-root{
-        font-weight: 500 !important;
-      }
-    }
-  }
+@media (max-width: 576px) { 
   .ready-cook {
     height: 38rem !important;
   }
-  
+  li{
+    font-size: 0.75rem;
+  }
   .footer-detail-links li span{
     a{
       font-size: 0.8rem !important;
@@ -2361,6 +2333,7 @@ footer{
     }
   }
   .home-banner-wrapper,
+  .ready-cook,
   .popular-product {
     .custom-arrow {
       display: none !important;
@@ -2387,6 +2360,7 @@ footer{
     img {
       height: auto !important;
       width: 100% !important;
+     
     }
   }
   .cart-offcanvas {
