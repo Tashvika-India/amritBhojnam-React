@@ -18,7 +18,7 @@ import { getWishlist } from "../../services/adminApiRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../redux/slices/cartSlice";
 import ScrollTopBehaviour from "../../custom-compoents/ScrollTopBehaviour";
-const Header = () => { 
+const Header = () => {
   const [showCart, setShowCart] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showMobileLogin, setShowMobileLogin] = useState(false);
@@ -32,11 +32,11 @@ const Header = () => {
 
   const navigate = useNavigate();
   const [category, setCategory] = useState([]);
-  const [showWebLogin, setShowWebLogin] = useState(false); 
-  const toggleCart = () => {    
+  const [showWebLogin, setShowWebLogin] = useState(false);
+  const toggleCart = () => {
     setShowCart(!showCart)
   };
- 
+
 
   const toggleMobileMenu = () => setShowMobileMenu((prev) => !prev);
 
@@ -92,23 +92,6 @@ const Header = () => {
     dispatch(fetchCart());
   }, []);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (!accessToken) {
-  //       console.log("Token not found");
-  //       setShowMobileLogin(true);
-  //       setShowWebLogin(true);
-  //     } else {
-  //       setShowMobileLogin(false);
-  //       setShowWebLogin(false); // Optional: Reset state if token exists
-  //     }
-  //   }, 3000); // Check every 1 second
-
-  //   return () => clearInterval(interval); // Clean up on component unmount
-  // }, []);
-
-
-
   return (
     <>
       <ScrollTopBehaviour />
@@ -147,11 +130,23 @@ const Header = () => {
                 >
                   <div className="all-category">
                     <Dropdown
-                      value={category.find((c) => c.id === filters.category_id)}
-                      onChange={(e) => setFilters({ ...filters, category_id: e.value.id })}
-                      options={category}
+                      value={
+                        filters.category_id === ""
+                          ? { id: "", name: "All Categories" }  
+                          : category.find((c) => c.id === filters.category_id)
+                      }
+                      onChange={(e) =>
+                        setFilters({
+                          ...filters,
+                          category_id: e.value.id, 
+                        })
+                      }
+                      options={[
+                        { id: "", name: "All Categories" },  
+                        ...category,  
+                      ]}
                       optionLabel="name"
-                      placeholder="All Categories"
+                      placeholder="Select Category"
                       className="w-full border-0"
                     />
                   </div>
@@ -271,7 +266,6 @@ const Header = () => {
                     login={login}
                     userDetail={userDetail}
                   />
-
                   <MobileLogin
                     otpShow={showWebLogin}
                     onOtpClose={toggleWebLogin}
