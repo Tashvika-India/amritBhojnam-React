@@ -422,6 +422,29 @@ footer {
   }
 }
 
+.skeleton-loading {
+  height: 39rem;
+  background-image: linear-gradient(
+    90deg,
+    #bebebe 0%,
+    #f2f2f2 50%,
+    #bebebe 100%
+  );
+  background-size: 200% 100%;  
+  border-radius: 1.375rem;
+  width: 100%;
+  animation: skeleton-loading 1.5s infinite linear;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
 //contact-us page
 .contact-us {
   background-image: url("../images/web/contact-us-bg.png");
@@ -1873,6 +1896,9 @@ footer{
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
+  .skeleton-loading {
+    height: 18.75rem;
+  }
   .ready-cook {
     height: 40rem !important;
   }
@@ -2168,6 +2194,9 @@ footer{
 }
 
 @media (max-width: 576px) { 
+  .skeleton-loading {
+    height: 18.75rem;
+  }
   .ready-cook {
     height: 38rem !important;
   }
