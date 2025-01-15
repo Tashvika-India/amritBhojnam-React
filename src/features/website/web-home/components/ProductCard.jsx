@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Checkbox } from "@mui/material";
 import { Favorite, FavoriteBorder, SmartDisplay } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { baseURL } from "../../../../utils/constant-variable";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromWishlist,
@@ -10,9 +9,7 @@ import {
 } from "../../../../redux/slices/wishlistSlice";
 import MobileLogin from "../../../../components/ui/MobileLogin";
 import { notifySuccess } from "../../../../components/ui/Notification";
-import { postCartApi } from "../../../../services/adminApiRoutes";
 import { fetchCart, fetchFinalCart, updateCart } from "../../../../redux/slices/cartSlice";
-import { px } from "framer-motion";
 
 const ProductCard = ({ product }) => {
   const [loading, setLoading] = useState(false);
@@ -54,7 +51,7 @@ const ProductCard = ({ product }) => {
         // await dispatch(fetchFinalCart(cartId));
         await dispatch(fetchCart())
       } catch (error) {
-         setQuantity(quantity);
+        setQuantity(quantity);
       } finally {
         setLoading(false);
       }
@@ -77,11 +74,11 @@ const ProductCard = ({ product }) => {
         setLoading(false);
       }
     }
-    else{
+    else {
 
     }
-  }; 
-  
+  };
+
   return (
     <>
       <Link to={`/product-detail?product_id=${product?.id}`} className={`${product?.stock <= 0 ? "product-card-link" : ""}`}>
@@ -92,19 +89,38 @@ const ProductCard = ({ product }) => {
               10% off
             </span> */}
             </div>
-            <div className="rounded-circle whislist-icon" type="button" onClick={(event) => event.stopPropagation()}>
-              <Checkbox
-                icon={<FavoriteBorder />}
-                checkedIcon={<Favorite className="text-danger" />}
-                checked={checked}
-                onChange={handleWishlistChange}
-                style={{
-                  color: "#F26722",
-                  margin: "0",
-                  padding: "0",
-                }}
-              />
-            </div>
+            {
+              login ? ( 
+                  <div className="rounded-circle whislist-icon" type="button" onClick={(event) => event.stopPropagation()}>
+                    <Checkbox
+                      icon={<FavoriteBorder />}
+                      checkedIcon={<Favorite className="text-danger" />}
+                      checked={checked}
+                      onChange={handleWishlistChange}
+                      style={{
+                        color: "#F26722",
+                        margin: "0",
+                        padding: "0",
+                      }}
+                    />
+                  </div> 
+              )
+                :
+                (
+                  <div className="rounded-circle whislist-icon" type="button" onClick={(event) => event.stopPropagation()}>
+                    <Checkbox
+                      icon={<FavoriteBorder />}
+                      checkedIcon={<Favorite className="text-danger" />}
+                      checked={checked}
+                      onChange={toggleWebLogin}
+                      style={{
+                        color: "#F26722",
+                        margin: "0",
+                        padding: "0",
+                      }}
+                    />
+                  </div>
+                )}
           </div>
           <div className="product-image">
             <img
@@ -116,7 +132,7 @@ const ProductCard = ({ product }) => {
           <div className="px-2 px-md-3">
             <h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5>
             <h5 className="fb-fs-14 fw-600 text-grey">
-              {product?.quantity} 
+              {product?.quantity}
             </h5>
             <div className="d-flex justify-content-between align-items-center align-items-lg-end mt-3">
               <h6 className="fb-fs-20 fw-bold mb-0 d-inline-flex align-items-center flex-column flex-xxl-row">
@@ -124,7 +140,7 @@ const ProductCard = ({ product }) => {
                   <strike>₹ {product?.max_price}</strike>
                 </small>}
                 <span>₹ {product?.offer_price}</span>
-                
+
               </h6>
               <div
                 onClick={(event) => {
@@ -133,22 +149,22 @@ const ProductCard = ({ product }) => {
                 }}
               >
                 {quantity === 0 ? (
-                  (login) ?  <button
-                  className="button-primary py-1 rounded fb-fs-14 fw-600"
-                  onClick={() => handleIncreaseQuantity(product?.id)}
-                // disabled={loading}
-                >
-                  Add
-                </button> : <button
-                  className="button-primary py-1 rounded fb-fs-14 fw-600"
-                  onClick={toggleWebLogin}
-                // disabled={loading}
-                >
-                  Add
-                </button>
+                  (login) ? <button
+                    className="button-primary py-1 rounded fb-fs-14 fw-600"
+                    onClick={() => handleIncreaseQuantity(product?.id)}
+                  // disabled={loading}
+                  >
+                    Add
+                  </button> : <button
+                    className="button-primary py-1 rounded fb-fs-14 fw-600"
+                    onClick={toggleWebLogin}
+                  // disabled={loading}
+                  >
+                    Add
+                  </button>
                 ) : (
                   <div className="product-quantity text-end">
-                    <div className="quantity-manage" style={{overflow: "hidden"}}>
+                    <div className="quantity-manage" style={{ overflow: "hidden" }}>
                       <button
                         className="quantity-minus border-0 bg-white text-orange fw-600"
                         onClick={() => handleDecreaseQuantity(product?.id)}

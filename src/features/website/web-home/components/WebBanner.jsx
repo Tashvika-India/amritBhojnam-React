@@ -27,7 +27,7 @@ const WebBanner = () => {
     try {
       const response = await getBannerApi();
       let filteredBanners = [];
-      
+
       if (window.innerWidth < 768) {
         filteredBanners = (response?.data || []).filter(
           (item) => item.is_active === true && item.platform === "webMobile"
@@ -37,7 +37,7 @@ const WebBanner = () => {
           (item) => item.is_active === true && item.platform === "web"
         );
       }
-
+      setLoading(false);
       setBanner(filteredBanners);
     } catch (error) {
       console.log("Error on Banner List", error);
@@ -54,15 +54,17 @@ const WebBanner = () => {
   return (
     <>
       <Slider {...settings} className="banner-slider">
-        {banner?.map((item, index) => (
-          <Link to="/products" className="banner-slide overflow-hidden rounded-20" key={index}>
-            <img loading="lazy"
-              src={baseURL + item.img_file}
-              alt="banner"
-              className="img-fluid"
-            />
-          </Link>
-        ))}
+        {
+          loading ? <div className="skeleton-loading"></div>  :
+            banner?.map((item, index) => (
+              <Link to="/products" className="banner-slide" key={index}>
+                <img loading="lazy" height="600px" width="100%"
+                  src={baseURL + item.img_file}
+                  alt="banner"
+                  className="img-fluid"
+                />
+              </Link>
+            ))}
       </Slider>
     </>
   );
