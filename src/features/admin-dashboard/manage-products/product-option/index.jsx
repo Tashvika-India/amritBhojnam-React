@@ -46,8 +46,7 @@ const ProductOption = ({ isEditMode = false, existingData = {} }) => {
       sku: Yup.string().optional(),
       unique_barcode: Yup.string().optional(),
     }),
-    onSubmit: async (values, { resetForm }) => {
-      console.log(values);
+    onSubmit: async (values, { resetForm }) => { 
       try {
         if (isEditMode) {
           await putOptionsApi(existingData.id, values);

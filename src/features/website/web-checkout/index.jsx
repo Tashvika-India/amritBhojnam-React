@@ -47,12 +47,7 @@ const CheckoutPage = () => {
   const login = accessToken;
 
   const { cartItems, finalCart, cartId } = useSelector((state) => state.cart);
-
-
-  console.log("cartItems", finalCart);
-  console.log("new", finalCartNew);
-  
-
+ 
   const getCartList = async () => {
     try {
       const response = await getCartApi();
