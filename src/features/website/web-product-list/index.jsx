@@ -69,6 +69,14 @@ const ProudctList = () => {
     getCategoryList();
   }, []);
 
+  const handleScroll = (value) => {
+    const targetPosition = document.getElementById('target-section').offsetTop;
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth',
+    });
+  };
+
   const handleDebouncedChange = debounce((value) => {
     if (value[0] > value[1]) {
       setFilters((prevFilters) => ({
@@ -141,7 +149,7 @@ const ProudctList = () => {
                   <Slider
                     value={[filters.minPrice, filters.maxPrice]}
                     onChange={(e) => handleDebouncedChange(e.value)}
-                    className="w-14rem"
+                    className="w-14rem target-section"
                     range
                     min={0} // Set minimum range value
                     max={5000} // Set maximum range value

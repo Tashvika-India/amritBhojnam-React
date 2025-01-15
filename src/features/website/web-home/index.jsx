@@ -681,7 +681,7 @@ const HomePage = () => {
         <div className="container fb-container">
           <div className="row align-items-center">
             <div className="col-lg-6 col-md-6 mt-lg-5 mt-0">
-              <div className="download-content ms-5 mt-0 mt-lg-5 p-0">
+              <div className="download-content ms-5 ms-sm-0 mt-0 mt-lg-5 p-0">
                 <span className="millet-top">
                   <img
                     src={milletTop}

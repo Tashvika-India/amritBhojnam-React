@@ -1945,7 +1945,7 @@ footer{
       height: auto !important;
       padding-top: 40px !important;
       background-position: center bottom;
-      background-size: 160%;
+      background-size: 153%;
       background-color: $semi-orange;
       padding-bottom: 130px;
       form {
@@ -2186,6 +2186,15 @@ footer{
       }
     }
   }
+  .product-card h6{
+    Small{
+      font-size: 11px !important;
+    }
+    span{
+      font-size: 14px;
+    }
+  }
+
 }
 
 @media (max-width: 576px) {
@@ -2222,9 +2231,12 @@ footer{
       font-size: 0.8rem !important;
     }
   } 
-  .product-card{
-    h6{
-      font-size: 1rem !important;
+  .product-card h6{
+    Small{
+      font-size: 11px !important;
+    }
+    span{
+      font-size: 13px;
     }
   }
 
