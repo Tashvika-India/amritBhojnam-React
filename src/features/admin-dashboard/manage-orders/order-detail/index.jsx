@@ -336,11 +336,11 @@ const AdminOrderDetail = () => {
                 </p>
                 <div>
                   <div className="d-flex align-items-start gap-5 pb-2">
-                    <p className="fw-500 mb-0">Type:</p>
+                    <p className="fw-500 mb-0">Type</p> <span> :</span>
                     <p className="mb-0">{orderData?.payment_details?.payment_mode}</p>
                   </div>
                   <div className="d-flex align-items-start gap-4">
-                    <p className="fw-500 mb-0">Status:</p>
+                    <p className="fw-500 mb-0">Status</p> <span> :</span>
                     <p className="mb-0 ps-3">{orderData?.payment_details?.status}</p>
                     {/* <button
                       style={{
@@ -401,8 +401,8 @@ const AdminOrderDetail = () => {
                   </div>
                   <div className="mt-4 pt-2">
                     <div className="d-flex align-items-start gap-5">
-                      <p className="fw-500 mb-0">Type:</p>
-                      <p className="mb-0">Card</p>
+                      <p className="fw-500 mb-0">Type</p> <span> :</span>
+                      <p className="mb-0">{orderData?.payment_details?.payment_mode}</p>
                     </div>
                   </div>
                 </div>
@@ -443,40 +443,40 @@ const AdminOrderDetail = () => {
                       <p className="fw-600 mb-0">Delivery Address</p>
                       <div className="mt-4">
                         <div className="d-flex align-items-start">
-                          <p className="fw-500 mb-0 w-25">Name</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_name || ''}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Name </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}>{orderData?.delivering_to?.ads_name || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">Address</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Address </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> {`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">Address Line 2</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Address Line 2 </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> {`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">City</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.city || ''}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>City </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.city || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">Pin Code</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.pincode || ''}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Pin Code </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.pincode || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">State</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.state || ''}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>State </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.state || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">Country</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;India</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Country </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> India</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">Phone</p>
-                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_phone || ''}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Phone </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0",width: "60%" }}> {orderData?.delivering_to?.ads_phone || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">Email</p>
-                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_email || ''}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Email </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0",width: "60%" }}> {orderData?.delivering_to?.ads_email || ''}</p>
                         </div>
                       </div>
                     </div>
@@ -484,40 +484,40 @@ const AdminOrderDetail = () => {
                       <p className="fw-600 mb-0">Shipping Address</p>
                       <div className="mt-4">
                         <div className="d-flex align-items-start">
-                          <p className="fw-500 mb-0 w-25">Name</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_name || ''}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Name </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.ads_name || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">Address</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Address </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> {`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">Address Line 2</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Address Line 2 </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> {`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">City</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.city || ''}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>City </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.city || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">Pin Code</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.pincode || ''}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Pin Code </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.pincode || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">State</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.state || ''}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>State </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.state || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">Country</p>
-                          <p className="mb-0 ps-4">:&nbsp;&nbsp;&nbsp;&nbsp;India</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Country </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{width: "80%"}}> India</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">Phone</p>
-                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_phone || ''}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Phone </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0",width: "60%" }}> {orderData?.delivering_to?.ads_phone || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0 w-25">Email</p>
-                          <p className="mb-0 ps-4" style={{ color: "#584EE0" }}>:&nbsp;&nbsp;&nbsp;&nbsp;{orderData?.delivering_to?.ads_email || ''}</p>
+                          <p className="fw-500 mb-0" style={{width: "20%"}}>Email </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0",width: "60%" }}> {orderData?.delivering_to?.ads_email || ''}</p>
                         </div>
                       </div>
                     </div>

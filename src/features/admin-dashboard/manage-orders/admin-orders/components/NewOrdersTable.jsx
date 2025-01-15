@@ -169,9 +169,9 @@ const NewOrdersTable = ({ order, getOrderList }) => {
     <div className="datatable">
       <DataTable value={order} paginator rows={10}>
         <Column
-          field="id"
+          field="display_order_id"
           header="ID"
-          body={(rowData) => <><Link to={`/admin/order-detail/${rowData.id}`} style={{ width: "100%", color: "#584EE0" }}>${rowData.id.slice(0,8)}</Link></>}
+          body={(rowData) => <><Link to={`/admin/order-detail/${rowData.id}`} style={{ width: "100%", color: "#584EE0" }}>#{rowData.id.slice(0,8)}</Link></>}
         ></Column>
         <Column header="ORDER" body={orderTemplate} style={{ width: "20%" }}></Column>
         <Column header="CUSTOMER" body={customerTemplate} style={{ width: "10%" }}></Column>
