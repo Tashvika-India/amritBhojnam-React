@@ -182,7 +182,8 @@ export const getOrderSuccessAdminApi = (id,name) => API.get(`/orders_by_success/
 //order success
 export const getOrderSuccessApi = (payload) => API.patch(`/orders/status/`,payload);
 
-
+// Contact api
+export const getContactApi = () => API.get(`/contact/`);
 export const postContactApi = (payload) => API.post(`/contact/`, payload);
 
 //coupon
