@@ -311,6 +311,11 @@ const ProudctDetail = () => {
     });
     const data = { product_id: detail?.id, action: !detail?.is_wishlist };
     dispatch(updateWishlist(data));
+    notifySuccess(
+      !detail?.is_wishlist
+        ? "Product added to wishlist"
+        : "Product removed from wishlist"
+    );
   }
 
 
@@ -338,6 +343,7 @@ const ProudctDetail = () => {
                   </p> */}
                   <div className="gap-3 d-inline-flex ms-lg-auto mb-3">
                     <span className="pt-2">
+                    {  (login) ?
                       <Checkbox
                         {...label}
                         icon={<FavoriteBorder />}
@@ -347,6 +353,17 @@ const ProudctDetail = () => {
                         className="bg-icon-background"
                         onChange={handleWishlistChange}
                       />
+                      :
+                      <Checkbox
+                        {...label}
+                        icon={<FavoriteBorder />}
+                        checkedIcon={<Favorite />}
+                        checked={detail?.is_wishlist ? true : false}
+                        style={{ color: "#F26722", padding: "11px" }}
+                        className="bg-icon-background"
+                        onChange={toggleWebLogin}
+                      />
+                    }
                     </span>
                     {/* <span>
                       <Button
@@ -616,7 +633,7 @@ const ProudctDetail = () => {
                                             <img
                                               className="img-fluid border-orange"
                                               src={
-                                                data?.user_img
+                                                (!data?.is_anonymous && data?.user_img)
                                                   ? `${baseURL}/${data?.user_img}`
                                                   : pp
                                               }
@@ -631,7 +648,7 @@ const ProudctDetail = () => {
                                           </span>
                                           <div className="d-inline-block">
                                             <h6 className="fs-6 fw-bold">
-                                              {data?.user_name || "Anonymous"}
+                                              {data?.is_anonymous ? "Anonymous" : data?.user_name || "Anonymous"}
                                             </h6>
                                             <span className="d-inline-block">
                                               <Rating
