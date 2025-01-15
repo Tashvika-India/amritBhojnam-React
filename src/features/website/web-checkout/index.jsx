@@ -6,35 +6,30 @@ import homeImg from "../../../assets/images/web/account/home-img.png";
 import { Collapse } from "@mui/material";
 import {
   getAddressApi,
-  getCartApi,
-  getFinalCartApi,
-  getProfile,
+  getCouponApi,
   getProfileApi,
   postAddressApi,
   postPayNowApi,
   postSelectAddressApi,
-  putAddressApi,
 } from "../../../services/adminApiRoutes";
 import paymentFailed from "../../../assets/images/web/payment-failed.png";
 import Loading from "../../../components/ui/Loading";
 import Link from '@mui/material/Link';
-import { baseURL } from "../../../utils/constant-variable";
 import { useFormik } from "formik";
 import Address from "../../../assets/common-components/website/Address";
 import MobileLogin from "../../../components/ui/MobileLogin";
-import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { notifyError, notifySuccess } from "../../../components/ui/Notification";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFinalCart } from "../../../redux/slices/cartSlice";
+import CouponComponent from "./components/CouponComponent";
 
 
 const CheckoutPage = () => {
   const [loading, setLoading] = useState(false);
-  const [cartList, setCartList] = useState([]);
-  const [finalCartNew, setFinalCart] = useState({});
+  const [couponList, setCouponList] = useState([]);
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
   const [showWebLogin, setShowWebLogin] = useState(false);
@@ -47,17 +42,23 @@ const CheckoutPage = () => {
   const login = accessToken;
 
   const { cartItems, finalCart, cartId } = useSelector((state) => state.cart);
- 
-  const getCartList = async () => {
+
+  const [appliedCoupon, setAppliedCoupon] = useState("");
+
+  const handleCouponApply = (coupon) => {
+    console.log("Coupon applied:", coupon);
+    console.log("Cart ID:", cartId);
+    setAppliedCoupon(coupon);
+    dispatch(fetchFinalCart({ cartId, coupon }));
+  };
+
+  const getCouponList = async () => {
     try {
-      const response = await getCartApi();
-      setCartList(response?.data?.items || []);
-      const finalCartData = await getFinalCartApi(response?.data?.id);
-      setFinalCart(finalCartData?.data || {});
+      const response = await getCouponApi();
+      setCouponList(response?.data || []);
     } catch (error) {
-      console.log("Error fetching cart data:", error);
-    } finally {
-    }
+      console.log("Error fetching data:", error);
+    }  
   };
 
   const getAddressList = async () => {
@@ -172,7 +173,7 @@ const CheckoutPage = () => {
       if (address_id) {
         await postSelectAddressApi({ address_id });
         getAddressList();
-        dispatch(fetchFinalCart(cartId));
+        dispatch(fetchFinalCart({cartId}));
         notifySuccess("Address added Successfully");
       }
       setLoading(false);
@@ -193,7 +194,7 @@ const CheckoutPage = () => {
       console.log("Address Selected Successfully");
       scrollTo(0, 0);
       getAddressList();
-      dispatch(fetchFinalCart(cartId));
+      dispatch(fetchFinalCart({cartId}));
       notifySuccess("Address Selected Successfully");
     } catch (error) {
       console.log("Error fetching cart data:", error);
@@ -201,8 +202,11 @@ const CheckoutPage = () => {
     }
   };
 
+
+
   useEffect(() => {
-    getAddressList(); 
+    getAddressList();
+    getCouponList();
   }, []);
 
   return (
@@ -277,7 +281,6 @@ const CheckoutPage = () => {
                       </h6>
                     </div>
                   )}
-
                   <button
                     className="add-address-button w-100 bg-transparent text-center fw-600"
                     onClick={() => setOpen(!open)}
@@ -297,7 +300,6 @@ const CheckoutPage = () => {
                 <div className="col-lg-5 col-md-12">
                   <div className="my-card-section product-detail-shadow rounded-20 p-4 mb-4 sticky-top " style={{ zIndex: 10 }}>
                     <p className="fb-fs-26 fw-bold mb-4">My Cart</p>
-
                     {loading ? (
                       <Loading />
                     ) : cartItems?.length > 0 ? (
@@ -336,24 +338,14 @@ const CheckoutPage = () => {
                         </Link>
                       </div>
                     )}
-                    {/* <div className="mt-5">
-                      <div
-                        className="border-gray border-raidus-10 mt-2 input-box"
-                        style={{ width: "100%" }}
-                      >
-                        <div className="input-group mb-2 mt-2">
-                          <input
-                            type="text"
-                            className="form-control border-0 box-shadow-0 fw-600"
-                            placeholder="Apply Coupon"
-                            aria-describedby="basic-addon2"
-                          />
-                          <button className="input-group-text border-0 text-orange fw-bold bg-transparent border-start border-2 ps-4 me-3">
-                            Apply
-                          </button>
+                    <div>
+                      <CouponComponent couponList={couponList} onCouponApply={handleCouponApply} />
+                      {appliedCoupon && (
+                        <div className="mt-2">
+                          <strong>Applied Coupon Code:</strong> {appliedCoupon}
                         </div>
-                      </div>
-                    </div>  */}
+                      )}
+                    </div>
                     <div className="cart-items mt-2">
                       <ul className="list-unstyled w-100">
                         <li className="d-flex justify-content-between my-2">
@@ -370,6 +362,14 @@ const CheckoutPage = () => {
                             {finalCart?.handling_fee === undefined
                               ? "₹ 0"
                               : `₹ ${finalCart?.handling_fee}`}
+                          </span>
+                        </li>
+                        <li className="d-flex justify-content-between my-2">
+                          <span className="fw-500 text-success">Coupon Discount</span>
+                          <span className="fb-fs-18 fw-500 text-success">
+                            {finalCart?.coupon_data?.coupon_discount === undefined
+                              ? "₹ 0"
+                              : `₹${(finalCart?.coupon_data?.coupon_discount == 0) ? 0 : `-${finalCart?.coupon_data?.coupon_discount}`}`}
                           </span>
                         </li>
                         <li className="d-flex justify-content-between my-2">
@@ -440,11 +440,11 @@ const CheckoutPage = () => {
                       <>
                         <div className="w-100 text-center">
                           {cartItems.length > 0 ? (
-                            <h6 className="text-danger text-uppercase fs-6"> 
+                            <h6 className="text-danger text-uppercase fs-6">
                               Please Add Your address
                             </h6>
                           ) : (
-                            <h6 className="text-danger text-uppercase fs-6"> 
+                            <h6 className="text-danger text-uppercase fs-6">
                               Please Add Product in Cart
                             </h6>
                           )}

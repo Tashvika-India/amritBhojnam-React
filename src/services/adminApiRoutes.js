@@ -136,8 +136,7 @@ export const deleteBannerApi = (id) => API.delete(`/banners/${id}`);
 
 export const getCartApi = () => API.get(`/cart/`);
 export const postCartApi = (payload) => API.post(`/cart/`, payload);
-export const getFinalCartApi = (cart_id) =>
-  API.get(`/cart/final/?cart_id=${cart_id}`);
+export const getFinalCartApi = (cart_id, coupon_code) => API.get(`/cart/final/?cart_id=${cart_id}&coupon_code=${coupon_code}`);
 
 // options api
 

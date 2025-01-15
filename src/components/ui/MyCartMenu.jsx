@@ -25,20 +25,20 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
   const handleIncreaseQuantity = (product_id, currentQuantity) => {
     if (currentQuantity < 10) {
       handleUpdateCart(product_id, currentQuantity + 1);
-      dispatch(fetchFinalCart(cartId));
+      dispatch(fetchFinalCart({cartId}));
     }
   };
 
   const handleDecreaseQuantity = (product_id, currentQuantity) => {
     const newQuantity = currentQuantity - 1;
     handleUpdateCart(product_id, Math.max(newQuantity, 0));
-    dispatch(fetchFinalCart(cartId));
+    dispatch(fetchFinalCart({cartId}));
   };
 
   const handleRemoveQuantity = (product_id) => {
     dispatch(removeCart(product_id));
     handleUpdateCart(product_id, 0);
-    dispatch(fetchFinalCart(cartId));
+    dispatch(fetchFinalCart({cartId}));
   };
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
 
   useEffect(() => {
     if (cartId) {
-      dispatch(fetchFinalCart(cartId));
+      dispatch(fetchFinalCart({cartId}));
     }
   }, [showCart, dispatch, cartId]);
 

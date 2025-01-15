@@ -22,13 +22,15 @@ export const fetchCart = createAsyncThunk("cart/fetchCart", async (_, { rejectWi
 
 
 
+// Thunk Action
 export const fetchFinalCart = createAsyncThunk(
   "cart/fetchFinalCart",
-  async (cartId, { rejectWithValue }) => {
-    try {
-      const response = await getFinalCartApi(cartId);
+  async ({ coupon="", cartId =""}, { rejectWithValue }) => {
+    try { 
+      const response = await getFinalCartApi(cartId, coupon); // Ensure getFinalCartApi is defined
       return response.data;
     } catch (error) {
+      console.error("Error in fetchFinalCart:", error);
       return rejectWithValue(error.response?.data || error.message);
     }
   }
