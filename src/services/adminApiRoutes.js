@@ -178,6 +178,13 @@ export const postPayuCallbackApi = (url,payload) => API.post(url, payload);
 export const getOrderApi = () => API.get(`/orders/`); 
 export const getOrderAdminApi = (id,name) => API.get(`/orders/?order_id=${id}&product_name=${name}`); 
 export const getOrderSuccessAdminApi = (id,name) => API.get(`/orders_by_success/?order_id=${id}&product_name=${name}`); 
+
+// re order 
+
+export const reOrderApi = (id) => API.post(`/re_orders/?order_id=${id}`);
+
+
+
 //order success
 export const getOrderSuccessApi = (payload) => API.patch(`/orders/status/`,payload);
 

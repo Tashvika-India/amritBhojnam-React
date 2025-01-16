@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import { TabPanel, TabView } from "primereact/tabview";
+import { LiaFileInvoiceSolid } from "react-icons/lia";
 import {
   FormControl,
   InputAdornment,
   InputLabel,
   MenuItem,
+  OutlinedInput,
   Select,
   TextField,
 } from "@mui/material";
@@ -29,12 +31,13 @@ import {
   postSelectAddressApi,
   putAddressApi,
   putProfileApi,
+  reOrderApi,
 } from "../../../services/adminApiRoutes";
 import { Collapse } from "@mui/material";
 import { useFormik } from "formik";
 import Address from "../../../assets/common-components/website/Address";
 import { baseURL } from "../../../utils/constant-variable";
-import {Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
 import { Rating } from "primereact/rating";
 import ReviewModal from "../../../components/ui/ReviewModal";
@@ -42,6 +45,8 @@ import { notifyError, notifySuccess } from "../../../components/ui/Notification"
 import Loading from "../../../components/ui/Loading";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../../../redux/slices/cartSlice";
 
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
@@ -56,7 +61,7 @@ const UserProfile = () => {
   const location = useLocation();
   const [productId, setProductId] = useState("");
   const [preview, setPreview] = useState("");
-  const profilePicture = baseURL + userDetail?.pp;
+  const profilePicture = baseURL + userDetail?.pp; 
 
   const formik = useFormik({
     initialValues: {
@@ -94,6 +99,8 @@ const UserProfile = () => {
       editData ? updateAddress(values) : addAddress(values);
     },
   });
+
+  const dispatch = useDispatch();
 
   const addAddress = async (values) => {
     setLoading(true);
@@ -162,6 +169,17 @@ const UserProfile = () => {
     } finally {
     }
   };
+
+  const handleReOrderClick = async (order_id) => { 
+    try {
+      await reOrderApi(order_id);
+      notifySuccess("Order placed Successfully"); 
+      dispatch(fetchCart()); 
+    } catch (error) { 
+      notifyError("Error placing order");
+      console.log("Error fetching cart data:", error);
+    }
+  }
 
   const getAddressList = async () => {
     setLoading(true);
@@ -237,9 +255,9 @@ const UserProfile = () => {
     }
   };
 
-  const handleReviewClick = (id,name,image) => {
+  const handleReviewClick = (id, name, image) => {
     setVisible(true);
-    setProductId({id,name,image});
+    setProductId({ id, name, image });
   };
 
   const handleImageChange = (event) => {
@@ -305,7 +323,7 @@ const UserProfile = () => {
       <div className="pt-4">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" to="/">
+            <Link underline="hover" color="inherit" to="/">
               Home
             </Link>
             <Typography className="text-orange">Profile</Typography>
@@ -469,16 +487,21 @@ const UserProfile = () => {
                             />
                           </div>
                           <div className="col-md-4 mb-4">
-                            <TextField
-                              fullWidth
-                              className="rounded-20 me-5"
-                              id="pp"
-                              name="pp"
-                              variant="outlined"
-                              disabled={!profileEdit}
-                              type="file"
-                              onChange={handleImageChange}
-                            />
+                            <FormControl fullWidth variant="outlined">
+                              <InputLabel shrink htmlFor="file-input">
+                                Profile Picture
+                              </InputLabel>
+                              <OutlinedInput
+                                id="file-input"
+                                type="file"
+                                notched
+                                disabled={!profileEdit}
+                                onChange={handleImageChange}
+                                label="Profile Picture"
+                                inputProps={{ style: { cursor: "pointer" } }}
+                                className="rounded-3"
+                              />
+                            </FormControl>
                           </div>
                           <div className="col-md-4 mb-4">
                             <FormControl fullWidth>
@@ -554,8 +577,8 @@ const UserProfile = () => {
                     <p className="fb-fs-26 fw-bold my-4">Order History</p>
                     {loading ?
                       <Loading />
-                      : order.map((item, index) => (
-                        <div className="summary-card rounded-20 mb-4" key={index}>
+                      : order.map((item) => (
+                        <div className="summary-card rounded-20 mb-4" key={item.id}>
                           <div className="container">
                             <div className="row border-bottom px-2 px-md-3 py-3">
                               <div className="col-md-3">
@@ -587,12 +610,12 @@ const UserProfile = () => {
                                   </span>
                                 </p>
                               </div>
-                              <div className="col-6 col-md-3 text-end align-self-end">
-                                <a href="profile?tab=orders/" download>
-                                  <p className="text-orange fw-500">
-                                    Download Invoice
-                                  </p>
-                                </a>
+                              <div className="col-6 col-md-3 d-flex align-items-center justify-content-end gap-2 text-end align-self-end">
+                                <button onClick={() => handleReOrderClick(item?.id)} className="fw-500 text-center border-0 text-orange bg-transparent ">
+                                  Buy Again
+                                </button>
+                                <span className="vr"></span>
+                                <button className="fw-500 text-center border-0 text-orange bg-transparent"><LiaFileInvoiceSolid size={"1.5rem"} /></button>
                               </div>
                             </div>
                             {item?.product_details.map((data) => (
@@ -652,17 +675,15 @@ const UserProfile = () => {
                                       </p>
                                     </div>
                                   </div>
-                                  <div className="col-md-6 text-md-end">
-                                    <div className="more-option d-flex mb-2 mb-lg-0 justify-content-md-end">
-                                      <button onClick={() => handleReviewClick(data?.product?.id, data?.product?.name, data?.product?.images[0]?.image)} className="fw-500 text-center border-0 text-dark-grey bg-transparent border-end  pe-md-4">
+                                  <div className="col-md-5 col-xxl-3 ms-auto text-md-end">
+                                    <div className="more-option d-flex mb-2 mb-lg-0 justify-content-evenly justify-content-md-between">
+                                      <button onClick={() => handleReviewClick(data?.product?.id, data?.product?.name, data?.product?.images[0]?.image)} className="fw-500 text-center border-0 text-dark-grey bg-transparent ">
                                         Add Review
                                       </button>
-                                      <Link to={`/product-detail?product_id=${data?.product?.id}`} className="fw-500 text-center border-0 text-dark-grey bg-transparent  ps-2 ps-md-4">
+                                      <span className="vr"></span>
+                                      <Link to={`/product-detail?product_id=${data?.product?.id}`} className="fw-600 text-center border-0 text-dark-grey bg-transparent">
                                         View Product
                                       </Link>
-                                      {/* <button className="fw-500 text-center border-0 text-orange bg-transparent ms-lg-3">
-                                      Buy Again
-                                    </button> */}
                                     </div>
                                   </div>
                                 </div>
@@ -679,19 +700,19 @@ const UserProfile = () => {
                       <h4 className="fb-fs-26 fw-bold text-dark-grey my-md-4">
                         Saved Address
                       </h4>
-                        <button
-                          type="button"
-                          className="d-flex align-items-center border-0 bg-transparent"
-                          onClick={() => {
-                            setOpen(!open);
-                            setEditData(null);
-                          }}
-                          aria-controls="example-collapse-text"
-                          aria-expanded={open}
-                        >
-                          <i className="pi pi-plus text-yellow me-2 mt-md-1"></i>
-                          <p className="fw-500">Add New Address</p>
-                        </button> 
+                      <button
+                        type="button"
+                        className="d-flex align-items-center border-0 bg-transparent"
+                        onClick={() => {
+                          setOpen(!open);
+                          setEditData(null);
+                        }}
+                        aria-controls="example-collapse-text"
+                        aria-expanded={open}
+                      >
+                        <i className="pi pi-plus text-yellow me-2 mt-md-1"></i>
+                        <p className="fw-500">Add New Address</p>
+                      </button>
                     </div>
                     <div className="">
                       {addressList.length > 0 ? (
