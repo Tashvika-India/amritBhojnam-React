@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
 import {
+  Breadcrumbs,
   Divider,
   FormControl,
   InputLabel,
@@ -19,7 +20,7 @@ import { Avatar } from "primereact/avatar";
 import { FaUser } from "react-icons/fa6";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaPhoneAlt } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getOrderAdminApi } from "../../../../services/adminApiRoutes";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -143,9 +144,15 @@ const AdminOrderDetail = () => {
   return (
     <>
       <div className="mt-3 mb-5 row">
-        <div className="col-md-6">
+      <div className="col-12 mb-3">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link to={"/admin/orders"} >Orders List</Link>
+            <Typography className="text-orange">Order Detail</Typography>
+          </Breadcrumbs>
+        </div> 
+        <div className="col-6">
           <Heading value={`Order : ${orderData?.id}`} />
-        </div>
+        </div> 
       </div>
       <div className="row">
         <div className="col-md-8 mb-4">
