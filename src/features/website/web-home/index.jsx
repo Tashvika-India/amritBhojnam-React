@@ -90,7 +90,7 @@ const HomePage = () => {
                 <div className="card-left mb-3">
                   <div className="row w-100">
                     <div className="col-md-6">
-                      <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3 ps-2">
+                      <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3 ps-2 ps-xl-3">
                         <p className="text-white fb-fs-24 beyond-class">
                           Beyond Business,
                         </p>
@@ -113,7 +113,7 @@ const HomePage = () => {
                 <div className="card-center mb-md-3">
                   <div className="row">
                     <div className="col-md-6">
-                      <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3  ps-2">
+                      <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3  ps-2  ps-xl-3">
                         <p className="text-white fb-fs-24">Wholesome Food,</p>
                         <p className="text-white fb-fs-28 fw-bold lh-1">
                           Fulfilling Life
@@ -133,7 +133,7 @@ const HomePage = () => {
                 <div className="card-right">
                   <div className="row">
                     <div className="col-md-6">
-                      <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3  ps-2">
+                      <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3  ps-2  ps-xl-3">
                         <p className="text-white fb-fs-24">Healthy Bites,</p>
                         <p className="text-white fb-fs-28 fw-bold lh-1">
                           Greener Future
@@ -234,7 +234,7 @@ const HomePage = () => {
                 </div>
                 <Link
                   to="/products"
-                  className="button-primary d-inlin-block ms-5  mb-4 text-center"
+                  className="button-primary d-inline-block ms-5  mb-4 text-center"
                 >
                   Shop Now
                 </Link>
