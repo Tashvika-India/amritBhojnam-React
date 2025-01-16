@@ -50,25 +50,49 @@
 
   // Responsive Headings with Clamp
   h1 {
-    font-size: clamp(2.5rem, 5vw + 1rem, 4.3325rem); //69.32px Min 2.5rem, Max 4.3325rem
+    font-size: clamp(
+      2.5rem,
+      5vw + 1rem,
+      4.3325rem
+    ); //69.32px Min 2.5rem, Max 4.3325rem
   }
   h2 {
     font-size: clamp(2rem, 4vw + 1rem, 3.75rem); //60px Min 2rem, Max 3.75rem
   }
   h3 {
-    font-size: clamp(1.5rem, 3vw + 1rem, 2.25rem); //36px Min 1.5rem, Max 2.25rem
+    font-size: clamp(
+      1.5rem,
+      3vw + 1rem,
+      2.25rem
+    ); //36px Min 1.5rem, Max 2.25rem
   }
   h4 {
-    font-size: clamp(1.25rem, 2.5vw + 1rem, 2.0219rem); //32.35px Min 1.25rem, Max 2.0219rem
+    font-size: clamp(
+      1.25rem,
+      2.5vw + 1rem,
+      2.0219rem
+    ); //32.35px Min 1.25rem, Max 2.0219rem
   }
   h5 {
-    font-size: clamp(1rem, 2vw + 0.5rem, 1.375rem); //22px Min 1rem, Max 1.375rem
+    font-size: clamp(
+      1rem,
+      2vw + 0.5rem,
+      1.375rem
+    ); //22px Min 1rem, Max 1.375rem
   }
   h6 {
-    font-size: clamp(0.875rem, 1.5vw + 0.5rem, 1.25rem); //20px Min 0.875rem, Max 1.25rem
+    font-size: clamp(
+      0.875rem,
+      1.5vw + 0.5rem,
+      1.25rem
+    ); //20px Min 0.875rem, Max 1.25rem
   }
   p {
-    font-size: clamp(0.875rem, 1vw + 0.5rem, 1rem); //16px Min 0.875rem, Max 1rem
+    font-size: clamp(
+      0.875rem,
+      1vw + 0.5rem,
+      1rem
+    ); //16px Min 0.875rem, Max 1rem
     margin-bottom: 0;
   }
 
@@ -83,10 +107,18 @@
     font-size: clamp(0.8rem, 1vw + 0.5rem, 1rem); //16px Min 0.875rem, Max 1rem
   }
   .fb-fs-18 {
-    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.125rem); //18px Min 1rem, Max 1.125rem
+    font-size: clamp(
+      1rem,
+      1.5vw + 0.5rem,
+      1.125rem
+    ); //18px Min 1rem, Max 1.125rem
   }
   .fb-fs-14 {
-    font-size: clamp(0.75rem, 1vw + 0.5rem, 0.9281rem); //14.85px Min 0.75rem, Max 0.9281rem
+    font-size: clamp(
+      0.75rem,
+      1vw + 0.5rem,
+      0.9281rem
+    ); //14.85px Min 0.75rem, Max 0.9281rem
   }
   .fb-fs-30 {
     font-size: 1.875rem; // 30px
@@ -98,14 +130,22 @@
     font-size: 2.375rem !important; //38px
   }
   .fb-fs-12 {
-    font-size: clamp(0.625rem, 0.75vw + 0.5rem, 0.8119rem); //12.99px Min 0.625rem, Max 0.8119rem
+    font-size: clamp(
+      0.625rem,
+      0.75vw + 0.5rem,
+      0.8119rem
+    ); //12.99px Min 0.625rem, Max 0.8119rem
   }
   .dropdown-toggle::after {
     display: none; /* Hides the default arrow */
   }
 
   .fb-fs-16-big {
-    font-size: clamp(0.875rem, 1vw + 0.5rem, 1.0444rem); //16.71px Min 0.875rem, Max 1.0444rem
+    font-size: clamp(
+      0.875rem,
+      1vw + 0.5rem,
+      1.0444rem
+    ); //16.71px Min 0.875rem, Max 1.0444rem
   }
   .fb-fs-26 {
     font-size: 1.625rem;
@@ -121,7 +161,7 @@
   }
 
   section {
-    padding-block: 4rem; 
+    padding-block: 4rem;
     scroll-margin-bottom: 4rem !important;
   }
 
@@ -237,35 +277,34 @@
   margin-bottom: 0.5rem;
 }
 
-.cart-items-contianer{
+.cart-items-contianer {
   max-height: calc(100dvh - (14rem - 4vw));
   overflow-y: auto;
 }
 
+.rating-container {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
 
-  .rating-container {
-    max-width: 600px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-  }
-  
-  .rating-row {
-    align-items: center;
-  }
-  
-  .progress-bar-container .p-progressbar {
-    height: 10px;
-    border-radius: 5px;
-    overflow: hidden;
-  }
- .p-progressbar .p-progressbar-label{
-    display: none !important;
-  }
-  .count {
-    width: 30px;
-    text-align: right;
-    font-weight: bold;
-  }
+.rating-row {
+  align-items: center;
+}
+
+.progress-bar-container .p-progressbar {
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.p-progressbar .p-progressbar-label {
+  display: none !important;
+}
+.count {
+  width: 30px;
+  text-align: right;
+  font-weight: bold;
+}
 
 .underline-heading {
   position: relative;
@@ -295,7 +334,7 @@
     z-index: 1;
   }
 }
-.ready-cook{
+.ready-cook {
   background-image: url("../images/web/minutes-bg.png");
   background-repeat: no-repeat;
   background-size: contain;
@@ -430,7 +469,7 @@ footer {
     #f2f2f2 50%,
     #bebebe 100%
   );
-  background-size: 200% 100%;  
+  background-size: 200% 100%;
   border-radius: 1.375rem;
   width: 100%;
   animation: skeleton-loading 1.5s infinite linear;
@@ -966,7 +1005,9 @@ footer {
     justify-content: space-between;
     gap: 0.6rem;
     padding: 0.125rem 1.0625rem;
-    .quantity-minus,.quantity-count,.quantity-plus{
+    .quantity-minus,
+    .quantity-count,
+    .quantity-plus {
       width: 30%;
       padding: 0;
       text-align: center;
@@ -977,7 +1018,7 @@ footer {
   }
 }
 
-.cart-items{
+.cart-items {
   .quantity-manage {
     border: 1px solid $orange;
     width: 100%;
@@ -987,7 +1028,9 @@ footer {
     justify-content: space-between;
     gap: 0 !important;
     padding: 0.2rem 0;
-    .quantity-minus,.quantity-count,.quantity-plus{
+    .quantity-minus,
+    .quantity-count,
+    .quantity-plus {
       width: 30%;
       padding: 0;
       text-align: center;
@@ -1118,7 +1161,7 @@ footer {
       height: 5rem;
       object-fit: contain;
     }
-    &:hover{ 
+    &:hover {
       border-color: $orange;
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
     }
@@ -1141,12 +1184,12 @@ footer {
       justify-content: space-between;
       gap: 0.6rem;
       padding: 0.2rem;
-      &:hover { 
+      &:hover {
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
       }
     }
     .remove-quantity {
-      &:hover { 
+      &:hover {
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
       }
     }
@@ -1219,13 +1262,28 @@ footer {
     max-width: 1100px !important;
   }
   .product-card .masala-con {
-    height: 2.20rem ! important;
+    height: 2.2rem !important;
   }
-  .product-card h6{
-    Small{
+  .home-banner-wrapper {
+    .card-left {
+      background-size: cover;
+      border-radius: 15px;
+    }
+    .card-center {
+      background-size: cover;
+      border-radius: 15px;
+    }
+    .card-right {
+      background-size: cover;
+      border-radius: 15px;
+    }
+  }
+
+  .product-card h6 {
+    Small {
       font-size: 12px !important;
     }
-    span{
+    span {
       font-size: 15px;
     }
   }
@@ -1323,17 +1381,17 @@ footer {
   .fb-fs-28 {
     font-size: 1.2rem !important;
   }
-  footer .footer-upper form{
+  footer .footer-upper form {
     input {
       width: 100% !important;
       margin-top: 2rem;
     }
-    button{
+    button {
       margin-top: 1rem !important;
       margin-left: 0 !important;
     }
-  } 
-  footer .footer-upper{
+  }
+  footer .footer-upper {
     height: 34rem !important;
   }
   .banner-ads .image-sec {
@@ -1401,25 +1459,25 @@ footer {
   .product-detail-slider .product-detail-image {
     height: 100%;
   }
-  .about-us{
-    .main-logo{
-      img{
+  .about-us {
+    .main-logo {
+      img {
         max-width: 26rem !important;
         padding-left: 0 !important;
       }
     }
-    .about-right{
-      p{
+    .about-right {
+      p {
         padding: 0 !important;
       }
-      .bottom-image{
+      .bottom-image {
         max-width: 17rem !important;
       }
     }
   }
-.thoughtfully{
-  margin: 0 !important;
-}
+  .thoughtfully {
+    margin: 0 !important;
+  }
   .fb-fs-40 {
     font-size: 1.8rem !important;
   }
@@ -1429,10 +1487,9 @@ footer {
   .thoughtful-content-bottom {
     font-size: 1rem !important;
   }
-  .amrit_bhojanam .millets .millet-content br{
+  .amrit_bhojanam .millets .millet-content br {
     display: none !important;
-  } 
-  
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
@@ -1480,20 +1537,20 @@ footer {
     margin-top: 2rem;
     width: 90% !important;
   }
-  footer .footer-upper form button{
+  footer .footer-upper form button {
     margin-top: 1rem !important;
   }
   .contact-us .card .orange-section {
     padding: 2.5rem 1rem;
   }
-  .about-us .about-bottom .grey-background{
+  .about-us .about-bottom .grey-background {
     margin-left: 0 !important;
     img {
       width: 27rem;
       aspect-ratio: 16 / 16;
       margin-top: 0;
     }
-  } 
+  }
   .about-us .about-bottom {
     height: 29rem;
   }
@@ -1597,16 +1654,16 @@ footer {
   .millets .millet-content {
     padding-left: 0rem !important;
   }
-footer{
-  .footer-upper{
-    height: 34rem !important;
-        padding-top: 40px !important;
-        background-position: center bottom;
-        background-size: 116%;
-        background-color:  $semi-orange;
-        padding-bottom: 108px;
+  footer {
+    .footer-upper {
+      height: 34rem !important;
+      padding-top: 40px !important;
+      background-position: center bottom;
+      background-size: 116%;
+      background-color: $semi-orange;
+      padding-bottom: 108px;
+    }
   }
-}
   .profile-tabs {
     button {
       padding: 1rem 2rem 1rem;
@@ -1616,21 +1673,20 @@ footer{
       }
     }
   }
- 
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
   .web-wrapper-main .fb-fs-40 {
     font-size: 2rem;
   }
-  .ready-cook{
-    height: 25rem ;
+  .ready-cook {
+    height: 25rem;
   }
-  .product-card h6{
-    Small{
+  .product-card h6 {
+    Small {
       font-size: 12px !important;
     }
-    span{
+    span {
       font-size: 15px;
     }
   }
@@ -1895,7 +1951,7 @@ footer{
       display: none;
     }
   }
-  footer .footer-upper{
+  footer .footer-upper {
     height: 22rem !important;
     padding-top: 3rem !important;
   }
@@ -1908,10 +1964,10 @@ footer{
   .ready-cook {
     height: 40rem !important;
   }
-  .contact-us{
+  .contact-us {
     background-size: 500%;
   }
-  
+
   .banner-slider img {
     height: auto !important;
   }
@@ -2128,7 +2184,7 @@ footer{
   }
   .contact-us .card .orange-section {
     padding: 3.5rem 3rem;
-}
+  }
   .offer-cards .protein-right-bottom .right-bottom-content {
     width: unset;
     padding: 22px 15rem 22px 1rem !important;
@@ -2201,21 +2257,20 @@ footer{
       padding: 1rem;
     }
   }
-  .download-section{
+  .download-section {
     padding-top: 1rem !important;
   }
-  .product-card h6{
-    Small{
+  .product-card h6 {
+    Small {
       font-size: 11px !important;
     }
-    span{
+    span {
       font-size: 14px;
     }
   }
-
 }
 
-@media (max-width: 576px) { 
+@media (max-width: 576px) {
   .skeleton-loading {
     height: 18.75rem;
   }
@@ -2223,19 +2278,19 @@ footer{
     height: 38rem !important;
   }
 
-  .footer-detail-links li span{
-    a{
+  .footer-detail-links li span {
+    a {
       font-size: 0.8rem !important;
     }
-    time{
+    time {
       font-size: 0.8rem !important;
     }
-  } 
-  .product-card h6{
-    Small{
+  }
+  .product-card h6 {
+    Small {
       font-size: 11px !important;
     }
-    span{
+    span {
       font-size: 13px;
     }
   }
@@ -2265,16 +2320,16 @@ footer{
       }
     }
   }
-  // .product-quantity { 
-  //   .quantity-manage {  
-  //     gap: 0 !important; 
+  // .product-quantity {
+  //   .quantity-manage {
+  //     gap: 0 !important;
   //   }
   //   .remove-quantity {
   //     font-size: 0.875rem;
   //   }
   // }
   // .cart-items .product-quantity .quantity-manage{
-  //   width: 100% !important; 
+  //   width: 100% !important;
   // }
   .web-wrapper-main {
     .fb-fs-26 {
@@ -2306,7 +2361,7 @@ footer{
   .user-profile-detail {
     margin-top: -2rem;
   }
-  .item-name{
+  .item-name {
     font-size: 0.88rem;
   }
   .item-weight {
@@ -2388,7 +2443,6 @@ footer{
     img {
       height: auto !important;
       width: 100% !important;
-     
     }
   }
   .cart-offcanvas {
