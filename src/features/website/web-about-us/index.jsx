@@ -223,7 +223,7 @@ const AboutUs = () => {
             </div>
             <div className="col-lg-4 col-sm-6 mt-4 mb-lg-4">
               <div className="card rounded-20">
-                <div className="card-body text-center  px-lg-5 py-xl-4 py-lg-2">
+                <div className="card-body text-center  px-lg-4 py-xl-4 py-lg-2">
                   <img
                     src={ReturnEasy}
                     className="img-fluid d-block mx-auto mb-4 pt-4"

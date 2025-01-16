@@ -571,6 +571,9 @@ footer {
 .p-slider-horizontal .p-slider-handle {
   top: 37%;
 }
+.p-slider {
+  transition: all 0.1s ease-in-out !important;
+}
 .max-border {
   border: 1px solid $border;
   border-radius: 0.375rem;
@@ -1214,6 +1217,9 @@ footer {
   .fb-container-xl,
   .fb-container-xxl {
     max-width: 1100px !important;
+  }
+  .product-card .masala-con {
+    height: 2.20rem ! important;
   }
   .product-card h6{
     Small{
@@ -1905,9 +1911,7 @@ footer{
   .contact-us{
     background-size: 500%;
   }
-  li{
-    font-size: 0.75rem;
-  }
+  
   .banner-slider img {
     height: auto !important;
   }
@@ -1924,9 +1928,6 @@ footer{
         font-size: 0.9rem;
       }
     }
-  }
-  .p-slider {
-    transition: all 0.2s ease-in-out !important;
   }
   .popular-product .popularleft {
     margin-bottom: 1rem;
@@ -2221,9 +2222,7 @@ footer{
   .ready-cook {
     height: 38rem !important;
   }
-  li{
-    font-size: 0.75rem;
-  }
+
   .footer-detail-links li span{
     a{
       font-size: 0.8rem !important;
