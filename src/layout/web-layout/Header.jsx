@@ -7,7 +7,7 @@ import logo from "../../assets/images/web/logo.svg";
 import { FaRegHeart, FaRegUser } from "react-icons/fa";
 import { CgShoppingBag } from "react-icons/cg";
 import { IoMdMenu } from "react-icons/io";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import ProfileDropdown from "../../components/ui/ProfileDropdown";
 import MobileMenu from "../../components/ui/MobileMenu";
 import MyCartMenu from "../../components/ui/MyCartMenu";
@@ -25,6 +25,9 @@ const Header = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useURLFilters();
+
+  const location = useLocation();
+  const isHashActive = (hash) => location.hash === hash;
 
   const [userDetail, setUserDetail] = useState({});
 
@@ -85,12 +88,14 @@ const Header = () => {
     }
   };
 
-
   useEffect(() => {
     getCategory();
-    getProfileList();
-    dispatch(fetchCart());
+    if (login) {
+      dispatch(fetchCart());
+      getProfileList();
+    }
   }, []);
+
 
   return (
     <>
@@ -132,18 +137,18 @@ const Header = () => {
                     <Dropdown
                       value={
                         filters.category_id === ""
-                          ? { id: "", name: "All Categories" }  
+                          ? { id: "", name: "All Categories" }
                           : category.find((c) => c.id === filters.category_id)
                       }
                       onChange={(e) =>
                         setFilters({
                           ...filters,
-                          category_id: e.value.id, 
+                          category_id: e.value.id,
                         })
                       }
                       options={[
-                        { id: "", name: "All Categories" },  
-                        ...category,  
+                        { id: "", name: "All Categories" },
+                        ...category,
                       ]}
                       optionLabel="name"
                       placeholder="Select Category"
@@ -282,22 +287,54 @@ const Header = () => {
               <div className="header-link-list">
                 <ul className="d-flex gap-5">
                   <li className="nav-item-link">
-                    <NavLink to="/">Home</NavLink>
+                    <NavLink
+                      to="/"
+                      className={({ isActive }) =>
+                        isActive && !location.hash ? "active" : ""
+                      }
+                    >
+                      Home
+                    </NavLink>
                   </li>
                   <li className="nav-item-link">
-                    <NavLink to="/products">Products</NavLink>
+                    <NavLink
+                      to="/products"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      Products
+                    </NavLink>
                   </li>
                   <li className="nav-item-link">
-                    <a href="/#best">Best Deals</a>
+                    <a
+                      href="/#best"
+                      className={isHashActive("#best") ? "active" : ""}
+                    >
+                      Best Deals
+                    </a>
                   </li>
                   <li className="nav-item-link">
-                    <a href="/#popular">Trending Products </a>
+                    <a
+                      href="/#popular"
+                      className={isHashActive("#popular") ? "active" : ""}
+                    >
+                      Trending Products
+                    </a>
                   </li>
                   <li className="nav-item-link">
-                    <NavLink to="/about-us">About Us </NavLink>
+                    <NavLink
+                      to="/about-us"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      About Us
+                    </NavLink>
                   </li>
                   <li className="nav-item-link">
-                    <NavLink to="/contact-us">Contact Us </NavLink>
+                    <NavLink
+                      to="/contact-us"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      Contact Us
+                    </NavLink>
                   </li>
                 </ul>
               </div>

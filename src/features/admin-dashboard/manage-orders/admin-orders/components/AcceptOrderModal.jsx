@@ -20,7 +20,7 @@ function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
       getOrderList(); 
       notifySuccess('Order updated successfully');
     } catch (error) {
-      notifyError("Something went wrong, please try again.");
+      notifyError(error.response?.data?.error);
       console.error("Error updating order:", error);
     }
   };

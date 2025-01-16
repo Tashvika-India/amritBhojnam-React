@@ -51,7 +51,7 @@ const AdminOrderDetail = () => {
     } catch (error) {
       console.log(error);
       setLoading(false);
-      notifyError("Something went wrong, please try again.");
+      notifyError(error.response?.data?.error);
     }
   };
 

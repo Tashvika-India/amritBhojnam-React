@@ -64,7 +64,7 @@ export default function AddBannerModal({ visible, setVisible, setBanner, getBann
       notifySuccess("Banner Added Successfully");
     } catch (error) {
       console.error("Error adding banner", error);
-      notifyError("Failed to add banner!");
+      notifyError(error.response?.data?.error);
     } finally {
       setLoading(false);
     }
@@ -96,7 +96,7 @@ export default function AddBannerModal({ visible, setVisible, setBanner, getBann
       notifySuccess("Banner Updated Successfully");
     } catch (error) {
       console.error("Failed to update banner!", error);
-      notifyError("Failed to update banner!");
+      notifyError(error.response?.data?.error);
     } finally {
       setLoading(false);
     }

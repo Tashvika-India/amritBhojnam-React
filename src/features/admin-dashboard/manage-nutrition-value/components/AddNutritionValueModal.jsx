@@ -50,7 +50,7 @@ export default function AddNutritionValueModal({
       getNutritionValue();
       setVisible(false);
     } catch (error) {
-      notifyError("Failed to add nutrition value. Please try again.");
+      notifyError(error.response?.data?.error);
     } finally {
       setLoading(false);
     }

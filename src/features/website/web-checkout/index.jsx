@@ -58,7 +58,7 @@ const CheckoutPage = () => {
       setCouponList(response?.data || []);
     } catch (error) {
       console.log("Error fetching data:", error);
-    }  
+    }
   };
 
   const getAddressList = async () => {
@@ -124,7 +124,7 @@ const CheckoutPage = () => {
       notifySuccess("Payment Initiated Successfully");
     } catch (error) {
       console.error("Error during payment:", error);
-      notifyError(`Payment failed: ${error.message}`);
+      notifyError(error.response?.data?.error);
     } finally {
       setLoading(false);
     }
@@ -173,7 +173,7 @@ const CheckoutPage = () => {
       if (address_id) {
         await postSelectAddressApi({ address_id });
         getAddressList();
-        dispatch(fetchFinalCart({cartId}));
+        dispatch(fetchFinalCart({ cartId }));
         notifySuccess("Address added Successfully");
       }
       setLoading(false);
@@ -182,7 +182,7 @@ const CheckoutPage = () => {
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
-      notifyError("Error submitting form:", error);
+      notifyError(error.response?.data?.error);
     } finally {
       formik.setSubmitting(false);
     }
@@ -194,11 +194,11 @@ const CheckoutPage = () => {
       console.log("Address Selected Successfully");
       scrollTo(0, 0);
       getAddressList();
-      dispatch(fetchFinalCart({cartId}));
+      dispatch(fetchFinalCart({ cartId }));
       notifySuccess("Address Selected Successfully");
     } catch (error) {
       console.log("Error fetching cart data:", error);
-      notifyError("Something went wrong, please try again.");
+      notifyError(error.response?.data?.error);
     }
   };
 
@@ -215,7 +215,7 @@ const CheckoutPage = () => {
       <div className="pt-5">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" href="/">
+            <Link underline="hover" color="inherit" href="/">
               Home
             </Link>
             <Typography>Cart</Typography>
@@ -358,22 +358,22 @@ const CheckoutPage = () => {
                               : `₹ ${finalCart?.total}`}
                           </span>
                         </li>
-                        <li className="d-flex justify-content-between my-2">
+                        {(finalCart?.handling_fee > 0) && <li className="d-flex justify-content-between my-2">
                           <span className="fw-500">Handling fee</span>
                           <span className="fb-fs-18 fw-500">
                             {finalCart?.handling_fee === undefined
                               ? "₹ 0"
                               : `₹ ${finalCart?.handling_fee}`}
                           </span>
-                        </li>
-                        <li className="d-flex justify-content-between my-2">
-                          <span className="fw-500 text-success">Coupon Discount</span>
+                        </li>}
+                        {(finalCart?.coupon_data?.coupon_discount > 0) && <li className="d-flex justify-content-between my-2">
+                          <span className="fw-500 text-success">Coupon discount</span>
                           <span className="fb-fs-18 fw-500 text-success">
                             {finalCart?.coupon_data?.coupon_discount === undefined
                               ? "₹ 0"
                               : `₹${(finalCart?.coupon_data?.coupon_discount == 0) ? 0 : `-${finalCart?.coupon_data?.coupon_discount}`}`}
                           </span>
-                        </li>
+                        </li>}
                         <li className="d-flex justify-content-between my-2">
                           <span className="fw-500 text-orange">
                             Delivery fee
