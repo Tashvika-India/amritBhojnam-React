@@ -60,8 +60,8 @@ const UserProfile = () => {
   const [profileEdit, setProfileEdit] = useState(false);
   const location = useLocation();
   const [productId, setProductId] = useState("");
-  const [preview, setPreview] = useState("");
-  const profilePicture = baseURL + userDetail?.pp; 
+  const [load, setLoad] = useState(2);
+  const profilePicture = baseURL + userDetail?.pp;
 
   const formik = useFormik({
     initialValues: {
@@ -161,21 +161,24 @@ const UserProfile = () => {
   const getOrderList = async () => {
     setLoading(true);
     try {
-      const response = await getOrderApi();
+      const response = await getOrderApi(1, load);
       setOrder(response?.data);
       setLoading(false);
     } catch (error) {
-      console.log("Error fetching order dataL", error);
-    } finally {
-    }
+      console.log("Error fetching order data", error);
+    }  
   };
 
-  const handleReOrderClick = async (order_id) => { 
+  const handleLoadMore = () => {
+    setLoad((pre) => pre + 3);
+  }
+
+  const handleReOrderClick = async (order_id) => {
     try {
       await reOrderApi(order_id);
-      notifySuccess("Order placed Successfully"); 
-      dispatch(fetchCart()); 
-    } catch (error) { 
+      notifySuccess("Order placed Successfully");
+      dispatch(fetchCart());
+    } catch (error) {
       notifyError("Error placing order");
       console.log("Error fetching cart data:", error);
     }
@@ -216,6 +219,8 @@ const UserProfile = () => {
       setLoading(false);
     }
   };
+
+  
 
   const profile = useFormik({
     initialValues: {
@@ -277,8 +282,13 @@ const UserProfile = () => {
   useEffect(() => {
     getAddressList();
     getProfileList();
-    getOrderList();
   }, []);
+
+  useEffect(() => {
+    getOrderList();
+  }, [load]);
+
+
 
   useEffect(() => {
     if (userDetail) {
@@ -477,13 +487,8 @@ const UserProfile = () => {
                               onChange={profile.handleChange}
                               onBlur={profile.handleBlur}
                               disabled={!profileEdit}
-                              error={
-                                profile.touched.email &&
-                                Boolean(profile.errors.email)
-                              }
-                              helperText={
-                                profile.touched.email && profile.errors.email
-                              }
+                              helperText={profile.touched.email && profile.errors.email}
+                              error={!!(profile.touched.email && profile.errors.email)}
                             />
                           </div>
                           <div className="col-md-4 mb-4">
@@ -619,7 +624,7 @@ const UserProfile = () => {
                               </div>
                             </div>
                             {item?.product_details.map((data) => (
-                              <div className="border-bottom">
+                              <div className="border-bottom" key={data?.id}>
                                 <div className="row px-2 px-md-3 pt-3 py-md-4">
                                   <div className="col-md-8">
                                     <div className="prod-detail d-flex align-items-center">
@@ -692,6 +697,11 @@ const UserProfile = () => {
                           </div>
                         </div>
                       ))}
+                    {order?.length > 0 && (
+                      <div className="d-flex align-items-center justify-content-center">
+                        <button className="fw-500 text-center border-0 text-orange bg-transparent" onClick={handleLoadMore}>Load More Orders</button>
+                      </div>
+                    )}
                   </div>
                 </TabPanel>
                 <TabPanel header="Address Book">
