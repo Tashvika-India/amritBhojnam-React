@@ -109,7 +109,7 @@ const ProductAdd = () => {
       notifySuccess("Product Added Successfully");
     } catch (error) {
       setLoading(false);
-      notifyError("Failed to add product, please try again!");
+      notifyError(error.response?.data?.error);
       throw error;
     }
   }
@@ -123,9 +123,8 @@ const ProductAdd = () => {
       notifySuccess("Product Updated Successfully");
       setLoading(false);
     } catch (error) {
-      notifyError("Failed to update product, please try again!");
+      notifyError(error.response?.data?.error);
       setLoading(false);
-
       throw error;
     }
   }

@@ -58,8 +58,7 @@ const ProductOption = ({ isEditMode = false, existingData = {} }) => {
         }
       } catch (error) {
         console.error("Error submitting form:", error);
-        notifyError("Something went wrong, please try again.");
-        alert("Something went wrong, please try again.");
+        notifyError(error.response?.data?.error);
       }
     },
   });

@@ -124,7 +124,7 @@ const CheckoutPage = () => {
       notifySuccess("Payment Initiated Successfully");
     } catch (error) {
       console.error("Error during payment:", error);
-      notifyError(`Payment failed: ${error.message}`);
+      notifyError(error.response?.data?.error);
     } finally {
       setLoading(false);
     }
@@ -182,7 +182,7 @@ const CheckoutPage = () => {
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
-      notifyError("Error submitting form:", error);
+      notifyError(error.response?.data?.error);
     } finally {
       formik.setSubmitting(false);
     }
@@ -198,7 +198,7 @@ const CheckoutPage = () => {
       notifySuccess("Address Selected Successfully");
     } catch (error) {
       console.log("Error fetching cart data:", error);
-      notifyError("Something went wrong, please try again.");
+      notifyError(error.response?.data?.error);
     }
   };
 

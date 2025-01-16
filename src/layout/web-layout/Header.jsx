@@ -86,258 +86,260 @@ const Header = () => {
     } catch (error) {
       console.error("Error fetching profile data:", error);
     }
-  }; 
+  };
 
   useEffect(() => {
     getCategory();
-    getProfileList();
-    dispatch(fetchCart());
+    if (login) {
+      dispatch(fetchCart());
+      getProfileList();
+    }
   }, []);
 
 
-return (
-  <>
-    <ScrollTopBehaviour />
+  return (
+    <>
+      <ScrollTopBehaviour />
 
-    <header className="fb-bottom-shadow sticky-top bg-white z-100">
-      <div className="header-top bg-semi-orange py-2">
-        <div className="container fb-container d-flex flex-wrap gap-2 justify-content-center justify-content-lg-between align-items-center">
-          <p className="text-white fw-500 fb-fs-14 d-none d-lg-block">
-            {/* Free delivery & 40% discount for next 3 orders! Place your 1st
+      <header className="fb-bottom-shadow sticky-top bg-white z-100">
+        <div className="header-top bg-semi-orange py-2">
+          <div className="container fb-container d-flex flex-wrap gap-2 justify-content-center justify-content-lg-between align-items-center">
+            <p className="text-white fw-500 fb-fs-14 d-none d-lg-block">
+              {/* Free delivery & 40% discount for next 3 orders! Place your 1st
               order now. */}
-            &nbsp;
-          </p>
-          <p className="text-white fw-500 fb-fs-14">
-            {/* Need Help? Call Us:
+              &nbsp;
+            </p>
+            <p className="text-white fw-500 fb-fs-14">
+              {/* Need Help? Call Us:
               <a
                 className="text-white text-decoration-none"
                 href="tel:+1800 900 5600"
               >
                 +1800 900 5600
               </a> */}
-          </p>
-        </div>
-      </div>
-      <div className="container fb-container pb-3 pt-2">
-        <div className="d-flex justify-content-between align-items-center">
-          <Link to="/">
-            <div className="logo">
-              <img src={logo} alt="logo" className="img-fluid" />
-            </div>
-          </Link>
-          <div className="header-delivery-search mx-auto  d-none d-xl-block">
-            <div className="d-inline-flex gap-4 w-100">
-              <form
-                onSubmit={handleSearchSubmit}
-                className="header-search d-inline-flex w-100 align-self-center"
-              >
-                <div className="all-category">
-                  <Dropdown
-                    value={
-                      filters.category_id === ""
-                        ? { id: "", name: "All Categories" }
-                        : category.find((c) => c.id === filters.category_id)
-                    }
-                    onChange={(e) =>
-                      setFilters({
-                        ...filters,
-                        category_id: e.value.id,
-                      })
-                    }
-                    options={[
-                      { id: "", name: "All Categories" },
-                      ...category,
-                    ]}
-                    optionLabel="name"
-                    placeholder="Select Category"
-                    className="w-full border-0"
-                  />
-                </div>
-                <div className="search-input position-relative z-1 w-100 d-flex justify-content-between">
-                  <InputText
-                    type="text"
-                    placeholder="Search for products"
-                    className="border-0 ps-3 w-100"
-                    style={{ boxShadow: "none" }}
-                    value={filters.name}
-                    onChange={(e) => setFilters({ ...filters, name: e.target.value })}
-                  />
-                  <button
-                    type="submit"
-                    className="search-icon d-inline-block z-2 h-100 border-0 bg-transparent">
-                    <IoSearchOutline color="#918e92" size="1.25rem" />
-                  </button>
-                </div>
-              </form>
-            </div>
+            </p>
           </div>
-          <div className="header-actions">
-            <ul className="list-unstyled align-items-center justify-content-between gap-4 web-header-actions d-none d-xl-flex">
-              <li>
-                {
-                  (login) ?
-                    <ProfileDropdown userDetail={userDetail} />
-                    :
-                    <button
-                      className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
-                      onClick={toggleWebLogin}
-                    >
-                      <FaRegUser size={"1.625rem"} />
-                      <span className="d-inline-block fb-fs-14 fw-500">
-                        Login
-                      </span>
-                    </button>
-                }
-              </li>
-              <li>
-                <Link
-                  to="/wishlist"
-                  className="d-inline-flex flex-column justify-content-center align-items-center"
+        </div>
+        <div className="container fb-container pb-3 pt-2">
+          <div className="d-flex justify-content-between align-items-center">
+            <Link to="/">
+              <div className="logo">
+                <img src={logo} alt="logo" className="img-fluid" />
+              </div>
+            </Link>
+            <div className="header-delivery-search mx-auto  d-none d-xl-block">
+              <div className="d-inline-flex gap-4 w-100">
+                <form
+                  onSubmit={handleSearchSubmit}
+                  className="header-search d-inline-flex w-100 align-self-center"
                 >
-                  <FaRegHeart size={"1.625rem"} />
-                  <span className="d-inline-block fb-fs-14 fw-500">
-                    Wishlist
-                  </span>
-                </Link>
-              </li>
-              <li>
-                {
-                  (login) ?
-                    <button
-                      onClick={toggleCart}
-                      className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
-                    >
-                      <div className="position-relative">
-                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
-                          {cartItems.length}
-                        </span>
-                        <CgShoppingBag size={"1.625rem"} />
-                      </div>
-                      <span className="d-inline-block fb-fs-14 fw-500">
-                        My Cart
-                      </span>
-                    </button>
-                    :
-                    <button
-                      onClick={toggleCart}
-                      className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
-                    >
-                      <div className="position-relative">
-                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
-                          {cartItems.length}
-                        </span>
-                        <CgShoppingBag size={"1.625rem"} />
-                      </div>
-                      <span className="d-inline-block fb-fs-14 fw-500">
-                        My Cart
-                      </span>
-                    </button>
-                }
-                <MyCartMenu showCart={showCart} onCloseCart={toggleCart} />
-              </li>
-            </ul>
-            <ul className="list-unstyled d-flex d-xl-none align-items-center justify-content-between gap-2 mobile-header-actions">
-              <li>
-                <button
-                  onClick={toggleCart}
-                  className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
-                >
-                  <div className="position-relative">
-                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
-                      {cartItems.length}
-                      <span className="visually-hidden">unread messages</span>
-                    </span>
-                    <CgShoppingBag size={"1.625rem"} color="#231d25" />
+                  <div className="all-category">
+                    <Dropdown
+                      value={
+                        filters.category_id === ""
+                          ? { id: "", name: "All Categories" }
+                          : category.find((c) => c.id === filters.category_id)
+                      }
+                      onChange={(e) =>
+                        setFilters({
+                          ...filters,
+                          category_id: e.value.id,
+                        })
+                      }
+                      options={[
+                        { id: "", name: "All Categories" },
+                        ...category,
+                      ]}
+                      optionLabel="name"
+                      placeholder="Select Category"
+                      className="w-full border-0"
+                    />
                   </div>
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={toggleMobileMenu}
-                  className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
-                >
-                  <IoMdMenu size={"1.625rem"} color="#231d25" />
-                </button>
-                <MobileMenu
-                  show={showMobileMenu}
-                  onClose={toggleMobileMenu}
-                  showMobileLogin={showMobileLogin}
-                  toggleMobileLogin={toggleMobileLogin}
-                  handleSearchSubmit={handleSearchSubmit}
-                  filters={filters}
-                  setFilters={setFilters}
-                  login={login}
-                  userDetail={userDetail}
-                />
-                <MobileLogin
-                  otpShow={showWebLogin}
-                  onOtpClose={toggleWebLogin}
-                  align="end"
-                />
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div className="header-bottom py-4 border-top d-none d-xl-block">
-        <div className="container fb-container">
-          <div className="header-divider d-flex justify-content-between ">
-            <div className="header-link-list">
-              <ul className="d-flex gap-5">
-                <li className="nav-item-link">
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                      isActive && !location.hash ? "active" : ""
-                    }
-                  >
-                    Home
-                  </NavLink>
+                  <div className="search-input position-relative z-1 w-100 d-flex justify-content-between">
+                    <InputText
+                      type="text"
+                      placeholder="Search for products"
+                      className="border-0 ps-3 w-100"
+                      style={{ boxShadow: "none" }}
+                      value={filters.name}
+                      onChange={(e) => setFilters({ ...filters, name: e.target.value })}
+                    />
+                    <button
+                      type="submit"
+                      className="search-icon d-inline-block z-2 h-100 border-0 bg-transparent">
+                      <IoSearchOutline color="#918e92" size="1.25rem" />
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div className="header-actions">
+              <ul className="list-unstyled align-items-center justify-content-between gap-4 web-header-actions d-none d-xl-flex">
+                <li>
+                  {
+                    (login) ?
+                      <ProfileDropdown userDetail={userDetail} />
+                      :
+                      <button
+                        className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
+                        onClick={toggleWebLogin}
+                      >
+                        <FaRegUser size={"1.625rem"} />
+                        <span className="d-inline-block fb-fs-14 fw-500">
+                          Login
+                        </span>
+                      </button>
+                  }
                 </li>
-                <li className="nav-item-link">
-                  <NavLink
-                    to="/products"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                <li>
+                  <Link
+                    to="/wishlist"
+                    className="d-inline-flex flex-column justify-content-center align-items-center"
                   >
-                    Products
-                  </NavLink>
+                    <FaRegHeart size={"1.625rem"} />
+                    <span className="d-inline-block fb-fs-14 fw-500">
+                      Wishlist
+                    </span>
+                  </Link>
                 </li>
-                <li className="nav-item-link">
-                  <a
-                    href="/#best"
-                    className={isHashActive("#best") ? "active" : ""}
-                  >
-                    Best Deals
-                  </a>
+                <li>
+                  {
+                    (login) ?
+                      <button
+                        onClick={toggleCart}
+                        className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
+                      >
+                        <div className="position-relative">
+                          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
+                            {cartItems.length}
+                          </span>
+                          <CgShoppingBag size={"1.625rem"} />
+                        </div>
+                        <span className="d-inline-block fb-fs-14 fw-500">
+                          My Cart
+                        </span>
+                      </button>
+                      :
+                      <button
+                        onClick={toggleCart}
+                        className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
+                      >
+                        <div className="position-relative">
+                          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
+                            {cartItems.length}
+                          </span>
+                          <CgShoppingBag size={"1.625rem"} />
+                        </div>
+                        <span className="d-inline-block fb-fs-14 fw-500">
+                          My Cart
+                        </span>
+                      </button>
+                  }
+                  <MyCartMenu showCart={showCart} onCloseCart={toggleCart} />
                 </li>
-                <li className="nav-item-link">
-                  <a
-                    href="/#popular"
-                    className={isHashActive("#popular") ? "active" : ""}
+              </ul>
+              <ul className="list-unstyled d-flex d-xl-none align-items-center justify-content-between gap-2 mobile-header-actions">
+                <li>
+                  <button
+                    onClick={toggleCart}
+                    className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
                   >
-                    Trending Products
-                  </a>
+                    <div className="position-relative">
+                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
+                        {cartItems.length}
+                        <span className="visually-hidden">unread messages</span>
+                      </span>
+                      <CgShoppingBag size={"1.625rem"} color="#231d25" />
+                    </div>
+                  </button>
                 </li>
-                <li className="nav-item-link">
-                  <NavLink
-                    to="/about-us"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                <li>
+                  <button
+                    onClick={toggleMobileMenu}
+                    className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
                   >
-                    About Us
-                  </NavLink>
-                </li>
-                <li className="nav-item-link">
-                  <NavLink
-                    to="/contact-us"
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                  >
-                    Contact Us
-                  </NavLink>
+                    <IoMdMenu size={"1.625rem"} color="#231d25" />
+                  </button>
+                  <MobileMenu
+                    show={showMobileMenu}
+                    onClose={toggleMobileMenu}
+                    showMobileLogin={showMobileLogin}
+                    toggleMobileLogin={toggleMobileLogin}
+                    handleSearchSubmit={handleSearchSubmit}
+                    filters={filters}
+                    setFilters={setFilters}
+                    login={login}
+                    userDetail={userDetail}
+                  />
+                  <MobileLogin
+                    otpShow={showWebLogin}
+                    onOtpClose={toggleWebLogin}
+                    align="end"
+                  />
                 </li>
               </ul>
             </div>
-            <div className="header-divider-action">
-              {/* <ul className="d-flex gap-5">
+          </div>
+        </div>
+        <div className="header-bottom py-4 border-top d-none d-xl-block">
+          <div className="container fb-container">
+            <div className="header-divider d-flex justify-content-between ">
+              <div className="header-link-list">
+                <ul className="d-flex gap-5">
+                  <li className="nav-item-link">
+                    <NavLink
+                      to="/"
+                      className={({ isActive }) =>
+                        isActive && !location.hash ? "active" : ""
+                      }
+                    >
+                      Home
+                    </NavLink>
+                  </li>
+                  <li className="nav-item-link">
+                    <NavLink
+                      to="/products"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      Products
+                    </NavLink>
+                  </li>
+                  <li className="nav-item-link">
+                    <a
+                      href="/#best"
+                      className={isHashActive("#best") ? "active" : ""}
+                    >
+                      Best Deals
+                    </a>
+                  </li>
+                  <li className="nav-item-link">
+                    <a
+                      href="/#popular"
+                      className={isHashActive("#popular") ? "active" : ""}
+                    >
+                      Trending Products
+                    </a>
+                  </li>
+                  <li className="nav-item-link">
+                    <NavLink
+                      to="/about-us"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      About Us
+                    </NavLink>
+                  </li>
+                  <li className="nav-item-link">
+                    <NavLink
+                      to="/contact-us"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      Contact Us
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+              <div className="header-divider-action">
+                {/* <ul className="d-flex gap-5">
                   <li>
                     <a href="#">Track Your Order</a>
                   </li>
@@ -350,13 +352,13 @@ return (
                     </a>
                   </li>
                 </ul> */}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </header>
-  </>
-);
+      </header>
+    </>
+  );
 };
 
 export default Header;

@@ -50,8 +50,7 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
       setVisible(false);
       notifySuccess("Category Added Successfully");
     } catch (error) {
-      throw error;
-      notifyError("Failed to add category!");
+      notifyError(error.response?.data?.error);
     } finally {
       setLoading(false);
     }
@@ -76,7 +75,7 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
       notifySuccess("Category Updated Successfully");
     } catch (error) {
       console.error("Failed to update category!", error);
-      notifyError("Failed to update category!");
+      notifyError(error.response?.data?.error);
     } finally {
       setLoading(false);
     }
