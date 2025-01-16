@@ -4,11 +4,11 @@ import Footer from "../../../layout/web-layout/Footer";
 import WishList from "./components/wishlistProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWishlist } from "../../../redux/slices/wishlistSlice";
-import wishlistImage from "../../../assets/images/web/wishlist-empty.png";
-import Link from '@mui/material/Link';
+import wishlistImage from "../../../assets/images/web/wishlist-empty.png"; 
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Loading from "../../../components/ui/Loading";
+import { Link } from "react-router-dom";
 
 const Wishlist = () => {
   const dispatch = useDispatch();
@@ -22,17 +22,17 @@ const Wishlist = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
-      <div className="pt-5">
+      <div className="pt-4">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="/">
+            <Link underline="hover" color="inherit" to="/">
               Home
             </Link>
             <Typography className="text-orange">Wishlist</Typography>
           </Breadcrumbs>
         </div>
       </div>
-      <section>
+      <section className="pt-4">
         <div className="container fb-container">
           <div className="row">
             <div className="d-flex justify-content-between align-items-center">

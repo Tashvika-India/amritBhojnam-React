@@ -215,9 +215,9 @@ const Header = () => {
                           </span>
                           <CgShoppingBag size={"1.625rem"} />
                         </div>
-                        <span className="d-inline-block fb-fs-14 fw-500">
+                        <p className="d-inline-block fb-fs-14 fw-500 text-black">
                           My Cart
-                        </span>
+                        </p>
                       </button>
                       :
                       <button
@@ -230,7 +230,7 @@ const Header = () => {
                           </span>
                           <CgShoppingBag size={"1.625rem"} />
                         </div>
-                        <span className="d-inline-block fb-fs-14 fw-500">
+                        <span className="d-inline-block fb-fs-14 fw-500 text-black">
                           My Cart
                         </span>
                       </button>

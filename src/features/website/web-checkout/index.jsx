@@ -212,7 +212,7 @@ const CheckoutPage = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
-      <div className="pt-5">
+      <div className="pt-4">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
             <Link underline="hover" color="inherit" href="/">
@@ -301,7 +301,7 @@ const CheckoutPage = () => {
                 </div>
                 <div className="col-lg-5 col-md-12">
                   <div className="my-card-section product-detail-shadow rounded-20 p-4 mb-4 sticky-top " style={{ zIndex: 10 }}>
-                    <p className="fb-fs-26 fw-bold mb-4">My Cart</p>
+                    <p className="fb-fs-26 fw-500 mb-4">My Cart</p>
                     {loading ? (
                       <Loading />
                     ) : cartItems?.length > 0 ? (
