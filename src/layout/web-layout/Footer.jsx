@@ -71,7 +71,7 @@ const Footer = () => {
       resetForm();
     } catch (error) {
       console.error("Error submitting the Subscribe form:", error);
-      notifyError("Failed to add submitted subscribe!");
+      notifyError(error.response?.data?.error);
     }
   };
 

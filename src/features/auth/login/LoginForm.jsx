@@ -5,6 +5,7 @@ import PasswordInput from "../../../components/ui/PasswordInput";
 import { loginSchema } from "../../../schemas/auth-schema";
 import { useNavigate } from "react-router-dom";
 import { adminLoginApi } from "../../../services/authApiRoutes";
+import { notifyError, notifySuccess } from "../../../components/ui/Notification";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -60,8 +61,10 @@ function LoginForm() {
           setErrorMessage("Access Denied: Not an admin user.");
         }
       }
+      notifySuccess("Login successful!");
     } catch (error) {
-      setErrorMessage("Login failed. Please check your credentials.");
+      setErrorMessage("Login failed. Please check your credentials.",{error});
+      notifyError(error?.response?.data?.non_field_errors[0]); 
     }
   }
 

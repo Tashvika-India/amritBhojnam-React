@@ -48,7 +48,7 @@ const ContactUs = () => {
       contact.resetForm();
     } catch (error) {
       console.log("Error submitting the form:", error);
-      notifyError("Failed to add submitted Contact!"); 
+      notifyError(error.response?.data?.error);
     } finally {
       setLoading(false);
     }

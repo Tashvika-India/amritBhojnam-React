@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { sendOtpApi, verifyOtpApi } from "../../services/authApiRoutes";
 import { Link } from "react-router-dom";
+import { notifyError, notifySuccess } from "./Notification";
 
 const MobileLogin = ({ otpShow, onOtpClose, align }) => {
   const [showOTPInputs, setShowOTPInputs] = useState(false);
@@ -35,8 +36,12 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
       setErrorMessage(null);
       setTimeRemaining(60); // Reset timer
       setResendEnabled(false); // Disable the resend button
+      notifySuccess("OTP resent successfully.");
     } catch (error) {
       setErrorMessage("Failed to resend OTP. Please try again.");
+      notifyError(error.response?.data?.error);
+      console.log(error);
+      
     } finally {
       setLoading(false);
     }
@@ -60,8 +65,12 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
         setErrorMessage(null);
         setTimeRemaining(30); // Start the timer
         setResendEnabled(false); // Disable resend button initially
+        notifySuccess("OTP sent successfully.");
       } catch (error) {
         setErrorMessage("Failed to send OTP. Please try again.");
+        notifyError(error.response?.data?.error);
+        console.log(error);
+        
       } finally {
         setLoading(false);
       }
@@ -96,6 +105,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
       const tokenParts = accessToken.split(".");
       const getTokenData = JSON.parse(atob(tokenParts[1]));
       const isAdmin = getTokenData?.is_admin;
+      notifySuccess("Login successful!");
 
       if (accessToken && refreshToken) {
         localStorage.setItem("access", accessToken);
@@ -106,6 +116,9 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
       }
     } catch (error) {
       setErrorMessage("Invalid OTP. Please try again.");
+      notifyError(error.response?.data?.error);
+      console.log(error);
+      
     } finally {
       setLoading(false);
     }

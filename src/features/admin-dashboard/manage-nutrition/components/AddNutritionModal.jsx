@@ -35,7 +35,7 @@ export default function AddNutritionModal({ visible, setVisible, getNutrition })
       setVisible(false);
       notifySuccess("Nutrition added successfully!");
     } catch (error) {
-      notifyError("Failed to add nutrition. Please try again.");
+      notifyError(error.response?.data?.error);
     } finally {
       setLoading(false);
     }

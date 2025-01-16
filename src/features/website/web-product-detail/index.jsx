@@ -273,7 +273,7 @@ const ProudctDetail = () => {
       setLoading(false);
     } catch (error) {
       console.log("Error adding to cart:", error);
-      notifyError("Failed to add to cart!");
+      notifyError(error.response?.data?.error);
     } finally {
       setLoading(false);
     }

@@ -4,10 +4,10 @@ import YellowButton from "@/components/buttons/YellowButton";
 import ActiveOrdersTable from "./components/ActiveOrdersTable";
 import TabsButtons from "../../../../components/ui/TabsButton";
 import NewOrdersTable from "./components/NewOrdersTable";
-import {getAdminOrderListApi } from "../../../../services/adminApiRoutes";
+import { getAdminOrderListApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
 import { InputText } from "primereact/inputtext";
-import { notifyError } from "../../../../components/ui/Notification"; 
+import { notifyError } from "../../../../components/ui/Notification";
 import { Breadcrumbs, Typography } from "@mui/material";
 
 function AdminOrders() {
@@ -15,9 +15,9 @@ function AdminOrders() {
   const [loading, setLoading] = useState(false);
 
   const [order, setOrder] = useState([]);
-  const [search , setSearch] = useState('');
+  const [search, setSearch] = useState('');
 
-  const getOrderList = async ( ) => {
+  const getOrderList = async () => {
     setLoading(true);
     try {
       const response = await getAdminOrderListApi(search);
@@ -28,7 +28,7 @@ function AdminOrders() {
       setLoading(false);
       notifyError(error?.response?.data?.message);
     }
-  }; 
+  };
 
   useEffect(() => {
     getOrderList();
@@ -40,13 +40,13 @@ function AdminOrders() {
         <div className="col-md-6">
           <Heading value={"Orders List"} />
         </div>
-      </div>
-      <div className="col-12 my-3">
+        <div className="col-12 my-3">
           <Breadcrumbs aria-label="breadcrumb">
             <Typography >Orders</Typography>
             <Typography className="text-orange">Order list</Typography>
           </Breadcrumbs>
-        </div>
+        </div> 
+      </div>
       <div className="">
         <div className="card">
           <div className="card-body">
@@ -66,7 +66,7 @@ function AdminOrders() {
                   <Loading />
                 ) : (
                   // <ActiveOrdersTable order={order} />
-                  <NewOrdersTable order={order} getOrderList={getOrderList}/>
+                  <NewOrdersTable order={order} getOrderList={getOrderList} />
                 )}
               </div>
             </div>

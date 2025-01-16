@@ -35,7 +35,7 @@ function ProductTable({ products, getProductList }) {
       // Optionally update your product list here (e.g., remove the deleted product from UI)
     } catch (error) {
       console.error("Error deleting product:", error);
-      notifyError("Error deleting product:",error);
+      notifyError(error.response?.data?.error);
     }
   };
 

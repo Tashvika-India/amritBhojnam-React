@@ -111,7 +111,7 @@ const UserProfile = () => {
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
-      notifyError("Something went wrong, please try again.");
+      notifyError(error.response?.data?.error);
     } finally {
       formik.setSubmitting(false);
     }
@@ -132,7 +132,7 @@ const UserProfile = () => {
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
-      notifyError("Something went wrong, please try again.");
+      notifyError(error.response?.data?.error);
     } finally {
       formik.setSubmitting(false);
     }
@@ -147,6 +147,7 @@ const UserProfile = () => {
       setLoading(false);
     } catch (error) {
       console.error("Error fetching profile data:", error);
+      notifyError(error.response?.data?.error);
     }
   };
 
@@ -191,7 +192,7 @@ const UserProfile = () => {
       setLoading(false);
       notifySuccess("Address deleted Successfully");
     } catch (error) {
-      notifyError("Something went wrong, please try again.");
+      notifyError(error.response?.data?.error);
       console.log("Error fetching cart data:", error);
     } finally {
       setLoading(false);
@@ -301,7 +302,7 @@ const UserProfile = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
-      <div className="pt-5">
+      <div className="pt-4">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
           <Link underline="hover" color="inherit" to="/">
