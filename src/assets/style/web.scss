@@ -322,7 +322,7 @@
     bottom: -0.8rem;
     width: 33%;
     height: 0.27rem;
-    background-color: $orange;
+    background-color: $semi-orange;
     z-index: 2;
   }
   &::after {
@@ -584,7 +584,7 @@ footer {
 .p-slider .p-slider-handle {
   height: 1.5rem;
   width: 1.5rem;
-  border: 1px solid $orange;
+  border: 1px solid $semi-orange;
 }
 .phone-input .p-inputtext-lg {
   font-size: 0.875rem;
@@ -595,11 +595,11 @@ footer {
 
 .p-slider:not(.p-disabled) .p-slider-handle:hover {
   background: $yellow-bg;
-  border-color: $orange;
+  border-color: $semi-orange;
 }
 
 .p-slider .p-slider-range {
-  background: $orange;
+  background: $semi-orange;
 }
 .p-slider {
   border-radius: 0.9375rem;
@@ -1288,7 +1288,6 @@ footer {
     }
   }
   .contact-us {
-    background-size: contain !important;
     padding-top: 2rem !important;
   }
   .contact-us .card {
@@ -2277,7 +2276,9 @@ footer {
   .ready-cook {
     height: 38rem !important;
   }
-
+  .cart-items-contianer .empty-cart-image {
+    max-width: 12rem !important;
+  }
   .footer-detail-links li span {
     a {
       font-size: 0.8rem !important;
@@ -2381,7 +2382,7 @@ footer {
     }
   }
   .img-profile {
-    height: 5.5rem;
+    height: 6rem;
   }
   .default-btn {
     font-size: 0.8rem;
@@ -2888,5 +2889,24 @@ footer {
   }
   .web-wrapper-main time {
     font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 350px) {
+  .profile-tabs button {
+    font-size: 0.64rem;
+    padding: 0.7rem 0.4rem 0.5rem;
+  }
+}
+@media (min-width: 350px) and (max-width: 400px) {
+  .profile-tabs button {
+    font-size: 0.76rem;
+    padding: 0.7rem 0.4rem 0.5rem;
+  }
+}
+@media (min-width: 400px) and (max-width: 500px) {
+  .profile-tabs button {
+    font-size: 0.89rem;
+    padding: 0.7rem 0.4rem 0.5rem;
   }
 }

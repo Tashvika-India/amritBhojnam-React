@@ -353,7 +353,7 @@ const UserProfile = () => {
             </div>
             <div className="p-4 pt-0 ">
               <div className="user-profile-detail  position-relative text-start pb-3">
-                <div className="text-center rounded-circle  position-relative d-flex align-items-center">
+                <div className="text-center rounded-circle  position-relative d-flex align-items-center gap-3">
                   <img
                     className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center p-2 bg-white"
                     src={(userDetail?.pp) ? profilePicture : pp}
@@ -384,7 +384,6 @@ const UserProfile = () => {
                   outlined={activeIndex !== 0}
                   label="1"
                 >
-
                   <span className="me-2">
                     <i className="pi pi-user"></i>
                   </span>
@@ -429,8 +428,8 @@ const UserProfile = () => {
                 onTabChange={(e) => setActiveIndex(e.index)}>
                 <TabPanel header="My Account">
                   <div className="account-section mb-md-4">
-                    <div className="d-flex justify-content-between">
-                      <p className="fb-fs-26 fw-bold">My Account</p>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <h4 className="fb-fs-26 fw-bold mt-3">My Account</h4>
                       <div className="d-flex">
                         <button
                           className="d-inline-flex align-items-end border-0 bg-transparent"
@@ -579,7 +578,7 @@ const UserProfile = () => {
                 </TabPanel>
                 <TabPanel header="Order History">
                   <div className="order-section">
-                    <p className="fb-fs-26 fw-bold my-4">Order History</p>
+                    <h4 className="fb-fs-26 fw-bold my-3">Order History</h4>
                     {loading ?
                       <Loading />
                       : order.map((item) => (
@@ -707,7 +706,7 @@ const UserProfile = () => {
                 <TabPanel header="Address Book">
                   <div className="address-section">
                     <div className="d-flex justify-content-between align-items-center">
-                      <h4 className="fb-fs-26 fw-bold text-dark-grey my-md-4">
+                      <h4 className="fb-fs-26 fw-bold text-dark-grey my-3">
                         Saved Address
                       </h4>
                       <button

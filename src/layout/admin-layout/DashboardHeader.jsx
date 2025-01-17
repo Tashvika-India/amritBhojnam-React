@@ -11,6 +11,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { IoIosArrowDown } from "react-icons/io";
+import { VscBellDot } from "react-icons/vsc";
 import {
   List,
   ListItem,
@@ -112,7 +113,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
           <div className="admin-header-notifications me-2">
             <IconButton onClick={handleNotificationsClick} color="inherit">
               <Badge badgeContent={notifications.length} color="error">
-                <NotificationsIcon className="text-white bg-yellow fs-3 rounded" />
+                <VscBellDot className="text-white bg-yellow fs-3 rounded" />
               </Badge>
             </IconButton>
             {/* <div className="admin-header-notification"> */}
