@@ -176,11 +176,11 @@ const UserProfile = () => {
   const handleReOrderClick = async (order_id) => {
     try {
       await reOrderApi(order_id);
-      notifySuccess("Order placed Successfully");
+      notifySuccess("Order Added to Cart Successfully");
       dispatch(fetchCart());
     } catch (error) {
       notifyError("Error placing order");
-      console.log("Error fetching cart data:", error);
+      console.log("Error placing order:", error);
     }
   }
 

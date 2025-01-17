@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
 import YellowButton from "@/components/buttons/YellowButton";
 import ProductReviewTable from "./components/ProductReviewTable";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getRatingApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
+import { Breadcrumbs, Typography } from "@mui/material";
 
 function ProductReviews() {
 
@@ -31,12 +32,18 @@ function ProductReviews() {
  
   return (
     <>
-      <div className="mt-3 mb-5 row">
+      <div className="mt-3 mb-3 row">
         <div className="col-md-6">
           <Heading value={"Product Reviews"} />
         </div>
         <div className="col-md-6 text-end">
           <YellowButton lable={"+ Add New Review"} />
+        </div>
+        <div className="col-12 mt-3">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link to={"/admin/product/product-list"}>Product List</Link>
+            <Typography className="text-orange">Product Reviews</Typography>
+          </Breadcrumbs>
         </div>
       </div>
 

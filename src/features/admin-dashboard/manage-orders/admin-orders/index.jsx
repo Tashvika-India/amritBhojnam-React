@@ -36,7 +36,7 @@ function AdminOrders() {
 
   return (
     <>
-      <div className="mt-3 mb-5 row">
+      <div className="mt-3 mb-3 row">
         <div className="col-md-6">
           <Heading value={"Orders List"} />
         </div>
@@ -54,7 +54,7 @@ function AdminOrders() {
               <div className="col-12 mb-4">
                 <div className="col-md-3 ms-auto text-end">
                   <InputText
-                    className="w-100"
+                    className="w-100 rounded-2"
                     type="text"
                     placeholder="Search Order by Id..."
                     onChange={(e) => setSearch(e.target.value)}

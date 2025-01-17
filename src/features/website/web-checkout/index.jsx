@@ -29,6 +29,7 @@ import CouponComponent from "./components/CouponComponent";
 
 const CheckoutPage = () => {
   const [loading, setLoading] = useState(false);
+  const [loadingNew, setLoadingNew] = useState(false);
   const [couponList, setCouponList] = useState([]);
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
@@ -45,9 +46,7 @@ const CheckoutPage = () => {
 
   const [appliedCoupon, setAppliedCoupon] = useState("");
 
-  const handleCouponApply = (coupon) => {
-    console.log("Coupon applied:", coupon);
-    console.log("Cart ID:", cartId);
+  const handleCouponApply = (coupon) => { 
     setAppliedCoupon(coupon);
     dispatch(fetchFinalCart({ cartId, coupon }));
   };
@@ -62,16 +61,19 @@ const CheckoutPage = () => {
   };
 
   const getAddressList = async () => {
+    setLoadingNew(true);
     try {
       const response = await getAddressApi();
       setAddressList(response?.data || []);
+      setLoadingNew(false);
     } catch (error) {
       console.log("Error fetching cart data:", error);
     } finally {
+      setLoadingNew(false);
     }
   };
 
-  const handlePayNow = async (amount, userId, cartId, delivery_charges, delivery_date, delivery_days, coupon_code, surl, furl) => {
+  const handlePayNow = async (amount, userId, cartId, delivery_charges, delivery_date, delivery_days, coupon_code, surl, furl) => { 
     setLoading(true);
     try {
       // Step 1: Fetch User Profile
@@ -85,10 +87,10 @@ const CheckoutPage = () => {
       // Step 2: Prepare Payment Details
       const payDetails = {
         amount: 1,
-        firstname: user?.full_name || "N/A",
-        email: user?.email || "N/A",
-        phone: user?.phone || "N/A",
-        coupon_code: coupon_code,
+        firstname: user?.full_name || "",
+        email: user?.email || "",
+        phone: user?.phone || "",
+        coupon_code: coupon_code || "",
         shipping_charge: delivery_charges,
         delivery_date: delivery_date,
         delivery_days: delivery_days,
@@ -117,11 +119,10 @@ const CheckoutPage = () => {
         input.value = form_data[key];
         form.appendChild(input);
       });
-
-      console.log(payment_url, form_data);
       document.body.appendChild(form);
       form.submit();
       notifySuccess("Payment Initiated Successfully");
+      setLoading(false);
     } catch (error) {
       console.error("Error during payment:", error);
       notifyError(error.response?.data?.error);
@@ -233,7 +234,7 @@ const CheckoutPage = () => {
               <p className="fb-fs-26 fw-bold checkout-save">Saved Address</p>
               <div className="row">
                 <div className="col-lg-7 col-md-12">
-                  {loading ? (
+                  {loadingNew ? (
                     <Loading />
                   ) : addressList.length > 0 ? (
                     addressList.map((item, index) => (
