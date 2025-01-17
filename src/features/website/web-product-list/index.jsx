@@ -113,7 +113,7 @@ const ProudctList = () => {
           <div className="row">
             <div className=" col-lg-4 col-xxl-3 col-12 d-none d-lg-block">
               <div className="bg-white product-detail-shadow rounded-20 p-4 mb-5">
-                <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span>Category</span>  <button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-orange fs-3"><BiReset />
+                <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span className="text-dark-grey">Category</span>  <button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><BiReset />
                 </button> </h6>
                 <div className="">
                   <ul className="category-select-list">
@@ -291,9 +291,9 @@ const ProudctList = () => {
             </div>
             <div className="col-lg-8 col-xxl-9 col-12">
               <div className="d-flex justify-content-between align-items-center mt-lg-0 mt-4">
-                <h5 className="text-mid-grey mb-0">
+                <p className="fb-fs-18 text-mid-grey mb-0">
                   Showing {productList?.length} result
-                </h5>
+                </p>
                 <button className="button-primary d-inline-block d-lg-none py-1" onClick={() => setShowFilter(true)}>Filter</button>
                 {/* <div className="sort-select d-flex">
                   <p className="mt-1 text-mid-grey">Sort by:</p>

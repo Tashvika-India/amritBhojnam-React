@@ -268,13 +268,18 @@ thead th {
   }
 
   .css-1y2zrd1-MuiSvgIcon-root {
-    width: 0.75em !important;
+    width: 0.45em !important;
   }
 
   .css-11px2du-MuiTypography-root {
     font-weight: 500 !important;
   }
-
+   .MuiListItemIcon-rot{
+    min-width: 0.875rem;
+  }
+  .MuiListItemButton-gutters .css-1ovjgx7-MuiListItemIcon-root{
+    min-width: 1.875rem;
+  }
   .MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListItemButton-root {
     border-radius: 5px !important;
     margin-bottom: 0.8rem !important;

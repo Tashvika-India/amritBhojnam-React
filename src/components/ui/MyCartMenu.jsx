@@ -131,7 +131,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
               ) : (
                 <>
                   <div className="text-center py-4">
-                    <img src={emptyCart} alt="empty-cart" className="img-fluid mx-auto" />
+                    <img src={emptyCart} alt="empty-cart" className="img-fluid mx-auto empty-cart-image" />
                     <h4 className="text-black">Your Cart is Empty!</h4>
                     <p className="text-muted text-balance mb-4">Looks like you haven’t added anything to your cart yet</p>
                     <Link className="button-primary fs-6 d-inline-block fw-normal" to="/products">

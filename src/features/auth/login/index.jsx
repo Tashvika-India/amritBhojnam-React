@@ -1,6 +1,6 @@
 import React from "react";
 import mainLogo from "../../../assets/images/dashboard/main-logo.png";
-import loginPageImage from "../../../assets/images/dashboard/login-page-image.png";
+import loginPageImage from "../../../assets/images/dashboard/login-img.png";
 import LoginForm from "./LoginForm";
 import { Link } from "react-router-dom";
 
