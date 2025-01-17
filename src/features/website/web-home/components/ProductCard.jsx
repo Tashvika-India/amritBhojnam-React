@@ -131,16 +131,15 @@ const ProductCard = ({ product }) => {
           </div>
           <div className="px-2 px-md-3">
             <h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5>
-            <h5 className="fb-fs-14 fw-600 text-grey">
+            <h5 className="fb-fs-14 fw-400 text-grey">
               {product?.quantity}
             </h5>
             <div className="d-flex justify-content-between align-items-center align-items-lg-end mt-3">
               <h6 className="fb-fs-20 fw-bold mb-0 d-inline-flex align-items-center flex-column flex-xxl-row">
                 {product?.max_price !== product?.offer_price && <small className="fw-500 fb-fs-16 text-grey pe-2">
-                  <strike>₹ {product?.max_price}</strike>
+                  <strike className="text-grey fw-400">₹ {product?.max_price}</strike>
                 </small>}
                 <span>₹ {product?.offer_price}</span>
-
               </h6>
               <div
                 onClick={(event) => {

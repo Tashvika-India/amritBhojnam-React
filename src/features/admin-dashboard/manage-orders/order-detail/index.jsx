@@ -136,9 +136,7 @@ const AdminOrderDetail = () => {
     return <RadioButtonUncheckedIcon sx={{ color: "gray" }} />;
   };
 
-  const [activeStep, setActiveStep] = React.useState(1);
-
-  console.log(orderData?.payment_details?.payment_mode);
+  const [activeStep, setActiveStep] = React.useState(1); 
   
 
   return (
@@ -151,7 +149,7 @@ const AdminOrderDetail = () => {
           </Breadcrumbs>
         </div> 
         <div className="col-6">
-          <Heading value={`Order : ${orderData?.id}`} />
+          <Heading value={`Order : ${orderData?.id?.slice(0, 8)}`} />
         </div> 
       </div>
       <div className="row">

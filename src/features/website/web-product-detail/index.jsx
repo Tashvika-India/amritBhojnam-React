@@ -343,27 +343,27 @@ const ProudctDetail = () => {
                   </p> */}
                   <div className="gap-3 d-inline-flex ms-lg-auto mb-3">
                     <span className="pt-2">
-                    {  (login) ?
-                      <Checkbox
-                        {...label}
-                        icon={<FavoriteBorder />}
-                        checkedIcon={<Favorite />}
-                        checked={detail?.is_wishlist ? true : false}
-                        style={{ color: "#F26722", padding: "11px" }}
-                        className="bg-icon-background"
-                        onChange={handleWishlistChange}
-                      />
-                      :
-                      <Checkbox
-                        {...label}
-                        icon={<FavoriteBorder />}
-                        checkedIcon={<Favorite />}
-                        checked={detail?.is_wishlist ? true : false}
-                        style={{ color: "#F26722", padding: "11px" }}
-                        className="bg-icon-background"
-                        onChange={toggleWebLogin}
-                      />
-                    }
+                      {(login) ?
+                        <Checkbox
+                          {...label}
+                          icon={<FavoriteBorder />}
+                          checkedIcon={<Favorite />}
+                          checked={detail?.is_wishlist ? true : false}
+                          style={{ color: "#F26722", padding: "11px" }}
+                          className="bg-icon-background"
+                          onChange={handleWishlistChange}
+                        />
+                        :
+                        <Checkbox
+                          {...label}
+                          icon={<FavoriteBorder />}
+                          checkedIcon={<Favorite />}
+                          checked={detail?.is_wishlist ? true : false}
+                          style={{ color: "#F26722", padding: "11px" }}
+                          className="bg-icon-background"
+                          onChange={toggleWebLogin}
+                        />
+                      }
                     </span>
                     {/* <span>
                       <Button
@@ -398,22 +398,21 @@ const ProudctDetail = () => {
                   </div>
                 </div>
                 <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
-                {detail?.ratings > 0 && (
-                  <Link
-                    to="/product-detail#reviews-wapper"
-                    className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4"
-                  >
-                    <Rating
-                      className="me-3"
-                      value={Math.round(detail.ratings)}
-                      readOnly
-                      cancel={false}
-                    />
-                    <p className="text-mid-grey">
-                      ({(detail?.ratings ?? 0).toFixed(1)} Reviews)
-                    </p>
-                  </Link>
-                )}
+
+                <Link
+                  to="/product-detail#reviews-wapper"
+                  className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4"
+                >
+                  <Rating
+                    className="me-3"
+                    value={Math.round(detail.ratings)}
+                    readOnly
+                    cancel={false}
+                  />
+                  <p className="text-mid-grey">
+                    ({(detail?.ratings ?? 0).toFixed(1)} Reviews)
+                  </p>
+                </Link>
                 <p>{truncateToWords(detail?.short_description, 25)}</p>
                 {/* <a href="/product-detail/#detail-description"><span className="text-orange">Read More</span></a> */}
                 <div className="d-flex mt-4 mb-3">
