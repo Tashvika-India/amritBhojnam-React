@@ -10,16 +10,21 @@ const WebBanner = () => {
   const [loading, setLoading] = useState(false);
 
   const settings = {
-    dots: false,
-    infinite: banner.length > 1,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: banner.length > 1,
-    autoplaySpeed: 3000,
-    arrows: banner.length > 1,
+    dots: false, 
+    infinite: false,  
+    speed: 100,  
+    slidesToShow: 1,  
+    slidesToScroll: 1,  
+    autoplay: banner.length > 1,  
+    autoplaySpeed: 1000,  
+    arrows: banner.length > 1, 
     nextArrow: banner.length > 1 ? <SampleNextArrow /> : null,
     prevArrow: banner.length > 1 ? <SamplePrevArrow /> : null,
+    afterChange: (current) => {
+      if (current === banner.length - 1) { 
+        settings.autoplay = false;
+      }
+    },
   };
 
   async function getBanner() {
@@ -55,7 +60,7 @@ const WebBanner = () => {
     <>
       <Slider {...settings} className="banner-slider">
         {
-          loading ? <div className="skeleton-loading"></div>  :
+          loading ? <div className="skeleton-loading"></div> :
             banner?.map((item, index) => (
               <Link to="/products" className="banner-slide" key={index}>
                 <img loading="lazy" height="600px" width="100%"
