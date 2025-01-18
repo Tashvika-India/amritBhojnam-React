@@ -209,6 +209,7 @@ export const getAdminOrderListApi = (id) => API.get(`/orders/?order_id=${id}`);
 //nutrition
 export const getNutritionApi = () => API.get(`/nutritions/`);
 export const postNutritionApi = (payload) => API.post(`/nutritions/`, payload); 
+export const delteNutritionApi = (id) => API.delete(`/nutrition/${id}/`);
 
 //nutriton-value
 export const getNutritionValueApi = () => API.get(`/product-nutritions/`); 
