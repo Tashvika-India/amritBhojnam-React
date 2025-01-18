@@ -112,8 +112,8 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
         <div className="d-flex me-1 align-items-center gap-1 pe-2">
           <div className="admin-header-notifications me-2">
             <IconButton onClick={handleNotificationsClick} color="inherit">
-              <Badge badgeContent={notifications.length} color="error">
-                <VscBellDot className="text-white bg-yellow fs-3 rounded" />
+              <Badge badgeContent={notifications.length} color="error" className="text-white bg-yellow p-2 rounded-1">
+                <VscBellDot className="text-white" size={23} />
               </Badge>
             </IconButton>
             {/* <div className="admin-header-notification"> */}
