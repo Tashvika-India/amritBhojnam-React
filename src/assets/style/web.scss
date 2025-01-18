@@ -50,49 +50,25 @@
 
   // Responsive Headings with Clamp
   h1 {
-    font-size: clamp(
-      2.5rem,
-      5vw + 1rem,
-      4.3325rem
-    ); //69.32px Min 2.5rem, Max 4.3325rem
+    font-size: clamp(2.5rem, 5vw + 1rem, 4.3325rem); //69.32px Min 2.5rem, Max 4.3325rem
   }
   h2 {
     font-size: clamp(2rem, 4vw + 1rem, 3.75rem); //60px Min 2rem, Max 3.75rem
   }
   h3 {
-    font-size: clamp(
-      1.5rem,
-      3vw + 1rem,
-      2.25rem
-    ); //36px Min 1.5rem, Max 2.25rem
+    font-size: clamp(1.5rem, 3vw + 1rem, 2.25rem); //36px Min 1.5rem, Max 2.25rem
   }
   h4 {
-    font-size: clamp(
-      1.25rem,
-      2.5vw + 1rem,
-      2.0219rem
-    ); //32.35px Min 1.25rem, Max 2.0219rem
+    font-size: clamp(1.25rem, 2.5vw + 1rem, 2.0219rem); //32.35px Min 1.25rem, Max 2.0219rem
   }
   h5 {
-    font-size: clamp(
-      1rem,
-      2vw + 0.5rem,
-      1.375rem
-    ); //22px Min 1rem, Max 1.375rem
+    font-size: clamp(1rem, 2vw + 0.5rem, 1.375rem); //22px Min 1rem, Max 1.375rem
   }
   h6 {
-    font-size: clamp(
-      0.875rem,
-      1.5vw + 0.5rem,
-      1.25rem
-    ); //20px Min 0.875rem, Max 1.25rem
+    font-size: clamp(0.875rem, 1.5vw + 0.5rem, 1.25rem); //20px Min 0.875rem, Max 1.25rem
   }
   p {
-    font-size: clamp(
-      0.875rem,
-      1vw + 0.5rem,
-      1rem
-    ); //16px Min 0.875rem, Max 1rem
+    font-size: clamp(0.875rem, 1vw + 0.5rem, 1rem); //16px Min 0.875rem, Max 1rem
     margin-bottom: 0;
   }
 
@@ -107,18 +83,10 @@
     font-size: clamp(0.8rem, 1vw + 0.5rem, 1rem); //16px Min 0.875rem, Max 1rem
   }
   .fb-fs-18 {
-    font-size: clamp(
-      1rem,
-      1.5vw + 0.5rem,
-      1.125rem
-    ); //18px Min 1rem, Max 1.125rem
+    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.125rem); //18px Min 1rem, Max 1.125rem
   }
   .fb-fs-14 {
-    font-size: clamp(
-      0.75rem,
-      1vw + 0.5rem,
-      0.9281rem
-    ); //14.85px Min 0.75rem, Max 0.9281rem
+    font-size: clamp(0.75rem, 1vw + 0.5rem, 0.9281rem); //14.85px Min 0.75rem, Max 0.9281rem
   }
   .fb-fs-30 {
     font-size: 1.875rem; // 30px
@@ -130,22 +98,14 @@
     font-size: 2.375rem !important; //38px
   }
   .fb-fs-12 {
-    font-size: clamp(
-      0.625rem,
-      0.75vw + 0.5rem,
-      0.8119rem
-    ); //12.99px Min 0.625rem, Max 0.8119rem
+    font-size: clamp(0.625rem, 0.75vw + 0.5rem, 0.8119rem); //12.99px Min 0.625rem, Max 0.8119rem
   }
   .dropdown-toggle::after {
     display: none; /* Hides the default arrow */
   }
 
   .fb-fs-16-big {
-    font-size: clamp(
-      0.875rem,
-      1vw + 0.5rem,
-      1.0444rem
-    ); //16.71px Min 0.875rem, Max 1.0444rem
+    font-size: clamp(0.875rem, 1vw + 0.5rem, 1.0444rem); //16.71px Min 0.875rem, Max 1.0444rem
   }
   .fb-fs-26 {
     font-size: 1.625rem;
@@ -356,7 +316,7 @@
 .category-select-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.3rem;
   .cat-btn-item {
     border: 1px solid $border;
     border-radius: 0.5rem;
@@ -463,12 +423,7 @@ footer {
 
 .skeleton-loading {
   height: 39rem;
-  background-image: linear-gradient(
-    90deg,
-    #bebebe 0%,
-    #f2f2f2 50%,
-    #bebebe 100%
-  );
+  background-image: linear-gradient(90deg, #bebebe 0%, #f2f2f2 50%, #bebebe 100%);
   background-size: 200% 100%;
   border-radius: 1.375rem;
   width: 100%;
@@ -710,8 +665,11 @@ footer {
       width: 100%;
     }
   }
-  .masala-con {
-  }
+  
+}
+
+.header-link-list ul li a {
+  color: $black !important;
 }
 
 .header-link-list .nav-item-link .active {
@@ -783,25 +741,218 @@ footer {
   padding-inline: 1rem !important;
 }
 
-//home-banner-wrapper
-.home-banner-wrapper {
-  .card-left {
+/* Wrapper for the cards */
+.cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
+  gap: 2rem;
+  .card-items {
+    position: relative;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    padding: 2.5rem;
+    color: $white;
+    text-align: left;
+    overflow: hidden;
+
+    .card-content {
+      z-index: 1;
+      max-width: 50%;
+      margin-right: auto;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.3125rem;
+      font-weight: 400;
+      color: $white;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      color: $white;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.625rem;
+      color: $white;
+    }
+  }
+
+  .bg-left {
     background-image: url("../images/web/backing-farmer.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100% !important;
+    background-size: cover;
+    background-position: center;
   }
-  .card-center {
+
+  .bg-center {
     background-image: url("../images/web/fulfilling-life.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100% !important;
+    background-size: cover;
+    background-position: center;
   }
-  .card-right {
+
+  .bg-right {
     background-image: url("../images/web/greener-future.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100% !important;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .bg-left,
+  .bg-center,
+  .bg-right {
+    height: 22.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-wrapper { 
+    gap: 1.3rem;
+    .card-items {
+      padding: 1.5rem;
+      height: 100%;
+      .card-content {
+        z-index: 1;
+        max-width: 65%;
+        margin-right: auto;
+      }
+      h3 {
+        font-size: 1.125rem;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+        line-height: 1.3rem;
+      }
+    }
+  }
+}
+@media (max-width: 576px) {
+  .cards-wrapper {
+    grid-template-columns: 1fr;
+    gap: 1.3rem;
+    .card-items {
+      padding: 1.5rem;
+      height: 100%;
+      .card-content {
+        z-index: 1;
+        max-width: 65%;
+        margin-right: auto;
+      }
+      h3 {
+        font-size: 1.125rem;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+        margin-bottom: .95rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+        line-height: 1.1rem;
+      }
+    }
+  }
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  .banner-slider img {
+    height: 25rem !important;
+  }
+
+  .cards-wrapper {
+    .bg-left,
+    .bg-center,
+    .bg-right {
+      height: 100%;
+    }
+    .card-items {
+      padding: 1.5rem;
+      h3 {
+        font-size: 1.3rem;
+      }
+      h2 {
+        font-size: 1.6rem;
+      }
+      p {
+        font-size: 0.9rem;
+        line-height: 1.35rem;
+      }
+    }
+  }
+}
+
+@media ((min-width: 1200px ) and (max-width: 1600px)) {
+  .cards-wrapper {
+    gap: 1.4rem;
+    .bg-left,
+    .bg-center,
+    .bg-right {
+      height: 100%;
+    }
+    .card-items {
+      padding: 1.875rem;
+      .card-content {
+        max-width: 65%;
+      }
+      h3 {
+        font-size: 1.27rem;
+      }
+
+      h2 {
+        margin-bottom: 1rem;
+        font-size: 1.6rem;
+      }
+
+      p {
+        line-height: 1.425rem;
+        font-size: 0.95rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 2100px) {
+  .banner-slider img {
+    height: 51rem !important;
+  }
+  .cards-wrapper {
+    gap: 2.375rem;
+    .bg-left,
+    .bg-center,
+    .bg-right {
+      height: 28rem;
+    }
+    .card-items {
+      padding: 2.5rem;
+      .card-content {
+        z-index: 1;
+        max-width: 50%;
+        margin-right: auto;
+      }
+      h3 {
+        font-size: 2rem;
+        margin-bottom: 0.3125rem;
+      }
+
+      h2 {
+        font-size: 2.4rem;
+      }
+
+      p {
+        font-size: 1.4rem;
+        line-height: 2rem;
+      }
+    }
   }
 }
 
@@ -1249,9 +1400,6 @@ footer {
   }
 }
 
-@media (max-width: 1440px) {
-}
-
 @media (min-width: 1200px) and (max-width: 1440px) {
   .fb-container,
   .fb-container-lg,
@@ -1259,24 +1407,10 @@ footer {
   .fb-container-sm,
   .fb-container-xl,
   .fb-container-xxl {
-    max-width: 1100px !important;
+    max-width: 1336px !important;
   }
   .product-card .masala-con {
     height: 2.2rem !important;
-  }
-  .home-banner-wrapper {
-    .card-left {
-      background-size: cover;
-      border-radius: 15px;
-    }
-    .card-center {
-      background-size: cover;
-      border-radius: 15px;
-    }
-    .card-right {
-      background-size: cover;
-      border-radius: 15px;
-    }
   }
 
   .product-card h6 {
@@ -1353,9 +1487,6 @@ footer {
     br {
       display: none !important;
     }
-  }
-  .card-left .con-ban {
-    font-size: 0.7rem !important;
   }
   .product-list .max-border {
     p {
@@ -1504,33 +1635,6 @@ footer {
   }
   .cart-offcanvas {
     width: 30% !important;
-  }
-  .home-banner-wrapper {
-    .card-left {
-      background-size: cover;
-      border-radius: 2rem;
-      padding-bottom: 12px;
-      p {
-        padding-left: 1rem;
-        width: 70%;
-      }
-    }
-    .card-center {
-      background-size: cover;
-      border-radius: 2rem;
-      p {
-        padding-left: 1rem;
-        width: 70%;
-      }
-    }
-    .card-right {
-      background-size: cover;
-      border-radius: 2rem;
-      p {
-        padding-left: 1rem;
-        width: 70%;
-      }
-    }
   }
   footer .footer-upper form input {
     margin-top: 2rem;
@@ -1734,33 +1838,6 @@ footer {
   }
   .cart-offcanvas {
     width: 40% !important;
-  }
-  .home-banner-wrapper {
-    .card-left {
-      background-size: cover;
-      border-radius: 2rem;
-      padding-bottom: 12px;
-      p {
-        padding-left: 1rem;
-        width: 70%;
-      }
-    }
-    .card-center {
-      background-size: cover;
-      border-radius: 2rem;
-      p {
-        padding-left: 1rem;
-        width: 70%;
-      }
-    }
-    .card-right {
-      background-size: cover;
-      border-radius: 2rem;
-      p {
-        padding-left: 1rem;
-        width: 70%;
-      }
-    }
   }
   .offer-cards {
     .protein-right-top a {
@@ -1992,19 +2069,6 @@ footer {
   }
   .cart-offcanvas {
     width: 50% !important;
-  }
-  .home-banner-wrapper {
-    .card-left,
-    .card-center,
-    .card-right {
-      height: 12rem !important;
-      background-size: cover !important;
-      padding-left: 0.2rem !important;
-      border-radius: 1.125rem !important;
-      p {
-        width: 60% !important;
-      }
-    }
   }
 
   .offer-cards {
@@ -2416,30 +2480,7 @@ footer {
       }
     }
   }
-  .home-banner-wrapper,
-  .ready-cook,
-  .popular-product {
-    .custom-arrow {
-      display: none !important;
-    }
-  }
-  .popular-product .popularleft {
-    margin-bottom: 1.5rem !important;
-  }
-  .home-banner-wrapper .card-center {
-    background-size: cover !important;
-    border-radius: 1rem !important;
-  }
-  .home-banner-wrapper {
-    .card-left,
-    .card-center,
-    .card-right {
-      height: 12rem !important;
-      background-size: cover !important;
-      padding-left: 0.2rem !important;
-      border-radius: 0.625rem !important;
-    }
-  }
+
   .banner-slider {
     img {
       height: auto !important;
@@ -2469,17 +2510,6 @@ footer {
   }
   .brown-button {
     padding: 12px 1rem;
-  }
-  .home-banner-wrapper {
-    .card-left p {
-      width: 60% !important;
-    }
-    .card-center p {
-      width: 60% !important;
-    }
-    .card-right p {
-      width: 60% !important;
-    }
   }
   .description-slider {
     .tab-nav-wrapper {
