@@ -234,9 +234,8 @@ const UserProfile = () => {
       full_name: Yup.string().required("Full name is required"),
       email: Yup.string().email("Invalid email").required("Email is required"),
     }),
-    onSubmit: async (values, { resetForm, setSubmitting }) => {
-      await updateProfile(values);
-      resetForm();
+    onSubmit: async (values, { setSubmitting }) => {
+      await updateProfile(values); 
       setSubmitting(false);
     },
   });
@@ -252,9 +251,11 @@ const UserProfile = () => {
       setLoading(true);
       const response = await putProfileApi(userDetail.id, formData);
       getProfileList();
+      notifySuccess("Profile Data is Updated");
       window.location.reload();
     } catch (error) {
-      console.error("Error updating profile:", error);
+      console.log("Error updating profile:", error?.response?.data?.message);
+      notifyError(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -300,7 +301,7 @@ const UserProfile = () => {
         date_of_birth: userDetail.date_of_birth || "00-00-0000",
       });
     }
-  }, [userDetail]);
+  }, [userDetail,profileEdit]);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -561,10 +562,11 @@ const UserProfile = () => {
                             />
                           </div>
                           {profileEdit && (
-                            <div className="col-12 mt-4 text-end">
+                            <div className="col-12 mt-4 text-end d-flex justify-content-end gap-3">
+                              <button className="button-red px-5" onClick={() => setProfileEdit(false)}>Cancel</button>
                               <button
                                 type="submit"
-                                className="button-primary"
+                                className="button-primary px-5"
                                 disabled={profile.isSubmitting || loading}
                               >
                                 {loading ? "Saving..." : "Save"}

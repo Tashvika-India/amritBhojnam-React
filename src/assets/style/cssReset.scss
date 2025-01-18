@@ -20,6 +20,7 @@ $light-orange: #ffede3;
 $light-yellow: #fff2d7;
 $mid-gray: #918e92;
 $background: #F7F7F7;
+$dark-bg: #231D25;
 $blue: #0073C6;
 $yellow-bg: #FFF7EA;
 $icon-background: #FFF0E9;
@@ -110,6 +111,9 @@ td {
 }
 .text-brown{
     color: $brown !important;
+}
+.text-dark-bg{
+    color: $dark-bg !important;
 }
 .text-mid-grey{
     color: $mid-gray !important;

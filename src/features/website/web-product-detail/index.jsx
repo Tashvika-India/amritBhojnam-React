@@ -624,7 +624,7 @@ const ProudctDetail = () => {
                                   <>
                                     {reviews?.ratings_data?.map((data) => (
                                       <div
-                                        className="col-12 mb-3"
+                                        className="col-12 mb-4"
                                         key={data?.id}
                                       >
                                         <div className="d-inline-flex align-items-center gap-3">
@@ -659,11 +659,11 @@ const ProudctDetail = () => {
                                             </span>
                                           </div>
                                         </div>
-                                        <p className="mb-3">
+                                        <p className="mb-3 mt-3">
                                           {data?.comment ||
                                             "No comment provided."}
                                         </p>
-                                        <p className="mb-3 text-grey fw-500">
+                                        <p className="mb-3 text-grey fw-500 pb-3 pt-2">
                                           {data?.created_at
                                             ? new Intl.DateTimeFormat("en-GB", {
                                               day: "2-digit",
