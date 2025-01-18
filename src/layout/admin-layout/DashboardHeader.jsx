@@ -110,10 +110,10 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
         <div className="d-flex me-1 align-items-center gap-1 pe-2">
-          <div className="admin-header-notifications me-2">
+          <div className="admin-header-notifications me-2  bg-yellow rounded-2 p-1 me-4">
             <IconButton onClick={handleNotificationsClick} color="inherit">
               <Badge badgeContent={notifications.length} color="error">
-                <VscBellDot className="text-white bg-yellow fs-3 rounded" />
+                <VscBellDot className="text-white fs-4" />
               </Badge>
             </IconButton>
             {/* <div className="admin-header-notification"> */}
@@ -153,7 +153,8 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
           <button onClick={handleClick}
             className="ps-0 cursor-pointer border-0 bg-transparent d-inline-flex align-items-center gap-2"
           >
-            <div className="ms-1">
+            <div className="ms-1 text-start"> 
+            <p className="m-0 p-0 fb-fb-14 fw-500">Arun Kumar</p>
               <span className="m-0 text-secondary">Admin</span>
             </div>
             <div className="d-flex gap-5">

@@ -294,6 +294,15 @@
     z-index: 1;
   }
 }
+.order-section .p-dropdown .p-dropdown-label.p-placeholder{
+  color: $dark-grey !important;
+  font-weight: 500;
+  padding-inline: 1rem;
+}
+.order-section .p-dropdown .p-dropdown-trigger {
+  margin-left: 2rem;
+  color: $dark-grey !important;
+}
 .ready-cook {
   background-image: url("../images/web/minutes-bg.png");
   background-repeat: no-repeat;
@@ -669,7 +678,7 @@ footer {
 }
 
 .header-link-list ul li a {
-  color: $black !important;
+  color: $dark-bg !important;
 }
 
 .header-link-list .nav-item-link .active {

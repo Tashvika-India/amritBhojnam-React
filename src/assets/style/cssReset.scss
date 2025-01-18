@@ -12,6 +12,7 @@ $black: #231d25;
 $red: #E50000;
 $bright-red: #FF0000;
 $semi-orange: #FB9300;
+$custom-btn-bg: #FFE1D2;
 $grey: #979797;
 $border: #dcdad5;
 $recipe-background: #FEF0E9;
@@ -154,18 +155,18 @@ td {
 .bg-orange {
     background-color: $orange !important;
 }
-
 .bg-light-orange {
     background-color: $light-orange !important;
 }
-
 .bg-recipe-background{
     background-color: $recipe-background !important;
 }
 .bg-icon-background{
     background-color: $icon-background !important;
 }
-
+.bg-custom-btn-bg{
+    background-color: $custom-btn-bg !important;
+}
 .bg-background{
     background-color: $background;
 }
@@ -176,8 +177,6 @@ td {
 .bg-semi-orange{
     background-color: $semi-orange !important;
 }
-
-
 .bg-light{
     background-color: $light !important; 
 }
