@@ -6,6 +6,7 @@ import IosSwitch from "../../../../components/ui/IosSwitch";
 import { baseURL } from "../../../../utils/constant-variable";
 import DeleteModal from "../../../../components/ui/DeleteModal";
 import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
+import { delteNutritionApi } from "../../../../services/adminApiRoutes";
 
 function NutritionTable({ nutrition, getNutrition }) {
    const [isModalVisible, setModalVisible] = useState(false);
@@ -18,8 +19,8 @@ function NutritionTable({ nutrition, getNutrition }) {
   //           },
   //       ])
 
-    const showDeleteModal = (product) => {
-      setCurrent(product); // Store the product to delete
+    const showDeleteModal = (nutrition) => {
+      setCurrent(nutrition); // Store the product to delete
       setModalVisible(true);
     };
   
@@ -30,7 +31,7 @@ function NutritionTable({ nutrition, getNutrition }) {
   
     const handleDelete = async () => {
       try {
-        await deleteProductApi(current.id); // Use current directly
+        await delteNutritionApi(current.id); // Use current directly
         getNutrition(); 
         hideDeleteModal();
         notifySuccess("Nutrition deleted successfully");
