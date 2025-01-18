@@ -21,6 +21,7 @@ import { Offcanvas } from "react-bootstrap";
 import { clearProductList, fetchProductList } from "../../../redux/slices/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Typography from '@mui/material/Typography';
+import { GrPowerReset } from "react-icons/gr";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 
@@ -113,9 +114,9 @@ const ProudctList = () => {
           <div className="row">
             <div className=" col-lg-4 col-xxl-3 col-12 d-none d-lg-block">
               <div className="bg-white product-detail-shadow rounded-20 p-4 mb-5">
-                <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span className="text-dark-grey">Category</span>  <button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><BiReset />
-                </button> </h6>
-                <div className="">
+                <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span className="text-dark-grey">Category</span>  <button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
+                </button></h6>
+                <div className="mt-5">
                   <ul className="category-select-list">
                     {categoryList?.map((item, index) => (
                       <li

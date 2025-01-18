@@ -4,6 +4,7 @@ import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import { TabPanel, TabView } from "primereact/tabview";
 import { LiaFileInvoiceSolid } from "react-icons/lia";
+import { TfiDownload } from "react-icons/tfi";
 import {
   FormControl,
   InputAdornment,
@@ -41,12 +42,18 @@ import { Link, useLocation } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
 import { Rating } from "primereact/rating";
 import ReviewModal from "../../../components/ui/ReviewModal";
-import { notifyError, notifySuccess } from "../../../components/ui/Notification";
+import { HiDownload } from "react-icons/hi";
+import {
+  notifyError,
+  notifySuccess,
+} from "../../../components/ui/Notification";
 import Loading from "../../../components/ui/Loading";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
+import { BsArrowRepeat } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../../redux/slices/cartSlice";
+import { Dropdown } from "primereact/dropdown";
 
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
@@ -166,12 +173,12 @@ const UserProfile = () => {
       setLoading(false);
     } catch (error) {
       console.log("Error fetching order data", error);
-    }  
+    }
   };
 
   const handleLoadMore = () => {
     setLoad((pre) => pre + 3);
-  }
+  };
 
   const handleReOrderClick = async (order_id) => {
     try {
@@ -182,7 +189,7 @@ const UserProfile = () => {
       notifyError("Error placing order");
       console.log("Error placing order:", error);
     }
-  }
+  };
 
   const getAddressList = async () => {
     setLoading(true);
@@ -220,8 +227,6 @@ const UserProfile = () => {
     }
   };
 
-  
-
   const profile = useFormik({
     initialValues: {
       pp: null,
@@ -234,9 +239,8 @@ const UserProfile = () => {
       full_name: Yup.string().required("Full name is required"),
       email: Yup.string().email("Invalid email").required("Email is required"),
     }),
-    onSubmit: async (values, { resetForm, setSubmitting }) => {
+    onSubmit: async (values, { setSubmitting }) => {
       await updateProfile(values);
-      resetForm();
       setSubmitting(false);
     },
   });
@@ -252,9 +256,11 @@ const UserProfile = () => {
       setLoading(true);
       const response = await putProfileApi(userDetail.id, formData);
       getProfileList();
+      notifySuccess("Profile Data is Updated");
       window.location.reload();
     } catch (error) {
-      console.error("Error updating profile:", error);
+      console.log("Error updating profile:", error?.response?.data?.message);
+      notifyError(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -288,8 +294,6 @@ const UserProfile = () => {
     getOrderList();
   }, [load]);
 
-
-
   useEffect(() => {
     if (userDetail) {
       profile.setValues({
@@ -300,7 +304,7 @@ const UserProfile = () => {
         date_of_birth: userDetail.date_of_birth || "00-00-0000",
       });
     }
-  }, [userDetail]);
+  }, [userDetail, profileEdit]);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -325,7 +329,6 @@ const UserProfile = () => {
       setProfileEdit(true);
     }
   }, [userDetail]);
-
 
   return (
     <div className="web-wrapper-main">
@@ -356,7 +359,7 @@ const UserProfile = () => {
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center gap-3">
                   <img
                     className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center p-2 bg-white"
-                    src={(userDetail?.pp) ? profilePicture : pp}
+                    src={userDetail?.pp ? profilePicture : pp}
                     alt="Card image cap"
                   />
                   <div className="image-content mt-4 mt-md-3 pt-md-5 ms-md-3">
@@ -375,10 +378,11 @@ const UserProfile = () => {
             <div>
               <div className="flex mb-2 gap-2 justify-content-end border-bottom profile-tabs">
                 <button
-                  className={`border-0 bg-white fw-600 ${activeIndex === 0
-                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                    : "text-dark-grey"
-                    }`}
+                  className={`border-0 bg-white fw-600 ${
+                    activeIndex === 0
+                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                      : "text-dark-grey"
+                  }`}
                   onClick={() => setActiveIndex(0)}
                   rounded
                   outlined={activeIndex !== 0}
@@ -390,32 +394,32 @@ const UserProfile = () => {
                   My Account
                 </button>
                 <button
-                  className={`border-0 bg-white fw-600 ${activeIndex === 1
-                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                    : "text-dark-grey"
-                    }`}
+                  className={`border-0 bg-white fw-600 ${
+                    activeIndex === 1
+                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                      : "text-dark-grey"
+                  }`}
                   onClick={() => setActiveIndex(1)}
                   rounded
                   outlined={activeIndex !== 1}
                   label="2"
                 >
-
                   <span className="me-2">
                     <i className="pi pi-box"></i>
                   </span>
                   Order History
                 </button>
                 <button
-                  className={`border-0 bg-white fw-600 ${activeIndex === 2
-                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                    : "text-dark-grey"
-                    }`}
+                  className={`border-0 bg-white fw-600 ${
+                    activeIndex === 2
+                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                      : "text-dark-grey"
+                  }`}
                   onClick={() => setActiveIndex(2)}
                   rounded
                   outlined={activeIndex !== 2}
                   label="3"
                 >
-
                   <span className="me-2">
                     <i className="pi pi-map-marker"></i>
                   </span>
@@ -425,7 +429,8 @@ const UserProfile = () => {
               <TabView
                 className="custom-tabview"
                 activeIndex={activeIndex}
-                onTabChange={(e) => setActiveIndex(e.index)}>
+                onTabChange={(e) => setActiveIndex(e.index)}
+              >
                 <TabPanel header="My Account">
                   <div className="account-section mb-md-4">
                     <div className="d-flex justify-content-between align-items-center">
@@ -486,8 +491,14 @@ const UserProfile = () => {
                               onChange={profile.handleChange}
                               onBlur={profile.handleBlur}
                               disabled={!profileEdit}
-                              helperText={profile.touched.email && profile.errors.email}
-                              error={!!(profile.touched.email && profile.errors.email)}
+                              helperText={
+                                profile.touched.email && profile.errors.email
+                              }
+                              error={
+                                !!(
+                                  profile.touched.email && profile.errors.email
+                                )
+                              }
                             />
                           </div>
                           <div className="col-md-4 mb-4">
@@ -561,10 +572,16 @@ const UserProfile = () => {
                             />
                           </div>
                           {profileEdit && (
-                            <div className="col-12 mt-4 text-end">
+                            <div className="col-12 mt-4 text-end d-flex justify-content-end gap-3">
+                              <button
+                                className="button-red px-5"
+                                onClick={() => setProfileEdit(false)}
+                              >
+                                Cancel
+                              </button>
                               <button
                                 type="submit"
-                                className="button-primary"
+                                className="button-primary px-5"
                                 disabled={profile.isSubmitting || loading}
                               >
                                 {loading ? "Saving..." : "Save"}
@@ -576,19 +593,33 @@ const UserProfile = () => {
                     </form>
                   </div>
                 </TabPanel>
-                <TabPanel header="Order History">
+                <TabPanel header="Order-history">
                   <div className="order-section">
-                    <h4 className="fb-fs-26 fw-bold my-3">Order History</h4>
-                    {loading ?
+                    <div className="d-flex justify-content-between align-items-center mb-3 mt-lg-3">
+                      <h4 className="fb-fs-26 fw-bold my-3">Order History</h4>
+                      <Dropdown
+                        placeholder="Last 1 Months"
+                        className="w-full md:w-14rem border-black text-dark-bg rounded-3"
+                      />
+                    </div>
+
+                    {loading ? (
                       <Loading />
-                      : order.map((item) => (
-                        <div className="summary-card rounded-20 mb-4" key={item.id}>
+                    ) : (
+                      order.map((item) => (
+                        <div
+                          className="summary-card rounded-20 mb-4"
+                          key={item.id}
+                        >
                           <div className="container">
-                            <div className="row border-bottom px-2 px-md-3 py-3">
+                            <div className="row border-bottom px-2 px-md-3 py-3 align-items-center">
                               <div className="col-md-3">
                                 <p>
                                   Order ID:
-                                  <span className="fw-600" title={item?.display_order_id}>
+                                  <span
+                                    className="fw-600"
+                                    title={item?.display_order_id}
+                                  >
                                     &nbsp;&nbsp;
                                     {/* {item?.id?.slice(0, 12)}... */}
                                     {item?.display_order_id}
@@ -614,12 +645,18 @@ const UserProfile = () => {
                                   </span>
                                 </p>
                               </div>
-                              <div className="col-6 col-md-3 d-flex align-items-center justify-content-end gap-2 text-end align-self-end">
-                                <button onClick={() => handleReOrderClick(item?.id)} className="fw-500 text-center border-0 text-orange bg-transparent ">
+                              <div className="col-6 col-md-3 d-flex align-items-center justify-content-end gap-3 text-end align-self-end">
+                                <button
+                                  onClick={() => handleReOrderClick(item?.id)}
+                                  className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-1"
+                                >
+                                <BsArrowRepeat  size={"1.2rem"}/>
                                   Buy Again
                                 </button>
-                                <span className="vr"></span>
-                                <button className="fw-500 text-center border-0 text-orange bg-transparent"><LiaFileInvoiceSolid size={"1.5rem"} /></button>
+                                <button className="fw-500 text-center border-0 text-orange bg-custom-btn-bg d-flex align-items-center py-1 rounded-2 px-2 gap-1">
+                                  <HiDownload size={"1.2rem"} />
+                                  Invoice
+                                </button>
                               </div>
                             </div>
                             {item?.product_details.map((data) => (
@@ -629,7 +666,10 @@ const UserProfile = () => {
                                     <div className="prod-detail d-flex align-items-center">
                                       <img
                                         className="img-fluid me-4 rounded-4"
-                                        style={{ height: "6rem", width: "6rem" }}
+                                        style={{
+                                          height: "6rem",
+                                          width: "6rem",
+                                        }}
                                         src={data?.product?.images[0]?.image}
                                         alt="pencil"
                                       />
@@ -681,11 +721,23 @@ const UserProfile = () => {
                                   </div>
                                   <div className="col-md-5 col-xxl-3 ms-auto text-md-end">
                                     <div className="more-option d-flex mb-2 mb-lg-0 justify-content-evenly justify-content-md-between">
-                                      <button onClick={() => handleReviewClick(data?.product?.id, data?.product?.name, data?.product?.images[0]?.image)} className="fw-500 text-center border-0 text-dark-grey bg-transparent ">
+                                      <button
+                                        onClick={() =>
+                                          handleReviewClick(
+                                            data?.product?.id,
+                                            data?.product?.name,
+                                            data?.product?.images[0]?.image
+                                          )
+                                        }
+                                        className="fw-500 text-center border-0 text-dark-grey bg-transparent "
+                                      >
                                         Add Review
                                       </button>
                                       <span className="vr"></span>
-                                      <Link to={`/product-detail?product_id=${data?.product?.id}`} className="fw-600 text-center border-0 text-dark-grey bg-transparent">
+                                      <Link
+                                        to={`/product-detail?product_id=${data?.product?.id}`}
+                                        className="fw-600 text-center border-0 text-dark-grey bg-transparent"
+                                      >
                                         View Product
                                       </Link>
                                     </div>
@@ -695,10 +747,16 @@ const UserProfile = () => {
                             ))}
                           </div>
                         </div>
-                      ))}
+                      ))
+                    )}
                     {order?.length > 0 && (
                       <div className="d-flex align-items-center justify-content-center">
-                        <button className="fw-500 text-center border-0 text-orange bg-transparent" onClick={handleLoadMore}>Load More Orders</button>
+                        <button
+                          className="fw-500 text-center border-0 text-orange bg-transparent"
+                          onClick={handleLoadMore}
+                        >
+                          Load More Orders
+                        </button>
                       </div>
                     )}
                   </div>
@@ -727,8 +785,9 @@ const UserProfile = () => {
                       {addressList.length > 0 ? (
                         addressList.map((item, index) => (
                           <div
-                            className={`summary-card ${item?.selected ? "active" : ""
-                              } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                            className={`summary-card ${
+                              item?.selected ? "active" : ""
+                            } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
                             key={index}
                             onClick={() => handleSelectAddress(item?.id)}
                           >
@@ -737,8 +796,9 @@ const UserProfile = () => {
                                 <div className="col-md-12">
                                   <div className="order-date d-flex gap-2">
                                     <img
-                                      className={`img-fluid me-1 rounded-4 ${item?.selected ? "shadow" : ""
-                                        }`}
+                                      className={`img-fluid me-1 rounded-4 ${
+                                        item?.selected ? "shadow" : ""
+                                      }`}
                                       src={homeImg}
                                       alt="pencil"
                                     />

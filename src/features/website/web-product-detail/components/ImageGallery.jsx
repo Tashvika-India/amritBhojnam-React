@@ -14,7 +14,7 @@ const ImageGallery = ({ images }) => {
   };
 
   return (
-    <div className="d-inline-flex gap-3 flex-wrap align-items-center">
+    <div className="d-inline-flex gap-5 flex-wrap align-items-center">
       {images.map((image, index) => (
         <img
           key={index}
@@ -26,10 +26,10 @@ const ImageGallery = ({ images }) => {
           onClick={() => handleImageClick(image?.image)}
           style={{
             cursor: "pointer",
-            width: "80px",
-            height: "100px",
+            width: "100px",
+            height: "90px",
             objectFit: "cover",
-            margin: "4px",
+            marginRight: "1.4rem",
           }}
         />
       ))}

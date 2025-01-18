@@ -37,9 +37,8 @@ const Header = () => {
   const [category, setCategory] = useState([]);
   const [showWebLogin, setShowWebLogin] = useState(false);
   const toggleCart = () => {
-    setShowCart(!showCart)
+    setShowCart(!showCart);
   };
-
 
   const toggleMobileMenu = () => setShowMobileMenu((prev) => !prev);
 
@@ -57,12 +56,13 @@ const Header = () => {
 
   const login = accessToken;
 
-
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    navigate(`/products?category_id=${filters.category_id}&name=${filters.name}`);
-    setShowMobileMenu(false)
+    navigate(
+      `/products?category_id=${filters.category_id}&name=${filters.name}`
+    );
+    setShowMobileMenu(false);
   };
   async function getCategory() {
     setLoading(true);
@@ -96,7 +96,6 @@ const Header = () => {
     }
   }, []);
 
-
   return (
     <>
       <ScrollTopBehaviour />
@@ -105,23 +104,22 @@ const Header = () => {
         <div className="header-top bg-semi-orange py-2">
           <div className="container fb-container d-flex flex-wrap gap-2 justify-content-center justify-content-lg-between align-items-center">
             <p className="text-white fw-500 fb-fs-14 d-none d-lg-block">
-              {/* Free delivery & 40% discount for next 3 orders! Place your 1st
-              order now. */}
-              &nbsp;
+              Free delivery & 40% discount for next 3 orders! Place your 1st
+              order now. &nbsp;
             </p>
             <p className="text-white fw-500 fb-fs-14">
-              {/* Need Help? Call Us:
+              Need Help? Call Us:
               <a
                 className="text-white text-decoration-none"
-                href="tel:+1800 900 5600"
+                href="tel: +91 7678320459"
               >
-                +1800 900 5600
-              </a> */}
+                +91 7678320459
+              </a>
             </p>
           </div>
         </div>
         <div className="container fb-container pb-3 pt-2">
-          <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between align-items-center mb-2">
             <Link to="/">
               <div className="logo">
                 <img src={logo} alt="logo" className="img-fluid" />
@@ -131,7 +129,7 @@ const Header = () => {
               <div className="d-inline-flex gap-4 w-100">
                 <form
                   onSubmit={handleSearchSubmit}
-                  className="header-search d-inline-flex w-100 align-self-center"
+                  className="header-search d-inline-flex w-100 align-self-center mt-3"
                 >
                   <div className="all-category">
                     <Dropdown
@@ -162,34 +160,36 @@ const Header = () => {
                       className="border-0 ps-3 w-100"
                       style={{ boxShadow: "none" }}
                       value={filters.name}
-                      onChange={(e) => setFilters({ ...filters, name: e.target.value })}
+                      onChange={(e) =>
+                        setFilters({ ...filters, name: e.target.value })
+                      }
                     />
                     <button
                       type="submit"
-                      className="search-icon d-inline-block z-2 h-100 border-0 bg-transparent">
-                      <IoSearchOutline color="#918e92" size="1.25rem" />
+                      className="search-icon d-inline-block z-2 h-100 border-0 bg-transparent fw-500"
+                    >
+                      <IoSearchOutline color="#918e92" size="1.4rem" />
                     </button>
                   </div>
                 </form>
               </div>
             </div>
-            <div className="header-actions">
+            <div className="header-actions mt-3">
               <ul className="list-unstyled align-items-center justify-content-between gap-4 web-header-actions d-none d-xl-flex">
                 <li>
-                  {
-                    (login) ?
-                      <ProfileDropdown userDetail={userDetail} />
-                      :
-                      <button
-                        className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
-                        onClick={toggleWebLogin}
-                      >
-                        <FaRegUser size={"1.625rem"} />
-                        <span className="d-inline-block fb-fs-14 fw-500">
-                          Login
-                        </span>
-                      </button>
-                  }
+                  {login ? (
+                    <ProfileDropdown userDetail={userDetail} />
+                  ) : (
+                    <button
+                      className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
+                      onClick={toggleWebLogin}
+                    >
+                      <FaRegUser size={"1.625rem"} />
+                      <span className="d-inline-block fb-fs-14 fw-500">
+                        Login
+                      </span>
+                    </button>
+                  )}
                 </li>
                 <li>
                   <Link
@@ -203,38 +203,37 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  {
-                    (login) ?
-                      <button
-                        onClick={toggleCart}
-                        className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
-                      >
-                        <div className="position-relative">
-                          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
-                            {cartItems.length}
-                          </span>
-                          <CgShoppingBag size={"1.625rem"} />
-                        </div>
-                        <p className="d-inline-block fb-fs-14 fw-500 text-black">
-                          My Cart
-                        </p>
-                      </button>
-                      :
-                      <button
-                        onClick={toggleCart}
-                        className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
-                      >
-                        <div className="position-relative">
-                          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
-                            {cartItems.length}
-                          </span>
-                          <CgShoppingBag size={"1.625rem"} />
-                        </div>
-                        <span className="d-inline-block fb-fs-14 fw-500 text-black">
-                          My Cart
+                  {login ? (
+                    <button
+                      onClick={toggleCart}
+                      className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
+                    >
+                      <div className="position-relative">
+                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
+                          {cartItems.length}
                         </span>
-                      </button>
-                  }
+                        <CgShoppingBag size={"1.625rem"} />
+                      </div>
+                      <p className="d-inline-block fb-fs-14 fw-500 text-black">
+                        My Cart
+                      </p>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={toggleCart}
+                      className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
+                    >
+                      <div className="position-relative">
+                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
+                          {cartItems.length}
+                        </span>
+                        <CgShoppingBag size={"1.625rem"} />
+                      </div>
+                      <span className="d-inline-block fb-fs-14 fw-500 text-black">
+                        My Cart
+                      </span>
+                    </button>
+                  )}
                   <MyCartMenu showCart={showCart} onCloseCart={toggleCart} />
                 </li>
               </ul>
