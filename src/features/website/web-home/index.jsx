@@ -74,7 +74,7 @@ const HomePage = () => {
     };
   }, [dispatch]);
 
- 
+
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -84,72 +84,41 @@ const HomePage = () => {
           style={{ maxWidth: "93%", maxHeight: "90%", margin: "0 auto" }}
         >
           <WebBanner />
-          <div className="mt-lg-5">
-            <div className="row my-2 px-lg-3 gap-sm-3 gap-xl-0">
-              <div className="col-xl-4 col-lg-12 ">
-                <div className="card-left mb-3">
-                  <div className="row w-100">
-                    <div className="col-md-6">
-                      <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3 ps-2 ps-xl-3">
-                        <p className="text-white fb-fs-24 beyond-class">
-                          Beyond Business,
-                        </p>
-                        <p className="text-white fb-fs-28 fw-bold lh-1">
-                          Backing Farmers
-                        </p>
-                        <p className="text-white py-xxl-4 py-xxl-3 mt-2 mb-xxl-5 con-ban">
-                          Farmers are the backbone of our organic journey. We
-                          strive to build communities, support organic
-                          practices, ensure sustainable livelihoods, and nurture
-                          strong partnerships with them.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="col-md-6"></div>
-                  </div>
+          <div className="mt-4 mt-lg-5">
+            <div class="cards-wrapper">
+              <div class="card-items bg-left">
+                <div class="card-content">
+                  <h3>Beyond Business,</h3>
+                  <h2>Backing Farmers</h2>
+                  <p>
+                    Farmers are the backbone of our organic journey. We strive to build
+                    communities, support organic practices, ensure sustainable livelihoods,
+                    and nurture strong partnerships with them.
+                  </p>
                 </div>
               </div>
-              <div className="col-xl-4 col-lg-12 mb-3 mb-xl-0">
-                <div className="card-center mb-md-3">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3  ps-2  ps-xl-3">
-                        <p className="text-white fb-fs-24">Wholesome Food,</p>
-                        <p className="text-white fb-fs-28 fw-bold lh-1">
-                          Fulfilling Life
-                        </p>
-                        <p className="text-white py-xxl-3 mt-2 mb-xxl-5 con-ban">
-                          Organic is a lifestyle, a habit, and a practice
-                          combined. It embodies the methods of growing and
-                          processing food naturally.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="col-md-6"></div>
-                  </div>
+              <div class="card-items bg-center">
+                <div class="card-content">
+                  <h3>Wholesome Food,</h3>
+                  <h2>Fulfilling Life</h2>
+                  <p>
+                    Organic is a lifestyle, a habit, and a practice combined. It embodies
+                    the methods of growing and processing food naturally.
+                  </p>
                 </div>
               </div>
-              <div className="col-xl-4 col-lg-12 ">
-                <div className="card-right">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="pt-xxl-4 pt-1 mt-2 ps-xxl-3 ms-xxl-3  ps-2  ps-xl-3">
-                        <p className="text-white fb-fs-24">Healthy Bites,</p>
-                        <p className="text-white fb-fs-28 fw-bold lh-1">
-                          Greener Future
-                        </p>
-                        <p className="text-white py-xxl-4 mt-2 mb-5 con-ban">
-                          Every healthy bite you take nurtures your body and the
-                          planet. Together, let's build a greener future, one
-                          meal at a time.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="col-md-6"></div>
-                  </div>
+              <div class="card-items bg-right">
+                <div class="card-content">
+                  <h3>Healthy Bites,</h3>
+                  <h2>Greener Future</h2>
+                  <p>
+                    Every healthy bite you take nurtures your body and the planet. Together,
+                    let's build a greener future, one meal at a time.
+                  </p>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -199,8 +168,8 @@ const HomePage = () => {
                       window.innerWidth > 992
                         ? "repeat(5, 1fr)"
                         : window.innerWidth > 768
-                        ? "repeat(3, 1fr)"
-                        : "repeat(2, 1fr)",
+                          ? "repeat(3, 1fr)"
+                          : "repeat(2, 1fr)",
                   }}
                 >
                   {loading ? (
@@ -297,11 +266,11 @@ const HomePage = () => {
                     meal in no time!
                   </p>
                   <Link
-                      to="/products"
-                      className="button-primary  d-inline-block mt-4 mt-lg-5 px-5 text-center"
-                    >
-                      View All
-                    </Link>
+                    to="/products"
+                    className="button-primary  d-inline-block mt-4 mt-lg-5 px-5 text-center"
+                  >
+                    View All
+                  </Link>
                 </div>
               </div>
             </div>
@@ -533,8 +502,8 @@ const HomePage = () => {
           <ItemSlide healthyBitesProducts={healthyBitesProducts} />
         </div>
       </section> */}
-     
-    
+
+
       <section className="amrit_bhojanam pb-6">
         <div className="container-fluid">
           <div className="row">
@@ -612,7 +581,7 @@ const HomePage = () => {
         <div className="container-fluid">
           <div className="h-100">
             <h3 className="fw-bold mb-5 pb-2 text-center text-white">
-            Goodness & Flavor
+              Goodness & Flavor
             </h3>
             {loading ? (
               <Loading />
