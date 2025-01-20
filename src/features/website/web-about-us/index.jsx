@@ -14,8 +14,8 @@ import Satisfaction from "../../../assets/images/web/satisfaction.png";
 import GreatDeal from "../../../assets/images/web/great-deal-daily.png";
 import GreyBg from "../../../assets/images/web/grey-background.jpeg";
 import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
+import Breadcrumbs from '@mui/material/Breadcrumbs'; 
+import { Link } from "react-router-dom";
 
 
 const AboutUs = () => {
@@ -25,7 +25,7 @@ const AboutUs = () => {
       <div className="pt-4">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="/">
+            <Link underline="hover" color="inherit" to="/">
               Home
             </Link>
             <Typography className="text-orange">About Us</Typography>
