@@ -318,6 +318,15 @@ const ProudctDetail = () => {
     );
   }
 
+  const getNextWeekDate = () => {
+    const today = new Date(); // Current date
+    const nextWeekDate = new Date(today); // Clone today’s date
+    nextWeekDate.setDate(today.getDate() + 7); // Add 7 days to today’s date
+
+    // Format the date (e.g., "Monday, 8 Jan")
+    const options = { weekday: "long", day: "numeric", month: "short" };
+    return nextWeekDate.toLocaleDateString("en-US", options);
+  };
 
   return (
     <div className="web-wrapper-main">
@@ -343,7 +352,7 @@ const ProudctDetail = () => {
                   </p> */}
                   <div className="gap-3 d-inline-flex ms-lg-auto mb-3">
                     <span className="pt-2">
-                      {(login) ?
+                      {login ? (
                         <Checkbox
                           {...label}
                           icon={<FavoriteBorder />}
@@ -353,7 +362,7 @@ const ProudctDetail = () => {
                           className="bg-icon-background"
                           onChange={handleWishlistChange}
                         />
-                        :
+                      ) : (
                         <Checkbox
                           {...label}
                           icon={<FavoriteBorder />}
@@ -363,7 +372,7 @@ const ProudctDetail = () => {
                           className="bg-icon-background"
                           onChange={toggleWebLogin}
                         />
-                      }
+                      )}
                     </span>
                     {/* <span>
                       <Button
@@ -487,37 +496,35 @@ const ProudctDetail = () => {
                     </>
                   )}
                 </div>
-                {/* <div className="mt-5">
-                <p className="fw-600">Check Availability</p>
-                <div
-                  className="border-gray border-raidus-10 mt-2 input-box"
-                  style={{ width: "60%" }}
-                >
-                  <div className="input-group mb-2 mt-2">
-                    <input
-                      type="number"
-                      className="form-control border-0 box-shadow-0 fw-600"
-                      placeholder="Enter Pincode"
-                      aria-label="Enter Pincode"
-                      aria-describedby="basic-addon2"
-                      maxLength={6}
-                      minLength={6}
-                      value={pincode}
-                      onChange={(e) => setPincode(e.target.value)}
-                    />
-                    <button
-                      className="input-group-text border-0 text-orange fw-600 bg-transparent border-start border-2 ps-4 me-3"
-                      onClick={handleCheckPincode}
-                    >
-                      CHECK
-                    </button>
+                <div className="mt-5">
+                  <p className="fw-600">Check Availability</p>
+                  <div
+                    className="border-gray border-raidus-10 mt-2 input-box"
+                    style={{ width: "60%" }}
+                  >
+                    <div className="input-group mb-2 mt-2">
+                      <input
+                        type=""
+                        className="form-control border-0 box-shadow-0 fw-600"
+                        placeholder="Enter pincode for exact date"
+                        aria-label="Enter Pincode"
+                        aria-describedby="basic-addon2"
+                        maxLength={6}
+                        minLength={6}
+                        value={pincode}
+                        onChange={(e) => setPincode(e.target.value)}
+                      />
+                      <button
+                        className="input-group-text border-0 text-orange fw-600 bg-transparent border-start border-2 ps-4 me-3"
+                        onClick={handleCheckPincode}
+                        disabled={pincode?.length !== 6}
+                      >
+                        CHECK
+                      </button>
+                    </div>
                   </div>
                 </div>
-                {message && (
-                  <p className="mt-2 fw-600 text-dark">{message}</p>
-                )}
-              </div> */}
-                {/* <p className="d-flex fb-fs-18 fw-500 my-3">
+                <div className="d-flex align-items-center gap-2 mt-2">
                   <span>
                     <img
                       className="img-fluid"
@@ -525,9 +532,12 @@ const ProudctDetail = () => {
                       alt="delivery-img"
                     />
                   </span>
-                  <span className="text-orange me-2 ms-2 mt-1">Get it by</span>
-                  <span className="mt-1">Monday, 16 Sep</span>
-                </p> */}
+                  <span className="text-orange">Get it by</span>
+                  <span className="">{getNextWeekDate()}</span>
+                  <span className="" style={{ fontSize: "10px" }}>
+                    (Estimated)
+                  </span>
+                </div>
                 <div className="d-flex mt-4  ms-4 ">
                   <ul className="me-5 pe-4 disc-style w-50">
                     {/* {detail?.product_type && (
@@ -632,7 +642,8 @@ const ProudctDetail = () => {
                                             <img
                                               className="img-fluid border-orange"
                                               src={
-                                                (!data?.is_anonymous && data?.user_img)
+                                                !data?.is_anonymous &&
+                                                data?.user_img
                                                   ? `${baseURL}/${data?.user_img}`
                                                   : pp
                                               }
@@ -647,7 +658,10 @@ const ProudctDetail = () => {
                                           </span>
                                           <div className="d-inline-block">
                                             <h6 className="fs-6 fw-bold">
-                                              {data?.is_anonymous ? "Anonymous" : data?.user_name || "Anonymous"}
+                                              {data?.is_anonymous
+                                                ? "Anonymous"
+                                                : data?.user_name ||
+                                                  "Anonymous"}
                                             </h6>
                                             <span className="d-inline-block">
                                               <Rating
@@ -666,12 +680,12 @@ const ProudctDetail = () => {
                                         <p className="mb-3 text-grey fw-500 pb-3 pt-2">
                                           {data?.created_at
                                             ? new Intl.DateTimeFormat("en-GB", {
-                                              day: "2-digit",
-                                              month: "short",
-                                              year: "numeric",
-                                            }).format(
-                                              new Date(data.created_at)
-                                            )
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric",
+                                              }).format(
+                                                new Date(data.created_at)
+                                              )
                                             : "Date not available"}
                                         </p>
                                         {data?.images?.map((image, index) => (
@@ -714,14 +728,27 @@ const ProudctDetail = () => {
                                 </div>
                                 <div className="row align-items-center">
                                   <div className="col-md-6">
-                                    <div style={{ borderRight: "1px solid #DADADA" }}>
-                                      <p className="fb-fs-18 fw-500">Overall Rating</p>
-                                      <p className="fb-fs-24 mt-2 fw-bold">{(detail?.ratings ?? 0).toFixed(1)} <span className="text-mid-grey fb-fs-18 fw-400">({detail?.total_customer_rated})</span></p>
+                                    <div
+                                      style={{
+                                        borderRight: "1px solid #DADADA",
+                                      }}
+                                    >
+                                      <p className="fb-fs-18 fw-500">
+                                        Overall Rating
+                                      </p>
+                                      <p className="fb-fs-24 mt-2 fw-bold">
+                                        {(detail?.ratings ?? 0).toFixed(1)}{" "}
+                                        <span className="text-mid-grey fb-fs-18 fw-400">
+                                          ({detail?.total_customer_rated})
+                                        </span>
+                                      </p>
                                     </div>
                                   </div>
                                   <div className="col-md-6">
-                                    <div >
-                                      <RatingBar ratingData={reviews?.rating_summary} />
+                                    <div>
+                                      <RatingBar
+                                        ratingData={reviews?.rating_summary}
+                                      />
                                     </div>
                                   </div>
                                 </div>
