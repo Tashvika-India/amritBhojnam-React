@@ -84,9 +84,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
       localStorage.removeItem("admin");
-
       localStorage.clear();
-
       setLoading(false);
       navigate("/admin/login");
     }, 1000);
@@ -101,8 +99,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
           aria-label="open drawer"
           onClick={handleDrawerOpen}
           edge="start"
-          sx={{ mr: 2, ...(open && { display: "none" }) }}
-        >
+          sx={{ mr: 2, ...(open && { display: "none" }) }}>
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
@@ -125,7 +122,6 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                 style: { width: 300 },
               }}
             >
-
               {/* </div> */}
               <Typography className="text-center" variant="h6" sx={{ padding: 1 }}>
                 Notifications
@@ -151,8 +147,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
             <Avatar alt="Avatar" src="your-avatar-url.png" />
           </IconButton>
           <button onClick={handleClick}
-            className="ps-0 cursor-pointer border-0 bg-transparent d-inline-flex align-items-center gap-2"
-          >
+            className="ps-0 cursor-pointer border-0 bg-transparent d-inline-flex align-items-center gap-2">
             <div className="ms-1 text-start"> 
             <p className="m-0 p-0 fb-fb-14 fw-500">Arun Kumar</p>
               <span className="m-0 text-secondary">Admin</span>
