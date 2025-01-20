@@ -11,6 +11,7 @@ import { IoMdPrint } from "react-icons/io";
 import { formatDateTime } from "../../../../../utils/constant-variable";
 import { Link } from "react-router-dom";
 import AcceptOrderModal from "./AcceptOrderModal";
+import StatusModal from "./StatusModal";
 const NewOrdersTable = ({ order, getOrderList }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [orderStatus, setOrderStatus] = useState([]);
@@ -97,7 +98,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
 
   const duration = (rowData) => {
     const formattedDateRange = formatDateTime(rowData?.created_at);
-    return <div className="fw-400" style={{ fontSize: ".9rem" }}>{formattedDateRange}</div>;
+    return <div className="fw-400 w-75" style={{ fontSize: ".9rem" }}>{formattedDateRange}</div>;
   };
 
   const statusBodyTemplate = (rowData) => {
@@ -110,7 +111,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
         ) : rowData?.status === "cancelled" ? (
           <button className="fw-400 lt-red-button">Cancel</button>
         ) : rowData?.status === "accepted" ? (
-          <button className="fw-400 lt-green-button">Accept</button>
+          <button className="fw-400 lt-green-button">Accepted</button>
         ) : null}
       </>
     );
@@ -159,7 +160,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
         />
         <div>
           <p className="mb-0 ">{rowData?.delivering_to?.ads_name}</p>
-          <small className="fw-400" style={{ fontSize: ".88rem" }}>{rowData?.delivering_to?.ads_phone}</small>
+          <small className="fw-400" style={{ fontSize: "0.88rem" , color: "#584EE0"}}>{rowData?.delivering_to?.ads_phone}</small>
         </div>
       </div>
     );
@@ -173,8 +174,8 @@ const NewOrdersTable = ({ order, getOrderList }) => {
           header="ID"
           body={(rowData) => <><Link to={`/admin/order-details/${rowData.id}`} style={{ width: "100%", color: "#584EE0" }}>#{rowData.id.slice(0,8)}</Link></>}
         ></Column>
-        <Column header="ORDER" body={orderTemplate} style={{ width: "20%" }}></Column>
-        <Column header="CUSTOMER" body={customerTemplate} style={{ width: "10%" }}></Column>
+        <Column header="ORDER" body={orderTemplate} style={{ width: "18%" }}></Column>
+        <Column header="CUSTOMER" body={customerTemplate} style={{ width: "20%" }}></Column>
         <Column field="amount_to_pay" header="AMOUNT" body={(rowData) => `Rs. ${~~(rowData.amount_to_pay)}`}></Column>
         <Column
           field="status"
@@ -182,10 +183,11 @@ const NewOrdersTable = ({ order, getOrderList }) => {
           body={statusBodyTemplate}
         ></Column>
         <Column header="PAYMENT" body={paymentStatusTemplate}></Column>
-        <Column header="ORDER DATE" body={duration}></Column>
+        <Column header="ORDER DATE" body={duration} style={{ width: "10%" }}></Column>
         <Column header="ACTION" body={actionBodyTemplate}></Column>
       </DataTable>
       <AcceptOrderModal visible={modalVisible} getOrderList={getOrderList} setVisible={() => setModalVisible(false)} orderStatus={orderStatus} />
+      <StatusModal/>
     </div>
 
   );
