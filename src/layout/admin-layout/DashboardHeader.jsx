@@ -152,7 +152,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
             <p className="m-0 p-0 fb-fb-14 fw-500">Arun Kumar</p>
               <span className="m-0 text-secondary">Admin</span>
             </div>
-            <div className="d-flex gap-5">
+            <div className="d-flex gap-5 mb-4 ms-5">
               <IoIosArrowDown color="#F26722" />
             </div>
           </button>
