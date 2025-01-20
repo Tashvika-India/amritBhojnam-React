@@ -606,7 +606,7 @@ const UserProfile = () => {
                     {loading ? (
                       <Loading />
                     ) : (
-                      order.map((item) => (
+                      order?.results?.map((item) => (
                         <div
                           className="summary-card rounded-20 mb-4"
                           key={item.id}
@@ -749,16 +749,13 @@ const UserProfile = () => {
                         </div>
                       ))
                     )}
-                    {order?.length > 0 && (
                       <div className="d-flex align-items-center justify-content-center">
                         <button
                           className="fw-500 text-center border-0 text-orange bg-transparent"
-                          onClick={handleLoadMore}
-                        >
+                          onClick={handleLoadMore}>
                           Load More Orders
                         </button>
-                      </div>
-                    )}
+                      </div> 
                   </div>
                 </TabPanel>
                 <TabPanel header="Address Book">

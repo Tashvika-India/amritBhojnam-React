@@ -21,7 +21,7 @@ function AdminOrders() {
     setLoading(true);
     try {
       const response = await getAdminOrderListApi(search);
-      setOrder(response?.data);
+      setOrder(response?.data?.results);
       setLoading(false);
     } catch (error) {
       console.log(error);
