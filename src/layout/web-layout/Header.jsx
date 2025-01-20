@@ -18,6 +18,7 @@ import { getWishlist } from "../../services/adminApiRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../redux/slices/cartSlice";
 import ScrollTopBehaviour from "../../custom-compoents/ScrollTopBehaviour";
+import { fetchWishlist } from "../../redux/slices/wishlistSlice";
 const Header = () => {
   const [showCart, setShowCart] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -51,6 +52,10 @@ const Header = () => {
     loading: cartLoading,
     error,
   } = useSelector((state) => state.cart);
+
+  const { wishlist = [] } = useSelector((state) => state.wishlist); 
+  
+  
   const accessToken =
     localStorage.getItem("access") || localStorage.getItem("refresh");
 
@@ -93,6 +98,7 @@ const Header = () => {
     if (login) {
       dispatch(fetchCart());
       getProfileList();
+      dispatch(fetchWishlist());
     }
   }, []);
 
@@ -196,7 +202,12 @@ const Header = () => {
                     to="/wishlist"
                     className="d-inline-flex flex-column justify-content-center align-items-center"
                   >
-                    <FaRegHeart size={"1.625rem"} />
+                    <div className="position-relative">
+                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
+                        {wishlist.length}
+                      </span>
+                      <FaRegHeart size={"1.625rem"} />
+                    </div> 
                     <span className="d-inline-block fb-fs-14 fw-500">
                       Wishlist
                     </span>
