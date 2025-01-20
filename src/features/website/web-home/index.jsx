@@ -85,9 +85,9 @@ const HomePage = () => {
         >
           <WebBanner />
           <div className="mt-4 mt-lg-5">
-            <div class="cards-wrapper">
-              <div class="card-items bg-left">
-                <div class="card-content">
+            <div className="cards-wrapper">
+              <div className="card-items bg-left">
+                <div className="card-content">
                   <h3>Beyond Business,</h3>
                   <h2>Backing Farmers</h2>
                   <p>
@@ -97,8 +97,8 @@ const HomePage = () => {
                   </p>
                 </div>
               </div>
-              <div class="card-items bg-center">
-                <div class="card-content">
+              <div className="card-items bg-center">
+                <div className="card-content">
                   <h3>Wholesome Food,</h3>
                   <h2>Fulfilling Life</h2>
                   <p>
@@ -107,8 +107,8 @@ const HomePage = () => {
                   </p>
                 </div>
               </div>
-              <div class="card-items bg-right">
-                <div class="card-content">
+              <div className="card-items bg-right">
+                <div className="card-content">
                   <h3>Healthy Bites,</h3>
                   <h2>Greener Future</h2>
                   <p>

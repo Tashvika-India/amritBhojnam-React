@@ -42,12 +42,9 @@ const CheckoutPage = () => {
 
   const login = accessToken;
 
-  const { cartItems, finalCart, cartId } = useSelector((state) => state.cart);
+  const { cartItems, finalCart, cartId } = useSelector((state) => state.cart); 
 
-  const [appliedCoupon, setAppliedCoupon] = useState("");
-
-  const handleCouponApply = (coupon) => { 
-    setAppliedCoupon(coupon);
+  const handleCouponApply = (coupon) => {  
     dispatch(fetchFinalCart({ cartId, coupon }));
   };
 
@@ -342,11 +339,6 @@ const CheckoutPage = () => {
                     )}
                     <div>
                       <CouponComponent couponList={couponList} onCouponApply={handleCouponApply} />
-                      {appliedCoupon && (
-                        <div className="mt-2">
-                          <strong>Applied Coupon Code:</strong> {appliedCoupon}
-                        </div>
-                      )}
                     </div>
                     <div className="cart-items mt-2">
                       <ul className="list-unstyled w-100">

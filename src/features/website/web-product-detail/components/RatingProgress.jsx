@@ -3,28 +3,35 @@ import { ProgressBar } from "primereact/progressbar";
 import { FaStar } from "react-icons/fa";
 
 const RatingBar = ({ ratingData }) => {
-  const ratings = [5, 4, 3, 2, 1];
-
+  const totalRatings = Object.keys(ratingData || {})
+    .map((key) => ratingData[key])
+    .reduce((sum, count) => sum + count, 0);
   return (
-    <div style={{ maxWidth: "600px", margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
-      {ratings.map((star) => (
-        <div key={star} style={styles.row}>
-          <div style={styles.starLabel}>
-            <span style={styles.starText}>{star}</span>
-            <FaStar />
-          </div>
-          <div style={styles.progressBarContainer}>
+    <div style={{ width: "100%", maxWidth: "400px", margin: "0 auto" }}>
+      {[5, 4, 3, 2, 1].map((star) => {
+        const count = ratingData?.[`${star}_star_count`] || 0;
+        const percentage = totalRatings ? (count / totalRatings) * 100 : 0;
+
+        return (
+          <div
+            key={star}
+            style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}> 
+            <span style={{ width: "30px", fontWeight: "bold" }}>{star}★</span> 
             <ProgressBar
-              value={(ratingData?.[`${star}_star_count`] / 5) * 100}
-              style={styles.progressBar}
+              value={percentage}
+              style={{
+                flex: 1,
+                height: "10px",
+                backgroundColor: "#f2f2f2",
+                borderRadius: "5px",
+                overflow: "hidden",
+              }}
               color="#f26722"
-            />
+            /> 
+            <span style={{ marginLeft: "10px", fontSize: "14px" }}>{count}</span>
           </div>
-          <div className="text-mid-grey" style={styles.count}>
-            {ratingData?.[`${star}_star_count`]}
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
@@ -33,7 +40,7 @@ const styles = {
   row: {
     display: "flex",
     alignItems: "center",
-    marginBottom: "10px", 
+    marginBottom: "10px",
   },
   starLabel: {
     display: "flex",

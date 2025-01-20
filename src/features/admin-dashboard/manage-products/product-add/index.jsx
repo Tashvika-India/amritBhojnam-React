@@ -58,7 +58,7 @@ const ProductAdd = () => {
       const newTag = event.target.value.trim();
       setValues((prevValues) => ({
         ...prevValues,
-        tags: [...prevValues.tags, newTag],
+        tags: [...(prevValues.tags || []), newTag],
       }));
       event.target.value = ""; // Clear input after adding a tag
     }
@@ -187,7 +187,7 @@ const ProductAdd = () => {
       ...values.options,
       {
         option: "",
-        measurement_unit: "",
+        measurement_unit: "gm",
         max_price: 0,
         discount: 0,
         stock: 0,
@@ -358,7 +358,7 @@ const ProductAdd = () => {
                     gap={1}
                     sx={{ marginBottom: "8px" }}
                   >
-                    {values.tags.map((tag, index) => (
+                    {values?.tags?.map((tag, index) => (
                       <Chip
                         key={index}
                         label={tag}
@@ -567,39 +567,7 @@ const ProductAdd = () => {
                   <p className="text-danger">{errors.quantity}</p>
                 )}
               </div>
-              <div className="col-md-3 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Length (cm)"
-                  name="length"
-                  value={formik.values?.length}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                />
-              </div>
-              <div className="col-md-3 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Breadth (cm)"
-                  name="breadth"
-                  value={formik.values?.breadth}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                />
-              </div>
-              <div className="col-md-3 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Height (cm)"
-                  variant="outlined"
-                  name="height"
-                  value={formik.values?.height}
-                  onChange={formik.handleChange}
-                  fullWidth
-                />
-              </div>
+
               {/* <div className="col-md-3 mb-4">
                 <TextField
                   id="outlined-basic"
@@ -637,6 +605,20 @@ const ProductAdd = () => {
               </p>
             </div>
             <div className="row">
+            <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Option"
+                  placeholder="250 grams"
+                  variant="outlined"
+                  fullWidth
+                  name="stock"
+                  value={formik.values?.options[activeOption]?.option}
+                  onChange={(event) =>
+                    handleOptionsChange("option", event.target.value)
+                  }
+                />
+              </div>
               <div className="col-md-4 mb-4">
                 <TextField
                   id="outlined-basic"
@@ -674,6 +656,45 @@ const ProductAdd = () => {
                   value={formik.values?.options[activeOption]?.discount}
                   onChange={(event) =>
                     handleOptionsChange("discount", event.target.value)
+                  }
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Length (cm)"
+                  name="length"
+                  value={formik.values?.options[activeOption]?.length}
+                  onChange={(event) =>
+                    handleOptionsChange("length", event.target.value)
+                  }
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Breadth (cm)"
+                  name="breadth"
+                  value={formik.values?.options[activeOption]?.breadth}
+                  onChange={(event) =>
+                    handleOptionsChange("breadth", event.target.value)
+                  }
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Height (cm)"
+                  variant="outlined"
+                  name="height"
+                  value={formik.values?.options[activeOption]?.height}
+                  onChange={(event) =>
+                    handleOptionsChange("height", event.target.value)
                   }
                   fullWidth
                 />

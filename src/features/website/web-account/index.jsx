@@ -606,7 +606,7 @@ const UserProfile = () => {
                     {loading ? (
                       <Loading />
                     ) : (
-                      order.map((item) => (
+                      order?.results?.map((item) => (
                         <div
                           className="summary-card rounded-20 mb-4"
                           key={item.id}
@@ -650,7 +650,7 @@ const UserProfile = () => {
                                   onClick={() => handleReOrderClick(item?.id)}
                                   className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-1"
                                 >
-                                <BsArrowRepeat  size={"1.2rem"}/>
+                                  <BsArrowRepeat size={"1.2rem"} />
                                   Buy Again
                                 </button>
                                 <button className="fw-500 text-center border-0 text-orange bg-custom-btn-bg d-flex align-items-center py-1 rounded-2 px-2 gap-1">
@@ -736,7 +736,7 @@ const UserProfile = () => {
                                       <span className="vr"></span>
                                       <Link
                                         to={`/product-detail?product_id=${data?.product?.id}`}
-                                        className="fw-600 text-center border-0 text-dark-grey bg-transparent"
+                                        className="fw-600 text-center border-0 bg-transparent text-orange"
                                       >
                                         View Product
                                       </Link>
@@ -749,16 +749,14 @@ const UserProfile = () => {
                         </div>
                       ))
                     )}
-                    {order?.length > 0 && (
-                      <div className="d-flex align-items-center justify-content-center">
-                        <button
-                          className="fw-500 text-center border-0 text-orange bg-transparent"
-                          onClick={handleLoadMore}
-                        >
-                          Load More Orders
-                        </button>
-                      </div>
-                    )}
+                    <div className="d-flex align-items-center justify-content-center">
+                      <button
+                        className="fw-500 text-center border-0 text-orange bg-transparent success-primary-button"
+                        onClick={handleLoadMore}
+                      >
+                        Load More Orders
+                      </button>
+                    </div>
                   </div>
                 </TabPanel>
                 <TabPanel header="Address Book">
@@ -771,89 +769,130 @@ const UserProfile = () => {
                         type="button"
                         className="d-flex align-items-center border-0 bg-transparent"
                         onClick={() => {
-                          setOpen(!open);
                           setEditData(null);
+                          setOpen(!open);
                         }}
                         aria-controls="example-collapse-text"
                         aria-expanded={open}
                       >
-                        <i className="pi pi-plus text-yellow me-2 mt-md-1"></i>
-                        <p className="fw-500">Add New Address</p>
+                        {open ? (
+                          <>
+                            <p className="fw-500">Cancel</p>
+                          </>
+                        ) : (
+                          <>
+                            <i className="pi pi-plus text-yellow me-2 mt-md-1"></i>
+                            <p className="fw-500">Add New Address</p>
+                          </>
+                        )}
                       </button>
+                    </div>
+                    <div className="" hidden={editData}>
+                      <Collapse in={open}>
+                        <Address
+                          formik={formik}
+                          setEditData={setEditData}
+                          loading={loading}
+                          setOpen={setOpen}
+                          editData={editData}
+                        />
+                      </Collapse>
                     </div>
                     <div className="">
                       {addressList.length > 0 ? (
                         addressList.map((item, index) => (
-                          <div
-                            className={`summary-card ${
-                              item?.selected ? "active" : ""
-                            } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
-                            key={index}
-                            onClick={() => handleSelectAddress(item?.id)}
-                          >
-                            <div className="px-md-3">
-                              <div className="row">
-                                <div className="col-md-12">
-                                  <div className="order-date d-flex gap-2">
-                                    <img
-                                      className={`img-fluid me-1 rounded-4 ${
-                                        item?.selected ? "shadow" : ""
-                                      }`}
-                                      src={homeImg}
-                                      alt="pencil"
-                                    />
-                                    <div className="ms-md-3">
-                                      <div className="d-flex mt-2 gap-1 align-items-center">
-                                        <p className="fw-600 fb-fs-18">
-                                          {item?.ads_name} | {item?.ads_phone}
+                          <>
+                            <div
+                              className={`summary-card ${
+                                item?.selected ? "active" : ""
+                              } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                              key={index}
+                            >
+                              <div className="px-md-3">
+                                <div className="row">
+                                  <div className="col-md-12">
+                                    <div className="order-date d-flex gap-2">
+                                      <img
+                                        className={`img-fluid me-1 rounded-4 ${
+                                          item?.selected ? "shadow" : ""
+                                        }`}
+                                        src={homeImg}
+                                        alt="pencil"
+                                      />
+                                      <div className="ms-md-3">
+                                        <div className="d-flex mt-2 gap-1 align-items-center">
+                                          <p className="fw-600 fb-fs-18">
+                                            {item?.ads_name} | {item?.ads_phone}
+                                          </p>
+                                          {item?.selected && (
+                                            <button className="button-yellow default-btn ms-md-3 fw-normal lh-base align-self-center">
+                                              Default
+                                            </button>
+                                          )}
+                                        </div>
+                                        <p className="mt-2 text-wrap">
+                                          {item?.house_flat_block_no},
+                                          {item?.road_area_colony}, {item?.city}
+                                          ,{item?.state} - {item?.pincode}
                                         </p>
-                                        {item?.selected && (
-                                          <button className="button-yellow default-btn ms-md-3 fw-normal lh-base align-self-center">
-                                            Default
-                                          </button>
-                                        )}
                                       </div>
-                                      <p className="mt-2 text-wrap">
-                                        {item?.house_flat_block_no},
-                                        {item?.road_area_colony}, {item?.city},
-                                        {item?.state} - {item?.pincode}
-                                      </p>
                                     </div>
                                   </div>
-                                </div>
-                                <div className="col-md-1"></div>
-                                <div className="col-md-11">
-                                  <div className="d-flex mt-2">
-                                    <button
-                                      className="border-0 bg-transparent"
-                                      onClick={() => {
-                                        setOpen(!open);
-                                        setEditData(item);
+                                  <div className="col-md-1"></div>
+                                  <div className="col-md-6">
+                                    <div className="d-flex mt-2">
+                                      <button
+                                        className="border-0 bg-transparent"
+                                        onClick={(event) => {
+                                          event.stopPropagation();
+                                          setEditData(item);
+                                        }}
+                                      >
+                                        <img
+                                          className="img-fluid me-3"
+                                          src={editButton}
+                                          alt="Edit"
+                                        />
+                                      </button>
+                                      <button
+                                        className="border-0 bg-transparent"
+                                        onClick={() =>
+                                          handleDeleteAddress(item?.id)
+                                        }
+                                      >
+                                        <img
+                                          className="img-fluid me-2"
+                                          src={deleteButton}
+                                          alt="Delete"
+                                        />
+                                      </button>
+                                    </div>
+                                  </div>
+                                  <div className="col-md-5 text-end">
+                                    <p
+                                      className="text-end"
+                                      onClick={(event) => {
+                                        event.stopPropagation();
+                                        handleSelectAddress(item?.id);
                                       }}
+                                      hidden={item?.selected}
                                     >
-                                      <img
-                                        className="img-fluid me-3"
-                                        src={editButton}
-                                        alt="Edit"
-                                      />
-                                    </button>
-                                    <button
-                                      className="border-0 bg-transparent"
-                                      onClick={() =>
-                                        handleDeleteAddress(item?.id)
-                                      }
-                                    >
-                                      <img
-                                        className="img-fluid me-2"
-                                        src={deleteButton}
-                                        alt="Delete"
-                                      />
-                                    </button>
+                                      Set as Default
+                                    </p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
+                            <Collapse in={editData?.id === item?.id}>
+                              <Address
+                                formik={formik}
+                                loading={loading}
+                                setEditData={setEditData}
+                                setOpen={setOpen}
+                                editData={editData}
+                              />
+                            </Collapse>
+                          </>
                         ))
                       ) : (
                         <div className="text-center py-4">
@@ -862,16 +901,6 @@ const UserProfile = () => {
                           </h6>
                         </div>
                       )}
-                    </div>
-                    <div className="">
-                      <Collapse in={open}>
-                        <Address
-                          formik={formik}
-                          loading={loading}
-                          setOpen={setOpen}
-                          editData={editData}
-                        />
-                      </Collapse>
                     </div>
                   </div>
                 </TabPanel>

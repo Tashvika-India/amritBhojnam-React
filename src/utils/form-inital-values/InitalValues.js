@@ -33,7 +33,7 @@ export const productInitalValues = {
   options: [
     {
       option: "",
-      measurement_unit: "",
+      measurement_unit: "gm",
       max_price: 0,
       discount: 0,
       stock: 0,

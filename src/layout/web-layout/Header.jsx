@@ -18,6 +18,7 @@ import { getWishlist } from "../../services/adminApiRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../redux/slices/cartSlice";
 import ScrollTopBehaviour from "../../custom-compoents/ScrollTopBehaviour";
+import { fetchWishlist } from "../../redux/slices/wishlistSlice";
 const Header = () => {
   const [showCart, setShowCart] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -51,6 +52,10 @@ const Header = () => {
     loading: cartLoading,
     error,
   } = useSelector((state) => state.cart);
+
+  const { wishlist = [] } = useSelector((state) => state.wishlist); 
+  
+  
   const accessToken =
     localStorage.getItem("access") || localStorage.getItem("refresh");
 
@@ -93,6 +98,7 @@ const Header = () => {
     if (login) {
       dispatch(fetchCart());
       getProfileList();
+      dispatch(fetchWishlist());
     }
   }, []);
 
@@ -102,11 +108,11 @@ const Header = () => {
 
       <header className="fb-bottom-shadow sticky-top bg-white z-100">
         <div className="header-top bg-semi-orange py-2">
-          <div className="container fb-container d-flex flex-wrap gap-2 justify-content-center justify-content-lg-between align-items-center">
-            <p className="text-white fw-500 fb-fs-14 d-none d-lg-block">
+          <div className="container fb-container d-flex flex-wrap gap-2 justify-content-center justify-content-lg-end align-items-center">
+            {/* <p className="text-white fw-500 fb-fs-14 d-none d-lg-block">
               Free delivery & 40% discount for next 3 orders! Place your 1st
               order now. &nbsp;
-            </p>
+            </p> */}
             <p className="text-white fw-500 fb-fs-14">
               Need Help? Call Us:
               <a
@@ -196,7 +202,12 @@ const Header = () => {
                     to="/wishlist"
                     className="d-inline-flex flex-column justify-content-center align-items-center"
                   >
-                    <FaRegHeart size={"1.625rem"} />
+                    <div className="position-relative">
+                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
+                        {wishlist.length}
+                      </span>
+                      <FaRegHeart size={"1.625rem"} />
+                    </div> 
                     <span className="d-inline-block fb-fs-14 fw-500">
                       Wishlist
                     </span>

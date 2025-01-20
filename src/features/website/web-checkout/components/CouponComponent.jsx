@@ -29,7 +29,7 @@ const CouponComponent = ({ couponList, onCouponApply }) => {
                         label="Apply Coupon"
                         placeholder="Search or select a coupon"
                         variant="outlined"
-                        fullWidth 
+                        fullWidth
                         onChange={() => setIsApplied(false)} />)}
                 renderOption={(props, option) => (
                     <Box
@@ -54,6 +54,11 @@ const CouponComponent = ({ couponList, onCouponApply }) => {
                     fullWidth>
                     Apply
                 </Button>
+            )}
+            {selectedCoupon && isApplied && (
+                <Box sx={{ mt: 2 }}>
+                    <strong>Coupon Applied:</strong> {selectedCoupon}
+                </Box>
             )}
         </Box>
     );

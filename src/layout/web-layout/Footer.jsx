@@ -136,10 +136,11 @@ const Footer = () => {
                       </span>
                       <span
                         className="text-orange fb-fs-18 d-inline-block"
-                        style={{ width: "5rem" }}
+                        style={{ width: "4rem" }}
                       >
-                        Call Us :
+                        Call Us 
                       </span>
+                      <span className="align-items-start me-3 text-orange">:</span>
                       <a
                         href="tel:+917678320459"
                         className="fb-fs-18"
@@ -154,10 +155,11 @@ const Footer = () => {
                       </span>
                       <span
                         className="text-orange fb-fs-18 d-inline-block"
-                        style={{ width: "5rem" }}
+                        style={{ width: "4rem" }}
                       >
-                        Email :{" "}
+                        Email {" "}
                       </span>
+                      <span className="align-items-start me-3 text-orange">:</span>
                       <a
                         href="mailto: info@amritbhojanam.com "
                         className="fb-fs-18"
@@ -171,10 +173,11 @@ const Footer = () => {
                       </span>
                       <span
                         className="text-orange  fb-fs-18 d-inline-block"
-                        style={{ width: "5rem" }}
+                        style={{ width: "4rem" }}
                       >
-                        Hours :{" "}
+                        Hours {" "}
                       </span>
+                      <span className="align-items-start me-3 text-orange">:</span>
                       <time className="fb-fs-18">10:00 - 18:00, Mon - Sat</time>
                     </li>
                   </ul>
