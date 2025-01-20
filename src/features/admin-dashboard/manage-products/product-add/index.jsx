@@ -30,8 +30,12 @@ import * as Yup from "yup";
 import { baseURL } from "../../../../utils/constant-variable";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import { productSchema } from "../../../../schemas/product-schema";
-import { notifyError, notifySuccess } from "../../../../components/ui/Notification"
+import {
+  notifyError,
+  notifySuccess,
+} from "../../../../components/ui/Notification";
 import NutritionComponent from "../product-nutrition/NutritionComponent";
+import { event } from "jquery";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Product name is required"),
@@ -41,20 +45,20 @@ const ProductAdd = () => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
-  const [nutritionList, setNutritionList] = useState([]); 
+  const [nutritionList, setNutritionList] = useState([]);
   const location = useLocation();
   const ifError = (key) => errors[key] && touched[key];
   const product = location?.state;
   const isEditMode = !!product;
-  const navigate = useNavigate();  
-
+  const navigate = useNavigate();
+  const [activeOption, setActiveOption] = useState(0);
 
   const handleTagAdd = (event) => {
     if (event.key === "Enter" && event.target.value.trim() !== "") {
       const newTag = event.target.value.trim();
       setValues((prevValues) => ({
         ...prevValues,
-        tags: [...prevValues.tags, newTag],
+        tags: [...(prevValues.tags || []), newTag],
       }));
       event.target.value = ""; // Clear input after adding a tag
     }
@@ -91,13 +95,13 @@ const ProductAdd = () => {
     onSubmit: async (values) => {
       isEditMode
         ? updateProduct({
-          ...values,
-          max_price: Number(formik.values.max_price),
-        })
+            ...values,
+            max_price: Number(formik.values.max_price),
+          })
         : addProduct({ ...values, discount: values.discount || 0 });
     },
   });
-  const { values, resetForm, setValues, errors, touched } = formik; 
+  const { values, resetForm, setValues, errors, touched } = formik;
 
   async function addProduct(values) {
     try {
@@ -129,7 +133,6 @@ const ProductAdd = () => {
     }
   }
 
-
   async function getNutrition() {
     setLoading(true);
     try {
@@ -145,7 +148,6 @@ const ProductAdd = () => {
   const handleNutritionChange = (data) => {
     setFieldValue("nutritions[]", data);
   };
-
 
   async function getCaterioes() {
     try {
@@ -171,7 +173,6 @@ const ProductAdd = () => {
     }
   }
 
-
   useEffect(() => {
     getCaterioes();
     getSubCaterioes();
@@ -180,6 +181,28 @@ const ProductAdd = () => {
       setValues(product);
     }
   }, [product]);
+
+  function handleAddOption() {
+    formik.setFieldValue("options", [
+      ...values.options,
+      {
+        option: "",
+        measurement_unit: "gm",
+        max_price: 0,
+        discount: 0,
+        stock: 0,
+        length: "",
+        breadth: "",
+        height: "",
+      },
+    ]);
+  }
+
+  function handleOptionsChange(name, value) {
+    const updatedOptions = [...values.options];
+    updatedOptions[activeOption][name] = value;
+    formik.setFieldValue("options", updatedOptions);
+  }
 
   return (
     <>
@@ -335,7 +358,7 @@ const ProductAdd = () => {
                     gap={1}
                     sx={{ marginBottom: "8px" }}
                   >
-                    {values.tags.map((tag, index) => (
+                    {values?.tags?.map((tag, index) => (
                       <Chip
                         key={index}
                         label={tag}
@@ -356,8 +379,9 @@ const ProductAdd = () => {
             <div className="row">
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${formik.values.is_manually_popular && "active"
-                    }`}
+                  className={`switch-container ${
+                    formik.values.is_manually_popular && "active"
+                  }`}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_manually_popular",
@@ -381,8 +405,9 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${formik.values.is_manually_best_choice && "active"
-                    }`}
+                  className={`switch-container ${
+                    formik.values.is_manually_best_choice && "active"
+                  }`}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_manually_best_choice",
@@ -406,8 +431,9 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${formik.values.is_delicious && "active"
-                    }`}
+                  className={`switch-container ${
+                    formik.values.is_delicious && "active"
+                  }`}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_delicious",
@@ -428,8 +454,9 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${formik.values.is_best_price && "active"
-                    }`}
+                  className={`switch-container ${
+                    formik.values.is_best_price && "active"
+                  }`}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_best_price",
@@ -450,8 +477,9 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${formik.values.is_healthy_bites && "active"
-                    }`}
+                  className={`switch-container ${
+                    formik.values.is_healthy_bites && "active"
+                  }`}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_healthy_bites",
@@ -499,9 +527,7 @@ const ProductAdd = () => {
             <div className="row">
               <div className="col-md-3 mb-4">
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Weight
-                  </InputLabel>
+                  <InputLabel id="demo-simple-select-label">Weight</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -541,39 +567,7 @@ const ProductAdd = () => {
                   <p className="text-danger">{errors.quantity}</p>
                 )}
               </div>
-              <div className="col-md-3 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Length (cm)"
-                  name="length"
-                  value={formik.values?.length}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                />
-              </div>
-              <div className="col-md-3 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Breadth (cm)"
-                  name="breadth"
-                  value={formik.values?.breadth}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                />
-              </div>
-              <div className="col-md-3 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Height (cm)"
-                  variant="outlined"
-                  name="height"
-                  value={formik.values?.height}
-                  onChange={formik.handleChange}
-                  fullWidth
-                />
-              </div>
+
               {/* <div className="col-md-3 mb-4">
                 <TextField
                   id="outlined-basic"
@@ -582,14 +576,49 @@ const ProductAdd = () => {
                   fullWidth
                 />
               </div> */}
-
             </div>
           </div>
         </div>
         <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
-            <h6 className="mb-4">Options</h6>
+            <div className="d-flex justify-content-between align-items-center">
+              <h6 className="mb-4">Options</h6>
+            </div>{" "}
+            <div className="mb-4 mt-2">
+              {values?.options?.map((_, index) => (
+                <button
+                  className={`option-button py-2 px-3 me-3 rounded ${
+                    activeOption === index && "active"
+                  }`}
+                  type="button"
+                  onClick={() => setActiveOption(index)}
+                >
+                  Option {index + 1}
+                </button>
+              ))}
+              <p
+                className="m-0 d-inline cursor-pointer"
+                onClick={handleAddOption}
+                type="button"
+              >
+                Add New Options +
+              </p>
+            </div>
             <div className="row">
+            <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Option"
+                  placeholder="250 grams"
+                  variant="outlined"
+                  fullWidth
+                  name="stock"
+                  value={formik.values?.options[activeOption]?.option}
+                  onChange={(event) =>
+                    handleOptionsChange("option", event.target.value)
+                  }
+                />
+              </div>
               <div className="col-md-4 mb-4">
                 <TextField
                   id="outlined-basic"
@@ -597,10 +626,10 @@ const ProductAdd = () => {
                   variant="outlined"
                   fullWidth
                   name="stock"
-                  value={formik.values?.stock}
-                  onChange={formik.handleChange}
-                  error={ifError("stock")}
-                  helperText={ifError("stock") && errors.stock}
+                  value={formik.values?.options[activeOption]?.stock}
+                  onChange={(event) =>
+                    handleOptionsChange("stock", event.target.value)
+                  }
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -610,10 +639,10 @@ const ProductAdd = () => {
                   label="Price"
                   variant="outlined"
                   name="max_price"
-                  value={formik.values?.max_price}
-                  onChange={formik.handleChange}
-                  error={ifError("max_price")}
-                  helperText={ifError("max_price") && errors.max_price}
+                  value={formik.values?.options[activeOption]?.max_price}
+                  onChange={(event) =>
+                    handleOptionsChange("max_price", event.target.value)
+                  }
                   fullWidth
                 />
               </div>
@@ -624,10 +653,49 @@ const ProductAdd = () => {
                   variant="outlined"
                   name="discount"
                   type="number"
-                  value={formik.values?.discount}
-                  onChange={formik.handleChange}
-                  error={ifError("discount")}
-                  helperText={ifError("discount") && errors.discount}
+                  value={formik.values?.options[activeOption]?.discount}
+                  onChange={(event) =>
+                    handleOptionsChange("discount", event.target.value)
+                  }
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Length (cm)"
+                  name="length"
+                  value={formik.values?.options[activeOption]?.length}
+                  onChange={(event) =>
+                    handleOptionsChange("length", event.target.value)
+                  }
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Breadth (cm)"
+                  name="breadth"
+                  value={formik.values?.options[activeOption]?.breadth}
+                  onChange={(event) =>
+                    handleOptionsChange("breadth", event.target.value)
+                  }
+                  variant="outlined"
+                  fullWidth
+                />
+              </div>
+              <div className="col-md-4 mb-4">
+                <TextField
+                  id="outlined-basic"
+                  label="Height (cm)"
+                  variant="outlined"
+                  name="height"
+                  value={formik.values?.options[activeOption]?.height}
+                  onChange={(event) =>
+                    handleOptionsChange("height", event.target.value)
+                  }
                   fullWidth
                 />
               </div>
@@ -637,7 +705,7 @@ const ProductAdd = () => {
         <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <h6 className="mb-4">Nutrition Details</h6>
-            
+
             <div className="col-12">
               <NutritionComponent
                 nutritionList={nutritionList}
@@ -879,8 +947,8 @@ const ProductAdd = () => {
                   loading
                     ? "Updating..."
                     : isEditMode
-                      ? "Update Product"
-                      : "Add Product"
+                    ? "Update Product"
+                    : "Add Product"
                 }
                 handleClick={formik.handleSubmit}
                 disabled={loading}

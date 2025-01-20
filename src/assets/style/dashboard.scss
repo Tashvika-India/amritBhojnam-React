@@ -54,7 +54,7 @@ thead th {
 //   border-radius: 0.625rem !important;
 // }
 
-.p-datatable .p-datatable-tbody > tr {
+.p-datatable .p-datatable-tbody>tr {
   color: $dark-grey !important;
 }
 
@@ -274,16 +274,20 @@ thead th {
   .css-11px2du-MuiTypography-root {
     font-weight: 500 !important;
   }
-   .MuiListItemIcon-rot{
+
+  .MuiListItemIcon-rot {
     min-width: 0.875rem;
   }
-  .MuiListItemButton-gutters .css-1ovjgx7-MuiListItemIcon-root{
+
+  .MuiListItemButton-gutters .css-1ovjgx7-MuiListItemIcon-root {
     min-width: 1.875rem;
   }
+
   .MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListItemButton-root {
     border-radius: 5px !important;
     margin-bottom: 0.8rem !important;
   }
+
   .MuiListItemIcon-root {
     color: #3b3b3b;
   }
@@ -298,6 +302,7 @@ thead th {
       width: 10rem;
     }
   }
+
   .admin-login-image {
     width: 90%;
     margin-inline: auto;
@@ -305,7 +310,7 @@ thead th {
 }
 
 .admin-header-notifications {
-  .css-1u169s7-MuiList-root{
+  .css-1u169s7-MuiList-root {
     overflow-y: scroll !important;
     height: 700px !important;
     scrollbar-width: none;
@@ -318,10 +323,12 @@ thead th {
       h2 {
         font-size: 1.35rem;
       }
+
       p {
         font-size: 0.875rem;
       }
     }
+
     .admin-login-image {
       width: 95%;
       margin-top: 2rem;
@@ -335,10 +342,12 @@ thead th {
       h2 {
         font-size: 1.35rem;
       }
+
       p {
         font-size: 0.875rem;
       }
     }
+
     .admin-login-image {
       width: 92%;
     }
@@ -350,6 +359,7 @@ thead th {
     .admin-login-image {
       display: none;
     }
+
     .left-section {
       padding: 2rem 0;
     }
@@ -374,5 +384,17 @@ thead th {
   cursor: pointer;
   border-radius: 0.625rem;
   padding: 0.4rem 1rem;
-  background-color: $light-orange;
+  // background-color: $light-orange;
+}
+
+.option-button {
+  background-color: #FFF1EB;
+  color: #AC562D;
+  border: none !important;
+}
+
+.option-button.active {
+  background-color: #AC562D;
+  color: #FFF1EB;
+  border: none !important;
 }

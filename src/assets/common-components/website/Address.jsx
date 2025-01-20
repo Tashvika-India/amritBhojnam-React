@@ -10,8 +10,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import { getPincodeApi } from "../../../services/adminApiRoutes";
 
-const Address = ({ formik, loading, setOpen, editData }) => {
-
+const Address = ({ formik, loading, setOpen, editData, setEditData }) => {
   useEffect(() => {
     if (editData && Object.keys(editData).length > 0) {
       formik.setValues(editData);
@@ -25,30 +24,29 @@ const Address = ({ formik, loading, setOpen, editData }) => {
       const response = await getPincodeApi(formik.values.pincode);
       const { state, district } = response?.data || {};
 
-      formik.setFieldValue('state', state);
-      formik.setFieldValue('city', district);
+      formik.setFieldValue("state", state);
+      formik.setFieldValue("city", district);
     } catch (error) {
-      console.error('Error fetching pincode details:', error);
+      console.error("Error fetching pincode details:", error);
     } finally {
     }
   }
 
   useEffect(() => {
     if (formik.values.pincode?.length === 6) {
-      stateCityFromPincode()
+      stateCityFromPincode();
+    } else {
+      formik.setFieldValue("city", "");
+      formik.setFieldValue("state", "");
     }
-    else {
-      formik.setFieldValue('city', "");
-      formik.setFieldValue('state', "");
-
-    }
-  }, [formik.values.pincode])
-
+  }, [formik.values.pincode]);
 
   return (
     <div>
       <div className="new-address" id="new-address">
-        <p className="fb-fs-26 fw-bold my-3 checkout-save">Add New Address</p>
+        {/* <p className="fb-fs-26 fw-bold my-3 checkout-save">
+          {editData ? "Update Address" : "Add New Address"}
+        </p> */}
         <p className="text-mid-grey">BASIC DETAILS</p>
         <form onSubmit={formik.handleSubmit} key={editData?.id || "new"}>
           <div className="container fb-container">
@@ -148,8 +146,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                     value={formik.values.state}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                  >
-                  </TextField>
+                  ></TextField>
                   {formik.touched.state && formik.errors.state ? (
                     <div className="error text-danger">
                       {formik.errors.state}
@@ -171,8 +168,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                     value={formik.values.city}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                  >
-                  </TextField>
+                  ></TextField>
                   {formik.touched.city && formik.errors.city ? (
                     <div className="error text-danger">
                       {formik.errors.city}
@@ -193,7 +189,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.house_flat_block_no &&
-                  formik.errors.house_flat_block_no ? (
+                formik.errors.house_flat_block_no ? (
                   <div className="error text-danger">
                     {formik.errors.house_flat_block_no}
                   </div>
@@ -212,7 +208,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.road_area_colony &&
-                  formik.errors.road_area_colony ? (
+                formik.errors.road_area_colony ? (
                   <div className="error text-danger">
                     {formik.errors.road_area_colony}
                   </div>
@@ -221,41 +217,81 @@ const Address = ({ formik, loading, setOpen, editData }) => {
               <div className="col-12 d-flex my-3 my-lg-4 gap-3">
                 <button
                   type="button"
-                  className={`d-flex align-items-center border-0 bg-transparent ${formik.values.save_as === "Home" ? "home-btn" : "office-btn"}`}
+                  className={`d-flex align-items-center border-0 bg-transparent ${
+                    formik.values.save_as === "Home" ? "home-btn" : "office-btn"
+                  }`}
                   onClick={() => formik.setFieldValue("save_as", "Home")}
-                  onBlur={formik.handleBlur}>
+                  onBlur={formik.handleBlur}
+                >
                   <IoHomeOutline
                     size={"20"}
-                    color={formik.values.save_as === "Home" ? "#F26722" : "#918E92"}
+                    color={
+                      formik.values.save_as === "Home" ? "#F26722" : "#918E92"
+                    }
                   />
-                  <p className={`${formik.values.save_as === "Home" ? "text-orange" : "text-mid-grey"} fw-500 ms-lg-2 ms-2`}>Home</p>
+                  <p
+                    className={`${
+                      formik.values.save_as === "Home"
+                        ? "text-orange"
+                        : "text-mid-grey"
+                    } fw-500 ms-lg-2 ms-2`}
+                  >
+                    Home
+                  </p>
                 </button>
                 <button
                   type="button"
-                  className={`d-flex align-items-center border-0 bg-transparent ${formik.values.save_as === "Office" ? "home-btn" : "office-btn"}`}
+                  className={`d-flex align-items-center border-0 bg-transparent ${
+                    formik.values.save_as === "Office"
+                      ? "home-btn"
+                      : "office-btn"
+                  }`}
                   onClick={() => formik.setFieldValue("save_as", "Office")}
                   onBlur={formik.handleBlur}
                 >
                   <HiBuildingOffice2
                     size={"23"}
-                    color={formik.values.save_as === "Office" ? "#F26722" : "#918E92"}
+                    color={
+                      formik.values.save_as === "Office" ? "#F26722" : "#918E92"
+                    }
                   />
-                  <p className={`${formik.values.save_as === "Office" ? "text-orange" : "text-mid-grey"} fw-500 ms-lg-2 ms-2`}>Office</p>
+                  <p
+                    className={`${
+                      formik.values.save_as === "Office"
+                        ? "text-orange"
+                        : "text-mid-grey"
+                    } fw-500 ms-lg-2 ms-2`}
+                  >
+                    Office
+                  </p>
                 </button>
                 <button
                   type="button"
-                  className={`d-flex align-items-center border-0 bg-transparent ${formik.values.save_as === "Other" ? "home-btn" : "office-btn"}`}
+                  className={`d-flex align-items-center border-0 bg-transparent ${
+                    formik.values.save_as === "Other"
+                      ? "home-btn"
+                      : "office-btn"
+                  }`}
                   onClick={() => formik.setFieldValue("save_as", "Other")}
                   onBlur={formik.handleBlur}
                 >
                   <HiBuildingOffice2
                     size={"23"}
-                    color={formik.values.save_as === "Other" ? "#F26722" : "#918E92"}
+                    color={
+                      formik.values.save_as === "Other" ? "#F26722" : "#918E92"
+                    }
                   />
-                  <p className={`${formik.values.save_as === "Other" ? "text-orange" : "text-mid-grey"} fw-500 ms-lg-2 ms-2`}>Other</p>
+                  <p
+                    className={`${
+                      formik.values.save_as === "Other"
+                        ? "text-orange"
+                        : "text-mid-grey"
+                    } fw-500 ms-lg-2 ms-2`}
+                  >
+                    Other
+                  </p>
                 </button>
-                {formik.touched.save_as &&
-                  formik.errors.save_as ? (
+                {formik.touched.save_as && formik.errors.save_as ? (
                   <div className="error text-danger">
                     {formik.errors.save_as}
                   </div>
@@ -266,6 +302,7 @@ const Address = ({ formik, loading, setOpen, editData }) => {
                   className="button-primary-reverse me-4"
                   type="button"
                   onClick={() => {
+                    setEditData(null);
                     formik.resetForm();
                     setOpen(false);
                     scrollTo(0, 0);
