@@ -2,8 +2,8 @@ import React from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
+import Breadcrumbs from '@mui/material/Breadcrumbs'; 
+import { Link } from "react-router-dom";
 
 const ShipingPolicy = () => {
   return (
@@ -13,9 +13,9 @@ const ShipingPolicy = () => {
       <div className="pt-4">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="/">
+            <Linkk underline="hover" color="inherit" to="/">
               Home
-            </Link>
+            </Linkk>
             <Typography className="text-orange">Shipping Policy</Typography>
           </Breadcrumbs>
         </div>

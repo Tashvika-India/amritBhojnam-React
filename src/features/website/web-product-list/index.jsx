@@ -14,7 +14,7 @@ import {
   getProductApi,
 } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import { scrollToTop } from "../../../utils/constant-variable";
 import { Offcanvas } from "react-bootstrap";
@@ -22,8 +22,7 @@ import { clearProductList, fetchProductList } from "../../../redux/slices/produc
 import { useDispatch, useSelector } from "react-redux";
 import Typography from '@mui/material/Typography';
 import { GrPowerReset } from "react-icons/gr";
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
+import Breadcrumbs from '@mui/material/Breadcrumbs'; 
 
 const ProudctList = () => {
   const [products, setProducts] = useState([]); 
@@ -102,7 +101,7 @@ const ProudctList = () => {
       <div className="pt-4">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="/">
+            <Link underline="hover" color="inherit" to="/">
               Home
             </Link>
             <Typography className="text-orange">Products</Typography>
