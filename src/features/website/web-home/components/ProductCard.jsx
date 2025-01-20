@@ -4,6 +4,7 @@ import { Favorite, FavoriteBorder, SmartDisplay } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  fetchWishlist,
   removeFromWishlist,
   updateWishlist,
 } from "../../../../redux/slices/wishlistSlice";
@@ -26,7 +27,8 @@ const ProductCard = ({ product }) => {
       const updatedChecked = !checked;
       setChecked(updatedChecked);
       const data = { product_id: product?.id, action: updatedChecked };
-      dispatch(updateWishlist(data));
+      await dispatch(updateWishlist(data)).unwrap();
+      dispatch(fetchWishlist());
       if (!updatedChecked) {
         dispatch(removeFromWishlist(product?.id));
       }
@@ -47,7 +49,7 @@ const ProductCard = ({ product }) => {
       const quantityPlus = quantity + 1
       setQuantity(quantityPlus)
       try {
-        await dispatch(updateCart({ product_id, item_quantity: quantityPlus }));
+        await dispatch(updateCart({ product_id, item_quantity: quantityPlus, option_id: product?.options[0]?.id }));
         // await dispatch(fetchFinalCart(cartId));
         await dispatch(fetchCart())
       } catch (error) {
@@ -57,6 +59,9 @@ const ProductCard = ({ product }) => {
       }
     }
   };
+
+  console.log(product);
+  
 
   const handleDecreaseQuantity = async (product_id) => {
     if (quantity >= 0) {
@@ -74,9 +79,6 @@ const ProductCard = ({ product }) => {
         setLoading(false);
       }
     }
-    else {
-
-    }
   };
 
   return (
@@ -90,20 +92,20 @@ const ProductCard = ({ product }) => {
             </span> */}
             </div>
             {
-              login ? ( 
-                  <div className="rounded-circle whislist-icon" type="button" onClick={(event) => event.stopPropagation()}>
-                    <Checkbox
-                      icon={<FavoriteBorder />}
-                      checkedIcon={<Favorite className="text-danger" />}
-                      checked={checked}
-                      onChange={handleWishlistChange}
-                      style={{
-                        color: "#F26722",
-                        margin: "0",
-                        padding: "0",
-                      }}
-                    />
-                  </div> 
+              login ? (
+                <div className="rounded-circle whislist-icon" type="button" onClick={(event) => event.stopPropagation()}>
+                  <Checkbox
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite className="text-danger" />}
+                    checked={checked}
+                    onChange={handleWishlistChange}
+                    style={{
+                      color: "#F26722",
+                      margin: "0",
+                      padding: "0",
+                    }}
+                  />
+                </div>
               )
                 :
                 (

@@ -22,17 +22,31 @@ import { clearProductList, fetchProductList } from "../../../redux/slices/produc
 import { useDispatch, useSelector } from "react-redux";
 import Typography from '@mui/material/Typography';
 import { GrPowerReset } from "react-icons/gr";
-import Breadcrumbs from '@mui/material/Breadcrumbs'; 
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 
-const ProudctList = () => {
-  const [products, setProducts] = useState([]); 
+const ProudctList = () => { 
   const navigate = useNavigate();
   const [categoryList, setCategoryList] = useState([]);
-  const [filters, setFilters] = useURLFilters();
   const [ingredients, setIngredients] = useState([]);
-
+  
   const [showFilter, setShowFilter] = useState(false);
   const toggleMobileFiter = () => setShowFilter((prev) => !prev);
+  
+  const defaultFilters = {
+    category_id: "",
+    maxPrice: "5000",
+    minPrice: "0",
+    name: "",
+    product_id: "",
+    rating: "",
+    search: "",
+  };
+  const [filters, setFilters] = useURLFilters(defaultFilters); 
+  const areObjectsEqual = (obj1, obj2) => {
+    return Object.keys(obj1).every((key) => obj1[key] === obj2[key]);
+  };
+
+  const isFiltersChanged = !areObjectsEqual(filters, defaultFilters); 
 
   const dispatch = useDispatch();
   const { productList, loading, error } = useSelector((state) => state.product);
@@ -91,8 +105,8 @@ const ProudctList = () => {
       `/products?category_id=${filters.category_id}&name=${filters.name}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}&rating=${filters.rating}`
     );
     scrollToTop()
-  }, [filters]);
-
+    setShowFilter(false);
+  }, [filters]); 
 
 
   return (
@@ -113,21 +127,23 @@ const ProudctList = () => {
           <div className="row">
             <div className=" col-lg-4 col-xxl-3 col-12 d-none d-lg-block">
               <div className="bg-white product-detail-shadow rounded-20 p-4 mb-5">
-                <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span className="text-dark-grey">Category</span>  <button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
-                </button></h6>
+                <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span className="text-dark-grey">Category</span>  
+                {isFiltersChanged && (<button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
+                </button>)}
+                </h6>
                 <div className="mt-5">
                   <ul className="category-select-list">
                     {categoryList?.map((item, index) => (
-                      <li
-                        className={`cat-btn-item cursor-pointer ${filters?.category_id === item?.id ? "active" : ""
-                          }`}
+                      <li className={`cat-btn-item cursor-pointer ${filters?.category_id === item?.id ? "active" : ""}`}
                         key={index}
                         onClick={() =>
-                          setFilters({ ...filters, category_id: item?.id })
+                          setFilters((prevFilters) => ({
+                            ...prevFilters,
+                            category_id: prevFilters.category_id === item?.id ? "" : item?.id,
+                          }))
                         }
                       >
                         <span className="d-inline-flex align-items-center gap-2">
-                          {/* <img src={item?.image} className="img-fluid" alt="icon" /> */}
                           {item?.name}
                         </span>
                         <span className="pill-circle">{item?.product_count}</span>
@@ -144,8 +160,8 @@ const ProudctList = () => {
                     onChange={(e) => handleDebouncedChange(e.value)}
                     className="w-14rem"
                     range
-                    min={0} // Set minimum range value
-                    max={5000} // Set maximum range value
+                    min={0} 
+                    max={5000} 
                   />
                   <div className="row mt-4">
                     <div className="col-5 pe-0" style={{ width: "36%" }}>
@@ -188,103 +204,36 @@ const ProudctList = () => {
                 <div className="">
                   <p className="fw-500 pb-2">Customer Ratings</p>
                   <ul className="mt-2">
-                    <li className="d-flex my-3">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          variant="filled"
-                          inputId="ingredient1"
-                          value="4"
-                          onChange={(e) =>
-                            setFilters({ ...filters, rating: 4 })
-                          }
-                          checked={filters.rating == 4}
-                        />
-                        <label htmlFor="ingredient1" className="ms-3 d-flex">
-                          4
-                          <span>
-                            <img
-                              className="img-fluid mt-1 mx-1"
-                              src={starImg}
-                              alt="star"
-                            />
-                          </span>
-                          & More
-                        </label>
-                      </div>
-                    </li>
-                    <li className="d-flex my-3">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          variant="filled"
-                          inputId="ingredient2"
-
-                          value="3"
-                          onChange={(e) =>
-                            setFilters({ ...filters, rating: 3 })
-                          }
-                          checked={filters.rating == 3}
-                        />
-                        <label htmlFor="ingredient2" className="ms-3 d-flex">
-                          3
-                          <span>
-                            <img
-                              className="img-fluid mt-1 mx-1"
-                              src={starImg}
-                              alt="star"
-                            />
-                          </span>
-                          & More
-                        </label>
-                      </div>
-                    </li>
-                    <li className="d-flex my-3">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          variant="filled"
-                          inputId="ingredient3"
-                          value="2"
-                          onChange={(e) =>
-                            setFilters({ ...filters, rating: 2 })
-                          }
-                          checked={filters.rating == 2}
-                        />
-                        <label htmlFor="ingredient3" className="ms-3 d-flex">
-                          2
-                          <span>
-                            <img
-                              className="img-fluid mt-1 mx-1"
-                              src={starImg}
-                              alt="star"
-                            />
-                          </span>
-                          & More
-                        </label>
-                      </div>
-                    </li>
-                    <li className="d-flex my-3">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          variant="filled"
-                          inputId="ingredient4"
-                          value="1"
-                          onChange={(e) =>
-                            setFilters({ ...filters, rating: 1 })
-                          }
-                          checked={filters.rating == 1}
-                        />
-                        <label htmlFor="ingredient4" className="ms-3 d-flex">
-                          1
-                          <span>
-                            <img
-                              className="img-fluid mt-1 mx-1"
-                              src={starImg}
-                              alt="star"
-                            />
-                          </span>
-                          & More
-                        </label>
-                      </div>
-                    </li>
+                    {[4, 3, 2, 1].map((value) => (
+                      <li className="d-flex my-3" key={value}>
+                        <div className="d-flex align-items-center">
+                          <Checkbox
+                            variant="filled"
+                            inputId={`rating-${value}`}
+                            value={value}
+                            onChange={(e) => {
+                              const selectedRating = e.target.value;
+                              setFilters((prevFilters) => ({
+                                ...prevFilters,
+                                rating: prevFilters.rating == selectedRating ? "" : selectedRating,
+                              }));
+                            }}
+                            checked={filters.rating == value}
+                          />
+                          <label htmlFor={`rating-${value}`} className="ms-3 d-flex">
+                            {value}
+                            <span>
+                              <img
+                                className="img-fluid mt-1 mx-1"
+                                src={starImg}
+                                alt="star"
+                              />
+                            </span>
+                            & More
+                          </label>
+                        </div>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -341,26 +290,26 @@ const ProudctList = () => {
       <div className="d-lg-none">
         <Offcanvas show={showFilter} onHide={toggleMobileFiter} placement="start" className="cart-offcanvas" style={{ width: "30%" }}>
           <Offcanvas.Header closeButton className="border-bottom">
-            <Offcanvas.Title class="text-yellow fs-4 fw-500">Product Filter</Offcanvas.Title>
+            <Offcanvas.Title className="text-ornage fs-5 fw-500">Product Filter</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body className="px-4 pb-0">
             <div className="mobile-product-filter">
               <div className="bg-white product-detail-shadow rounded-20 p-4 ">
-                <h4 className="underline-heading filter-heading fw-bold d-flex align-items-center justify-content-between"><span>Category</span>  <button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset" className="bg-transparent border-0 text-yellow fs-3"><BiReset />
-                </button> </h4>
+                <h4 className="underline-heading filter-heading fw-bold d-flex align-items-center justify-content-between"><span>Category</span>  {isFiltersChanged && (<button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
+                </button>)} </h4>
                 <div className="">
                   <ul className="category-select-list">
                     {categoryList?.map((item, index) => (
-                      <li
-                        className={`cat-btn-item cursor-pointer ${filters?.category_id === item?.id ? "active" : ""
-                          }`}
+                      <li className={`cat-btn-item cursor-pointer ${filters?.category_id === item?.id ? "active" : ""}`}
                         key={index}
                         onClick={() =>
-                          setFilters({ ...filters, category_id: item?.id })
+                          setFilters((prevFilters) => ({
+                            ...prevFilters,
+                            category_id: prevFilters.category_id === item?.id ? "" : item?.id,
+                          }))
                         }
                       >
                         <span className="d-inline-flex align-items-center gap-2">
-                          {/* <img src={item?.image} className="img-fluid" alt="icon" /> */}
                           {item?.name}
                         </span>
                         <span className="pill-circle">{item?.product_count}</span>
@@ -375,8 +324,8 @@ const ProudctList = () => {
                     onChange={(e) => handleDebouncedChange(e.value)}
                     className="w-14rem"
                     range
-                    min={0} // Set minimum range value
-                    max={5000} // Set maximum range value
+                    min={0} 
+                    max={5000} 
                   />
                   <div className="row mt-4">
                     <div className="col-5 pe-0">
@@ -419,103 +368,36 @@ const ProudctList = () => {
                 <div className="">
                   <h4 className="underline-heading filter-heading fw-bold mt-4">Customer Ratings</h4>
                   <ul className="mt-2">
-                    <li className="d-flex my-3">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          variant="filled"
-                          inputId="ingredient1"
-                          value="4"
-                          onChange={(e) =>
-                            setFilters({ ...filters, rating: 4 })
-                          }
-                          checked={filters.rating == 4}
-                        />
-                        <label htmlFor="ingredient1" className="ms-3 d-flex">
-                          4
-                          <span>
-                            <img
-                              className="img-fluid mt-1 mx-1"
-                              src={starImg}
-                              alt="star"
-                            />
-                          </span>
-                          & More
-                        </label>
-                      </div>
-                    </li>
-                    <li className="d-flex my-3">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          variant="filled"
-                          inputId="ingredient2"
-
-                          value="3"
-                          onChange={(e) =>
-                            setFilters({ ...filters, rating: 3 })
-                          }
-                          checked={filters.rating == 3}
-                        />
-                        <label htmlFor="ingredient2" className="ms-3 d-flex">
-                          3
-                          <span>
-                            <img
-                              className="img-fluid mt-1 mx-1"
-                              src={starImg}
-                              alt="star"
-                            />
-                          </span>
-                          & More
-                        </label>
-                      </div>
-                    </li>
-                    <li className="d-flex my-3">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          variant="filled"
-                          inputId="ingredient3"
-                          value="2"
-                          onChange={(e) =>
-                            setFilters({ ...filters, rating: 2 })
-                          }
-                          checked={filters.rating == 2}
-                        />
-                        <label htmlFor="ingredient3" className="ms-3 d-flex">
-                          2
-                          <span>
-                            <img
-                              className="img-fluid mt-1 mx-1"
-                              src={starImg}
-                              alt="star"
-                            />
-                          </span>
-                          & More
-                        </label>
-                      </div>
-                    </li>
-                    <li className="d-flex my-3">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          variant="filled"
-                          inputId="ingredient4"
-                          value="1"
-                          onChange={(e) =>
-                            setFilters({ ...filters, rating: 1 })
-                          }
-                          checked={filters.rating == 1}
-                        />
-                        <label htmlFor="ingredient4" className="ms-3 d-flex">
-                          1
-                          <span>
-                            <img
-                              className="img-fluid mt-1 mx-1"
-                              src={starImg}
-                              alt="star"
-                            />
-                          </span>
-                          & More
-                        </label>
-                      </div>
-                    </li>
+                    {[4, 3, 2, 1].map((value) => (
+                      <li className="d-flex my-3" key={value}>
+                        <div className="d-flex align-items-center">
+                          <Checkbox
+                            variant="filled"
+                            inputId={`rating-${value}`}
+                            value={value}
+                            onChange={(e) => {
+                              const selectedRating = e.target.value;
+                              setFilters((prevFilters) => ({
+                                ...prevFilters,
+                                rating: prevFilters.rating == selectedRating ? "" : selectedRating,
+                              }));
+                            }}
+                            checked={filters.rating == value}
+                          />
+                          <label htmlFor={`rating-${value}`} className="ms-3 d-flex">
+                            {value}
+                            <span>
+                              <img
+                                className="img-fluid mt-1 mx-1"
+                                src={starImg}
+                                alt="star"
+                              />
+                            </span>
+                            & More
+                          </label>
+                        </div>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>

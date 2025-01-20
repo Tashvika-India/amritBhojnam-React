@@ -27,7 +27,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import MobileLogin from "../../../components/ui/MobileLogin";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { baseURL } from "../../../utils/constant-variable";
-import { updateWishlist } from "../../../redux/slices/wishlistSlice";
+import { fetchWishlist, updateWishlist } from "../../../redux/slices/wishlistSlice";
 import {
   notifyError,
   notifySuccess,
@@ -48,8 +48,9 @@ const ProudctDetail = () => {
   const toggleCart = () => setShowCart(!showCart);
   const [detail, setDetail] = useState({});
   const [reviews, setReviews] = useState([]);
-  const [recommendedProducts, setRecommendedProducts] = useState([]);
+  const [recommendedProducts, setRecommendedProducts] = useState([]); 
   const dispatch = useDispatch();
+
 
   const truncateToWords = (text, limit) => {
     if (!text) return "";
@@ -261,12 +262,13 @@ const ProudctDetail = () => {
       console.error("Error fetching 'You May Also Like' products", error);
     }
   };
-  const addToCart = async (product_id, quantity) => {
+  const addToCart = async (product_id, quantity, option) => {
     setLoading(true);
     try {
       const response = await postCartApi({
         product_id,
         item_quantity: quantity,
+        option_id: option,
       });
       dispatch(cartAdd(response?.data));
       notifySuccess("Product added to cart successfully");
@@ -310,7 +312,8 @@ const ProudctDetail = () => {
       is_wishlist: !detail?.is_wishlist,
     });
     const data = { product_id: detail?.id, action: !detail?.is_wishlist };
-    dispatch(updateWishlist(data));
+    await dispatch(updateWishlist(data)).unwrap();
+    dispatch(fetchWishlist());
     notifySuccess(
       !detail?.is_wishlist
         ? "Product added to wishlist"
@@ -327,6 +330,7 @@ const ProudctDetail = () => {
     const options = { weekday: "long", day: "numeric", month: "short" };
     return nextWeekDate.toLocaleDateString("en-US", options);
   };
+ 
 
   return (
     <div className="web-wrapper-main">
@@ -350,7 +354,23 @@ const ProudctDetail = () => {
                     </span>
                     80 Calories
                   </p> */}
-                  <div className="gap-3 d-inline-flex ms-lg-auto mb-3">
+                  <div className="">
+                    <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
+                    <a href={`/product-detail?product_id=${detail?.id}#reviews-wapper`}
+                      className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4"
+                    >
+                      <Rating
+                        className="me-3 border-none"
+                        value={Math.round(detail.ratings)}
+                        readOnly
+                        cancel={false}
+                      />
+                      <p className="text-mid-grey">
+                        ({(detail?.ratings ?? 0).toFixed(1)} Reviews)
+                      </p>
+                    </a>
+                  </div>
+                  <div className="gap-3 d-inline-flex ms-lg-auto">
                     <span className="pt-2">
                       {login ? (
                         <Checkbox
@@ -406,26 +426,12 @@ const ProudctDetail = () => {
                     </span> */}
                   </div>
                 </div>
-                <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
 
-                <Link
-                  to="/product-detail#reviews-wapper"
-                  className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4"
-                >
-                  <Rating
-                    className="me-3"
-                    value={Math.round(detail.ratings)}
-                    readOnly
-                    cancel={false}
-                  />
-                  <p className="text-mid-grey">
-                    ({(detail?.ratings ?? 0).toFixed(1)} Reviews)
-                  </p>
-                </Link>
+
                 <p>{truncateToWords(detail?.short_description, 25)}</p>
                 {/* <a href="/product-detail/#detail-description"><span className="text-orange">Read More</span></a> */}
-                <div className="d-flex mt-4 mb-3">
-                  <p className="fw-600 pt-2">Size / Weight:</p>
+                <div className="d-flex align-items-center mt-4 mb-3">
+                  <p className="fw-600">Size / Weight:</p>
                   <ButtonGroup className="weight-check ms-3 d-inline-flex align-items-center">
                     {radios.map((radio, idx) => (
                       <ToggleButton
@@ -461,7 +467,7 @@ const ProudctDetail = () => {
                     !checkItemInCart() ? (
                       <button
                         className="button-primary mt-4 fb-fs-18"
-                        onClick={() => addToCart(detail?.id, quantity || 1)}
+                        onClick={() => addToCart(detail?.id, quantity || 1,detail?.options[0]?.id)}
                         disabled={loading}
                       >
                         {loading ? "Adding..." : "Add to Cart"}
@@ -569,16 +575,15 @@ const ProudctDetail = () => {
               </div>
             </div>
           </div>
-          <div className="row ms-1 mt-5 description-slider">
+          <div className="row ms-1 mt-5 description-slider" id="reviews-wapper">
             <div
               className="card tabs-slider ms-xxl-5 mt-4"
               style={{ border: "1px solid #E1E1E1" }}
             >
-              <div className="container fb-container">
+              <div className="container fb-container" >
                 <Tab.Container
                   id="left-tabs-example"
-                  defaultActiveKey="Description"
-                >
+                  defaultActiveKey="Description">
                   <div className="row">
                     <div className="col-md-12">
                       <Nav
@@ -624,8 +629,8 @@ const ProudctDetail = () => {
                         <Tab.Pane eventKey="Additional Info">
                           Additional
                         </Tab.Pane>
-                        <Tab.Pane eventKey="Reviews">
-                          <div className="p-3 p-lg-4" id="reviews-wapper">
+                        <Tab.Pane eventKey="Reviews" >
+                          <div className="p-3 p-lg-4" >
                             <div className="row">
                               <div className="col-md-7">
                                 {loading ? (
@@ -643,7 +648,7 @@ const ProudctDetail = () => {
                                               className="img-fluid border-orange"
                                               src={
                                                 !data?.is_anonymous &&
-                                                data?.user_img
+                                                  data?.user_img
                                                   ? `${baseURL}/${data?.user_img}`
                                                   : pp
                                               }
@@ -661,7 +666,7 @@ const ProudctDetail = () => {
                                               {data?.is_anonymous
                                                 ? "Anonymous"
                                                 : data?.user_name ||
-                                                  "Anonymous"}
+                                                "Anonymous"}
                                             </h6>
                                             <span className="d-inline-block">
                                               <Rating
@@ -680,12 +685,12 @@ const ProudctDetail = () => {
                                         <p className="mb-3 text-grey fw-500 pb-3 pt-2">
                                           {data?.created_at
                                             ? new Intl.DateTimeFormat("en-GB", {
-                                                day: "2-digit",
-                                                month: "short",
-                                                year: "numeric",
-                                              }).format(
-                                                new Date(data.created_at)
-                                              )
+                                              day: "2-digit",
+                                              month: "short",
+                                              year: "numeric",
+                                            }).format(
+                                              new Date(data.created_at)
+                                            )
                                             : "Date not available"}
                                         </p>
                                         {data?.images?.map((image, index) => (
