@@ -47,7 +47,7 @@ const AdminOrderDetail = () => {
     setLoading(true);
     try {
       const response = await getOrderAdminApi(id, name);
-      setOrderData(response?.data[0]);
+      setOrderData(response?.data?.results[0]);
       setLoading(false);
     } catch (error) {
       console.log(error);
