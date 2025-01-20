@@ -13,8 +13,7 @@ import {
   postSelectAddressApi,
 } from "../../../services/adminApiRoutes";
 import paymentFailed from "../../../assets/images/web/payment-failed.png";
-import Loading from "../../../components/ui/Loading";
-import Link from '@mui/material/Link';
+import Loading from "../../../components/ui/Loading"; 
 import { useFormik } from "formik";
 import Address from "../../../assets/common-components/website/Address";
 import MobileLogin from "../../../components/ui/MobileLogin";
@@ -25,6 +24,7 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFinalCart } from "../../../redux/slices/cartSlice";
 import CouponComponent from "./components/CouponComponent";
+import { Link } from "react-router-dom";
 
 
 const CheckoutPage = () => {
@@ -216,10 +216,9 @@ const CheckoutPage = () => {
       <div className="pt-4">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="/">
+            <Link underline="hover" color="inherit" to="/">
               Home
-            </Link>
-            <Typography>Cart</Typography>
+            </Link> 
             <Typography className="text-orange">Checkout</Typography>
           </Breadcrumbs>
         </div>
@@ -336,7 +335,7 @@ const CheckoutPage = () => {
                     ) : (
                       <div className="text-center py-4">
                         <h5 className="text-muted pb-4">Your cart is empty!</h5>
-                        <Link className="button-primary fs-6 d-inline-block text-decoration-none" href="/products">
+                        <Link className="button-primary fs-6 d-inline-block text-decoration-none" to="/products">
                           Browse Products
                         </Link>
                       </div>

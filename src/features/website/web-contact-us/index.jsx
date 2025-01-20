@@ -8,8 +8,8 @@ import { TextField } from "@mui/material";
 import { postContactApi } from "../../../services/adminApiRoutes";
 import { notifyError, notifySuccess } from "../../../components/ui/Notification";
 import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
+import Breadcrumbs from '@mui/material/Breadcrumbs'; 
+import { Link } from "react-router-dom";
 
 
 const ContactUs = () => {
@@ -60,7 +60,7 @@ const ContactUs = () => {
       <div className="py-4">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="/">
+            <Link underline="hover" color="inherit" to="/">
               Home
             </Link>
             <Typography className="text-orange">Contact Us</Typography>

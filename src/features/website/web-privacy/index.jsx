@@ -2,8 +2,8 @@ import React from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import Typography from "@mui/material/Typography";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Link from '@mui/material/Link';
+import Breadcrumbs from "@mui/material/Breadcrumbs"; 
+import { Link } from "react-router-dom";
 
 const PrivacyPolicy = () => {
   return (
@@ -13,7 +13,7 @@ const PrivacyPolicy = () => {
         <div className="pt-5">
           <div className="container fb-container">
             <Breadcrumbs aria-label="breadcrumb">
-              <Link underline="hover" color="inherit" href="/">
+              <Link underline="hover" color="inherit" to="/">
                 Home
               </Link>
               <Typography className="text-orange"> Privacy Policy</Typography>
