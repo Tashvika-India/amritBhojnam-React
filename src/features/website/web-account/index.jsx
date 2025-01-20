@@ -736,7 +736,7 @@ const UserProfile = () => {
                                       <span className="vr"></span>
                                       <Link
                                         to={`/product-detail?product_id=${data?.product?.id}`}
-                                        className="fw-600 text-center border-0 text-dark-grey bg-transparent"
+                                        className="fw-600 text-center border-0 bg-transparent text-orange"
                                       >
                                         View Product
                                       </Link>
@@ -751,7 +751,7 @@ const UserProfile = () => {
                     )}
                       <div className="d-flex align-items-center justify-content-center">
                         <button
-                          className="fw-500 text-center border-0 text-orange bg-transparent"
+                          className="fw-500 text-center border-0 text-orange bg-transparent success-primary-button"
                           onClick={handleLoadMore}>
                           Load More Orders
                         </button>
