@@ -91,7 +91,7 @@ const ProductAdd = () => {
 
   const formik = useFormik({
     initialValues: productInitalValues,
-    // validationSchema: productSchema,
+    validationSchema: productSchema,
     onSubmit: async (values) => {
       isEditMode
         ? updateProduct({
