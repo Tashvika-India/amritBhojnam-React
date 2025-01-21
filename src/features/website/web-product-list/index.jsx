@@ -125,7 +125,7 @@ const ProudctList = () => {
       <section className="product-list pt-4">
         <div className="container fb-container">
           <div className="row">
-            <div className=" col-lg-4 col-xxl-3 col-12 d-none d-lg-block">
+            <div className="col-md-3  d-none d-lg-block">
               <div className="bg-white product-detail-shadow rounded-20 p-4 mb-5">
                 <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span className="text-dark-grey">Category</span>  
                 {isFiltersChanged && (<button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
@@ -238,7 +238,7 @@ const ProudctList = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-8 col-xxl-9 col-12">
+            <div className="col-md-9 ">
               <div className="d-flex justify-content-between align-items-center mt-lg-0 mt-4">
                 <p className="fb-fs-18 text-mid-grey mb-0">
                   Showing {productList?.length} result
