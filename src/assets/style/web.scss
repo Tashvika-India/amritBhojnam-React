@@ -1418,13 +1418,16 @@ footer {
 }
 
 @media (min-width: 1200px) and (max-width: 1440px) {
+  .web-wrapper-main{
+    font-size: 13px !important;
+  }
   .fb-container,
   .fb-container-lg,
   .fb-container-md,
   .fb-container-sm,
   .fb-container-xl,
   .fb-container-xxl {
-    max-width: 1336px !important;
+    max-width: 1100px !important;
   }
   .product-card .masala-con {
     height: 2.2rem !important;
