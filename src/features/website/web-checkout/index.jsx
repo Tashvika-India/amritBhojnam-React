@@ -77,13 +77,12 @@ const CheckoutPage = () => {
     }
   };
 
-  const handlePayNow = async (amount, userId, cartId, delivery_charges, delivery_date, delivery_days, coupon_code, surl, furl) => {
+  const handlePayNow = async (amount, userId, cartId, delivery_charges, delivery_date, delivery_days, coupon_code) => { 
     setLoading(true);
     try {
       // Step 1: Fetch User Profile
       const response = await getProfileApi(userId);
       const user = response?.data;
-
       if (!user) {
         throw new Error("User profile not found");
       }
@@ -422,7 +421,7 @@ const CheckoutPage = () => {
                                 <p className="item-name  text-black fw-500 mb-0">
                                   {item?.product?.name}
                                 </p>
-                                <small className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity}`}</small>
+                                <small className="item-weight text-grey mb-0 mt-1">{`${item?.option} ${item?.measurement_unit}`}</small>
                                 <h6 className="item-amount mt-2 fw-600">{`₹ ${Math.trunc(
                                   item?.price
                                 )} X ${item?.item_quantity}`}</h6>
@@ -476,9 +475,9 @@ const CheckoutPage = () => {
                               Delivery fee
                             </span>
                             <span className="fb-fs-18 fw-500 text-orange">
-                              {finalCart?.delivery_charges === undefined
+                              {finalCart?.shipping_charge === undefined
                                 ? "₹ 0"
-                                : `₹ ${finalCart?.delivery_charges}`}
+                                : `₹ ${finalCart?.shipping_charge}`}
                             </span>
                           </li>
                           {/* <li className="d-flex justify-content-between my-2">
@@ -512,7 +511,7 @@ const CheckoutPage = () => {
                                     finalCart?.amount_to_pay,
                                     finalCart?.user_id,
                                     finalCart?.id,
-                                    finalCart?.delivery_charges,
+                                    finalCart?.shipping_charge,
                                     finalCart?.delivery_date,
                                     finalCart?.delivery_days,
                                     finalCart?.coupon_data?.coupon_code

@@ -38,7 +38,6 @@ import RatingBar from "./components/RatingProgress";
 
 const ProudctDetail = () => {
   const [showCart, setShowCart] = useState(false);
-  const [radioValue, setRadioValue] = useState("1");
   const [filters, setFilters] = useURLFilters();
   const [showWebLogin, setShowWebLogin] = useState(false);
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
@@ -48,9 +47,13 @@ const ProudctDetail = () => {
   const toggleCart = () => setShowCart(!showCart);
   const [detail, setDetail] = useState({});
   const [reviews, setReviews] = useState([]);
-  const [recommendedProducts, setRecommendedProducts] = useState([]); 
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
   const dispatch = useDispatch();
+  const firstOption = detail?.options?.[0] || {};
+  const [radioValue, setRadioValue] = useState(firstOption.option || "");
+  const [selectedOptionId, setSelectedOptionId] = useState(firstOption.id || "");
 
+  const selectedOption = detail?.options?.find(option => option.option === radioValue);
 
   const truncateToWords = (text, limit) => {
     if (!text) return "";
@@ -239,8 +242,6 @@ const ProudctDetail = () => {
     }
   };
 
-  const radios = [{ name: `${detail?.quantity}`, value: "1" }];
-
   const fetchProductDetail = async () => {
     try {
       const response = await getProductApi(filters);
@@ -262,13 +263,13 @@ const ProudctDetail = () => {
       console.error("Error fetching 'You May Also Like' products", error);
     }
   };
-  const addToCart = async (product_id, quantity, option) => {
-    setLoading(true);
+  const addToCart = async (product_id, quantity, option_id) => {
+    setLoading(true); 
     try {
       const response = await postCartApi({
         product_id,
         item_quantity: quantity,
-        option_id: option,
+        option_id,
       });
       dispatch(cartAdd(response?.data));
       notifySuccess("Product added to cart successfully");
@@ -330,7 +331,14 @@ const ProudctDetail = () => {
     const options = { weekday: "long", day: "numeric", month: "short" };
     return nextWeekDate.toLocaleDateString("en-US", options);
   };
- 
+
+  useEffect(() => {
+    if (detail?.options?.length > 0) {
+      setRadioValue(detail.options[0].option);
+      setSelectedOptionId(detail.options[0].id);
+    }
+  }, [detail?.options]);
+
 
   return (
     <div className="web-wrapper-main">
@@ -433,29 +441,31 @@ const ProudctDetail = () => {
                 <div className="d-flex align-items-center mt-4 mb-3">
                   <p className="fw-600">Size / Weight:</p>
                   <ButtonGroup className="weight-check ms-3 d-inline-flex align-items-center">
-                    {radios.map((radio, idx) => (
+                    {detail?.options?.map((option, idx) => (
                       <ToggleButton
-                        key={idx}
+                        key={option.id}
                         id={`radio-${idx}`}
                         type="radio"
-                        className="py-1 px-2 fw-500"
-                        style={{ fontSize: "1rem" }}
+                        className="py-1 px-2 fw-500 "
+                        style={{ fontSize: "1rem", transition: "all 0.5s ease" }}
                         variant={idx % 2 ? "bg-orange" : "bg-orange"}
                         name="radio"
-                        value={radio.value}
-                        checked={radioValue === radio.value}
-                        onChange={(e) => setRadioValue(e.currentTarget.value)}
-                      >
-                        {radio.name}
+                        value={option?.option}
+                        checked={radioValue === option?.option}
+                        onChange={(e) => {
+                          setRadioValue(e.currentTarget.value);
+                          setSelectedOptionId(option.id);
+                        }}>
+                        {`${option?.option} ${option?.measurement_unit}`}
                       </ToggleButton>
                     ))}
                   </ButtonGroup>
                 </div>
                 <p className="fb-fs-40 text-orange fw-bold original-price">
-                  ₹{detail?.offer_price}
-                  {detail?.offer_price !== detail?.max_price && (
+                  ₹{~~(selectedOption?.offer_price)}
+                  {selectedOption?.offer_price !== selectedOption?.max_price && (
                     <small className="fw-500 fb-fs-30 text-grey ms-3">
-                      <strike>₹{detail?.max_price}</strike>
+                      <strike>₹{~~(selectedOption?.max_price)}</strike>
                     </small>
                   )}
                 </p>
@@ -467,7 +477,7 @@ const ProudctDetail = () => {
                     !checkItemInCart() ? (
                       <button
                         className="button-primary mt-4 fb-fs-18"
-                        onClick={() => addToCart(detail?.id, quantity || 1,detail?.options[0]?.id)}
+                        onClick={() => addToCart(detail?.id, quantity || 1, selectedOptionId)}
                         disabled={loading}
                       >
                         {loading ? "Adding..." : "Add to Cart"}

@@ -10,15 +10,14 @@ import {
 } from "../../../../redux/slices/wishlistSlice";
 import MobileLogin from "../../../../components/ui/MobileLogin";
 import { notifySuccess } from "../../../../components/ui/Notification";
-import { fetchCart, fetchFinalCart, updateCart } from "../../../../redux/slices/cartSlice";
+import { fetchCart, updateCart } from "../../../../redux/slices/cartSlice";
 
 const ProductCard = ({ product }) => {
   const [loading, setLoading] = useState(false);
-  const [quantity, setQuantity] = useState(product?.cart_item_qty || 0);
-  const [debouncedQuantity, setDebouncedQuantity] = useState(quantity);
+  const [quantity, setQuantity] = useState(product?.cart_item_qty || 0); 
   const [checked, setChecked] = useState(product?.is_wishlist || false);
-  const dispatch = useDispatch();;
-
+  const dispatch = useDispatch();
+ 
   const login = localStorage.getItem("access") || localStorage.getItem("refresh");
   const [showWebLogin, setShowWebLogin] = useState(false);
   const handleWishlistChange = async (event) => {
@@ -44,12 +43,12 @@ const ProductCard = ({ product }) => {
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
 
   const { cartId } = useSelector((state) => state.cart);
-  const handleIncreaseQuantity = async (product_id) => {
+  const handleIncreaseQuantity = async (product_id,option_id) => {
     if (quantity < 10) {
       const quantityPlus = quantity + 1
       setQuantity(quantityPlus)
       try {
-        await dispatch(updateCart({ product_id, item_quantity: quantityPlus, option_id: product?.options[0]?.id }));
+        await dispatch(updateCart({ product_id, item_quantity: quantityPlus, option_id }));
         // await dispatch(fetchFinalCart(cartId));
         await dispatch(fetchCart())
       } catch (error) {
@@ -59,17 +58,13 @@ const ProductCard = ({ product }) => {
       }
     }
   };
-
-  console.log(product);
-  
-
-  const handleDecreaseQuantity = async (product_id) => {
+  const handleDecreaseQuantity = async (product_id,option_id) => {
     if (quantity >= 0) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity); // Optimistic UI update
       setLoading(true);
       try {
-        await dispatch(updateCart({ product_id, item_quantity: newQuantity }));
+        await dispatch(updateCart({ product_id, item_quantity: newQuantity, option_id }));
         await dispatch(fetchCart())
         // await dispatch(fetchFinalCart(cartId));
       } catch (error) {
@@ -87,9 +82,9 @@ const ProductCard = ({ product }) => {
         <div className="product-card border pb-3 d-flex flex-column justify-content-between bg-white">
           <div className="d-flex justify-content-between product-fav">
             <div>
-              {/* <span className="product-badge badge bg-yellow fw-500">
+              <span className="product-badge badge bg-yellow fw-500">
               10% off
-            </span> */}
+            </span>
             </div>
             {
               login ? (
@@ -134,14 +129,14 @@ const ProductCard = ({ product }) => {
           <div className="px-2 px-md-3">
             <h5 className="fb-fs-14 fw-600 masala-con">{product?.name}</h5>
             <h5 className="fb-fs-14 fw-400 text-grey">
-              {product?.quantity}
+              {`${product?.options[0]?.option} ${product?.options[0]?.measurement_unit}`}
             </h5>
             <div className="d-flex justify-content-between align-items-center align-items-lg-end mt-3">
               <h6 className="fb-fs-20 fw-bold mb-0 d-inline-flex align-items-center flex-column flex-xxl-row">
                 {product?.max_price !== product?.offer_price && <small className="fw-500 fb-fs-16 text-grey pe-2">
-                  <strike className="text-grey fw-400">₹ {product?.max_price}</strike>
+                  <strike className="text-grey fw-400">₹ {~~(product?.max_price)}</strike>
                 </small>}
-                <span>₹ {product?.offer_price}</span>
+                <span>₹ {~~(product?.offer_price)}</span>
               </h6>
               <div
                 onClick={(event) => {
@@ -152,7 +147,7 @@ const ProductCard = ({ product }) => {
                 {quantity === 0 ? (
                   (login) ? <button
                     className="button-primary py-1 rounded fb-fs-14 fw-600"
-                    onClick={() => handleIncreaseQuantity(product?.id)}
+                    onClick={() => handleIncreaseQuantity(product?.id, product?.options[0]?.id)}
                   // disabled={loading}
                   >
                     Add
@@ -166,19 +161,14 @@ const ProductCard = ({ product }) => {
                 ) : (
                   <div className="product-quantity text-end">
                     <div className="quantity-manage" style={{ overflow: "hidden" }}>
-                      <button
-                        className="quantity-minus border-0 bg-white text-orange fw-600"
-                        onClick={() => handleDecreaseQuantity(product?.id)}
-                      // disabled={loading || quantity <= 1}
-                      >
-                        -
-                      </button>
+                      <button className="quantity-minus border-0 bg-white text-orange fw-600" 
+                      onClick={() => handleDecreaseQuantity(product?.id, product?.options[0]?.id)}  >-</button>
                       <span className="quantity-count text-orange fw-600">
                         {quantity}
                       </span>
                       <button
                         className="quantity-plus border-0 bg-white text-orange fw-600"
-                        onClick={() => handleIncreaseQuantity(product?.id)}
+                        onClick={() => handleIncreaseQuantity(product?.id, product?.options[0]?.id)}
                       // disabled={loading || quantity === 10}
                       >
                         +

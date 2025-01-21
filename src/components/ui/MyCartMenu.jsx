@@ -17,28 +17,28 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
   const [filters, setFilters] = useURLFilters();
   const { cartItems, finalCart, cartId, loading } = useSelector((state) => state.cart);
 
-  const handleUpdateCart = (product_id, newQuantity) => {
-    dispatch(updateCart({ product_id, item_quantity: newQuantity }));
+  const handleUpdateCart = (product_id, newQuantity, option_id) => {
+    dispatch(updateCart({ product_id, item_quantity: newQuantity , option_id }));
     dispatch(fetchProductList(filters));
   };
 
-  const handleIncreaseQuantity = (product_id, currentQuantity) => {
+  const handleIncreaseQuantity = (product_id, currentQuantity, option_id) => {
     if (currentQuantity < 10) {
-      handleUpdateCart(product_id, currentQuantity + 1);
+      handleUpdateCart(product_id, currentQuantity + 1,option_id);
       dispatch(fetchFinalCart({cartId}));
     }
   };
 
-  const handleDecreaseQuantity = (product_id, currentQuantity) => {
+  const handleDecreaseQuantity = (product_id, currentQuantity,option_id) => {
     const newQuantity = currentQuantity - 1;
-    handleUpdateCart(product_id, Math.max(newQuantity, 0));
+    handleUpdateCart(product_id, Math.max(newQuantity, 0, option_id));
     dispatch(fetchFinalCart({cartId}));
   };
 
-  const handleRemoveQuantity = (product_id) => {
+  const handleRemoveQuantity = (product_id,currentQuantity,option_id) => {  
     dispatch(removeCart(product_id));
-    handleUpdateCart(product_id, 0);
-    dispatch(fetchFinalCart({cartId}));
+    handleUpdateCart(product_id, currentQuantity,option_id);
+    dispatch(fetchFinalCart({cartId})); 
   };
 
   useEffect(() => {
@@ -49,7 +49,8 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
 
   useEffect(() => {
     if (cartId) {
-      dispatch(fetchFinalCart({cartId}));
+      dispatch(fetchFinalCart({cartId})); 
+      
     }
   }, [showCart, dispatch, cartId]);
 
@@ -98,14 +99,14 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                     </div>
                     <div className="product-details w-100 ms-3">
                       <p className="item-name text-black fw-500 mb-0">{item?.product?.name}</p>
-                      <p className="item-weight text-grey mb-0 mt-1">{`${item?.product?.quantity}`}</p>
+                      <p className="item-weight text-grey mb-0 mt-1">{`${item?.option} ${item?.measurement_unit}`}</p>
                       <p className="item-weight mb-0 mt-1">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</p>
                     </div>
                     <div className="product-quantity text-end">
                       <div className="quantity-manage gap-1 mb-lg-3 mb-1" style={{ overflow: "hidden" }}>
                         <button
                           className="quantity-minu d-inline-block border-0 bg-white text-orange fw-600"
-                          onClick={() => handleDecreaseQuantity(item?.product.id, item?.item_quantity)}
+                          onClick={() => handleDecreaseQuantity(item?.product.id, item?.item_quantity, item?.option_id)}
                           disabled={item?.item_quantity <= 1}
                         >
                           -
@@ -113,7 +114,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                         <span className="quantity-count d-inline-block text-orange fw-600">{item?.item_quantity}</span>
                         <button
                           className="quantity-plus d-inline-block border-0 bg-white text-orange fw-600"
-                          onClick={() => handleIncreaseQuantity(item?.product.id, item?.item_quantity)}
+                          onClick={() => handleIncreaseQuantity(item?.product.id, item?.item_quantity, item?.option_id)}
                           disabled={item?.item_quantity >= 10}
                         >
                           +
@@ -121,7 +122,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                       </div>
                       <button
                         className="ms-2 text-yellow remove-quantity border-0 bg-white text-decoration-underline"
-                        onClick={() => handleRemoveQuantity(item?.product.id, 0)}
+                        onClick={() => handleRemoveQuantity(item?.product.id,0,item?.option_id)}
                       >
                         Remove
                       </button>

@@ -44,9 +44,7 @@ function AsNavFor({ data }) {
         style={{AspectRatio: "1/1"}} 
         nextArrow={<SampleNextArrow />}
         prevArrow={<SamplePrevArrow />}
-        onMouseEnter={(e) => e.currentTarget.style.background = "#fff"}  
-      >
-        {/* Slider thumbnails */}
+        onMouseEnter={(e) => e.currentTarget.style.background = "#fff"}  >
         {data?.map((item, index) => (
           <div key={index} className="slider-bottom-item w-75">
             <img loading="lazy" className="img-fluid"  
