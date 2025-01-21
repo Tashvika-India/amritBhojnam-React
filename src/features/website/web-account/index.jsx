@@ -20,6 +20,7 @@ import pp from "../../../assets/images/web/account/profile-picture.png";
 import { Button } from "primereact/button";
 import tickImg from "../../../assets/images/web/account/tick-image.png";
 import milletIcon from "../../../assets/images/web/millet-icon.png";
+import emptyOrder from "../../../assets/images/web/empty-order.png";
 import homeImg from "../../../assets/images/web/account/home-img.png";
 import editButton from "../../../assets/images/web/account/edit-button.png";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
@@ -758,6 +759,29 @@ const UserProfile = () => {
                       </button>
                     </div>
                   </div>
+
+
+                  <div className="empty-order text-center">
+                    <div className="mt-5">
+                      <img
+                        className="img-fluid mx-auto mb-4"
+                        src={emptyOrder}
+                        alt="empty-order"
+                      />
+                      <h3 className="text-dark-grey fw-600">0 Orders</h3>
+                      <p className="text-mid-grey fb-fs-20 mb-3">
+                        You haven’t placed any orders yet.
+                      </p>
+                      <button
+                        className="success-primary-button mt-4"
+                        style={{ paddingInline: "6rem" }}
+                      >
+                        Order Now
+                      </button>
+                    </div>
+                  </div>
+
+                  
                 </TabPanel>
                 <TabPanel header="Address Book">
                   <div className="address-section">
