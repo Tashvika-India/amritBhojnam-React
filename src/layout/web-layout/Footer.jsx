@@ -131,7 +131,7 @@ const Footer = () => {
                   </p>
                   <ul className="footer-detail-links d-flex flex-column gap-md-3 gap-2 pt-lg-3 pt-0 mb-3 mt-3">
                     <li className="d-flex align-items-center fw-500">
-                      <span className="me-3">
+                      <span className="me-2 pe-1">
                         <img src={call} alt="call" />
                       </span>
                       <span
@@ -150,7 +150,7 @@ const Footer = () => {
                       </a>
                     </li>
                     <li className="d-flex align-items-center fw-500">
-                      <span className="me-3 pe-1">
+                      <span className="me-3">
                         <img src={mail} alt="email" />
                       </span>
                       <span
@@ -168,12 +168,12 @@ const Footer = () => {
                       </a>
                     </li>
                     <li className="d-flex align-items-center fw-500">
-                      <span className="me-3 pe-1">
+                      <span className="me-3">
                         <img src={clock} alt="hours" />
                       </span>
                       <span
                         className="text-orange  fb-fs-18 d-inline-block"
-                        style={{ width: "4rem" }}
+                        style={{ width: "3.9rem" }}
                       >
                         Hours {" "}
                       </span>
