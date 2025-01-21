@@ -3,13 +3,24 @@ import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer"; 
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import failImg from "../../../assets/images/web/fail-payment-img.png"; 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const PaymentFailed = () => {
 
-  useEffect(() => {
-      window.scrollTo(0, 0);
-    }, [useLocation()]);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => { 
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  useEffect(() => { 
+    const timer = setTimeout(() => {
+      navigate("/");
+    }, 5000);  
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
     <div className="web-wrapper-main">
       <Header />
