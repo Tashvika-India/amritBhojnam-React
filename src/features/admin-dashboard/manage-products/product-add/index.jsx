@@ -91,7 +91,7 @@ const ProductAdd = () => {
 
   const formik = useFormik({
     initialValues: productInitalValues,
-    validationSchema: productSchema,
+    // validationSchema: productSchema,
     onSubmit: async (values) => {
       isEditMode
         ? updateProduct({
@@ -200,7 +200,7 @@ const ProductAdd = () => {
 
   function handleOptionsChange(name, value, number = false) {
     const updatedOptions = [...values.options];
-    updatedOptions[activeOption][name] = number ? parseInt(value) : value;
+    updatedOptions[activeOption][name] = value;
     formik.setFieldValue("options", updatedOptions);
   }
 
