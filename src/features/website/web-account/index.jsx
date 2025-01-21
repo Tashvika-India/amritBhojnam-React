@@ -21,6 +21,7 @@ import { Button } from "primereact/button";
 import tickImg from "../../../assets/images/web/account/tick-image.png";
 import milletIcon from "../../../assets/images/web/millet-icon.png";
 import homeImg from "../../../assets/images/web/account/home-img.png";
+import otherImg from "../../../assets/images/web/account/other.png";
 import editButton from "../../../assets/images/web/account/edit-button.png";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
 import {
@@ -39,8 +40,6 @@ import { useFormik } from "formik";
 import Address from "../../../assets/common-components/website/Address";
 import { baseURL } from "../../../utils/constant-variable";
 import { Link, useLocation } from "react-router-dom";
-import { Dialog } from "primereact/dialog";
-import { Rating } from "primereact/rating";
 import ReviewModal from "../../../components/ui/ReviewModal";
 import { HiDownload } from "react-icons/hi";
 import {
@@ -57,6 +56,7 @@ import { Dropdown } from "primereact/dropdown";
 
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
+  const [loadingNew, setLoadingNew] = useState(false);
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
   const [editData, setEditData] = useState([null]);
@@ -109,8 +109,20 @@ const UserProfile = () => {
 
   const dispatch = useDispatch();
 
+  const getAddressList = async () => {
+    setLoadingNew(true);
+    try {
+      const response = await getAddressApi();
+      setAddressList(response?.data || []);
+      setLoadingNew(false);
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+    } finally {
+    }
+  };
+
   const addAddress = async (values) => {
-    setLoading(true);
+    setLoadingNew(true);
     try {
       const response = await postAddressApi(values);
       const address_id = response?.data?.id;
@@ -118,7 +130,7 @@ const UserProfile = () => {
         await postSelectAddressApi({ address_id });
         getAddressList();
       }
-      setLoading(false);
+      setLoadingNew(false);
       setOpen(false);
       notifySuccess("Address added Successfully");
       scrollTo(0, 0);
@@ -132,6 +144,7 @@ const UserProfile = () => {
   };
 
   const updateAddress = async (values) => {
+    setLoadingNew(true);
     try {
       const response = await putAddressApi(editData?.id, values);
       const address_id = response?.data?.id;
@@ -139,9 +152,10 @@ const UserProfile = () => {
         await postSelectAddressApi({ address_id });
         getAddressList();
       }
-      setLoading(false);
+      setLoadingNew(false);
       scrollTo(0, 0);
       setOpen(false);
+      setEditData(null)
       notifySuccess("Address updated Successfully");
       formik.resetForm();
     } catch (error) {
@@ -149,6 +163,33 @@ const UserProfile = () => {
       notifyError(error.response?.data?.error);
     } finally {
       formik.setSubmitting(false);
+    }
+  };
+
+
+  const handleSelectAddress = async (address_id) => {
+    try {
+      const response = await postSelectAddressApi({ address_id });
+      getAddressList();
+      notifySuccess("Address Selected Successfully");
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+      notifyError(error.response?.data?.error);
+    }
+  };
+
+  const handleDeleteAddress = async (address_id) => {
+    setLoadingNew(true);
+    try {
+      const response = await deleteAddressApi(address_id);
+      getAddressList();
+      setLoadingNew(false);
+      notifySuccess("Address deleted Successfully");
+    } catch (error) {
+      notifyError(error.response?.data?.error);
+      console.log("Error fetching cart data:", error);
+    } finally {
+      setLoadingNew(false);
     }
   };
 
@@ -189,43 +230,7 @@ const UserProfile = () => {
       notifyError("Error placing order");
       console.log("Error placing order:", error);
     }
-  };
-
-  const getAddressList = async () => {
-    setLoading(true);
-    try {
-      const response = await getAddressApi();
-      setAddressList(response?.data || []);
-      setLoading(false);
-    } catch (error) {
-      console.log("Error fetching cart data:", error);
-    } finally {
-    }
-  };
-
-  const handleSelectAddress = async (address_id) => {
-    try {
-      const response = await postSelectAddressApi({ address_id });
-      getAddressList();
-    } catch (error) {
-      console.log("Error fetching cart data:", error);
-    }
-  };
-
-  const handleDeleteAddress = async (address_id) => {
-    setLoading(true);
-    try {
-      const response = await deleteAddressApi(address_id);
-      getAddressList();
-      setLoading(false);
-      notifySuccess("Address deleted Successfully");
-    } catch (error) {
-      notifyError(error.response?.data?.error);
-      console.log("Error fetching cart data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }; 
 
   const profile = useFormik({
     initialValues: {
@@ -328,7 +333,8 @@ const UserProfile = () => {
     ) {
       setProfileEdit(true);
     }
-  }, [userDetail]);
+  }, [userDetail]); 
+
 
   return (
     <div className="web-wrapper-main">
@@ -378,11 +384,10 @@ const UserProfile = () => {
             <div>
               <div className="flex mb-2 gap-2 justify-content-end border-bottom profile-tabs">
                 <button
-                  className={`border-0 bg-white fw-600 ${
-                    activeIndex === 0
-                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                      : "text-dark-grey"
-                  }`}
+                  className={`border-0 bg-white fw-600 ${activeIndex === 0
+                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                    : "text-dark-grey"
+                    }`}
                   onClick={() => setActiveIndex(0)}
                   rounded
                   outlined={activeIndex !== 0}
@@ -394,11 +399,10 @@ const UserProfile = () => {
                   My Account
                 </button>
                 <button
-                  className={`border-0 bg-white fw-600 ${
-                    activeIndex === 1
-                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                      : "text-dark-grey"
-                  }`}
+                  className={`border-0 bg-white fw-600 ${activeIndex === 1
+                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                    : "text-dark-grey"
+                    }`}
                   onClick={() => setActiveIndex(1)}
                   rounded
                   outlined={activeIndex !== 1}
@@ -410,11 +414,10 @@ const UserProfile = () => {
                   Order History
                 </button>
                 <button
-                  className={`border-0 bg-white fw-600 ${
-                    activeIndex === 2
-                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                      : "text-dark-grey"
-                  }`}
+                  className={`border-0 bg-white fw-600 ${activeIndex === 2
+                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                    : "text-dark-grey"
+                    }`}
                   onClick={() => setActiveIndex(2)}
                   rounded
                   outlined={activeIndex !== 2}
@@ -601,8 +604,7 @@ const UserProfile = () => {
                         placeholder="Last 1 Months"
                         className="w-full md:w-14rem border-black text-dark-bg rounded-3"
                       />
-                    </div>
-
+                    </div> 
                     {loading ? (
                       <Loading />
                     ) : (
@@ -777,17 +779,17 @@ const UserProfile = () => {
                       >
                         {open ? (
                           <>
-                            <p className="fw-500">Cancel</p>
+                            <p className="fw-500 border-0 text-danger px-3 py-2 rounded bg-light">Cancel</p>
                           </>
                         ) : (
                           <>
-                            <i className="pi pi-plus text-yellow me-2 mt-md-1"></i>
-                            <p className="fw-500">Add New Address</p>
+                            <i className="pi pi-plus text-yellow me-2 fw-bold"></i>
+                            <p className="fw-400">Add New Address</p>
                           </>
                         )}
                       </button>
                     </div>
-                    <div className="" hidden={editData}>
+                    <div className="mb-4 mb-md-5" hidden={editData}>
                       <Collapse in={open}>
                         <Address
                           formik={formik}
@@ -797,80 +799,42 @@ const UserProfile = () => {
                           editData={editData}
                         />
                       </Collapse>
-                    </div>
-                    <div className="">
-                      {addressList.length > 0 ? (
-                        addressList.map((item, index) => (
-                          <>
-                            <div
-                              className={`summary-card ${
-                                item?.selected ? "active" : ""
-                              } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
-                              key={index}
-                            >
-                              <div className="px-md-3">
-                                <div className="row">
-                                  <div className="col-md-12">
-                                    <div className="order-date d-flex gap-2">
-                                      <img
-                                        className={`img-fluid me-1 rounded-4 ${
-                                          item?.selected ? "shadow" : ""
+                    </div> 
+                    {addressList.length > 0 ? (
+                      addressList.map((item, index) => (
+                        <>
+                          <div className={`summary-card ${item?.selected ? "active" : ""} rounded-20 px-2 py-3 mt-3 cursor-pointer`} key={item?.id}>
+                            <div className="px-md-3">
+                              <div className="row">
+                                <div className="col-md-12 d-flex justify-content-between">
+                                  <div className="order-date d-flex gap-2">
+                                    <img
+                                      className={`img-fluid me-1 rounded-4 ${item?.selected ? "shadow" : ""
                                         }`}
-                                        src={homeImg}
-                                        alt="pencil"
-                                      />
-                                      <div className="ms-md-3">
-                                        <div className="d-flex mt-2 gap-1 align-items-center">
-                                          <p className="fw-600 fb-fs-18">
-                                            {item?.ads_name} | {item?.ads_phone}
-                                          </p>
-                                          {item?.selected && (
-                                            <button className="button-yellow default-btn ms-md-3 fw-normal lh-base align-self-center">
-                                              Default
-                                            </button>
-                                          )}
-                                        </div>
-                                        <p className="mt-2 text-wrap">
-                                          {item?.house_flat_block_no},
-                                          {item?.road_area_colony}, {item?.city}
-                                          ,{item?.state} - {item?.pincode}
+                                      src={(item?.save_as === "Home") ? homeImg : otherImg}
+                                      alt="pencil"
+                                    />
+                                    <div className="ms-md-3">
+                                      <div className="d-flex mt-2 gap-1 align-items-center">
+                                        <p className="fw-600 fb-fs-18">
+                                          {item?.ads_name} | {item?.ads_phone}
                                         </p>
+                                        {item?.selected && (
+                                          <button className="button-yellow default-btn ms-md-3 fw-normal lh-base align-self-center">
+                                            Default
+                                          </button>
+                                        )}
                                       </div>
+                                      <p className="mt-2 text-wrap">
+                                        {item?.house_flat_block_no},
+                                        {item?.road_area_colony}, {item?.city}
+                                        ,{item?.state} - {item?.pincode}
+                                      </p>
                                     </div>
                                   </div>
-                                  <div className="col-md-1"></div>
-                                  <div className="col-md-6">
-                                    <div className="d-flex mt-2">
-                                      <button
-                                        className="border-0 bg-transparent"
-                                        onClick={(event) => {
-                                          event.stopPropagation();
-                                          setEditData(item);
-                                        }}
-                                      >
-                                        <img
-                                          className="img-fluid me-3"
-                                          src={editButton}
-                                          alt="Edit"
-                                        />
-                                      </button>
-                                      <button
-                                        className="border-0 bg-transparent"
-                                        onClick={() =>
-                                          handleDeleteAddress(item?.id)
-                                        }
-                                      >
-                                        <img
-                                          className="img-fluid me-2"
-                                          src={deleteButton}
-                                          alt="Delete"
-                                        />
-                                      </button>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-5 text-end">
-                                    <p
-                                      className="text-end"
+                                  <div className="">
+                                    <button
+                                      className="text-end button-set-default"
                                       onClick={(event) => {
                                         event.stopPropagation();
                                         handleSelectAddress(item?.id);
@@ -878,30 +842,62 @@ const UserProfile = () => {
                                       hidden={item?.selected}
                                     >
                                       Set as Default
-                                    </p>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div className="col-md-1"></div>
+                                <div className="col-md-6">
+                                  <div className="d-flex mt-2">
+                                    <button
+                                      className="border-0 bg-transparent"
+                                      onClick={(event) => {
+                                        event.stopPropagation();
+                                        setEditData(item);
+                                      }}
+                                    >
+                                      <img
+                                        className="img-fluid me-3"
+                                        src={editButton}
+                                        alt="Edit"
+                                      />
+                                    </button>
+                                    <button
+                                      className="border-0 bg-transparent"
+                                      onClick={() =>
+                                        handleDeleteAddress(item?.id)
+                                      }
+                                    >
+                                      <img
+                                        className="img-fluid me-2"
+                                        src={deleteButton}
+                                        alt="Delete"
+                                      />
+                                    </button>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <Collapse in={editData?.id === item?.id}>
-                              <Address
-                                formik={formik}
-                                loading={loading}
-                                setEditData={setEditData}
-                                setOpen={setOpen}
-                                editData={editData}
-                              />
-                            </Collapse>
-                          </>
-                        ))
-                      ) : (
-                        <div className="text-center py-4">
-                          <h6 className="text-muted mb-4">
-                            Your Address is empty!
-                          </h6>
-                        </div>
-                      )}
-                    </div>
+                            <div className="pt-3 px-3">
+                              <Collapse in={editData?.id === item?.id}>
+                                <Address
+                                  formik={formik}
+                                  loading={loading}
+                                  setEditData={setEditData}
+                                  setOpen={setOpen}
+                                  editData={editData}
+                                />
+                              </Collapse>
+                            </div>
+                          </div>
+                        </>
+                      ))
+                    ) : (
+                      <div className="text-center py-4">
+                        <h6 className="text-muted mb-4">
+                          Your Address is empty!
+                        </h6>
+                      </div>
+                    )}
                   </div>
                 </TabPanel>
               </TabView>

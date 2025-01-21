@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Autocomplete, Button, Box } from "@mui/material";
+import { notifySuccess } from "../../../../components/ui/Notification";
 
 const CouponComponent = ({ couponList, onCouponApply }) => {
     const [selectedCoupon, setSelectedCoupon] = useState("");
@@ -9,12 +10,16 @@ const CouponComponent = ({ couponList, onCouponApply }) => {
         if (selectedCoupon) {
             onCouponApply(selectedCoupon);
             setIsApplied(true);
+            console.log("Selected Coupon:", selectedCoupon);
+            
         }
     };
 
     const handleCouponChange = (event, newValue) => {
         setSelectedCoupon(newValue ? newValue.coupon_code : "");
-        setIsApplied(false);
+        setIsApplied(false); 
+        onCouponApply(newValue ? newValue.coupon_code : "");
+        newValue ? notifySuccess("Coupon applied successfully") : notifySuccess("Coupon removed successfully");
     };
 
     return (
@@ -45,7 +50,7 @@ const CouponComponent = ({ couponList, onCouponApply }) => {
                     </Box>
                 )}
                 sx={{ mb: 2 }} />
-            {!isApplied && (
+            {/* {!isApplied && (
                 <Button
                     variant="contained"
                     color="primary"
@@ -54,7 +59,7 @@ const CouponComponent = ({ couponList, onCouponApply }) => {
                     fullWidth>
                     Apply
                 </Button>
-            )}
+            )} */}
             {selectedCoupon && isApplied && (
                 <Box sx={{ mt: 2 }}>
                     <strong>Coupon Applied:</strong> {selectedCoupon}

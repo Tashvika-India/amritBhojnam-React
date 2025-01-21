@@ -297,7 +297,7 @@ const Address = ({ formik, loading, setOpen, editData, setEditData }) => {
                   </div>
                 ) : null}
               </div>
-              <div className="checkout-btn d-flex mb-5 pb-5 pe-0 align-items-end justify-content-end">
+              <div className="checkout-btn d-flex pe-0 align-items-end justify-content-end">
                 <button
                   className="button-primary-reverse me-4"
                   type="button"
