@@ -18,7 +18,7 @@ export const productInitalValues = {
   is_best_price: true,
   is_deleted: false,
   tags: [],
-  nutritions: [{ nutrition_id: "", nutrition_value: "" }],
+  nutritions: [{ nutrition_id: "", nutrition_value: 0 }],
   stock: 0,
   images: [],
   product_type: "",

@@ -8,7 +8,7 @@ const NutritionComponent = ({ nutritionList, formik, isUpdate }) => {
   useEffect(() => {
     if (isUpdate && values.nutritions?.length === 0) {
       setFieldValue('nutritions', [
-        { nutrition_id: '', nutrition_value: '' }, // Default row if none exist
+        { nutrition_id: '', nutrition_value: 0 }, // Default row if none exist
       ]);
     }
   }, [isUpdate, setFieldValue, values.nutritions]);
@@ -16,7 +16,7 @@ const NutritionComponent = ({ nutritionList, formik, isUpdate }) => {
   const handleAddRow = () => {
     setFieldValue('nutritions', [
       ...values.nutritions,
-      { nutrition_id: '', nutrition_value: '' },
+      { nutrition_id: '', nutrition_value: 0 },
     ]);
   };
 
