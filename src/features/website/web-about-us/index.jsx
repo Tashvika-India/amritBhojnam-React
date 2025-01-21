@@ -33,7 +33,7 @@ const AboutUs = () => {
         </div>
       </div>
       
-      <section className="about-us pb-0 about-linear">
+      <section className="about-us pb-0 about-linear pt-md-2 pt-xl-5 mt-xl-4">
         <div className="container fb-container mb-lg-5 pb-lg-5">
           <div className="row">
             <div className="col-md-6 align-self-center">
@@ -126,7 +126,7 @@ const AboutUs = () => {
             initial={{ x: "-100%" }}
             animate={{ x: 0 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            className="marquee flex-shrink-0 mb-md-5 mb-lg-0 mb-xl-5 pb-lg-5 pb-sm-5 pt-md-4  pt-sm-4"
+            className="marquee flex-shrink-0 mb-md-5 mb-xl-0 mb-xl-5 pb-lg-5 pb-sm-5 pt-md-4  pt-sm-4"
             style={{ whiteSpace: "nowrap" }}>
             <span className="marquee-content text-yellow fb-fs-30  px-5">
             Healthy, Nutritious, and Sustainable
@@ -168,7 +168,7 @@ const AboutUs = () => {
           </div>
           <div className="row mx-xl-5 mx-lg-0 px-xl-4 px-lg-4">
             <div className="col-lg-4 col-sm-6">
-              <div className="card rounded-20">
+              <div className="card rounded-20 h-100">
                 <div className="card-body text-center px-lg-5 py-xl-4 py-lg-2">
                   <img
                     src={PriceOffer}
@@ -179,14 +179,14 @@ const AboutUs = () => {
                   <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">
                     Best Prices & Offers
                   </p>
-                  <p className=" mb-5">
+                  <p className=" mb-5 card-con">
                   Enjoy unbeatable prices and exclusive deals on a wide range of millet-based products. Healthy eating has never been more affordable!
                   </p>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-sm-6">
-              <div className="card rounded-20">
+              <div className="card rounded-20 h-100">
                 <div className="card-body text-center px-lg-5 py-xl-4 py-lg-2">
                   <img
                     src={WideAsortment}
@@ -197,14 +197,14 @@ const AboutUs = () => {
                   <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">
                     Wide Assortment
                   </p>
-                  <p className=" mb-5">
+                  <p className=" mb-5 card-con">
                   Explore a diverse selection of millet food products tailored to meet your every need—snacks, staples, and more, all in one place.
                   </p>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-sm-6 mt-sm-4 mt-lg-0">
-              <div className="card rounded-20">
+              <div className="card rounded-20 h-100">
                 <div className="card-body text-center  px-lg-5 py-xl-4 py-lg-2">
                   <img
                     src={FreeDelivery}
@@ -215,14 +215,14 @@ const AboutUs = () => {
                   <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">
                     Free Delivery
                   </p>
-                  <p className=" mb-5">
+                  <p className=" mb-5 card-con">
                   Get your favorite millet products delivered to your doorstep at no extra cost. Convenience and savings, guaranteed!
                   </p>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-sm-6 mt-4 mb-lg-4">
-              <div className="card rounded-20">
+              <div className="card rounded-20 h-100">
                 <div className="card-body text-center  px-lg-4 py-xl-4 py-lg-2">
                   <img
                     src={ReturnEasy}
@@ -233,14 +233,14 @@ const AboutUs = () => {
                   <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">
                     Easy Returns
                   </p>
-                  <p className=" mb-5">
+                  <p className=" mb-5 card-con">
                   Changed your mind? No worries! Our hassle-free return policy ensures a smooth and stress-free experience every time.
                   </p>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-sm-6 mt-4 mb-4">
-              <div className="card rounded-20">
+              <div className="card rounded-20 h-100">
                 <div className="card-body text-center  px-lg-5 py-xl-4 py-lg-2">
                   <img
                     src={Satisfaction}
@@ -251,14 +251,14 @@ const AboutUs = () => {
                   <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">
                     100% Satisfaction
                   </p>
-                  <p className=" mb-5">
+                  <p className=" mb-5 card-con">
                   Your satisfaction is our top priority. We’re committed to providing the best quality and service for every purchase.
                   </p>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-sm-6 mt-4 mb-4">
-              <div className="card rounded-20">
+              <div className="card rounded-20 h-100">
                 <div className="card-body text-center  px-lg-5 py-xl-4 py-lg-2">
                   <img
                     src={GreatDeal}
@@ -269,7 +269,7 @@ const AboutUs = () => {
                   <p className="fb-fs-26 fw-600 my-md-3 pt-lg-3">
                     Best Prices & Offers
                   </p>
-                  <p className=" mb-5">
+                  <p className=" mb-5 card-con">
                   Don’t miss out on amazing daily discounts! Find incredible offers on millet food products every single day.
                   </p>
                 </div>

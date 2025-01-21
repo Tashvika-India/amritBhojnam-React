@@ -1597,20 +1597,25 @@ footer {
 @media (min-width: 1200px) and (max-width: 1440px) {
   .web-wrapper-main{
     font-size: 13px !important;
-  }
+  }    
   .fb-container,
   .fb-container-lg,
   .fb-container-md,
   .fb-container-sm,
   .fb-container-xl,
   .fb-container-xxl {
-    max-width: 1100px !important;
+    max-width: 1200px !important;
   }
 
   .product-card .masala-con {
     height: 2.2rem !important;
   }
-
+.about-us .card-con{
+  font-size: 13px;
+}
+.about-us .card .card-body p{
+  padding-top: 0 !important;
+}
   .product-card h6 {
     Small {
       font-size: 12px !important;
@@ -1662,11 +1667,14 @@ footer {
 
     h3 {
       padding-bottom: 0rem !important;
+      margin-top: 1rem;
+      margin-bottom: 1.3rem;
     }
 
     p {
       padding-top: 8px !important;
       font-size: 14px !important;
+      margin-bottom: 1rem;
     }
   }
 
@@ -1678,6 +1686,12 @@ footer {
   }
 
   .about-us {
+    .thoughtful-content{
+      font-size: 1rem !important;
+    }
+    .thoughtful-content-bottom{
+      font-size: 1rem !important;
+    }
     .bottom-image {
       .bottom-sec {
         margin-top: 0.5rem !important;
@@ -1689,7 +1703,7 @@ footer {
       padding-left: 2rem !important;
 
       .about-con-inner {
-        font-size: 0.875rem !important;
+        font-size: 0.775rem !important;
       }
     }
   }
