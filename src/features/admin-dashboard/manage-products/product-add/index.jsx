@@ -198,9 +198,9 @@ const ProductAdd = () => {
     ]);
   }
 
-  function handleOptionsChange(name, value) {
+  function handleOptionsChange(name, value, number = false) {
     const updatedOptions = [...values.options];
-    updatedOptions[activeOption][name] = value;
+    updatedOptions[activeOption][name] = number ? parseInt(value) : value;
     formik.setFieldValue("options", updatedOptions);
   }
 
@@ -605,11 +605,11 @@ const ProductAdd = () => {
               </p>
             </div>
             <div className="row">
-            <div className="col-md-4 mb-4">
+              <div className="col-md-4 mb-4">
                 <TextField
                   id="outlined-basic"
                   label="Option"
-                  placeholder="250 grams"
+                  placeholder="eg: 250"
                   variant="outlined"
                   fullWidth
                   name="stock"
@@ -641,7 +641,7 @@ const ProductAdd = () => {
                   name="max_price"
                   value={formik.values?.options[activeOption]?.max_price}
                   onChange={(event) =>
-                    handleOptionsChange("max_price", event.target.value)
+                    handleOptionsChange("max_price", event.target.value, true)
                   }
                   fullWidth
                 />
@@ -649,13 +649,13 @@ const ProductAdd = () => {
               <div className="col-md-4 mb-4">
                 <TextField
                   id="outlined-basic"
-                  label="Discount"
+                  label="Discount %"
+                  placeholder="eg : 10"
                   variant="outlined"
                   name="discount"
-                  type="number"
                   value={formik.values?.options[activeOption]?.discount}
                   onChange={(event) =>
-                    handleOptionsChange("discount", event.target.value)
+                    handleOptionsChange("discount", event.target.value, true)
                   }
                   fullWidth
                 />
