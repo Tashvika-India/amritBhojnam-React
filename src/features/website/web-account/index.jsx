@@ -22,7 +22,6 @@ import tickImg from "../../../assets/images/web/account/tick-image.png";
 import milletIcon from "../../../assets/images/web/millet-icon.png";
 import emptyOrder from "../../../assets/images/web/empty-order.png";
 import homeImg from "../../../assets/images/web/account/home-img.png";
-import otherImg from "../../../assets/images/web/account/other.png";
 import editButton from "../../../assets/images/web/account/edit-button.png";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
 import {
@@ -41,6 +40,8 @@ import { useFormik } from "formik";
 import Address from "../../../assets/common-components/website/Address";
 import { baseURL } from "../../../utils/constant-variable";
 import { Link, useLocation } from "react-router-dom";
+import { Dialog } from "primereact/dialog";
+import { Rating } from "primereact/rating";
 import ReviewModal from "../../../components/ui/ReviewModal";
 import { HiDownload } from "react-icons/hi";
 import {
@@ -57,7 +58,6 @@ import { Dropdown } from "primereact/dropdown";
 
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
-  const [loadingNew, setLoadingNew] = useState(false);
   const [open, setOpen] = useState(false);
   const [addressList, setAddressList] = useState([]);
   const [editData, setEditData] = useState([null]);
@@ -110,20 +110,8 @@ const UserProfile = () => {
 
   const dispatch = useDispatch();
 
-  const getAddressList = async () => {
-    setLoadingNew(true);
-    try {
-      const response = await getAddressApi();
-      setAddressList(response?.data || []);
-      setLoadingNew(false);
-    } catch (error) {
-      console.log("Error fetching cart data:", error);
-    } finally {
-    }
-  };
-
   const addAddress = async (values) => {
-    setLoadingNew(true);
+    setLoading(true);
     try {
       const response = await postAddressApi(values);
       const address_id = response?.data?.id;
@@ -131,7 +119,7 @@ const UserProfile = () => {
         await postSelectAddressApi({ address_id });
         getAddressList();
       }
-      setLoadingNew(false);
+      setLoading(false);
       setOpen(false);
       notifySuccess("Address added Successfully");
       scrollTo(0, 0);
@@ -145,7 +133,6 @@ const UserProfile = () => {
   };
 
   const updateAddress = async (values) => {
-    setLoadingNew(true);
     try {
       const response = await putAddressApi(editData?.id, values);
       const address_id = response?.data?.id;
@@ -153,10 +140,9 @@ const UserProfile = () => {
         await postSelectAddressApi({ address_id });
         getAddressList();
       }
-      setLoadingNew(false);
+      setLoading(false);
       scrollTo(0, 0);
       setOpen(false);
-      setEditData(null)
       notifySuccess("Address updated Successfully");
       formik.resetForm();
     } catch (error) {
@@ -164,33 +150,6 @@ const UserProfile = () => {
       notifyError(error.response?.data?.error);
     } finally {
       formik.setSubmitting(false);
-    }
-  };
-
-
-  const handleSelectAddress = async (address_id) => {
-    try {
-      const response = await postSelectAddressApi({ address_id });
-      getAddressList();
-      notifySuccess("Address Selected Successfully");
-    } catch (error) {
-      console.log("Error fetching cart data:", error);
-      notifyError(error.response?.data?.error);
-    }
-  };
-
-  const handleDeleteAddress = async (address_id) => {
-    setLoadingNew(true);
-    try {
-      const response = await deleteAddressApi(address_id);
-      getAddressList();
-      setLoadingNew(false);
-      notifySuccess("Address deleted Successfully");
-    } catch (error) {
-      notifyError(error.response?.data?.error);
-      console.log("Error fetching cart data:", error);
-    } finally {
-      setLoadingNew(false);
     }
   };
 
@@ -231,7 +190,43 @@ const UserProfile = () => {
       notifyError("Error placing order");
       console.log("Error placing order:", error);
     }
-  }; 
+  };
+
+  const getAddressList = async () => {
+    setLoading(true);
+    try {
+      const response = await getAddressApi();
+      setAddressList(response?.data || []);
+      setLoading(false);
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+    } finally {
+    }
+  };
+
+  const handleSelectAddress = async (address_id) => {
+    try {
+      const response = await postSelectAddressApi({ address_id });
+      getAddressList();
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+    }
+  };
+
+  const handleDeleteAddress = async (address_id) => {
+    setLoading(true);
+    try {
+      const response = await deleteAddressApi(address_id);
+      getAddressList();
+      setLoading(false);
+      notifySuccess("Address deleted Successfully");
+    } catch (error) {
+      notifyError(error.response?.data?.error);
+      console.log("Error fetching cart data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const profile = useFormik({
     initialValues: {
@@ -334,8 +329,7 @@ const UserProfile = () => {
     ) {
       setProfileEdit(true);
     }
-  }, [userDetail]); 
-
+  }, [userDetail]);
 
   return (
     <div className="web-wrapper-main">
@@ -385,10 +379,11 @@ const UserProfile = () => {
             <div>
               <div className="flex mb-2 gap-2 justify-content-end border-bottom profile-tabs">
                 <button
-                  className={`border-0 bg-white fw-600 ${activeIndex === 0
-                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                    : "text-dark-grey"
-                    }`}
+                  className={`border-0 bg-white fw-600 ${
+                    activeIndex === 0
+                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                      : "text-dark-grey"
+                  }`}
                   onClick={() => setActiveIndex(0)}
                   rounded
                   outlined={activeIndex !== 0}
@@ -400,10 +395,11 @@ const UserProfile = () => {
                   My Account
                 </button>
                 <button
-                  className={`border-0 bg-white fw-600 ${activeIndex === 1
-                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                    : "text-dark-grey"
-                    }`}
+                  className={`border-0 bg-white fw-600 ${
+                    activeIndex === 1
+                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                      : "text-dark-grey"
+                  }`}
                   onClick={() => setActiveIndex(1)}
                   rounded
                   outlined={activeIndex !== 1}
@@ -415,10 +411,11 @@ const UserProfile = () => {
                   Order History
                 </button>
                 <button
-                  className={`border-0 bg-white fw-600 ${activeIndex === 2
-                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                    : "text-dark-grey"
-                    }`}
+                  className={`border-0 bg-white fw-600 ${
+                    activeIndex === 2
+                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                      : "text-dark-grey"
+                  }`}
                   onClick={() => setActiveIndex(2)}
                   rounded
                   outlined={activeIndex !== 2}
@@ -605,165 +602,149 @@ const UserProfile = () => {
                         placeholder="Last 1 Months"
                         className="w-full md:w-14rem border-black text-dark-bg rounded-3"
                       />
-                    </div> 
-                    {loading ? (
-                      <Loading />
-                    ) : (
-                      order?.results?.map((item) => (
-                        <div
-                          className="summary-card rounded-20 mb-4"
-                          key={item.id}
-                        >
-                          <div className="container">
-                            <div className="row border-bottom px-2 px-md-3 py-3 align-items-center">
-                              <div className="col-md-3">
-                                <p>
-                                  Order ID:
-                                  <span
-                                    className="fw-600"
-                                    title={item?.display_order_id}
-                                  >
-                                    &nbsp;&nbsp;
-                                    {/* {item?.id?.slice(0, 12)}... */}
-                                    {item?.display_order_id}
-                                  </span>
-                                </p>
-                              </div>
-                              <div className="col-md-3">
-                                <p>
-                                  Order Placed:
-                                  <span className="fw-600">
-                                    &nbsp;&nbsp;
-                                    {new Date(
-                                      item?.created_at
-                                    ).toLocaleDateString("en-GB")}
-                                  </span>
-                                </p>
-                              </div>
-                              <div className="col-6 col-md-3">
-                                <p>
-                                  Total Amount:
-                                  <span className="fw-600">
-                                    &nbsp;&nbsp; ₹ {item?.amount_to_pay}
-                                  </span>
-                                </p>
-                              </div>
-                              <div className="col-6 col-md-3 d-flex align-items-center justify-content-end gap-3 text-end align-self-end">
-                                <button
-                                  onClick={() => handleReOrderClick(item?.id)}
-                                  className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-1"
-                                >
-                                  <BsArrowRepeat size={"1.2rem"} />
-                                  Buy Again
-                                </button>
-                                <button className="fw-500 text-center border-0 text-orange bg-custom-btn-bg d-flex align-items-center py-1 rounded-2 px-2 gap-1">
-                                  <HiDownload size={"1.2rem"} />
-                                  Invoice
-                                </button>
-                              </div>
-                            </div>
-                            {item?.product_details.map((data) => (
-                              <div className="border-bottom" key={data?.id}>
-                                <div className="row px-2 px-md-3 pt-3 py-md-4">
-                                  <div className="col-md-8">
-                                    <div className="prod-detail d-flex align-items-center">
-                                      <img
-                                        className="img-fluid me-4 rounded-4"
-                                        style={{
-                                          height: "6rem",
-                                          width: "6rem",
-                                        }}
-                                        src={data?.product?.images[0]?.image}
-                                        alt="pencil"
-                                      />
-                                      <div>
-                                        <p className="fb-fs-18 fw-600 text-dark-grey">
-                                          {data?.product?.name}
-                                        </p>
-                                        <p className="mt-2">
-                                          Qty:
-                                          <span className="fw-600">
-                                            {data?.item_quantity}
-                                          </span>
-                                        </p>
-                                        <p className="mt-2">
-                                          Size:
-                                          <span className="fw-600">
-                                            {`${data?.product?.quantity}`}
-                                          </span>
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4">
-                                    <div className="price-sec text-end text-dark-grey">
-                                      <p className="fb-fs-24 fw-bold">
-                                        ₹{data?.price}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="row m-md-3">
-                                  <div className="col-md-6">
-                                    <div className="d-flex mb-2 mb-md-0">
-                                      <img
-                                        className="img-fluid me-2"
-                                        style={{
-                                          height: "1.3rem",
-                                          width: "1.3rem",
-                                          aspectRatio: "1/1",
-                                        }}
-                                        src={tickImg}
-                                        alt="pencil"
-                                      />
-                                      <p className="text-dark-grey">
-                                        Delivered within 5-7 days
-                                        {/* {new Date(item?.delivered_on).toLocaleDateString("en-US", {year: "numeric",month: "long",day: "numeric",})} */}
-                                      </p>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-5 col-xxl-3 ms-auto text-md-end">
-                                    <div className="more-option d-flex mb-2 mb-lg-0 justify-content-evenly justify-content-md-between">
-                                      <button
-                                        onClick={() =>
-                                          handleReviewClick(
-                                            data?.product?.id,
-                                            data?.product?.name,
-                                            data?.product?.images[0]?.image
-                                          )
-                                        }
-                                        className="fw-500 text-center border-0 text-dark-grey bg-transparent "
-                                      >
-                                        Add Review
-                                      </button>
-                                      <span className="vr"></span>
-                                      <Link
-                                        to={`/product-detail?product_id=${data?.product?.id}`}
-                                        className="fw-600 text-center border-0 bg-transparent text-orange"
-                                      >
-                                        View Product
-                                      </Link>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ))
-                    )}
-                    <div className="d-flex align-items-center justify-content-center">
-                      <button
-                        className="fw-500 text-center border-0 text-orange bg-transparent success-primary-button"
-                        onClick={handleLoadMore}
-                      >
-                        Load More Orders
-                      </button>
                     </div>
+
+                    {loading ? (
+  <Loading />
+) : order?.results?.length > 0 ? (
+  order.results.map((item) => (
+    <div className="summary-card rounded-20 mb-4" key={item.id}>
+      <div className="container">
+        <div className="row border-bottom px-2 px-md-3 py-3 align-items-center">
+          <div className="col-md-3">
+            <p>
+              Order ID:
+              <span
+                className="fw-600"
+                title={item?.display_order_id}
+              >
+                &nbsp;&nbsp;
+                {item?.display_order_id}
+              </span>
+            </p>
+          </div>
+          <div className="col-md-3">
+            <p>
+              Order Placed:
+              <span className="fw-600">
+                &nbsp;&nbsp;
+                {new Date(item?.created_at).toLocaleDateString("en-GB")}
+              </span>
+            </p>
+          </div>
+          <div className="col-6 col-md-3">
+            <p>
+              Total Amount:
+              <span className="fw-600">
+                &nbsp;&nbsp; ₹ {item?.amount_to_pay}
+              </span>
+            </p>
+          </div>
+          <div className="col-6 col-md-3 d-flex align-items-center justify-content-end gap-3 text-end align-self-end">
+            <button
+              onClick={() => handleReOrderClick(item?.id)}
+              className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-1"
+            >
+              <BsArrowRepeat size={"1.2rem"} />
+              Buy Again
+            </button>
+            <button className="fw-500 text-center border-0 text-orange bg-custom-btn-bg d-flex align-items-center py-1 rounded-2 px-2 gap-1">
+              <HiDownload size={"1.2rem"} />
+              Invoice
+            </button>
+          </div>
+        </div>
+        {item?.product_details.map((data) => (
+          <div className="border-bottom" key={data?.id}>
+            <div className="row px-2 px-md-3 pt-3 py-md-4">
+              <div className="col-md-8">
+                <div className="prod-detail d-flex align-items-center">
+                  <img
+                    className="img-fluid me-4 rounded-4"
+                    style={{
+                      height: "6rem",
+                      width: "6rem",
+                    }}
+                    src={data?.product?.images[0]?.image}
+                    alt="pencil"
+                  />
+                  <div>
+                    <p className="fb-fs-18 fw-600 text-dark-grey">
+                      {data?.product?.name}
+                    </p>
+                    <p className="mt-2">
+                      Qty:
+                      <span className="fw-600">
+                        {data?.item_quantity}
+                      </span>
+                    </p>
+                    <p className="mt-2">
+                      Size:
+                      <span className="fw-600">
+                        {`${data?.product?.quantity}`}
+                      </span>
+                    </p>
                   </div>
-
-
-                  <div className="empty-order text-center">
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="price-sec text-end text-dark-grey">
+                  <p className="fb-fs-24 fw-bold">
+                    ₹{data?.price}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="row m-md-3">
+              <div className="col-md-6">
+                <div className="d-flex mb-2 mb-md-0">
+                  <img
+                    className="img-fluid me-2"
+                    style={{
+                      height: "1.3rem",
+                      width: "1.3rem",
+                      aspectRatio: "1/1",
+                    }}
+                    src={tickImg}
+                    alt="pencil"
+                  />
+                  <p className="text-dark-grey">
+                    Delivered within 5-7 days
+                  </p>
+                </div>
+              </div>
+              <div className="col-md-5 col-xxl-3 ms-auto text-md-end">
+                <div className="more-option d-flex mb-2 mb-lg-0 justify-content-evenly justify-content-md-between">
+                  <button
+                    onClick={() =>
+                      handleReviewClick(
+                        data?.product?.id,
+                        data?.product?.name,
+                        data?.product?.images[0]?.image
+                      )
+                    }
+                    className="fw-500 text-center border-0 text-dark-grey bg-transparent "
+                  >
+                    Add Review
+                  </button>
+                  <span className="vr"></span>
+                  <Link
+                    to={`/product-detail?product_id=${data?.product?.id}`}
+                    className="fw-600 text-center border-0 bg-transparent text-orange"
+                  >
+                    View Product
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))
+) : (
+  // Show "No Data Found" design
+  <div className="empty-order text-center">
                     <div className="mt-5">
                       <img
                         className="img-fluid mx-auto mb-4"
@@ -782,6 +763,20 @@ const UserProfile = () => {
                       </button>
                     </div>
                   </div>
+)}
+
+                   { order?.results?.length>0&&<div className="d-flex align-items-center justify-content-center">
+                      <button
+                        className="fw-500 text-center border-0 text-orange bg-transparent success-primary-button"
+                        onClick={handleLoadMore}
+                      >
+                        Load More Orders
+                      </button>
+                    </div>}
+                  </div>
+
+
+                 
 
                   
                 </TabPanel>
@@ -803,17 +798,17 @@ const UserProfile = () => {
                       >
                         {open ? (
                           <>
-                            <p className="fw-500 border-0 text-danger px-3 py-2 rounded bg-light">Cancel</p>
+                            <p className="fw-500">Cancel</p>
                           </>
                         ) : (
                           <>
-                            <i className="pi pi-plus text-yellow me-2 fw-bold"></i>
-                            <p className="fw-400">Add New Address</p>
+                            <i className="pi pi-plus text-yellow me-2 mt-md-1"></i>
+                            <p className="fw-500">Add New Address</p>
                           </>
                         )}
                       </button>
                     </div>
-                    <div className="mb-4 mb-md-5" hidden={editData}>
+                    <div className="" hidden={editData}>
                       <Collapse in={open}>
                         <Address
                           formik={formik}
@@ -823,42 +818,80 @@ const UserProfile = () => {
                           editData={editData}
                         />
                       </Collapse>
-                    </div> 
-                    {addressList.length > 0 ? (
-                      addressList.map((item, index) => (
-                        <>
-                          <div className={`summary-card ${item?.selected ? "active" : ""} rounded-20 px-2 py-3 mt-3 cursor-pointer`} key={item?.id}>
-                            <div className="px-md-3">
-                              <div className="row">
-                                <div className="col-md-12 d-flex justify-content-between">
-                                  <div className="order-date d-flex gap-2">
-                                    <img
-                                      className={`img-fluid me-1 rounded-4 ${item?.selected ? "shadow" : ""
+                    </div>
+                    <div className="">
+                      {addressList.length > 0 ? (
+                        addressList.map((item, index) => (
+                          <>
+                            <div
+                              className={`summary-card ${
+                                item?.selected ? "active" : ""
+                              } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                              key={index}
+                            >
+                              <div className="px-md-3">
+                                <div className="row">
+                                  <div className="col-md-12">
+                                    <div className="order-date d-flex gap-2">
+                                      <img
+                                        className={`img-fluid me-1 rounded-4 ${
+                                          item?.selected ? "shadow" : ""
                                         }`}
-                                      src={(item?.save_as === "Home") ? homeImg : otherImg}
-                                      alt="pencil"
-                                    />
-                                    <div className="ms-md-3">
-                                      <div className="d-flex mt-2 gap-1 align-items-center">
-                                        <p className="fw-600 fb-fs-18">
-                                          {item?.ads_name} | {item?.ads_phone}
+                                        src={homeImg}
+                                        alt="pencil"
+                                      />
+                                      <div className="ms-md-3">
+                                        <div className="d-flex mt-2 gap-1 align-items-center">
+                                          <p className="fw-600 fb-fs-18">
+                                            {item?.ads_name} | {item?.ads_phone}
+                                          </p>
+                                          {item?.selected && (
+                                            <button className="button-yellow default-btn ms-md-3 fw-normal lh-base align-self-center">
+                                              Default
+                                            </button>
+                                          )}
+                                        </div>
+                                        <p className="mt-2 text-wrap">
+                                          {item?.house_flat_block_no},
+                                          {item?.road_area_colony}, {item?.city}
+                                          ,{item?.state} - {item?.pincode}
                                         </p>
-                                        {item?.selected && (
-                                          <button className="button-yellow default-btn ms-md-3 fw-normal lh-base align-self-center">
-                                            Default
-                                          </button>
-                                        )}
                                       </div>
-                                      <p className="mt-2 text-wrap">
-                                        {item?.house_flat_block_no},
-                                        {item?.road_area_colony}, {item?.city}
-                                        ,{item?.state} - {item?.pincode}
-                                      </p>
                                     </div>
                                   </div>
-                                  <div className="">
-                                    <button
-                                      className="text-end button-set-default"
+                                  <div className="col-md-1"></div>
+                                  <div className="col-md-6">
+                                    <div className="d-flex mt-2">
+                                      <button
+                                        className="border-0 bg-transparent"
+                                        onClick={(event) => {
+                                          event.stopPropagation();
+                                          setEditData(item);
+                                        }}
+                                      >
+                                        <img
+                                          className="img-fluid me-3"
+                                          src={editButton}
+                                          alt="Edit"
+                                        />
+                                      </button>
+                                      <button
+                                        className="border-0 bg-transparent"
+                                        onClick={() =>
+                                          handleDeleteAddress(item?.id)
+                                        }
+                                      >
+                                        <img
+                                          className="img-fluid me-2"
+                                          src={deleteButton}
+                                          alt="Delete"
+                                        />
+                                      </button>
+                                    </div>
+                                  </div>
+                                  <div className="col-md-5 text-end">
+                                    <p
+                                      className="text-end"
                                       onClick={(event) => {
                                         event.stopPropagation();
                                         handleSelectAddress(item?.id);
@@ -866,62 +899,30 @@ const UserProfile = () => {
                                       hidden={item?.selected}
                                     >
                                       Set as Default
-                                    </button>
-                                  </div>
-                                </div>
-                                <div className="col-md-1"></div>
-                                <div className="col-md-6">
-                                  <div className="d-flex mt-2">
-                                    <button
-                                      className="border-0 bg-transparent"
-                                      onClick={(event) => {
-                                        event.stopPropagation();
-                                        setEditData(item);
-                                      }}
-                                    >
-                                      <img
-                                        className="img-fluid me-3"
-                                        src={editButton}
-                                        alt="Edit"
-                                      />
-                                    </button>
-                                    <button
-                                      className="border-0 bg-transparent"
-                                      onClick={() =>
-                                        handleDeleteAddress(item?.id)
-                                      }
-                                    >
-                                      <img
-                                        className="img-fluid me-2"
-                                        src={deleteButton}
-                                        alt="Delete"
-                                      />
-                                    </button>
+                                    </p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div className="pt-3 px-3">
-                              <Collapse in={editData?.id === item?.id}>
-                                <Address
-                                  formik={formik}
-                                  loading={loading}
-                                  setEditData={setEditData}
-                                  setOpen={setOpen}
-                                  editData={editData}
-                                />
-                              </Collapse>
-                            </div>
-                          </div>
-                        </>
-                      ))
-                    ) : (
-                      <div className="text-center py-4">
-                        <h6 className="text-muted mb-4">
-                          Your Address is empty!
-                        </h6>
-                      </div>
-                    )}
+                            <Collapse in={editData?.id === item?.id}>
+                              <Address
+                                formik={formik}
+                                loading={loading}
+                                setEditData={setEditData}
+                                setOpen={setOpen}
+                                editData={editData}
+                              />
+                            </Collapse>
+                          </>
+                        ))
+                      ) : (
+                        <div className="text-center py-4">
+                          <h6 className="text-muted mb-4">
+                            Your Address is empty!
+                          </h6>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </TabPanel>
               </TabView>
