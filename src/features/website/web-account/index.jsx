@@ -21,6 +21,7 @@ import { Button } from "primereact/button";
 import tickImg from "../../../assets/images/web/account/tick-image.png";
 import milletIcon from "../../../assets/images/web/millet-icon.png";
 import emptyOrder from "../../../assets/images/web/empty-order.png";
+import emptyAddress from "../../../assets/images/web/empty-address.png";
 import homeImg from "../../../assets/images/web/account/home-img.png";
 import editButton from "../../../assets/images/web/account/edit-button.png";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
@@ -433,7 +434,7 @@ const UserProfile = () => {
                 onTabChange={(e) => setActiveIndex(e.index)}
               >
                 <TabPanel header="My Account">
-                  <div className="account-section mb-md-4">
+                  <div className="account-section mb-md-4 mt-3">
                     <div className="d-flex justify-content-between align-items-center">
                       <h4 className="fb-fs-26 fw-bold mt-3">My Account</h4>
                       <div className="d-flex">
@@ -605,183 +606,187 @@ const UserProfile = () => {
                     </div>
 
                     {loading ? (
-  <Loading />
-) : order?.results?.length > 0 ? (
-  order.results.map((item) => (
-    <div className="summary-card rounded-20 mb-4" key={item.id}>
-      <div className="container">
-        <div className="row border-bottom px-2 px-md-3 py-3 align-items-center">
-          <div className="col-md-3">
-            <p>
-              Order ID:
-              <span
-                className="fw-600"
-                title={item?.display_order_id}
-              >
-                &nbsp;&nbsp;
-                {item?.display_order_id}
-              </span>
-            </p>
-          </div>
-          <div className="col-md-3">
-            <p>
-              Order Placed:
-              <span className="fw-600">
-                &nbsp;&nbsp;
-                {new Date(item?.created_at).toLocaleDateString("en-GB")}
-              </span>
-            </p>
-          </div>
-          <div className="col-6 col-md-3">
-            <p>
-              Total Amount:
-              <span className="fw-600">
-                &nbsp;&nbsp; ₹ {item?.amount_to_pay}
-              </span>
-            </p>
-          </div>
-          <div className="col-6 col-md-3 d-flex align-items-center justify-content-end gap-3 text-end align-self-end">
-            <button
-              onClick={() => handleReOrderClick(item?.id)}
-              className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-1"
-            >
-              <BsArrowRepeat size={"1.2rem"} />
-              Buy Again
-            </button>
-            <button className="fw-500 text-center border-0 text-orange bg-custom-btn-bg d-flex align-items-center py-1 rounded-2 px-2 gap-1">
-              <HiDownload size={"1.2rem"} />
-              Invoice
-            </button>
-          </div>
-        </div>
-        {item?.product_details.map((data) => (
-          <div className="border-bottom" key={data?.id}>
-            <div className="row px-2 px-md-3 pt-3 py-md-4">
-              <div className="col-md-8">
-                <div className="prod-detail d-flex align-items-center">
-                  <img
-                    className="img-fluid me-4 rounded-4"
-                    style={{
-                      height: "6rem",
-                      width: "6rem",
-                    }}
-                    src={data?.product?.images[0]?.image}
-                    alt="pencil"
-                  />
-                  <div>
-                    <p className="fb-fs-18 fw-600 text-dark-grey">
-                      {data?.product?.name}
-                    </p>
-                    <p className="mt-2">
-                      Qty:
-                      <span className="fw-600">
-                        {data?.item_quantity}
-                      </span>
-                    </p>
-                    <p className="mt-2">
-                      Size:
-                      <span className="fw-600">
-                        {`${data?.product?.quantity}`}
-                      </span>
-                    </p>
+                      <Loading />
+                    ) : order?.results?.length > 0 ? (
+                      order.results.map((item) => (
+                        <div
+                          className="summary-card rounded-20 mb-4"
+                          key={item.id}
+                        >
+                          <div className="container">
+                            <div className="row border-bottom px-2 px-md-3 py-3 align-items-center">
+                              <div className="col-md-3">
+                                <p>
+                                  Order ID:
+                                  <span
+                                    className="fw-600"
+                                    title={item?.display_order_id}
+                                  >
+                                    &nbsp;&nbsp;
+                                    {item?.display_order_id}
+                                  </span>
+                                </p>
+                              </div>
+                              <div className="col-md-3">
+                                <p>
+                                  Order Placed:
+                                  <span className="fw-600">
+                                    &nbsp;&nbsp;
+                                    {new Date(
+                                      item?.created_at
+                                    ).toLocaleDateString("en-GB")}
+                                  </span>
+                                </p>
+                              </div>
+                              <div className="col-6 col-md-3">
+                                <p>
+                                  Total Amount:
+                                  <span className="fw-600">
+                                    &nbsp;&nbsp; ₹ {item?.amount_to_pay}
+                                  </span>
+                                </p>
+                              </div>
+                              <div className="col-6 col-md-3 d-flex align-items-center justify-content-end gap-3 text-end align-self-end">
+                                <button
+                                  onClick={() => handleReOrderClick(item?.id)}
+                                  className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-1"
+                                >
+                                  <BsArrowRepeat size={"1.2rem"} />
+                                  Buy Again
+                                </button>
+                                <button className="fw-500 text-center border-0 text-orange bg-custom-btn-bg d-flex align-items-center py-1 rounded-2 px-2 gap-1">
+                                  <HiDownload size={"1.2rem"} />
+                                  Invoice
+                                </button>
+                              </div>
+                            </div>
+                            {item?.product_details.map((data) => (
+                              <div className="border-bottom" key={data?.id}>
+                                <div className="row px-2 px-md-3 pt-3 py-md-4">
+                                  <div className="col-md-8">
+                                    <div className="prod-detail d-flex align-items-center">
+                                      <img
+                                        className="img-fluid me-4 rounded-4"
+                                        style={{
+                                          height: "6rem",
+                                          width: "6rem",
+                                        }}
+                                        src={data?.product?.images[0]?.image}
+                                        alt="pencil"
+                                      />
+                                      <div>
+                                        <p className="fb-fs-18 fw-600 text-dark-grey">
+                                          {data?.product?.name}
+                                        </p>
+                                        <p className="mt-2">
+                                          Qty:
+                                          <span className="fw-600">
+                                            {data?.item_quantity}
+                                          </span>
+                                        </p>
+                                        <p className="mt-2">
+                                          Size:
+                                          <span className="fw-600">
+                                            {`${data?.product?.quantity}`}
+                                          </span>
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4">
+                                    <div className="price-sec text-end text-dark-grey">
+                                      <p className="fb-fs-24 fw-bold">
+                                        ₹{data?.price}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="row m-md-3">
+                                  <div className="col-md-6">
+                                    <div className="d-flex mb-2 mb-md-0">
+                                      <img
+                                        className="img-fluid me-2"
+                                        style={{
+                                          height: "1.3rem",
+                                          width: "1.3rem",
+                                          aspectRatio: "1/1",
+                                        }}
+                                        src={tickImg}
+                                        alt="pencil"
+                                      />
+                                      <p className="text-dark-grey">
+                                        Delivered within 5-7 days
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className="col-md-5 col-xxl-3 ms-auto text-md-end">
+                                    <div className="more-option d-flex mb-2 mb-lg-0 justify-content-evenly justify-content-md-between">
+                                      <button
+                                        onClick={() =>
+                                          handleReviewClick(
+                                            data?.product?.id,
+                                            data?.product?.name,
+                                            data?.product?.images[0]?.image
+                                          )
+                                        }
+                                        className="fw-500 text-center border-0 text-dark-grey bg-transparent "
+                                      >
+                                        Add Review
+                                      </button>
+                                      <span className="vr"></span>
+                                      <Link
+                                        to={`/product-detail?product_id=${data?.product?.id}`}
+                                        className="fw-600 text-center border-0 bg-transparent text-orange"
+                                      >
+                                        View Product
+                                      </Link>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      // Show "No Data Found" design
+                      <div className="empty-order text-center">
+                        <div className="mt-5">
+                          <img
+                            className="img-fluid mx-auto mb-4"
+                            src={emptyOrder}
+                            alt="empty-order"
+                          />
+                          <h3 className="text-dark-grey fw-600">0 Orders</h3>
+                          <p className="text-mid-grey fb-fs-20 mb-3">
+                            You haven’t placed any orders yet.
+                          </p>
+                          <Link to="/products">
+                            <button
+                            className="success-primary-button mt-4"
+                            style={{ paddingInline: "6rem" }}
+                          >
+                            Order Now
+                          </button>
+                          </Link>
+                        </div>
+                      </div>
+                    )}
+
+                    {order?.results?.length > 0 && (
+                      <div className="d-flex align-items-center justify-content-center">
+                        <button
+                          className="fw-500 text-center border-0 text-orange bg-transparent success-primary-button"
+                          onClick={handleLoadMore}
+                        >
+                          Load More Orders
+                        </button>
+                      </div>
+                    )}
                   </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="price-sec text-end text-dark-grey">
-                  <p className="fb-fs-24 fw-bold">
-                    ₹{data?.price}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="row m-md-3">
-              <div className="col-md-6">
-                <div className="d-flex mb-2 mb-md-0">
-                  <img
-                    className="img-fluid me-2"
-                    style={{
-                      height: "1.3rem",
-                      width: "1.3rem",
-                      aspectRatio: "1/1",
-                    }}
-                    src={tickImg}
-                    alt="pencil"
-                  />
-                  <p className="text-dark-grey">
-                    Delivered within 5-7 days
-                  </p>
-                </div>
-              </div>
-              <div className="col-md-5 col-xxl-3 ms-auto text-md-end">
-                <div className="more-option d-flex mb-2 mb-lg-0 justify-content-evenly justify-content-md-between">
-                  <button
-                    onClick={() =>
-                      handleReviewClick(
-                        data?.product?.id,
-                        data?.product?.name,
-                        data?.product?.images[0]?.image
-                      )
-                    }
-                    className="fw-500 text-center border-0 text-dark-grey bg-transparent "
-                  >
-                    Add Review
-                  </button>
-                  <span className="vr"></span>
-                  <Link
-                    to={`/product-detail?product_id=${data?.product?.id}`}
-                    className="fw-600 text-center border-0 bg-transparent text-orange"
-                  >
-                    View Product
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  ))
-) : (
-  // Show "No Data Found" design
-  <div className="empty-order text-center">
-                    <div className="mt-5">
-                      <img
-                        className="img-fluid mx-auto mb-4"
-                        src={emptyOrder}
-                        alt="empty-order"
-                      />
-                      <h3 className="text-dark-grey fw-600">0 Orders</h3>
-                      <p className="text-mid-grey fb-fs-20 mb-3">
-                        You haven’t placed any orders yet.
-                      </p>
-                      <button
-                        className="success-primary-button mt-4"
-                        style={{ paddingInline: "6rem" }}
-                      >
-                        Order Now
-                      </button>
-                    </div>
-                  </div>
-)}
-
-                   { order?.results?.length>0&&<div className="d-flex align-items-center justify-content-center">
-                      <button
-                        className="fw-500 text-center border-0 text-orange bg-transparent success-primary-button"
-                        onClick={handleLoadMore}
-                      >
-                        Load More Orders
-                      </button>
-                    </div>}
-                  </div>
-
-
-                 
-
-                  
                 </TabPanel>
                 <TabPanel header="Address Book">
-                  <div className="address-section">
+                  <div className="address-section mt-3">
                     <div className="d-flex justify-content-between align-items-center">
                       <h4 className="fb-fs-26 fw-bold text-dark-grey my-3">
                         Saved Address
@@ -916,14 +921,36 @@ const UserProfile = () => {
                           </>
                         ))
                       ) : (
-                        <div className="text-center py-4">
-                          <h6 className="text-muted mb-4">
-                            Your Address is empty!
-                          </h6>
+                        <div className="empty-address text-center">
+                        <div className="mt-5">
+                          <img
+                            className="img-fluid mx-auto mb-4"
+                            src={emptyAddress}
+                            alt="empty-address"
+                          />
+                          <h3 className="text-dark-grey fw-600">No Address Saved</h3>
+                          <p className="text-mid-grey fb-fs-20 mb-3">
+                          No address saved. Add a new address to proceed.
+                          </p>
+                        
+                            <button
+                            className="success-primary-button mt-4"
+                            onClick={() => {
+                          setEditData(null);
+                          setOpen(!open);
+                        }}
+                            style={{ paddingInline: "6rem" }}
+                          >
+                          Add Address
+                          </button>
+                        
                         </div>
+                      </div>
                       )}
                     </div>
                   </div>
+
+                 
                 </TabPanel>
               </TabView>
             </div>

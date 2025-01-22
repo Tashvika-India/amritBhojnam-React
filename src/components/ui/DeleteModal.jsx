@@ -1,30 +1,36 @@
 import React from "react";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
+import deleteModal from "../../assets/images/dashboard/delete-modal.png";
 
 const DeleteModal = ({ visible, onHide, onDelete }) => {
   const renderFooter = () => {
     return (
-      <div className="d-flex justify-content-center gap-3">
-        <Button label="Cancel" icon="pi pi-times" className="bg-danger border-0 rounded-3" onClick={onHide} />
-        <Button label="Delete" icon="pi pi-trash" className="bg-dark border-0 rounded-3" onClick={onDelete} />
+      <div className="d-flex justify-content-center gap-3 mb-4">
+        <Button label="No" className="bright-red-button-reverse" onClick={onHide} />
+        <Button label="Yes Delete" className="bright-red-button" onClick={onDelete} />
       </div>
     );
   };
 
   return (
     <Dialog
-      header="Delete Record"
+      
       visible={visible}
-      style={{ width: '350px', borderRadius: '1rem',overflow: 'hidden' }}
+      style={{ width: '550px', borderRadius: '1rem',overflow: 'hidden' }}
       footer={renderFooter()}
       onHide={onHide}
     >
       <div className="delete-content" style={{ textAlign: 'center' }}>
-        <i className="pi pi-trash" style={{ fontSize: '6rem', color: 'red' }}></i>
-        <p style={{ marginTop: '1rem' }}>
-          Are you sure you want to delete this record? This action cannot be undone.
-        </p>
+        <img
+                                   className="img-fluid mx-auto mb-4"
+                                   src={deleteModal}
+                                   alt="empty-address"
+                                 />
+                                  <h3 className="fw-600" style={{color: "#EF3A4B"}}>Delete Item ?</h3>
+                                  <p className="text-dark-grey fb-fs-20 mb-1">
+                                  You’re about to delete this order
+                          </p>
       </div>
     </Dialog>
   );

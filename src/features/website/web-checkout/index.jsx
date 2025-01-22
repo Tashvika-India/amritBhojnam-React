@@ -18,6 +18,7 @@ import {
 import paymentFailed from "../../../assets/images/web/payment-failed.png";
 import Loading from "../../../components/ui/Loading";
 import { useFormik } from "formik";
+import emptyAddress from "../../../assets/images/web/empty-address.png";
 import Address from "../../../assets/common-components/website/Address";
 import MobileLogin from "../../../components/ui/MobileLogin";
 import { Dialog } from "primereact/dialog";
@@ -370,11 +371,19 @@ const CheckoutPage = () => {
                       </>
                     ))
                   ) : (
-                    <div className="text-center py-4">
-                      <h6 className="text-muted mb-4">
-                        Your Address is empty!
-                      </h6>
-                    </div>
+                    <div className="empty-address text-center">
+                        <div className="mt-5">
+                          <img
+                            className="img-fluid mx-auto mb-4"
+                            src={emptyAddress}
+                            alt="empty-address"
+                          />
+                          <h3 className="text-dark-grey fw-600">No Address Saved</h3>
+                          <p className="text-mid-grey fb-fs-20 mb-3">
+                          No address saved. Add a new address to proceed.
+                          </p>
+                        </div>
+                      </div>
                   )}
                   <button
                     className="add-address-button w-100 bg-transparent text-center fw-600"
