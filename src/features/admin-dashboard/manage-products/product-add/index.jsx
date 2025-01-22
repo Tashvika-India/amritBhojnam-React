@@ -5,18 +5,15 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
-  Button,
-  IconButton,
+  TextField, 
   Box,
   Chip,
-} from "@mui/material";
-import { Add, Remove } from "@mui/icons-material";
+} from "@mui/material"; 
 import RejectButton from "@/components/buttons/RejectButton";
 import YellowButton from "@/components/buttons/YellowButton";
 import MultiFileUpload from "../../../../components/fileUpload/MultiFileUpload";
 import { getCategoriesApi } from "@/services/adminApiRoutes";
-import { useFormik } from "formik";
+import { setIn, useFormik } from "formik";
 import { productInitalValues } from "@/utils/form-inital-values/InitalValues";
 import {
   getNutritionApi,
@@ -24,18 +21,15 @@ import {
   postProductApi,
   putProductApi,
 } from "../../../../services/adminApiRoutes";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import Loading from "../../../../components/ui/Loading";
+import { Navigate, useLocation, useNavigate } from "react-router-dom"; 
 import * as Yup from "yup";
 import { baseURL } from "../../../../utils/constant-variable";
-import IosSwitch from "../../../../components/ui/IosSwitch";
-import { productSchema } from "../../../../schemas/product-schema";
+import IosSwitch from "../../../../components/ui/IosSwitch"; 
 import {
   notifyError,
   notifySuccess,
 } from "../../../../components/ui/Notification";
-import NutritionComponent from "../product-nutrition/NutritionComponent";
-import { event } from "jquery";
+import NutritionComponent from "../product-nutrition/NutritionComponent"; 
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Product name is required"),
@@ -52,6 +46,7 @@ const ProductAdd = () => {
   const isEditMode = !!product;
   const navigate = useNavigate();
   const [activeOption, setActiveOption] = useState(0);
+  const [activeInput, setActiveInput] = useState(false);
 
   const handleTagAdd = (event) => {
     if (event.key === "Enter" && event.target.value.trim() !== "") {
@@ -60,7 +55,7 @@ const ProductAdd = () => {
         ...prevValues,
         tags: [...(prevValues.tags || []), newTag],
       }));
-      event.target.value = ""; // Clear input after adding a tag
+      event.target.value = "";  
     }
   };
 
@@ -207,8 +202,9 @@ const ProductAdd = () => {
   return (
     <>
       <div className="mt-3 mb-5 row">
-        <div className="col-md-6">
-          <Heading value={isEditMode ? "Edit Product" : "Add New Product"} />
+        <div className="col-md-12 d-flex justify-content-between align-items-center">
+          <Heading value={"View Product"} />
+          <button className="button-primary" type="button" onClick={() => setActiveInput(!activeInput)}>Edit Product</button>
         </div>
       </div>
       <form className="" onSubmit={formik.handleSubmit}>
@@ -220,6 +216,7 @@ const ProductAdd = () => {
                 formik={formik}
                 name="images"
                 baseURL={baseURL}
+                disabled={!activeInput}
               />
             </div>
             {ifError("images") && (
@@ -242,6 +239,7 @@ const ProductAdd = () => {
                   error={ifError("name")}
                   helperText={ifError("name") && errors.name}
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-8 mb-4">
@@ -257,6 +255,7 @@ const ProductAdd = () => {
                   }
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -268,10 +267,12 @@ const ProductAdd = () => {
                   label="Product Type"
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
-                <FormControl fullWidth>
+                <FormControl fullWidth
+                disabled={!activeInput}>
                   <InputLabel id="demo-simple-select-label">
                     Select Category
                   </InputLabel>
@@ -294,7 +295,8 @@ const ProductAdd = () => {
                 )}
               </div>
               <div className="col-md-4 mb-4">
-                <FormControl fullWidth>
+                <FormControl fullWidth
+                disabled={!activeInput}>
                   <InputLabel id="demo-simple-select-label">
                     Select Sub Category
                   </InputLabel>
@@ -328,6 +330,7 @@ const ProductAdd = () => {
                   value={formik.values?.mfg_date}
                   onChange={formik.handleChange}
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -339,6 +342,7 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-12 mb-4">
@@ -347,8 +351,9 @@ const ProductAdd = () => {
                     label="Enter Tags"
                     variant="outlined"
                     fullWidth
+                    disabled={!activeInput}
                     onKeyDown={handleTagAdd}
-                    placeholder="Press Enter to add a tag"
+                    placeholder="Press Enter to add a tag" 
                   />
                   <Box
                     display="flex"
@@ -381,7 +386,7 @@ const ProductAdd = () => {
                 <div
                   className={`switch-container ${
                     formik.values.is_manually_popular && "active"
-                  }`}
+                  }`} style={{pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_manually_popular",
@@ -408,6 +413,7 @@ const ProductAdd = () => {
                   className={`switch-container ${
                     formik.values.is_manually_best_choice && "active"
                   }`}
+                  style={{pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_manually_best_choice",
@@ -434,6 +440,7 @@ const ProductAdd = () => {
                   className={`switch-container ${
                     formik.values.is_delicious && "active"
                   }`}
+                  style={{pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_delicious",
@@ -457,6 +464,7 @@ const ProductAdd = () => {
                   className={`switch-container ${
                     formik.values.is_best_price && "active"
                   }`}
+                  style={{pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_best_price",
@@ -480,6 +488,7 @@ const ProductAdd = () => {
                   className={`switch-container ${
                     formik.values.is_healthy_bites && "active"
                   }`}
+                  style={{pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_healthy_bites",
@@ -516,6 +525,7 @@ const ProductAdd = () => {
                   rows={3}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
             </div>
@@ -526,7 +536,8 @@ const ProductAdd = () => {
             <h6 className="mb-4">Package Dimensions & Weight</h6>
             <div className="row">
               <div className="col-md-3 mb-4">
-                <FormControl fullWidth>
+                <FormControl fullWidth
+                disabled={!activeInput}>
                   <InputLabel id="demo-simple-select-label">Weight</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
@@ -546,6 +557,7 @@ const ProductAdd = () => {
                     <MenuItem value="50 gm">50 gm</MenuItem>
                     <MenuItem value="75 gm">75 gm</MenuItem>
                     <MenuItem value="100 gm">100 gm</MenuItem>
+                    <MenuItem value="120 gm">120 gm</MenuItem>
                     <MenuItem value="125 gm">125 gm</MenuItem>
                     <MenuItem value="150 gm">150 gm</MenuItem>
                     <MenuItem value="200 gm">200 gm</MenuItem>
@@ -574,6 +586,7 @@ const ProductAdd = () => {
                   label="Weight"
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div> */}
             </div>
@@ -583,7 +596,7 @@ const ProductAdd = () => {
           <div className="card-body">
             <div className="d-flex justify-content-between align-items-center">
               <h6 className="mb-4">Options</h6>
-            </div>{" "}
+            </div>
             <div className="mb-4 mt-2">
               {values?.options?.map((_, index) => (
                 <button
@@ -611,7 +624,9 @@ const ProductAdd = () => {
                   label="Option"
                   placeholder="eg: 250"
                   variant="outlined"
+                  type="number"
                   fullWidth
+                  disabled={!activeInput}
                   name="stock"
                   value={formik.values?.options[activeOption]?.option}
                   onChange={(event) =>
@@ -625,6 +640,7 @@ const ProductAdd = () => {
                   label="Stock"
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                   name="stock"
                   value={formik.values?.options[activeOption]?.stock}
                   onChange={(event) =>
@@ -644,6 +660,7 @@ const ProductAdd = () => {
                     handleOptionsChange("max_price", event.target.value, true)
                   }
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -658,6 +675,7 @@ const ProductAdd = () => {
                     handleOptionsChange("discount", event.target.value, true)
                   }
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -671,6 +689,7 @@ const ProductAdd = () => {
                   }
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -684,6 +703,7 @@ const ProductAdd = () => {
                   }
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -697,6 +717,7 @@ const ProductAdd = () => {
                     handleOptionsChange("height", event.target.value)
                   }
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
             </div>
@@ -710,6 +731,7 @@ const ProductAdd = () => {
               <NutritionComponent
                 nutritionList={nutritionList}
                 formik={formik}
+                disabled={!activeInput}
               />
             </div>
           </div>
@@ -727,6 +749,7 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-6">
@@ -736,6 +759,7 @@ const ProductAdd = () => {
                       label="Enter Meta Keywords"
                       variant="outlined"
                       fullWidth
+                      disabled={!activeInput}
                       onKeyDown={handleMetaKeywordAdd}
                       placeholder="Press Enter to add a keyword"
                     />
@@ -769,6 +793,7 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                   multiline
                   rows={3}
                 />
@@ -794,6 +819,7 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -805,6 +831,7 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -816,6 +843,7 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -827,10 +855,12 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
-                <FormControl fullWidth>
+                <FormControl fullWidth
+                disabled={!activeInput}>
                   <InputLabel id="demo-simple-select-label">
                     Discount Type
                   </InputLabel>
@@ -860,6 +890,7 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -871,6 +902,7 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -882,6 +914,7 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
             </div>
@@ -905,6 +938,7 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -916,6 +950,7 @@ const ProductAdd = () => {
                   onChange={formik.handleChange}
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                 />
               </div>
               <div className="col-md-4 mb-4">
@@ -928,6 +963,7 @@ const ProductAdd = () => {
                   name="Add Recipe Description"
                   variant="outlined"
                   fullWidth
+                  disabled={!activeInput}
                   multiline
                   rows={7}
                 />
@@ -946,12 +982,12 @@ const ProductAdd = () => {
                 lable={
                   loading
                     ? "Updating..."
-                    : isEditMode
+                    : (isEditMode)
                     ? "Update Product"
                     : "Add Product"
                 }
                 handleClick={formik.handleSubmit}
-                disabled={loading}
+                disabled={!activeInput || loading}
               />
               <RejectButton
                 lable="Cancel"

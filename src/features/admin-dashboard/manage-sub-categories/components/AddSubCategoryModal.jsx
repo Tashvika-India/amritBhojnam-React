@@ -9,11 +9,11 @@ import {  FormControl,
   TextField } from "@mui/material";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import FileUpload from "../../../../components/fileUpload/FileUpload";
-import { useFormik } from "formik";
-import {categorySchema } from "../../../../schemas/category-schema";
+import { useFormik } from "formik"; 
 import { getCategoriesApi, postSubCategoriesApi, putSubCategoriesApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
 import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
+import { subcategorySchema } from "../../../../schemas/sub-category-schema";
 
 export default function AddSubCategoryModal({ visible, setVisible, getCategories, editData }) {
   const [loading, setLoading] = useState(false);
@@ -28,8 +28,9 @@ export default function AddSubCategoryModal({ visible, setVisible, getCategories
   const formik = useFormik({
     initialValues: editData ? editData : initialValues,
     enableReinitialize: true,
-    validationSchema: categorySchema,
+    validationSchema: subcategorySchema,
     onSubmit: async (values) => {
+      console.log(values);
       if (editData) {
         await updateCategory(values); // PUT or PATCH for edit
       } else {
@@ -99,7 +100,7 @@ export default function AddSubCategoryModal({ visible, setVisible, getCategories
 
   useEffect(() => {
     getCaterioes();
-  }, []);
+  }, []); 
 
 
   return (
@@ -150,7 +151,7 @@ export default function AddSubCategoryModal({ visible, setVisible, getCategories
                   onChange={formik.handleChange}
                   value={formik.values?.name}
                 />
-                 <p className="text-danger">{errors.name}</p>
+                <p className="text-danger">{errors.name}</p>
               </div>
             </div>
           </form>
@@ -167,7 +168,7 @@ function CustomHeader({ formik }) {
         <h5 className="m-0 fs-bold">{formik.values.name ? 'Edit Sub Category' : 'Add Sub Category'}</h5>
         <div>
           <IosSwitch
-            checked={formik.values.active}
+            checked={formik.values.is_active}
             onChange={(e) => formik.setFieldValue("is_active", e.target.checked)}
           />
           <span className="fs-6 text-secondary fw-normal">Active</span>
@@ -182,7 +183,7 @@ function FooterContent({ formik, setVisible, loading, editData }) {
     <>
       <div className="d-inline-flex gap-3">
         <RejectButton lable="Cancel" handleClick={() => setVisible(false)} />
-        <YellowButton lable="Save Changes" handleClick={formik.handleSubmit} disabled={loading}/>
+        <YellowButton lable="Save Changes" handleClick={formik.handleSubmit} disabled={loading} type="submit"/>
       </div>
     </>
   );

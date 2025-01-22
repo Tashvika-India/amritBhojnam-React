@@ -6,10 +6,10 @@ import { FaStar } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import DeleteModal from "../../../../../components/ui/DeleteModal";
 import { MdDelete } from "react-icons/md";
-import { deleteProductApi } from "../../../../../services/adminApiRoutes";
-import { baseURL } from "../../../../../utils/constant-variable";
-import { RiPencilFill } from "react-icons/ri";
+import { deleteProductApi } from "../../../../../services/adminApiRoutes";  
 import { notifyError, notifySuccess } from "../../../../../components/ui/Notification";
+import { RxOpenInNewWindow } from "react-icons/rx";
+
 
 function ProductTable({ products, getProductList }) {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -47,7 +47,7 @@ function ProductTable({ products, getProductList }) {
 
     const imageUrl = rowData?.images[0]?.image;   
     return (
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center" }} type="button" onClick={() => handleEditClick(rowData)}>
         <img
           src={rowData?.images?.[0]?.image}
           alt={rowData?.name}
@@ -68,15 +68,15 @@ function ProductTable({ products, getProductList }) {
     <div className="w-100 d-flex gap-1 ">
       <button
         onClick={() => handleEditClick(rowData)}
-        title="Edit"
+        title="View"
         className="d-flex gap-2 align-items-center border-0 rounded me-3"
         style={{
-          color: "#1F5FBE",
-          backgroundColor: "#EDF1FF",
+          color: "#AC562D",
+          backgroundColor: "#FFF1EB",
           padding: ".1rem .45rem",
         }}
       >
-        <RiPencilFill size={20} />
+        <RxOpenInNewWindow size={20} /> 
       </button>
       <button
         className="text-danger d-flex gap-2 align-items-center border-0 rounded"
@@ -108,30 +108,36 @@ function ProductTable({ products, getProductList }) {
           className="fw-400"
         ></Column>
         <Column field="images" header="IMAGE" body={imageBodyTemplate}></Column>
-        <Column field="name" header="NAME" className="fw-400"></Column>
-        {/* <Column
+        <Column field="name" header="NAME" className="fw-400" body={(rowData) => <><button onClick={() => handleEditClick(rowData)} className="text-dark fw-normal border-0 bg-transparent text-orange-hover">{rowData.name}</button></>}></Column>
+        <Column
           field="category_name"
           header="CATEGORY"
           className="fw-400"
-        ></Column> */}
+        ></Column>
         <Column
           field="quantity"
           header="QUANTITY(type)"
           className="fw-400"
+          body={(rowData) => (
+              <span>{rowData?.quantity}{rowData?.quantity_unit}</span> 
+          )}
         ></Column>
         <Column field="stock" header="Stocks Left" className="fw-400"></Column>
         <Column
           field="max_price"
           header="PRICE (₹)"
           className="fw-400"
+          body={(rowData) => (
+            <div className="d-flex gap-2">
+              <span>{~~(rowData?.max_price)}</span>
+            </div>
+          )}
         ></Column>
-        <Column field="offer_price" header="SALE PRICE (₹)" className="fw-400">
+        <Column field="offer_price" header="SALE PRICE (₹)" className="fw-400" body={(rowData) => <span>{~~(rowData?.offer_price)}</span>}>
         </Column>
         <Column field="ratings" header="RATING" body={iosSwitch}></Column>
         <Column header="ACTION" body={editButtonTemplate}></Column>
-      </DataTable>
-
-      {/* Delete Modal */}
+      </DataTable> 
       <DeleteModal
         visible={isModalVisible}
         onHide={hideDeleteModal}

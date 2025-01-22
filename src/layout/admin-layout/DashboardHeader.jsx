@@ -109,9 +109,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
         <div className="d-flex me-1 align-items-center gap-1 pe-2">
           <div className="admin-header-notifications me-2  bg-yellow rounded-2 p-1 me-4">
             <IconButton onClick={handleNotificationsClick} color="inherit">
-              <Badge badgeContent={notifications.length} color="error">
-                <VscBellDot className="text-white fs-4" />
-              </Badge>
+                <VscBellDot className="text-white fs-4" /> 
             </IconButton>
             {/* <div className="admin-header-notification"> */}
             <Menu
