@@ -175,7 +175,7 @@ export const postPayNowApi = (payload) => API.post(`/accounts/payu/initiate/`, p
 export const postPayuCallbackApi = (url,payload) => API.post(url, payload); 
 
 //order history
-export const getOrderApi = (page = 1, page_size = 3) => API.get(`/orders/?page=${page}&page_size=${page_size}`);
+export const getOrderApi = (page = 1, page_size = 3, days) => API.get(`/orders/?page=${page}&page_size=${page_size}&days=${days}`);
 export const getOrderAdminApi = (id,name) => API.get(`/orders/?order_id=${id}&product_name=${name}`); 
 export const getOrderSuccessAdminApi = (id,name) => API.get(`/orders_by_success/?order_id=${id}&product_name=${name}`); 
 

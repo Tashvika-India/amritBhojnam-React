@@ -54,9 +54,7 @@ import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { BsArrowRepeat } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart } from "../../../redux/slices/cartSlice";
-import { Dropdown } from "primereact/dropdown";
-
+import { fetchCart } from "../../../redux/slices/cartSlice"; 
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -70,6 +68,7 @@ const UserProfile = () => {
   const location = useLocation();
   const [productId, setProductId] = useState("");
   const [load, setLoad] = useState(2);
+  const [filter,setFilter] = useState("");
   const profilePicture = baseURL + userDetail?.pp;
 
   const formik = useFormik({
@@ -169,8 +168,8 @@ const UserProfile = () => {
 
   const getOrderList = async () => {
     setLoading(true);
-    try {
-      const response = await getOrderApi(1, load);
+    try { 
+      const response = await getOrderApi(1,load,filter);
       setOrder(response?.data);
       setLoading(false);
     } catch (error) {
@@ -294,7 +293,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     getOrderList();
-  }, [load]);
+  }, [load,filter]);
 
   useEffect(() => {
     if (userDetail) {
@@ -380,11 +379,10 @@ const UserProfile = () => {
             <div>
               <div className="flex mb-2 gap-2 justify-content-end border-bottom profile-tabs">
                 <button
-                  className={`border-0 bg-white fw-600 ${
-                    activeIndex === 0
+                  className={`border-0 bg-white fw-600 ${activeIndex === 0
                       ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
                       : "text-dark-grey"
-                  }`}
+                    }`}
                   onClick={() => setActiveIndex(0)}
                   rounded
                   outlined={activeIndex !== 0}
@@ -396,11 +394,10 @@ const UserProfile = () => {
                   My Account
                 </button>
                 <button
-                  className={`border-0 bg-white fw-600 ${
-                    activeIndex === 1
+                  className={`border-0 bg-white fw-600 ${activeIndex === 1
                       ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
                       : "text-dark-grey"
-                  }`}
+                    }`}
                   onClick={() => setActiveIndex(1)}
                   rounded
                   outlined={activeIndex !== 1}
@@ -412,11 +409,10 @@ const UserProfile = () => {
                   Order History
                 </button>
                 <button
-                  className={`border-0 bg-white fw-600 ${
-                    activeIndex === 2
+                  className={`border-0 bg-white fw-600 ${activeIndex === 2
                       ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
                       : "text-dark-grey"
-                  }`}
+                    }`}
                   onClick={() => setActiveIndex(2)}
                   rounded
                   outlined={activeIndex !== 2}
@@ -599,12 +595,22 @@ const UserProfile = () => {
                   <div className="order-section">
                     <div className="d-flex justify-content-between align-items-center mb-3 mt-lg-3">
                       <h4 className="fb-fs-26 fw-bold my-3">Order History</h4>
-                      <Dropdown
-                        placeholder="Last 1 Months"
-                        className="w-full md:w-14rem border-black text-dark-bg rounded-3"
-                      />
+                      <FormControl style={{ width: "15%" }}>
+                        <InputLabel id="demo-simple-select-label" size="small">Days</InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          label="Days"
+                          onChange={(e) => setFilter(e.target.value )
+                          }
+                          size="small">
+                          <MenuItem value={""}>Select</MenuItem>
+                          <MenuItem value={7}>Last Week</MenuItem>
+                          <MenuItem value={30}>Last Month</MenuItem>
+                          <MenuItem value={90}>Last 3 Month</MenuItem>
+                        </Select>
+                      </FormControl>
                     </div>
-
                     {loading ? (
                       <Loading />
                     ) : order?.results?.length > 0 ? (
@@ -763,11 +769,11 @@ const UserProfile = () => {
                           </p>
                           <Link to="/products">
                             <button
-                            className="success-primary-button mt-4"
-                            style={{ paddingInline: "6rem" }}
-                          >
-                            Order Now
-                          </button>
+                              className="success-primary-button mt-4"
+                              style={{ paddingInline: "6rem" }}
+                            >
+                              Order Now
+                            </button>
                           </Link>
                         </div>
                       </div>
@@ -829,9 +835,8 @@ const UserProfile = () => {
                         addressList.map((item, index) => (
                           <>
                             <div
-                              className={`summary-card ${
-                                item?.selected ? "active" : ""
-                              } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                              className={`summary-card ${item?.selected ? "active" : ""
+                                } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
                               key={index}
                             >
                               <div className="px-md-3">
@@ -839,9 +844,8 @@ const UserProfile = () => {
                                   <div className="col-md-12">
                                     <div className="order-date d-flex gap-2">
                                       <img
-                                        className={`img-fluid me-1 rounded-4 ${
-                                          item?.selected ? "shadow" : ""
-                                        }`}
+                                        className={`img-fluid me-1 rounded-4 ${item?.selected ? "shadow" : ""
+                                          }`}
                                         src={homeImg}
                                         alt="pencil"
                                       />
@@ -922,35 +926,35 @@ const UserProfile = () => {
                         ))
                       ) : (
                         <div className="empty-address text-center">
-                        <div className="mt-5">
-                          <img
-                            className="img-fluid mx-auto mb-4"
-                            src={emptyAddress}
-                            alt="empty-address"
-                          />
-                          <h3 className="text-dark-grey fw-600">No Address Saved</h3>
-                          <p className="text-mid-grey fb-fs-20 mb-3">
-                          No address saved. Add a new address to proceed.
-                          </p>
-                        
+                          <div className="mt-5">
+                            <img
+                              className="img-fluid mx-auto mb-4"
+                              src={emptyAddress}
+                              alt="empty-address"
+                            />
+                            <h3 className="text-dark-grey fw-600">No Address Saved</h3>
+                            <p className="text-mid-grey fb-fs-20 mb-3">
+                              No address saved. Add a new address to proceed.
+                            </p>
+
                             <button
-                            className="success-primary-button mt-4"
-                            onClick={() => {
-                          setEditData(null);
-                          setOpen(!open);
-                        }}
-                            style={{ paddingInline: "6rem" }}
-                          >
-                          Add Address
-                          </button>
-                        
+                              className="success-primary-button mt-4"
+                              onClick={() => {
+                                setEditData(null);
+                                setOpen(!open);
+                              }}
+                              style={{ paddingInline: "6rem" }}
+                            >
+                              Add Address
+                            </button>
+
+                          </div>
                         </div>
-                      </div>
                       )}
                     </div>
                   </div>
 
-                 
+
                 </TabPanel>
               </TabView>
             </div>
