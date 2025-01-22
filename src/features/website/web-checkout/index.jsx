@@ -270,7 +270,7 @@ const CheckoutPage = () => {
         <div className="row">
           <div className="col-md-12 mx-auto">
             <div className="checkout-page">
-              <p className="fb-fs-40 fw-bold mt-5 mb-4 checkout-head">
+              <p className="fb-fs-40 fw-bold mt-4 mb-4 checkout-head">
                 Checkout
               </p>
               <p className="fb-fs-26 fw-bold checkout-save">Saved Address</p>

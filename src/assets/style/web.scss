@@ -645,6 +645,13 @@ footer {
   background-color: #e2e6ea;
 }
 
+.text-orange-hover {
+  &:hover {
+    color: $orange !important;
+    transition: all 0.3s ease-in-out;
+  } 
+}
+
 /* Active tab button styles */
 .nav {
   .active {

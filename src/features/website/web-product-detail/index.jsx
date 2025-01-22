@@ -7,6 +7,7 @@ import deliveryImg from "../../../assets/images/web/product-detail/delivery-img.
 import AsNavFor from "../web-home/components/MultiSlide";
 import { ButtonGroup, Nav, Tab, ToggleButton } from "react-bootstrap";
 import {
+  checkPincodeApi,
   getProductApi,
   getRatingApi,
   getYouMayAlsoLikeApi,
@@ -21,12 +22,12 @@ import Loading from "../../../components/ui/Loading";
 import ProductCard from "../web-home/components/ProductCard";
 import fireImg from "../../../assets/images/web/Fire.png";
 import recipeImg from "../../../assets/images/web/recipe-image.png";
-import { Button, Checkbox, Menu, MenuItem, TextField } from "@mui/material";
+import { Breadcrumbs, Button, Checkbox, Menu, MenuItem, TextField, Typography } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import ShareIcon from "@mui/icons-material/Share";
 import MobileLogin from "../../../components/ui/MobileLogin";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { baseURL } from "../../../utils/constant-variable";
+import { baseURL, formatDeliveryDateCustom} from "../../../utils/constant-variable";
 import { fetchWishlist, updateWishlist } from "../../../redux/slices/wishlistSlice";
 import {
   notifyError,
@@ -52,8 +53,10 @@ const ProudctDetail = () => {
   const firstOption = detail?.options?.[0] || {};
   const [radioValue, setRadioValue] = useState(firstOption.option || "");
   const [selectedOptionId, setSelectedOptionId] = useState(firstOption.id || "");
-
   const selectedOption = detail?.options?.find(option => option.option === radioValue);
+  const [pincode, setPincode] = useState("");
+  const [pinValue, setPinValue] = useState(""); 
+
 
   const truncateToWords = (text, limit) => {
     if (!text) return "";
@@ -78,167 +81,28 @@ const ProudctDetail = () => {
     }
   };
 
-  useEffect(() => {
-    reviewList();
-  }, []);
-
-  const [pincode, setPincode] = useState("");
-  const [message, setMessage] = useState("");
-
-  const delhiPincodes = [
-    "110001",
-    "110002",
-    "110003",
-    "110004",
-    "110005",
-    "110006",
-    "110007",
-    "110008",
-    "110009",
-    "110010",
-    "110011",
-    "110012",
-    "110013",
-    "110014",
-    "110015",
-    "110016",
-    "110017",
-    "110018",
-    "110019",
-    "110020",
-    "110021",
-    "110022",
-    "110023",
-    "110024",
-    "110025",
-    "110026",
-    "110027",
-    "110028",
-    "110029",
-    "110030",
-    "110031",
-    "110032",
-    "110033",
-    "110034",
-    "110035",
-    "110036",
-    "110037",
-    "110038",
-    "110039",
-    "110040",
-    "110041",
-    "110042",
-    "110043",
-    "110044",
-    "110045",
-    "110046",
-    "110047",
-    "110048",
-    "110049",
-    "110050",
-    "110051",
-    "110052",
-    "110053",
-    "110054",
-    "110055",
-    "110056",
-    "110057",
-    "110058",
-    "110059",
-    "110060",
-    "110061",
-    "110062",
-    "110063",
-    "110064",
-    "110065",
-    "110066",
-    "110067",
-    "110068",
-    "110069",
-    "110070",
-    "110071",
-    "110072",
-    "110073",
-    "110074",
-    "110075",
-    "110076",
-    "110077",
-    "110078",
-    "110079",
-    "110080",
-    "110081",
-    "110082",
-    "110083",
-    "110084",
-    "110085",
-    "110086",
-    "110087",
-    "110088",
-    "110089",
-    "110090",
-    "110091",
-    "110092",
-    "110093",
-    "110094",
-    "110095",
-    "110096",
-  ];
-  const gurugramPincodes = [
-    "122001",
-    "122002",
-    "122003",
-    "122004",
-    "122005",
-    "122006",
-    "122007",
-    "122008",
-    "122009",
-    "122010",
-    "122011",
-    "122012",
-    "122013",
-    "122014",
-    "122015",
-    "122016",
-    "122017",
-    "122018",
-    "122019",
-    "122020",
-    "122021",
-    "122022",
-    "122023",
-    "122024",
-    "122025",
-    "122026",
-    "122027",
-  ];
-  const noidaPincodes = [
-    "201301",
-    "201302",
-    "201303",
-    "201304",
-    "201305",
-    "201306",
-    "201307",
-    "201308",
-    "201309",
-    "201310",
-    "201311",
-  ];
-
-  const combinedPincodes = Array.from(
-    new Set([...delhiPincodes, ...gurugramPincodes, ...noidaPincodes])
-  );
-
-  const handleCheckPincode = () => {
-    if (pincode.length === 6) {
-      if (combinedPincodes.includes(pincode)) {
-        setMessage("Delivery is available for your pincode.");
-      } else {
-        setMessage("Delivery is not available for your pincode.");
-      }
-    } else {
+  const handleCheckPincode = async () => {
+    if (pincode.length !== 6) {
       setMessage("Please enter a valid 6-digit pincode.");
+      return; // Exit early if the pincode is invalid
+    }
+
+    try {
+      const response = await checkPincodeApi(
+        pincode,
+        selectedOption?.option,
+        selectedOption?.measurement_unit
+      );
+      const resPinValue = response?.data || {};
+      if (resPinValue.delivery_date === "" && resPinValue.delivery_days === 0) {
+        notifyError("Delivery is available for your pincode.");
+      } else {
+        notifySuccess("Delivery is available for your pincode.");
+      }
+      setPinValue(resPinValue);
+    } catch (error) {
+      console.error("Error fetching pincode details:", error);
+      notifyError("Error fetching pincode details:", error);
     }
   };
 
@@ -264,7 +128,7 @@ const ProudctDetail = () => {
     }
   };
   const addToCart = async (product_id, quantity, option_id) => {
-    setLoading(true); 
+    setLoading(true);
     try {
       const response = await postCartApi({
         product_id,
@@ -322,15 +186,10 @@ const ProudctDetail = () => {
     );
   }
 
-  const getNextWeekDate = () => {
-    const today = new Date(); // Current date
-    const nextWeekDate = new Date(today); // Clone today’s date
-    nextWeekDate.setDate(today.getDate() + 7); // Add 7 days to today’s date
+  const deliveryDateCustom = pinValue?.delivery_date || "";
+  const formattedDateCustom = formatDeliveryDateCustom(deliveryDateCustom || "");  
 
-    // Format the date (e.g., "Monday, 8 Jan")
-    const options = { weekday: "long", day: "numeric", month: "short" };
-    return nextWeekDate.toLocaleDateString("en-US", options);
-  };
+
 
   useEffect(() => {
     if (detail?.options?.length > 0) {
@@ -339,10 +198,23 @@ const ProudctDetail = () => {
     }
   }, [detail?.options]);
 
+  useEffect(() => {
+    reviewList();
+  }, []);
 
   return (
     <div className="web-wrapper-main">
       <Header />
+      <div className="pt-4">
+        <div className="container fb-container">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link underline="hover" color="inherit" to="/products">
+              Products
+            </Link>
+            <Typography className="text-orange">Product Detail</Typography>
+          </Breadcrumbs>
+        </div>
+      </div>
       <section className="product-detail-page">
         <div className="container fb-container">
           <div className="row">
@@ -350,8 +222,8 @@ const ProudctDetail = () => {
               <AsNavFor data={detail.images} />
             </div>
             <div className="col-lg-6 col-12">
-              <div className="product-detail-content ps-4">
-                <div className="d-flex justify-content-lg-between">
+              <div className="product-detail-content ps-4 mt-4 mt-md-0">
+                <div className="d-flex justify-content-between">
                   {/* <p className="fb-fs-18 fw-600 d-flex text-brown">
                     <span>
                       <img
@@ -365,8 +237,7 @@ const ProudctDetail = () => {
                   <div className="">
                     <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
                     <a href={`/product-detail?product_id=${detail?.id}#reviews-wapper`}
-                      className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4"
-                    >
+                      className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4">
                       <Rating
                         className="me-3 border-none"
                         value={Math.round(detail.ratings)}
@@ -512,17 +383,13 @@ const ProudctDetail = () => {
                     </>
                   )}
                 </div>
-                <div className="mt-5">
+                <div className="mt-3 mt-md-5">
                   <p className="fw-600">Check Availability</p>
-                  <div
-                    className="border-gray border-raidus-10 mt-2 input-box"
-                    style={{ width: "60%" }}
-                  >
+                  <div className="border-gray border-raidus-10 mt-2 input-box" style={{ width: "60%" }}>
                     <div className="input-group mb-2 mt-2">
                       <input
-                        type=""
-                        className="form-control border-0 box-shadow-0 fw-600"
-                        placeholder="Enter pincode for exact date"
+                        className="form-control border-0 box-shadow-0 fw-600 check-pincode"
+                        placeholder="Enter Pincode"
                         aria-label="Enter Pincode"
                         aria-describedby="basic-addon2"
                         maxLength={6}
@@ -533,36 +400,23 @@ const ProudctDetail = () => {
                       <button
                         className="input-group-text border-0 text-orange fw-600 bg-transparent border-start border-2 ps-4 me-3"
                         onClick={handleCheckPincode}
-                        disabled={pincode?.length !== 6}
-                      >
-                        CHECK
-                      </button>
+                        disabled={pincode?.length !== 6}>CHECK</button>
                     </div>
                   </div>
+                  {/* {message && <small className="text-orange ms-2 mt-3">{message}</small>} */}
                 </div>
                 <div className="d-flex align-items-center gap-2 mt-2">
-                  <span>
-                    <img
-                      className="img-fluid"
-                      src={deliveryImg}
-                      alt="delivery-img"
-                    />
-                  </span>
-                  <span className="text-orange">Get it by</span>
-                  <span className="">{getNextWeekDate()}</span>
-                  <span className="" style={{ fontSize: "10px" }}>
-                    (Estimated)
-                  </span>
+                  {(pinValue) && <>  <span><img className="img-fluid" src={deliveryImg} alt="delivery-img" /> </span> <span className="text-orange">Get it by</span> <span className="">{formattedDateCustom}</span> <span className="" style={{ fontSize: "0.625rem" }}> (Estimated) </span></>}
                 </div>
-                <div className="d-flex mt-4  ms-4 ">
+                {/* <div className="d-flex mt-4  ms-4 ">
                   <ul className="me-5 pe-4 disc-style w-50">
-                    {/* {detail?.product_type && (
+                      {detail?.product_type && (
                       <li className="my-2">Type: {detail?.product_type}</li>
                     )}
                     {detail?.category && (
                       <li className="my-2">Category: {detail?.category}</li>
-                    )} */}
-                    {/* <li className="my-2">
+                    )}  
+                      <li className="my-2">
                       MFG:
                       {new Date(detail.mfg_date)
                         .toLocaleDateString("en-US", {
@@ -571,25 +425,24 @@ const ProudctDetail = () => {
                           year: "numeric",
                         })
                         .replace(",", ".")}
-                    </li> */}
-                    {/* <li className="my-2">LIFE: {detail?.days} days</li> */}
+                    </li>  
+                    <li className="my-2">LIFE: {detail?.days} days</li>  
                   </ul>
                   <ul className="me-5 pe-4 disc-style w-50">
-                    {/* <li className="my-2">SKU: FWM15VKT</li> */}
-                    {/* <li className="my-2">Tags:{detail?.tags}</li> */}
-                    {/* <li className="my-2">
+                      <li className="my-2">SKU: FWM15VKT</li>  
+                    <li className="my-2">Tags:{detail?.tags}</li> 
+                    <li className="my-2">
                       Stock: {detail?.quantity} Items In Stock
-                    </li> */}
+                    </li> 
                   </ul>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
-          <div className="row ms-1 mt-5 description-slider" id="reviews-wapper">
+          <div className="row ms-1 mt-md-5 mt-0 description-slider" id="reviews-wapper">
             <div
-              className="card tabs-slider ms-xxl-5 mt-4"
-              style={{ border: "1px solid #E1E1E1" }}
-            >
+              className="card tabs-slider ms-xxl-5 mt-3"
+              style={{ border: "1px solid #E1E1E1" }}>
               <div className="container fb-container" >
                 <Tab.Container
                   id="left-tabs-example"
@@ -609,15 +462,15 @@ const ProudctDetail = () => {
                             Description
                           </Nav.Link>
                         </Nav.Item>
-                        {/* <Nav.Item>
+                        <Nav.Item>
                           <Nav.Link
                             as="button"
                             className="btn-tab me-0"
-                            eventKey="Additional Info"
+                            eventKey="Nutrition"
                           >
-                            Additional Info
+                            Nutrition
                           </Nav.Link>
-                        </Nav.Item> */}
+                        </Nav.Item>
                         <Nav.Item>
                           <Nav.Link
                             as="button"
@@ -632,12 +485,22 @@ const ProudctDetail = () => {
                     <div className="col-md-12">
                       <Tab.Content className="px-4 pb-4">
                         <Tab.Pane eventKey="Description">
-                          <p className="mb-4" id="detail-description">
+                          <p className="mb-4 mt-1 mt-md-4" id="detail-description">
                             {detail?.long_description}
                           </p>
                         </Tab.Pane>
-                        <Tab.Pane eventKey="Additional Info">
-                          Additional
+                        <Tab.Pane eventKey="Nutrition">
+                          <div className="row">
+                            <div className="col-md-2">
+                              <ul className="px-2 mb-4 mt-3 mt-md-4">
+                                {
+                                  detail?.nutritions?.map((data) => (
+                                    <li className="d-flex justify-content-between mb-2"><h5 className="fw-600">{data?.nutrition_name}</h5> <h5>:</h5> <h5 className="fw-400">{data?.nutrition_value}</h5></li>
+                                  ))
+                                }
+                              </ul>
+                            </div>
+                          </div>
                         </Tab.Pane>
                         <Tab.Pane eventKey="Reviews" >
                           <div className="p-3 p-lg-4" >
@@ -784,7 +647,7 @@ const ProudctDetail = () => {
         <section className="similar-product pt-0">
           <div className="container fb-container">
             <div className="row ms-xxl-5">
-              <h3 className="fw-bold mb-5 pb-2">Similar Products</h3>
+              <h3 className="fw-bold mb-0 mb-md-5 pb-2">Similar Products</h3>
               <div
                 className="d-grid mt-4 pt-2 gap-4 justify-content-between product-container"
                 style={{
