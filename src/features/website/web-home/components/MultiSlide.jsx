@@ -1,8 +1,5 @@
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
-import { useState, useEffect, useRef } from "react";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { baseURL } from "../../../../utils/constant-variable"; 
 
 function AsNavFor({ data }) {
   const [nav1, setNav1] = useState(null);
@@ -14,15 +11,18 @@ function AsNavFor({ data }) {
     setNav1(sliderRef1);
     setNav2(sliderRef2);
   }, []); 
-  
+
+  // Dynamically determine slidesToShow based on data length
+  const slidesToShow = data?.length <= 4 ? data.length : 4;
 
   return (
     <div className="slider-container ms-lg-5">
-      <Slider infinite={false}  asNavFor={nav2} ref={(slider) => (sliderRef1 = slider)}>
+      <Slider infinite={false} asNavFor={nav2} ref={(slider) => (sliderRef1 = slider)}>
         {data?.map((item, index) => ( 
           <div className="product-detail-slider" key={index}>
             <div className="product-detail-image bg-background p-3">
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 className="img-fluid w-100 h-100"
                 src={item?.image || ""}   
                 alt={item?.name || "img"}  
@@ -37,25 +37,28 @@ function AsNavFor({ data }) {
         asNavFor={nav1}
         infinite={false} 
         ref={(slider) => (sliderRef2 = slider)}
-        slidesToShow={4}
-        swipeToSlide={true}
+        slidesToShow={slidesToShow}
+        swipeToSlide={data?.length > 4}
         focusOnSelect={true}  
-        arrows={true}  
-        style={{AspectRatio: "1/1"}} 
+        arrows={data?.length > 4}   
         nextArrow={<SampleNextArrow />}
         prevArrow={<SamplePrevArrow />}
-        onMouseEnter={(e) => e.currentTarget.style.background = "#fff"}  >
+      >
         {data?.map((item, index) => (
-          <div key={index} className="slider-bottom-item w-75">
-            <img loading="lazy" className="img-fluid"  
-            src={item?.image || ""}   
-            alt={item?.name || "img"} />
+          <div key={index} className="slider-bottom-item">
+            <img
+              loading="lazy"
+              className="img-fluid product-thumbnail-image"  
+              src={item?.image || ""}   
+              alt={item?.name || "img"} 
+            />
           </div>
         ))}
       </Slider>
     </div>
   );
 }
+
 
 const arrowStyles = {
   display: "flex",
