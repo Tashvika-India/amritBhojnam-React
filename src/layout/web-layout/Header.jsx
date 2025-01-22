@@ -124,7 +124,8 @@ const Header = () => {
             </p>
           </div>
         </div>
-        <div className="container fb-container pb-3 pt-2">
+      
+        <div className="header-middle container fb-container pb-3 pt-2">
           <div className="d-flex justify-content-between align-items-center mb-2">
             <Link to="/">
               <div className="logo">
@@ -187,10 +188,10 @@ const Header = () => {
                     <ProfileDropdown userDetail={userDetail} />
                   ) : (
                     <button
-                      className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
+                      className="d-inline-flex  flex-column justify-content-center align-items-center border-0 bg-transparent"
                       onClick={toggleWebLogin}
                     >
-                      <FaRegUser size={"1.625rem"} />
+                      <FaRegUser className="login-card-icon" size={"1.625rem"} />
                       <span className="d-inline-block fb-fs-14 fw-500">
                         Login
                       </span>
@@ -200,7 +201,7 @@ const Header = () => {
                 <li>
                   <Link
                     to="/wishlist"
-                    className="d-inline-flex flex-column justify-content-center align-items-center"
+                    className="d-inline-flex wishlist-box flex-column justify-content-center align-items-center"
                   >
                     <div className="position-relative">
                       <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
@@ -223,7 +224,7 @@ const Header = () => {
                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-semi-orange">
                           {cartItems.length}
                         </span>
-                        <CgShoppingBag size={"1.625rem"} />
+                        <CgShoppingBag className="shoping-bag" size={"1.625rem"} />
                       </div>
                       <p className="d-inline-block fb-fs-14 fw-500 text-black">
                         My Cart
@@ -291,7 +292,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="header-bottom py-4 border-top d-none d-xl-block">
+        <div className="header-bottom py-4  border-top d-none d-xl-block">
           <div className="container fb-container">
             <div className="header-divider d-flex justify-content-between ">
               <div className="header-link-list">

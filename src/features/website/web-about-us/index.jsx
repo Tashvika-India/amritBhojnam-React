@@ -33,7 +33,7 @@ const AboutUs = () => {
         </div>
       </div>
       
-      <section className="about-us pb-0 about-linear pt-md-2 pt-xl-5 mt-xl-4">
+      <section className="about-us pb-0 about-linear pt-md-2 pt-xl-2 mt-xl-4">
         <div className="container fb-container mb-lg-5 pb-lg-5">
           <div className="row">
             <div className="col-md-6 align-self-center">

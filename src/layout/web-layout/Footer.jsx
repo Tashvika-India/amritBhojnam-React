@@ -198,10 +198,10 @@ const Footer = () => {
                 </div>
               </div>
               <div className="col-lg-7 col-md-12 d-md-block d-none">
-                <div className="row pt-2">
-                  <div className="col-md-4 col-6 mb-4">
+                <div className="row pt-3">
+                  <div className="col-md-4 col-6 mb-3">
                     <h5 className="text-orange">COMPANY</h5>
-                    <ul className="footer-links mt-lg-4 mt-0 pt-3 d-flex flex-column gap-md-3 gap-2">
+                    <ul className="footer-links mt-lg-3 mt-0 pt-3 d-flex flex-column gap-md-3 gap-2">
                       <li>
                         <Link to="/about-us">About Us</Link>
                       </li>
@@ -231,9 +231,9 @@ const Footer = () => {
                       </li> */}
                     </ul>
                   </div>
-                  <div className="col-md-4 col-6 mb-4">
+                  <div className="col-md-4 col-6 mb-3">
                     <h5 className="text-orange">HELP & SUPPORT</h5>
-                    <ul className="footer-links mt-lg-4 mt-0 pt-3 d-flex flex-column gap-md-3 gap-2">
+                    <ul className="footer-links mt-lg-3 mt-0 pt-3 d-flex flex-column gap-md-3 gap-2">
                       {/* <li>
                         <Link>Sign In</Link>
                       </li>
@@ -269,9 +269,9 @@ const Footer = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="col-md-4 col-12 mb-md-4 mb-0">
+                  <div className="col-md-4 col-12 mb-md-3 mb-0">
                     <h5 className="text-orange">POPULAR</h5>
-                    <ul className="footer-links mt-lg-4 mt-0 pt-3 d-flex flex-column gap-md-3 gap-2">
+                    <ul className="footer-links mt-lg-3 mt-0 pt-3 d-flex flex-column gap-md-3 gap-2">
                       {popularProduct?.slice(0, 6).map((item, index) => (
                         <li key={index}>
                           <Link
@@ -288,8 +288,9 @@ const Footer = () => {
                 </div>
               </div>
               <div className="col-md-12 d-md-none d-block">
-                <div className="footer-accordian">
+                <div className="footer-accordian mb-5">
                   <Accordion
+                  className="mb-2"
                     style={{ border: "none", boxShadow: "none", background: "transparent", marginBlock: "0" }}
                     sx={{
                       "&:before": {
@@ -346,8 +347,8 @@ const Footer = () => {
                         </li>
                       </ul>
                     </AccordionDetails>
-                  </Accordion >
-                  <Accordion style={{ border: "none", boxShadow: "none", background: "transparent", marginBlock: "0" }}
+                  </Accordion>
+                  <Accordion  className="mb-2" style={{ border: "none", boxShadow: "none", background: "transparent", marginBlock: "0" }}
                     sx={{
                       "&:before": {
                         all: "unset",
@@ -406,7 +407,7 @@ const Footer = () => {
                       </ul>
                     </AccordionDetails>
                   </Accordion>
-                  <Accordion style={{ border: "none", boxShadow: "none", background: "transparent", marginBlock: "0" }}
+                  <Accordion  className="mb-2" style={{ border: "none", boxShadow: "none", background: "transparent", marginBlock: "0" }}
                     sx={{
                       "&:before": {
                         all: "unset",

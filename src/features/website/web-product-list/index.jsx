@@ -9,6 +9,7 @@ import { Checkbox } from "primereact/checkbox";
 import ProductCard from "../web-home/components/ProductCard";
 import { InputText } from "primereact/inputtext";
 import Loading from "../../../components/ui/Loading";
+import emptyProducts from "../../../assets/images/web/empty-products.png";
 import {
   getCategoriesApi,
   getProductApi,
@@ -277,8 +278,14 @@ const ProudctList = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="align-content-center w-100" style={{ height: "50dvh" }}>
-                    <h3 className="text-center text-orange fw-bold">No Product Found</h3>
+                  <div className="align-content-center empty-products-card w-100 mt-lg-5 pt-lg-5" style={{ height: "50dvh" }}>
+                   <img
+                                              className="img-fluid mx-auto mb-4 empty-products"
+                                              src={emptyProducts}
+                                              alt="empty-products"
+                                            />
+                    <h3 className="text-center fw-600">No Products Found</h3>
+                    <p className="text-mid-grey fb-fs-20 text-center mt-3">No results for your search. Try different keywords or browse <br></br> our categories.</p>
                   </div>
                 )}
               </div>
