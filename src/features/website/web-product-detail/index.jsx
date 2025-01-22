@@ -264,7 +264,7 @@ const ProudctDetail = () => {
     }
   };
   const addToCart = async (product_id, quantity, option_id) => {
-    setLoading(true); 
+    setLoading(true);
     try {
       const response = await postCartApi({
         product_id,
@@ -339,6 +339,7 @@ const ProudctDetail = () => {
     }
   }, [detail?.options]);
 
+  console.log(detail?.nutritions);
 
   return (
     <div className="web-wrapper-main">
@@ -609,15 +610,15 @@ const ProudctDetail = () => {
                             Description
                           </Nav.Link>
                         </Nav.Item>
-                        {/* <Nav.Item>
+                        <Nav.Item>
                           <Nav.Link
                             as="button"
                             className="btn-tab me-0"
-                            eventKey="Additional Info"
+                            eventKey="Nutrition"
                           >
-                            Additional Info
+                            Nutrition
                           </Nav.Link>
-                        </Nav.Item> */}
+                        </Nav.Item>
                         <Nav.Item>
                           <Nav.Link
                             as="button"
@@ -632,12 +633,22 @@ const ProudctDetail = () => {
                     <div className="col-md-12">
                       <Tab.Content className="px-4 pb-4">
                         <Tab.Pane eventKey="Description">
-                          <p className="mb-4" id="detail-description">
+                          <p className="mb-4 mt-3 mt-md-4" id="detail-description">
                             {detail?.long_description}
                           </p>
                         </Tab.Pane>
-                        <Tab.Pane eventKey="Additional Info">
-                          Additional
+                        <Tab.Pane eventKey="Nutrition">
+                          <div className="row">
+                            <div className="col-md-2">
+                              <ul className="px-2 mb-4 mt-3 mt-md-4">
+                                {
+                                  detail?.nutritions?.map((data) => (
+                                    <li className="d-flex justify-content-between mb-2"><h5 className="fw-600">{data?.nutrition_name}</h5> <h5>:</h5> <h5 className="fw-400">{data?.nutrition_value}</h5></li>
+                                  ))
+                                }
+                              </ul>
+                            </div>
+                          </div>
                         </Tab.Pane>
                         <Tab.Pane eventKey="Reviews" >
                           <div className="p-3 p-lg-4" >
