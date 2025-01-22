@@ -1,7 +1,7 @@
 import { MenuItem, Select, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
-const NutritionComponent = ({ nutritionList, formik, isUpdate }) => {
+const NutritionComponent = ({ nutritionList, formik, isUpdate, disabled }) => {
   const { values, setFieldValue } = formik;
 
   // Ensure initial data for update
@@ -43,6 +43,7 @@ const NutritionComponent = ({ nutritionList, formik, isUpdate }) => {
                   onChange={(e) => handleRowChange(index, 'nutrition_id', e.target.value)}
                   displayEmpty
                   fullWidth
+                  disabled={disabled}
                 >
                   <MenuItem value="" disabled>
                     Select Nutrition
@@ -61,6 +62,7 @@ const NutritionComponent = ({ nutritionList, formik, isUpdate }) => {
                   onChange={(e) => handleRowChange(index, 'nutrition_value', e.target.value)}
                   placeholder="Enter value"
                   fullWidth
+                  disabled={disabled}
                   InputProps={{
                     inputProps: { min: 0 }, // Prevent negative values
                   }}
@@ -69,7 +71,7 @@ const NutritionComponent = ({ nutritionList, formik, isUpdate }) => {
               <div className="col-md-2">
                 <button type='button'
                   className="btn btn-outline-danger w-100 h-100 rounded-3"
-                  disabled={values.nutritions.length === 1} // Keep at least one row
+                  disabled={(values.nutritions.length === 1 || disabled)} // Keep at least one row
                   onClick={() => handleRemoveRow(index)}>
                   Remove
                 </button>
@@ -81,7 +83,7 @@ const NutritionComponent = ({ nutritionList, formik, isUpdate }) => {
           <button
             className="button-primary align-self-start my-0 px-5"
             onClick={handleAddRow}
-          >
+            disabled={disabled}>
             Add
           </button>
         </div>

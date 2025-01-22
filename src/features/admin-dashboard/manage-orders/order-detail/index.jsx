@@ -149,7 +149,7 @@ const AdminOrderDetail = () => {
           </Breadcrumbs>
         </div> 
         <div className="col-6">
-          <Heading value={`Order : ${orderData?.id?.slice(0, 8)}`} />
+          <Heading value={`Order : ${orderData?.display_order_id}`} />
         </div> 
       </div>
       <div className="row">
@@ -243,7 +243,7 @@ const AdminOrderDetail = () => {
                       </Step>
                     ))}
                   </Stepper>
-                  <Box
+                  {/* <Box
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -285,7 +285,7 @@ const AdminOrderDetail = () => {
                     >
                       {activeStep === steps.length - 1 ? "Finish" : "Next"}
                     </button>
-                  </Box>
+                  </Box> */}
                 </Box>
               </div>
             </div>

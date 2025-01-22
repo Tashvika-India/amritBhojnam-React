@@ -172,7 +172,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
         <Column
           field="id"
           header="ID"
-          body={(rowData) => <><Link to={`/admin/order-details/${rowData.id}`} style={{ width: "100%", color: "#584EE0" }}>#{rowData.id.slice(0,8)}</Link></>}
+          body={(rowData) => <><Link to={`/admin/order-details/${rowData?.id}`} style={{ width: "100%", color: "#584EE0" }}>#{rowData?.display_order_id}</Link></>}
         ></Column>
         <Column header="ORDER" body={orderTemplate} style={{ width: "18%" }}></Column>
         <Column header="CUSTOMER" body={customerTemplate} style={{ width: "20%" }}></Column>

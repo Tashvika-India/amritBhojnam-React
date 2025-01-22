@@ -4,7 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import { SlPicture } from "react-icons/sl";
 import { multiImageUploadApi } from "../../services/adminApiRoutes";
 
-export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
+export default React.memo(function MultiFileUpload({ formik, name, disabled }) {
   const { values, setFieldValue } = formik;
   const [dragActive, setDragActive] = useState(false);
   const [uploading, setUploading] = useState(false); // To manage upload state
@@ -59,10 +59,7 @@ export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
 
   // Remove a specific file
   const removeFile = (fileToRemove) => {
-    setFieldValue(
-      name,
-      values[name].filter((file) => file !== fileToRemove)
-    );
+    (!disabled) && setFieldValue(name, values[name].filter((file) => file !== fileToRemove));
   };
 
   useEffect(() => {
@@ -78,7 +75,7 @@ export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
   }, [values, name]);
 
   return (
-    <div className="multipule-file-upload-wrapper row">
+    <div className="multipule-file-upload-wrapper row" style={{pointerEvents: `${(disabled) ? "none" : "auto"}`, filter: `${(disabled) ? "grayscale(100%)" : "none"}` }}>
       {/* File Upload Area */}
       <div className="col-md-6">
         <div>
@@ -88,6 +85,7 @@ export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
             multiple
             hidden
             onChange={handleFileChange}
+            disabled={disabled}
           />
           <label
             htmlFor="image"
@@ -115,7 +113,7 @@ export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
               {values[name]?.map((file, index) => {
                 return (
                   <div className="grid-item" key={index}>
-                    <div className="file-preview position-relative d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 mb-2">
+                    <div className="file-preview position-relative d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 mb-2" style={{cursor: `${(disabled) ? "pointer-none" : "pointer"}` }}>
                       <div className="h-100">
                         <Image
                           src={file.image}
@@ -125,12 +123,11 @@ export default React.memo(function MultiFileUpload({ formik, name, baseURL }) {
                           preview
                         />
                       </div>
-                      <div className="position-absolute top-0 end-0">
+                      <div className="position-absolute top-0 end-0" style={{pointerEvents: `${(disabled) ? "none" : "auto"}` }}>
                         <RxCross2
                           color="red"
                           size={25}
                           onClick={() => removeFile(file)}
-                          style={{ cursor: "pointer" }}
                         />
                       </div>
                     </div>

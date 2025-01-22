@@ -80,7 +80,7 @@ const AllOrderDetail = () => {
         <>
             <div className="mt-3 mb-5 row">
                 <div className="col-md-6">
-                    <Heading value={`Orders #${orderDetail[0]?.id.slice(-8)}...`}  />
+                    <Heading value={`Orders #${orderDetail[0]?.display_order_id}`}  />
                 </div>
                 <div className="col-md-6 text-end">
                     <Link to={"/admin/order-detail/"} className="button-primary" type="button">Order Page</Link>
