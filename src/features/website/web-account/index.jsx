@@ -25,6 +25,7 @@ import emptyOrder from "../../../assets/images/web/empty-order.png";
 import emptyAddress from "../../../assets/images/web/empty-address.png";
 import homeImg from "../../../assets/images/web/account/home-img.png";
 import editButton from "../../../assets/images/web/account/edit-button.png";
+import { BiEditAlt } from "react-icons/bi";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
 import {
   deleteAddressApi,
@@ -43,6 +44,7 @@ import Address from "../../../assets/common-components/website/Address";
 import { baseURL } from "../../../utils/constant-variable";
 import { Link, useLocation } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { Rating } from "primereact/rating";
 import ReviewModal from "../../../components/ui/ReviewModal";
 import { HiDownload } from "react-icons/hi";
@@ -885,7 +887,7 @@ const UserProfile = () => {
                                   </div>
                                   <div className="col-md-1"></div>
                                   <div className="col-md-6">
-                                    <div className="d-flex mt-2  ps-1 ms-5 ps-lg-0 ms-lg-0">
+                                    <div className="d-flex mt-2 gap-4 ps-1 ms-5 ps-lg-0 ms-lg-0">
                                       <button
                                         className="border-0 bg-transparent"
                                         onClick={(event) => {
@@ -893,11 +895,10 @@ const UserProfile = () => {
                                           setEditData(item);
                                         }}
                                       >
-                                        <img
-                                          className="img-fluid me-3"
-                                          src={editButton}
-                                          alt="Edit"
-                                        />
+                                        <div className="d-flex align-items-center gap-1">
+                                        <BiEditAlt size={20} color="#428DC5" />
+                                        <p className="fw-500 text-dark-grey">Edit</p>
+                                        </div>
                                       </button>
                                       <button
                                         className="border-0 bg-transparent"
@@ -905,11 +906,10 @@ const UserProfile = () => {
                                           handleDeleteAddress(item?.id)
                                         }
                                       >
-                                        <img
-                                          className="img-fluid me-2"
-                                          src={deleteButton}
-                                          alt="Delete"
-                                        />
+                                        <div className="d-flex align-items-center gap-1">
+                                        <RiDeleteBin6Line color="#E70900" size={17} />
+                                        <p className="fw-500 text-dark-grey">Delete</p>
+                                        </div>
                                       </button>
                                     </div>
                                   </div>
@@ -941,7 +941,6 @@ const UserProfile = () => {
                             <p className="text-mid-grey fb-fs-20 mb-3">
                               No address saved. Add a new address to proceed.
                             </p>
-
                             <button
                               className="success-primary-button mt-4"
                               onClick={() => {
@@ -952,14 +951,11 @@ const UserProfile = () => {
                             >
                               Add Address
                             </button>
-
                           </div>
                         </div>
                       )}
                     </div>
-                  </div>
-
-
+                  </div> 
                 </TabPanel>
               </TabView>
             </div>
