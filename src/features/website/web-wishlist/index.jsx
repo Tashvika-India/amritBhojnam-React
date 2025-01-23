@@ -51,14 +51,14 @@ const Wishlist = () => {
                 :
                 <div className="mx-auto col-md-8 mt-lg-5 pt-5 pt-md-0 empty-wishlist">
                   <img
-                    className="img-fluid mx-auto mb-5"
+                    className="img-fluid mx-auto mb-lg-5 mb-md-4 mb-4"
                     src={wishlistImage}
                     alt="empty-wishlist"
                   />
                   <p className="fb-fs-40 fw-600 text-center">
                     Your wishlist is empty
                   </p>
-                  <p className="fb-fs-lg-20 fb-fs-md-20 text-center text-mid-grey py-4">
+                  <p className="fb-fs-lg-20 fb-fs-md-20 text-center text-mid-grey py-lg-4 py-md-4 py-2">
                     Your wishlist is empty. Start adding your favourite products to
                     keep track <br></br> of what you love!
                   </p>
