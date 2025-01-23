@@ -41,7 +41,8 @@ const ReviewModal = ({ visible, setVisible, data }) => {
 
 
     return (
-        <Dialog className="web-review-modal" header="Add Review" visible={visible} modal={false} style={{ minWidth: "50vw", borderRadius: "1.25rem", overflow: "hidden" }} onHide={() => setVisible(false)}>
+        <Dialog className="web-review-modal" header="Add Review" visible={visible} draggable={false}
+        position="center" modal={false} style={{ minWidth: "50vw", borderRadius: "1.25rem", overflow: "hidden" }} onHide={() => setVisible(false)}>
             <form onSubmit={handleSubmit}>
                 <div className="px-lg-3 pt-2">
                     <div className="">
@@ -51,13 +52,7 @@ const ReviewModal = ({ visible, setVisible, data }) => {
                                 <h6 className="fb-fs-20 fw-600 mb-0">{data?.name}</h6>
                             </div>
                             <div className="">
-                                <div className="">
-                                    <IosSwitch
-                                        checked={formik.values.is_anonymous}
-                                        onChange={(e) => formik.setFieldValue("is_anonymous", e.target.checked)}
-                                    />
-                                </div>
-                                <h5 className="d-flex gap-2 align-items-center justify-content-end mb-0">Give Ratings :
+                                <h6 className="d-flex gap-2 align-items-center justify-content-end my-2 fw-400">Give Ratings :
                                     <Rating
                                         value={values.rating}
                                         onChange={(e) => formik.setFieldValue("rating", e.value)}
@@ -65,9 +60,20 @@ const ReviewModal = ({ visible, setVisible, data }) => {
                                         cancel={false}
                                     />
                                     {touched.rating && errors.rating && (
-                                        <span className="text-danger">{errors.rating}</span>
+                                        <small className="text-danger">{errors.rating}</small>
                                     )}
-                                </h5>
+                                </h6>
+                                <div className="d-flex">
+                                    <h6 className="d-flex gap-2 align-items-center justify-content-end mb-0 fw-400">Anonymous :
+                                    <IosSwitch
+                                        checked={formik.values.is_anonymous}
+                                        onChange={(e) => formik.setFieldValue("is_anonymous", e.target.checked)}
+                                    />
+                                    {touched.is_anonymous && errors.is_anonymous && (
+                                        <small className="text-danger">{errors.is_anonymous}</small>
+                                    )}
+                                    </h6>
+                                </div>
                             </div>
                         </div>
                     </div>
