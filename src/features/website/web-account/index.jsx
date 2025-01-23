@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import pencilImg from "../../../assets/images/web/account/pencil.png";
 import profileBg from "../../../assets/images/web/account/profile-bg.png";
+import otherImg from "../../../assets/images/web/account/other.png";
 import pp from "../../../assets/images/web/account/profile-picture.png";
 import { Button } from "primereact/button";
 import tickImg from "../../../assets/images/web/account/tick-image.png";
@@ -54,7 +55,8 @@ import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { BsArrowRepeat } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart } from "../../../redux/slices/cartSlice"; 
+import { fetchCart } from "../../../redux/slices/cartSlice";
+import { tr } from "date-fns/locale";
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -68,7 +70,7 @@ const UserProfile = () => {
   const location = useLocation();
   const [productId, setProductId] = useState("");
   const [load, setLoad] = useState(2);
-  const [filter,setFilter] = useState("");
+  const [filter, setFilter] = useState("");
   const profilePicture = baseURL + userDetail?.pp;
 
   const formik = useFormik({
@@ -133,6 +135,7 @@ const UserProfile = () => {
   };
 
   const updateAddress = async (values) => {
+    setLoading(true);
     try {
       const response = await putAddressApi(editData?.id, values);
       const address_id = response?.data?.id;
@@ -143,6 +146,7 @@ const UserProfile = () => {
       setLoading(false);
       scrollTo(0, 0);
       setOpen(false);
+      setEditData(null)
       notifySuccess("Address updated Successfully");
       formik.resetForm();
     } catch (error) {
@@ -168,8 +172,8 @@ const UserProfile = () => {
 
   const getOrderList = async () => {
     setLoading(true);
-    try { 
-      const response = await getOrderApi(1,load,filter);
+    try {
+      const response = await getOrderApi(1, load, filter);
       setOrder(response?.data);
       setLoading(false);
     } catch (error) {
@@ -286,6 +290,11 @@ const UserProfile = () => {
     }
   };
 
+  const HandleDaysChanges = (value) => {
+    setFilter(value);
+    setLoad("");
+  };
+
   useEffect(() => {
     getAddressList();
     getProfileList();
@@ -293,7 +302,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     getOrderList();
-  }, [load,filter]);
+  }, [load, filter]);
 
   useEffect(() => {
     if (userDetail) {
@@ -380,8 +389,8 @@ const UserProfile = () => {
               <div className="flex mb-2 gap-2 justify-content-end border-bottom profile-tabs">
                 <button
                   className={`border-0 bg-white fw-600 ${activeIndex === 0
-                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                      : "text-dark-grey"
+                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                    : "text-dark-grey"
                     }`}
                   onClick={() => setActiveIndex(0)}
                   rounded
@@ -395,8 +404,8 @@ const UserProfile = () => {
                 </button>
                 <button
                   className={`border-0 bg-white fw-600 ${activeIndex === 1
-                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                      : "text-dark-grey"
+                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                    : "text-dark-grey"
                     }`}
                   onClick={() => setActiveIndex(1)}
                   rounded
@@ -410,8 +419,8 @@ const UserProfile = () => {
                 </button>
                 <button
                   className={`border-0 bg-white fw-600 ${activeIndex === 2
-                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                      : "text-dark-grey"
+                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                    : "text-dark-grey"
                     }`}
                   onClick={() => setActiveIndex(2)}
                   rounded
@@ -432,7 +441,7 @@ const UserProfile = () => {
                 <TabPanel header="My Account">
                   <div className="account-section mb-md-4 mt-3">
                     <div className="d-flex justify-content-between align-items-center">
-                      <h4 className="fb-fs-26 fw-bold mt-3">My Account</h4>
+                      <h4 className="fb-fs-26 fw-bold ">My Account</h4>
                       <div className="d-flex">
                         <button
                           className="d-inline-flex align-items-end border-0 bg-transparent"
@@ -448,7 +457,7 @@ const UserProfile = () => {
                               objectFit: "scale-down",
                             }}
                           />
-                          <p className="fw-500 mt-2">Edit</p>
+                          <p className="fw-500 mt-2 text-black">Edit</p>
                         </button>
                       </div>
                     </div>
@@ -593,16 +602,15 @@ const UserProfile = () => {
                 </TabPanel>
                 <TabPanel header="Order-history">
                   <div className="order-section">
-                    <div className="d-flex justify-content-between align-items-center mb-3 mt-lg-3">
-                      <h4 className="fb-fs-26 fw-bold my-3">Order History</h4>
-                      <FormControl style={{ width: "15%" }}>
-                        <InputLabel id="demo-simple-select-label" size="small">Days</InputLabel>
+                    <div className="d-flex justify-content-between align-items-center mb-3 mt-3">
+                      <h4 className="fb-fs-26 fw-bold mb-3">Order History</h4>
+                      <FormControl style={{ width: "9rem" }}>
+                        <InputLabel id="demo-simple-select-label" size="small">Filter Orders</InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          label="Days"
-                          onChange={(e) => setFilter(e.target.value )
-                          }
+                          label="Filter Orders"
+                          onChange={(e) => HandleDaysChanges(e.target.value)}
                           size="small">
                           <MenuItem value={""}>Select</MenuItem>
                           <MenuItem value={7}>Last Week</MenuItem>
@@ -655,7 +663,7 @@ const UserProfile = () => {
                               <div className="col-6 col-md-3 d-flex align-items-center justify-content-end gap-3 text-end align-self-end">
                                 <button
                                   onClick={() => handleReOrderClick(item?.id)}
-                                  className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-1"
+                                  className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-1 text-nowrap"
                                 >
                                   <BsArrowRepeat size={"1.2rem"} />
                                   Buy Again
@@ -721,7 +729,7 @@ const UserProfile = () => {
                                         alt="pencil"
                                       />
                                       <p className="text-dark-grey">
-                                        Delivered within 5-7 days
+                                        Delivered with in {item?.payment_details?.delivery_days} days
                                       </p>
                                     </div>
                                   </div>
@@ -778,13 +786,11 @@ const UserProfile = () => {
                         </div>
                       </div>
                     )}
-
-                    {order?.results?.length > 0 && (
-                      <div className="d-flex align-items-center justify-content-center">
+                    {order.results?.length !== order.count && (
+                      <div className="d-flex align-items-center justify-content-center mb-3">
                         <button
                           className="fw-500 text-center border-0 text-orange bg-transparent success-primary-button"
-                          onClick={handleLoadMore}
-                        >
+                          onClick={handleLoadMore}>
                           Load More Orders
                         </button>
                       </div>
@@ -793,8 +799,8 @@ const UserProfile = () => {
                 </TabPanel>
                 <TabPanel header="Address Book">
                   <div className="address-section mt-3">
-                    <div className="d-flex justify-content-between align-items-center">
-                      <h4 className="fb-fs-26 fw-bold text-dark-grey my-3">
+                    <div className="d-flex justify-content-between align-items-center mt-3 ">
+                      <h4 className="fb-fs-26 fw-bold text-dark-grey mb-3">
                         Saved Address
                       </h4>
                       <button
@@ -835,18 +841,15 @@ const UserProfile = () => {
                         addressList.map((item, index) => (
                           <>
                             <div
-                              className={`summary-card ${item?.selected ? "active" : ""
-                                } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
-                              key={index}
-                            >
+                              className={`summary-card ${item?.selected ? "active" : ""} rounded-20 px-2 py-3 mt-3 cursor-pointer`} key={item?.id}>
                               <div className="px-md-3">
                                 <div className="row">
-                                  <div className="col-md-12">
+                                  <div className="col-md-12 d-flex justify-content-between">
                                     <div className="order-date d-flex gap-2">
                                       <img
-                                        className={`img-fluid me-1 rounded-4 ${item?.selected ? "shadow" : ""
+                                        className={`img-fluid me-1 rounded-4 align-self-start ${item?.selected ? "shadow" : ""
                                           }`}
-                                        src={homeImg}
+                                        src={(item?.save_as === "Home") ? homeImg : otherImg}
                                         alt="pencil"
                                       />
                                       <div className="ms-md-3">
@@ -867,10 +870,22 @@ const UserProfile = () => {
                                         </p>
                                       </div>
                                     </div>
+                                    <div className="">
+                                      <button
+                                        className="text-end button-set-default"
+                                        onClick={(event) => {
+                                          event.stopPropagation();
+                                          handleSelectAddress(item?.id);
+                                        }}
+                                        hidden={item?.selected}
+                                      >
+                                        Set as Default
+                                      </button>
+                                    </div>
                                   </div>
                                   <div className="col-md-1"></div>
                                   <div className="col-md-6">
-                                    <div className="d-flex mt-2">
+                                    <div className="d-flex mt-2  ps-1 ms-5 ps-lg-0 ms-lg-0">
                                       <button
                                         className="border-0 bg-transparent"
                                         onClick={(event) => {
@@ -898,30 +913,20 @@ const UserProfile = () => {
                                       </button>
                                     </div>
                                   </div>
-                                  <div className="col-md-5 text-end">
-                                    <p
-                                      className="text-end"
-                                      onClick={(event) => {
-                                        event.stopPropagation();
-                                        handleSelectAddress(item?.id);
-                                      }}
-                                      hidden={item?.selected}
-                                    >
-                                      Set as Default
-                                    </p>
-                                  </div>
                                 </div>
                               </div>
+                              <div className="pt-3 px-3">
+                                <Collapse in={editData?.id === item?.id}>
+                                  <Address
+                                    formik={formik}
+                                    loading={loading}
+                                    setEditData={setEditData}
+                                    setOpen={setOpen}
+                                    editData={editData}
+                                  />
+                                </Collapse>
+                              </div>
                             </div>
-                            <Collapse in={editData?.id === item?.id}>
-                              <Address
-                                formik={formik}
-                                loading={loading}
-                                setEditData={setEditData}
-                                setOpen={setOpen}
-                                editData={editData}
-                              />
-                            </Collapse>
                           </>
                         ))
                       ) : (
