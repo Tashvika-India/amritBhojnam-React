@@ -32,7 +32,7 @@ const Wishlist = () => {
           </Breadcrumbs>
         </div>
       </div>
-      <section className="pt-4">
+      <section className="pt-4 wishlist-page">
         <div className="container fb-container">
           <div className="row">
             <div className="d-flex justify-content-between align-items-center">
@@ -49,10 +49,9 @@ const Wishlist = () => {
                   {loading ? <Loading/> : <WishList wishlist={wishlist} />}
                 </div>
                 :
-                <div className="mx-auto col-md-8 mt-lg-5 pt-5 pt-md-0">
+                <div className="mx-auto col-md-8 mt-lg-5 pt-5 pt-md-0 empty-wishlist">
                   <img
                     className="img-fluid mx-auto mb-5"
-                    style={{maxWidth: "22rem"}}
                     src={wishlistImage}
                     alt="empty-wishlist"
                   />

@@ -37,6 +37,7 @@
   p,
   a {
     // color: $dark-grey;
+    font-family: $font-Manrope !important;
   }
 
   .p-focus {
@@ -66,10 +67,12 @@
       5vw + 1rem,
       4.3325rem
     ); //69.32px Min 2.5rem, Max 4.3325rem
+    font-family: $font-Manrope !important;
   }
 
   h2 {
     font-size: clamp(2rem, 4vw + 1rem, 3.75rem); //60px Min 2rem, Max 3.75rem
+    font-family: $font-Manrope !important;
   }
 
   h3 {
@@ -78,6 +81,7 @@
       3vw + 1rem,
       2.25rem
     ); //36px Min 1.5rem, Max 2.25rem
+    font-family: $font-Manrope !important;
   }
 
   h4 {
@@ -86,6 +90,7 @@
       2.5vw + 1rem,
       2.0219rem
     ); //32.35px Min 1.25rem, Max 2.0219rem
+    font-family: $font-Manrope !important;
   }
 
   h5 {
@@ -94,6 +99,7 @@
       2vw + 0.5rem,
       1.375rem
     ); //22px Min 1rem, Max 1.375rem
+    font-family: $font-Manrope !important;
   }
 
   h6 {
@@ -102,6 +108,7 @@
       1.5vw + 0.5rem,
       1.25rem
     ); //20px Min 0.875rem, Max 1.25rem
+    font-family: $font-Manrope !important;
   }
 
   p {
@@ -111,19 +118,23 @@
       1rem
     ); //16px Min 0.875rem, Max 1rem
     margin-bottom: 0;
+    font-family: $font-Manrope !important;
   }
 
   .fb-fs-20 {
     font-size: 1.25rem;
+    font-family: $font-Manrope !important;
   }
 
   // Font Sizes for Special Classes
   .fb-fs-30 {
     font-size: 1.875rem;
+    font-family: $font-Manrope !important;
   }
 
   .fb-fs-16 {
     font-size: clamp(0.8rem, 1vw + 0.5rem, 1rem); //16px Min 0.875rem, Max 1rem
+    font-family: $font-Manrope !important;
   }
 
   .fb-fs-18 {
@@ -132,6 +143,7 @@
       1.5vw + 0.5rem,
       1.125rem
     ); //18px Min 1rem, Max 1.125rem
+    font-family: $font-Manrope !important;
   }
 
   .fb-fs-14 {
@@ -140,18 +152,22 @@
       1vw + 0.5rem,
       0.9281rem
     ); //14.85px Min 0.75rem, Max 0.9281rem
+    font-family: $font-Manrope !important;
   }
 
   .fb-fs-30 {
     font-size: 1.875rem; // 30px
+    font-family: $font-Manrope !important;
   }
 
   .fb-fs-50 {
     font-size: 3.125rem; // 50px
+    font-family: $font-Manrope !important;
   }
 
   .fb-fs-38 {
     font-size: 2.375rem !important; //38px
+    font-family: $font-Manrope !important;
   }
 
   .fb-fs-12 {
@@ -160,6 +176,7 @@
       0.75vw + 0.5rem,
       0.8119rem
     ); //12.99px Min 0.625rem, Max 0.8119rem
+    font-family: $font-Manrope !important;
   }
 
   .dropdown-toggle::after {
@@ -173,22 +190,27 @@
       1vw + 0.5rem,
       1.0444rem
     ); //16.71px Min 0.875rem, Max 1.0444rem
+    font-family: $font-Manrope !important;
   }
 
   .fb-fs-26 {
     font-size: 1.625rem;
+    font-family: $font-Manrope !important;
   }
 
   .fb-fs-28 {
     font-size: 1.75rem;
+    font-family: $font-Manrope !important;
   }
 
   .fb-fs-40 {
     font-size: 2.5rem;
+    font-family: $font-Manrope !important;
   }
 
   .fb-fs-24 {
     font-size: 1.5rem;
+    font-family: $font-Manrope !important;
   }
 
   section {
@@ -784,6 +806,10 @@ footer {
   }
 }
 
+.wishlist-page .empty-wishlist img{
+  max-width: 22rem;
+}
+
 .header-search .search-input .p-inputtext:enabled:focus {
   box-shadow: none !important;
 }
@@ -1241,8 +1267,6 @@ footer {
   button {
     transition: all 0.3s ease-in-out;
   }
-
-  &:hover,
   &.active {
     border-color: $yellow;
     background: linear-gradient(180deg, #ffcd8f4d 0%, #ffe9cf18 100%);
@@ -2210,7 +2234,9 @@ footer {
   .web-wrapper-main .fb-fs-40 {
     font-size: 2rem;
   }
-
+  .product-card .masala-con {
+    height: 2rem !important;
+  }
   .ready-cook {
     height: 25rem;
   }
@@ -2916,6 +2942,40 @@ footer {
 }
 
 @media (max-width: 576px) {
+  .product-card .masala-con {
+    height: 1.95rem !important;
+  }
+  .edit-delete-card button img{
+    max-width: 3rem !important;
+  }
+  .bg-custom-btn-bg{
+    font-size: 0.6875rem !important;
+  }
+  .summary-card{
+    margin-bottom: 4rem;
+    .order-date{
+      img{
+        margin-top: 8px;
+      }
+      .default-btn{
+        padding: 0.125rem 0.625rem;
+        margin-left: 1rem;
+      }
+    } 
+  }
+  .account-section button {
+    img{
+      max-width: 1.3rem !important; 
+      padding-bottom: 5px;
+    }
+  }
+  
+  .wishlist-page .empty-wishlist img{
+    max-width: 14rem !important;
+  }
+  .product-card .whislist-icon svg{
+    max-width: 1.3rem !important;
+  }
   .slider-bottom-thumbs {
     .slick-track{
       padding-block: .5rem !important;

@@ -386,7 +386,7 @@ const CheckoutPage = () => {
                       </div>
                   )}
                   <button
-                    className="add-address-button w-100 bg-transparent text-center fw-600"
+                    className="add-address-button w-100 bg-transparent text-center text-black fw-600"
                     onClick={() => {
                       setEditData(null);
                       setOpen(!open);
@@ -396,7 +396,7 @@ const CheckoutPage = () => {
                   >
                     + Add New Address
                   </button>
-                  <div className="" hidden={editData}>
+                  <div className="mb-5" hidden={editData}>
                     <Collapse in={open}>
                       <Address
                         formik={formik}

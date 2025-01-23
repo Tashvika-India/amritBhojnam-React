@@ -13,9 +13,9 @@ const ShipingPolicy = () => {
       <div className="pt-4">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
-            <Linkk underline="hover" color="inherit" to="/">
+            <Link underline="hover" color="inherit" to="/">
               Home
-            </Linkk>
+            </Link>
             <Typography className="text-orange">Shipping Policy</Typography>
           </Breadcrumbs>
         </div>
