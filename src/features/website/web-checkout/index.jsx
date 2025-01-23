@@ -78,7 +78,7 @@ const CheckoutPage = () => {
     }
   };
 
-  const handlePayNow = async (amount, userId, cartId, delivery_charges, delivery_date, delivery_days, coupon_code) => { 
+  const handlePayNow = async (amount, userId, cartId, delivery_charges, delivery_date, delivery_days, coupon_code) => {
     setLoading(true);
     try {
       // Step 1: Fetch User Profile
@@ -304,7 +304,7 @@ const CheckoutPage = () => {
                                         </button>
                                       )}
                                     </div>
-                                    <p className="mt-2 text-wrap">
+                                    <p className="mt-2 text-wrap d-none d-md-block">
                                       {item?.house_flat_block_no},
                                       {item?.road_area_colony}, {item?.city}
                                       ,{item?.state} - {item?.pincode}
@@ -320,9 +320,16 @@ const CheckoutPage = () => {
                                     }}
                                     hidden={item?.selected}
                                   >
-                                    Set as Default
+                                    Set&nbsp;as&nbsp;Default
                                   </button>
                                 </div>
+                              </div>
+                              <div className="d-block d-md-none">
+                                <p className="mt-2 text-wrap">
+                                  {item?.house_flat_block_no},
+                                  {item?.road_area_colony}, {item?.city}
+                                  ,{item?.state} - {item?.pincode}
+                                </p>
                               </div>
                               <div className="col-md-1"></div>
                               <div className="col-md-6">
@@ -372,18 +379,18 @@ const CheckoutPage = () => {
                     ))
                   ) : (
                     <div className="empty-address text-center">
-                        <div className="mt-5">
-                          <img
-                            className="img-fluid mx-auto mb-4"
-                            src={emptyAddress}
-                            alt="empty-address"
-                          />
-                          <h3 className="text-dark-grey fw-600">No Address Saved</h3>
-                          <p className="text-mid-grey fb-fs-20 mb-3">
+                      <div className="mt-5">
+                        <img
+                          className="img-fluid mx-auto mb-4"
+                          src={emptyAddress}
+                          alt="empty-address"
+                        />
+                        <h3 className="text-dark-grey fw-600">No Address Saved</h3>
+                        <p className="text-mid-grey fb-fs-20 mb-3">
                           No address saved. Add a new address to proceed.
-                          </p>
-                        </div>
+                        </p>
                       </div>
+                    </div>
                   )}
                   <button
                     className="add-address-button w-100 bg-transparent text-center text-black fw-600"
@@ -409,9 +416,10 @@ const CheckoutPage = () => {
                   </div>
                 </div>
                 <div className="col-lg-5 col-md-12">
-                  <div className="my-card-section product-detail-shadow rounded-20 p-4 mb-4 sticky-top " style={{ zIndex: 10 }}>
+                  <div className="my-card-section product-detail-shadow rounded-20 p-2 p-md-4 mb-4 sticky-top " style={{ zIndex: 10 }}>
                     <p className="fb-fs-26 fw-500 mb-4">My Cart</p>
                     <div className="">
+                    <div className="cart-list-wrapper pe-3" style={{maxHeight: "22.625rem", overflowY: "auto"}}>
                       {loading ? (
                         <Loading />
                       ) : cartItems?.length > 0 ? (
@@ -450,6 +458,7 @@ const CheckoutPage = () => {
                           </Link>
                         </div>
                       )}
+                      </div>
                       <div>
                         <CouponComponent couponList={couponList} onCouponApply={handleCouponApply} />
                       </div>
@@ -498,7 +507,7 @@ const CheckoutPage = () => {
                         </ul>
                       </div>
                       <div className="cart-items mt-4 border-top mb-2">
-                        <div className="product-details w-100 ms-3 pt-4">
+                        <div className="product-details w-100 ms-lg-3 pt-4">
                           <h6 className="fw-bolder">Total Amount </h6>
                         </div>
                         <div className="product-quantity text-end pt-4">
