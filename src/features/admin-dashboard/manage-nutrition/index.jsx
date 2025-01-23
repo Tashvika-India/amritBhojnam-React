@@ -65,7 +65,7 @@ function ManageNutrition() {
             {loading ? (
               <Loading />
             ) : (
-              <NutritionTable nutrition={nutrition}/>
+              <NutritionTable nutrition={nutrition} getNutrition={getNutrition}/>
             )}
           </div>
         </div>

@@ -15,22 +15,22 @@ const DeleteModal = ({ visible, onHide, onDelete }) => {
 
   return (
     <Dialog
-      
+
       visible={visible}
-      style={{ width: '550px', borderRadius: '1rem',overflow: 'hidden' }}
+      style={{ width: '34.375rem', borderRadius: '1rem', overflow: 'hidden' }}
       footer={renderFooter()}
       onHide={onHide}
     >
       <div className="delete-content" style={{ textAlign: 'center' }}>
         <img
-                                   className="img-fluid mx-auto mb-4"
-                                   src={deleteModal}
-                                   alt="empty-address"
-                                 />
-                                  <h3 className="fw-600" style={{color: "#EF3A4B"}}>Delete Item ?</h3>
-                                  <p className="text-dark-grey fb-fs-20 mb-1">
-                                  You’re about to delete this order
-                          </p>
+          className="img-fluid mx-auto mb-4"
+          src={deleteModal}
+          alt="empty-address"
+        />
+        <h3 className="fw-600" style={{ color: "#EF3A4B" }}>Delete Item ?</h3>
+        <p className="text-dark-grey fb-fs-20 mb-1">
+          You’re about to delete this order
+        </p>
       </div>
     </Dialog>
   );
