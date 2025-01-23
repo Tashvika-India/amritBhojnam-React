@@ -779,7 +779,7 @@ const UserProfile = () => {
                           </p>
                           <Link to="/products">
                             <button
-                              className="success-primary-button mt-4"
+                              className="success-primary-button mt-lg-4 mt-md-4"
                               style={{ paddingInline: "6rem" }}
                             >
                               Order Now
@@ -942,7 +942,7 @@ const UserProfile = () => {
                               No address saved. Add a new address to proceed.
                             </p>
                             <button
-                              className="success-primary-button mt-4"
+                              className="success-primary-button mt-lg-4 mt-md-4"
                               onClick={() => {
                                 setEditData(null);
                                 setOpen(!open);

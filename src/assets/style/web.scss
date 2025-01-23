@@ -2945,6 +2945,24 @@ footer {
   .product-card .masala-con {
     height: 1.95rem !important;
   }
+  .empty-address{
+    img{
+      max-width: 6rem !important;
+    }
+    .fb-fs-20{
+      font-size: 1rem;
+    }
+    margin-bottom: 2rem;
+  }
+  .empty-order{
+    img{
+      max-width: 6rem !important;
+    }
+    .fb-fs-20{
+      font-size: 1rem;
+    }
+    margin-bottom: 2rem;
+  }
   .edit-delete-card button img{
     max-width: 3rem !important;
   }
@@ -2952,7 +2970,7 @@ footer {
     font-size: 0.6875rem !important;
   }
   .summary-card{
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;
     .order-date{
       img{
         margin-top: 8px;
