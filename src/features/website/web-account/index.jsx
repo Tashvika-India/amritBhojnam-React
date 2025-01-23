@@ -59,6 +59,7 @@ import { BsArrowRepeat } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../../redux/slices/cartSlice";
 import { tr } from "date-fns/locale";
+import AddressDeleteModal from "../../../components/ui/AddressDeleteModal";
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -73,6 +74,8 @@ const UserProfile = () => {
   const [productId, setProductId] = useState("");
   const [load, setLoad] = useState(2);
   const [filter, setFilter] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
   const profilePicture = baseURL + userDetail?.pp;
 
   const formik = useFormik({
@@ -219,18 +222,28 @@ const UserProfile = () => {
     }
   };
 
-  const handleDeleteAddress = async (address_id) => {
+  const openModal = (address_id) => {
+    setSelectedAddressId(address_id);
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setSelectedAddressId(null);
+    setIsModalVisible(false);
+  };
+
+  const handleDeleteAddress = async () => {
     setLoading(true);
     try {
-      const response = await deleteAddressApi(address_id);
-      getAddressList();
-      setLoading(false);
+      const response = await deleteAddressApi(selectedAddressId);
+      await getAddressList();
       notifySuccess("Address deleted Successfully");
     } catch (error) {
-      notifyError(error.response?.data?.error);
-      console.log("Error fetching cart data:", error);
+      notifyError(error.response?.data?.error || "Failed to delete address");
+      console.error("Error deleting address:", error);
     } finally {
       setLoading(false);
+      closeModal();
     }
   };
 
@@ -842,8 +855,7 @@ const UserProfile = () => {
                       {addressList.length > 0 ? (
                         addressList.map((item, index) => (
                           <>
-                            <div
-                              className={`summary-card ${item?.selected ? "active" : ""} rounded-20 px-2 py-3 mt-3 cursor-pointer`} key={item?.id}>
+                            <div className={`summary-card ${item?.selected ? "active" : ""} rounded-20 px-2 py-3 mt-3 cursor-pointer`} key={item?.id}>
                               <div className="px-md-3">
                                 <div className="row">
                                   <div className="col-md-12 d-flex justify-content-between">
@@ -856,7 +868,7 @@ const UserProfile = () => {
                                       />
                                       <div className="ms-md-3">
                                         <div className="d-flex mt-2 gap-1 align-items-center">
-                                          <p className="fw-600 fb-fs-18">
+                                          <p className="fw-600">
                                             {item?.ads_name} | {item?.ads_phone}
                                           </p>
                                           {item?.selected && (
@@ -865,7 +877,7 @@ const UserProfile = () => {
                                             </button>
                                           )}
                                         </div>
-                                        <p className="mt-2 text-wrap">
+                                        <p className="mt-2 text-wrap d-none d-md-block">
                                           {item?.house_flat_block_no},
                                           {item?.road_area_colony}, {item?.city}
                                           ,{item?.state} - {item?.pincode}
@@ -881,13 +893,20 @@ const UserProfile = () => {
                                         }}
                                         hidden={item?.selected}
                                       >
-                                        Set as Default
+                                        Set&nbsp;as&nbsp;Default
                                       </button>
                                     </div>
                                   </div>
+                                  <div className="d-block d-md-none">
+                                    <p className="mt-2 text-wrap">
+                                      {item?.house_flat_block_no},
+                                      {item?.road_area_colony}, {item?.city}
+                                      ,{item?.state} - {item?.pincode}
+                                    </p>
+                                  </div>
                                   <div className="col-md-1"></div>
                                   <div className="col-md-6">
-                                    <div className="d-flex mt-2 gap-4 ps-1 ms-5 ps-lg-0 ms-lg-0">
+                                    <div className="d-flex mt-2 gap-2 gap-md-3 ps-md-1 ">
                                       <button
                                         className="border-0 bg-transparent"
                                         onClick={(event) => {
@@ -896,21 +915,25 @@ const UserProfile = () => {
                                         }}
                                       >
                                         <div className="d-flex align-items-center gap-1">
-                                        <BiEditAlt size={20} color="#428DC5" />
-                                        <p className="fw-500 text-dark-grey">Edit</p>
+                                          <BiEditAlt size={20} color="#428DC5" />
+                                          <p className="fw-500 text-dark-grey">Edit</p>
                                         </div>
                                       </button>
                                       <button
                                         className="border-0 bg-transparent"
-                                        onClick={() =>
-                                          handleDeleteAddress(item?.id)
-                                        }
+                                        key={item.id}
+                                        onClick={() => openModal(item.id)}
                                       >
                                         <div className="d-flex align-items-center gap-1">
-                                        <RiDeleteBin6Line color="#E70900" size={17} />
-                                        <p className="fw-500 text-dark-grey">Delete</p>
+                                          <RiDeleteBin6Line color="#E70900" size={17} />
+                                          <p className="fw-500 text-dark-grey">Delete</p>
                                         </div>
                                       </button>
+                                      <AddressDeleteModal
+                                        visible={isModalVisible}
+                                        onHide={closeModal}
+                                        onDelete={handleDeleteAddress}
+                                      />
                                     </div>
                                   </div>
                                 </div>
@@ -955,7 +978,7 @@ const UserProfile = () => {
                         </div>
                       )}
                     </div>
-                  </div> 
+                  </div>
                 </TabPanel>
               </TabView>
             </div>
