@@ -10,7 +10,8 @@ import { baseURL } from "../../utils/constant-variable";
 import { getProductApi } from "../../services/adminApiRoutes";
 import useURLFilters from "../../custom-compoents/useURLFilters";
 import { fetchProductList } from "../../redux/slices/productSlice";
-import emptyCart from "../../assets/images/web/empty-cart.png"; 
+import emptyCart from "../../assets/images/web/empty-cart.png";  
+
 
 const MyCartMenu = ({ showCart, onCloseCart }) => {
   const dispatch = useDispatch();
@@ -55,13 +56,12 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
   }, [showCart, dispatch, cartId]);
 
   return (
-    <Offcanvas show={showCart} onHide={onCloseCart} placement="end" className="cart-offcanvas" style={{ width: "28%" }}>
+    <Offcanvas show={showCart} onHide={onCloseCart} placement="end" className="cart-offcanvas" style={{ width: "29.5%" }}>
       <Offcanvas.Header closeButton className="border-bottom">
         <Offcanvas.Title>Your Cart</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body className="px-0 pb-0">
         <div className="d-flex flex-column justify-content-between h-100">
-       
             {/* <div className="mb-4 px-3">
               <p className="d-flex">
                 <span>
@@ -73,7 +73,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
               </p>
               <ProgressBar variant="yellow" now={80} style={{ height: "5px" }} />
             </div> */}
-            <div className="mb-2 px-3 cart-items-contianer">
+            <div className="mb-2 cart-items-contianer px-md-4 px-3">
               {loading ? (
                 <div className="prefetch-loading">
                   {cartItems.map((_, index) => (
@@ -90,20 +90,17 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
               ) : cartItems?.length > 0 ? (
                 cartItems?.map((item) => (
                   <div className="cart-items mb-3" key={item?.product.id}>
-                    <div className="product-item p-1">
-                      <img
-                        src={item?.product?.images[0]?.image || product}
-                        className="img-fluid"
-                        alt={item?.product?.name}
+                    <div className="product-item p-1 align-self-start">
+                      <img src={item?.product?.images[0]?.image || product} className="img-fluid h-auto" alt={item?.product?.name}
                       />
                     </div>
                     <div className="product-details w-100 ms-3">
                       <p className="item-name text-black fw-500 mb-0">{item?.product?.name}</p>
-                      <p className="item-weight text-grey mb-0 mt-1">{`${item?.option} ${item?.measurement_unit}`}</p>
-                      <p className="item-weight mb-0 mt-1">{`₹ ${Math.trunc(item?.price)} X ${item?.item_quantity}`}</p>
+                      <p className="item-weight fw-400 text-grey mb-0 mt-1">{`${item?.option} ${item?.measurement_unit}`}</p>
+                      <p className="item-weight mb-0 mt-1">{`₹ ${~~(item?.price)} X ${item?.item_quantity}`}</p>
                     </div>
                     <div className="product-quantity text-end">
-                      <div className="quantity-manage gap-1 mb-lg-3 mb-1" style={{ overflow: "hidden" }}>
+                      <div className="quantity-manage gap-1 mb-lg-2 mb-1" style={{ overflow: "hidden",width: "5rem" }}>
                         <button
                           className="quantity-minu d-inline-block border-0 bg-white text-orange fw-600"
                           onClick={() => handleDecreaseQuantity(item?.product.id, item?.item_quantity, item?.option_id)}
@@ -121,10 +118,10 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                         </button>
                       </div>
                       <button
-                        className="ms-2 text-yellow remove-quantity border-0 bg-white text-decoration-underline"
+                        className="ms-2 text-yellow remove-quantity border-0 bg-white text-decoration-underline" 
+                        style={{cursor:"pointer",fontSize: "0.8313rem"}}
                         onClick={() => handleRemoveQuantity(item?.product.id,0,item?.option_id)}
-                      >
-                        Remove
+                      > Remove
                       </button>
                     </div>
                   </div>
@@ -145,8 +142,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
           {
             cartItems?.length > 0 && (
               <>
-                <div
-                  className="total-amount-wrapper p-3" style={{ boxShadow: "0px -4px 30px 0px rgba(0, 0, 0, 0.07)" }}>
+                <div className="total-amount-wrapper py-3 px-md-4 px-3" style={{ boxShadow: "0px -4px 30px 0px rgba(0, 0, 0, 0.07)"  }}>
                   <div className="d-flex justify-content-between ">
                     <div className="mb-3">
                       <h5>Total Amount:</h5>

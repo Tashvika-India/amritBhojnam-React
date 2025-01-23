@@ -66,9 +66,7 @@ const ProudctDetail = () => {
       : text;
   };
 
-  const { cartItems, finalCart, error, cartId } = useSelector(
-    (state) => state.cart
-  );
+  const { cartItems, finalCart, error, cartId } = useSelector((state) => state.cart);
 
   const reviewList = async () => {
     setLoading(true);
@@ -146,8 +144,7 @@ const ProudctDetail = () => {
     }
   };
 
-  const login =
-    localStorage.getItem("access") || localStorage.getItem("refresh");
+  const login = localStorage.getItem("access") || localStorage.getItem("refresh");
 
   function checkItemInCart() {
     return cartItems.some((cartItem) => cartItem.product_id === detail?.id);
@@ -156,7 +153,7 @@ const ProudctDetail = () => {
   useEffect(() => {
     fetchProductDetail();
     fetchYouMayAlsoLike(filters?.product_id);
-  }, [showCart]);
+  }, [showCart,filters?.product_id]);
 
   useEffect(() => {
     checkItemInCart();
