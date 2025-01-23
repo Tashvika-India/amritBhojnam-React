@@ -31,6 +31,9 @@ import CouponComponent from "./components/CouponComponent";
 import { Link } from "react-router-dom";
 import editButton from "../../../assets/images/web/account/edit-button.png";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
+import AddressDeleteModal from "../../../components/ui/AddressDeleteModal";
+import { BiEditAlt } from "react-icons/bi";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 
 const CheckoutPage = () => {
@@ -43,6 +46,9 @@ const CheckoutPage = () => {
   const [addressList, setAddressList] = useState([]);
   const [showWebLogin, setShowWebLogin] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
+  const [couponCode, setCouponCode] = useState("");
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
   const dispatch = useDispatch();
   const accessToken =
@@ -53,6 +59,7 @@ const CheckoutPage = () => {
   const { cartItems, finalCart, cartId } = useSelector((state) => state.cart);
 
   const handleCouponApply = (coupon) => {
+    setCouponCode(coupon);
     dispatch(fetchFinalCart({ cartId, coupon }));
   };
 
@@ -78,7 +85,7 @@ const CheckoutPage = () => {
     }
   };
 
-  const handlePayNow = async (amount, userId, cartId, delivery_charges, delivery_date, delivery_days, coupon_code) => {
+  const handlePayNow = async (amount, userId, cartId, delivery_charges, delivery_date, delivery_days, coupon_code, courier_id) => {
     setLoading(true);
     try {
       // Step 1: Fetch User Profile
@@ -99,6 +106,7 @@ const CheckoutPage = () => {
         delivery_date: delivery_date,
         delivery_days: delivery_days,
         productinfo: cartId,
+        courier_id: courier_id || "",
         surl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_success_web/`,
         furl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_failed_web/`,
       };
@@ -222,31 +230,37 @@ const CheckoutPage = () => {
       console.log("Address Selected Successfully");
       scrollTo(0, 0);
       getAddressList();
-      dispatch(fetchFinalCart({ cartId }));
+      dispatch(fetchFinalCart({ cartId, coupon: couponCode }));
       notifySuccess("Address Selected Successfully");
     } catch (error) {
       console.log("Error fetching cart data:", error);
       notifyError(error.response?.data?.error);
     }
   };
-
-  const handleDeleteAddress = async (address_id) => {
-    setLoadingNew(true);
-    try {
-      const response = await deleteAddressApi(address_id);
-      getAddressList();
-      setLoadingNew(false);
-      notifySuccess("Address deleted Successfully");
-    } catch (error) {
-      notifyError(error.response?.data?.error);
-      console.log("Error fetching cart data:", error);
-    } finally {
-      setLoadingNew(false);
-    }
+  const openModal = (address_id) => {
+    setSelectedAddressId(address_id);
+    setIsModalVisible(true);
   };
 
+  const closeModal = () => {
+    setSelectedAddressId(null);
+    setIsModalVisible(false);
+  };
 
-
+  const handleDeleteAddress = async () => {
+    setLoadingNew(true);
+    try {
+      const response = await deleteAddressApi(selectedAddressId);
+      await getAddressList();
+      notifySuccess("Address deleted Successfully");
+    } catch (error) {
+      notifyError(error.response?.data?.error || "Failed to delete address");
+      console.error("Error deleting address:", error);
+    } finally {
+      setLoadingNew(false);
+      closeModal();
+    }
+  };
 
   useEffect(() => {
     getAddressList();
@@ -281,8 +295,7 @@ const CheckoutPage = () => {
                   ) : addressList.length > 0 ? (
                     addressList.map((item, index) => (
                       <>
-                        <div
-                          className={`summary-card ${item?.selected ? "active" : ""} rounded-20 px-2 py-3 mt-3 cursor-pointer`} key={item?.id}>
+                        <div className={`summary-card ${item?.selected ? "active" : ""} rounded-20 px-2 py-3 mt-3 cursor-pointer`} key={item?.id}>
                           <div className="px-md-3">
                             <div className="row">
                               <div className="col-md-12 d-flex justify-content-between">
@@ -295,7 +308,7 @@ const CheckoutPage = () => {
                                   />
                                   <div className="ms-md-3">
                                     <div className="d-flex mt-2 gap-1 align-items-center">
-                                      <p className="fw-600 fb-fs-18">
+                                      <p className="fw-600">
                                         {item?.ads_name} | {item?.ads_phone}
                                       </p>
                                       {item?.selected && (
@@ -333,7 +346,7 @@ const CheckoutPage = () => {
                               </div>
                               <div className="col-md-1"></div>
                               <div className="col-md-6">
-                                <div className="d-flex mt-2 ps-lg-2 ms-lg-4">
+                                <div className="d-flex mt-2 gap-2 gap-md-3 ps-md-1 ">
                                   <button
                                     className="border-0 bg-transparent"
                                     onClick={(event) => {
@@ -341,24 +354,26 @@ const CheckoutPage = () => {
                                       setEditData(item);
                                     }}
                                   >
-                                    <img
-                                      className="img-fluid me-3"
-                                      src={editButton}
-                                      alt="Edit"
-                                    />
+                                    <div className="d-flex align-items-center gap-1">
+                                      <BiEditAlt size={20} color="#428DC5" />
+                                      <p className="fw-500 text-dark-grey">Edit</p>
+                                    </div>
                                   </button>
                                   <button
                                     className="border-0 bg-transparent"
-                                    onClick={() =>
-                                      handleDeleteAddress(item?.id)
-                                    }
+                                    key={item.id}
+                                    onClick={() => openModal(item.id)}
                                   >
-                                    <img
-                                      className="img-fluid me-2"
-                                      src={deleteButton}
-                                      alt="Delete"
-                                    />
+                                    <div className="d-flex align-items-center gap-1">
+                                      <RiDeleteBin6Line color="#E70900" size={17} />
+                                      <p className="fw-500 text-dark-grey">Delete</p>
+                                    </div>
                                   </button>
+                                  <AddressDeleteModal
+                                    visible={isModalVisible}
+                                    onHide={closeModal}
+                                    onDelete={handleDeleteAddress}
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -393,7 +408,7 @@ const CheckoutPage = () => {
                     </div>
                   )}
                   <button
-                    className="add-address-button w-100 bg-transparent text-center text-black fw-600"
+                    className="add-address-button w-100 bg-transparent text-center text-orange fw-600"
                     onClick={() => {
                       setEditData(null);
                       setOpen(!open);
@@ -419,45 +434,45 @@ const CheckoutPage = () => {
                   <div className="my-card-section product-detail-shadow rounded-20 p-2 p-md-4 mb-4 sticky-top " style={{ zIndex: 10 }}>
                     <p className="fb-fs-26 fw-500 mb-4">My Cart</p>
                     <div className="">
-                    <div className="cart-list-wrapper pe-3" style={{maxHeight: "22.625rem", overflowY: "auto"}}>
-                      {loading ? (
-                        <Loading />
-                      ) : cartItems?.length > 0 ? (
-                        cartItems?.map((item, index) => (
-                          <>
-                            <div className="cart-items mt-4" key={index}>
-                              <div className="product-item p-1">
-                                <img
-                                  src={item?.product?.images[0]?.image
-                                  }
-                                  className="img-fluid"
-                                  alt={item?.product?.name}
-                                />
+                      <div className="cart-list-wrapper pe-3" style={{ maxHeight: "22.625rem", overflowY: "auto", scrollbarWidth: "none" }}>
+                        {loading ? (
+                          <Loading />
+                        ) : cartItems?.length > 0 ? (
+                          cartItems?.map((item, index) => (
+                            <>
+                              <div className="cart-items mt-4" key={index}>
+                                <div className="product-item p-1">
+                                  <img
+                                    src={item?.product?.images[0]?.image
+                                    }
+                                    className="img-fluid"
+                                    alt={item?.product?.name}
+                                  />
+                                </div>
+                                <div className="product-details w-100 ms-3">
+                                  <p className="item-name  text-black fw-500 mb-0">
+                                    {item?.product?.name}
+                                  </p>
+                                  <small className="item-weight text-grey mb-0 mt-1">{`${item?.option} ${item?.measurement_unit}`}</small>
+                                  <h6 className="item-amount mt-2 fw-600">{`₹ ${Math.trunc(
+                                    item?.price
+                                  )} X ${item?.item_quantity}`}</h6>
+                                </div>
+                                <div className="product-quantity text-end d-flex align-items-center">
+                                  <h6 style={{ fontWeight: "800" }}>{`₹${Math.trunc(item?.price) * item?.item_quantity
+                                    }`}</h6>
+                                </div>
                               </div>
-                              <div className="product-details w-100 ms-3">
-                                <p className="item-name  text-black fw-500 mb-0">
-                                  {item?.product?.name}
-                                </p>
-                                <small className="item-weight text-grey mb-0 mt-1">{`${item?.option} ${item?.measurement_unit}`}</small>
-                                <h6 className="item-amount mt-2 fw-600">{`₹ ${Math.trunc(
-                                  item?.price
-                                )} X ${item?.item_quantity}`}</h6>
-                              </div>
-                              <div className="product-quantity text-end d-flex align-items-center">
-                                <h6 style={{ fontWeight: "800" }}>{`₹${Math.trunc(item?.price) * item?.item_quantity
-                                  }`}</h6>
-                              </div>
-                            </div>
-                          </>
-                        ))
-                      ) : (
-                        <div className="text-center py-4">
-                          <h5 className="text-muted pb-4">Your cart is empty!</h5>
-                          <Link className="button-primary fs-6 d-inline-block text-decoration-none" to="/products">
-                            Browse Products
-                          </Link>
-                        </div>
-                      )}
+                            </>
+                          ))
+                        ) : (
+                          <div className="text-center py-4">
+                            <h5 className="text-muted pb-4">Your cart is empty!</h5>
+                            <Link className="button-primary fs-6 d-inline-block text-decoration-none" to="/products">
+                              Browse Products
+                            </Link>
+                          </div>
+                        )}
                       </div>
                       <div>
                         <CouponComponent couponList={couponList} onCouponApply={handleCouponApply} />
@@ -532,7 +547,8 @@ const CheckoutPage = () => {
                                     finalCart?.shipping_charge,
                                     finalCart?.delivery_date,
                                     finalCart?.delivery_days,
-                                    finalCart?.coupon_data?.coupon_code
+                                    finalCart?.coupon_data?.coupon_code,
+                                    finalCart?.courier_id
                                   )
                                 }>
                                 Proceed to Pay
