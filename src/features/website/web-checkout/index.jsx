@@ -498,7 +498,7 @@ const CheckoutPage = () => {
                         </ul>
                       </div>
                       <div className="cart-items mt-4 border-top mb-2">
-                        <div className="product-details w-100 ms-3 pt-4">
+                        <div className="product-details w-100 ms-lg-3 pt-4">
                           <h6 className="fw-bolder">Total Amount </h6>
                         </div>
                         <div className="product-quantity text-end pt-4">

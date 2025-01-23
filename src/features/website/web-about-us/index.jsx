@@ -166,8 +166,8 @@ const AboutUs = () => {
             </span>
           </motion.div>
           </div>
-          <div className="row mx-xl-5 mx-lg-0 px-xl-4 px-lg-4">
-            <div className="col-lg-4 col-sm-6">
+          <div className="row mx-xl-5 mx-lg-0 px-xl-4 px-lg-4 mt-5 mt-lg-0">
+            <div className="col-lg-4 col-sm-6 mt-4 mb-lg-4 mt-lg-0">
               <div className="card rounded-20 h-100">
                 <div className="card-body text-center px-lg-5 py-xl-4 py-lg-2">
                   <img
@@ -185,7 +185,7 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 col-sm-6">
+            <div className="col-lg-4 col-sm-6 mt-4 mb-lg-4 mt-lg-0">
               <div className="card rounded-20 h-100">
                 <div className="card-body text-center px-lg-5 py-xl-4 py-lg-2">
                   <img
@@ -203,7 +203,7 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 col-sm-6 mt-sm-4 mt-lg-0">
+            <div className="col-lg-4 col-sm-6 mt-4 mb-lg-4 mt-lg-0">
               <div className="card rounded-20 h-100">
                 <div className="card-body text-center  px-lg-5 py-xl-4 py-lg-2">
                   <img
@@ -221,7 +221,7 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 col-sm-6 mt-4 mb-lg-4">
+            <div className="col-lg-4 col-sm-6 mt-4 mb-lg-4 mt-lg-0">
               <div className="card rounded-20 h-100">
                 <div className="card-body text-center  px-lg-4 py-xl-4 py-lg-2">
                   <img
@@ -239,7 +239,7 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 col-sm-6 mt-4 mb-4">
+            <div className="col-lg-4 col-sm-6 mt-4 mb-lg-4 mt-lg-0">
               <div className="card rounded-20 h-100">
                 <div className="card-body text-center  px-lg-5 py-xl-4 py-lg-2">
                   <img
@@ -257,7 +257,7 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 col-sm-6 mt-4 mb-4">
+            <div className="col-lg-4 col-sm-6 mt-4 mb-lg-4 mt-lg-0">
               <div className="card rounded-20 h-100">
                 <div className="card-body text-center  px-lg-5 py-xl-4 py-lg-2">
                   <img
