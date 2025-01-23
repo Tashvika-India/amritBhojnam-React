@@ -12,11 +12,11 @@ import {
 import { Checkbox } from "primereact/checkbox";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import { Link } from 'react-router-dom';
-import { postCouponApi } from "../../../../services/adminApiRoutes";
+import { postCouponApi, putCouponApi } from "../../../../services/adminApiRoutes";
 import { useNavigate } from "react-router-dom";
 import YellowButton from "../../../../components/buttons/YellowButton";
 import { ColorLensOutlined } from "@mui/icons-material";
-const AddCoupon = () => {
+const AddCoupon = ({editData}) => {
   const [isFirstOrder, setIsFirstOrder] = useState(false);
   const [isDeliveryFree, setIsDeliveryFree] = useState(false);
   const navigate = useNavigate();
@@ -63,6 +63,7 @@ const AddCoupon = () => {
         is_first_order: isFirstOrder,
         is_delivery_free: isDeliveryFree,
       };
+
       try {
         await postCouponApi(payload);
         navigate("/admin/coupons");
@@ -71,6 +72,27 @@ const AddCoupon = () => {
       }
     },
   });
+
+  
+  const addCoupon = async (payload) => {
+    try {
+      const response = await postCouponApi(payload);
+      return response.data;
+    } catch (error) {
+      console.error("Failed to update coupon:", error);
+      throw error;
+    }
+  };
+
+   const updateCoupon = async (payload) => {
+    try {
+      const response = await putCouponApi(payload);
+      return response.data;
+    } catch (error) {
+      console.error("Failed to update coupon:", error);
+      throw error;
+    }
+  };
 
   return (
     <>

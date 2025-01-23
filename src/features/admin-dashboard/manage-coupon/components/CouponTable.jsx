@@ -8,7 +8,7 @@ import { formatDateTime } from '../../../../utils/constant-variable';
 
 
 
-const CouponTable = ({coupons,setEditData}) => {
+const CouponTable = ({coupons}) => {
 
 
     const navigate = useNavigate();

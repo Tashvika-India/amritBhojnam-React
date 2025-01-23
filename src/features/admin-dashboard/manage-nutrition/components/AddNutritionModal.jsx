@@ -8,10 +8,10 @@ import { useFormik } from "formik";
 import { postNutritionApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
 import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
+import { get } from "lodash";
 
 export default function AddNutritionModal({ visible, setVisible, getNutrition }) {
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(false); 
   const initialValues = {
     name: "",
     unit: "",
@@ -29,12 +29,13 @@ export default function AddNutritionModal({ visible, setVisible, getNutrition })
   async function addNutrition(values) {
     setLoading(true);
     try {
-      await postNutritionApi(values); // Ensure this API function works and matches the expected structure
+      await postNutritionApi(values);
       resetForm();
-      getNutrition(); // Fetch updated nutrition data after successful POST
+      getNutrition();
       setVisible(false);
       notifySuccess("Nutrition added successfully!");
     } catch (error) {
+      console.error("Error adding nutrition:", error);
       notifyError(error.response?.data?.error);
     } finally {
       setLoading(false);

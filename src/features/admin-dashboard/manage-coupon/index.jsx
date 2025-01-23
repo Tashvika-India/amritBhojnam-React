@@ -56,12 +56,12 @@ const AdminCoupon = () => {
               <div className="col-md-5">
                 <div>
                   <div className="mb-3">
-                    <TabsButtons
+                    {/* <TabsButtons
                       activeTab={activeTab}
                       setActiveTab={setActiveTab}
                       labelOne={"Active"}
                       labelTwo={"Inactive"}
-                    />
+                    /> */}
                   </div>
                   {/* {activeTab === "Active Orders" && <ProductTable />}
                   {activeTab === "New Orders" && <ProductTable />} */}
