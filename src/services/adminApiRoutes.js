@@ -196,7 +196,7 @@ export const postContactApi = (payload) => API.post(`/contact/`, payload);
 
 export const getCouponApi = () => API.get(`/coupons/`);
 export const postCouponApi = (payload) => API.post(`/coupons/`, payload);
-export const putCouponApi = (payload) => API.put(`/coupons/`, payload);
+export const putCouponApi = (id,payload) => API.put(`/coupons/${id}`, payload);
 export const deleteCouponApi = (id) => API.delete(`/coupons/${id}`);
 
 //rating

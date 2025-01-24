@@ -106,22 +106,22 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/admin/add-roles"
+        path="/admin/edit-product"
         element={
           <AdminPrivateRoute>
             <DashboardSidebar>
-              <AddRoles />
+              <ProductAdd />
             </DashboardSidebar>
           </AdminPrivateRoute>
         }
       />
       <Route
         exact
-        path="/admin/edit-product"
+        path="/admin/add-roles"
         element={
           <AdminPrivateRoute>
             <DashboardSidebar>
-              <ProductAdd />
+              <AddRoles />
             </DashboardSidebar>
           </AdminPrivateRoute>
         }
@@ -194,7 +194,7 @@ function AppRoutes() {
       />
       <Route
         exact
-        path="/admin/edit-coupon/:id"
+        path="/admin/edit-coupon"
         element={
           <AdminPrivateRoute>
             <DashboardSidebar>
