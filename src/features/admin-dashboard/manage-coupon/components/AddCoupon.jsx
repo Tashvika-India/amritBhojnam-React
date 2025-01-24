@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Heading from "@/components/ui/Heading";
 import {
   Breadcrumbs,
   FormControl,
+  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -13,16 +14,19 @@ import {
 } from "@mui/material";
 import { Checkbox } from "primereact/checkbox";
 import IosSwitch from "../../../../components/ui/IosSwitch";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { postCouponApi, putCouponApi } from "../../../../services/adminApiRoutes";
 import { useNavigate } from "react-router-dom";
 import YellowButton from "../../../../components/buttons/YellowButton";
-import { ColorLensOutlined } from "@mui/icons-material";
-const AddCoupon = ({editData}) => {
+import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
+
+const AddCoupon = () => {
   const [isFirstOrder, setIsFirstOrder] = useState(false);
   const [isDeliveryFree, setIsDeliveryFree] = useState(false);
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const coupon = location?.state;
+  
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -48,16 +52,23 @@ const AddCoupon = ({editData}) => {
       coupon_type: Yup.string().required("Coupon type is required"),
       discount_value: Yup.number().required("Discount value is required"),
       max_discount: Yup.number().required("Max discount is required"),
-      valid_from: Yup.date().required("Valid from date is required"),
-      valid_to: Yup.date().required("Valid to date is required"),
+      valid_from: Yup.date()
+        .required("Valid from date is required"),
+      // .min(today, "Valid from date cannot be in the past"),
+      valid_to: Yup.date()
+        .required("Valid to date is required")
+        .min(
+          Yup.ref("valid_from"),
+          "Valid to date cannot be earlier than the valid from date"
+        ),
       buy_quantity: Yup.number().required("Buy quantity is required"),
       buy_quantity_unit: Yup.string().required("Buy quantity unit is required"),
       free_quantity: Yup.number().required("Free quantity is required"),
       free_quantity_unit: Yup.string().required(
         "Free quantity unit is required"
       ),
-      buy_product: Yup.string().required("Buy product is required"),
-      free_product: Yup.string().required("Free product is required"),
+      // buy_product: Yup.string().required("Buy product is required"),
+      // free_product: Yup.string().required("Free product is required"),
     }),
     onSubmit: async (values) => {
       const payload = {
@@ -65,50 +76,48 @@ const AddCoupon = ({editData}) => {
         is_first_order: isFirstOrder,
         is_delivery_free: isDeliveryFree,
       };
-
       try {
-        await postCouponApi(payload);
+        if (coupon) {
+          await putCouponApi(coupon.id, payload);
+          notifySuccess("Coupon updated successfully!");
+        } else {
+          await postCouponApi(payload);
+          notifySuccess("Coupon added successfully!");
+        }
         navigate("/admin/coupons");
       } catch (error) {
-        alert("Failed to add coupon.");
+        notifyError("Failed to save coupon. Please try again.");
       }
     },
   });
 
-  
-  const addCoupon = async (payload) => {
-    try {
-      const response = await postCouponApi(payload);
-      return response.data;
-    } catch (error) {
-      console.error("Failed to update coupon:", error);
-      throw error;
-    }
-  };
+  const { values, resetForm, setValues, errors, touched } = formik;
 
-   const updateCoupon = async (payload) => {
-    try {
-      const response = await putCouponApi(payload);
-      return response.data;
-    } catch (error) {
-      console.error("Failed to update coupon:", error);
-      throw error;
+  useEffect(() => {
+    if (coupon) {
+      formik.setValues(coupon);
+      setIsFirstOrder(coupon.is_first_order);
+      setIsDeliveryFree(coupon.is_delivery_free);
+    } else {
+      formik.resetForm();
+      setIsFirstOrder(false);
+      setIsDeliveryFree(false);
     }
-  };
+  }, [coupon]);
 
   return (
     <>
       <div className="mt-3 mb-4 row">
         <div className="col-md-6">
-          <Heading value="Add Coupon" />
+          <Heading value={coupon ? "Edit Coupon" : "Add Coupon"} />
         </div>
         <div className="col-12 mt-4">
           <Breadcrumbs aria-label="breadcrumb">
             <Link to={"/admin/coupons"}>Coupons</Link>
-            <Typography className="text-orange">Add Coupon</Typography>
+            <Typography className="text-orange">{coupon ? "Edit Coupon" : "Add Coupon"}</Typography>
           </Breadcrumbs>
         </div>
-      </div> 
+      </div>
       <form onSubmit={formik.handleSubmit}>
         <div className="row">
           <div className="col-md-4">
@@ -223,17 +232,16 @@ const AddCoupon = ({editData}) => {
                     />
                   </div>
                   <div className="col-md-6 mb-4">
-                    <FormControl fullWidth>
-                      <InputLabel id="coupon_type-label">
-                        Coupon Type
-                      </InputLabel>
+                    <FormControl fullWidth error={formik.touched.coupon_type && Boolean(formik.errors.coupon_type)}>
+                      <InputLabel id="coupon_type-label">Coupon Type</InputLabel>
                       <Select
                         labelId="coupon_type-label"
                         id="coupon_type"
-                        label="Coupon Type"
                         name="coupon_type"
+                        label="Coupon Type"
                         value={formik.values.coupon_type}
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                       >
                         <MenuItem value="">SELECT</MenuItem>
                         <MenuItem value="FLAT">FLAT</MenuItem>
@@ -241,7 +249,11 @@ const AddCoupon = ({editData}) => {
                         <MenuItem value="UPTO">UPTO</MenuItem>
                         <MenuItem value="BUY_X_GET_Y">BUY_X_GET_Y</MenuItem>
                       </Select>
+                      {formik.touched.coupon_type && formik.errors.coupon_type && (
+                        <FormHelperText>{formik.errors.coupon_type}</FormHelperText>
+                      )}
                     </FormControl>
+
                   </div>
                   <div className="col-md-6 mb-4">
                     <TextField
@@ -417,18 +429,18 @@ const AddCoupon = ({editData}) => {
                   </div> */}
                   <div className="col-md-12 mb-4 text-end">
                     <Link to="/admin/add-coupon">
-                      <YellowButton lable={"+ Add Coupons"} handleClick={formik.handleSubmit} />
+                      <YellowButton lable={coupon ? "Edit Coupon" : "Add Coupon"} handleClick={formik.handleSubmit} />
                     </Link>
                     <button
-                  className="button-primary-reverse me-4 ms-3 py-2"
-                  type="button"
-                  onClick={() => {
-                    formik.resetForm();
-                    setOpen(false);
-                  }}
-                >
-                  Cancel
-                </button>
+                      className="button-primary-reverse me-4 ms-3 py-2"
+                      type="button"
+                      onClick={() => {
+                        formik.resetForm();
+                        setOpen(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </div>
               </div>
