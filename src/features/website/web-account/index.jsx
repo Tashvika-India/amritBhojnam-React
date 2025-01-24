@@ -615,6 +615,7 @@ const UserProfile = () => {
                     </form>
                   </div>
                 </TabPanel>
+              
                 <TabPanel header="Order-history">
                   <div className="order-section">
                     <div className="d-flex justify-content-between align-items-center mb-3 mt-3">
@@ -732,7 +733,7 @@ const UserProfile = () => {
                                 </div>
                                 <div className="row m-md-3">
                                   <div className="col-md-6">
-                                    <div className="d-flex mb-2 mb-md-0">
+                                    <div className="d-flex mb-2 mb-md-0 delivery-check">
                                       <img
                                         className="img-fluid me-2"
                                         style={{

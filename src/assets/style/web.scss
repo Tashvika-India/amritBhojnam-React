@@ -2945,6 +2945,10 @@ footer {
   .product-card .masala-con {
     height: 1.95rem !important;
   }
+  .summary-card .border-bottom .delivery-check img{
+    height : 1rem !important;
+    width: 1rem !important;
+  }
   .account-menu {
     .list-wrapper {
       li {
@@ -2965,10 +2969,15 @@ footer {
     border-radius: 0.3rem;
   }
   .cart-items {
-    .product-details h6 {
-      font-size: 1.3rem;
-      margin-block: 0.8rem;
-    }
+    .product-details{
+      .item-amount{
+        font-size: 0.8rem;
+      }
+      h6 {
+        font-size: 1.3rem;
+        margin-block: 0.8rem;
+      }
+    } 
     .product-quantity h5 {
       font-size: 1.3rem !important;
     }
@@ -3109,18 +3118,6 @@ footer {
       }
     }
   }
-
-  // .product-quantity {
-  //   .quantity-manage {
-  //     gap: 0 !important;
-  //   }
-  //   .remove-quantity {
-  //     font-size: 0.875rem;
-  //   }
-  // }
-  // .cart-items .product-quantity .quantity-manage{
-  //   width: 100% !important;
-  // }
   .web-wrapper-main {
     .fb-fs-26 {
       font-size: 1.4rem;
@@ -3405,11 +3402,18 @@ footer {
 
     .thoughtful-content {
       font-size: 0.875rem;
+      padding-top: 0.5rem;
+      br{
+        display: none;
+      }
     }
 
     .thoughtful-content-bottom {
       font-size: 0.875rem;
       padding-bottom: 1.5rem;
+      br{
+        display: none;
+      }
     }
 
     .card {
@@ -3659,6 +3663,9 @@ footer {
 .about-us .card .card-body img{
   object-fit: contain;
 }
+.about-us .fb-fs-40{
+  font-size: 1.45rem !important;
+}
   .offer-cards {
     .protein-left {
       height: 26rem;
@@ -3803,6 +3810,9 @@ footer {
   .web-wrapper-main time {
     font-size: 0.875rem;
   }
+  .order-section .filter-order .demo-simple-select-label{
+    font-size: 2px !important;
+  }
 }
 
 @media (min-width: 300px) and (max-width: 350px) {
@@ -3821,8 +3831,6 @@ footer {
 
 @media (min-width: 400px) and (max-width: 500px) {
   .profile-tabs {
-    display: flex;
-    gap: 2;
     button {
       font-size: 0.89rem;
       padding: 0.7rem 0.4rem 0.5rem;

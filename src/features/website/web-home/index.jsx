@@ -284,8 +284,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
-
       <section className="banner-ads mt-5">
         <div className="container-fluid">
           <div className="row">
@@ -355,8 +353,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
-
       <section className="popular-product">
         <div className="container fb-container">
           <h3 className="fw-bold text-center mb-5 ms-lg-5">
@@ -378,7 +374,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
       <section className="overflow-hidden p-md-0">
         <div className="container-fluid px-0 mt-3">
           <div className="row">
