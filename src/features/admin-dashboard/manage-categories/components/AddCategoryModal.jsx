@@ -6,7 +6,7 @@ import { TextField } from "@mui/material";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import FileUpload from "../../../../components/fileUpload/FileUpload";
 import { useFormik } from "formik";
-import {categorySchema } from "../../../../schemas/category-schema";
+import { categorySchema } from "../../../../schemas/category-schema";
 import { postCategoriesApi, putCategoriesApi } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
 import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
@@ -87,7 +87,7 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
       <Dialog
         visible={visible}
         style={{ width: "40vw" }}
-        className="rounded-20"
+        className="rounded-20 overflow-hidden"
         onHide={() => setVisible(false)}
         footer={<FooterContent formik={formik} setVisible={setVisible} />}
         closable={false}
@@ -100,9 +100,9 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
             <div className="p-fluid">
               <div className="mb-4">
                 <FileUpload formik={formik} name="img_file" />
-                 <p className="text-danger">{errors.img_file}</p>
+                <p className="text-danger">{errors.img_file}</p>
               </div>
-              <div className="mb-4">
+              <div>
                 <TextField
                   fullWidth
                   variant="outlined"
@@ -111,7 +111,7 @@ export default function AddCategoryModal({ visible, setVisible, getCategories, e
                   onChange={formik.handleChange}
                   value={formik.values.name}
                 />
-                  <p className="text-danger">{errors.name}</p>
+                <p className="text-danger">{errors.name}</p>
               </div>
             </div>
           </form>
@@ -143,9 +143,8 @@ function FooterContent({ formik, setVisible, loading, editData }) {
     <>
       <div className="d-inline-flex gap-3">
         <RejectButton lable="Cancel" handleClick={() => setVisible(false)} />
-        <YellowButton lable="Save Changes" handleClick={formik.handleSubmit} disabled={loading}/>
+        <YellowButton lable="Save Changes" handleClick={formik.handleSubmit} disabled={loading} />
       </div>
     </>
   );
 }
-  

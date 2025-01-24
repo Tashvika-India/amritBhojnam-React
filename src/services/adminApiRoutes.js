@@ -197,6 +197,7 @@ export const postContactApi = (payload) => API.post(`/contact/`, payload);
 export const getCouponApi = () => API.get(`/coupons/`);
 export const postCouponApi = (payload) => API.post(`/coupons/`, payload);
 export const putCouponApi = (payload) => API.put(`/coupons/`, payload);
+export const deleteCouponApi = (id) => API.delete(`/coupons/${id}`);
 
 //rating
 
@@ -210,6 +211,7 @@ export const getAdminOrderListApi = (id) => API.get(`/orders/?display_order_id=$
 //nutrition
 export const getNutritionApi = () => API.get(`/nutritions/`);
 export const postNutritionApi = (payload) => API.post(`/nutritions/`, payload); 
+export const putNutritionApi = (payload) => API.put(`/nutrition/${payload.nutrition_id}/`, payload); 
 export const deleteNutritionApi = (id) => API.delete(`/nutrition/${id}`);
 
 //nutriton-value

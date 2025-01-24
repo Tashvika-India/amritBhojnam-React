@@ -3,11 +3,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Heading from "@/components/ui/Heading";
 import {
+  Breadcrumbs,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
 import { Checkbox } from "primereact/checkbox";
 import IosSwitch from "../../../../components/ui/IosSwitch";
@@ -39,24 +41,24 @@ const AddCoupon = ({editData}) => {
       buy_product: "",
       free_product: "",
     },
-    // validationSchema: Yup.object({
-    //   title: Yup.string().required("Title is required"),
-    //   description: Yup.string().required("Description is required"),
-    //   coupon_code: Yup.string().required("Coupon code is required"),
-    //   coupon_type: Yup.string().required("Coupon type is required"),
-    //   discount_value: Yup.number().required("Discount value is required"),
-    //   max_discount: Yup.number().required("Max discount is required"),
-    //   valid_from: Yup.date().required("Valid from date is required"),
-    //   valid_to: Yup.date().required("Valid to date is required"),
-    //   buy_quantity: Yup.number().required("Buy quantity is required"),
-    //   buy_quantity_unit: Yup.string().required("Buy quantity unit is required"),
-    //   free_quantity: Yup.number().required("Free quantity is required"),
-    //   free_quantity_unit: Yup.string().required(
-    //     "Free quantity unit is required"
-    //   ),
-    //   buy_product: Yup.string().required("Buy product is required"),
-    //   free_product: Yup.string().required("Free product is required"),
-    // }),
+    validationSchema: Yup.object({
+      title: Yup.string().required("Title is required"),
+      description: Yup.string().required("Description is required"),
+      coupon_code: Yup.string().required("Coupon code is required"),
+      coupon_type: Yup.string().required("Coupon type is required"),
+      discount_value: Yup.number().required("Discount value is required"),
+      max_discount: Yup.number().required("Max discount is required"),
+      valid_from: Yup.date().required("Valid from date is required"),
+      valid_to: Yup.date().required("Valid to date is required"),
+      buy_quantity: Yup.number().required("Buy quantity is required"),
+      buy_quantity_unit: Yup.string().required("Buy quantity unit is required"),
+      free_quantity: Yup.number().required("Free quantity is required"),
+      free_quantity_unit: Yup.string().required(
+        "Free quantity unit is required"
+      ),
+      buy_product: Yup.string().required("Buy product is required"),
+      free_product: Yup.string().required("Free product is required"),
+    }),
     onSubmit: async (values) => {
       const payload = {
         ...values,
@@ -96,11 +98,17 @@ const AddCoupon = ({editData}) => {
 
   return (
     <>
-      <div className="mt-3 mb-5 row">
+      <div className="mt-3 mb-4 row">
         <div className="col-md-6">
-          <Heading value="Add New Coupon" />
+          <Heading value="Add Coupon" />
         </div>
-      </div>
+        <div className="col-12 mt-4">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link to={"/admin/coupons"}>Coupons</Link>
+            <Typography className="text-orange">Add Coupon</Typography>
+          </Breadcrumbs>
+        </div>
+      </div> 
       <form onSubmit={formik.handleSubmit}>
         <div className="row">
           <div className="col-md-4">
@@ -222,12 +230,14 @@ const AddCoupon = ({editData}) => {
                       <Select
                         labelId="coupon_type-label"
                         id="coupon_type"
+                        label="Coupon Type"
                         name="coupon_type"
                         value={formik.values.coupon_type}
                         onChange={formik.handleChange}
                       >
-                        <MenuItem value="FLAT">Flat</MenuItem>
-                        <MenuItem value="PERCENTAGE">Percentage</MenuItem>
+                        <MenuItem value="">SELECT</MenuItem>
+                        <MenuItem value="FLAT">FLAT</MenuItem>
+                        <MenuItem value="PERCENTAGE">PERCENTAGE</MenuItem>
                         <MenuItem value="UPTO">UPTO</MenuItem>
                         <MenuItem value="BUY_X_GET_Y">BUY_X_GET_Y</MenuItem>
                       </Select>

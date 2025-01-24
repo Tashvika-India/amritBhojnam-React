@@ -80,8 +80,7 @@ function LoginForm() {
           error={ifError("email")}
           helperText={ifError("email") && errors.email}
           variant="outlined"
-          placeholder="Enter your Email"
-        />
+          placeholder="Enter your Email"/>
       </div>
 
       <div className="mt-4">
