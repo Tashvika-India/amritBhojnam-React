@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Tag } from "primereact/tag";
 import { Avatar } from "primereact/avatar";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -12,6 +11,9 @@ import { formatDateTime } from "../../../../../utils/constant-variable";
 import { Link } from "react-router-dom";
 import AcceptOrderModal from "./AcceptOrderModal";
 import StatusModal from "./StatusModal";
+import AcceptOrder from "./OrderStatusModal/AcceptOrder";
+import CancelOrder from "./OrderStatusModal/CancelOrder";
+import { getOrderSuccessApi } from "../../../../../services/adminApiRoutes";
 const NewOrdersTable = ({ order, getOrderList }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [orderStatus, setOrderStatus] = useState([]);
@@ -56,7 +58,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
   };
 
 
-  const paymentStatusTemplate = (rowData) => { 
+  const paymentStatusTemplate = (rowData) => {
     return (
       <div>
         <p className="mb-0 fw-500">
@@ -69,7 +71,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
     );
   };
 
-  const orderTemplate = (rowData) => { 
+  const orderTemplate = (rowData) => {
     return (
       <>
         {/* {(rowData?.product_details.map((item) => {
@@ -118,6 +120,43 @@ const NewOrdersTable = ({ order, getOrderList }) => {
   };
 
   const actionBodyTemplate = (rowData) => {
+    const [acceptVisible, setAcceptVisible] = useState(false);
+    const [cancelVisible, setCancelVisible] = useState(false);
+
+    const handleAcceptOrder = async (rowData) => {
+      try {
+        const payload = {
+          order_id: rowData.id,
+          status: "accepted",
+          cancel_reason: "",
+        };
+        await getOrderSuccessApi(payload);
+        getOrderList();
+        notifySuccess("Order accepted successfully");
+        setAcceptVisible(false);
+      } catch (error) {
+        notifyError(error.response?.data?.error);
+        console.error("Error accepting order:", error);
+      }
+    };
+
+    const handleCancelOrder = async (rowData, remarks) => {
+      try {
+        const payload = {
+          order_id: rowData.id,
+          status: "cancelled",
+          cancel_reason: remarks,
+        };
+        await getOrderSuccessApi(payload);
+        getOrderList();
+        notifySuccess("Order cancelled successfully");
+        setCancelVisible(false);
+      } catch (error) {
+        notifyError(error.response?.data?.error);
+        console.error("Error cancelling order:", error);
+      }
+    };
+    
     return (
       <>
         {
@@ -160,7 +199,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
         />
         <div>
           <p className="mb-0 ">{rowData?.delivering_to?.ads_name}</p>
-          <small className="fw-400" style={{ fontSize: "0.88rem" , color: "#584EE0"}}>{rowData?.delivering_to?.ads_phone}</small>
+          <small className="fw-400" style={{ fontSize: "0.88rem", color: "#584EE0" }}>{rowData?.delivering_to?.ads_phone}</small>
         </div>
       </div>
     );
@@ -187,7 +226,9 @@ const NewOrdersTable = ({ order, getOrderList }) => {
         <Column header="ACTION" body={actionBodyTemplate}></Column>
       </DataTable>
       <AcceptOrderModal visible={modalVisible} getOrderList={getOrderList} setVisible={() => setModalVisible(false)} orderStatus={orderStatus} />
-      <StatusModal/>
+      {/* <StatusModal/> */}
+      {/* <AcceptOrder />
+      <CancelOrder /> */}
     </div>
 
   );
