@@ -405,9 +405,9 @@ td {
     font-size: 0.875rem;
     font-weight: 500;
     border: 1px solid transparent;
-    padding: 0px 6px;
+    // padding: 0px 6px;
     text-decoration: none;
-    line-height: 1px;
+    // line-height: 1px;
     transition: all 0.3s ease-in-out;
     &:hover {
         background-color: $white;
