@@ -34,6 +34,7 @@ import deleteButton from "../../../assets/images/web/account/delete-button.png";
 import AddressDeleteModal from "../../../components/ui/AddressDeleteModal";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import emptyCart from "../../../assets/images/web/empty-cart.png";  
 
 
 const CheckoutPage = () => {
@@ -467,73 +468,74 @@ const CheckoutPage = () => {
                           ))
                         ) : (
                           <div className="text-center py-4">
-                            <h5 className="text-muted pb-4">Your cart is empty!</h5>
-                            <Link className="button-primary fs-6 d-inline-block text-decoration-none" to="/products">
+                            <img src={emptyCart} alt="empty-cart" className="img-fluid mx-auto empty-cart-image w-25" />
+                            <h4 className="text-black">Your Cart is Empty!</h4>
+                            <small className="text-muted text-balance mb-4">Looks like you haven’t added anything to your cart yet</small>
+                            <Link className="button-primary d-block fw-normal mt-3" style={{ fontSize: "14px" }} to="/products">
                               Browse Products
                             </Link>
                           </div>
                         )}
                       </div>
-                      { cartItems?.length > 0 && <div><CouponComponent couponList={couponList} onCouponApply={handleCouponApply} /></div>}
-                      <div className="cart-items mt-2">
-                        <ul className="list-unstyled w-100">
-                          <li className="d-flex justify-content-between my-2">
-                            <span className="fw-500">Sub Total</span>
-                            <span className="fb-fs-18 fw-500">
-                              {finalCart?.total === undefined
-                                ? "₹ 0"
-                                : `₹ ${finalCart?.total}`}
-                            </span>
-                          </li>
-                          {(finalCart?.handling_fee > 0) && <li className="d-flex justify-content-between my-2">
-                            <span className="fw-500">Handling fee</span>
-                            <span className="fb-fs-18 fw-500">
-                              {finalCart?.handling_fee === undefined
-                                ? "₹ 0"
-                                : `₹ ${finalCart?.handling_fee}`}
-                            </span>
-                          </li>}
-                          {(finalCart?.coupon_data?.coupon_discount > 0) && <li className="d-flex justify-content-between my-2">
-                            <span className="fw-500 text-success">Coupon discount</span>
-                            <span className="fb-fs-18 fw-500 text-success">
-                              {finalCart?.coupon_data?.coupon_discount === undefined
-                                ? "₹ 0"
-                                : `₹${(finalCart?.coupon_data?.coupon_discount == 0) ? 0 : `-${finalCart?.coupon_data?.coupon_discount}`}`}
-                            </span>
-                          </li>}
-                          <li className="d-flex justify-content-between my-2">
-                            <span className="fw-500 text-orange">
-                              Delivery fee
-                            </span>
-                            <span className="fb-fs-18 fw-500 text-orange">
-                              {finalCart?.shipping_charge === undefined
-                                ? "₹ 0"
-                                : `₹ ${finalCart?.shipping_charge}`}
-                            </span>
-                          </li>
-                          {/* <li className="d-flex justify-content-between my-2">
-                          <span className="fw-500 text-green">Coupon Discount</span>
-                          <span className="fb-fs-18 fw-500 text-green">
-                            {finalCart.discount === undefined ? '₹ 0' : `- ₹ ${finalCart.discount}`}
-                          </span>
-                        </li> */}
-                        </ul>
-                      </div>
-                     
-                      <div className="cart-items mt-4 border-top mb-2">
-                        <div className="product-details w-100 ms-lg-3 pt-4">
-                          <h6 className="fw-bolder">Total Amount </h6>
-                        </div>
-                        <div className="product-quantity text-end pt-4">
-                          <h5 style={{ textWrap: "nowrap", fontWeight: "800" }}>
-                            {finalCart?.amount_to_pay === undefined
-                              ? "₹ 0"
-                              : `₹ ${finalCart?.amount_to_pay}`}
-                          </h5>
-                        </div>
-                      </div>
                       {cartItems.length > 0 && addressList.length > 0 ? (
                         <>
+                          <CouponComponent couponList={couponList} onCouponApply={handleCouponApply} />
+                          <div className="cart-items mt-2">
+                            <ul className="list-unstyled w-100">
+                              <li className="d-flex justify-content-between my-2">
+                                <span className="fw-500">Sub Total</span>
+                                <span className="fb-fs-18 fw-500">
+                                  {finalCart?.total === undefined
+                                    ? "₹ 0"
+                                    : `₹ ${finalCart?.total}`}
+                                </span>
+                              </li>
+                              {(finalCart?.handling_fee > 0) && <li className="d-flex justify-content-between my-2">
+                                <span className="fw-500">Handling fee</span>
+                                <span className="fb-fs-18 fw-500">
+                                  {finalCart?.handling_fee === undefined
+                                    ? "₹ 0"
+                                    : `₹ ${finalCart?.handling_fee}`}
+                                </span>
+                              </li>}
+                              {(finalCart?.coupon_data?.coupon_discount > 0) && <li className="d-flex justify-content-between my-2">
+                                <span className="fw-500 text-success">Coupon discount</span>
+                                <span className="fb-fs-18 fw-500 text-success">
+                                  {finalCart?.coupon_data?.coupon_discount === undefined
+                                    ? "₹ 0"
+                                    : `₹${(finalCart?.coupon_data?.coupon_discount == 0) ? 0 : `-${finalCart?.coupon_data?.coupon_discount}`}`}
+                                </span>
+                              </li>}
+                              <li className="d-flex justify-content-between my-2">
+                                <span className="fw-500 text-orange">
+                                  Delivery fee
+                                </span>
+                                <span className="fb-fs-18 fw-500 text-orange">
+                                  {finalCart?.shipping_charge === undefined
+                                    ? "₹ 0"
+                                    : `₹ ${finalCart?.shipping_charge}`}
+                                </span>
+                              </li>
+                              {/* <li className="d-flex justify-content-between my-2">
+                                  <span className="fw-500 text-green">Coupon Discount</span>
+                                  <span className="fb-fs-18 fw-500 text-green">
+                                    {finalCart.discount === undefined ? '₹ 0' : `- ₹ ${finalCart.discount}`}
+                                  </span>
+                                </li> */}
+                            </ul>
+                          </div>
+                          <div className="cart-items mt-4 border-top mb-2">
+                            <div className="product-details w-100 ms-lg-3 pt-4">
+                              <h6 className="fw-bolder">Total Amount </h6>
+                            </div>
+                            <div className="product-quantity text-end pt-4">
+                              <h5 style={{ textWrap: "nowrap", fontWeight: "800" }}>
+                                {finalCart?.amount_to_pay === undefined
+                                  ? "₹ 0"
+                                  : `₹ ${finalCart?.amount_to_pay}`}
+                              </h5>
+                            </div>
+                          </div>
                           <div className="w-100">
                             {login ? (
                               <button
@@ -575,9 +577,10 @@ const CheckoutPage = () => {
                                 Please Add Your address
                               </h6>
                             ) : (
-                              <h6 className="text-danger text-uppercase fs-6">
-                                Please Add Product in Cart
-                              </h6>
+                              <></>
+                              // <h6 className="text-danger text-uppercase fs-6">
+                              //   Please Add Product in Cart
+                              // </h6>
                             )}
                           </div>
                         </>

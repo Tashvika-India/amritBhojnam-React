@@ -52,10 +52,15 @@ const CouponTable = ({ coupons, getCoupons }) => {
         }
     };
 
+    const handleEditClick = (rowData) => {
+        navigate("/admin/edit-coupon", { state: rowData });
+      };
+    
+
     const actionBodyTemplate = (rowData) => {
         return (
             <div className="w-100 d-flex gap-3">
-                <button
+                <button onClick={() => handleEditClick(rowData)}
                     title="Edit"
                     className="d-flex gap-2 border-0 rounded ms-0"
                     style={{ color: "#1F5FBE", backgroundColor: "#EDF1FF", padding: ".5rem .5rem", marginLeft: "1rem" }}>

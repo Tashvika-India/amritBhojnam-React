@@ -39,7 +39,7 @@ const AdminCoupon = () => {
         </div>
         <div className="col-md-6 text-end">
           <Link to="/admin/add-coupon">
-            <YellowButton lable={"+ Add New Coupons"} />
+            <YellowButton lable={"+ Add New Coupon"} />
           </Link>
         </div>
         <div className="col-12 mt-3">
