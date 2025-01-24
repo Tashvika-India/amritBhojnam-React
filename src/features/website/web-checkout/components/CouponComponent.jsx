@@ -23,6 +23,7 @@ const CouponComponent = ({ couponList, onCouponApply }) => {
     };
 
     return (
+        <div className="coupan-applied">
         <Box sx={{ mt: 4, width: "100%" }}>
             <Autocomplete
                 options={couponList}
@@ -36,7 +37,7 @@ const CouponComponent = ({ couponList, onCouponApply }) => {
                         variant="outlined"
                         fullWidth
                         onChange={() => setIsApplied(false)} />)}
-                renderOption={(props, option) => (
+                        renderOption={(props, option) => (
                     <Box
                         component="li"
                         {...props}
@@ -66,6 +67,7 @@ const CouponComponent = ({ couponList, onCouponApply }) => {
                 </Box>
             )}
         </Box>
+        </div>
     );
 };
 

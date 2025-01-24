@@ -450,7 +450,7 @@ const CheckoutPage = () => {
                                   />
                                 </div>
                                 <div className="product-details w-100 ms-3">
-                                  <p className="item-name  text-black fw-500 mb-0">
+                                  <p className="item-name text-black fw-500 mb-0">
                                     {item?.product?.name}
                                   </p>
                                   <small className="item-weight text-grey mb-0 mt-1">{`${item?.option} ${item?.measurement_unit}`}</small>
@@ -474,9 +474,7 @@ const CheckoutPage = () => {
                           </div>
                         )}
                       </div>
-                      <div>
-                        <CouponComponent couponList={couponList} onCouponApply={handleCouponApply} />
-                      </div>
+                      { cartItems?.length > 0 && <div><CouponComponent couponList={couponList} onCouponApply={handleCouponApply} /></div>}
                       <div className="cart-items mt-2">
                         <ul className="list-unstyled w-100">
                           <li className="d-flex justify-content-between my-2">
@@ -521,6 +519,7 @@ const CheckoutPage = () => {
                         </li> */}
                         </ul>
                       </div>
+                     
                       <div className="cart-items mt-4 border-top mb-2">
                         <div className="product-details w-100 ms-lg-3 pt-4">
                           <h6 className="fw-bolder">Total Amount </h6>

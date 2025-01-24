@@ -48,7 +48,7 @@ const AboutUs = () => {
             </div>
             <div className="col-md-6 ps-lg-0 pe-lg-5 about-right">
               <div>
-                <p className="fb-fs-40 fw-600 py-lg-4 py-md-0 py-2 mb-md-0 mb-lg-2 mt-lg-2">
+                <p className="fb-fs-40 fw-600 py-lg-4 py-md-0 py-2 mb-md-0 mb-lg-2 mt-lg-2 mt-4">
                   Welcome to Amrit Bhojanam
                 </p>
                 <p className="about-con-inner">
