@@ -29,7 +29,7 @@ const DeleteModal = ({ visible, onHide, onDelete }) => {
         />
         <h3 className="fw-600" style={{ color: "#EF3A4B" }}>Delete Item ?</h3>
         <p className="text-dark-grey fb-fs-20 mb-1">
-          You’re about to delete this order
+        Are you sure you want to delete this item?
         </p>
       </div>
     </Dialog>

@@ -41,7 +41,7 @@ function ProductReviews() {
         </div>
         <div className="col-12 mt-3">
           <Breadcrumbs aria-label="breadcrumb">
-            <Link to={"/admin/product/product-list"}>Product List</Link>
+            <Link to={"/admin/product"}>Product List</Link>
             <Typography className="text-orange">Product Reviews</Typography>
           </Breadcrumbs>
         </div>

@@ -25,14 +25,14 @@ import Typography from '@mui/material/Typography';
 import { GrPowerReset } from "react-icons/gr";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 
-const ProudctList = () => { 
+const ProudctList = () => {
   const navigate = useNavigate();
   const [categoryList, setCategoryList] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-  
+
   const [showFilter, setShowFilter] = useState(false);
   const toggleMobileFiter = () => setShowFilter((prev) => !prev);
-  
+
   const defaultFilters = {
     category_id: "",
     maxPrice: "5000",
@@ -42,12 +42,12 @@ const ProudctList = () => {
     rating: "",
     search: "",
   };
-  const [filters, setFilters] = useURLFilters(defaultFilters); 
+  const [filters, setFilters] = useURLFilters(defaultFilters);
   const areObjectsEqual = (obj1, obj2) => {
     return Object.keys(obj1).every((key) => obj1[key] === obj2[key]);
   };
 
-  const isFiltersChanged = !areObjectsEqual(filters, defaultFilters); 
+  const isFiltersChanged = !areObjectsEqual(filters, defaultFilters);
 
   const dispatch = useDispatch();
   const { productList, loading, error } = useSelector((state) => state.product);
@@ -102,12 +102,10 @@ const ProudctList = () => {
   }, 300);
 
   useEffect(() => {
-    navigate(
-      `/products?category_id=${filters.category_id}&name=${filters.name}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}&rating=${filters.rating}`
-    );
+    navigate(`/products?category_id=${filters.category_id}&name=${filters.name}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}&rating=${filters.rating}`, { replace: true });
     scrollToTop()
     setShowFilter(false);
-  }, [filters]); 
+  }, [filters]);
 
 
   return (
@@ -128,9 +126,9 @@ const ProudctList = () => {
           <div className="row">
             <div className="col-md-3  d-none d-lg-block">
               <div className="bg-white product-detail-shadow rounded-20 p-4 mb-5">
-                <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span className="text-dark-grey">Category</span>  
-                {isFiltersChanged && (<button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
-                </button>)}
+                <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span className="text-dark-grey">Category</span>
+                  {isFiltersChanged && (<button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
+                  </button>)}
                 </h6>
                 <div className="mt-5">
                   <ul className="category-select-list">
@@ -161,8 +159,8 @@ const ProudctList = () => {
                     onChange={(e) => handleDebouncedChange(e.value)}
                     className="w-14rem"
                     range
-                    min={0} 
-                    max={5000} 
+                    min={0}
+                    max={5000}
                   />
                   <div className="row mt-4">
                     <div className="col-5 pe-0" style={{ width: "36%" }}>
@@ -279,11 +277,11 @@ const ProudctList = () => {
                   </div>
                 ) : (
                   <div className="align-content-center empty-products-card w-100 mt-lg-5 pt-lg-5" style={{ height: "50dvh" }}>
-                   <img
-                                              className="img-fluid mx-auto mb-4 empty-products"
-                                              src={emptyProducts}
-                                              alt="empty-products"
-                                            />
+                    <img
+                      className="img-fluid mx-auto mb-4 empty-products"
+                      src={emptyProducts}
+                      alt="empty-products"
+                    />
                     <h3 className="text-center fw-600">No Products Found</h3>
                     <p className="text-mid-grey fb-fs-20 text-center mt-3">No results for your search. Try different keywords or browse <br></br> our categories.</p>
                   </div>
@@ -331,8 +329,8 @@ const ProudctList = () => {
                     onChange={(e) => handleDebouncedChange(e.value)}
                     className="w-14rem"
                     range
-                    min={0} 
-                    max={5000} 
+                    min={0}
+                    max={5000}
                   />
                   <div className="row mt-4">
                     <div className="col-5 pe-0">

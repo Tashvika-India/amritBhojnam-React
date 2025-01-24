@@ -326,7 +326,6 @@ const AdminOrderDetail = () => {
                 <div className="rounded-2 bg-light-orange p-3 ">
                   <FaPhoneAlt color="#F26722" size={20} />
                 </div>
-                <div className=""></div>
               </div>
               <div className="mb-4">
                 <p className="fw-500 text-mid-grey mb-0 pb-2 fb-fs-14">Email</p>
@@ -407,7 +406,7 @@ const AdminOrderDetail = () => {
                   <div className="mt-4 pt-2">
                     <div className="d-flex align-items-start gap-5">
                       <p className="fw-500 mb-0">Type</p> <span> :</span>
-                      <p className="mb-0">{orderData?.payment_details?.payment_mode}</p>
+                      <p className="mb-0">POS</p>
                     </div>
                   </div>
                 </div>

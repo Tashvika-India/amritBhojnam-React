@@ -81,7 +81,7 @@ const AdminCoupon = () => {
               </div>
             </div>
             <div>
-              {loding ? <Loading /> : <CouponTable coupons={coupons} />}
+              {loding ? <Loading /> : <CouponTable coupons={coupons} getCoupons={getCoupons} />}
             </div>
           </div>
         </div>
