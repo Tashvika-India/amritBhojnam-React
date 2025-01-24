@@ -315,8 +315,8 @@
   display: flex;
   align-items: center;
 }
-.check-pincode{
-  &::placeholder{
+.check-pincode {
+  &::placeholder {
     font-size: 0.9375rem;
     font-weight: 400;
   }
@@ -434,14 +434,14 @@
 }
 
 .slider-bottom-thumbs {
-  .slick-track{
-    padding-block: .5rem !important;
+  .slick-track {
+    padding-block: 0.5rem !important;
   }
-  .slick-slide{
+  .slick-slide {
     width: 8.5rem !important;
     height: 8.5rem !important;
     margin-right: 2rem;
-    &:nth-child(4n){
+    &:nth-child(4n) {
       margin-right: 0 !important;
     }
   }
@@ -671,7 +671,7 @@ footer {
   &:hover {
     color: $orange !important;
     transition: all 0.3s ease-in-out;
-  } 
+  }
 }
 
 /* Active tab button styles */
@@ -806,7 +806,7 @@ footer {
   }
 }
 
-.wishlist-page .empty-wishlist img{
+.wishlist-page .empty-wishlist img {
   max-width: 22rem;
 }
 
@@ -1720,7 +1720,7 @@ footer {
       top: 3px !important;
     }
   }
-  .login-card-icon{
+  .login-card-icon {
     max-width: 1rem !important;
   }
   header .header-actions ul li .wishlist-box {
@@ -2542,17 +2542,17 @@ footer {
     height: 22rem !important;
     padding-top: 3rem !important;
   }
-   .empty-products-card {
+  .empty-products-card {
     margin-top: 2rem;
     .empty-products {
       max-width: 5rem;
     }
-    p{
-      br{
+    p {
+      br {
         display: none;
       }
     }
-    .fb-fs-20{
+    .fb-fs-20 {
       font-size: 1rem !important;
     }
   }
@@ -2930,12 +2930,12 @@ footer {
     .empty-products {
       max-width: 5rem;
     }
-    p{
-      br{
+    p {
+      br {
         display: none;
       }
     }
-    .fb-fs-20{
+    .fb-fs-20 {
       font-size: 1rem !important;
     }
   }
@@ -2945,69 +2945,97 @@ footer {
   .product-card .masala-con {
     height: 1.95rem !important;
   }
-  .empty-address{
-    img{
+  .account-menu {
+    .list-wrapper {
+      li {
+        a {
+          font-size: 14px;
+        }
+        button {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .account-profile-detail .account-profile-content p {
+    font-size: 0.75rem;
+  }
+
+  .button-set-default {
+    border-radius: 0.3rem;
+  }
+  .cart-items {
+    .product-details h6 {
+      font-size: 1.3rem;
+      margin-block: 0.8rem;
+    }
+    .product-quantity h5 {
+      font-size: 1.3rem !important;
+    }
+  }
+  .empty-address {
+    img {
       max-width: 6rem !important;
     }
-    .fb-fs-20{
+    .fb-fs-20 {
       font-size: 1rem;
     }
     margin-bottom: 2rem;
   }
-  .empty-order{
-    img{
+  .empty-order {
+    img {
       max-width: 6rem !important;
     }
-    .fb-fs-20{
+    .fb-fs-20 {
       font-size: 1rem;
     }
     margin-bottom: 2rem;
   }
-  .edit-delete-card button img{
+  .edit-delete-card button img {
     max-width: 3rem !important;
   }
-  .bg-custom-btn-bg{
+  .bg-custom-btn-bg {
     font-size: 0.6875rem !important;
   }
-  .summary-card{
+  .summary-card {
     margin-bottom: 1rem;
-    .order-date{
-      img{
+    .order-date {
+      img {
         margin-top: 8px;
       }
-      .default-btn{
-        padding: 0.125rem 0.625rem;
+      .default-btn {
+        padding: 0.0625rem 0.625rem;
         margin-left: 1rem;
       }
-    } 
+    }
   }
   .account-section button {
-    img{
-      max-width: 1.3rem !important; 
+    img {
+      max-width: 1.3rem !important;
       padding-bottom: 5px;
     }
   }
-  
-  .wishlist-page .empty-wishlist img{
+
+  .wishlist-page .empty-wishlist img {
     max-width: 14rem !important;
   }
-  .product-card .whislist-icon svg{
+  .product-card .whislist-icon svg {
     max-width: 1.3rem !important;
   }
   .slider-bottom-thumbs {
-    .slick-track{
-      padding-block: .5rem !important;
+    .slick-track {
+      padding-block: 0.5rem !important;
     }
-    .slick-slide{
+    .slick-slide {
       width: 5.3rem !important;
       height: 5.3rem !important;
       margin-right: 1rem;
-      &:nth-child(4n){
+      &:nth-child(4n) {
         margin-right: 0 !important;
       }
     }
   }
- 
+
   .skeleton-loading {
     height: 18.75rem;
   }
@@ -3016,12 +3044,12 @@ footer {
     .empty-products {
       max-width: 5rem;
     }
-    p{
-      br{
+    p {
+      br {
         display: none;
       }
     }
-    .fb-fs-20{
+    .fb-fs-20 {
       font-size: 1rem !important;
     }
   }
@@ -3628,7 +3656,9 @@ footer {
   .web-wrapper-main p {
     font-size: 12px;
   }
-
+.about-us .card .card-body img{
+  object-fit: contain;
+}
   .offer-cards {
     .protein-left {
       height: 26rem;
@@ -3644,7 +3674,16 @@ footer {
         margin-left: 1rem !important;
       }
     }
-
+    .cart-items .product-quantity .quantity-manage {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr 1fr !important;
+      padding: 0.2rem !important;
+      justify-items: center !important;
+      align-items: center !important;
+    }
+    .summary-card .border-bottom .prod-detail .fb-fs-18{
+      font-size: 0.9rem !important;
+    }
     .protein-right-top {
       // margin-bottom: 1rem;
       .right-top-content {
@@ -3660,7 +3699,20 @@ footer {
   }
 
   .button-primary {
-    font-size: 0.6875rem;
+    font-size: 0.9rem;
+  }
+
+  .new-address .checkout-btn {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    .button-primary-reverse {
+      padding-block: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .button-primary {
+      padding-block: 0.5rem;
+      font-size: 0.95rem;
+    }
   }
 
   .success-primary-button {
@@ -3768,8 +3820,12 @@ footer {
 }
 
 @media (min-width: 400px) and (max-width: 500px) {
-  .profile-tabs button {
-    font-size: 0.89rem;
-    padding: 0.7rem 0.4rem 0.5rem;
+  .profile-tabs {
+    display: flex;
+    gap: 2;
+    button {
+      font-size: 0.89rem;
+      padding: 0.7rem 0.4rem 0.5rem;
+    }
   }
 }

@@ -379,7 +379,7 @@ const UserProfile = () => {
                 style={{ height: "200px" }}
               /> */}
             </div>
-            <div className="p-4 pt-0 ">
+            <div className="p-md-4 p-lg-4 pt-0 ">
               <div className="user-profile-detail  position-relative text-start pb-3">
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center gap-3">
                   <img
@@ -644,7 +644,7 @@ const UserProfile = () => {
                         >
                           <div className="container">
                             <div className="row border-bottom px-2 px-md-3 py-3 align-items-center">
-                              <div className="col-md-3">
+                              <div className="col-lg-3 col-md-3 col-5 mb-lg-0 mb-md-0 mb-2">
                                 <p>
                                   Order ID:
                                   <span
@@ -656,7 +656,7 @@ const UserProfile = () => {
                                   </span>
                                 </p>
                               </div>
-                              <div className="col-md-3">
+                              <div className="col-lg-3 col-md-3 col-7 mb-lg-0 mb-md-0 mb-2">
                                 <p>
                                   Order Placed:
                                   <span className="fw-600">
