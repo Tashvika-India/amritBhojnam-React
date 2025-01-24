@@ -109,7 +109,7 @@ export default function AddBannerModal({ visible, setVisible, setBanner, getBann
       <Dialog
         visible={visible}
         style={{ width: "40vw" }}
-        className="rounded-20"
+        className="rounded-20 overflow-hidden"
         onHide={() => setVisible(false)}
         footer={<FooterContent formik={formik} setVisible={setVisible} />}
         closable={false}

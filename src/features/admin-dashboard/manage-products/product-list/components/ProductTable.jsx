@@ -129,11 +129,11 @@ function ProductTable({ products, getProductList }) {
           className="fw-400"
           body={(rowData) => (
             <div className="d-flex gap-2">
-              <span>{~~(rowData?.max_price)}</span>
+              <span>Rs. {~~(rowData?.max_price)}</span>
             </div>
           )}
         ></Column>
-        <Column field="offer_price" header="SALE PRICE (₹)" className="fw-400" body={(rowData) => <span>{~~(rowData?.offer_price)}</span>}>
+        <Column field="offer_price" header="SALE PRICE (₹)" className="fw-400" body={(rowData) => <span>Rs. {~~(rowData?.offer_price)}</span>}>
         </Column>
         <Column field="ratings" header="RATING" body={iosSwitch}></Column>
         <Column header="ACTION" body={editButtonTemplate}></Column>
@@ -141,7 +141,7 @@ function ProductTable({ products, getProductList }) {
       <DeleteModal
         visible={isModalVisible}
         onHide={hideDeleteModal}
-        onDelete={handleDelete} // Directly pass handleDelete
+        onDelete={handleDelete}  
       />
     </>
   );
