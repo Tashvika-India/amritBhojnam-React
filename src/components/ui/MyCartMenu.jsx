@@ -102,18 +102,16 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                     <div className="product-quantity text-end">
                       <div className="quantity-manage gap-1 mb-lg-2 mb-1" style={{ overflow: "hidden",width: "5rem" }}>
                         <button
-                          className="quantity-minu d-inline-block border-0 bg-white text-orange fw-600"
+                          className="quantity-minus d-inline-block border-0 bg-white text-orange fw-600"
                           onClick={() => handleDecreaseQuantity(item?.product.id, item?.item_quantity, item?.option_id)}
-                          disabled={item?.item_quantity <= 1}
-                        >
+                          disabled={item?.item_quantity <= 1}>
                           -
                         </button>
                         <button className="quantity-count d-inline-block border-0 bg-white text-orange fw-600">{item?.item_quantity}</button>
                         <button
                           className="quantity-plus d-inline-block border-0 bg-white text-orange fw-600"
                           onClick={() => handleIncreaseQuantity(item?.product.id, item?.item_quantity, item?.option_id)}
-                          disabled={item?.item_quantity >= 10}
-                        >
+                          disabled={item?.item_quantity >= 10}>
                           +
                         </button>
                       </div>
