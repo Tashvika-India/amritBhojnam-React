@@ -32,6 +32,7 @@ import {
   getAddressApi,
   getOrderApi,
   getProfile,
+  patchProfileApi,
   postAddressApi,
   postSelectAddressApi,
   putAddressApi,
@@ -76,7 +77,7 @@ const UserProfile = () => {
   const [filter, setFilter] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
-  const profilePicture = baseURL + userDetail?.pp;
+  const [profilePictureImg, setProfilePictureImg] = useState(userDetail?.pp);   
 
   const formik = useFormik({
     initialValues: {
@@ -291,17 +292,25 @@ const UserProfile = () => {
     setProductId({ id, name, image });
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      profile.setFieldValue("pp", file);
 
-      // Generate preview
-      const reader = new FileReader();
-      // reader.onload = () => {
-      //   setProfilePic(reader.result); // Update the profile picture preview
-      // };
-      reader.readAsDataURL(file);
+  const handleProfileImageChange = async (event) => {
+    const file = event.target.files[0];  
+    if (file) {
+      try { 
+        const formData = new FormData();
+        formData.append("pp", file);  
+        const response = await patchProfileApi(userDetail.id, formData); 
+        if (response.status === 200) {
+          setProfilePictureImg(URL.createObjectURL(file)); 
+          notifySuccess("Profile Picture Updated Successfully");
+        } else {
+          console.error("Failed to update profile picture:", response);
+          notifyError("Failed to update profile picture");
+        }
+      } catch (error) {
+        console.error("Error updating profile picture:", error);
+        notifyError("Failed to update profile picture");
+      }
     }
   };
 
@@ -312,7 +321,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     getAddressList();
-    getProfileList();
+    getProfileList(); 
   }, []);
 
   useEffect(() => {
@@ -382,11 +391,31 @@ const UserProfile = () => {
             <div className="p-md-4 p-lg-4 pt-0 ">
               <div className="user-profile-detail  position-relative text-start pb-3">
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center gap-3">
-                  <img
-                    className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center p-2 bg-white"
-                    src={userDetail?.pp ? profilePicture : pp}
-                    alt="Card image cap"
-                  />
+                  <div className="position-relative">
+                    <img
+                      className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center p-2 bg-white"
+                      src={
+                        profilePictureImg
+                          ? profilePictureImg 
+                          : userDetail?.pp
+                          ? baseURL + userDetail.pp  
+                          : pp  
+                      }
+                      alt="Profile"
+                    />
+                    <input
+                      className="d-none"
+                      type="file"
+                      id="customFile"
+                      onChange={handleProfileImageChange}
+                      accept="image/*"  
+                    />
+                    <label
+                      htmlFor="customFile"
+                      className="rounded-circle bg-orange  profile-pic-edit">
+                      <i className="pi pi-pencil"></i>
+                    </label>
+                  </div>
                   <div className="image-content mt-4 mt-md-3 pt-md-5 ms-md-3">
                     <h4 className="text-dark-grey fw-bold text-start">
                       {userDetail?.full_name}
@@ -523,7 +552,7 @@ const UserProfile = () => {
                               }
                             />
                           </div>
-                          <div className="col-md-4 mb-4">
+                          {/* <div className="col-md-4 mb-4">
                             <FormControl fullWidth variant="outlined">
                               <InputLabel shrink htmlFor="file-input">
                                 Profile Picture
@@ -539,9 +568,9 @@ const UserProfile = () => {
                                 className="rounded-3"
                               />
                             </FormControl>
-                          </div>
-                          <div className="col-md-4 mb-4">
-                            <FormControl fullWidth>
+                          </div> */}
+                          <div className="col-md-6 mb-4">
+                            <FormControl fullWidth >
                               <InputLabel id="demo-simple-select-label">
                                 Gender
                               </InputLabel>
@@ -570,7 +599,7 @@ const UserProfile = () => {
                               </Select>
                             </FormControl>
                           </div>
-                          <div className="col-md-4 mb-4">
+                          <div className="col-md-6 mb-4">
                             <TextField
                               fullWidth
                               className="rounded-20 me-5"
@@ -615,7 +644,7 @@ const UserProfile = () => {
                     </form>
                   </div>
                 </TabPanel>
-              
+
                 <TabPanel header="Order-history">
                   <div className="order-section">
                     <div className="d-flex justify-content-between align-items-center mb-3 mt-3">

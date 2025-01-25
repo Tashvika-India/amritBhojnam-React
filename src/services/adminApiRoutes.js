@@ -169,6 +169,8 @@ export const getProfile = () => API.get(`/profiles/`);
 export const getProfileApi = (id) => API.get(`/profiles/${id}/`);
 export const postProfileApi = (payload) => API.post(`/profiles/`, payload);
 export const putProfileApi = (id,payload) => API.put(`/profiles/${id}/`, payload);
+export const patchProfileApi = (id,payload) => API.patch(`/profiles/${id}/`, payload);
+
 
 // pay now 
 export const postPayNowApi = (payload) => API.post(`/accounts/payu/initiate/`, payload); 
