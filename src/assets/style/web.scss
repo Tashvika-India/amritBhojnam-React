@@ -1610,15 +1610,17 @@ footer {
     .quantity-manage {
       border: 1px solid $orange;
       border-radius: 0.625rem;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-items: center;
       gap: 0.6rem;
       padding: 0.2rem;
 
       &:hover {
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+      }
+      button{
+        flex: 1 1 auto;
       }
     }
 

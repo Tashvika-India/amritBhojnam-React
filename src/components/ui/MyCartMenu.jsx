@@ -108,7 +108,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                         >
                           -
                         </button>
-                        <span className="quantity-count d-inline-block text-orange fw-600">{item?.item_quantity}</span>
+                        <button className="quantity-count d-inline-block border-0 bg-white text-orange fw-600">{item?.item_quantity}</button>
                         <button
                           className="quantity-plus d-inline-block border-0 bg-white text-orange fw-600"
                           onClick={() => handleIncreaseQuantity(item?.product.id, item?.item_quantity, item?.option_id)}
