@@ -95,7 +95,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                       />
                     </div>
                     <div className="product-details w-100 ms-3">
-                      <p className="item-name text-black fw-500 mb-0">{item?.product?.name}</p>
+                      <p className="item-name text-black fw-500 mb-0 me-2 me-md-0">{item?.product?.name}</p>
                       <p className="item-weight fw-400 text-grey mb-0 mt-1">{`${item?.option} ${item?.measurement_unit}`}</p>
                       <p className="item-weight mb-0 mt-1">{`₹ ${~~(item?.price)} X ${item?.item_quantity}`}</p>
                     </div>

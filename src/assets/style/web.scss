@@ -1610,9 +1610,10 @@ footer {
     .quantity-manage {
       border: 1px solid $orange;
       border-radius: 0.625rem;
-      display: inline-flex;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       align-items: center;
-      justify-content: space-between;
+      justify-items: center;
       gap: 0.6rem;
       padding: 0.2rem;
 
@@ -2983,22 +2984,22 @@ footer {
     }
   }
   .empty-address {
+    margin-bottom: 2rem;
     img {
       max-width: 6rem !important;
     }
     .fb-fs-20 {
       font-size: 1rem;
     }
-    margin-bottom: 2rem;
   }
   .empty-order {
+    margin-bottom: 2rem;
     img {
       max-width: 6rem !important;
     }
     .fb-fs-20 {
       font-size: 1rem;
     }
-    margin-bottom: 2rem;
   }
   .edit-delete-card button img {
     max-width: 3rem !important;
@@ -3680,13 +3681,6 @@ footer {
       .button-primary {
         margin-left: 1rem !important;
       }
-    }
-    .cart-items .product-quantity .quantity-manage {
-      display: grid !important;
-      grid-template-columns: 1fr 1fr 1fr !important;
-      padding: 0.2rem !important;
-      justify-items: center !important;
-      align-items: center !important;
     }
     .summary-card .border-bottom .prod-detail .fb-fs-18{
       font-size: 0.9rem !important;
