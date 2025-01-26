@@ -7,8 +7,7 @@ const AdminPrivateRoute = ({ children }) => {
     if (!token) {  
         return <Navigate to="/admin/login" />
     }
-    if(isAdmin === "false"){
-        console.log("No admin found");
+    if(isAdmin === "false"){ 
         return <Navigate to="/"/>
     }
     

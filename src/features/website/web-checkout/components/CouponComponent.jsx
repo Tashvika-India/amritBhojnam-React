@@ -9,9 +9,7 @@ const CouponComponent = ({ couponList, onCouponApply }) => {
     const handleApplyCoupon = () => {
         if (selectedCoupon) {
             onCouponApply(selectedCoupon);
-            setIsApplied(true);
-            console.log("Selected Coupon:", selectedCoupon);
-            
+            setIsApplied(true); 
         }
     };
 

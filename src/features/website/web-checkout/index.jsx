@@ -227,8 +227,7 @@ const CheckoutPage = () => {
 
   const handleSelectAddress = async (address_id) => {
     try {
-      await postSelectAddressApi({ address_id });
-      console.log("Address Selected Successfully");
+      await postSelectAddressApi({ address_id }); 
       scrollTo(0, 0);
       getAddressList();
       dispatch(fetchFinalCart({ cartId, coupon: couponCode }));

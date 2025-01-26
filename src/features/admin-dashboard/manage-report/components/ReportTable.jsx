@@ -28,8 +28,7 @@ function ReportTable({ products , getProductList }) {
   const handleDelete = async () => {
     try {
       await deleteProductApi(currentProduct.id);  // Use currentProduct directly
-      getProductList();
-      console.log("Record deleted successfully");
+      getProductList(); 
       hideDeleteModal();
       // Optionally update your product list here (e.g., remove the deleted product from UI)
     } catch (error) {

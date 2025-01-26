@@ -17,8 +17,7 @@ export default React.memo(function MultiFileUpload({ formik, name, disabled }) {
 
     try {
       setUploading(true);
-      const response = await multiImageUploadApi(formData);
-      console.log("Form" , response);
+      const response = await multiImageUploadApi(formData); 
       const uploadedFiles = response.data; // Assuming response contains the array of objects
       setFieldValue(name, [...(values[name] || []), ...uploadedFiles]);
     } catch (error) {

@@ -29,8 +29,7 @@ export default function AddSubCategoryModal({ visible, setVisible, getCategories
     initialValues: editData ? editData : initialValues,
     enableReinitialize: true,
     validationSchema: subcategorySchema,
-    onSubmit: async (values) => {
-      console.log(values);
+    onSubmit: async (values) => { 
       if (editData) {
         await updateCategory(values); // PUT or PATCH for edit
       } else {
