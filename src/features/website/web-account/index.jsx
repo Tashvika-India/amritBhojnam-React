@@ -77,7 +77,7 @@ const UserProfile = () => {
   const [filter, setFilter] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
-  const [profilePictureImg, setProfilePictureImg] = useState(userDetail?.pp);   
+  const [profilePictureImg, setProfilePictureImg] = useState(userDetail?.pp);
 
   const formik = useFormik({
     initialValues: {
@@ -259,6 +259,23 @@ const UserProfile = () => {
     validationSchema: Yup.object({
       full_name: Yup.string().required("Full name is required"),
       email: Yup.string().email("Invalid email").required("Email is required"),
+      date_of_birth: Yup.date()
+        .nullable() // Allow null values
+        .max(new Date(), "Date of birth cannot be in the future")
+        .test(
+          "age",
+          "You must be at least 18 years old",
+          (value) => {
+            if (!value) return false; // If no value, validation fails.
+            const today = new Date();
+            const birthDate = new Date(value);
+            const age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            const dayDiff = today.getDate() - birthDate.getDate();
+            // Adjust age if the current date is before the birth date in the same year.
+            return age > 18 || (age === 18 && (monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0)));
+          }
+        ),
     }),
     onSubmit: async (values, { setSubmitting }) => {
       await updateProfile(values);
@@ -271,8 +288,7 @@ const UserProfile = () => {
     formData.append("full_name", values.full_name);
     formData.append("email", values.email);
     formData.append("gender", values.gender);
-    formData.append("date_of_birth", values.date_of_birth);
-    if (values.pp) formData.append("pp", values.pp);
+    formData.append("date_of_birth", values.date_of_birth); 
     try {
       setLoading(true);
       const response = await putProfileApi(userDetail.id, formData);
@@ -287,21 +303,16 @@ const UserProfile = () => {
     }
   };
 
-  const handleReviewClick = (id, name, image) => {
-    setVisible(true);
-    setProductId({ id, name, image });
-  };
-
-
   const handleProfileImageChange = async (event) => {
-    const file = event.target.files[0];  
+    const file = event.target.files[0];
     if (file) {
-      try { 
+      try {
         const formData = new FormData();
-        formData.append("pp", file);  
-        const response = await patchProfileApi(userDetail.id, formData); 
+        formData.append("pp", file);    
+        const response = await patchProfileApi(userDetail.id, formData);
+
         if (response.status === 200) {
-          setProfilePictureImg(URL.createObjectURL(file)); 
+          setProfilePictureImg(URL.createObjectURL(file));  
           notifySuccess("Profile Picture Updated Successfully");
         } else {
           console.error("Failed to update profile picture:", response);
@@ -312,16 +323,21 @@ const UserProfile = () => {
         notifyError("Failed to update profile picture");
       }
     }
-  };
+  }
 
   const HandleDaysChanges = (value) => {
     setFilter(value);
     setLoad("");
   };
 
+  const handleReviewClick = (id, name, image) => {
+    setVisible(true);
+    setProductId({ id, name, image });
+  };
+
   useEffect(() => {
     getAddressList();
-    getProfileList(); 
+    getProfileList();
   }, []);
 
   useEffect(() => {
@@ -396,10 +412,10 @@ const UserProfile = () => {
                       className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center p-2 bg-white"
                       src={
                         profilePictureImg
-                          ? profilePictureImg 
+                          ? profilePictureImg
                           : userDetail?.pp
-                          ? baseURL + userDetail.pp  
-                          : pp  
+                            ? baseURL + userDetail.pp
+                            : pp
                       }
                       alt="Profile"
                     />
@@ -408,7 +424,7 @@ const UserProfile = () => {
                       type="file"
                       id="customFile"
                       onChange={handleProfileImageChange}
-                      accept="image/*"  
+                      accept="image/*"
                     />
                     <label
                       htmlFor="customFile"
@@ -541,7 +557,7 @@ const UserProfile = () => {
                               value={profile.values.email}
                               onChange={profile.handleChange}
                               onBlur={profile.handleBlur}
-                              disabled={!profileEdit}
+                              disabled={true}
                               helperText={
                                 profile.touched.email && profile.errors.email
                               }

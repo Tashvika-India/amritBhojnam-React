@@ -35,7 +35,7 @@ function ProductList() {
   async function getProductList() {
     setLoading(true);
     try {
-      const response = await getProductApi({ ...filter, maxPrice: 5000 });
+      const response = await getProductApi({ ...filter, maxPrice: 500 });
       setProducts(response?.data?.results || []);
     } catch (error) {
       console.log("Error on Product List", error);
