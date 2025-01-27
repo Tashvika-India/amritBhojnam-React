@@ -46,6 +46,7 @@ import AdminOrderDetail from "../features/admin-dashboard/manage-orders/order-de
 import AdminOrderInvoice from "../features/admin-dashboard/manage-orders/order-invoice";
 import AllOrderDetail from "../features/admin-dashboard/manage-orders/order-detail/orders";
 import AdminPrivateRoute from "./AdminPrivateRoute";
+import TrackOrder from "../features/website/web-track-order";
 function AppRoutes() {
   return (
     <Routes>
@@ -365,6 +366,7 @@ function AppRoutes() {
       <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route exact path="/refund-policy" element={<RefundPolicy />} />
       <Route exact path="/shiping-policy" element={<ShipingPolicy />} />
+      <Route exact path="/track-order" element={<TrackOrder />} />
       <Route
         exact
         path="/payment-success"

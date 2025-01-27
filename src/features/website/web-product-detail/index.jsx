@@ -22,13 +22,27 @@ import Loading from "../../../components/ui/Loading";
 import ProductCard from "../web-home/components/ProductCard";
 import fireImg from "../../../assets/images/web/Fire.png";
 import recipeImg from "../../../assets/images/web/recipe-image.png";
-import { Breadcrumbs, Button, Checkbox, Menu, MenuItem, TextField, Typography } from "@mui/material";
+import {
+  Breadcrumbs,
+  Button,
+  Checkbox,
+  Menu,
+  MenuItem,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import ShareIcon from "@mui/icons-material/Share";
 import MobileLogin from "../../../components/ui/MobileLogin";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { baseURL, formatDeliveryDateCustom} from "../../../utils/constant-variable";
-import { fetchWishlist, updateWishlist } from "../../../redux/slices/wishlistSlice";
+import {
+  baseURL,
+  formatDeliveryDateCustom,
+} from "../../../utils/constant-variable";
+import {
+  fetchWishlist,
+  updateWishlist,
+} from "../../../redux/slices/wishlistSlice";
 import {
   notifyError,
   notifySuccess,
@@ -52,11 +66,14 @@ const ProudctDetail = () => {
   const dispatch = useDispatch();
   const firstOption = detail?.options?.[0] || {};
   const [radioValue, setRadioValue] = useState(firstOption.option || "");
-  const [selectedOptionId, setSelectedOptionId] = useState(firstOption.id || "");
-  const selectedOption = detail?.options?.find(option => option.option === radioValue);
+  const [selectedOptionId, setSelectedOptionId] = useState(
+    firstOption.id || ""
+  );
+  const selectedOption = detail?.options?.find(
+    (option) => option.option === radioValue
+  );
   const [pincode, setPincode] = useState("");
-  const [pinValue, setPinValue] = useState(""); 
-
+  const [pinValue, setPinValue] = useState("");
 
   const truncateToWords = (text, limit) => {
     if (!text) return "";
@@ -66,7 +83,9 @@ const ProudctDetail = () => {
       : text;
   };
 
-  const { cartItems, finalCart, error, cartId } = useSelector((state) => state.cart);
+  const { cartItems, finalCart, error, cartId } = useSelector(
+    (state) => state.cart
+  );
 
   const reviewList = async () => {
     setLoading(true);
@@ -144,7 +163,8 @@ const ProudctDetail = () => {
     }
   };
 
-  const login = localStorage.getItem("access") || localStorage.getItem("refresh");
+  const login =
+    localStorage.getItem("access") || localStorage.getItem("refresh");
 
   function checkItemInCart() {
     return cartItems.some((cartItem) => cartItem.product_id === detail?.id);
@@ -153,7 +173,7 @@ const ProudctDetail = () => {
   useEffect(() => {
     fetchProductDetail();
     fetchYouMayAlsoLike(filters?.product_id);
-  }, [showCart,filters?.product_id]);
+  }, [showCart, filters?.product_id]);
 
   useEffect(() => {
     checkItemInCart();
@@ -184,9 +204,9 @@ const ProudctDetail = () => {
   }
 
   const deliveryDateCustom = pinValue?.delivery_date || "";
-  const formattedDateCustom = formatDeliveryDateCustom(deliveryDateCustom || "");  
-
-
+  const formattedDateCustom = formatDeliveryDateCustom(
+    deliveryDateCustom || ""
+  );
 
   useEffect(() => {
     if (detail?.options?.length > 0) {
@@ -233,8 +253,10 @@ const ProudctDetail = () => {
                   </p> */}
                   <div className="">
                     <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
-                    <a href={`/product-detail?product_id=${detail?.id}#reviews-wapper`}
-                      className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4">
+                    <a
+                      href={`/product-detail?product_id=${detail?.id}#reviews-wapper`}
+                      className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4"
+                    >
                       <Rating
                         className="me-3 border-none"
                         value={Math.round(detail.ratings)}
@@ -303,8 +325,9 @@ const ProudctDetail = () => {
                   </div>
                 </div>
 
-
-                <p>{truncateToWords(detail?.short_description, 25)}</p>
+                <a href={`/product-detail?product_id=${detail?.id}#reviews-wapper`}>
+                  <p>{truncateToWords(detail?.short_description, 25)}</p>
+                </a>
                 {/* <a href="/product-detail/#detail-description"><span className="text-orange">Read More</span></a> */}
                 <div className="d-flex align-items-center mt-4 mb-3">
                   <p className="fw-600">Size / Weight:</p>
@@ -315,7 +338,10 @@ const ProudctDetail = () => {
                         id={`radio-${idx}`}
                         type="radio"
                         className="py-1 px-2 fw-500 "
-                        style={{ fontSize: "1rem", transition: "all 0.5s ease" }}
+                        style={{
+                          fontSize: "1rem",
+                          transition: "all 0.5s ease",
+                        }}
                         variant={idx % 2 ? "bg-orange" : "bg-orange"}
                         name="radio"
                         value={option?.option}
@@ -323,17 +349,19 @@ const ProudctDetail = () => {
                         onChange={(e) => {
                           setRadioValue(e.currentTarget.value);
                           setSelectedOptionId(option.id);
-                        }}>
+                        }}
+                      >
                         {`${option?.option} ${option?.measurement_unit}`}
                       </ToggleButton>
                     ))}
                   </ButtonGroup>
                 </div>
                 <p className="fb-fs-40 text-orange fw-bold original-price">
-                  ₹{~~(selectedOption?.offer_price)}
-                  {selectedOption?.offer_price !== selectedOption?.max_price && (
+                  ₹{~~selectedOption?.offer_price}
+                  {selectedOption?.offer_price !==
+                    selectedOption?.max_price && (
                     <small className="fw-500 fb-fs-30 text-grey ms-3">
-                      <strike>₹{~~(selectedOption?.max_price)}</strike>
+                      <strike>₹{~~selectedOption?.max_price}</strike>
                     </small>
                   )}
                 </p>
@@ -345,7 +373,9 @@ const ProudctDetail = () => {
                     !checkItemInCart() ? (
                       <button
                         className="button-primary mt-4 fb-fs-18"
-                        onClick={() => addToCart(detail?.id, quantity || 1, selectedOptionId)}
+                        onClick={() =>
+                          addToCart(detail?.id, quantity || 1, selectedOptionId)
+                        }
                         disabled={loading}
                       >
                         {loading ? "Adding..." : "Add to Cart"}
@@ -382,7 +412,10 @@ const ProudctDetail = () => {
                 </div>
                 <div className="mt-3 mt-md-5">
                   <p className="fw-600">Check Availability</p>
-                  <div className="border-gray border-raidus-10 mt-2 input-box" style={{ width: "60%" }}>
+                  <div
+                    className="border-gray border-raidus-10 mt-2 input-box"
+                    style={{ width: "60%" }}
+                  >
                     <div className="input-group mb-2 mt-2">
                       <input
                         className="form-control border-0 box-shadow-0 fw-600 check-pincode"
@@ -397,13 +430,33 @@ const ProudctDetail = () => {
                       <button
                         className="input-group-text border-0 text-orange fw-600 bg-transparent border-start border-2 ps-4 me-3"
                         onClick={handleCheckPincode}
-                        disabled={pincode?.length !== 6}>CHECK</button>
+                        disabled={pincode?.length !== 6}
+                      >
+                        CHECK
+                      </button>
                     </div>
                   </div>
                   {/* {message && <small className="text-orange ms-2 mt-3">{message}</small>} */}
                 </div>
                 <div className="d-flex align-items-center gap-2 mt-2">
-                  {(pinValue) && <>  <span><img className="img-fluid" src={deliveryImg} alt="delivery-img" /> </span> <span className="text-orange">Get it by</span> <span className="">{formattedDateCustom}</span> <span className="" style={{ fontSize: "0.625rem" }}> (Estimated) </span></>}
+                  {pinValue && (
+                    <>
+                      {" "}
+                      <span>
+                        <img
+                          className="img-fluid"
+                          src={deliveryImg}
+                          alt="delivery-img"
+                        />{" "}
+                      </span>{" "}
+                      <span className="text-orange">Get it by</span>{" "}
+                      <span className="">{formattedDateCustom}</span>{" "}
+                      <span className="" style={{ fontSize: "0.625rem" }}>
+                        {" "}
+                        (Estimated){" "}
+                      </span>
+                    </>
+                  )}
                 </div>
                 {/* <div className="d-flex mt-4  ms-4 ">
                   <ul className="me-5 pe-4 disc-style w-50">
@@ -436,14 +489,19 @@ const ProudctDetail = () => {
               </div>
             </div>
           </div>
-          <div className="row ms-1 mt-md-5 mt-0 description-slider" id="reviews-wapper">
+          <div
+            className="row ms-1 mt-md-5 mt-0 description-slider"
+            id="reviews-wapper"
+          >
             <div
               className="card tabs-slider ms-xxl-5 mt-3"
-              style={{ border: "1px solid #E1E1E1" }}>
-              <div className="container fb-container" >
+              style={{ border: "1px solid #E1E1E1" }}
+            >
+              <div className="container fb-container">
                 <Tab.Container
                   id="left-tabs-example"
-                  defaultActiveKey="Description">
+                  defaultActiveKey="Description"
+                >
                   <div className="row">
                     <div className="col-md-12">
                       <Nav
@@ -482,7 +540,10 @@ const ProudctDetail = () => {
                     <div className="col-md-12">
                       <Tab.Content className="px-4 pb-4">
                         <Tab.Pane eventKey="Description">
-                          <p className="mb-4 mt-1 mt-md-4" id="detail-description">
+                          <p
+                            className="mb-4 mt-1 mt-md-4"
+                            id="detail-description"
+                          >
                             {detail?.long_description}
                           </p>
                         </Tab.Pane>
@@ -490,17 +551,23 @@ const ProudctDetail = () => {
                           <div className="row">
                             <div className="col-md-2">
                               <ul className="px-2 mb-4 mt-3 mt-md-4">
-                                {
-                                  detail?.nutritions?.map((data) => (
-                                    <li className="d-flex justify-content-between mb-2"><h5 className="fw-600">{data?.nutrition_name}</h5> <h5>:</h5> <h5 className="fw-400">{data?.nutrition_value}</h5></li>
-                                  ))
-                                }
+                                {detail?.nutritions?.map((data) => (
+                                  <li className="d-flex justify-content-between mb-2">
+                                    <h5 className="fw-600">
+                                      {data?.nutrition_name}
+                                    </h5>{" "}
+                                    <h5>:</h5>{" "}
+                                    <h5 className="fw-400">
+                                      {data?.nutrition_value}
+                                    </h5>
+                                  </li>
+                                ))}
                               </ul>
                             </div>
                           </div>
                         </Tab.Pane>
-                        <Tab.Pane eventKey="Reviews" >
-                          <div className="p-3 p-lg-4" >
+                        <Tab.Pane eventKey="Reviews">
+                          <div className="p-3 p-lg-4">
                             <div className="row">
                               <div className="col-md-7">
                                 {loading ? (
@@ -518,7 +585,7 @@ const ProudctDetail = () => {
                                               className="img-fluid border-orange"
                                               src={
                                                 !data?.is_anonymous &&
-                                                  data?.user_img
+                                                data?.user_img
                                                   ? `${baseURL}/${data?.user_img}`
                                                   : pp
                                               }
@@ -536,7 +603,7 @@ const ProudctDetail = () => {
                                               {data?.is_anonymous
                                                 ? "Anonymous"
                                                 : data?.user_name ||
-                                                "Anonymous"}
+                                                  "Anonymous"}
                                             </h6>
                                             <span className="d-inline-block">
                                               <Rating
@@ -555,12 +622,12 @@ const ProudctDetail = () => {
                                         <p className="mb-3 text-grey fw-500 pb-3 pt-2">
                                           {data?.created_at
                                             ? new Intl.DateTimeFormat("en-GB", {
-                                              day: "2-digit",
-                                              month: "short",
-                                              year: "numeric",
-                                            }).format(
-                                              new Date(data.created_at)
-                                            )
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric",
+                                              }).format(
+                                                new Date(data.created_at)
+                                              )
                                             : "Date not available"}
                                         </p>
                                         {data?.images?.map((image, index) => (
@@ -640,6 +707,104 @@ const ProudctDetail = () => {
           </div>
         </div>
       </section>
+      {/* <section className="recipe-section ms-5">
+        <div className="container fb-container ">
+          <div className="row">
+            <div className="bg-recipe-background ms-5 rounded-20">
+              <h3 className="fw-bold ms-5 pt-4 mt-2">Recipes</h3>
+              <div>
+                <div className="container fb-container">
+                  <Tab.Container
+                    id="left-tabs-example"
+                    defaultActiveKey="Description"
+                  >
+                    <div className="row">
+                      <div className="col-md-12">
+                        <Nav
+                          variant="pills"
+                          className="flex-row tab-nav-wrapper my-3  mt-md-4 mb-md-3 px-4 gap-3 gap-md-4"
+                        >
+                          <Nav.Item className="nav text-white">
+                            <Nav.Link
+                              as="button"
+                              className="btn-tab me-0 text-white rounded-3 fb-fs-18 fw-600"
+                              eventKey="Description"
+                            >
+                              Description
+                            </Nav.Link>
+                          </Nav.Item>
+                          <Nav.Item className="">
+                            <Nav.Link
+                              as="button"
+                              className="btn-tab rounded-3 fb-fs-18 fw-600 me-0"
+                              eventKey="Additional Info"
+                            >
+                              Additional Info
+                            </Nav.Link>
+                          </Nav.Item>
+                        </Nav>
+                      </div>
+                      <div className="col-md-12">
+                        <Tab.Content className="px-4 pb-4">
+                          <Tab.Pane eventKey="Description">
+                            <div className="d-flex gap-5 pt-2">
+                              <div className="me-4">
+                                <p className="fb-fs-18 my-4 py-2">
+                                  <span className="fw-bold text-orange">
+                                    {" "}
+                                    Step 1.
+                                  </span>{" "}
+                                  &nbsp;&nbsp;Lorem Ipsum is simply dummy text of the
+                                  printing and typesetting industry. Lorem Ipsum
+                                  has been the
+                                </p>
+                                <p className="fb-fs-18 my-4 py-2">
+                                  <span className="fw-bold text-orange">
+                                    {" "}
+                                    Step 2.
+                                  </span>{" "}
+                                  &nbsp;&nbsp;Lorem Ipsum is simply dummy text of the
+                                  printing and typesetting industry. Lorem Ipsum
+                                  has been the
+                                </p>
+                                <p className="fb-fs-18 my-4 py-2">
+                                  <span className="fw-bold text-orange">
+                                    {" "}
+                                    Step 3.
+                                  </span>{" "}
+                                  &nbsp;&nbsp;Lorem Ipsum is simply dummy text of the
+                                  printing and typesetting industry. Lorem Ipsum
+                                  has been the
+                                </p>
+                                <p className="fb-fs-18 my-4 py-2">
+                                  <span className="fw-bold text-orange">
+                                    {" "}
+                                    Step 4.
+                                  </span>{" "}
+                                  &nbsp;&nbsp;Lorem Ipsum is simply dummy text of the
+                                  printing and typesetting industry. Lorem Ipsum
+                                  has been the
+                                </p>
+                               
+                              </div>
+                              <div>
+                                <img src={recipeImg} className="img-fluid mt-4" style={{width: "50rem", aspectRatio: "16 / 10"}} />
+                              </div>
+                            </div>
+                          </Tab.Pane>
+                          <Tab.Pane eventKey="Additional Info">
+                            Additional
+                          </Tab.Pane>
+                        </Tab.Content>
+                      </div>
+                    </div>
+                  </Tab.Container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section> */}
       {recommendedProducts?.length > 0 && (
         <section className="similar-product pt-0">
           <div className="container fb-container">

@@ -23,6 +23,7 @@ import tickImg from "../../../assets/images/web/account/tick-image.png";
 import milletIcon from "../../../assets/images/web/millet-icon.png";
 import emptyOrder from "../../../assets/images/web/empty-order.png";
 import emptyAddress from "../../../assets/images/web/empty-address.png";
+import { BiSolidEdit } from "react-icons/bi";
 import homeImg from "../../../assets/images/web/account/home-img.png";
 import editButton from "../../../assets/images/web/account/edit-button.png";
 import { BiEditAlt } from "react-icons/bi";
@@ -379,7 +380,7 @@ const UserProfile = () => {
       </div>
       <div className="container fb-container mb-md-5 pb-md-5">
         <div className="row">
-          <div className=" col-lg-10 mx-auto">
+          <div className="col-lg-10 mx-auto">
             <div className="user-profile-img  mt-lg-5 mt-md-5 mt-4">
               {/* <img
                 className="img-fluid profile-img profile-foreground-img rounded-top w-100 mt-5"
@@ -413,7 +414,7 @@ const UserProfile = () => {
                     <label
                       htmlFor="customFile"
                       className="rounded-circle bg-orange  profile-pic-edit">
-                      <i className="pi pi-pencil"></i>
+                     <BiSolidEdit color="white"/>
                     </label>
                   </div>
                   <div className="image-content mt-4 mt-md-3 pt-md-5 ms-md-3">

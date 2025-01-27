@@ -1301,15 +1301,33 @@ footer {
   }
 }
 
-.tab-nav-wrapper {
-  .nav-item {
-    .nav-link {
-      transition: all 0.3s ease-in-out;
+// .tab-nav-wrapper {
+//   .nav-item {
+//     .nav-link {
+//       transition: all 0.3s ease-in-out;
 
+//       &:is(.active, :hover) {
+//         color: $orange;
+//         background-color: transparent;
+//         font-weight: 700;
+//       }
+//     }
+//   }
+// }
+
+.recipe-section {
+  .tab-nav-wrapper {
+    .btn-tab {
+      background-color: $yellow-bg !important;
+      color: $yellow !important;
+      border: none;
+      transition: all 0.3s ease-in-out;
+      padding: 0.875rem 2rem;
+      border: 2px solid $yellow;
       &:is(.active, :hover) {
-        color: $orange;
-        background-color: transparent;
-        font-weight: 700;
+        color: $white !important;
+        background-color: $yellow !important;
+        border: 2px solid $yellow;
       }
     }
   }
@@ -1547,10 +1565,10 @@ footer {
   cursor: pointer;
   z-index: 1;
   right: 0.5rem;
-  bottom: 1.2rem;
+  bottom: 1.9rem;
   aspect-ratio: 1/1;
-  width: 2rem;
-  height: 2rem;
+  width: 2.3rem;
+  height: 2.3rem;
   display: inline-grid;
   place-items: center;
   i{
