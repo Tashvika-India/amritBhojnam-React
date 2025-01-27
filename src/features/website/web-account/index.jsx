@@ -2,12 +2,9 @@ import * as Yup from "yup";
 import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
-import { TabPanel, TabView } from "primereact/tabview";
-import { LiaFileInvoiceSolid } from "react-icons/lia";
-import { TfiDownload } from "react-icons/tfi";
+import { TabPanel, TabView } from "primereact/tabview"; 
 import {
-  FormControl,
-  InputAdornment,
+  FormControl, 
   InputLabel,
   MenuItem,
   OutlinedInput,
@@ -17,21 +14,18 @@ import {
 import pencilImg from "../../../assets/images/web/account/pencil.png";
 import profileBg from "../../../assets/images/web/account/profile-bg.png";
 import otherImg from "../../../assets/images/web/account/other.png";
-import pp from "../../../assets/images/web/account/profile-picture.png";
-import { Button } from "primereact/button";
-import tickImg from "../../../assets/images/web/account/tick-image.png";
-import milletIcon from "../../../assets/images/web/millet-icon.png";
+import pp from "../../../assets/images/web/account/profile-picture.png"; 
+import tickImg from "../../../assets/images/web/account/tick-image.png"; 
 import emptyOrder from "../../../assets/images/web/empty-order.png";
-import emptyAddress from "../../../assets/images/web/empty-address.png";
-import { BiSolidEdit } from "react-icons/bi";
-import homeImg from "../../../assets/images/web/account/home-img.png";
-import editButton from "../../../assets/images/web/account/edit-button.png";
-import { BiEditAlt } from "react-icons/bi";
-import deleteButton from "../../../assets/images/web/account/delete-button.png";
+import emptyAddress from "../../../assets/images/web/empty-address.png"; 
+import homeImg from "../../../assets/images/web/account/home-img.png"; 
+import { BiEditAlt } from "react-icons/bi"; 
+import { FaCamera } from "react-icons/fa";
 import {
   deleteAddressApi,
   getAddressApi,
   getOrderApi,
+  getOrderInvoiceApi,
   getProfile,
   patchProfileApi,
   postAddressApi,
@@ -44,24 +38,21 @@ import { Collapse } from "@mui/material";
 import { useFormik } from "formik";
 import Address from "../../../assets/common-components/website/Address";
 import { baseURL } from "../../../utils/constant-variable";
-import { Link, useLocation } from "react-router-dom";
-import { Dialog } from "primereact/dialog";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { Rating } from "primereact/rating";
-import ReviewModal from "../../../components/ui/ReviewModal";
-import { HiDownload } from "react-icons/hi";
+import { Link, useLocation } from "react-router-dom"; 
+import { RiDeleteBin6Line } from "react-icons/ri"; 
+import ReviewModal from "../../../components/ui/ReviewModal"; 
 import {
   notifyError,
   notifySuccess,
 } from "../../../components/ui/Notification";
 import Loading from "../../../components/ui/Loading";
 import Typography from "@mui/material/Typography";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import { BsArrowRepeat } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCart } from "../../../redux/slices/cartSlice";
-import { tr } from "date-fns/locale";
+import Breadcrumbs from "@mui/material/Breadcrumbs"; 
+import { useDispatch } from "react-redux";
+import { fetchCart } from "../../../redux/slices/cartSlice"; 
 import AddressDeleteModal from "../../../components/ui/AddressDeleteModal";
+import OrderListComponent from "./components/OrderListComponent";
+import BackdropLoader from "../../../components/ui/BackdropLoader";
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -74,8 +65,9 @@ const UserProfile = () => {
   const [profileEdit, setProfileEdit] = useState(false);
   const location = useLocation();
   const [productId, setProductId] = useState("");
-  const [load, setLoad] = useState(2);
+  const [load, setLoad] = useState(10);
   const [filter, setFilter] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [profilePictureImg, setProfilePictureImg] = useState(userDetail?.pp);
@@ -289,7 +281,7 @@ const UserProfile = () => {
     formData.append("full_name", values.full_name);
     formData.append("email", values.email);
     formData.append("gender", values.gender);
-    formData.append("date_of_birth", values.date_of_birth); 
+    formData.append("date_of_birth", values.date_of_birth);
     try {
       setLoading(true);
       const response = await putProfileApi(userDetail.id, formData);
@@ -309,11 +301,11 @@ const UserProfile = () => {
     if (file) {
       try {
         const formData = new FormData();
-        formData.append("pp", file);    
+        formData.append("pp", file);
         const response = await patchProfileApi(userDetail.id, formData);
 
         if (response.status === 200) {
-          setProfilePictureImg(URL.createObjectURL(file));  
+          setProfilePictureImg(URL.createObjectURL(file));
           notifySuccess("Profile Picture Updated Successfully");
         } else {
           console.error("Failed to update profile picture:", response);
@@ -334,6 +326,22 @@ const UserProfile = () => {
   const handleReviewClick = (id, name, image) => {
     setVisible(true);
     setProductId({ id, name, image });
+  };
+
+  const handleInvoiceClick = async (id) => { 
+    setIsLoading(true);
+    try {
+      const response = await getOrderInvoiceApi({shipment_order_id: id});
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank");
+      setIsLoading(false);
+      notifySuccess("Invoice Downloaded Successfully");
+    } catch (error) {
+      console.error("Error fetching invoice:", error);
+      notifyError("Failed to fetch invoice");
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -380,6 +388,7 @@ const UserProfile = () => {
       setProfileEdit(true);
     }
   }, [userDetail]);
+
 
   return (
     <div className="web-wrapper-main">
@@ -429,8 +438,8 @@ const UserProfile = () => {
                     />
                     <label
                       htmlFor="customFile"
-                      className="rounded-circle bg-orange  profile-pic-edit">
-                     <BiSolidEdit color="white"/>
+                      className="rounded-circle bg-orange  profile-pic-edit"> 
+                      <FaCamera color="white" />
                     </label>
                   </div>
                   <div className="image-content mt-4 mt-md-3 pt-md-5 ms-md-3">
@@ -506,8 +515,7 @@ const UserProfile = () => {
                       <div className="d-flex">
                         <button
                           className="d-inline-flex align-items-end border-0 bg-transparent"
-                          onClick={() => setProfileEdit(true)}
-                        >
+                          onClick={() => setProfileEdit(true)}>
                           <img
                             className="img-fluid"
                             src={pencilImg}
@@ -684,146 +692,13 @@ const UserProfile = () => {
                     {loading ? (
                       <Loading />
                     ) : order?.results?.length > 0 ? (
-                      order.results.map((item) => (
-                        <div
-                          className="summary-card rounded-20 mb-4"
-                          key={item.id}
-                        >
-                          <div className="container">
-                            <div className="row border-bottom px-2 px-md-3 py-3 align-items-center">
-                              <div className="col-lg-3 col-md-3 col-5 mb-lg-0 mb-md-0 mb-2">
-                                <p>
-                                  Order ID:
-                                  <span
-                                    className="fw-600"
-                                    title={item?.display_order_id}
-                                  >
-                                    &nbsp;&nbsp;
-                                    {item?.display_order_id}
-                                  </span>
-                                </p>
-                              </div>
-                              <div className="col-lg-3 col-md-3 col-7 mb-lg-0 mb-md-0 mb-2">
-                                <p>
-                                  Order Placed:
-                                  <span className="fw-600">
-                                    &nbsp;&nbsp;
-                                    {new Date(
-                                      item?.created_at
-                                    ).toLocaleDateString("en-GB")}
-                                  </span>
-                                </p>
-                              </div>
-                              <div className="col-6 col-md-3">
-                                <p>
-                                  Total Amount:
-                                  <span className="fw-600">
-                                    &nbsp;&nbsp; ₹ {item?.amount_to_pay}
-                                  </span>
-                                </p>
-                              </div>
-                              <div className="col-6 col-md-3 d-flex align-items-center justify-content-end gap-3 text-end align-self-end">
-                                <button
-                                  onClick={() => handleReOrderClick(item?.id)}
-                                  className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-1 text-nowrap"
-                                >
-                                  <BsArrowRepeat size={"1.2rem"} />
-                                  Buy Again
-                                </button>
-                                <button className="fw-500 text-center border-0 text-orange bg-custom-btn-bg d-flex align-items-center py-1 rounded-2 px-2 gap-1">
-                                  <HiDownload size={"1.2rem"} />
-                                  Invoice
-                                </button>
-                              </div>
-                            </div>
-                            {item?.product_details.map((data) => (
-                              <div className="border-bottom" key={data?.id}>
-                                <div className="row px-2 px-md-3 pt-3 py-md-4">
-                                  <div className="col-md-8">
-                                    <div className="prod-detail d-flex align-items-center">
-                                      <img
-                                        className="img-fluid me-4 rounded-4"
-                                        style={{
-                                          height: "6rem",
-                                          width: "6rem",
-                                        }}
-                                        src={data?.product?.images[0]?.image}
-                                        alt="pencil"
-                                      />
-                                      <div>
-                                        <p className="fb-fs-18 fw-600 text-dark-grey">
-                                          {data?.product?.name}
-                                        </p>
-                                        <p className="mt-2">
-                                          Qty:
-                                          <span className="fw-600">
-                                            {data?.item_quantity}
-                                          </span>
-                                        </p>
-                                        <p className="mt-2">
-                                          Size:
-                                          <span className="fw-600">
-                                            {`${data?.product?.quantity}`}
-                                          </span>
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4">
-                                    <div className="price-sec text-end text-dark-grey">
-                                      <p className="fb-fs-24 fw-bold">
-                                        ₹{data?.price}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="row m-md-3">
-                                  <div className="col-md-6">
-                                    <div className="d-flex mb-2 mb-md-0 delivery-check">
-                                      <img
-                                        className="img-fluid me-2"
-                                        style={{
-                                          height: "1.3rem",
-                                          width: "1.3rem",
-                                          aspectRatio: "1/1",
-                                        }}
-                                        src={tickImg}
-                                        alt="pencil"
-                                      />
-                                      <p className="text-dark-grey">
-                                        Delivered with in {item?.payment_details?.delivery_days} days
-                                      </p>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-5 col-xxl-3 ms-auto text-md-end">
-                                    <div className="more-option d-flex mb-2 mb-lg-0 justify-content-evenly justify-content-md-between">
-                                      <button
-                                        onClick={() =>
-                                          handleReviewClick(
-                                            data?.product?.id,
-                                            data?.product?.name,
-                                            data?.product?.images[0]?.image
-                                          )
-                                        }
-                                        className="fw-500 text-center border-0 text-dark-grey bg-transparent "
-                                      >
-                                        Add Review
-                                      </button>
-                                      <span className="vr"></span>
-                                      <Link
-                                        to={`/product-detail?product_id=${data?.product?.id}`}
-                                        className="fw-600 text-center border-0 bg-transparent text-orange"
-                                      >
-                                        View Product
-                                      </Link>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ))
+                      (isLoading) ? <BackdropLoader open={isLoading} />  : <OrderListComponent
+                        order={order}
+                        handleReOrderClick={handleReOrderClick}
+                        handleInvoiceClick={handleInvoiceClick}
+                        handleReviewClick={handleReviewClick}
+                        tickImg={tickImg}
+                      />
                     ) : (
                       // Show "No Data Found" design
                       <div className="empty-order text-center">

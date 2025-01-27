@@ -225,3 +225,6 @@ export const multiImageUploadApi = (payload) => API.post(`/multi_img_upload/`, p
 // check pincode
 
 export const checkPincodeApi = (pincode,weight,weight_unit) => API.get(`accounts/check_availability_by_pincode/?pincode=${pincode}&weight=${weight}&weight_unit=${weight_unit}`);
+
+// invoice 
+export const getOrderInvoiceApi = (id) => API.post(`/accounts/invoice_download_by_shiprocket/`,id);
