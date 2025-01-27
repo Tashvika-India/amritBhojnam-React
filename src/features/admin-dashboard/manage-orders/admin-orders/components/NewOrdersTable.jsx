@@ -18,8 +18,8 @@ const NewOrdersTable = ({ order, getOrderList }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [orderStatus, setOrderStatus] = useState([]);
 
-  const showAcceptModal = (status, orderId) => {
-    const data = { status, orderId };
+  const showAcceptModal = (status, orderId, display_order_id) => {
+    const data = { status, orderId , display_order_id};
     setModalVisible(true);
     setOrderStatus(data);
   };
@@ -163,8 +163,8 @@ const NewOrdersTable = ({ order, getOrderList }) => {
           rowData?.status === "confirmed"
             ?
             <div className="d-flex gap-3 align-items-center">
-              <button className="lt-green-button" onClick={() => showAcceptModal(true, rowData?.id)}>Accept</button>
-              <button className="lt-red-button" onClick={() => showAcceptModal(false, rowData?.id)}>Cancel</button>
+              <button className="lt-green-button" onClick={() => showAcceptModal(true, rowData?.id, rowData?.display_order_id)}>Accept</button>
+              <button className="lt-red-button" onClick={() => showAcceptModal(false, rowData?.id,rowData?.display_order_id)}>Cancel</button>
             </div>
             :
             <div>
@@ -226,9 +226,6 @@ const NewOrdersTable = ({ order, getOrderList }) => {
         <Column header="ACTION" body={actionBodyTemplate}></Column>
       </DataTable>
       <AcceptOrderModal visible={modalVisible} getOrderList={getOrderList} setVisible={() => setModalVisible(false)} orderStatus={orderStatus} />
-      {/* <StatusModal/> */}
-      {/* <AcceptOrder />
-      <CancelOrder /> */}
     </div>
 
   );

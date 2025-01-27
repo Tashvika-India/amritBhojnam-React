@@ -10,7 +10,6 @@ import { Button } from 'react-bootstrap';
 function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
 
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 

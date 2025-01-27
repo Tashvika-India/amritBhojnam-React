@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { notifyError, notifySuccess } from '../../../../../components/ui/Notification';
 import { getOrderSuccessApi } from '../../../../../services/adminApiRoutes';
+import acceptModalImg from "../../../../../assets/images/dashboard/accept-modal.png";
+import cancelModalImg from "../../../../../assets/images/dashboard/cancel-modal.png";
 
 function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
 
   const [remarks, setRemarks] = useState('') 
-  
+
   const handleAcceptOrder = async () => {
     try {
       const payload = {
@@ -17,7 +19,7 @@ function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
       };
       await getOrderSuccessApi(payload);
       setVisible();
-      getOrderList(); 
+      getOrderList();
       notifySuccess('Order updated successfully');
     } catch (error) {
       notifyError(error.response?.data?.error);
@@ -27,36 +29,53 @@ function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
 
   return (
     <Modal show={visible} onHide={setVisible} size="md" centered aria-labelledby="contained-modal-title-vcenter">
-      <Modal.Header closeButton className={`${(orderStatus?.status) ? 'lt-green-button' : 'lt-red-button'} py-3`}>
-        <h5 className='fw-500 mb-0'>Order {(orderStatus?.status) ? 'Accepted' : 'Cancel'}</h5>
-      </Modal.Header>
-      <Modal.Body>
+      <Modal.Header className='border-0 pb-0' closeButton></Modal.Header>
+      <Modal.Body className='pt-0'>
         {
           (orderStatus?.status) ?
-            <h6 className='fw-400 lh-lg text'>Are you sure you want to accept this order?</h6>
+            <div className='d-inline-flex justify-content-center flex-column align-items-center w-100'>
+              <img className="img-fluid mt-1 mx-1" src={acceptModalImg} alt="order" />
+              <h5 className='fw-600 mb-2 mt-3 fb-fs-26 text-center'>Accept Order ?</h5>
+              <p className='mb-0'>You’re about to confirm this order</p>
+              <span className='fw-500 d-inline-block mt-2 mb-4' style={{ color: "#584EE0" }}>#{orderStatus?.display_order_id}</span>
+            </div>
             :
             <>
-              <div className="row">
+              <div className="row px-3">
                 <div className="col-12">
+                  <div className='d-inline-flex justify-content-center flex-column align-items-center w-100'>
+                    <img className="img-fluid mt-1 mx-1" src={cancelModalImg} alt="order" />
+                    <h5 className='fw-600 mb-2 mt-3 fb-fs-26 text-center'>Are you sure ?</h5>
+                    <p className='mb-0'>You want to cancel this order</p>
+                    <span className='fw-500 d-inline-block mt-1 mb-4' style={{ color: "#584EE0" }}>#{orderStatus?.display_order_id}</span>
+                  </div>
+                </div>
+                <div className="col-12 mb-4">
                   <TextField
-                    label="Remarks"
+                    label="Add reason"
                     name='cancel_reason'
                     variant="outlined"
                     onChange={(e) => setRemarks(e.target.value)}
                     multiline
-                    rows={6}
+                    rows={4}
                     fullWidth
-                    placeholder="Enter the remarks"
+                    placeholder="Enter the reason"
                   />
                 </div>
               </div>
             </>
         }
+        {(orderStatus?.status) ?
+          <div className="d-flex justify-content-center gap-3 mb-3">
+            <button className="button-yellow px-5 fs-6 fw-500 rounded-3" onClick={handleAcceptOrder} hidden={!(orderStatus?.status)}>Accept</button>
+            <button className="bright-red-button-reverse fw-500" onClick={setVisible}>No</button>
+          </div>
+          : <div className="d-flex justify-content-center gap-3 mx-auto mb-2">
+            <button className="button-yellow px-4 fs-6 fw-500 rounded-3" onClick={handleAcceptOrder} disabled={!remarks} hidden={(orderStatus?.status)} >Yes Cancel</button>
+            <button className="bright-red-button-reverse fw-500" onClick={setVisible}>No</button>
+          </div>
+        }
       </Modal.Body>
-      <Modal.Footer>
-        <button type='button' className="lt-green-button" onClick={handleAcceptOrder} hidden={!(orderStatus?.status)}>Submit</button>
-        <button type='button' className="lt-red-button" onClick={handleAcceptOrder} disabled={!remarks} hidden={(orderStatus?.status)}>Submit</button>
-      </Modal.Footer>
     </Modal>
   );
 }

@@ -245,6 +245,7 @@ const UserProfile = () => {
     initialValues: {
       pp: null,
       full_name: "",
+      phone_number: "",
       email: "",
       gender: "",
       date_of_birth: "0000-00-00",
@@ -280,6 +281,7 @@ const UserProfile = () => {
     const formData = new FormData();
     formData.append("full_name", values.full_name);
     formData.append("email", values.email);
+    formData.append("phone_number", values.phone_number);
     formData.append("gender", values.gender);
     formData.append("date_of_birth", values.date_of_birth);
     try {
@@ -359,6 +361,7 @@ const UserProfile = () => {
         pp: userDetail.pp || "",
         full_name: userDetail.full_name || "",
         email: userDetail.email || "",
+        phone_number: userDetail.phone_number || "",
         gender: userDetail.gender || "",
         date_of_birth: userDetail.date_of_birth || "00-00-0000",
       });
@@ -594,7 +597,29 @@ const UserProfile = () => {
                               />
                             </FormControl>
                           </div> */}
-                          <div className="col-md-6 mb-4">
+                          <div className="col-md-4 mb-4">
+                          <TextField
+                              fullWidth
+                              className="rounded-20 me-5"
+                              id="phone_number"
+                              label="Phone Number"
+                              name="phone_number"
+                              variant="outlined"
+                              value={profile.values.phone_number}
+                              onChange={profile.handleChange}
+                              onBlur={profile.handleBlur}
+                              disabled={!profileEdit}
+                              error={
+                                profile.touched.phone_number &&
+                                Boolean(profile.errors.phone_number)
+                              }
+                              helperText={
+                                profile.touched.phone_number &&
+                                profile.errors.phone_number
+                              }
+                            />
+                          </div>
+                          <div className="col-md-4 mb-4">
                             <FormControl fullWidth >
                               <InputLabel id="demo-simple-select-label">
                                 Gender
@@ -624,7 +649,7 @@ const UserProfile = () => {
                               </Select>
                             </FormControl>
                           </div>
-                          <div className="col-md-6 mb-4">
+                          <div className="col-md-4 mb-4">
                             <TextField
                               fullWidth
                               className="rounded-20 me-5"
@@ -669,7 +694,6 @@ const UserProfile = () => {
                     </form>
                   </div>
                 </TabPanel>
-
                 <TabPanel header="Order-history">
                   <div className="order-section">
                     <div className="d-flex justify-content-between align-items-center mb-3 mt-3">
