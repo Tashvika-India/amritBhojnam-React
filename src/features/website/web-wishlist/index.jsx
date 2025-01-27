@@ -67,7 +67,7 @@ const Wishlist = () => {
                       to="/products"
                       className="button-primary  d-inline-block mt-2 px-5 text-center"
                     >
-                      Shop Now
+                     Start Adding Items
                     </Link>
                   </div>
                 </div>
