@@ -196,7 +196,7 @@ export const postContactApi = (payload) => API.post(`/contact/`, payload);
 
 //coupon
 
-export const getCouponApi = () => API.get(`/coupons/`);
+export const getCouponApi = (code="") => API.get(`/coupons/?coupon_code=${code}`);
 export const postCouponApi = (payload) => API.post(`/coupons/`, payload);
 export const putCouponApi = (id,payload) => API.put(`/coupons/${id}`, payload);
 export const deleteCouponApi = (id) => API.delete(`/coupons/${id}`);
