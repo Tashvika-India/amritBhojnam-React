@@ -5,10 +5,10 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField, 
+  TextField,
   Box,
   Chip,
-} from "@mui/material"; 
+} from "@mui/material";
 import RejectButton from "@/components/buttons/RejectButton";
 import YellowButton from "@/components/buttons/YellowButton";
 import MultiFileUpload from "../../../../components/fileUpload/MultiFileUpload";
@@ -21,15 +21,15 @@ import {
   postProductApi,
   putProductApi,
 } from "../../../../services/adminApiRoutes";
-import { Navigate, useLocation, useNavigate } from "react-router-dom"; 
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { baseURL } from "../../../../utils/constant-variable";
-import IosSwitch from "../../../../components/ui/IosSwitch"; 
+import IosSwitch from "../../../../components/ui/IosSwitch";
 import {
   notifyError,
   notifySuccess,
 } from "../../../../components/ui/Notification";
-import NutritionComponent from "../product-nutrition/NutritionComponent"; 
+import NutritionComponent from "../product-nutrition/NutritionComponent";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Product name is required"),
@@ -48,6 +48,9 @@ const ProductAdd = () => {
   const [activeOption, setActiveOption] = useState(0);
   const [activeInput, setActiveInput] = useState(false);
 
+  const addUrl = location?.pathname;
+
+
   const handleTagAdd = (event) => {
     if (event.key === "Enter" && event.target.value.trim() !== "") {
       const newTag = event.target.value.trim();
@@ -55,7 +58,7 @@ const ProductAdd = () => {
         ...prevValues,
         tags: [...(prevValues.tags || []), newTag],
       }));
-      event.target.value = "";  
+      event.target.value = "";
     }
   };
 
@@ -90,9 +93,9 @@ const ProductAdd = () => {
     onSubmit: async (values) => {
       isEditMode
         ? updateProduct({
-            ...values,
-            max_price: Number(formik.values.max_price),
-          })
+          ...values,
+          max_price: Number(formik.values.max_price),
+        })
         : addProduct({ ...values, discount: values.discount || 0 });
     },
   });
@@ -177,12 +180,18 @@ const ProductAdd = () => {
     }
   }, [product]);
 
+  useEffect(() => {
+    if (addUrl == "/admin/add-product") {
+      setActiveInput(true);
+    }
+  }, [product]);
+
   function handleAddOption() {
     formik.setFieldValue("options", [
       ...values.options,
       {
         option: "",
-        measurement_unit: "gm",
+        measurement_unit: "",
         max_price: 0,
         discount: 0,
         stock: 0,
@@ -203,8 +212,10 @@ const ProductAdd = () => {
     <>
       <div className="mt-3 mb-5 row">
         <div className="col-md-12 d-flex justify-content-between align-items-center">
-          <Heading value={"View Product"} />
-          <button className="button-primary" type="button" onClick={() => setActiveInput(!activeInput)}>Edit Product</button>
+          <Heading value={(!isEditMode) ? "Add Product" : "Edit Product"} />
+          {
+          (isEditMode) && <button className="button-primary" type="button" onClick={() => setActiveInput(!activeInput)}>Edit Product</button>
+          }
         </div>
       </div>
       <form className="" onSubmit={formik.handleSubmit}>
@@ -272,7 +283,7 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <FormControl fullWidth
-                disabled={!activeInput}>
+                  disabled={!activeInput}>
                   <InputLabel id="demo-simple-select-label">
                     Select Category
                   </InputLabel>
@@ -296,7 +307,7 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <FormControl fullWidth
-                disabled={!activeInput}>
+                  disabled={!activeInput}>
                   <InputLabel id="demo-simple-select-label">
                     Select Sub Category
                   </InputLabel>
@@ -353,7 +364,7 @@ const ProductAdd = () => {
                     fullWidth
                     disabled={!activeInput}
                     onKeyDown={handleTagAdd}
-                    placeholder="Press Enter to add a tag" 
+                    placeholder="Press Enter to add a tag"
                   />
                   <Box
                     display="flex"
@@ -384,9 +395,8 @@ const ProductAdd = () => {
             <div className="row">
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${
-                    formik.values.is_manually_popular && "active"
-                  }`} style={{pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
+                  className={`switch-container ${formik.values.is_manually_popular && "active"
+                    }`} style={{ pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_manually_popular",
@@ -410,10 +420,9 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${
-                    formik.values.is_manually_best_choice && "active"
-                  }`}
-                  style={{pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
+                  className={`switch-container ${formik.values.is_manually_best_choice && "active"
+                    }`}
+                  style={{ pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_manually_best_choice",
@@ -437,10 +446,9 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${
-                    formik.values.is_delicious && "active"
-                  }`}
-                  style={{pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
+                  className={`switch-container ${formik.values.is_delicious && "active"
+                    }`}
+                  style={{ pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_delicious",
@@ -461,10 +469,9 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${
-                    formik.values.is_best_price && "active"
-                  }`}
-                  style={{pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
+                  className={`switch-container ${formik.values.is_best_price && "active"
+                    }`}
+                  style={{ pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_best_price",
@@ -485,10 +492,9 @@ const ProductAdd = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <div
-                  className={`switch-container ${
-                    formik.values.is_healthy_bites && "active"
-                  }`}
-                  style={{pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
+                  className={`switch-container ${formik.values.is_healthy_bites && "active"
+                    }`}
+                  style={{ pointerEvents: `${(!activeInput) ? "none" : "auto"}`, filter: `${(!activeInput) ? "grayscale(100%)" : "none"}` }}
                   onClick={() =>
                     formik.setFieldValue(
                       "is_healthy_bites",
@@ -531,13 +537,13 @@ const ProductAdd = () => {
             </div>
           </div>
         </div>
-        <div className="card mb-4 px-3 pt-2">
+        {/* <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <h6 className="mb-4">Package Dimensions & Weight</h6>
             <div className="row">
               <div className="col-md-3 mb-4">
                 <FormControl fullWidth
-                disabled={!activeInput}>
+                  disabled={!activeInput}>
                   <InputLabel id="demo-simple-select-label">Weight</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
@@ -580,7 +586,7 @@ const ProductAdd = () => {
                 )}
               </div>
 
-              {/* <div className="col-md-3 mb-4">
+              <div className="col-md-3 mb-4">
                 <TextField
                   id="outlined-basic"
                   label="Weight"
@@ -588,10 +594,10 @@ const ProductAdd = () => {
                   fullWidth
                   disabled={!activeInput}
                 />
-              </div> */}
+              </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <div className="d-flex justify-content-between align-items-center">
@@ -600,9 +606,8 @@ const ProductAdd = () => {
             <div className="mb-4 mt-2">
               {values?.options?.map((_, index) => (
                 <button
-                  className={`option-button py-2 px-3 me-3 rounded ${
-                    activeOption === index && "active"
-                  }`}
+                  className={`option-button py-2 px-3 me-3 rounded ${activeOption === index && "active"
+                    }`}
                   type="button"
                   onClick={() => setActiveOption(index)}
                 >
@@ -633,6 +638,25 @@ const ProductAdd = () => {
                     handleOptionsChange("option", event.target.value)
                   }
                 />
+              </div>
+              <div className="col-md-4 mb-4">
+                <FormControl fullWidth
+                  disabled={!activeInput}>
+                  <InputLabel id="demo-simple-select-unit">Unit</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-unit"
+                    id="demo-simple-select"
+                    name="measurement_unit"
+                    value={formik.values?.options[activeOption]?.measurement_unit}
+                    onChange={(event) =>
+                      handleOptionsChange("measurement_unit", event.target.value)
+                    }
+                    label="Unit">
+                    <MenuItem value="">Select</MenuItem>
+                    <MenuItem value="gm">gm</MenuItem>
+                    <MenuItem value="kg">kg</MenuItem>
+                  </Select>
+                </FormControl>
               </div>
               <div className="col-md-4 mb-4">
                 <TextField
@@ -983,8 +1007,8 @@ const ProductAdd = () => {
                   loading
                     ? "Updating..."
                     : (isEditMode)
-                    ? "Update Product"
-                    : "Add Product"
+                      ? "Update Product"
+                      : "Add Product"
                 }
                 handleClick={formik.handleSubmit}
                 disabled={!activeInput || loading}

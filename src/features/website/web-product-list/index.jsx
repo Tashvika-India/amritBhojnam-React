@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import { BiReset } from "react-icons/bi";
@@ -24,32 +24,49 @@ import { useDispatch, useSelector } from "react-redux";
 import Typography from '@mui/material/Typography';
 import { GrPowerReset } from "react-icons/gr";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
+import { notifyError } from "../../../components/ui/Notification";
+import ChildSlider from "../../../components/ui/ChildSlider";
 
 const ProudctList = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [categoryList, setCategoryList] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-
   const [showFilter, setShowFilter] = useState(false);
-  const toggleMobileFiter = () => setShowFilter((prev) => !prev);
 
-  const defaultFilters = {
+  const defaultFilters = useMemo(() => ({
     category_id: "",
-    maxPrice: "5000",
+    maxPrice: "500",
     minPrice: "0",
     name: "",
     product_id: "",
     rating: "",
     search: "",
-  };
-  const [filters, setFilters] = useURLFilters(defaultFilters);
-  const areObjectsEqual = (obj1, obj2) => {
-    return Object.keys(obj1).every((key) => obj1[key] === obj2[key]);
-  };
+  }), []);
+
+  const [filters, setFilters] = useState(defaultFilters);
+
+  const debouncedFilters = useMemo(
+    () => debounce((updatedFilters) => {
+      dispatch(fetchProductList(updatedFilters));
+    }, 300),
+    [dispatch]
+  );
+
+  useEffect(() => {
+    debouncedFilters(filters);
+
+    return () => {
+      debouncedFilters.cancel();
+    };
+  }, [filters, debouncedFilters]);
+
+  const areObjectsEqual = (obj1, obj2) =>
+    Object.keys(obj1).every((key) => obj1[key] === obj2[key]);
 
   const isFiltersChanged = !areObjectsEqual(filters, defaultFilters);
 
-  const dispatch = useDispatch();
+  const toggleMobileFiter = () => setShowFilter((prev) => !prev);
   const { productList, loading, error } = useSelector((state) => state.product);
 
   const onIngredientsChange = (e) => {
@@ -67,8 +84,7 @@ const ProudctList = () => {
       );
       setCategoryList(filteredData || []);
     } catch (error) {
-      console.log("Error on Product List", error);
-    } finally {
+      console.error("Error on Product List", error);
     }
   }
 
@@ -84,28 +100,23 @@ const ProudctList = () => {
     getCategoryList();
   }, []);
 
+  useEffect(() => {
+    navigate(
+      `/products?category_id=${filters.category_id}&name=${filters.name}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}&rating=${filters.rating}`,
+      { replace: true }
+    );
+  }, [filters, navigate]);
 
-  const handleDebouncedChange = debounce((value) => {
-    if (value[0] > value[1]) {
-      setFilters((prevFilters) => ({
-        ...prevFilters,
-        minPrice: value[1],
-        maxPrice: value[0],
-      }));
-      return;
-    }
+  const handleSliderChange = (newValue) => {
+    const [minPrice, maxPrice] =
+      newValue[0] > newValue[1] ? [newValue[1], newValue[0]] : newValue;
+
     setFilters((prevFilters) => ({
       ...prevFilters,
-      minPrice: value[0],
-      maxPrice: value[1],
+      minPrice: minPrice.toString(),
+      maxPrice: maxPrice.toString(),
     }));
-  }, 300);
-
-  useEffect(() => {
-    navigate(`/products?category_id=${filters.category_id}&name=${filters.name}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}&rating=${filters.rating}`, { replace: true });
-    scrollToTop()
-    setShowFilter(false);
-  }, [filters]);
+  };
 
 
   return (
@@ -154,13 +165,10 @@ const ProudctList = () => {
               <div className="bg-white product-detail-shadow rounded-20 p-4 px-3">
                 <h6 className="underline-heading fw-bold">Price & Rating</h6>
                 <div className="mb-4 pb-3 border-bottom mt-5">
-                  <Slider
-                    value={[filters.minPrice, filters.maxPrice]}
-                    onChange={(e) => handleDebouncedChange(e.value)}
-                    className="w-14rem"
-                    range
-                    min={0}
-                    max={5000}
+                  <ChildSlider
+                    minPrice={parseInt(filters.minPrice, 10)}
+                    maxPrice={parseInt(filters.maxPrice, 10)}
+                    onSliderChange={handleSliderChange}
                   />
                   <div className="row mt-4">
                     <div className="col-5 pe-0" style={{ width: "36%" }}>
@@ -168,11 +176,19 @@ const ProudctList = () => {
                         <p className="ms-2 fw-300">
                           Min:
                           <span className="fw-500 ms-2">
-                            <span>Rs.</span> {/* Rs. prefix */}
+                            <span>Rs.</span> 
                             <InputText
                               value={filters.minPrice}
                               style={{ width: "30%" }}
-                              readOnly
+                              onChange={(e) => {
+                                const newMin = e.target.value;
+                                if (!isNaN(newMin) && newMin >= 0) {
+                                  setFilters((prevFilters) => ({
+                                    ...prevFilters,
+                                    minPrice: newMin,
+                                  }));
+                                }
+                              }}
                               className="border-0 px-0"
                             />
                           </span>
@@ -191,7 +207,15 @@ const ProudctList = () => {
                             <InputText
                               value={filters.maxPrice}
                               style={{ width: "30%" }}
-                              readOnly
+                              onChange={(e) => {
+                                const newMax = e.target.value;
+                                if (!isNaN(newMax) && newMax <= 5000) {
+                                  setFilters((prevFilters) => ({
+                                    ...prevFilters,
+                                    maxPrice: newMax,
+                                  }));
+                                }
+                              }}
                               className="border-0 px-0"
                             />
                           </span>
@@ -324,25 +348,30 @@ const ProudctList = () => {
                 </div>
                 <h4 className="underline-heading filter-heading fw-bold mt-4">Price & Rating</h4>
                 <div className="mb-4 pb-3 border-bottom mt-5">
-                  <Slider
-                    value={[filters.minPrice, filters.maxPrice]}
-                    onChange={(e) => handleDebouncedChange(e.value)}
-                    className="w-14rem"
-                    range
-                    min={0}
-                    max={5000}
+                  <ChildSlider
+                    minPrice={parseInt(filters.minPrice, 10)}
+                    maxPrice={parseInt(filters.maxPrice, 10)}
+                    onSliderChange={handleSliderChange}
                   />
                   <div className="row mt-4">
-                    <div className="col-5 pe-0">
+                    <div className="col-5 pe-0" style={{ width: "36%" }}>
                       <div className="max-border">
                         <p className="ms-2 fw-300 mb-0">
                           Min:
                           <span className="fw-500 ms-2">
-                            <span>Rs.</span> {/* Rs. prefix */}
+                            <span>Rs.</span> 
                             <InputText
                               value={filters.minPrice}
                               style={{ width: "30%" }}
-                              readOnly
+                              onChange={(e) => {
+                                const newMin = e.target.value;
+                                if (!isNaN(newMin) && newMin >= 0) {
+                                  setFilters((prevFilters) => ({
+                                    ...prevFilters,
+                                    minPrice: newMin,
+                                  }));
+                                }
+                              }}
                               className="border-0 px-0"
                             />
                           </span>
@@ -352,7 +381,7 @@ const ProudctList = () => {
                     <div className="col-2 text-center">
                       <FiMinus size={40} color={"#918E92"} />
                     </div>
-                    <div className="col-5 ps-0">
+                    <div className="col-5 ps-0" style={{ width: "47%" }}>
                       <div className="max-border">
                         <p className="ms-2 fw-300 mb-0">
                           Max:
@@ -361,7 +390,15 @@ const ProudctList = () => {
                             <InputText
                               value={filters.maxPrice}
                               style={{ width: "30%" }}
-                              readOnly
+                              onChange={(e) => {
+                                const newMax = e.target.value;
+                                if (!isNaN(newMax) && newMax <= 5000) {
+                                  setFilters((prevFilters) => ({
+                                    ...prevFilters,
+                                    maxPrice: newMax,
+                                  }));
+                                }
+                              }}
                               className="border-0 px-0"
                             />
                           </span>

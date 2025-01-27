@@ -12,7 +12,7 @@ const useURLFilters = () => {
     name: search.get("name") || "",
     search: search.get("search") || "",
     minPrice : search.get("minPrice") || 0,
-    maxPrice : search.get("maxPrice") || 5000,
+    maxPrice : search.get("maxPrice") || 500,
     rating : search.get("rating") || ""
   });
 
@@ -24,7 +24,7 @@ const useURLFilters = () => {
       category_id: search.get("category_id") || "",
       name: search.get("name") || "",
       minPrice : search.get("minPrice") || 0,
-      maxPrice : search.get("maxPrice") || 5000,
+      maxPrice : search.get("maxPrice") || 500,
       rating : search.get("rating") || ""
     };
     setFilters(parsedFilters);

@@ -12,14 +12,14 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs'; 
 
 const AdminCoupon = () => {
-  const [filter, setFilter] = useURLFilters([]);
+  const [filter, setFilter] = useState({coupon_code: ""});
   const [loding, setLoding] = useState(false);
   const [coupons, setCoupons] = useState([]);
   const [activeTab, setActiveTab] = useState("Active Orders");
   const getCoupons = async () => {
     setLoding(true);
     try {
-      const response = await getCouponApi();
+      const response = await getCouponApi(filter?.coupon_code || "");
       setCoupons(response?.data);
       setLoding(false);
     } catch (error) {
@@ -29,7 +29,7 @@ const AdminCoupon = () => {
 
   useEffect(() => {
     getCoupons();
-  }, []);
+  }, [filter]);
 
   return (
     <>
@@ -72,11 +72,12 @@ const AdminCoupon = () => {
               <div className="col-md-3 ms-auto text-end">
                 <InputText
                   className="w-100"
-                  value={filter.name}
+                  sx={{ fontFamily: "Poppins, sans-serif" }}
+                  value={filter.coupon_code || ""}
                   onChange={(e) =>
-                    setFilter({ ...filter, name: e.target.value })
+                    setFilter({ ...filter, coupon_code: e.target.value })
                   }
-                  placeholder="Search Coupon"
+                  placeholder="Search Coupon Code"
                 />
               </div>
             </div>
