@@ -138,7 +138,7 @@ const ProudctList = () => {
             <div className="col-md-3  d-none d-lg-block">
               <div className="bg-white product-detail-shadow rounded-20 p-4 mb-5">
                 <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span className="text-dark-grey">Category</span>
-                  {isFiltersChanged && (<button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
+                  {isFiltersChanged && (<button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: 0, maxPrice: 500, rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
                   </button>)}
                 </h6>
                 <div className="mt-5">
@@ -171,7 +171,7 @@ const ProudctList = () => {
                     onSliderChange={handleSliderChange}
                   />
                   <div className="row mt-lg-2 mb-4">
-                    <div className="col-5 pe-0" style={{ width: "36%" }}>
+                    <div className="col-5 pe-0" style={{ width: "40%" }}>
                       <div className="max-border text-align-center">
                         <p className="ms-2 fw-300">
                           Min:
@@ -198,7 +198,7 @@ const ProudctList = () => {
                     <div className="col-2 text-center">
                       <FiMinus size={40} color={"#918E92"} />
                     </div>
-                    <div className="col-5 ps-0" style={{ width: "47%" }}>
+                    <div className="col-5 ps-0" style={{ width: "40%" }}>
                       <div className="max-border text-align-center">
                         <p className="ms-2 fw-300">
                           Max:
@@ -354,7 +354,7 @@ const ProudctList = () => {
                     onSliderChange={handleSliderChange}
                   />
                   <div className="row mt-4">
-                    <div className="col-5 pe-0" style={{ width: "36%" }}>
+                    <div className="col-5 pe-0" style={{ width: "41.5%" }}>
                       <div className="max-border">
                         <p className="ms-2 fw-300 mb-0">
                           Min:
@@ -381,7 +381,7 @@ const ProudctList = () => {
                     <div className="col-2 text-center">
                       <FiMinus size={40} color={"#918E92"} />
                     </div>
-                    <div className="col-5 ps-0" style={{ width: "47%" }}>
+                    <div className="col-5 ps-0" style={{ width: "41.5%" }}>
                       <div className="max-border">
                         <p className="ms-2 fw-300 mb-0">
                           Max:
