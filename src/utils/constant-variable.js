@@ -39,4 +39,52 @@ export const formatDeliveryDateCustom = (pinDate) => {
 };
 
 
-export const loginonWeb = localStorage.getItem("access") || localStorage.getItem("refresh");  
+export const loginonWeb = localStorage.getItem("access") || localStorage.getItem("refresh");
+
+
+export const getRandomColor = () => {
+  // Generate a random color in hex format
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
+export const isGreyColor = (color) => {
+  // Check if the color is grey by comparing RGB values
+  const rgb = parseInt(color.slice(1), 16);
+  const r = (rgb >> 16) & 0xFF;
+  const g = (rgb >> 8) & 0xFF;
+  const b = rgb & 0xFF;
+  return r === g && g === b; // Check if all RGB components are equal
+};
+
+export const lightenColor = (color, percent) => {
+  // Lighten the color by the given percentage
+  const rgb = parseInt(color.slice(1), 16);
+  let r = (rgb >> 16) & 0xFF;
+  let g = (rgb >> 8) & 0xFF;
+  let b = rgb & 0xFF;
+
+  r = Math.min(255, r + (255 - r) * percent);
+  g = Math.min(255, g + (255 - g) * percent);
+  b = Math.min(255, b + (255 - b) * percent);
+
+  return `#${((1 << 24) + (Math.round(r) << 16) + (Math.round(g) << 8) + Math.round(b)).toString(16).slice(1)}`;
+};
+
+export const darkenColor = (color, percent) => {
+  // Darken the color by the given percentage
+  const rgb = parseInt(color.slice(1), 16);
+  let r = (rgb >> 16) & 0xFF;
+  let g = (rgb >> 8) & 0xFF;
+  let b = rgb & 0xFF;
+
+  r = Math.max(0, r - (r * percent));
+  g = Math.max(0, g - (g * percent));
+  b = Math.max(0, b - (b * percent));
+
+  return `#${((1 << 24) + (Math.round(r) << 16) + (Math.round(g) << 8) + Math.round(b)).toString(16).slice(1)}`;
+};
