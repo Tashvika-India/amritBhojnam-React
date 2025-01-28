@@ -172,7 +172,7 @@ const ProudctList = () => {
                   />
                   <div className="row mt-4">
                     <div className="col-5 pe-0" style={{ width: "36%" }}>
-                      <div className="max-border">
+                      <div className="max-border text-align-center">
                         <p className="ms-2 fw-300">
                           Min:
                           <span className="fw-500 ms-2">
@@ -199,7 +199,7 @@ const ProudctList = () => {
                       <FiMinus size={40} color={"#918E92"} />
                     </div>
                     <div className="col-5 ps-0" style={{ width: "47%" }}>
-                      <div className="max-border">
+                      <div className="max-border text-align-center">
                         <p className="ms-2 fw-300">
                           Max:
                           <span className="fw-500 ms-2">
