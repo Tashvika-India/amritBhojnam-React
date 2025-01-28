@@ -170,7 +170,7 @@ const ProudctList = () => {
                     maxPrice={parseInt(filters.maxPrice, 10)}
                     onSliderChange={handleSliderChange}
                   />
-                  <div className="row mt-4">
+                  <div className="row mt-lg-2 mb-4">
                     <div className="col-5 pe-0" style={{ width: "36%" }}>
                       <div className="max-border text-align-center">
                         <p className="ms-2 fw-300">
