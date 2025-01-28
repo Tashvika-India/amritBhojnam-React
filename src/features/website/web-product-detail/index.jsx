@@ -68,14 +68,13 @@ const ProudctDetail = () => {
   const dispatch = useDispatch();
   const firstOption = detail?.options?.[0] || {};
   const [radioValue, setRadioValue] = useState(firstOption.option || "");
-  const [selectedOptionId, setSelectedOptionId] = useState(
-    firstOption.id || ""
-  );
-  const selectedOption = detail?.options?.find(
-    (option) => option.option === radioValue
-  );
+  const [selectedOptionId, setSelectedOptionId] = useState(firstOption.id || "");
+  const selectedOption = detail?.options?.find((option) => option.option === radioValue);
   const [pincode, setPincode] = useState("");
   const [pinValue, setPinValue] = useState("");
+
+  const [activeTab, setActiveTab] = useState("Description");
+
 
   const truncateToWords = (text, limit) => {
     if (!text) return "";
@@ -203,9 +202,27 @@ const ProudctDetail = () => {
   }
 
   const deliveryDateCustom = pinValue?.delivery_date || "";
-  const formattedDateCustom = formatDeliveryDateCustom(
-    deliveryDateCustom || ""
-  );
+  const formattedDateCustom = formatDeliveryDateCustom(deliveryDateCustom || "");
+
+  const handleScrollToReviews = () => {
+    setActiveTab("Reviews");
+    setTimeout(() => {
+      const reviewContainer = document.getElementById("review-container");
+      if (reviewContainer) {
+        reviewContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
+  };
+
+  const handleScrollToDescription = () => {
+    setActiveTab("Description");
+    setTimeout(() => {
+      const descriptionContainer = document.getElementById("review-container");
+      if (descriptionContainer) {
+        descriptionContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
+  };
 
   useEffect(() => {
     if (detail?.options?.length > 0) {
@@ -252,10 +269,7 @@ const ProudctDetail = () => {
                   </p> */}
                   <div className="">
                     <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
-                    <a
-                      href={`/product-detail?product_id=${detail?.id}#reviews-wapper`}
-                      className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4"
-                    >
+                    <button className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4 border-0 bg-transparent" onClick={handleScrollToReviews}>
                       <Rating
                         className="me-3 border-none"
                         value={Math.round(detail.ratings)}
@@ -265,7 +279,7 @@ const ProudctDetail = () => {
                       <p className="text-mid-grey">
                         ({(detail?.ratings ?? 0).toFixed(1)} Reviews)
                       </p>
-                    </a>
+                    </button>
                   </div>
                   <div className="gap-3 d-inline-flex ms-lg-auto">
                     <span className="pt-2">
@@ -324,9 +338,9 @@ const ProudctDetail = () => {
                   </div>
                 </div>
 
-                <a href={`/product-detail?product_id=${detail?.id}#reviews-wapper`}>
+                <button onClick={handleScrollToDescription} className="border-0 bg-transparent text-start">
                   <p>{truncateToWords(detail?.short_description, 25)}</p>
-                </a>
+                </button>
                 {/* <a href="/product-detail/#detail-description"><span className="text-orange">Read More</span></a> */}
                 <div className="d-flex align-items-center mt-4 mb-3">
                   <p className="fw-600">Size / Weight:</p>
@@ -492,17 +506,14 @@ const ProudctDetail = () => {
             </div>
           </div>
           <div
-            className="row ms-1 mt-md-5 mt-0 description-slider"
-            id="reviews-wapper"
-          >
-            <div
-              className="card tabs-slider ms-xxl-5 mt-3"
-              style={{ border: "1px solid #E1E1E1" }}
-            >
+            className="row ms-1 mt-md-5 mt-0 description-slider" id="review-container">
+            <div className="card tabs-slider ms-xxl-5 mt-3"
+              style={{ border: "1px solid #E1E1E1" }}>
               <div className="container fb-container">
                 <Tab.Container
                   id="left-tabs-example"
-                  defaultActiveKey="Description"
+                  activeKey={activeTab}
+                  onSelect={(key) => setActiveTab(key)}
                 >
                   <div className="row">
                     <div className="col-md-12">
