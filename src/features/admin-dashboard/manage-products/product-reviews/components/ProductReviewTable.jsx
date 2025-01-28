@@ -5,17 +5,27 @@ import { Button } from 'primereact/button';
 import { Rating } from 'primereact/rating';
 import { Avatar } from 'primereact/avatar';
 import { RiPencilFill } from 'react-icons/ri';
+import { darkenColor, getRandomColor, isGreyColor, lightenColor } from '../../../../../utils/constant-variable';
 
-const ProductReviewTable = ({ reviews }) => { 
+const ProductReviewTable = ({ reviews }) => {
+    const nameBodyTemplate = (rowData) => {
+        let backgroundColor = getRandomColor();
+        if (isGreyColor(backgroundColor)) {
+            backgroundColor = lightenColor(backgroundColor, 0.3);
+        }
+        backgroundColor = lightenColor(backgroundColor, 0.5);
+        const textColor = darkenColor(backgroundColor, 0.3);
 
-    const customerBodyTemplate = (rowData) => {
         return (
             <div className="d-flex align-items-center gap-3">
-                <Avatar style={{ width: "3rem", height: "3rem", aspectRatio: "1/1" }} label={"R"} shape="circle" />
+                <Avatar
+                    style={{ backgroundColor: backgroundColor, color: textColor, textTransform: 'uppercase' }}
+                    label={rowData?.user_name?.slice(0, 2)}
+                    shape="circle"
+                    className="p-4"
+                />
                 <div>
-                    <span className='fw-normal'>{rowData.user_id}</span>
-                    <br />
-                    <span>{rowData.phone}</span>
+                    <span className='fw-400'>{rowData.user_name}</span> 
                 </div>
             </div>
         );
@@ -68,8 +78,8 @@ const ProductReviewTable = ({ reviews }) => {
     return (
         <div className="card">
             <DataTable value={reviews} paginator rows={10} responsiveLayout="scroll">
-                <Column field="id" header="Customer ID"  style={{ width: '380px' }}></Column>
-                <Column field='user_name' header="User Name"  style={{ width: '180px' }}></Column>
+                <Column field="id" header="Customer ID" style={{ width: '12%' }} body={(rowData) => <span style={{ color: "#584EE0" }} title={rowData.id}>{rowData.id.slice(0, 8)}</span>}></Column>
+                <Column field='user_name' header="User Name" body={nameBodyTemplate} style={{ width: '20%' }}></Column>
                 <Column field="comment" header="Review" body={reviewTemplate} style={{ width: '500px' }}></Column>
                 <Column header="Date & Time" body={dateTimeTemplate} ></Column>
                 <Column header="Rating" body={ratingBodyTemplate} ></Column>

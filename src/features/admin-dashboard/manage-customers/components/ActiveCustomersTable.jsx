@@ -1,71 +1,22 @@
 import React from 'react';
 import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
-import { Rating } from 'primereact/rating';
-import { Avatar } from 'primereact/avatar';
-import { Stack } from 'react-bootstrap';
+import { Column } from 'primereact/column'; 
+import { Avatar } from 'primereact/avatar'; 
+import { darkenColor, getRandomColor, isGreyColor, lightenColor } from '../../../../utils/constant-variable';
 
-const ActiveCustomersTable = ({ customer }) => { 
-    const getRandomColor = () => {
-        // Generate a random color in hex format
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    };
-
-    const isGreyColor = (color) => {
-        // Check if the color is grey by comparing RGB values
-        const rgb = parseInt(color.slice(1), 16);
-        const r = (rgb >> 16) & 0xFF;
-        const g = (rgb >> 8) & 0xFF;
-        const b = rgb & 0xFF;
-        return r === g && g === b; // Check if all RGB components are equal
-    };
-
-    const lightenColor = (color, percent) => {
-        // Lighten the color by the given percentage
-        const rgb = parseInt(color.slice(1), 16);
-        let r = (rgb >> 16) & 0xFF;
-        let g = (rgb >> 8) & 0xFF;
-        let b = rgb & 0xFF;
-
-        r = Math.min(255, r + (255 - r) * percent);
-        g = Math.min(255, g + (255 - g) * percent);
-        b = Math.min(255, b + (255 - b) * percent);
-
-        return `#${((1 << 24) + (Math.round(r) << 16) + (Math.round(g) << 8) + Math.round(b)).toString(16).slice(1)}`;
-    };
-
-    const dateTimeTemplate = (rowData) => {
-        return `${rowData.date} ${rowData.time}`;
-    };
-
-    const ratingBodyTemplate = (rowData) => {
-        return <Rating value={rowData.rating} readOnly stars={5} cancel={false} />;
-    };
-
-    const actionBodyTemplate = () => {
-        return (
-            <Button icon="pi pi-pencil" className="p-button-rounded p-button-text" />
-        );
-    };
+const ActiveCustomersTable = ({ customer }) => {
     const nameBodyTemplate = (rowData) => {
-        let backgroundColor = getRandomColor();
-        let color = getRandomColor();
-
-        // If the color is grey, set the background color to a lighter shade
+        let backgroundColor = getRandomColor(); 
         if (isGreyColor(backgroundColor)) {
-            backgroundColor = lightenColor(backgroundColor, 0.3); // 30% lighter
-        }
+            backgroundColor = lightenColor(backgroundColor, 0.3);  
+        } 
+        backgroundColor = lightenColor(backgroundColor, 0.5);   
+        const textColor = darkenColor(backgroundColor, 0.3); 
 
         return (
             <div className="d-flex align-items-center gap-3">
                 <Avatar
-                    style={{ backgroundColor: backgroundColor, color: color, textTransform: 'uppercase' }}
+                    style={{ backgroundColor: backgroundColor, color: textColor, textTransform: 'uppercase' }}
                     label={rowData?.full_name?.slice(0, 2)}
                     shape="circle"
                     className="p-4"
@@ -75,7 +26,7 @@ const ActiveCustomersTable = ({ customer }) => {
                 </div>
             </div>
         );
-    }
+    };
     return (
         <div className="card">
             <DataTable value={customer} paginator rows={10} responsiveLayout="scroll">
