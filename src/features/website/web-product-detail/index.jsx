@@ -38,6 +38,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import {
   baseURL,
   formatDeliveryDateCustom,
+  loginonWeb,
 } from "../../../utils/constant-variable";
 import {
   fetchWishlist,
@@ -163,9 +164,6 @@ const ProudctDetail = () => {
     }
   };
 
-  const login =
-    localStorage.getItem("access") || localStorage.getItem("refresh");
-
   function checkItemInCart() {
     return cartItems.some((cartItem) => cartItem.product_id === detail?.id);
   }
@@ -270,7 +268,7 @@ const ProudctDetail = () => {
                   </div>
                   <div className="gap-3 d-inline-flex ms-lg-auto">
                     <span className="pt-2">
-                      {login ? (
+                      {loginonWeb ? (
                         <Checkbox
                           {...label}
                           icon={<FavoriteBorder />}
@@ -369,7 +367,7 @@ const ProudctDetail = () => {
                   (Inclusive of all taxes)
                 </p>
                 <div>
-                  {login ? (
+                  {loginonWeb ? (
                     !checkItemInCart() ? (
                       <button
                         className="button-primary mt-4 fb-fs-18"
