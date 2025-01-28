@@ -51,6 +51,7 @@ import {
 import { Link } from "react-router-dom";
 import ImageGallery from "./components/ImageGallery";
 import RatingBar from "./components/RatingProgress";
+import { AiFillThunderbolt } from "react-icons/ai";
 
 const ProudctDetail = () => {
   const [showCart, setShowCart] = useState(false);
@@ -354,18 +355,23 @@ const ProudctDetail = () => {
                     ))}
                   </ButtonGroup>
                 </div>
-                <p className="fb-fs-40 text-orange fw-bold original-price">
-                  ₹{~~selectedOption?.offer_price}
-                  {selectedOption?.offer_price !==
-                    selectedOption?.max_price && (
-                    <small className="fw-500 fb-fs-30 text-grey ms-3">
-                      <strike>₹{~~selectedOption?.max_price}</strike>
-                    </small>
-                  )}
-                </p>
-                <p style={{ fontSize: "0.875rem" }} className="fw-500">
-                  (Inclusive of all taxes)
-                </p>
+                <div className="d-flex align-items-center gap-2">
+                  <p className="fb-fs-40 text-orange fw-bold original-price">
+                    ₹{~~selectedOption?.offer_price}
+                    {selectedOption?.offer_price !==
+                      selectedOption?.max_price && (
+                        <small className="fw-500 fb-fs-30 text-grey ms-3">
+                          <strike>₹{~~selectedOption?.max_price}</strike>
+                        </small>
+                      )}
+                  </p>
+                  <p style={{ fontSize: "0.875rem" }} className="fw-500 mt-3">
+                    (Inclusive of all taxes)
+                  </p>
+                </div>
+                {(detail?.stock <= 5) && <div className="d-flex gap-2 align-items-center">
+                  <span className="d-inline-block"><AiFillThunderbolt className="text-orange" size={"1.25rem"} /></span><p>Hurry, Only {~~(detail?.stock)} left!</p>
+                </div>}
                 <div>
                   {loginonWeb ? (
                     !checkItemInCart() ? (
@@ -439,19 +445,17 @@ const ProudctDetail = () => {
                 <div className="d-flex align-items-center gap-2 mt-2">
                   {pinValue && (
                     <>
-                      {" "}
                       <span>
                         <img
                           className="img-fluid"
                           src={deliveryImg}
                           alt="delivery-img"
-                        />{" "}
-                      </span>{" "}
-                      <span className="text-orange">Get it by</span>{" "}
-                      <span className="">{formattedDateCustom}</span>{" "}
+                        />
+                      </span>
+                      <span className="text-orange">Get it by</span>
+                      <span className="">{formattedDateCustom}</span>
                       <span className="" style={{ fontSize: "0.625rem" }}>
-                        {" "}
-                        (Estimated){" "}
+                        (Estimated)
                       </span>
                     </>
                   )}
@@ -553,8 +557,8 @@ const ProudctDetail = () => {
                                   <li className="d-flex justify-content-between mb-2">
                                     <h5 className="fw-600">
                                       {data?.nutrition_name}
-                                    </h5>{" "}
-                                    <h5>:</h5>{" "}
+                                    </h5>
+                                    <h5>:</h5>
                                     <h5 className="fw-400">
                                       {data?.nutrition_value}
                                     </h5>
@@ -583,7 +587,7 @@ const ProudctDetail = () => {
                                               className="img-fluid border-orange"
                                               src={
                                                 !data?.is_anonymous &&
-                                                data?.user_img
+                                                  data?.user_img
                                                   ? `${baseURL}/${data?.user_img}`
                                                   : pp
                                               }
@@ -601,7 +605,7 @@ const ProudctDetail = () => {
                                               {data?.is_anonymous
                                                 ? "Anonymous"
                                                 : data?.user_name ||
-                                                  "Anonymous"}
+                                                "Anonymous"}
                                             </h6>
                                             <span className="d-inline-block">
                                               <Rating
@@ -620,12 +624,12 @@ const ProudctDetail = () => {
                                         <p className="mb-3 text-grey fw-500 pb-3 pt-2">
                                           {data?.created_at
                                             ? new Intl.DateTimeFormat("en-GB", {
-                                                day: "2-digit",
-                                                month: "short",
-                                                year: "numeric",
-                                              }).format(
-                                                new Date(data.created_at)
-                                              )
+                                              day: "2-digit",
+                                              month: "short",
+                                              year: "numeric",
+                                            }).format(
+                                              new Date(data.created_at)
+                                            )
                                             : "Date not available"}
                                         </p>
                                         {data?.images?.map((image, index) => (
@@ -677,7 +681,7 @@ const ProudctDetail = () => {
                                         Overall Rating
                                       </p>
                                       <p className="fb-fs-24 mt-2 fw-bold">
-                                        {(detail?.ratings ?? 0).toFixed(1)}{" "}
+                                        {(detail?.ratings ?? 0).toFixed(1)}
                                         <span className="text-mid-grey fb-fs-18 fw-400">
                                           ({detail?.total_customer_rated})
                                         </span>
@@ -749,36 +753,36 @@ const ProudctDetail = () => {
                               <div className="me-4">
                                 <p className="fb-fs-18 my-4 py-2">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 1.
-                                  </span>{" "}
+                                  </span>
                                   &nbsp;&nbsp;Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
                                 </p>
                                 <p className="fb-fs-18 my-4 py-2">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 2.
-                                  </span>{" "}
+                                  </span>
                                   &nbsp;&nbsp;Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
                                 </p>
                                 <p className="fb-fs-18 my-4 py-2">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 3.
-                                  </span>{" "}
+                                  </span>
                                   &nbsp;&nbsp;Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
                                 </p>
                                 <p className="fb-fs-18 my-4 py-2">
                                   <span className="fw-bold text-orange">
-                                    {" "}
+                                    
                                     Step 4.
-                                  </span>{" "}
+                                  </span>
                                   &nbsp;&nbsp;Lorem Ipsum is simply dummy text of the
                                   printing and typesetting industry. Lorem Ipsum
                                   has been the
