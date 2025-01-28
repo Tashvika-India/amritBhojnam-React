@@ -369,8 +369,8 @@ const ProudctDetail = () => {
                     (Inclusive of all taxes)
                   </p>
                 </div>
-                {(detail?.stock <= 5) && <div className="d-flex gap-2 align-items-center">
-                  <span className="d-inline-block"><AiFillThunderbolt className="text-orange" size={"1.25rem"} /></span><p>Hurry, Only {~~(detail?.stock)} left!</p>
+                {(detail?.stock <= 5) && <div className="d-flex gap-2 align-items-center mt-2">
+                  <span className="d-inline-block"><AiFillThunderbolt className="thunder-icon" size={"1.25rem"} /></span><p>Hurry, Only <strong className="thunder-icon">{~~(detail?.stock)}</strong> left!</p>
                 </div>}
                 <div>
                   {loginonWeb ? (
