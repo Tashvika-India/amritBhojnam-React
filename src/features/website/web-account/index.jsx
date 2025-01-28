@@ -417,6 +417,7 @@ const UserProfile = () => {
                 style={{ height: "200px" }}
               /> */}
             </div>
+            
             <div className="p-md-4 p-lg-4 pt-0 ">
               <div className="user-profile-detail  position-relative text-start pb-3">
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center gap-3">
