@@ -37,3 +37,6 @@ export const formatDeliveryDateCustom = (pinDate) => {
 
   return `${dayName}, ${monthName} ${day}`;
 };
+
+
+export const loginonWeb = localStorage.getItem("access") || localStorage.getItem("refresh");  

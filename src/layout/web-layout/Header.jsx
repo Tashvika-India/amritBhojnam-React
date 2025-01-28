@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../redux/slices/cartSlice";
 import ScrollTopBehaviour from "../../custom-compoents/ScrollTopBehaviour";
 import { fetchWishlist } from "../../redux/slices/wishlistSlice";
+import { loginonWeb } from "../../utils/constant-variable";
 const Header = () => {
   const [showCart, setShowCart] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -55,11 +56,7 @@ const Header = () => {
 
   const { wishlist = [] } = useSelector((state) => state.wishlist); 
   
-  
-  const accessToken =
-    localStorage.getItem("access") || localStorage.getItem("refresh");
 
-  const login = accessToken;
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -94,8 +91,8 @@ const Header = () => {
   };
 
   useEffect(() => {
-    getCategory();
-    if (login) {
+    getCategory(); 
+    if (loginonWeb) { 
       dispatch(fetchCart());
       getProfileList();
       dispatch(fetchWishlist());
@@ -184,7 +181,7 @@ const Header = () => {
             <div className="header-actions mt-3">
               <ul className="list-unstyled align-items-center justify-content-between gap-4 web-header-actions d-none d-xl-flex">
                 <li>
-                  {login ? (
+                  {loginonWeb ? (
                     <ProfileDropdown userDetail={userDetail} />
                   ) : (
                     <button
@@ -215,7 +212,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  {login ? (
+                  {loginonWeb ? (
                     <button
                       onClick={toggleCart}
                       className="d-inline-flex flex-column justify-content-center align-items-center border-0 bg-transparent"
@@ -279,7 +276,7 @@ const Header = () => {
                     handleSearchSubmit={handleSearchSubmit}
                     filters={filters}
                     setFilters={setFilters}
-                    login={login}
+                    login={loginonWeb}
                     userDetail={userDetail}
                   />
                   <MobileLogin

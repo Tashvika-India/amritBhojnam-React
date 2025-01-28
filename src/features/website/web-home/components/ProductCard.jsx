@@ -11,18 +11,18 @@ import {
 import MobileLogin from "../../../../components/ui/MobileLogin";
 import { notifySuccess } from "../../../../components/ui/Notification";
 import { fetchCart, updateCart } from "../../../../redux/slices/cartSlice";
+import { loginonWeb } from "../../../../utils/constant-variable";
 
 const ProductCard = ({ product }) => {
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(product?.cart_item_qty || 0); 
   const [checked, setChecked] = useState(product?.is_wishlist || false);
   const dispatch = useDispatch();
- 
-  const login = localStorage.getItem("access") || localStorage.getItem("refresh");
+
   const [showWebLogin, setShowWebLogin] = useState(false);
   const handleWishlistChange = async (event) => {
     event.stopPropagation();
-    if (login) {
+    if (loginonWeb) {
       const updatedChecked = !checked;
       setChecked(updatedChecked);
       const data = { product_id: product?.id, action: updatedChecked };
@@ -87,7 +87,7 @@ const ProductCard = ({ product }) => {
             </span>
             </div>
             {
-              login ? (
+              loginonWeb ? (
                 <div className="rounded-circle whislist-icon" type="button" onClick={(event) => event.stopPropagation()}>
                   <Checkbox
                     icon={<FavoriteBorder />}
@@ -145,7 +145,7 @@ const ProductCard = ({ product }) => {
                 }}
               >
                 {quantity === 0 ? (
-                  (login) ? <button
+                  (loginonWeb) ? <button
                     className="button-primary py-1 rounded fb-fs-14 fw-600"
                     onClick={() => handleIncreaseQuantity(product?.id, product?.options[0]?.id)}
                   // disabled={loading}
