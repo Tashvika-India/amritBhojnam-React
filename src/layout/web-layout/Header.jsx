@@ -185,7 +185,7 @@ const Header = () => {
                     <ProfileDropdown userDetail={userDetail} />
                   ) : (
                     <button
-                      className="d-inline-flex  flex-column justify-content-center align-items-center border-0 bg-transparent"
+                      className="d-inline-flex  flex-column justify-content-center align-items-center border-0 bg-transparent login-header-btn"
                       onClick={toggleWebLogin}
                     >
                       <FaRegUser className="login-card-icon" size={"1.625rem"} />
