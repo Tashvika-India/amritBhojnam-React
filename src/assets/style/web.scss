@@ -145,7 +145,24 @@
     ); //18px Min 1rem, Max 1.125rem
     font-family: $font-Manrope !important;
   }
-
+.price-range-slider{
+  .css-14g4xtz-MuiSlider-thumb::after{
+    background-color: white !important;
+    border: 1px solid $semi-orange !important;
+    height: 28px !important;
+    width: 28px !important;
+  }
+  .css-ziu49b-MuiSlider-root{
+height: 25px;
+color: $semi-orange;
+.css-7o8aqz-MuiSlider-rail{
+  background-color:	#D8D8D8;
+}
+.css-ttgsjq-MuiSlider-track{
+  border-radius: 0;
+}
+  }
+} 
   .fb-fs-14 {
     font-size: clamp(
       0.75rem,

@@ -12,6 +12,7 @@ export default function ChildSlider({ minPrice, maxPrice, onSliderChange }) {
     };
 
     return (
+        <div className="price-range-slider">
         <Box sx={{ width: "100%" }}>
             <Slider
                 getAriaLabel={() => "Price range"}
@@ -23,5 +24,6 @@ export default function ChildSlider({ minPrice, maxPrice, onSliderChange }) {
                 max={500}
             />
         </Box>
+        </div>
     );
 }
