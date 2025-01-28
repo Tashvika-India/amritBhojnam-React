@@ -35,6 +35,7 @@ import AddressDeleteModal from "../../../components/ui/AddressDeleteModal";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import emptyCart from "../../../assets/images/web/empty-cart.png";  
+import { loginonWeb } from "../../../utils/constant-variable";
 
 
 const CheckoutPage = () => {
@@ -52,11 +53,6 @@ const CheckoutPage = () => {
   const [couponCode, setCouponCode] = useState("");
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
   const dispatch = useDispatch();
-  const accessToken =
-    localStorage.getItem("access") || localStorage.getItem("refresh");
-
-  const login = accessToken;
-
   const { cartItems, finalCart, cartId } = useSelector((state) => state.cart);
 
   const handleCouponApply = (coupon) => {
@@ -536,7 +532,7 @@ const CheckoutPage = () => {
                             </div>
                           </div>
                           <div className="w-100">
-                            {login ? (
+                            {loginonWeb ? (
                               <button
                                 className="button-primary w-100"
                                 onClick={() =>

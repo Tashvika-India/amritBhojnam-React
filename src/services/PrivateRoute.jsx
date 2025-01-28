@@ -1,10 +1,10 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { loginonWeb } from "../utils/constant-variable";
 
-const PrivateRoute = ({ children }) => {
-  const token = localStorage.getItem("access") || localStorage.getItem("refresh");
+const PrivateRoute = ({ children }) => { 
 
-  return token ? children : <Navigate to="/" />;
+  return loginonWeb ? children : <Navigate to="/" />;
 };
 
 export default PrivateRoute;
