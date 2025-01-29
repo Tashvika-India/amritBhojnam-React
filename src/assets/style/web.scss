@@ -446,6 +446,54 @@
     }
   }
 }
+.track-left{
+  border: 2px solid #E5E7EB;
+  border-radius: 1rem;
+  background-color: #FFFCF4;
+  .top-track-left{
+    border-bottom: 2px solid #E5E7EB;
+    padding: 1rem 1.8rem; 
+  }
+  .center-track-left{
+    .MuiBox-root{
+      max-width: 100%;
+      background-color: transparent;
+      margin-bottom: 0;
+      box-shadow: none;
+      .MuiSvgIcon-root{
+        
+      }
+    }
+  }
+  .bottom-track-left{
+    border-top: 2px solid #E5E7EB;
+    padding: 1.3rem;
+  }
+}
+.track-right{
+  .top-track-right{
+    border: 2px solid #E5E7EB;
+    border-radius: 1rem;
+    h5{
+      border-bottom: 2px solid #E5E7EB;
+      padding: 1.5rem 1.8rem;
+    }
+    .order-date{
+      padding: .8rem 1.8rem;
+    }
+  }
+  .bottom-track-right{
+    border: 2px solid #E5E7EB;
+    border-radius: 1rem;
+    h5{
+      border-bottom: 2px solid #E5E7EB;
+      padding: 1.5rem 1.8rem;
+    }
+    .cart-list-wrapper{
+      padding: 0.8rem 1.8rem;
+    }
+  }
+}
 
 .dashboard-sidebar .css-txj0o0-MuiDrawer-docked .MuiDrawer-paper {
   scrollbar-width: none;
