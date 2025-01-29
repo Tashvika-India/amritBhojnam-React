@@ -231,6 +231,10 @@
   scroll-margin-top: 13.125rem;  
 }
 
+#best, #popular {
+  scroll-margin-top: 13.125rem; 
+}
+
 .thunder-icon {
   animation: thunderAnimation 1.5s infinite;
 }
@@ -1007,7 +1011,7 @@ footer {
   .bg-left,
   .bg-center,
   .bg-right {
-    height: 22.5rem;
+    height: auto;
   }
 }
 
