@@ -231,6 +231,50 @@
   scroll-margin-top: 13.125rem;  
 }
 
+#best, #popular {
+  scroll-margin-top: 13.125rem; 
+}
+
+
+.cat-skeleton-loader {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #f2f2f2;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  animation: pulse 1.5s infinite;
+}
+
+.cat-skeleton-text {
+  height: 16px;
+  background: #ddd;
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+.cat-skeleton-circle {
+  width: 20px;
+  height: 20px;
+  background: #ddd;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}
+
+
+
 .thunder-icon {
   animation: thunderAnimation 1.5s infinite;
 }
@@ -1055,7 +1099,7 @@ footer {
   .bg-left,
   .bg-center,
   .bg-right {
-    height: 22.5rem;
+    height: auto;
   }
 }
 

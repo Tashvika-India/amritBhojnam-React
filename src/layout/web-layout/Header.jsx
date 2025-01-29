@@ -21,31 +21,20 @@ import ScrollTopBehaviour from "../../custom-compoents/ScrollTopBehaviour";
 import { fetchWishlist } from "../../redux/slices/wishlistSlice";
 import { loginonWeb } from "../../utils/constant-variable";
 const Header = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [showCart, setShowCart] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showMobileLogin, setShowMobileLogin] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [showWebLogin, setShowWebLogin] = useState(false);
+  const [activeHash, setActiveHash] = useState(location.hash);
+  const [userDetail, setUserDetail] = useState({});
+  const [category, setCategory] = useState([]);
   const [filters, setFilters] = useURLFilters();
 
-  const location = useLocation();
-  const isHashActive = (hash) => location.hash === hash;
-
-  const [userDetail, setUserDetail] = useState({});
-
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
-  const [category, setCategory] = useState([]);
-  const [showWebLogin, setShowWebLogin] = useState(false);
-  const toggleCart = () => {
-    setShowCart(!showCart);
-  };
-
-  const toggleMobileMenu = () => setShowMobileMenu((prev) => !prev);
-
-  const toggleMobileLogin = () => setShowMobileLogin((prev) => !prev);
-  const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
+  const isHashActive = (hash) => activeHash === hash;
 
   const {
     cartItems,
@@ -54,50 +43,74 @@ const Header = () => {
     error,
   } = useSelector((state) => state.cart);
 
-  const { wishlist = [] } = useSelector((state) => state.wishlist); 
-  
+  const { wishlist = [] } = useSelector((state) => state.wishlist);
+
+  // Toggle Functions
+  const toggleCart = () => setShowCart((prev) => !prev);
+  const toggleMobileMenu = () => setShowMobileMenu((prev) => !prev);
+  const toggleMobileLogin = () => setShowMobileLogin((prev) => !prev);
+  const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
+
+  // Build Query String for Filters
+  const buildQueryString = (filters) => {
+    const params = new URLSearchParams(filters);
+    return params.toString();
+  };
 
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    navigate(
-      `/products?category_id=${filters.category_id}&name=${filters.name}`
-    );
+    navigate(`/products?${buildQueryString(filters)}`);
     setShowMobileMenu(false);
   };
-  async function getCategory() {
-    setLoading(true);
+
+  const getCategory = async () => {
     try {
       const response = await getCategoriesApi();
-      const filteredData = (response?.data || []).filter(
-        (item) => item.is_active === true
-      );
-      setCategory(filteredData);
+      setCategory(response?.data?.filter(Boolean) || []);
     } catch (error) {
-      console.log("Error on Banner List", error);
-    } finally {
-      setLoading(false);
+      console.error("Error fetching categories:", error);
     }
-  }
+  };
 
   const getProfileList = async () => {
     try {
       const response = await getProfile();
-      setUserDetail(response?.data[0] || {});
+      setUserDetail(response?.data?.[0] || {});
     } catch (error) {
       console.error("Error fetching profile data:", error);
     }
   };
 
   useEffect(() => {
-    getCategory(); 
-    if (loginonWeb) { 
+    getCategory();
+    if (loginonWeb) {
       dispatch(fetchCart());
       getProfileList();
       dispatch(fetchWishlist());
     }
-  }, []);
+  }, [dispatch]);
+
+
+  const headerOffset = 210; 
+
+  const handleScroll = (e, targetId) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: elementPosition - headerOffset, behavior: "smooth" });
+      setActiveHash(`#${targetId}`);
+      window.history.pushState(null, "", `#${targetId}`);
+    } else {
+      navigate(`/#${targetId}`);
+    }
+  };
+
+  useEffect(() => {
+    setActiveHash(location.hash);
+  }, [location.hash]);
 
   return (
     <>
@@ -121,7 +134,7 @@ const Header = () => {
             </p>
           </div>
         </div>
-      
+
         <div className="header-middle container fb-container pb-3 pt-2">
           <div className="d-flex justify-content-between align-items-center mb-2">
             <Link to="/">
@@ -134,29 +147,27 @@ const Header = () => {
                 <form
                   onSubmit={handleSearchSubmit}
                   className="header-search d-inline-flex w-100 align-self-center mt-3"
-                >
+                > 
                   <div className="all-category">
                     <Dropdown
                       value={
-                        filters.category_id === ""
-                          ? { id: "", name: "All Categories" }
-                          : category.find((c) => c.id === filters.category_id)
+                        filters.category_id
+                          ? category.find((c) => c.id === filters.category_id) || {
+                            id: "",
+                            name: "All Categories",
+                          }
+                          : { id: "", name: "All Categories" }
                       }
                       onChange={(e) =>
-                        setFilters({
-                          ...filters,
-                          category_id: e.value.id,
-                        })
+                        setFilters((prev) => ({ ...prev, category_id: e.value.id }))
                       }
-                      options={[
-                        { id: "", name: "All Categories" },
-                        ...category,
-                      ]}
+                      options={[{ id: "", name: "All Categories" }, ...category]}
                       optionLabel="name"
                       placeholder="Select Category"
                       className="w-full border-0"
+                      aria-label="Select product category"
                     />
-                  </div>
+                  </div> 
                   <div className="search-input position-relative z-1 w-100 d-flex justify-content-between">
                     <InputText
                       type="text"
@@ -165,12 +176,15 @@ const Header = () => {
                       style={{ boxShadow: "none" }}
                       value={filters.name}
                       onChange={(e) =>
-                        setFilters({ ...filters, name: e.target.value })
+                        setFilters((prev) => ({ ...prev, name: e.target.value }))
                       }
-                    />
+                      aria-label="Search for products"
+                    /> 
                     <button
                       type="submit"
                       className="search-icon d-inline-block z-2 h-100 border-0 bg-transparent fw-500"
+                      disabled={!filters.name?.trim()}  
+                      aria-label="Search"
                     >
                       <IoSearchOutline color="#918e92" size="1.4rem" />
                     </button>
@@ -205,7 +219,7 @@ const Header = () => {
                         {wishlist.length}
                       </span>
                       <FaRegHeart size={"1.625rem"} />
-                    </div> 
+                    </div>
                     <span className="d-inline-block fb-fs-14 fw-500">
                       Wishlist
                     </span>
@@ -316,6 +330,7 @@ const Header = () => {
                     <a
                       href="/#best"
                       className={isHashActive("#best") ? "active" : ""}
+                      onClick={(e) => handleScroll(e, "best")}
                     >
                       Best Deals
                     </a>
@@ -324,6 +339,7 @@ const Header = () => {
                     <a
                       href="/#popular"
                       className={isHashActive("#popular") ? "active" : ""}
+                      onClick={(e) => handleScroll(e, "popular")}
                     >
                       Trending Products
                     </a>

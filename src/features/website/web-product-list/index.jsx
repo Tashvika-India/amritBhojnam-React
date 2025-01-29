@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import { BiReset } from "react-icons/bi";
@@ -16,7 +16,7 @@ import {
 } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import { Link, useNavigate } from "react-router-dom";
-import { debounce } from "lodash";
+import { debounce, set } from "lodash";
 import { scrollToTop } from "../../../utils/constant-variable";
 import { Offcanvas } from "react-bootstrap";
 import { clearProductList, fetchProductList } from "../../../redux/slices/productSlice";
@@ -28,34 +28,42 @@ import { notifyError } from "../../../components/ui/Notification";
 import ChildSlider from "../../../components/ui/ChildSlider";
 
 const ProudctList = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [categoryList, setCategoryList] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const defaultFilters = useMemo(() => ({
-    category_id: "",
-    maxPrice: "500",
-    minPrice: "0",
-    name: "",
-    product_id: "",
-    rating: "",
-    search: "",
-  }), []);
+  const [filters, updateFilters] = useURLFilters();
 
-  const [filters, setFilters] = useState(defaultFilters);
+  const { productList, loading, error } = useSelector((state) => state.product);
 
+  const defaultFilters = useMemo(
+    () => ({
+      category_id: "",
+      maxPrice: "500",
+      minPrice: "0",
+      name: "",
+      product_id: "",
+      rating: "",
+      search: "",
+    }),
+    []
+  );
+
+  // Memoized debounced function to reduce API calls
   const debouncedFilters = useMemo(
-    () => debounce((updatedFilters) => {
-      dispatch(fetchProductList(updatedFilters));
-    }, 300),
+    () =>
+      debounce((updatedFilters) => {
+        dispatch(fetchProductList(updatedFilters));
+      }, 300),
     [dispatch]
   );
 
   useEffect(() => {
     debouncedFilters(filters);
-
     return () => {
       debouncedFilters.cancel();
     };
@@ -66,8 +74,7 @@ const ProudctList = () => {
 
   const isFiltersChanged = !areObjectsEqual(filters, defaultFilters);
 
-  const toggleMobileFiter = () => setShowFilter((prev) => !prev);
-  const { productList, loading, error } = useSelector((state) => state.product);
+  const toggleMobileFilter = () => setShowFilter((prev) => !prev);
 
   const onIngredientsChange = (e) => {
     let _ingredients = [...ingredients];
@@ -77,6 +84,7 @@ const ProudctList = () => {
   };
 
   async function getCategoryList() {
+    setIsLoading(true);
     try {
       const response = await getCategoriesApi();
       const filteredData = (response?.data || []).filter(
@@ -85,38 +93,37 @@ const ProudctList = () => {
       setCategoryList(filteredData || []);
     } catch (error) {
       console.error("Error on Product List", error);
+    } finally {
+      setIsLoading(false);
     }
   }
-
-  useEffect(() => {
-    dispatch(fetchProductList(filters));
-
-    return () => {
-      dispatch(clearProductList());
-    };
-  }, [dispatch, filters]);
 
   useEffect(() => {
     getCategoryList();
   }, []);
 
   useEffect(() => {
-    navigate(
-      `/products?category_id=${filters.category_id}&name=${filters.name}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}&rating=${filters.rating}`,
-      { replace: true }
-    );
+    const queryString = `/products?category_id=${filters.category_id}&name=${filters.name}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}&rating=${filters.rating}`;
+
+    if (window.location.pathname + window.location.search !== queryString) {
+      navigate(queryString, { replace: true });
+    }
+    setShowFilter(false);
   }, [filters, navigate]);
 
-  const handleSliderChange = (newValue) => {
-    const [minPrice, maxPrice] =
-      newValue[0] > newValue[1] ? [newValue[1], newValue[0]] : newValue;
+  const handleSliderChange = useCallback(
+    debounce((newValue) => {
+      const [minPrice, maxPrice] =
+        newValue[0] > newValue[1] ? [newValue[1], newValue[0]] : newValue;
 
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      minPrice: minPrice.toString(),
-      maxPrice: maxPrice.toString(),
-    }));
-  };
+      updateFilters((prevFilters) => ({
+        ...prevFilters,
+        minPrice: minPrice.toString(),
+        maxPrice: maxPrice.toString(),
+      }));
+    }, 500),
+    []
+  );
 
 
   return (
@@ -138,27 +145,44 @@ const ProudctList = () => {
             <div className="col-md-3  d-none d-lg-block">
               <div className="bg-white product-detail-shadow rounded-20 p-4 mb-5">
                 <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span className="text-dark-grey">Category</span>
-                  {isFiltersChanged && (<button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: 0, maxPrice: 500, rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
+                  {isFiltersChanged && (<button onClick={() =>
+                    updateFilters({
+                      ...filters,
+                      category_id: "",
+                      name: "",
+                      minPrice: "0",
+                      maxPrice: "500",
+                      rating: "",
+                    })
+                  } title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
                   </button>)}
                 </h6>
                 <div className="mt-5">
                   <ul className="category-select-list">
-                    {categoryList?.map((item, index) => (
-                      <li className={`cat-btn-item cursor-pointer ${filters?.category_id === item?.id ? "active" : ""}`}
-                        key={index}
-                        onClick={() =>
-                          setFilters((prevFilters) => ({
-                            ...prevFilters,
-                            category_id: prevFilters.category_id === item?.id ? "" : item?.id,
-                          }))
-                        }
-                      >
-                        <span className="d-inline-flex align-items-center gap-2">
-                          {item?.name}
-                        </span>
-                        <span className="pill-circle">{item?.product_count}</span>
-                      </li>
-                    ))}
+                    {isLoading
+                      ? Array.from({ length: 5 }).map((_, index) => (
+                        <li key={index} className="cat-btn-item cat-skeleton-loader">
+                          <span className="cat-skeleton-text w-50"></span>
+                          <span className="pill-circle cat-skeleton-circle"></span>
+                        </li>
+                      ))
+                      : categoryList?.map((item, index) => (
+                        <li
+                          className={`cat-btn-item cursor-pointer ${filters?.category_id === item?.id ? "active" : ""}`}
+                          key={index}
+                          onClick={() =>
+                            updateFilters((prevFilters) => ({
+                              ...prevFilters,
+                              category_id: prevFilters.category_id === item?.id ? "" : item?.id,
+                            }))
+                          }
+                        >
+                          <span className="d-inline-flex align-items-center gap-2">
+                            {item?.name}
+                          </span>
+                          <span className="pill-circle">{item?.product_count}</span>
+                        </li>
+                      ))} 
                   </ul>
                 </div>
               </div>
@@ -176,14 +200,14 @@ const ProudctList = () => {
                         <p className="ms-2 fw-300">
                           Min:
                           <span className="fw-500 ms-2">
-                            <span>Rs.</span> 
+                            <span>Rs.</span>
                             <InputText
                               value={filters.minPrice}
                               style={{ width: "30%" }}
                               onChange={(e) => {
                                 const newMin = e.target.value;
                                 if (!isNaN(newMin) && newMin >= 0) {
-                                  setFilters((prevFilters) => ({
+                                  updateFilters((prevFilters) => ({
                                     ...prevFilters,
                                     minPrice: newMin,
                                   }));
@@ -210,7 +234,7 @@ const ProudctList = () => {
                               onChange={(e) => {
                                 const newMax = e.target.value;
                                 if (!isNaN(newMax) && newMax <= 5000) {
-                                  setFilters((prevFilters) => ({
+                                  updateFilters((prevFilters) => ({
                                     ...prevFilters,
                                     maxPrice: newMax,
                                   }));
@@ -236,7 +260,7 @@ const ProudctList = () => {
                             value={value}
                             onChange={(e) => {
                               const selectedRating = e.target.value;
-                              setFilters((prevFilters) => ({
+                              updateFilters((prevFilters) => ({
                                 ...prevFilters,
                                 rating: prevFilters.rating == selectedRating ? "" : selectedRating,
                               }));
@@ -317,22 +341,29 @@ const ProudctList = () => {
       </section>
       <Footer />
       <div className="d-lg-none">
-        <Offcanvas show={showFilter} onHide={toggleMobileFiter} placement="start" className="cart-offcanvas" style={{ width: "30%" }}>
+        <Offcanvas show={showFilter} onHide={toggleMobileFilter} placement="start" className="cart-offcanvas" style={{ width: "30%" }}>
           <Offcanvas.Header closeButton className="border-bottom">
             <Offcanvas.Title className="text-ornage fs-5 fw-500">Product Filter</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body className="px-4 pb-0">
             <div className="mobile-product-filter">
               <div className="bg-white product-detail-shadow rounded-20 p-4 ">
-                <h4 className="underline-heading filter-heading fw-bold d-flex align-items-center justify-content-between"><span>Category</span>  {isFiltersChanged && (<button onClick={() => setFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
+                <h4 className="underline-heading filter-heading fw-bold d-flex align-items-center justify-content-between"><span>Category</span>  {isFiltersChanged && (<button onClick={() => updateFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
                 </button>)} </h4>
                 <div className="">
                   <ul className="category-select-list">
-                    {categoryList?.map((item, index) => (
+                    {isLoading
+                      ? Array.from({ length: 5 }).map((_, index) => (
+                        <li key={index} className="cat-btn-item cat-skeleton-loader">
+                          <span className="cat-skeleton-text w-50"></span>
+                          <span className="pill-circle cat-skeleton-circle"></span>
+                        </li>
+                      ))
+                      : categoryList?.map((item, index) => (
                       <li className={`cat-btn-item cursor-pointer ${filters?.category_id === item?.id ? "active" : ""}`}
                         key={index}
                         onClick={() =>
-                          setFilters((prevFilters) => ({
+                          updateFilters((prevFilters) => ({
                             ...prevFilters,
                             category_id: prevFilters.category_id === item?.id ? "" : item?.id,
                           }))
@@ -359,14 +390,14 @@ const ProudctList = () => {
                         <p className="ms-2 fw-300 mb-0">
                           Min:
                           <span className="fw-500 ms-2">
-                            <span>Rs.</span> 
+                            <span>Rs.</span>
                             <InputText
                               value={filters.minPrice}
                               style={{ width: "30%" }}
                               onChange={(e) => {
                                 const newMin = e.target.value;
                                 if (!isNaN(newMin) && newMin >= 0) {
-                                  setFilters((prevFilters) => ({
+                                  updateFilters((prevFilters) => ({
                                     ...prevFilters,
                                     minPrice: newMin,
                                   }));
@@ -393,7 +424,7 @@ const ProudctList = () => {
                               onChange={(e) => {
                                 const newMax = e.target.value;
                                 if (!isNaN(newMax) && newMax <= 5000) {
-                                  setFilters((prevFilters) => ({
+                                  updateFilters((prevFilters) => ({
                                     ...prevFilters,
                                     maxPrice: newMax,
                                   }));
@@ -419,7 +450,7 @@ const ProudctList = () => {
                             value={value}
                             onChange={(e) => {
                               const selectedRating = e.target.value;
-                              setFilters((prevFilters) => ({
+                              updateFilters((prevFilters) => ({
                                 ...prevFilters,
                                 rating: prevFilters.rating == selectedRating ? "" : selectedRating,
                               }));
