@@ -228,3 +228,7 @@ export const checkPincodeApi = (pincode,weight,weight_unit) => API.get(`accounts
 
 // invoice 
 export const getOrderInvoiceApi = (id) => API.post(`/accounts/invoice_download_by_shiprocket/`,id);
+
+//Dashboard
+export const getDashboardApi = () => API.get(`/accounts/dashboard/`);
+
