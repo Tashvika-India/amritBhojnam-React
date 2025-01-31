@@ -146,7 +146,7 @@ function MenuItems() {
         {renderCollapse("category", [
           { path: "/admin/category", label: "Categories" },
           { path: "/admin/sub-category", label: "Sub Categories" },
-        ])}
+        ] )}
         <ListItemButton
           onClick={() => handleToggle("products")}
           sx={isActive("/admin/product-list") || openSections.products ? activeStyles : {}}

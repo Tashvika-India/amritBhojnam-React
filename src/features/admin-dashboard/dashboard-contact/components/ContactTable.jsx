@@ -4,8 +4,8 @@ import { Column } from "primereact/column";
 function ContactTable({contact}) { 
   
   return (
-    <DataTable value={contact} responsiveLayout="scroll" paginator rows={10} rowkey="id">
-      <Column field="id" header="ID" className="w-25"></Column>
+    <DataTable value={contact} responsiveLayout="scroll" paginator rows={20} rowkey="id">
+      <Column field="id" header="ID" style={{ width: "50%" }}></Column>
       <Column field="name" header="NAME"></Column>
       <Column field="email" header="EMAIL"></Column> 
       <Column field="phone" header="PHONE NO"></Column> 

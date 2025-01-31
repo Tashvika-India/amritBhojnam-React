@@ -36,6 +36,7 @@ import AddCoupon from "../features/admin-dashboard/manage-coupon/components/AddC
 import PaymentSuccess from "../features/website/web-payment-success";
 import Roles from "../features/admin-dashboard/manage-roles";
 import AddRoles from "../features/admin-dashboard/manage-roles/components/AddRoles";
+import ManageNotifications from "../features/admin-dashboard/manage-notifications";
 import ManageContact from "../features/admin-dashboard/dashboard-contact";
 import ManageNutrition from "../features/admin-dashboard/manage-nutrition";
 import ManageNutritionValue from "../features/admin-dashboard/manage-nutrition-value";
@@ -281,17 +282,17 @@ function AppRoutes() {
           </AdminPrivateRoute>
         }
       />
-      {/* <Route
+      <Route
         exact
-        path="admin/nutrition-value"
+        path="admin/notifications"
         element={
           <AdminPrivateRoute>
             <DashboardSidebar>
-              <ManageNutritionValue />
+              <ManageNotifications />
             </DashboardSidebar>
           </AdminPrivateRoute>
         }
-      /> */}
+      />
       <Route
         exact
         path="/admin/returns-refunds"
