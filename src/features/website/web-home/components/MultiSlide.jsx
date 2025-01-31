@@ -33,7 +33,7 @@ function AsNavFor({ data }) {
       </Slider>
 
       <Slider
-        className="mt-xxl-5 slider-bottom-thumbs"
+        className="mt-xxl-4 slider-bottom-thumbs"
         asNavFor={nav1}
         infinite={false} 
         ref={(slider) => (sliderRef2 = slider)}

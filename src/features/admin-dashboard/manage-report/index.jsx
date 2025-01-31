@@ -45,8 +45,8 @@ const ManageReport = () => {
           </div>
         </div> */}
         <div className="col-md-2 text-end position-relative" style={{width: "10%"}}>
-          <Link to="/admin/add-coupon">
-            <YellowButton style={{paddingBlock: "0.4rem"}}  lable={<span><img src={filterIcon} className="img-fluid position-absolute" style={{ top: "1rem", left: "2.5rem" }} /> &nbsp; &nbsp; &nbsp;Filter</span>} />
+          <Link>
+            <YellowButton style={{paddingBlock: "0.4rem"}}  lable={<span><img src={filterIcon} className="img-fluid position-absolute" style={{ top: "1rem", left: "3.5rem" }} /> &nbsp; &nbsp; &nbsp;Filter</span>} />
           </Link>
         </div>
         <div className="col-12 mt-4">

@@ -181,8 +181,8 @@ const AddRoles = () => {
           <div className="col-md-12">
             <div className="row">
               <div className="col-md-12 mb-4 text-end d-flex justify-content-end">
-                <Link to="/admin/add-coupon">
-                  <YellowButton lable={"+ Add Coupons"} />
+                <Link>
+                  <YellowButton lable={"+ Add New Role"} />
                 </Link>
                 <button
                   className="button-primary-reverse me-4 ms-3 py-2"
