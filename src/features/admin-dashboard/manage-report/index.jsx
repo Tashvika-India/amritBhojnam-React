@@ -25,12 +25,13 @@ const ManageReport = () => {
         </div>
         <div className="col-md-2 text-end ms-auto">
           <div style={{ width: "100%" }}>
-            <FormControl fullWidth className="bg-white">
+            <FormControl fullWidth className="bg-white" style={{ minHeight: "1.9375em"}}>
               <InputLabel id="demo-simple-select-label" size="small">Today</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="Monthly"
+                style={{textAlign: "start"}}
                 size="small">
                 <MenuItem value={10}>Yesterday</MenuItem>
                 <MenuItem value={20}>Tomorrow</MenuItem>

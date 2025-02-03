@@ -17,6 +17,7 @@ import orderDelivered from "../../assets/images/dashboard/order-delivered.png";
 import { List, ListItem, ListItemText, Badge, Divider } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 const drawerWidth = 280;
 
@@ -124,7 +125,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                   sx={{ padding: 2 }}
                 >
                   <p className="fb-fs-14-same mb-0">Notifications</p>
-                  <p className="fb-fs-12 mb-0"  style={{fontSize: "14px"}}>View All >></p>
+                  <p className="fb-fs-12 mb-0 d-flex align-items-center"  style={{fontSize: "14px"}}>View All <MdKeyboardDoubleArrowRight size={18} /></p>
                 </Typography>
                 <Divider />
                 <List  sx={{ padding: 2 }}>

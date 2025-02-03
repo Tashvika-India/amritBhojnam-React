@@ -73,7 +73,7 @@ const TrackOrder = () => {
                   </button>
                 </div>
               </div>
-              <div className="center-track-left mt-4">
+              <div className="center-track-left mt-4 mb-5">
                 <Box
                   sx={{
                     maxWidth: 500,
@@ -117,7 +117,7 @@ const TrackOrder = () => {
                       </Box>
 
                       {/* Content */}
-                      <Box sx={{ display: "flex", alignItems: "center", paddingBottom: "55px"}}>
+                      <Box sx={{ display: "flex", alignItems: "center",  paddingBottom: index === steps.length - 1 ? "0" : "55px",}}>
                         {/* Step Image */}
                         <img
                           src={step.image}
@@ -132,11 +132,11 @@ const TrackOrder = () => {
                         <Box>
                           <Typography
                             variant="h6"
-                            sx={{ fontWeight: "bold", marginBottom: "5px" }}
+                            sx={{ fontWeight: "bold", marginBottom: "5px", fontSize: "24px" }}
                           >
                             {step.label}
                           </Typography>
-                          <Typography variant="body2" sx={{ color: "#757575" }}>
+                          <Typography variant="body2" sx={{ color: "#757575", fontSize: "22px" }}>
                             {step.description}
                           </Typography>
                         </Box>
