@@ -30,10 +30,21 @@ function MenuItems() {
 
   const handleToggle = (section) => {
     setOpenSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
+      category: section === "category" ? !prev.category : false,
+      orders: section === "orders" ? !prev.orders : false,
+      products: section === "products" ? !prev.products : false,
     }));
   };
+  
+  // Function to close all open menus when clicking on a non-expandable item
+  const closeAllMenus = () => {
+    setOpenSections({
+      category: false,
+      orders: false,
+      products: false,
+    });
+  };
+  
 
   const isActive = (path) =>
     location.pathname === path || location.pathname.startsWith(path);
@@ -116,19 +127,20 @@ function MenuItems() {
           to="/admin/dashboard"
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <ListItemButton sx={isActive("/admin/dashboard") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/dashboard") ? activeStyles : {}} onClick={closeAllMenus}>
             <ListItemIcon sx={listItemIconStyle}>
-              <HomeIcon />
+              <HomeIcon/>
             </ListItemIcon>
             <ListItemText primary="Dashboard" sx={listItemTextStyle} />
           </ListItemButton>
         </Link>
       </List>
-      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
+      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA"}}></span>
       <Typography
-        sx={{ pl: 2, pt: 1, pb: 1 }}
+        sx={{ pt: 2, pb: 1 }}
         variant="subtitle2"
         color="textSecondary"
+        style={{fontSize: "12px"}}
       >
         ITEMS
       </Typography>
@@ -138,7 +150,7 @@ function MenuItems() {
           sx={isActive("/admin/category") || openSections.category ? activeStyles : {}}
         >
           <ListItemIcon sx={listItemIconStyle}>
-            <BiSolidCategory fontSize={"1.3rem"} />
+            <BiSolidCategory fontSize={"1.3rem"}  />
           </ListItemIcon>
           <ListItemText primary="Category" sx={listItemTextStyle} />
           {openSections.category ? <ExpandLess /> : <ExpandMore />}
@@ -175,7 +187,7 @@ function MenuItems() {
           { path: "/admin/nutrition-value", label: "Nutrition Value" },
         ])} */}
         <Link to="/admin/banner" style={{ textDecoration: "none", color: "inherit" }}>
-          <ListItemButton sx={isActive("/admin/banner") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/banner") ? activeStyles : {}} onClick={closeAllMenus}>
             <ListItemIcon sx={listItemIconStyle}>
               <BsImage fontSize={"1.3rem"} />
             </ListItemIcon>
@@ -199,7 +211,7 @@ function MenuItems() {
           to="/admin/coupons"
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <ListItemButton sx={isActive("/admin/coupons") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/coupons") ? activeStyles : {}} onClick={closeAllMenus}>
             <ListItemIcon sx={listItemIconStyle}>
               <BiSolidOffer size={23} />
             </ListItemIcon>
@@ -209,16 +221,18 @@ function MenuItems() {
       </List>
       <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
       <Typography
-        sx={{ pl: 2, pt: 1, pb: 1 }}
+        sx={{ pt: 2, pb: 1 }}
         variant="subtitle2"
-        color="textSecondary">
-        Manage Customers
+        color="textSecondary"
+        style={{fontSize: "12px"}}
+        >
+        MANAGE CUSTOMERS
       </Typography>
       <List>
         <Link
           to="/admin/customers"
           style={{ textDecoration: "none", color: "inherit" }} >
-          <ListItemButton sx={isActive("/admin/customers") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/customers") ? activeStyles : {}} onClick={closeAllMenus}>
             <ListItemIcon sx={listItemIconStyle}>
               <PeopleAltIcon />
             </ListItemIcon>
@@ -228,16 +242,18 @@ function MenuItems() {
       </List>
       <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
       <Typography
-        sx={{ pl: 2, pt: 1, pb: 1 }}
+        sx={{ pt: 2, pb: 1 }}
         variant="subtitle2"
-        color="textSecondary">
-        Manage Employee
+        color="textSecondary"
+        style={{fontSize: "12px"}}
+        >
+        MANAGE EMPLOYEE
       </Typography>
       <List>
         <Link
           to="/admin/roles"
           style={{ textDecoration: "none", color: "inherit" }}>
-          <ListItemButton sx={isActive("/admin/roles") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/roles") ? activeStyles : {}} onClick={closeAllMenus}>
             <ListItemIcon sx={listItemIconStyle}>
               <FaUserCog size={23} />
             </ListItemIcon>
@@ -247,13 +263,15 @@ function MenuItems() {
       </List>
       <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
       <Typography
-        sx={{ pl: 2, pt: 1, pb: 1 }}
+        sx={{ pt: 2, pb: 1 }}
         variant="subtitle2"
-        color="textSecondary">
-        Business
+        color="textSecondary"
+        style={{fontSize: "12px"}}
+        >
+        BUSINESS
       </Typography>
       <Link to="/admin/contact" style={{ textDecoration: "none", color: "inherit" }}>
-        <ListItemButton sx={isActive("/admin/contact") ? activeStyles : {}}>
+        <ListItemButton sx={isActive("/admin/contact") ? activeStyles : {}} onClick={closeAllMenus}>
           <ListItemIcon sx={listItemIconStyle}>
             <TbMessageUser size={24} />
           </ListItemIcon>
@@ -261,7 +279,7 @@ function MenuItems() {
         </ListItemButton>
       </Link>
       <Link to="/admin/report" style={{ textDecoration: "none", color: "inherit" }}>
-        <ListItemButton sx={isActive("/admin/report") ? activeStyles : {}}>
+        <ListItemButton sx={isActive("/admin/report") ? activeStyles : {}} onClick={closeAllMenus}>
           <ListItemIcon sx={listItemIconStyle}>
             <IoReceiptSharp size={23} />
           </ListItemIcon>
