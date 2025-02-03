@@ -192,6 +192,7 @@ const Header = () => {
                 </form>
               </div>
             </div>
+           
             <div className="header-actions mt-3">
               <ul className="list-unstyled align-items-center justify-content-between gap-4 web-header-actions d-none d-xl-flex">
                 <li>
@@ -237,9 +238,9 @@ const Header = () => {
                         </span>
                         <CgShoppingBag className="shoping-bag" size={"1.625rem"} />
                       </div>
-                      <p className="d-inline-block fb-fs-14 fw-500 text-black">
+                      <span className="d-inline-block fb-fs-14 fw-500 text-black">
                         My Cart
-                      </p>
+                      </span>
                     </button>
                   ) : (
                     <button

@@ -255,7 +255,7 @@ const ProudctDetail = () => {
               <AsNavFor data={detail.images} />
             </div>
             <div className="col-lg-6 col-12">
-              <div className="product-detail-content ps-4 mt-4 mt-md-0">
+              <div className="product-detail-content ps-4 mt-4 mt-md-3">
                 <div className="d-flex justify-content-between">
                   {/* <p className="fb-fs-18 fw-600 d-flex text-brown">
                     <span>
