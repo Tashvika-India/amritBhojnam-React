@@ -22,12 +22,8 @@ Chart.register(
   Legend
 );
 
-const LineChart = ({ height = 400 }) => {
+const LineChart = ({ height = 400, chartData = [], revenueData =[] }) => {
   const chartRef = useRef(null);
-  let chartData = [
-    7245, 20499, 10156, 29380, 4567, 18732, 10679, 27788, 23899, 11544, 19190,
-    28560,
-  ];
 
   useEffect(() => {
     const chart = chartRef.current;
@@ -44,6 +40,7 @@ const LineChart = ({ height = 400 }) => {
     }
   }, []);
 
+  // Assuming dynamic data with month, order, and year
   const months = [
     "Jan",
     "Feb",
@@ -58,17 +55,17 @@ const LineChart = ({ height = 400 }) => {
     "Nov",
     "Dec",
   ];
-  const currentMonth = new Date().getMonth();
-  const displayedMonths = months.slice(0, currentMonth);
 
-  const slicedChartData = chartData?.slice(0, currentMonth);
-
+  // Map dynamic data to chart-friendly format
   const data = {
-    labels: displayedMonths,
+    labels: months,
     datasets: [
       {
         label: "Data Growth",
-        data: slicedChartData || [],
+        data: months.map((month) => {
+          const monthData = chartData.find((item) => item.month === month);
+          return monthData ? monthData.order : 0; // If no data, return 0
+        }),
         borderColor: orange,
         pointBackgroundColor: orange,
         fill: true,

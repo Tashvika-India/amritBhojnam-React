@@ -9,28 +9,20 @@ import productFour from "@/assets/images/dashboard/product-four.png";
 import productFive from "@/assets/images/dashboard/product-five.png";
 import { Rating } from "primereact/rating";
 
-function DashboardRecentOrderTable() {
-  const orders = [
-    { id: 1, name: "Millet Rice", price: "Rs. 422", image: productOne ,delivery_date:"05 Aug 2024"},
-    { id: 2, name: "Bakery & Confectionery", price: "Rs. 300", image: productTwo,delivery_date:"05 Aug 2024" },
-    { id: 3, name: "Flour", price: "Rs. 250", image: productThree,delivery_date:"05 Aug 2024" },
-    { id: 4, name: "Instant Mixes", price: "Rs. 100", image: productFour,delivery_date:"05 Aug 2024" },
-    // { id: 5, name: "Snacks for Munching", quantity: 23, image: productFive },
-    // { id: 6, name: "Snacks for Munching", quantity: 54, image: productOne },
-  ];
+function DashboardRecentOrderTable({dashboard}) {
 
   // Template for displaying category image and name
   const imageBodyTemplate = (rowData) => {
     return (
       <div style={{ display: "flex", alignItems: "center" }}>
         <img 
-          src={rowData.image}
+          src={rowData.product_img}
           alt={rowData.name}
           style={{ width: "40px", marginRight: "10px" }}
         />
         <div className="d-inline-flex flex-column">
-          <span>{rowData.name}</span>
-          <span><Rating value={5} readOnly stars={5} cancel={false} /></span>
+          <span>{rowData.product_name}</span>
+          <span><Rating value={rowData.rating || 0} readOnly stars={5} cancel={false} /></span>
         </div>
       </div>
     );
@@ -46,9 +38,9 @@ function DashboardRecentOrderTable() {
   };
 
   return (
-    <DataTable value={orders} responsiveLayout="scroll">
-      <Column field="name" header="Product" body={imageBodyTemplate}></Column>
-      <Column field="price" header="Price"></Column> 
+    <DataTable value={dashboard?.top_selling_product || []} responsiveLayout="scroll">
+      <Column field="product_name" header="Product" body={imageBodyTemplate}></Column>
+      <Column field="offer_price" header="Price"></Column> 
     </DataTable>
   );
 }
