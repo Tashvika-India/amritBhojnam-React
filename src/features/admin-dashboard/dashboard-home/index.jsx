@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import OverviewCardsSection from "./components/OverviewCardsSection";
 import DashboardCategoryTable from "./components/DashboardCategoryTable";
 import { Link } from "react-router-dom";
@@ -8,8 +8,45 @@ import DashboardOrderTable from "./components/DashboardOrderTable";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { Alert, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import DashboardRecentOrderTable from "./components/DashboardRecentOrderTable";
+import { getDashboardApi } from "../../../services/adminApiRoutes";
 
 function DashboardHome() {
+const [dashboard, setDashboard] = useState([]);
+   const [loading, setLoading] = useState(false);
+
+ async function getDashboard() {
+      setLoading(true);
+      try {
+        const response = await getDashboardApi();
+        console.log("response",response)
+        setDashboard(response?.data || []);
+      } catch (error) {
+        console.log("Error on Dashboard List", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+console.log("dashboard",dashboard)
+useEffect(() => {
+    getDashboard();
+  }, []);
+ 
+
+  const dynamicData = [
+    { month: "Jan", order: 95, year: 2025 },
+    { month: "Feb", order: 1, year: 2025 },
+    { month: "Mar", order: 0, year: 2025 },
+    { month: "Apr", order: 0, year: 2025 },
+    { month: "May", order: 0, year: 2025 },
+    { month: "Jun", order: 0, year: 2025 },
+    { month: "Jul", order: 0, year: 2025 },
+    { month: "Aug", order: 0, year: 2025 },
+    { month: "Sep", order: 0, year: 2025 },
+    { month: "Oct", order: 0, year: 2025 },
+    { month: "Nov", order: 0, year: 2025 },
+    { month: "Dec", order: 0, year: 2025 }
+  ];
+
   return (
     <>
       <Alert severity="info">Currently, the dashboard data is static and under development. It will be dynamic once the order flow is complete.</Alert>
@@ -18,13 +55,13 @@ function DashboardHome() {
         <Heading value={"Dashboard"} />
       </div>
       <div className="row mb-4">
-        <OverviewCardsSection />
+        <OverviewCardsSection dashboard={dashboard} />
       </div>
       <div className="mb-4">
         <div className="card h-100">
           <div className="card-body p-4">
             <div className="d-flex justify-content-between">
-              <h5 className="mb-3 fw-500">Revenue Stats</h5>
+              <h5 className="mb-3 fw-500">Revenue Status</h5>
               <div style={{ width: "11%" }}>
                 <FormControl fullWidth w-50>
                   <InputLabel id="demo-simple-select-label" size="small">Monthly</InputLabel>
@@ -59,7 +96,7 @@ function DashboardHome() {
                   />
                 </Link>
               </div>
-              <DashboardCategoryTable />
+              <DashboardCategoryTable dashboard={dashboard} />
             </div>
           </div>
         </div>
@@ -75,7 +112,7 @@ function DashboardHome() {
                   />
                 </Link>
               </div>
-              <DashboardRecentOrderTable />
+              <DashboardRecentOrderTable dashboard={dashboard}/>
             </div>
           </div>
         </div>
@@ -123,7 +160,7 @@ function DashboardHome() {
                   </FormControl>
                 </div>
               </div>
-              <LineChart height={370} />
+              <LineChart height={370} chartData={dynamicData} />
             </div>
           </div>
         </div>

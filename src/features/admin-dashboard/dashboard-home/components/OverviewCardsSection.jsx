@@ -6,26 +6,8 @@ import categoryIcon from "../../../../assets/images/dashboard/category-icon.png"
 import dashboardArrow from "../../../../assets/images/dashboard/dashboard-arrow.png";
 import { getDashboardApi } from "../../../../services/adminApiRoutes";
 
-function OverviewCardsSection() {
-  const [dashboard, setDashboard] = useState([]);
-   const [loading, setLoading] = useState(false);
-
- async function getDashboard() {
-      setLoading(true);
-      try {
-        const response = await getDashboardApi();
-        console.log("response",response)
-        setDashboard(response?.data || []);
-      } catch (error) {
-        console.log("Error on Dashboard List", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-console.log("dashboard",dashboard)
-useEffect(() => {
-    getDashboard();
-  }, []);
+function OverviewCardsSection({dashboard}) {
+  
 
   return (
     <>
@@ -57,7 +39,7 @@ function RevenueCard({ title, icon,dashboard }) {
         </div>
         <h5 className="mb-2 fw-600">{dashboard?.total_revenue} <small className="fw-400" style={{ fontSize: "0.75rem" }}>Rs</small> </h5>
         <div className="d-between">
-          <span className="text-secondary text-sm d-flex gap-2"> <img src={dashboardArrow}></img>35% vs last month</span>
+          <span className="text-secondary text-sm d-flex gap-2"> <img src={dashboardArrow}></img>{dashboard?.revenue_percentage}% vs last month</span>
           <span className="text-sm">View all transactions</span>
         </div>
       </div>
@@ -76,7 +58,7 @@ function OrderCard({ title, icon, dashboard }) {
         </div>
         <h5 className="mb-2 fw-600">{dashboard?.total_orders} </h5>
         <div className="d-between">
-          <span className="text-secondary text-sm d-flex gap-2"> <img src={dashboardArrow}></img>35% vs last month</span>
+          <span className="text-secondary text-sm d-flex gap-2"> <img src={dashboardArrow}></img>{dashboard?.orders_percentage}% vs last month</span>
           <span className="text-sm">View all transactions</span>
         </div>
       </div>
