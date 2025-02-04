@@ -155,6 +155,7 @@ const ProductAdd = () => {
       );
       setCategories(filteredData);
     } catch (error) {
+       notifyError("Failed to save coupon. Please try again.");
       console.log("Error on Category List", error);
     }
   }
@@ -210,7 +211,7 @@ const ProductAdd = () => {
 
   return (
     <>
-      <div className="mt-3 mb-5 row">
+      <div className="mt-5 mb-5 row">
         <div className="col-md-12 d-flex justify-content-between align-items-center">
           <Heading value={(!isEditMode) ? "Add Product" : "Edit Product"} />
           {

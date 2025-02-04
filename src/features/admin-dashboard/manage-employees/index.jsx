@@ -81,7 +81,7 @@ function ManageEmployees() {
 
   return (
     <>
-      <div className="mt-3 mb-5 row">
+      <div className="mt-5 mb-5 row">
         <div className="col-md-6">
           <Heading value={"Employees"} />
         </div>

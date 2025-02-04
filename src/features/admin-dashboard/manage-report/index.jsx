@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import ProductTable from "../manage-products/product-list/components/ProductTable";
 import { InputText } from "primereact/inputtext";
-import OverviewCardsSection from "../../admin-dashboard/dashboard-home/components/OverviewCardsSection";
+import OverviewCardsReport from "./components/overviewCardsReport";
 import Loading from "../../../components/ui/Loading";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { DateRangePicker } from 'rsuite';
@@ -19,7 +19,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 const ManageReport = () => {
   return (
     <>
-      <div className="mt-3 mb-4 row">
+      <div className="mt-5 mb-4 row">
         <div className="col-md-6">
           <Heading value={"Report"} />
         </div>
@@ -58,7 +58,7 @@ const ManageReport = () => {
         </div>
       </div>
       <div className="row mb-5">
-        <OverviewCardsSection />
+        <OverviewCardsReport />
       </div>
       <div className="">
         <div className="card">

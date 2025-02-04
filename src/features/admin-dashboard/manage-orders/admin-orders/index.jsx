@@ -36,7 +36,7 @@ function AdminOrders() {
 
   return (
     <>
-      <div className="mt-3 mb-3 row">
+      <div className="mt-5 mb-3 row">
         <div className="col-md-6">
           <Heading value={"Orders List"} />
         </div>

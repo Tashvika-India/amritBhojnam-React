@@ -49,9 +49,9 @@ useEffect(() => {
 
   return (
     <>
-      <Alert severity="info">Currently, the dashboard data is static and under development. It will be dynamic once the order flow is complete.</Alert>
+      <Alert severity="info" className="mt-3">Currently, the dashboard data is static and under development. It will be dynamic once the order flow is complete.</Alert>
 
-      <div className="mt-3 mb-5">
+      <div className="mt-4 mb-5">
         <Heading value={"Dashboard"} />
       </div>
       <div className="row mb-4">

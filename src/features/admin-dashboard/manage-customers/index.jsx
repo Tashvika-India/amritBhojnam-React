@@ -30,7 +30,7 @@ function AdminCustomer() {
 
   return (
     <>
-      <div className="mt-3 mb-4 row">
+      <div className="mt-5 mb-4 row">
         <div className="col-md-6">
           <Heading value={"Customer"} />
         </div>
