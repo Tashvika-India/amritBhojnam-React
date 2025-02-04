@@ -141,7 +141,7 @@ const AdminOrderDetail = () => {
 
   return (
     <>
-      <div className="mt-3 mb-5 row">
+      <div className="mt-5 mb-5 row">
       <div className="col-12 mb-3">
           <Breadcrumbs aria-label="breadcrumb">
             <Link to={"/admin/orders"} >Orders List</Link>
