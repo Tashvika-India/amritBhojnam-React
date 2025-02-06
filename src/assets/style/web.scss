@@ -620,6 +620,38 @@ footer {
   }
 }
 
+//coin-section
+.coin-page .coin-stepper-section{
+  .coin-step-part{
+    position: relative;
+    &::before{
+      content: "";
+      position: absolute;
+      background-image: url(src/assets/images/web/star-coin.png);
+      background-repeat: no-repeat;
+      top: 1rem;
+      margin-left: 2rem;
+      left: 0;
+      height: 3rem;
+      width: 3rem;
+    }
+    
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    background-image: url(/src/assets/images/web/coin-line.png);
+    background-repeat: no-repeat;
+    object-fit: contain;
+    top: 36rem;
+    z-index: -1;
+    left: 26rem;
+    height: 100%;
+    width: 1px;
+
+  }
+} 
+
 //explore-categories
 .explore-categories {
   background: linear-gradient(

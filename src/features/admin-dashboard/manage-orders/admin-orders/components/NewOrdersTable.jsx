@@ -91,7 +91,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
           <img src={rowData?.product_details[0]?.product?.images[0]?.image} alt="img" style={{ width: "3.5rem", height: "4rem" }} />
           <div className="d-flex flex-column">
             <p className="fw-400 mb-0" style={{ fontSize: "1rem" }}>{rowData?.product_details[0]?.product?.name}</p>
-            <Link to={`/admin/order-details/${rowData.id}`} className="fw-400 mb-0 text-primary" style={{ fontSize: ".88rem" }}>View all orders</Link>
+            <Link to={`/admin/order-details/${rowData.id}`} className="fw-400 mb-0 " style={{ fontSize: ".88rem" }}>View all orders</Link> 
           </div>
         </div>
       </>
