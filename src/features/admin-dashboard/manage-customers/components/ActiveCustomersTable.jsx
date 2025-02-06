@@ -27,23 +27,23 @@ const ActiveCustomersTable = ({ customer }) => {
             </div>
         );
     };
+
     return (
         <div className="card">
-            <DataTable value={customer} paginator rows={10} responsiveLayout="scroll">
+            <DataTable 
+                value={customer} 
+                paginator 
+                rows={10} 
+                responsiveLayout="scroll"
+                emptyMessage="No customers found."
+            >
                 <Column field='id' header="CUSTOMER ID" body={(rowData) => <span title={rowData.id}>{rowData.id.slice(10)}...</span>}></Column>
                 <Column field="full_name" header="NAME" body={nameBodyTemplate}></Column>
                 <Column field="email" header="EMAIL"></Column>
                 <Column field="phone_number" header="PHONE"></Column>
-                {/* <Column header="Action" body={actionBodyTemplate}></Column> */}
             </DataTable>
-
-            {/* <Stack direction="row" spacing={2}>
-      <Avatar {...stringAvatar('Kent Dodds')} />
-      <Avatar {...stringAvatar('Jed Watson')} />
-      <Avatar {...stringAvatar('Tim Neutkens')} />
-    </Stack> */}
         </div>
-    )
+    );
 };
 
 export default ActiveCustomersTable;

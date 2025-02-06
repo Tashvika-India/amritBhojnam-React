@@ -68,13 +68,16 @@ const ProudctDetail = () => {
   const dispatch = useDispatch();
   const firstOption = detail?.options?.[0] || {};
   const [radioValue, setRadioValue] = useState(firstOption.option || "");
-  const [selectedOptionId, setSelectedOptionId] = useState(firstOption.id || "");
-  const selectedOption = detail?.options?.find((option) => option.option === radioValue);
+  const [selectedOptionId, setSelectedOptionId] = useState(
+    firstOption.id || ""
+  );
+  const selectedOption = detail?.options?.find(
+    (option) => option.option === radioValue
+  );
   const [pincode, setPincode] = useState("");
   const [pinValue, setPinValue] = useState("");
 
   const [activeTab, setActiveTab] = useState("Description");
-
 
   const truncateToWords = (text, limit) => {
     if (!text) return "";
@@ -202,7 +205,9 @@ const ProudctDetail = () => {
   }
 
   const deliveryDateCustom = pinValue?.delivery_date || "";
-  const formattedDateCustom = formatDeliveryDateCustom(deliveryDateCustom || "");
+  const formattedDateCustom = formatDeliveryDateCustom(
+    deliveryDateCustom || ""
+  );
 
   const handleScrollToReviews = () => {
     setActiveTab("Reviews");
@@ -219,7 +224,10 @@ const ProudctDetail = () => {
     setTimeout(() => {
       const descriptionContainer = document.getElementById("review-container");
       if (descriptionContainer) {
-        descriptionContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+        descriptionContainer.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
       }
     }, 100);
   };
@@ -269,7 +277,10 @@ const ProudctDetail = () => {
                   </p> */}
                   <div className="">
                     <h4 className="fb-fs-30 fw-bold">{detail?.name}</h4>
-                    <button className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4 border-0 bg-transparent" onClick={handleScrollToReviews}>
+                    <button
+                      className="d-flex mb-4 mt-2 mb-lg-4 mt-lg-4 border-0 bg-transparent"
+                      onClick={handleScrollToReviews}
+                    >
                       <Rating
                         className="me-3 border-none"
                         value={Math.round(detail.ratings)}
@@ -338,7 +349,10 @@ const ProudctDetail = () => {
                   </div>
                 </div>
 
-                <button onClick={handleScrollToDescription} className="border-0 bg-transparent text-start">
+                <button
+                  onClick={handleScrollToDescription}
+                  className="border-0 bg-transparent text-start"
+                >
                   <p>{truncateToWords(detail?.short_description, 25)}</p>
                 </button>
                 {/* <a href="/product-detail/#detail-description"><span className="text-orange">Read More</span></a> */}
@@ -374,60 +388,78 @@ const ProudctDetail = () => {
                     ₹{~~selectedOption?.offer_price}
                     {selectedOption?.offer_price !==
                       selectedOption?.max_price && (
-                        <small className="fw-500 fb-fs-30 text-grey ms-3">
-                          <strike>₹{~~selectedOption?.max_price}</strike>
-                        </small>
-                      )}
+                      <small className="fw-500 fb-fs-30 text-grey ms-3">
+                        <strike>₹{~~selectedOption?.max_price}</strike>
+                      </small>
+                    )}
                   </p>
                   <p style={{ fontSize: "0.875rem" }} className="fw-500 mt-3">
                     (Inclusive of all taxes)
                   </p>
                 </div>
-                {(detail?.stock <= 5) && <div className="d-flex gap-2 align-items-center mt-2">
-                  <span className="d-inline-block"><AiFillThunderbolt className="thunder-icon" size={"1.25rem"} /></span><p>Hurry, Only <strong className="thunder-icon">{~~(detail?.stock)}</strong> left!</p>
-                </div>}
-                <div>
-                  {loginonWeb ? (
-                    !checkItemInCart() ? (
-                      <button
-                        className="button-primary mt-4 fb-fs-18"
-                        onClick={() =>
-                          addToCart(detail?.id, quantity || 1, selectedOptionId)
-                        }
-                        disabled={loading}
-                      >
-                        {loading ? "Adding..." : "Add to Cart"}
-                      </button>
+                {detail?.stock <= 5 && (
+                  <div className="d-flex gap-2 align-items-center mt-2">
+                    <span className="d-inline-block">
+                      <AiFillThunderbolt
+                        className="thunder-icon"
+                        size={"1.25rem"}
+                      />
+                    </span>
+                    <p>
+                      Hurry, Only{" "}
+                      <strong className="thunder-icon">
+                        {~~detail?.stock}
+                      </strong>{" "}
+                      left!
+                    </p>
+                  </div>
+                )}
+                  <div>
+                    {loginonWeb ? (
+                      !checkItemInCart() ? (
+                        <button
+                          className="button-primary mt-4 fb-fs-18"
+                          onClick={() =>
+                            addToCart(
+                              detail?.id,
+                              quantity || 1,
+                              selectedOptionId
+                            )
+                          }
+                          disabled={loading}
+                        >
+                          {loading ? "Adding..." : "Add to Cart"}
+                        </button>
+                      ) : (
+                        <>
+                          <button
+                            className="button-primary mt-4 fb-fs-18"
+                            onClick={toggleCart}
+                          >
+                            Go to Cart
+                          </button>
+                          <MyCartMenu
+                            showCart={showCart}
+                            onCloseCart={toggleCart}
+                          />
+                        </>
+                      )
                     ) : (
                       <>
                         <button
                           className="button-primary mt-4 fb-fs-18"
-                          onClick={toggleCart}
+                          onClick={() => setShowWebLogin(true)}
                         >
-                          Go to Cart
+                          Add to Cart
                         </button>
-                        <MyCartMenu
-                          showCart={showCart}
-                          onCloseCart={toggleCart}
+                        <MobileLogin
+                          otpShow={showWebLogin}
+                          onOtpClose={toggleWebLogin}
+                          align="end"
                         />
                       </>
-                    )
-                  ) : (
-                    <>
-                      <button
-                        className="button-primary mt-4 fb-fs-18"
-                        onClick={() => setShowWebLogin(true)}
-                      >
-                        Add to Cart
-                      </button>
-                      <MobileLogin
-                        otpShow={showWebLogin}
-                        onOtpClose={toggleWebLogin}
-                        align="end"
-                      />
-                    </>
-                  )}
-                </div>
+                    )}
+                  </div>
                 <div className="mt-3 mt-md-5">
                   <p className="fw-600">Check Availability</p>
                   <div
@@ -506,9 +538,13 @@ const ProudctDetail = () => {
             </div>
           </div>
           <div
-            className="row ms-1 mt-md-5 mt-0 description-slider" id="review-container">
-            <div className="card tabs-slider ms-xxl-5 mt-3"
-              style={{ border: "1px solid #E1E1E1" }}>
+            className="row ms-1 mt-md-5 mt-0 description-slider"
+            id="review-container"
+          >
+            <div
+              className="card tabs-slider ms-xxl-5 mt-3"
+              style={{ border: "1px solid #E1E1E1" }}
+            >
               <div className="container fb-container">
                 <Tab.Container
                   id="left-tabs-example"
@@ -598,7 +634,7 @@ const ProudctDetail = () => {
                                               className="img-fluid border-orange"
                                               src={
                                                 !data?.is_anonymous &&
-                                                  data?.user_img
+                                                data?.user_img
                                                   ? `${baseURL}/${data?.user_img}`
                                                   : pp
                                               }
@@ -616,7 +652,7 @@ const ProudctDetail = () => {
                                               {data?.is_anonymous
                                                 ? "Anonymous"
                                                 : data?.user_name ||
-                                                "Anonymous"}
+                                                  "Anonymous"}
                                             </h6>
                                             <span className="d-inline-block">
                                               <Rating
@@ -635,12 +671,12 @@ const ProudctDetail = () => {
                                         <p className="mb-3 text-grey fw-500 pb-3 pt-2">
                                           {data?.created_at
                                             ? new Intl.DateTimeFormat("en-GB", {
-                                              day: "2-digit",
-                                              month: "short",
-                                              year: "numeric",
-                                            }).format(
-                                              new Date(data.created_at)
-                                            )
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric",
+                                              }).format(
+                                                new Date(data.created_at)
+                                              )
                                             : "Date not available"}
                                         </p>
                                         {data?.images?.map((image, index) => (

@@ -17,6 +17,8 @@ import orderDelivered from "../../assets/images/dashboard/order-delivered.png";
 import { List, ListItem, ListItemText, Badge, Divider } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
+import notificationIcon from "../../assets/images/dashboard/notification-bag-icon.png";
+import notificationBell from "../../assets/images/dashboard/notification-bell.png";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 const drawerWidth = 280;
@@ -115,20 +117,22 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                 open={openNotificationsMenu}
                 onClose={handleNotificationsClose}
                 PaperProps={{
-                  style: { width: 550 },
+                  style: { width: 500 ,maxHeight: '130vh', overflow: 'hidden'},
                 }}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
               >
                 {/* </div> */}
                 <Typography
                   className="d-flex justify-content-between bg-yellow text-white align-items-center py-3"
                   variant="h6"
-                  sx={{ padding: 2 }}
+                  sx={{ padding: 3 }}
                 >
                   <p className="fb-fs-14-same mb-0">Notifications</p>
                   <p className="fb-fs-12 mb-0 d-flex align-items-center"  style={{fontSize: "14px"}}>View All <MdKeyboardDoubleArrowRight size={18} /></p>
                 </Typography>
                 <Divider />
-                <List  sx={{ padding: 2 }}>
+                <List  sx={{ padding: 2 }} style={{ maxHeight: '97vh', overflowY: 'auto'}}>
                   <div
                     className="d-flex justify-content-between align-items-center py-2"
                     style={{ borderBottom: "1px solid #EEEEEE" }}
@@ -145,7 +149,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                           <p className="fb-fs-18 fw-600 mb-0">
                             New Order Received
                           </p>
-                          <p className="mb-0" style={{fontSize: "14px"}}>
+                          <p className="mb-0" style={{fontSize: "12.2px"}}>
                             Order #7890 placed by Rahul ₹2,49. Payment...
                           </p>
                         </div>
@@ -153,7 +157,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                     </ul>
                     <ul>
                       <li style={{ width: "100%" }}>
-                        <p className="text-mid-grey mb-0 me-2 w-100" style={{fontSize: "14px"}}>1 Day ago</p>
+                        <p className="text-mid-grey mb-0 me-2 w-100" style={{fontSize: "13px"}}>1 Day ago</p>
                       </li>
                     </ul>
                   </div>
@@ -173,7 +177,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                           <p className="fb-fs-18 fw-600 mb-0">
                             New Order Received
                           </p>
-                          <p className="mb-0" style={{fontSize: "14px"}}>
+                          <p className="mb-0" style={{fontSize: "12.2px"}}>
                             Order #7890 placed by Rahul ₹2,49. Payment...
                           </p>
                         </div>
@@ -181,7 +185,63 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                     </ul>
                     <ul>
                       <li style={{ width: "100%" }}>
-                        <p className="text-mid-grey mb-0 me-2"  style={{fontSize: "14px"}}>1 Day ago</p>
+                        <p className="text-mid-grey mb-0 me-2"  style={{fontSize: "13px"}}>1 Day ago</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    className="d-flex justify-content-between align-items-center py-2"
+                    style={{ borderBottom: "1px solid #EEEEEE" }}
+                  >
+                    <ul>
+                      <li className="d-flex gap-2 align-items-center">
+                        <img
+                          className="img-fluid mt-1 mx-1"
+                          src={notificationIcon}
+                          style={{ maxWidth: "3.5rem" }}
+                          alt="star"
+                        />
+                        <div>
+                          <p className="fb-fs-18 fw-600 mb-0">
+                            New Order Received
+                          </p>
+                          <p className="mb-0" style={{fontSize: "12.2px"}}>
+                            Order #7890 placed by Rahul ₹2,49. Payment...
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li style={{ width: "100%" }}>
+                        <p className="text-mid-grey mb-0 me-2" style={{fontSize: "13px"}}>1 Day ago</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    className="d-flex justify-content-between align-items-center py-2"
+                    style={{ borderBottom: "1px solid #EEEEEE" }}
+                  >
+                    <ul>
+                      <li className="d-flex gap-2 align-items-center">
+                        <img
+                          className="img-fluid mt-1 mx-1"
+                          src={notificationBell}
+                          style={{ maxWidth: "3.5rem" }}
+                          alt="star"
+                        />
+                        <div>
+                          <p className="fb-fs-18 fw-600 mb-0">
+                            New Order Received
+                          </p>
+                          <p className="mb-0" style={{fontSize: "12.2px"}}>
+                            Order #7890 placed by Rahul ₹2,49. Payment...
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li style={{ width: "100%" }}>
+                        <p className="text-mid-grey mb-0 me-2" style={{fontSize: "13px"}}>1 Day ago</p>
                       </li>
                     </ul>
                   </div>
@@ -201,7 +261,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                           <p className="fb-fs-18 fw-600 mb-0">
                             New Order Received
                           </p>
-                          <p className="mb-0" style={{fontSize: "14px"}}>
+                          <p className="mb-0" style={{fontSize: "12.2px"}}>
                             Order #7890 placed by Rahul ₹2,49. Payment...
                           </p>
                         </div>
@@ -209,7 +269,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                     </ul>
                     <ul>
                       <li style={{ width: "100%" }}>
-                        <p className="text-mid-grey mb-0 me-2" style={{fontSize: "14px"}}>1 Day ago</p>
+                        <p className="text-mid-grey mb-0 me-2 w-100" style={{fontSize: "13px"}}>1 Day ago</p>
                       </li>
                     </ul>
                   </div>

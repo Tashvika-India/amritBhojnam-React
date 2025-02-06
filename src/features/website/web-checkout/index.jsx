@@ -2,6 +2,7 @@ import * as Yup from "yup";
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
+import { Offcanvas, Button, ProgressBar } from "react-bootstrap";
 import homeImg from "../../../assets/images/web/account/home-img.png";
 import otherImg from "../../../assets/images/web/account/other.png";
 import { Collapse } from "@mui/material";
@@ -22,9 +23,13 @@ import emptyAddress from "../../../assets/images/web/empty-address.png";
 import Address from "../../../assets/common-components/website/Address";
 import MobileLogin from "../../../components/ui/MobileLogin";
 import { Dialog } from "primereact/dialog";
-import { notifyError, notifySuccess } from "../../../components/ui/Notification";
+import {
+  notifyError,
+  notifySuccess,
+} from "../../../components/ui/Notification";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
+import deliveryImg from "../../../assets/images/web/product-detail/delivery-img.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFinalCart } from "../../../redux/slices/cartSlice";
 import CouponComponent from "./components/CouponComponent";
@@ -34,9 +39,8 @@ import deleteButton from "../../../assets/images/web/account/delete-button.png";
 import AddressDeleteModal from "../../../components/ui/AddressDeleteModal";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import emptyCart from "../../../assets/images/web/empty-cart.png";  
+import emptyCart from "../../../assets/images/web/empty-cart.png";
 import { loginonWeb } from "../../../utils/constant-variable";
-
 
 const CheckoutPage = () => {
   const [loading, setLoading] = useState(false);
@@ -82,7 +86,16 @@ const CheckoutPage = () => {
     }
   };
 
-  const handlePayNow = async (amount, userId, cartId, delivery_charges, delivery_date, delivery_days, coupon_code, courier_id) => {
+  const handlePayNow = async (
+    amount,
+    userId,
+    cartId,
+    delivery_charges,
+    delivery_date,
+    delivery_days,
+    coupon_code,
+    courier_id
+  ) => {
     setLoading(true);
     try {
       // Step 1: Fetch User Profile
@@ -212,7 +225,7 @@ const CheckoutPage = () => {
       setLoadingNew(false);
       scrollTo(0, 0);
       setOpen(false);
-      setEditData(null)
+      setEditData(null);
       notifySuccess("Address updated Successfully");
       formik.resetForm();
     } catch (error) {
@@ -225,7 +238,7 @@ const CheckoutPage = () => {
 
   const handleSelectAddress = async (address_id) => {
     try {
-      await postSelectAddressApi({ address_id }); 
+      await postSelectAddressApi({ address_id });
       scrollTo(0, 0);
       getAddressList();
       dispatch(fetchFinalCart({ cartId, coupon: couponCode }));
@@ -293,15 +306,25 @@ const CheckoutPage = () => {
                   ) : addressList.length > 0 ? (
                     addressList.map((item, index) => (
                       <>
-                        <div className={`summary-card ${item?.selected ? "active" : ""} rounded-20 px-2 py-3 mt-3 cursor-pointer`} key={item?.id}>
+                        <div
+                          className={`summary-card ${
+                            item?.selected ? "active" : ""
+                          } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                          key={item?.id}
+                        >
                           <div className="px-md-3">
                             <div className="row">
                               <div className="col-md-12 d-flex justify-content-between">
                                 <div className="order-date d-flex gap-2">
                                   <img
-                                    className={`img-fluid me-1 rounded-4 align-self-start ${item?.selected ? "shadow" : ""
-                                      }`}
-                                    src={(item?.save_as === "Home") ? homeImg : otherImg}
+                                    className={`img-fluid me-1 rounded-4 align-self-start ${
+                                      item?.selected ? "shadow" : ""
+                                    }`}
+                                    src={
+                                      item?.save_as === "Home"
+                                        ? homeImg
+                                        : otherImg
+                                    }
                                     alt="pencil"
                                   />
                                   <div className="ms-md-3">
@@ -317,8 +340,8 @@ const CheckoutPage = () => {
                                     </div>
                                     <p className="mt-2 text-wrap d-none d-md-block">
                                       {item?.house_flat_block_no},
-                                      {item?.road_area_colony}, {item?.city}
-                                      ,{item?.state} - {item?.pincode}
+                                      {item?.road_area_colony}, {item?.city},
+                                      {item?.state} - {item?.pincode}
                                     </p>
                                   </div>
                                 </div>
@@ -338,8 +361,8 @@ const CheckoutPage = () => {
                               <div className="d-block d-md-none">
                                 <p className="mt-2 text-wrap">
                                   {item?.house_flat_block_no},
-                                  {item?.road_area_colony}, {item?.city}
-                                  ,{item?.state} - {item?.pincode}
+                                  {item?.road_area_colony}, {item?.city},
+                                  {item?.state} - {item?.pincode}
                                 </p>
                               </div>
                               <div className="col-md-1"></div>
@@ -354,7 +377,9 @@ const CheckoutPage = () => {
                                   >
                                     <div className="d-flex align-items-center gap-1">
                                       <BiEditAlt size={20} color="#428DC5" />
-                                      <p className="fw-500 text-dark-grey">Edit</p>
+                                      <p className="fw-500 text-dark-grey">
+                                        Edit
+                                      </p>
                                     </div>
                                   </button>
                                   <button
@@ -363,8 +388,13 @@ const CheckoutPage = () => {
                                     onClick={() => openModal(item.id)}
                                   >
                                     <div className="d-flex align-items-center gap-1">
-                                      <RiDeleteBin6Line color="#E70900" size={17} />
-                                      <p className="fw-500 text-dark-grey">Delete</p>
+                                      <RiDeleteBin6Line
+                                        color="#E70900"
+                                        size={17}
+                                      />
+                                      <p className="fw-500 text-dark-grey">
+                                        Delete
+                                      </p>
                                     </div>
                                   </button>
                                   <AddressDeleteModal
@@ -398,7 +428,9 @@ const CheckoutPage = () => {
                           src={emptyAddress}
                           alt="empty-address"
                         />
-                        <h3 className="text-dark-grey fw-600">No Address Saved</h3>
+                        <h3 className="text-dark-grey fw-600">
+                          No Address Saved
+                        </h3>
                         <p className="text-mid-grey fb-fs-20 mb-3">
                           No address saved. Add a new address to proceed.
                         </p>
@@ -429,10 +461,40 @@ const CheckoutPage = () => {
                   </div>
                 </div>
                 <div className="col-lg-5 col-md-12">
-                  <div className="my-card-section product-detail-shadow rounded-20 p-2 p-md-4 mb-4 sticky-top " style={{ zIndex: 10 }}>
+                  <div
+                    className="my-card-section product-detail-shadow rounded-20 p-2 p-md-4 mb-4 sticky-top "
+                    style={{ zIndex: 10 }}
+                  >
                     <p className="fb-fs-26 fw-500 mb-4">My Cart</p>
                     <div className="">
-                      <div className="cart-list-wrapper pe-3" style={{ maxHeight: "22.625rem", overflowY: "auto", scrollbarWidth: "none" }}>
+                      <div className="px-3">
+                        <p className="d-flex">
+                          <span>
+                            <img
+                              lazyload="true"
+                              className="img-fluid me-3"
+                              src={deliveryImg}
+                              alt="delivery-img"
+                            />
+                          </span>
+                          <span className="me-2 mt-2">SPEND</span>
+                          <strong className="me-2 mt-2">₹100</strong>
+                          <span className="mt-2">MORE FOR FREE SHIPPING</span>
+                        </p>
+                        <ProgressBar
+                          variant="yellow"
+                          now={80}
+                          style={{ height: "5px" }}
+                        />
+                      </div>
+                      <div
+                        className="cart-list-wrapper pe-3"
+                        style={{
+                          maxHeight: "22.625rem",
+                          overflowY: "auto",
+                          scrollbarWidth: "none",
+                        }}
+                      >
                         {loading ? (
                           <Loading />
                         ) : cartItems?.length > 0 ? (
@@ -441,8 +503,7 @@ const CheckoutPage = () => {
                               <div className="cart-items mt-4" key={index}>
                                 <div className="product-item p-1">
                                   <img
-                                    src={item?.product?.images[0]?.image
-                                    }
+                                    src={item?.product?.images[0]?.image}
                                     className="img-fluid"
                                     alt={item?.product?.name}
                                   />
@@ -457,18 +518,31 @@ const CheckoutPage = () => {
                                   )} X ${item?.item_quantity}`}</h6>
                                 </div>
                                 <div className="product-quantity text-end d-flex align-items-center">
-                                  <h6 style={{ fontWeight: "800" }}>{`₹${Math.trunc(item?.price) * item?.item_quantity
-                                    }`}</h6>
+                                  <h6 style={{ fontWeight: "800" }}>{`₹${
+                                    Math.trunc(item?.price) *
+                                    item?.item_quantity
+                                  }`}</h6>
                                 </div>
                               </div>
                             </>
                           ))
                         ) : (
                           <div className="text-center py-4">
-                            <img src={emptyCart} alt="empty-cart" className="img-fluid mx-auto empty-cart-image w-25" />
+                            <img
+                              src={emptyCart}
+                              alt="empty-cart"
+                              className="img-fluid mx-auto empty-cart-image w-25"
+                            />
                             <h4 className="text-black">Your Cart is Empty!</h4>
-                            <small className="text-muted text-balance mb-4">Looks like you haven’t added anything to your cart yet</small>
-                            <Link className="button-primary d-block fw-normal mt-3" style={{ fontSize: "14px" }} to="/products">
+                            <small className="text-muted text-balance mb-4">
+                              Looks like you haven’t added anything to your cart
+                              yet
+                            </small>
+                            <Link
+                              className="button-primary d-block fw-normal mt-3"
+                              style={{ fontSize: "14px" }}
+                              to="/products"
+                            >
                               Browse Products
                             </Link>
                           </div>
@@ -476,7 +550,10 @@ const CheckoutPage = () => {
                       </div>
                       {cartItems.length > 0 && addressList.length > 0 ? (
                         <>
-                          <CouponComponent couponList={couponList} onCouponApply={handleCouponApply} />
+                          <CouponComponent
+                            couponList={couponList}
+                            onCouponApply={handleCouponApply}
+                          />
                           <div className="cart-items mt-2">
                             <ul className="list-unstyled w-100">
                               <li className="d-flex justify-content-between my-2">
@@ -487,22 +564,34 @@ const CheckoutPage = () => {
                                     : `₹ ${finalCart?.total}`}
                                 </span>
                               </li>
-                              {(finalCart?.handling_fee > 0) && <li className="d-flex justify-content-between my-2">
-                                <span className="fw-500">Handling fee</span>
-                                <span className="fb-fs-18 fw-500">
-                                  {finalCart?.handling_fee === undefined
-                                    ? "₹ 0"
-                                    : `₹ ${finalCart?.handling_fee}`}
-                                </span>
-                              </li>}
-                              {(finalCart?.coupon_data?.coupon_discount > 0) && <li className="d-flex justify-content-between my-2">
-                                <span className="fw-500 text-success">Coupon discount</span>
-                                <span className="fb-fs-18 fw-500 text-success">
-                                  {finalCart?.coupon_data?.coupon_discount === undefined
-                                    ? "₹ 0"
-                                    : `₹${(finalCart?.coupon_data?.coupon_discount == 0) ? 0 : `-${finalCart?.coupon_data?.coupon_discount}`}`}
-                                </span>
-                              </li>}
+                              {finalCart?.handling_fee > 0 && (
+                                <li className="d-flex justify-content-between my-2">
+                                  <span className="fw-500">Handling fee</span>
+                                  <span className="fb-fs-18 fw-500">
+                                    {finalCart?.handling_fee === undefined
+                                      ? "₹ 0"
+                                      : `₹ ${finalCart?.handling_fee}`}
+                                  </span>
+                                </li>
+                              )}
+                              {finalCart?.coupon_data?.coupon_discount > 0 && (
+                                <li className="d-flex justify-content-between my-2">
+                                  <span className="fw-500 text-success">
+                                    Coupon discount
+                                  </span>
+                                  <span className="fb-fs-18 fw-500 text-success">
+                                    {finalCart?.coupon_data?.coupon_discount ===
+                                    undefined
+                                      ? "₹ 0"
+                                      : `₹${
+                                          finalCart?.coupon_data
+                                            ?.coupon_discount == 0
+                                            ? 0
+                                            : `-${finalCart?.coupon_data?.coupon_discount}`
+                                        }`}
+                                  </span>
+                                </li>
+                              )}
                               <li className="d-flex justify-content-between my-2">
                                 <span className="fw-500 text-orange">
                                   Delivery fee
@@ -526,7 +615,12 @@ const CheckoutPage = () => {
                               <h6 className="fw-bolder">Total Amount </h6>
                             </div>
                             <div className="product-quantity text-end pt-4">
-                              <h5 style={{ textWrap: "nowrap", fontWeight: "800" }}>
+                              <h5
+                                style={{
+                                  textWrap: "nowrap",
+                                  fontWeight: "800",
+                                }}
+                              >
                                 {finalCart?.amount_to_pay === undefined
                                   ? "₹ 0"
                                   : `₹ ${finalCart?.amount_to_pay}`}
@@ -548,7 +642,8 @@ const CheckoutPage = () => {
                                     finalCart?.coupon_data?.coupon_code,
                                     finalCart?.courier_id
                                   )
-                                }>
+                                }
+                              >
                                 Proceed to Pay
                               </button>
                             ) : (

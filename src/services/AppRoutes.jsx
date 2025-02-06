@@ -48,6 +48,7 @@ import AdminOrderInvoice from "../features/admin-dashboard/manage-orders/order-i
 import AllOrderDetail from "../features/admin-dashboard/manage-orders/order-detail/orders";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import TrackOrder from "../features/website/web-track-order";
+import CoinPage from "../features/website/web-coin-page";
 function AppRoutes() {
   return (
     <Routes>
@@ -368,6 +369,7 @@ function AppRoutes() {
       <Route exact path="/refund-policy" element={<RefundPolicy />} />
       <Route exact path="/shiping-policy" element={<ShipingPolicy />} />
       <Route exact path="/track-order" element={<TrackOrder />} />
+      <Route exact path="/coin-page" element={<CoinPage />} />
       <Route
         exact
         path="/payment-success"
