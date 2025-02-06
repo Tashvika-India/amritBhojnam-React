@@ -104,6 +104,8 @@ const CheckoutPage = () => {
         delivery_days: delivery_days,
         productinfo: cartId,
         courier_id: courier_id || "",
+        courier_id: courier_id || "",
+        apply_amrit_coins: false,
         surl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_success_web/`,
         furl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_failed_web/`,
       };
