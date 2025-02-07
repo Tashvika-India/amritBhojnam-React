@@ -652,6 +652,7 @@ footer {
   }
 } 
 
+
 //explore-categories
 .explore-categories {
   background: linear-gradient(
@@ -2715,7 +2716,23 @@ footer {
   .skeleton-loading {
     height: 18.75rem;
   }
-
+  .coin-page .coin-stepper-section{
+    margin-top: 9rem;
+  }
+  .coin-page .coin-stepper-section{
+    .coin-step-part::before {
+      margin-left: 1rem;
+    }
+    &::after {
+      top: 38rem;
+      left: 6.6rem;
+      height: 80%;
+    }
+    img{
+      max-width: 4rem;
+      margin-top: 1.5rem;
+    }
+  }
   .ready-cook {
     height: 40rem !important;
   }
@@ -3097,6 +3114,23 @@ footer {
 @media (max-width: 576px) {
   .product-card .masala-con {
     height: 1.95rem !important;
+  }
+  .coin-page .coin-stepper-section{
+    margin-top: 9rem;
+  }
+  .coin-page .coin-stepper-section{
+    .coin-step-part::before {
+      margin-left: 1rem;
+    }
+    &::after {
+      top: 27rem;
+      left: 3rem;
+      height: 50%
+    }
+    img{
+      max-width: 3.5rem;
+      margin-top: 1.5rem;
+    }
   }
   .user-profile-detail label {
     font-size: x-small;

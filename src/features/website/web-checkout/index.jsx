@@ -467,26 +467,6 @@ const CheckoutPage = () => {
                   >
                     <p className="fb-fs-26 fw-500 mb-4">My Cart</p>
                     <div className="">
-                      <div className="px-3">
-                        <p className="d-flex">
-                          <span>
-                            <img
-                              lazyload="true"
-                              className="img-fluid me-3"
-                              src={deliveryImg}
-                              alt="delivery-img"
-                            />
-                          </span>
-                          <span className="me-2 mt-2">SPEND</span>
-                          <strong className="me-2 mt-2">₹100</strong>
-                          <span className="mt-2">MORE FOR FREE SHIPPING</span>
-                        </p>
-                        <ProgressBar
-                          variant="yellow"
-                          now={80}
-                          style={{ height: "5px" }}
-                        />
-                      </div>
                       <div
                         className="cart-list-wrapper pe-3"
                         style={{

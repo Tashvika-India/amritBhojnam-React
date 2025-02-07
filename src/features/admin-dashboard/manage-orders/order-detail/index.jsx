@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { Checkbox } from "primereact/checkbox";
 import { DataTable } from "primereact/datatable";
+import { TiTick } from "react-icons/ti";
 import { Column } from "primereact/column";
 import { Timeline } from "primereact/timeline";
 import { BsBoxFill, BsFillHandbagFill } from "react-icons/bs";
@@ -430,6 +431,12 @@ const AdminOrderDetail = () => {
                       <button className="lt-blue-button">Update</button>
                     </div>
                   </div>
+                  <div className="mt-2">
+                      <button className="button-yellow d-flex gap-2 py-3 px-3">
+                      <TiTick color="white" size={20}/>
+                      Order Ready
+                      </button>
+                    </div>
                 </div>
               </div>
             </div>

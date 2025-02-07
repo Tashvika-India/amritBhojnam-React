@@ -22,6 +22,7 @@ const CoinPage = () => {
             </Breadcrumbs>
           </div>
         </div> */}
+      
         <section className="coin-page">
           <div className="container fb-container">
             <div className="row">
@@ -34,9 +35,9 @@ const CoinPage = () => {
                     style={{ height: "200px" }}
                   />
                 </div>
-                <div className="coin-stepper-section mt-5">
-                  <div className="coin-step-part d-flex justify-content-between pb-5"> 
-                      <div className="ps-5 ms-5 mt-4 pb-5">
+                <div className="coin-stepper-section mt-lg-5">
+                  <div className="coin-step-part d-flex justify-content-between pb-lg-5"> 
+                      <div className="ps-lg-5 ps-md-5 ps-4 ms-5 mt-4 pb-5">
                         <p className="fw-600 text-dark-grey mb-2">22 Nov 2024</p>
                         <p className="fb-fs-24 fw-600">
                           <span className="text-orange fw-bolder">35</span> Amrit Coins
@@ -51,8 +52,8 @@ const CoinPage = () => {
                       <img className="img-fluid mt-5 pt-5" src={trophyImg} alt="pencil" />
                     </div>
                   </div>
-                  <div className="coin-step-part d-flex justify-content-between pb-5"> 
-                      <div className="ps-5 ms-5 mt-4 pb-5">
+                  <div className="coin-step-part d-flex justify-content-between pb-lg-5"> 
+                      <div className="ps-lg-5 ps-md-5 ps-4 ms-5 mt-4 pb-5">
                         <p className="fw-600 text-dark-grey mb-2">22 Nov 2024</p>
                         <p className="fb-fs-24 fw-600">
                           <span className="text-orange fw-bolder">35</span> Amrit Coins
@@ -67,8 +68,8 @@ const CoinPage = () => {
                       <img className="img-fluid mt-5 pt-5" src={trophyImg} alt="pencil" />
                     </div>
                   </div>
-                  <div className="coin-step-part d-flex justify-content-between pb-5"> 
-                      <div className="ps-5 ms-5 mt-4 pb-5">
+                  <div className="coin-step-part d-flex justify-content-between pb-lg-5"> 
+                      <div className="ps-lg-5 ps-md-5 ps-4 ms-5 mt-4 pb-5">
                         <p className="fw-600 text-dark-grey mb-2">22 Nov 2024</p>
                         <p className="fb-fs-24 fw-600">
                           <span className="text-orange fw-bolder">35</span> Amrit Coins
@@ -79,7 +80,7 @@ const CoinPage = () => {
                           Jowar Jeggery Choco Chip Cookies
                         </p>
                       </div>
-                    <div>
+                    <div >
                       <img className="img-fluid mt-5 pt-5" src={trophyImg} alt="pencil" />
                     </div>
                   </div>

@@ -73,7 +73,7 @@ const TrackOrder = () => {
                   </button>
                 </div>
               </div>
-              <div className="center-track-left mt-4 mb-5">
+              <div className="center-track-left mt-4 mb-5 ms-4">
                 <Box
                   sx={{
                     maxWidth: 500,
