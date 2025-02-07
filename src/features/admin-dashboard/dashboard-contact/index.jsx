@@ -53,11 +53,11 @@ function ManageContact() {
             <div className="col-md-2">
                 <div>
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label" size="small">Contacts</InputLabel>
+                    <InputLabel id="demo-simple-select-label" size="small">Filter</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      label="Contact"
+                      label="Filter"
                       onChange={(e) =>
                         setFilter(e.target.value)
                       }
