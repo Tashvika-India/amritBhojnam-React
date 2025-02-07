@@ -49,6 +49,7 @@ import AllOrderDetail from "../features/admin-dashboard/manage-orders/order-deta
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import TrackOrder from "../features/website/web-track-order";
 import CoinPage from "../features/website/web-coin-page";
+import ManageMeals from "../features/admin-dashboard/manage-meals";
 function AppRoutes() {
   return (
     <Routes>
@@ -345,6 +346,17 @@ function AppRoutes() {
           <AdminPrivateRoute>
             <DashboardSidebar>
               <AddRoles />
+            </DashboardSidebar>
+          </AdminPrivateRoute>
+        }
+      /> 
+       <Route
+        exact
+        path="/admin/manage-meals"
+        element={
+          <AdminPrivateRoute>
+            <DashboardSidebar>
+              <ManageMeals />
             </DashboardSidebar>
           </AdminPrivateRoute>
         }
