@@ -58,7 +58,7 @@ function Roles() {
               <div className="col-md-3"></div>
               <div className="col-md-3 ms-auto text-end">
                 <InputText
-                className="w-100"
+                className="w-100 ps-4"
                   placeholder="Search Roles..."
                 />
               </div>

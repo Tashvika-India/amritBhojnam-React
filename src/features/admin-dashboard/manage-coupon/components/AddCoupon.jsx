@@ -434,10 +434,7 @@ const AddCoupon = () => {
                     <button
                       className="button-primary-reverse me-4 ms-3 py-2"
                       type="button"
-                      onClick={() => {
-                        formik.resetForm();
-                        setOpen(false);
-                      }}
+                      onClick={() => navigate("/admin/coupons")}
                     >
                       Cancel
                     </button>
