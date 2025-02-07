@@ -63,7 +63,7 @@ const ManageReport = () => {
               <div className="col-md-2"></div>
               <div className="col-md-2"></div>
               <div className="col-md-3 text-end">
-                <InputText className="w-100" placeholder="Search...." />
+                <InputText className="w-100 ps-4" placeholder="Search...." />
               </div>
             </div>
             <div className="">

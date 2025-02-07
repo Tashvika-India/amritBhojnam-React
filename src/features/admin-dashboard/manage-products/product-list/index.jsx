@@ -145,7 +145,7 @@ function ProductList() {
               </div>
               <div className="col-md-3 text-end">
                 <InputText
-                  className="w-100"
+                  className="w-100 ps-4"
                   value={filter.name}
                   onChange={(e) =>
                     setFilter({ ...filter, name: e.target.value })
