@@ -366,7 +366,7 @@ const CheckoutPage = () => {
                               </div>
                               <div className="col-md-1"></div>
                               <div className="col-md-6">
-                                <div className="d-flex mt-2 gap-2 gap-md-3 ps-md-1 ">
+                                <div className="d-flex mt-2 gap-2 gap-md-3 ps-md-1 ms-lg-4 ">
                                   <button
                                     className="border-0 bg-transparent"
                                     onClick={(event) => {

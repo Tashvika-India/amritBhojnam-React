@@ -422,7 +422,7 @@ const AdminOrderDetail = () => {
                       <p className="fw-500 fb-fs-18 mb-0">Action</p>
                     </div>
                   </div>
-                  <div className="mt-4 d-flex gap-3">
+                  {/* <div className="mt-4 d-flex gap-3">
                     <FloatLabel>
                       <Calendar inputId="birth_date" value={datetime12h} onChange={(e) => setDateTime12h(e.value)} showTime hourFormat="12" />
                       <label htmlFor="birth_date">Enter Delivery Date</label>
@@ -430,9 +430,10 @@ const AdminOrderDetail = () => {
                     <div className="">
                       <button className="lt-blue-button">Update</button>
                     </div>
-                  </div>
-                  <div className="mt-2">
-                      <button className="button-yellow d-flex gap-2 py-3 px-3">
+                  </div> */}
+                  <div className="mt-2 d-flex gap-4 align-items-center">
+                  <p className="mb-0 fw-600">Order is Ready to Book</p>
+                      <button className="button-yellow d-flex gap-2 px-3 fb-fs-16" style={{paddingBlock: ".8rem"}}>
                       <TiTick color="white" size={20}/>
                       Order Ready
                       </button>

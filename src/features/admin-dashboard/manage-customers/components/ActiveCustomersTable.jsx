@@ -37,7 +37,7 @@ const ActiveCustomersTable = ({ customer }) => {
                 responsiveLayout="scroll"
                 emptyMessage="No customers found."
             >
-                <Column field='id' header="CUSTOMER ID" body={(rowData) => <span title={rowData.id}>{rowData.id.slice(10)}...</span>}></Column>
+                <Column field='id' className='w-25' header="CUSTOMER ID" body={(rowData) => <span title={rowData.id}>{rowData.id.slice(10)}...</span>}></Column>
                 <Column field="full_name" header="NAME" body={nameBodyTemplate}></Column>
                 <Column field="email" header="EMAIL"></Column>
                 <Column field="phone_number" header="PHONE"></Column>

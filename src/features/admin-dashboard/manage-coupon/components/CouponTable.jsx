@@ -98,7 +98,6 @@ const CouponTable = ({ coupons, getCoupons }) => {
                 <Column field='discount_value' header="DISCOUNT"  ></Column>
                 <Column field='description' header="DESCRIPTION"  ></Column>
                 <Column field='max_discount' header="MAX DISCOUNT"  ></Column>
-                <Column header="DELIVERY FREE" body={ratingBodyTemplate} ></Column>
                 <Column header="Action" body={actionBodyTemplate}></Column>
             </DataTable>
             <DeleteModal

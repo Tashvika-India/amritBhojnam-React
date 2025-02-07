@@ -110,7 +110,7 @@ function ManageCategories() {
               </div>
               <div className="col-md-3 ms-auto text-end">
                 <InputText
-                  className="w-100 ps-4"
+                  className="w-100"
                   sx={{ fontFamily: "Poppins, sans-serif" }}
                   value={filter.category_name || ""}
                   onChange={(e) =>
