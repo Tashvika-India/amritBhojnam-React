@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-function ContactTable({ contact, filter, setContact }) {
-  console.log(filter);
-  useEffect(() => {
-    if (!filter) {
-      return;
-    }
 
-    if (filter === "subscribe") {
-      const filteredData = contact?.filter((detail) => detail?.name === filter);
-      setContact(filteredData);
-    } else if (filter === "unSubcribed") {
-      console.log("called");
-      const filteredData = contact?.filter(
-        (detail) => detail?.name !== "subscribe"
-      );
-      setContact(filteredData);
+
+function ContactTable({ contact, filter, setContact }) {
+  const [originalContact, setOriginalContact] = useState([]); 
+
+  useEffect(() => {
+    if (contact.length > 0 && originalContact.length === 0) {
+      setOriginalContact(contact);
     }
-  }, [filter]);
+  }, [contact]);
+
+  useEffect(() => {
+    if (!filter || filter === "all") {
+      setContact(originalContact);
+    } else if (filter === "subscribe") {
+      setContact(originalContact.filter((detail) => detail?.name === "subscribe"));
+    } else if (filter === "unSubcribed") {
+      setContact(originalContact.filter((detail) => detail?.name !== "subscribe"));
+    }
+  }, [filter, originalContact]);
+
   return (
     <DataTable
       value={contact}

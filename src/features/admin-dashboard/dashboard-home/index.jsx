@@ -64,19 +64,24 @@ useEffect(() => {
               <h5 className="mb-3 fw-500">Revenue Status</h5>
               <div style={{ width: "11%" }}>
                 <FormControl fullWidth w-50>
-                  <InputLabel id="demo-simple-select-label" size="small">Monthly</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Monthly"
-                    size="small">
-                    <MenuItem value={10}>January</MenuItem>
-                    <MenuItem value={20}>Februrary</MenuItem>
-                    <MenuItem value={30}>March</MenuItem>
-                    <MenuItem value={40}>April</MenuItem>
-                    <MenuItem value={30}>May</MenuItem>
-                  </Select>
-                </FormControl>
+                    <InputLabel id="demo-simple-select-label" size="small">
+                      Monthly
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Monthly"
+                      size="small"
+                    >
+                      <MenuItem value="2025">2025</MenuItem>
+                      <MenuItem value="2024">2024</MenuItem>
+                      <MenuItem value="2023">2023</MenuItem>
+                      <MenuItem value="2022">2022</MenuItem>
+                      <MenuItem value="2021">2021</MenuItem>
+                      <MenuItem value="2020">2020</MenuItem>
+                      <MenuItem value="2019">2019</MenuItem>
+                    </Select>
+                  </FormControl>
               </div>
             </div>
             <LineChart height={400} />
@@ -147,15 +152,16 @@ useEffect(() => {
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value=""
                       label="Monthly"
                       size="small"
                     >
-                      <MenuItem value={10}>January</MenuItem>
-                      <MenuItem value={20}>Februrary</MenuItem>
-                      <MenuItem value={30}>March</MenuItem>
-                      <MenuItem value={40}>April</MenuItem>
-                      <MenuItem value={30}>May</MenuItem>
+                      <MenuItem value="2025">2025</MenuItem>
+                      <MenuItem value="2024">2024</MenuItem>
+                      <MenuItem value="2023">2023</MenuItem>
+                      <MenuItem value="2022">2022</MenuItem>
+                      <MenuItem value="2021">2021</MenuItem>
+                      <MenuItem value="2020">2020</MenuItem>
+                      <MenuItem value="2019">2019</MenuItem>
                     </Select>
                   </FormControl>
                 </div>

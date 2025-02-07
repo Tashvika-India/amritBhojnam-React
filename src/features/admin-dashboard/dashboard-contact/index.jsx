@@ -49,19 +49,20 @@ function ManageContact() {
         <div className="card">
           <div className="card-body">
            <div className="d-flex justify-content-between align-items-center my-3">
-           <div className="col-md-9"></div>
-            <div className="col-md-3">
-                <div style={{ width: "14rem" }}>
+           <div className="col-md-10"></div>
+            <div className="col-md-2">
+                <div>
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label" size="small">Category</InputLabel>
+                    <InputLabel id="demo-simple-select-label" size="small">Contacts</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      label="Category"
+                      label="Contact"
                       onChange={(e) =>
                         setFilter(e.target.value)
                       }
                       size="small">
+                        <MenuItem value="all">All</MenuItem>
                       <MenuItem value="subscribe" >Subscribe</MenuItem>
                       <MenuItem value="unSubcribed">Unsubscribed</MenuItem>
                     </Select>
