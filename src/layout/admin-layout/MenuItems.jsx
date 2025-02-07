@@ -286,6 +286,14 @@ function MenuItems() {
           <ListItemText primary="Reports" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
+      <Link to="/admin/manage-meals" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/admin/manage-meals") ? activeStyles : {}} onClick={closeAllMenus}>
+          <ListItemIcon sx={listItemIconStyle}>
+            <IoReceiptSharp size={23} />
+          </ListItemIcon>
+          <ListItemText primary="Manage Meals" sx={listItemTextStyle} />
+        </ListItemButton>
+      </Link>
     </>
   );
 }

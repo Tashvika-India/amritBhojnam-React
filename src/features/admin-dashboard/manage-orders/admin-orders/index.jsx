@@ -54,7 +54,7 @@ function AdminOrders() {
               <div className="col-12 mb-4">
                 <div className="col-md-3 ms-auto text-end">
                   <InputText
-                    className="w-100 rounded-2"
+                    className="w-100 rounded-2 ps-4"
                     type="text"
                     placeholder="Search Order by Id..."
                     onChange={(e) => setSearch(e.target.value)}
