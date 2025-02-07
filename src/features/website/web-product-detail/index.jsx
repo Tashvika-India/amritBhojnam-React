@@ -116,7 +116,7 @@ const ProudctDetail = () => {
       );
       const resPinValue = response?.data || {};
       if (resPinValue.delivery_date === "" && resPinValue.delivery_days === 0) {
-        notifyError("Delivery is available for your pincode.");
+        notifyError("Sorry, delivery is not available for your pincode.");
       } else {
         notifySuccess("Delivery is available for your pincode.");
       }
@@ -242,6 +242,10 @@ const ProudctDetail = () => {
   useEffect(() => {
     reviewList();
   }, []);
+
+
+  console.log("detail", pinValue);
+
 
   return (
     <div className="web-wrapper-main">
@@ -388,10 +392,10 @@ const ProudctDetail = () => {
                     ₹{~~selectedOption?.offer_price}
                     {selectedOption?.offer_price !==
                       selectedOption?.max_price && (
-                      <small className="fw-500 fb-fs-30 text-grey ms-3">
-                        <strike>₹{~~selectedOption?.max_price}</strike>
-                      </small>
-                    )}
+                        <small className="fw-500 fb-fs-30 text-grey ms-3">
+                          <strike>₹{~~selectedOption?.max_price}</strike>
+                        </small>
+                      )}
                   </p>
                   <p style={{ fontSize: "0.875rem" }} className="fw-500 mt-3">
                     (Inclusive of all taxes)
@@ -414,52 +418,52 @@ const ProudctDetail = () => {
                     </p>
                   </div>
                 )}
-                  <div>
-                    {loginonWeb ? (
-                      !checkItemInCart() ? (
-                        <button
-                          className="button-primary mt-4 fb-fs-18"
-                          onClick={() =>
-                            addToCart(
-                              detail?.id,
-                              quantity || 1,
-                              selectedOptionId
-                            )
-                          }
-                          disabled={loading}
-                        >
-                          {loading ? "Adding..." : "Add to Cart"}
-                        </button>
-                      ) : (
-                        <>
-                          <button
-                            className="button-primary mt-4 fb-fs-18"
-                            onClick={toggleCart}
-                          >
-                            Go to Cart
-                          </button>
-                          <MyCartMenu
-                            showCart={showCart}
-                            onCloseCart={toggleCart}
-                          />
-                        </>
-                      )
+                <div>
+                  {loginonWeb ? (
+                    !checkItemInCart() ? (
+                      <button
+                        className="button-primary mt-4 fb-fs-18"
+                        onClick={() =>
+                          addToCart(
+                            detail?.id,
+                            quantity || 1,
+                            selectedOptionId
+                          )
+                        }
+                        disabled={loading}
+                      >
+                        {loading ? "Adding..." : "Add to Cart"}
+                      </button>
                     ) : (
                       <>
                         <button
                           className="button-primary mt-4 fb-fs-18"
-                          onClick={() => setShowWebLogin(true)}
+                          onClick={toggleCart}
                         >
-                          Add to Cart
+                          Go to Cart
                         </button>
-                        <MobileLogin
-                          otpShow={showWebLogin}
-                          onOtpClose={toggleWebLogin}
-                          align="end"
+                        <MyCartMenu
+                          showCart={showCart}
+                          onCloseCart={toggleCart}
                         />
                       </>
-                    )}
-                  </div>
+                    )
+                  ) : (
+                    <>
+                      <button
+                        className="button-primary mt-4 fb-fs-18"
+                        onClick={() => setShowWebLogin(true)}
+                      >
+                        Add to Cart
+                      </button>
+                      <MobileLogin
+                        otpShow={showWebLogin}
+                        onOtpClose={toggleWebLogin}
+                        align="end"
+                      />
+                    </>
+                  )}
+                </div>
                 <div className="mt-3 mt-md-5">
                   <p className="fw-600">Check Availability</p>
                   <div
@@ -489,20 +493,14 @@ const ProudctDetail = () => {
                   {/* {message && <small className="text-orange ms-2 mt-3">{message}</small>} */}
                 </div>
                 <div className="d-flex align-items-center gap-2 mt-2">
-                  {pinValue && (
+                  {pinValue?.delivery_date && pinValue?.delivery_days > 0 && (
                     <>
                       <span>
-                        <img
-                          className="img-fluid"
-                          src={deliveryImg}
-                          alt="delivery-img"
-                        />
+                        <img className="img-fluid" src={deliveryImg} alt="delivery-img" />
                       </span>
                       <span className="text-orange">Get it by</span>
-                      <span className="">{formattedDateCustom}</span>
-                      <span className="" style={{ fontSize: "0.625rem" }}>
-                        (Estimated)
-                      </span>
+                      <span>{formattedDateCustom}</span>
+                      <span style={{ fontSize: "0.625rem" }}>(Estimated)</span>
                     </>
                   )}
                 </div>
@@ -634,7 +632,7 @@ const ProudctDetail = () => {
                                               className="img-fluid border-orange"
                                               src={
                                                 !data?.is_anonymous &&
-                                                data?.user_img
+                                                  data?.user_img
                                                   ? `${baseURL}/${data?.user_img}`
                                                   : pp
                                               }
@@ -652,7 +650,7 @@ const ProudctDetail = () => {
                                               {data?.is_anonymous
                                                 ? "Anonymous"
                                                 : data?.user_name ||
-                                                  "Anonymous"}
+                                                "Anonymous"}
                                             </h6>
                                             <span className="d-inline-block">
                                               <Rating
@@ -671,12 +669,12 @@ const ProudctDetail = () => {
                                         <p className="mb-3 text-grey fw-500 pb-3 pt-2">
                                           {data?.created_at
                                             ? new Intl.DateTimeFormat("en-GB", {
-                                                day: "2-digit",
-                                                month: "short",
-                                                year: "numeric",
-                                              }).format(
-                                                new Date(data.created_at)
-                                              )
+                                              day: "2-digit",
+                                              month: "short",
+                                              year: "numeric",
+                                            }).format(
+                                              new Date(data.created_at)
+                                            )
                                             : "Date not available"}
                                         </p>
                                         {data?.images?.map((image, index) => (
