@@ -10,12 +10,13 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { Link, useLocation } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
-import { BiSolidCategory } from "react-icons/bi";
+import { BiHealth, BiSolidCategory } from "react-icons/bi";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { IoReceiptSharp } from "react-icons/io5";
 import { BsImage } from "react-icons/bs";
 import { BiSolidOffer } from "react-icons/bi";
+import { PiBowlFoodFill } from "react-icons/pi";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { FaUserCog } from "react-icons/fa";
 import { TbMessageUser } from "react-icons/tb";
@@ -286,12 +287,29 @@ function MenuItems() {
           <ListItemText primary="Reports" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
+      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA"}}></span>
+      <Typography
+        sx={{ pt: 2, pb: 1 }}
+        variant="subtitle2"
+        color="textSecondary"
+        style={{fontSize: "12px"}}
+      >
+       MEAL & HEALTH
+      </Typography>
       <Link to="/admin/manage-meals" style={{ textDecoration: "none", color: "inherit" }}>
         <ListItemButton sx={isActive("/admin/manage-meals") ? activeStyles : {}} onClick={closeAllMenus}>
           <ListItemIcon sx={listItemIconStyle}>
-            <IoReceiptSharp size={23} />
+            <PiBowlFoodFill size={23} />
           </ListItemIcon>
           <ListItemText primary="Manage Meals" sx={listItemTextStyle} />
+        </ListItemButton>
+      </Link>
+      <Link to="/admin/health" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/admin/health") ? activeStyles : {}} onClick={closeAllMenus}>
+          <ListItemIcon sx={listItemIconStyle}>
+            <BiHealth size={23} />
+          </ListItemIcon>
+          <ListItemText primary="Health Sensitivity" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
     </>

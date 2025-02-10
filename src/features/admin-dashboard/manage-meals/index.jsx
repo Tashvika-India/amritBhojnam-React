@@ -37,7 +37,11 @@ const ManageMeals = () => {
         <div className="col-md-6">
           <Heading value={"Manage Meals"} />
         </div>
-        
+        <div className="col-md-6 text-end">
+        <Link to="/admin/add-meals">
+            <YellowButton lable={"+ Add Meal"} />
+          </Link>
+        </div>
         <div className="col-12 mt-3">
           <Breadcrumbs aria-label="breadcrumb">
             <Link to={"/admin/dashboard"}>Dashboard</Link>

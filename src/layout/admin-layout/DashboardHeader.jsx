@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import notificationIcon from "../../assets/images/dashboard/notification-bag-icon.png";
 import notificationBell from "../../assets/images/dashboard/notification-bell.png";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import coinManagement from "../../assets/images/dashboard/coin-management.png";
 
 const drawerWidth = 280;
 
@@ -107,6 +108,13 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <div className="d-flex me-1 align-items-center gap-1 pe-2 py-3">
+            <Link to={"/admin/coin-management"}>
+              <img
+                className="img-fluid me-4"
+                src={coinManagement}
+                alt="empty-address"
+              />
+            </Link>
             <div className="admin-header-notifications me-3  bg-yellow rounded-2 p-1 me-4">
               <IconButton onClick={handleNotificationsClick} color="inherit">
                 <VscBellDot className="text-white fs-4" />
@@ -117,10 +125,10 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                 open={openNotificationsMenu}
                 onClose={handleNotificationsClose}
                 PaperProps={{
-                  style: { width: 500 ,maxHeight: '130vh', overflow: 'hidden'},
+                  style: { width: 500, maxHeight: "130vh", overflow: "hidden" },
                 }}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                transformOrigin={{ vertical: "top", horizontal: "right" }}
               >
                 {/* </div> */}
                 <Typography
@@ -129,10 +137,18 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                   sx={{ padding: 3 }}
                 >
                   <p className="fb-fs-14-same mb-0">Notifications</p>
-                  <p className="fb-fs-12 mb-0 d-flex align-items-center"  style={{fontSize: "14px"}}>View All <MdKeyboardDoubleArrowRight size={18} /></p>
+                  <p
+                    className="fb-fs-12 mb-0 d-flex align-items-center"
+                    style={{ fontSize: "14px" }}
+                  >
+                    View All <MdKeyboardDoubleArrowRight size={18} />
+                  </p>
                 </Typography>
                 <Divider />
-                <List  sx={{ padding: 2 }} style={{ maxHeight: '97vh', overflowY: 'auto'}}>
+                <List
+                  sx={{ padding: 2 }}
+                  style={{ maxHeight: "97vh", overflowY: "auto" }}
+                >
                   <div
                     className="d-flex justify-content-between align-items-center py-2"
                     style={{ borderBottom: "1px solid #EEEEEE" }}
@@ -149,7 +165,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                           <p className="fb-fs-18 fw-600 mb-0">
                             New Order Received
                           </p>
-                          <p className="mb-0" style={{fontSize: "12.2px"}}>
+                          <p className="mb-0" style={{ fontSize: "12.2px" }}>
                             Order #7890 placed by Rahul ₹2,49. Payment...
                           </p>
                         </div>
@@ -157,7 +173,12 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                     </ul>
                     <ul>
                       <li style={{ width: "100%" }}>
-                        <p className="text-mid-grey mb-0 me-2 w-100" style={{fontSize: "13px"}}>1 Day ago</p>
+                        <p
+                          className="text-mid-grey mb-0 me-2 w-100"
+                          style={{ fontSize: "13px" }}
+                        >
+                          1 Day ago
+                        </p>
                       </li>
                     </ul>
                   </div>
@@ -177,7 +198,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                           <p className="fb-fs-18 fw-600 mb-0">
                             New Order Received
                           </p>
-                          <p className="mb-0" style={{fontSize: "12.2px"}}>
+                          <p className="mb-0" style={{ fontSize: "12.2px" }}>
                             Order #7890 placed by Rahul ₹2,49. Payment...
                           </p>
                         </div>
@@ -185,7 +206,12 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                     </ul>
                     <ul>
                       <li style={{ width: "100%" }}>
-                        <p className="text-mid-grey mb-0 me-2"  style={{fontSize: "13px"}}>1 Day ago</p>
+                        <p
+                          className="text-mid-grey mb-0 me-2"
+                          style={{ fontSize: "13px" }}
+                        >
+                          1 Day ago
+                        </p>
                       </li>
                     </ul>
                   </div>
@@ -205,7 +231,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                           <p className="fb-fs-18 fw-600 mb-0">
                             New Order Received
                           </p>
-                          <p className="mb-0" style={{fontSize: "12.2px"}}>
+                          <p className="mb-0" style={{ fontSize: "12.2px" }}>
                             Order #7890 placed by Rahul ₹2,49. Payment...
                           </p>
                         </div>
@@ -213,7 +239,12 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                     </ul>
                     <ul>
                       <li style={{ width: "100%" }}>
-                        <p className="text-mid-grey mb-0 me-2" style={{fontSize: "13px"}}>1 Day ago</p>
+                        <p
+                          className="text-mid-grey mb-0 me-2"
+                          style={{ fontSize: "13px" }}
+                        >
+                          1 Day ago
+                        </p>
                       </li>
                     </ul>
                   </div>
@@ -233,7 +264,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                           <p className="fb-fs-18 fw-600 mb-0">
                             New Order Received
                           </p>
-                          <p className="mb-0" style={{fontSize: "12.2px"}}>
+                          <p className="mb-0" style={{ fontSize: "12.2px" }}>
                             Order #7890 placed by Rahul ₹2,49. Payment...
                           </p>
                         </div>
@@ -241,7 +272,12 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                     </ul>
                     <ul>
                       <li style={{ width: "100%" }}>
-                        <p className="text-mid-grey mb-0 me-2" style={{fontSize: "13px"}}>1 Day ago</p>
+                        <p
+                          className="text-mid-grey mb-0 me-2"
+                          style={{ fontSize: "13px" }}
+                        >
+                          1 Day ago
+                        </p>
                       </li>
                     </ul>
                   </div>
@@ -261,7 +297,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                           <p className="fb-fs-18 fw-600 mb-0">
                             New Order Received
                           </p>
-                          <p className="mb-0" style={{fontSize: "12.2px"}}>
+                          <p className="mb-0" style={{ fontSize: "12.2px" }}>
                             Order #7890 placed by Rahul ₹2,49. Payment...
                           </p>
                         </div>
@@ -269,7 +305,12 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                     </ul>
                     <ul>
                       <li style={{ width: "100%" }}>
-                        <p className="text-mid-grey mb-0 me-2 w-100" style={{fontSize: "13px"}}>1 Day ago</p>
+                        <p
+                          className="text-mid-grey mb-0 me-2 w-100"
+                          style={{ fontSize: "13px" }}
+                        >
+                          1 Day ago
+                        </p>
                       </li>
                     </ul>
                   </div>
@@ -287,7 +328,11 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
               </Menu>
             </div>
             <IconButton sx={{ p: 0 }}>
-              <Avatar alt="Avatar" src="your-avatar-url.png" />
+              <Avatar
+                alt="Avatar"
+                src="your-avatar-url.png"
+                style={{ padding: "1.4rem" }}
+              />
             </IconButton>
             <button
               onClick={handleClick}
