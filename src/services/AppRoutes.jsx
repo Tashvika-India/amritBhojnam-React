@@ -50,6 +50,9 @@ import AdminPrivateRoute from "./AdminPrivateRoute";
 import TrackOrder from "../features/website/web-track-order";
 import CoinPage from "../features/website/web-coin-page";
 import ManageMeals from "../features/admin-dashboard/manage-meals";
+import HealthSensitivity from "../features/admin-dashboard/manage-health-sensitivity";
+import AddMeals from "../features/admin-dashboard/manage-meals/components/AddMeals";
+import CoinManagement from "../features/admin-dashboard/manage-coin";
 function AppRoutes() {
   return (
     <Routes>
@@ -126,6 +129,17 @@ function AppRoutes() {
           <AdminPrivateRoute>
             <DashboardSidebar>
               <AddRoles />
+            </DashboardSidebar>
+          </AdminPrivateRoute>
+        }
+      />
+      <Route
+        exact
+        path="/admin/add-meals"
+        element={
+          <AdminPrivateRoute>
+            <DashboardSidebar>
+              <AddMeals />
             </DashboardSidebar>
           </AdminPrivateRoute>
         }
@@ -357,6 +371,28 @@ function AppRoutes() {
           <AdminPrivateRoute>
             <DashboardSidebar>
               <ManageMeals />
+            </DashboardSidebar>
+          </AdminPrivateRoute>
+        }
+      /> 
+       <Route
+        exact
+        path="/admin/health"
+        element={
+          <AdminPrivateRoute>
+            <DashboardSidebar>
+              <HealthSensitivity/>
+            </DashboardSidebar>
+          </AdminPrivateRoute>
+        }
+      /> 
+        <Route
+        exact
+        path="/admin/coin-management"
+        element={
+          <AdminPrivateRoute>
+            <DashboardSidebar>
+              <CoinManagement/>
             </DashboardSidebar>
           </AdminPrivateRoute>
         }
