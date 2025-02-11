@@ -232,3 +232,6 @@ export const getOrderInvoiceApi = (id) => API.post(`/accounts/invoice_download_b
 //Dashboard
 export const getDashboardApi = () => API.get(`/accounts/dashboard/`);
 
+// Aad meal api 
+export const getMealApi = () => API.get(`/meal_items/`)
+export const postAddMealApi = (payload) => API.post(`/meal_items/`, payload);

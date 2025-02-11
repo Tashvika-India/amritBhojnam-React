@@ -2,34 +2,30 @@ import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
 import YellowButton from "../../../components/buttons/YellowButton";
 import { Link } from "react-router-dom";
-import { getCouponApi } from "../../../services/adminApiRoutes";
 import Loading from "../../../components/ui/Loading";
 import TabsButtons from "../../../components/ui/TabsButton";
 import { InputText } from "primereact/inputtext";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs'; 
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 import MealsTable from "./components/MealsTable";
+import { getMealApi } from "../../../services/adminApiRoutes";
 
-const ManageMeals = () => {
-  const [filter, setFilter] = useState({coupon_code: ""});
-  const [loding, setLoding] = useState(false);
-  const [coupons, setCoupons] = useState([]);
-  const [activeTab, setActiveTab] = useState("Active Orders");
-  const getCoupons = async () => {
-    setLoding(true);
+const ManageMeals = () => { 
+  const [data, setData] = useState([])
+
+  const getMealList = async () => {
     try {
-      const response = await getCouponApi(filter?.coupon_code || "");
-      setCoupons(response?.data);
-      setLoding(false);
+      const response = await getMealApi();
+      setData(response?.data?.results)
     } catch (error) {
       console.log(error);
     }
-  };
+  }  
 
   useEffect(() => {
-    getCoupons();
-  }, [filter]);
+    getMealList();
+  }, [])
 
   return (
     <>
@@ -38,7 +34,7 @@ const ManageMeals = () => {
           <Heading value={"Manage Meals"} />
         </div>
         <div className="col-md-6 text-end">
-        <Link to="/admin/add-meals">
+          <Link to="/admin/add-meals">
             <YellowButton lable={"+ Add Meal"} />
           </Link>
         </div>
@@ -70,7 +66,7 @@ const ManageMeals = () => {
               <div className="col-md-1"></div>
               <div className="col-md-3"></div>
               <div className="col-md-3 ms-auto text-end">
-                <InputText
+                {/* <InputText
                   className="w-100 ps-4"
                   sx={{ fontFamily: "Poppins, sans-serif" }}
                   value={filter.coupon_code || ""}
@@ -78,12 +74,12 @@ const ManageMeals = () => {
                     setFilter({ ...filter, coupon_code: e.target.value })
                   }
                   placeholder="Search order"
-                />
+                /> */}
               </div>
             </div>
-           <div>
-            <MealsTable/>
-           </div>
+            <div>
+              <MealsTable data={data} />
+            </div>
           </div>
         </div>
       </div>
