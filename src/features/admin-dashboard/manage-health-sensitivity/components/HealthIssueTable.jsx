@@ -7,11 +7,13 @@ import DeleteModal from "../../../../components/ui/DeleteModal";
 import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
 import { deleteNutritionApi } from "../../../../services/adminApiRoutes";
 import { RiPencilFill } from "react-icons/ri";
+import AddHealthIssue from "./AddHealthIssue";
 import YellowButton from "../../../../components/buttons/YellowButton";
 
 function  HealthIssueTable() {
   const [isModalVisible, setModalVisible] = useState(false);
   const [current, setCurrent] = useState(null);
+    const [visible, setVisible] = useState(false);
 
   const handleEditClick = (rowData) => {
     setEditData(rowData);
@@ -95,6 +97,12 @@ function  HealthIssueTable() {
         onHide={hideDeleteModal}
         onDelete={handleDelete}
       />
+      <AddHealthIssue
+                    visible={visible}
+                    setVisible={setVisible}
+                  
+                    
+                  />
     </>
   );
 }
