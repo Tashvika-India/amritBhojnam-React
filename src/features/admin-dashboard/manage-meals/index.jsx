@@ -11,17 +11,21 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import MealsTable from "./components/MealsTable";
 import { getMealApi } from "../../../services/adminApiRoutes";
 
-const ManageMeals = () => { 
+const ManageMeals = () => {
   const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const getMealList = async () => {
+    setLoading(true)
     try {
       const response = await getMealApi();
       setData(response?.data?.results)
+      setLoading(false)
     } catch (error) {
       console.log(error);
+      setLoading(false)
     }
-  }  
+  }
 
   useEffect(() => {
     getMealList();
@@ -78,7 +82,11 @@ const ManageMeals = () => {
               </div>
             </div>
             <div>
-              <MealsTable data={data} />
+              {loading ? (
+                <Loading />
+              ) : (
+                <MealsTable data={data} getMealList={getMealList} />
+              )}
             </div>
           </div>
         </div>

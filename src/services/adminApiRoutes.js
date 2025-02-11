@@ -235,3 +235,4 @@ export const getDashboardApi = () => API.get(`/accounts/dashboard/`);
 // Aad meal api 
 export const getMealApi = () => API.get(`/meal_items/`)
 export const postAddMealApi = (payload) => API.post(`/meal_items/`, payload);
+export const deleteMealApi = (id) => API.delete(`/meal_items/${id}`);
