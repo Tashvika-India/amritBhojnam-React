@@ -113,7 +113,7 @@ function CoinManagement() {
                   className="text-mid-grey fw-500 mb-1 ms-4 ps-1"
                   style={{ fontSize: "14px" }}
                 >
-                  REWARD COIN %
+                  SPEND COIN %
                 </p>
               </div>
               <div className="d-flex gap-3 align-items-center">
