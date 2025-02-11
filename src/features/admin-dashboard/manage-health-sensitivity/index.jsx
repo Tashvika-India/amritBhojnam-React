@@ -73,12 +73,7 @@ function HealthSensitivity() {
        
       </div>
 
-      {/* <AddNutritionModal
-        visible={visible}
-        setVisible={setVisible}
-        editData={editData}
-        getNutrition={getNutrition}
-      /> */}
+     
     </>
   );
 }
