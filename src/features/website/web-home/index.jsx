@@ -73,7 +73,7 @@ const HomePage = () => {
       dispatch(clearProductList());
     };
   }, [dispatch]);
-
+ 
 
   return (
     <div className="web-wrapper-main">
@@ -287,38 +287,6 @@ const HomePage = () => {
       <section className="banner-ads mt-5">
         <div className="container-fluid">
           <div className="row">
-            {/* <div className="col-md-6 p-0">
-              <div className="image-sec">
-                <img
-                  className="d-lg-block d-md-block d-none desktop-ban h-100"
-                  src={bannerAds}
-                  alt="banner-ads"
-                />
-                <img
-                  className="d-lg-none d-md-none d-block mn-1 mobile-ban h-100"
-                  style={{ marginBottom: "-3px" }}
-                  src={bannerAdsmob}
-                  alt="banner-ads"
-                />
-              </div>
-            </div>
-            <div className="col-md-6 p-0">
-              <div className="content-sec">
-                <h2 className="pb-3 fw-normal text-white lh-1">
-                  Good For
-                  <span className="fw-bold">
-                    You <br></br> and the Planet
-                  </span>
-                </h2>
-                <p className="pb-5 text-white">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer
-                </p>
-                <button className="button-white rounded-3">Shop Now</button>
-              </div>
-            </div> */}
             <div className="col-md-5">
               <div>
                 <img
@@ -476,7 +444,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section id="best" className="best-product overflow-hidden my-lg-5 my-2">
+      { (bestPriceProducts.length > 0) && <section id="best" className="best-product overflow-hidden my-lg-5 my-2">
         <div className="container-fluid">
           <div className="h-100">
             <h3 className="fw-bold mb-5 pb-2 text-center">
@@ -489,7 +457,7 @@ const HomePage = () => {
             )}
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* <section>
         <div className="container fb-container">

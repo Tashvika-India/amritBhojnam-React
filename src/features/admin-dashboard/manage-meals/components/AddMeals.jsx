@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Heading from "@/components/ui/Heading";
 import {
-    Alert,
+  Alert,
   FormControl,
   InputLabel,
   MenuItem,
@@ -11,68 +11,67 @@ import {
   TextField,
 } from "@mui/material";
 import { Checkbox } from "primereact/checkbox";
-import IosSwitch from "../../../../components/ui/IosSwitch";
-import { Link } from "react-router-dom";
-import { postCouponApi } from "../../../../services/adminApiRoutes";
 import { useNavigate } from "react-router-dom";
 import YellowButton from "../../../../components/buttons/YellowButton";
 import FileUpload from "../../../../components/fileUpload/FileUpload";
+import { postAddMealApi } from "../../../../services/adminApiRoutes";
 
 const AddMeals = () => {
-  const [isFirstOrder, setIsFirstOrder] = useState(false);
-  const [isDeliveryFree, setIsDeliveryFree] = useState(false);
   const navigate = useNavigate();
+  const [selectedFoodSensitivities, setSelectedFoodSensitivities] = useState([]);
+  const [selectedHealthIssues, setSelectedHealthIssues] = useState([]);
 
   const formik = useFormik({
     initialValues: {
-      title: "",
-      description: "",
-      coupon_code: "",
-      coupon_type: "",
-      discount_value: "",
-      max_discount: "",
-      valid_from: "",
-      valid_to: "",
-      is_active: true,
-      buy_quantity: "",
-      buy_quantity_unit: "",
-      free_quantity: "",
-      free_quantity_unit: "",
-      buy_product: "",
-      free_product: "",
+      name: "",
+      kcal: "",
+      protein: "",
+      carbs: "",
+      fat: "",
+      image: "",
+      img_name: "",
+      food_preference: "",
+      food_sensitivity: [],
+      health_issues: [],
+      meal_type: "",
     },
     validationSchema: Yup.object({
-      title: Yup.string().required("Title is required"),
-      description: Yup.string().required("Description is required"),
-      coupon_code: Yup.string().required("Coupon code is required"),
-      coupon_type: Yup.string().required("Coupon type is required"),
-      discount_value: Yup.number().required("Discount value is required"),
-      max_discount: Yup.number().required("Max discount is required"),
-      valid_from: Yup.date().required("Valid from date is required"),
-      valid_to: Yup.date().required("Valid to date is required"),
-      buy_quantity: Yup.number().required("Buy quantity is required"),
-      buy_quantity_unit: Yup.string().required("Buy quantity unit is required"),
-      free_quantity: Yup.number().required("Free quantity is required"),
-      free_quantity_unit: Yup.string().required(
-        "Free quantity unit is required"
-      ),
-      buy_product: Yup.string().required("Buy product is required"),
-      free_product: Yup.string().required("Free product is required"),
+      name: Yup.string().required("Food name is required"),
+      kcal: Yup.number().required("Calories are required"),
+      protein: Yup.number().required("Protein is required"),
+      carbs: Yup.number().required("Carbs are required"),
+      fat: Yup.number().required("Fat is required"),
+      food_preference: Yup.string().required("Food preference is required"),
+      // meal_type: Yup.string().required("Meal type is required"),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values) => {      
       const payload = {
         ...values,
-        is_first_order: isFirstOrder,
-        is_delivery_free: isDeliveryFree,
+        food_sensitivity: selectedFoodSensitivities,
+        health_issues: selectedHealthIssues,
       };
       try {
-        await postCouponApi(payload);
-        navigate("/admin/coupons");
+        await postAddMealApi(payload); 
+        navigate("/admin/manage-meals");
       } catch (error) {
-        alert("Failed to add coupon.");
+        alert("Failed to add meal.");
       }
     },
   });
+
+  const { values, resetForm, setValues, errors, touched } = formik; 
+
+  const handleCheckboxChange = (type, value) => {
+    if (type === "food_sensitivity") {
+      setSelectedFoodSensitivities((prev) =>
+        prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+      );
+    } else {
+      setSelectedHealthIssues((prev) =>
+        prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+      );
+    }
+  };
 
   return (
     <>
@@ -83,263 +82,134 @@ const AddMeals = () => {
       </div>
       <form onSubmit={formik.handleSubmit}>
         <div className="row">
+          {/* Left Side */}
           <div className="col-md-6">
             <div className="card mb-4">
               <div className="card-body">
                 <div className="mb-4">
-                  <FileUpload formik={formik} name="img_file" />
+                  <FileUpload formik={formik} name="image" />
+                  {formik.touched.image && formik.errors.image && (
+                    <Alert severity="error">{formik.errors.image}</Alert>
+                  )}
                 </div>
                 <div className="row">
                   <div className="col-md-6 mb-3">
                     <TextField
                       fullWidth
-                      id="roles"
-                      name="title"
+                      id="name"
+                      name="name"
                       label="Enter Food Name"
                       placeholder="Enter Food Name"
+                      value={formik.values.name}
+                      onChange={formik.handleChange}
+                      error={formik.touched.name && Boolean(formik.errors.name)}
+                      helperText={formik.touched.name && formik.errors.name}
                     />
                   </div>
                   <div className="col-md-6">
-                    <TextField
-                      fullWidth
-                      id="roles"
-                      name="title"
-                      label="Enter Quantity"
-                      placeholder="Enter Quantity"
-                    />
+                    <FormControl fullWidth>
+                      <InputLabel>Food Preference</InputLabel>
+                      <Select
+                        id="food_preference"
+                        name="food_preference"
+                        value={formik.values.food_preference}
+                        onChange={formik.handleChange}
+                        error={formik.touched.food_preference && Boolean(formik.errors.food_preference)}
+                      >
+                        <MenuItem value="">Select</MenuItem>
+                        <MenuItem value="Veg">Veg</MenuItem>
+                      <MenuItem value="Non-Veg">Non-Veg</MenuItem>
+                      </Select>
+                      {formik.touched.food_preference && formik.errors.food_preference && (
+                        <Alert severity="error">{formik.errors.food_preference}</Alert>
+                      )}
+                    </FormControl>
                   </div>
                   <div className="col-md-6 mb-3">
                     <TextField
                       fullWidth
-                      id="roles"
-                      name="title"
+                      id="kcal"
+                      name="kcal"
                       label="Calories"
-                      placeholder="Calories"
+                      type="number"
+                      value={formik.values.kcal}
+                      onChange={formik.handleChange}
                     />
                   </div>
                   <div className="col-md-6">
                     <TextField
                       fullWidth
-                      id="roles"
-                      name="title"
+                      id="protein"
+                      name="protein"
                       label="Protein"
-                      placeholder="Protein"
+                      type="number"
+                      value={formik.values.protein}
+                      onChange={formik.handleChange}
                     />
                   </div>
                   <div className="col-md-6 mb-3">
                     <TextField
                       fullWidth
-                      id="roles"
-                      name="title"
+                      id="carbs"
+                      name="carbs"
                       label="Carbs"
-                      placeholder="Carbs"
+                      type="number"
+                      value={formik.values.carbs}
+                      onChange={formik.handleChange}
                     />
                   </div>
                   <div className="col-md-6">
                     <TextField
                       fullWidth
-                      id="roles"
-                      name="title"
+                      id="fat"
+                      name="fat"
                       label="Fat"
-                      placeholder="Fat"
+                      type="number"
+                      value={formik.values.fat}
+                      onChange={formik.handleChange}
                     />
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Right Side */}
           <div className="col-md-6">
-            <div className="card">
+            <div className="card p-3 mb-4">
               <div className="card-body">
-                <div>
-                  <p className="fb-fs-18 fw-500">
-                    Avoid Due to Food Sensitivities:
-                  </p>
-
-                  <div className="row py-3">
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Dairy Sensitivity</p>
-                      </div>
+                <p className="fw-500">Food Sensitivities:</p>
+                {["Dairy Sensitivity", "Nut Allergy", "Gluten Sensitivity", "Soy Allergy"].map(
+                  (item) => (
+                    <div key={item} className="mb-3">
+                      <Checkbox
+                        checked={selectedFoodSensitivities.includes(item)}
+                        onChange={() => handleCheckboxChange("food_sensitivity", item)}
+                      />
+                      <span className="ps-3">{item}</span>
                     </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Nut Allergy</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Gluten Sensitivity</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Soy Allergy</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Egg Allergy</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Seafood Allergy</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Sulfite Sensitivity</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Nightshade Sensitivity</p>
-                      </div>
-                    </div>
-                     <Alert severity="warning" className="mt-3 px-3 py-0"><span className="fw-500 text-black">Warning:</span> Selecting an option means avoiding foods that may trigger allergies or intolerances.</Alert>
-                  </div>
-                </div>
+                  )
+                )}
               </div>
             </div>
-            <div className="card mt-5">
+            <div className="card p-3">
               <div className="card-body">
-                <div>
-                  <p className="fb-fs-18 fw-500">
-                  Avoid Due to Health Issue:
-                  </p>
-
-                  <div className="row py-3">
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Diabetes</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">High Blood Pressure</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">High Cholesterol</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Acid Reflux (GERD)</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Irritable Bowel Syndrome</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Kidney Disease</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Thyroid Issues</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                      <div className="d-flex align-items-center">
-                        <Checkbox
-                          checked={isFirstOrder}
-                          onChange={(e) => setIsFirstOrder(e.checked)}
-                        />
-                        <p className="mb-0 ps-3">Anemia</p>
-                      </div>
-                    </div>
-                    <Alert severity="warning" className="mt-3 px-3 py-0"><span className="fw-500 text-black">Warning:</span> Selecting an option means avoiding foods that may trigger allergies or intolerances.</Alert>
+                <p className="fw-500">Health Issues:</p>
+                {["Diabetes", "High Blood Pressure", "Heart Disease"].map((issue) => (
+                  <div key={issue} className="mb-3">
+                    <Checkbox
+                      checked={selectedHealthIssues.includes(issue)}
+                      onChange={() => handleCheckboxChange("health_issues", issue)}
+                    />
+                    <span className="ps-3">{issue}</span>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
-          
-          <div className="col-md-12 mt-4">
-            <div className="row">
-              <div className="col-md-12 mb-4 text-end d-flex justify-content-end">
-                <Link>
-                  <YellowButton lable={"+ Add Meal"} />
-                </Link>
-                <button
-                  className="button-primary-reverse me-4 ms-3 py-2"
-                  type="button"
-                  onClick={() => {
-                    formik.resetForm();
-                    setOpen(false);
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
+        </div>
+        <div className="text-end mt-4">
+        <YellowButton type="submit" lable={"+ Add Meal"} />
         </div>
       </form>
     </>
