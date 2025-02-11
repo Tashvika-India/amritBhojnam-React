@@ -406,15 +406,29 @@
   text-align: right;
   font-weight: bold;
 }
-.coin-div{
+.coin-div {
   border: 1px solid #DCDAD5 !important;
   border-radius: 10px;
-  width: 12rem;
+  width: 11rem;
   display: flex;
+  align-items: center; /* Align input and text vertically */
   justify-content: space-between;
-  display: flex;
   text-align: center;
-  margin-top: 1.7rem;
+  .coin-input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 8px 1.5rem;
+    background: transparent;
+  }
+  
+  .coin-text {
+    margin: 0;
+    padding: 13px;
+    font-size: 0.875rem;
+    border-radius: 0 0.625rem 0.625rem 0;
+    white-space: nowrap; /* Prevents wrapping */
+  }
 }
 .underline-heading {
   position: relative;

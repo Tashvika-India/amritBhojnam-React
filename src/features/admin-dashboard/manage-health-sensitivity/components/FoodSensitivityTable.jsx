@@ -9,6 +9,7 @@ import {
   notifySuccess,
 } from "../../../../components/ui/Notification";
 import { deleteNutritionApi } from "../../../../services/adminApiRoutes";
+import AddFoodSensitivity from "./AddFoodSensitivity";
 import { RiPencilFill } from "react-icons/ri";
 import YellowButton from "../../../../components/buttons/YellowButton";
 
@@ -109,6 +110,12 @@ function FoodSensitivityTable() {
         onHide={hideDeleteModal}
         onDelete={handleDelete}
       />
+      <AddFoodSensitivity
+              visible={visible}
+              setVisible={setVisible}
+            
+              
+            />
     </>
   );
 }
