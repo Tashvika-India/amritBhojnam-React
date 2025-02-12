@@ -7,11 +7,14 @@ import { MdDelete } from "react-icons/md";
 import DeleteModal from "../../../../components/ui/DeleteModal";
 import { deleteMealApi } from "../../../../services/adminApiRoutes";
 import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 function MealsTable({ data,getMealList }) {
   const [isModalVisible, setModalVisible] = useState(false);
   const [current, setCurrent] = useState(null);
+  const navigate = useNavigate(); 
+  
   const showDeleteModal = (data) => {
     setCurrent(data);
     setModalVisible(true);
@@ -32,12 +35,13 @@ function MealsTable({ data,getMealList }) {
       console.error("Error deleting nutrition:", error);
       notifyError(error.response?.data?.error);
     }
-  }; 
+  };  
 
   const editButtonTemplate = (rowData) => (
     <div className="w-100 d-flex gap-1 ">
       <button
         title="Edit"
+        onClick={() => navigate("/admin/edit-meals", { state: rowData })}
         className="d-flex gap-2 align-items-center border-0 rounded me-3"
         style={{ color: "#1F5FBE", backgroundColor: "#EDF1FF", padding: ".5rem .5rem", marginLeft: "1rem" }}>
         <RiPencilFill size={20} />
@@ -53,19 +57,25 @@ function MealsTable({ data,getMealList }) {
   );
 
   const ImageBody = (rowData) => (
-    <div className="row">
-      <div className="col-6">
-        <div style={{ display: "flex", alignItems: "center" }}>
+    <div className="d-flex align-items-center gap-3"> 
           <img
-            src={image}
+            src={rowData?.image}
             alt={rowData?.name}
-            className="img-fluid" style={{ width: "3.5rem", height: "4.5rem" }}
-          />
-        </div>
-      </div>
-      <div className="col-6">
-        <p>{rowData?.name}</p>
-      </div>
+            className="img-fluid" style={{ width: "60px", height: "60px", objectFit : "cover" }}
+          />  
+        <p className="fw-400">{rowData?.name}</p> 
+    </div>
+  )
+
+  const  ListBody = (rowData) => (
+    <div className="ul"> 
+        {
+          rowData?.food_preference?.map((item) => {
+            return (
+              <li className="fw-400">{item}</li>
+            )
+          })
+        } 
     </div>
   )
 
@@ -74,7 +84,7 @@ function MealsTable({ data,getMealList }) {
     <>
       <DataTable value={data} responsiveLayout="scroll" paginator rows={10}>
         <Column field="name" header="FOOD ITEM" body={ImageBody} ></Column>
-        <Column field="food_preference" header="Food Preference" ></Column>
+        <Column field="food_preference" header="Food Preference" body={ListBody} ></Column>
         <Column field="kcal" header="CALORIES"></Column>
         <Column field="protein" header="PROTEIN"></Column>
         <Column field="carbs" header="CARBS"></Column>
