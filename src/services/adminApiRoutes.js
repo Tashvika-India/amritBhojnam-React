@@ -221,6 +221,7 @@ export const getNutritionValueApi = () => API.get(`/product-nutritions/`);
 export const postNutritionValueApi = (payload) => API.post(`/product-nutritions/`, payload); 
 
 export const multiImageUploadApi = (payload) => API.post(`/multi_img_upload/`, payload);
+export const singleImageUploadApi = (payload) => API.post(`/single_img_upload/`, payload);
 
 // check pincode
 
@@ -235,4 +236,5 @@ export const getDashboardApi = () => API.get(`/accounts/dashboard/`);
 // Aad meal api 
 export const getMealApi = () => API.get(`/meal_items/`)
 export const postAddMealApi = (payload) => API.post(`/meal_items/`, payload);
+export const putMealApi = (id,payload) => API.put(`/meal_items/${id}/`, payload);
 export const deleteMealApi = (id) => API.delete(`/meal_items/${id}`);
