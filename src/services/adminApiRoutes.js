@@ -243,6 +243,8 @@ export const deleteMealApi = (id) => API.delete(`/meal_items/${id}`);
 export const getMealHealthIssueApi = () => API.get(`/meal_health_issue/`)
 export const postMealHealthIssue = (payload) => API.post(`/meal_health_issue/`, payload);
 export const deleteMealHealthIssue = (id) => API.delete(`/meal_health_issue/${id}`);
-
-export const postMealFoodSensitivity = (payload) => API.post(`/meal_food_sensitivity/`, payload);
 export const putMealHealthIssue = (id,payload) => API.put(`/meal_health_issue/${id}/`, payload);
+
+export const getMealFoodSensitivityApi = () => API.get(`/meal_food_sensitivity/`)
+export const postMealFoodSensitivity = (payload) => API.post(`/meal_food_sensitivity/`, payload);
+export const deleteFoodSensitivity = (id) => API.delete(`/meal_food_sensitivity/${id}`);

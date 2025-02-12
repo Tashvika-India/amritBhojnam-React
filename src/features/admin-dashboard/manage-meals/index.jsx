@@ -51,24 +51,12 @@ const ManageMeals = () => {
       </div>
       <div className="">
         <div className="card">
-          <div className="card-body">
-            <div className="row mb-3">
-              <div className="col-md-5">
-                
-              </div>
-              <div className="col-md-1"></div>
-              <div className="col-md-3"></div>
-              <div className="col-md-3 ms-auto text-end">
-               
-              </div>
-            </div>
-            <div>
+          <div className="card-body"> 
               {loading ? (
                 <Loading />
               ) : (
                 <MealsTable data={data} getMealList={getMealList} />
-              )}
-            </div>
+              )} 
           </div>
         </div>
       </div>

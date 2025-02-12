@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import { categorySchema } from "../../../../schemas/category-schema";
 import {
   postCategoriesApi,
+  postMealFoodSensitivity,
   putCategoriesApi,
 } from "../../../../services/adminApiRoutes";
 import Loading from "../../../../components/ui/Loading";
@@ -21,77 +22,40 @@ import { Checkbox } from "primereact/checkbox";
 export default function AddCategoryModal({
   visible,
   setVisible,
-  getCategories,
-  editData,
 }) {
   const [loading, setLoading] = useState(false);
-  const [isFirstOrder, setIsFirstOrder] = useState(false);
+  const [selectedFoodPreference, setSelectedFoodPreference] = useState([]);
   const initialValues = {
-    name: "",
-    img_file: null,
-    is_active: true,
+    food_preference: [],
+    food_sensitivity: ""
   };
 
   const formik = useFormik({
-    initialValues: editData ? editData : initialValues,
+    initialValues: initialValues,
     enableReinitialize: true,
-    validationSchema: categorySchema,
     onSubmit: async (values) => {
-      if (editData) {
-        await updateCategory(values); // PUT or PATCH for edit
-      } else {
-        await addCategory(values); // POST for new category
+      console.log("vales",values);
+      
+      const payload = {
+        ...values,
+        food_preference: selectedFoodPreference,
+      }
+      try {
+        await postMealFoodSensitivity(payload);
+      } catch (error) {
+        console.log("error", error);
+
       }
     },
   });
 
   const { values, handleSubmit, resetForm, setValues, errors } = formik;
 
-  async function addCategory(values) {
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("name", values.name);
-    if (values.img_file instanceof File) {
-      formData.append("img_file", values.img_file);
-    }
-
-    formData.append("is_active", values.is_active);
-    try {
-      const response = await postCategoriesApi(formData);
-      formik.resetForm();
-      getCategories();
-      setVisible(false);
-      notifySuccess("Category Added Successfully");
-    } catch (error) {
-      notifyError(error.response?.data?.error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function updateCategory(values) {
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("name", values?.name);
-    if (values.img_file instanceof File) {
-      formData.append("img_file", values.img_file);
-    }
-
-    formData.append("is_active", values.is_active);
-
-    try {
-      const response = await putCategoriesApi(editData.id, formData); // Assuming you have a PUT API
-      formik.resetForm();
-      getCategories();
-      setVisible(false);
-      notifySuccess("Category Updated Successfully");
-    } catch (error) {
-      console.error("Failed to update category!", error);
-      notifyError(error.response?.data?.error);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const handleCheckboxChange = (type, value) => {
+    setSelectedFoodPreference((prev = []) =>
+      prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+    );
+  };
 
   return (
     <div className="card flex justify-content-center">
@@ -111,50 +75,32 @@ export default function AddCategoryModal({
             <div className="p-fluid">
               <div className="mb-4">
                 <p className="text-black">Food Preference:</p>
-                <div className="d-flex align-items-center gap-5">
-                  <div className="d-flex align-items-center">
-                    <Checkbox
-                      checked={isFirstOrder}
-                      onChange={(e) => setIsFirstOrder(e.checked)}
-                    />
-                    <p className="mb-0 ps-3 text-black">Vegan</p>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <Checkbox
-                      checked={isFirstOrder}
-                      onChange={(e) => setIsFirstOrder(e.checked)}
-                    />
-                    <p className="mb-0 ps-3 text-black">Vegetarian</p>
-                  </div>
+                <div className="row">
+                  {["Vegan", "Vegetarian", "Eggeterian", "Non-Vegeterian"].map(
+                    (item) => (
+                      <div className="col-6 mb-4">
+                        <div key={item} className="mb-3 d-inline-flex align-items-center">
+                          <Checkbox
+                            checked={selectedFoodPreference.includes(item)}
+                            onChange={() => handleCheckboxChange("food_preference", item)}
+                          />
+                          <span className="ps-3">{item}</span>
+                        </div>
+                      </div>
+                    )
+                  )}
                 </div>
-                <div className="d-flex align-items-center gap-5 mt-4">
-                  <div className="d-flex align-items-center">
-                    <Checkbox
-                      checked={isFirstOrder}
-                      onChange={(e) => setIsFirstOrder(e.checked)}
-                    />
-                    <p className="mb-0 ps-3 text-black">Eggetarian</p>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <Checkbox
-                      checked={isFirstOrder}
-                      onChange={(e) => setIsFirstOrder(e.checked)}
-                    />
-                    <p className="mb-0 ps-3 text-black">Non-Vegetarian</p>
-                  </div>
+                <div>
+                  <TextField
+                    fullWidth
+                    className="mt-2"
+                    variant="outlined"
+                    placeholder="Enter Sensitivity"
+                    name="food_sensitivity"
+                    onChange={formik.handleChange}
+                    value={formik.values.food_sensitivity} />
+                  <p className="text-danger">{errors.food_sensitivity}</p>
                 </div>
-              </div>
-              <div>
-                <TextField
-                  fullWidth
-                  className="mt-2"
-                  variant="outlined"
-                  placeholder="Enter Name"
-                  name="name"
-                  onChange={formik.handleChange}
-                  value={formik.values.name}
-                />
-                <p className="text-danger">{errors.name}</p>
               </div>
             </div>
           </form>
@@ -178,7 +124,7 @@ function CustomHeader({ formik }) {
   );
 }
 
-function FooterContent({ formik, setVisible, loading, editData }) {
+function FooterContent({ formik, setVisible, loading }) {
   return (
     <>
       <div className="d-inline-flex gap-3">

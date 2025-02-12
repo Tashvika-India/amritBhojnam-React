@@ -6,7 +6,7 @@ import FoodSensitivityTable from "./components/FoodSensitivityTable";
 import HealthIssueTable from "./components/HealthIssueTable";
 
 function HealthSensitivity() { 
- 
+
   return (
     <>
       <div className="mt-5 mb-5 row">

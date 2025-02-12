@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { MdDelete } from "react-icons/md";
@@ -8,7 +8,7 @@ import {
   notifyError,
   notifySuccess,
 } from "../../../../components/ui/Notification";
-import { deleteNutritionApi } from "../../../../services/adminApiRoutes";
+import { deleteFoodSensitivity, getMealFoodSensitivityApi } from "../../../../services/adminApiRoutes";
 import AddFoodSensitivity from "./AddFoodSensitivity";
 import { RiPencilFill } from "react-icons/ri";
 import YellowButton from "../../../../components/buttons/YellowButton";
@@ -16,15 +16,24 @@ import YellowButton from "../../../../components/buttons/YellowButton";
 function FoodSensitivityTable() {
   const [isModalVisible, setModalVisible] = useState(false);
   const [current, setCurrent] = useState(null);
-   const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
 
-  const handleEditClick = (rowData) => {
-    setEditData(rowData);
-    setVisible(true);
-  };
+  const getMealFoodSensitivity = async () => {
+    setLoading(true)
+    try {
+      const response = await getMealFoodSensitivityApi();
+      setData(response?.data?.results)
+      setLoading(false)
+    } catch (error) {
+      console.log(error);
+      setLoading(false)
+    }
+  }
 
-  const showDeleteModal = (nutrition) => {
-    setCurrent(nutrition);
+  const showDeleteModal = (data) => {
+    setCurrent(data);
     setModalVisible(true);
   };
 
@@ -35,16 +44,21 @@ function FoodSensitivityTable() {
 
   const handleDelete = async () => {
     try {
-      await deleteNutritionApi(current.id);
+      await deleteFoodSensitivity(current.id);
       setModalVisible(false);
-      setCurrent(null);
-      getNutrition();
-      notifySuccess("Nutrition deleted successfully");
+      setCurrent(null); 
+      notifySuccess("Food Sensitivity deleted successfully");
+      getMealFoodSensitivity();
     } catch (error) {
       console.error("Error deleting nutrition:", error);
       notifyError(error.response?.data?.error);
     }
   };
+
+  useEffect(() => {
+    getMealFoodSensitivity();
+  }, []);
+
   const editButtonTemplate = (rowData) => (
     <div className="w-100 d-flex gap-3">
       <button
@@ -64,33 +78,12 @@ function FoodSensitivityTable() {
         className="text-danger d-flex gap-2 align-items-center border-0 rounded"
         title="Delete"
         style={{ backgroundColor: "#d5768f38", paddingBlock: ".3rem" }}
-        onClick={() => showDeleteModal(rowData)}
-      >
+        onClick={() => showDeleteModal(rowData)}>
         <MdDelete size={20} />
       </button>
     </div>
   );
 
-  const iosSwitchTemplate = (rowData) => {
-    const handleToggleChange = (event) => {
-      const updatedStatus = event.target.checked;
-      bannerStatusChange(rowData, updatedStatus);
-    };
-
-     useEffect(() => {
-        if (!visible) {
-          setEditData(null);
-        }
-      }, [visible]);
-    
-    return (
-      <IosSwitch
-        name="is_active"
-        checked={rowData.is_active}
-        onChange={handleToggleChange}
-      />
-    );
-  };
 
   return (
     <>
@@ -100,9 +93,9 @@ function FoodSensitivityTable() {
           <YellowButton handleClick={() => setVisible(true)} lable={"+ Add"} />
         </div>
       </div>
-      <DataTable responsiveLayout="scroll" paginator rows={10} rowkey="id">
-        <Column field="name" header="NAME"></Column>
-        <Column field="unit" header="UNIT"></Column>
+      <DataTable value={data} responsiveLayout="scroll" paginator rows={10} rowkey="id">
+        <Column field="food_sensitivity" header="NAME"></Column>
+        <Column field="user_count" header="UNIT"></Column>
         <Column header="ACTION" body={editButtonTemplate}></Column>
       </DataTable>
       <DeleteModal
@@ -110,12 +103,7 @@ function FoodSensitivityTable() {
         onHide={hideDeleteModal}
         onDelete={handleDelete}
       />
-      <AddFoodSensitivity
-              visible={visible}
-              setVisible={setVisible}
-            
-              
-            />
+      <AddFoodSensitivity visible={visible} setVisible={setVisible} />
     </>
   );
 }
