@@ -17,16 +17,15 @@ const [dashboard, setDashboard] = useState([]);
  async function getDashboard() {
       setLoading(true);
       try {
-        const response = await getDashboardApi();
-        console.log("response",response)
+        const response = await getDashboardApi(); 
         setDashboard(response?.data || []);
       } catch (error) {
         console.log("Error on Dashboard List", error);
       } finally {
         setLoading(false);
       }
-    }
-console.log("dashboard",dashboard)
+    } 
+    
 useEffect(() => {
     getDashboard();
   }, []);

@@ -21,60 +21,10 @@ const AllOrderDetail = () => {
         }
     };
 
-    // const getOrderList = async (name = "") => {
-    //     setLoading(true);
-    //     try {
-    //         const response = await getOrderSuccessAdminApi(id, name);
-    //         setOrderDetail(response?.data);
-    //         setLoading(false);
-    //     } catch (error) {
-    //         console.log(error);
-    //         setLoading(false);
-    //     }
-    // }; 
     useEffect(() => {
         getOrderList();
     }, []);
 
-    // const orderDetail[0]? = {
-    //     order_id: "",
-    //     order_date: "",
-    //     pickup_location: "Primary",
-    //     channel_id: "5525397",
-    //     comment: "Amrit Bhojanam",
-    //     billing_customer_name: "",
-    //     billing_last_name: "",
-    //     billing_address: "",
-    //     billing_address_2: "",
-    //     billing_city: "",
-    //     billing_pincode: "",
-    //     billing_state: "",
-    //     billing_country: "India",
-    //     billing_email: "",
-    //     billing_phone: "",
-    //     shipping_is_billing: true,
-    //     shipping_customer_name: "",
-    //     shipping_last_name: "",
-    //     shipping_address: "",
-    //     shipping_address_2: "",
-    //     shipping_city: "",
-    //     shipping_pincode: "",
-    //     shipping_country: "",
-    //     shipping_state: "",
-    //     shipping_email: "",
-    //     shipping_phone: "",
-    //     order_items: [],
-    //     payment_method: "Prepaid",
-    //     shipping_charges: 0,
-    //     giftwrap_charges: 0,
-    //     transaction_charges: 0,
-    //     total_discount: 0,
-    //     sub_total: 0,
-    //     length: 0,
-    //     breadth: 0,
-    //     height: 0,
-    //     weight: 0,
-    // };
 
     return (
         <>

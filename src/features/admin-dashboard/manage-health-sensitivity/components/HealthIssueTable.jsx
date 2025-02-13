@@ -88,7 +88,7 @@ function HealthIssueTable() {
               <Column header="ACTION" body={editButtonTemplate} style={{ width: "15%" }}></Column>
             </DataTable>
             <DeleteModal visible={isModalVisible} onHide={hideDeleteModal} onDelete={handleDelete} />
-            <AddHealthIssue visible={visible} setVisible={setVisible} />
+            <AddHealthIssue visible={visible} setVisible={setVisible} getDataList={getDataList} />
           </>
         )
       }

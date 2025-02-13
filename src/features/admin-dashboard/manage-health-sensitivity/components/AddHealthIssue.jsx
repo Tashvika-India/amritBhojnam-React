@@ -15,8 +15,8 @@ import {
 
 export default function AddCategoryModal({
   visible,
-  setVisible, 
-  editData,
+  setVisible,  
+  getDataList,
 }) {
   const [loading, setLoading] = useState(false); 
   const initialValues = {
@@ -24,17 +24,21 @@ export default function AddCategoryModal({
   };
 
   const formik = useFormik({
-    initialValues: editData ? editData : initialValues,
+    initialValues:  initialValues,
     enableReinitialize: true, 
     onSubmit: async (values) => {
+      setLoading(true);
       try {
         await postMealHealthIssue(values); 
         notifySuccess("Health Issue Added Successfully"); 
         setVisible(false);
+        getDataList();
         resetForm();
+        setLoading(false);
       } catch (error) {
         console.error("Failed to update category!", error);
         notifyError(error.response?.data?.error);
+        setLoading(false);
       } 
     },
   });

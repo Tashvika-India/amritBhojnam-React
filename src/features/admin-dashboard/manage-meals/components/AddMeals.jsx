@@ -99,8 +99,7 @@ const AddMeals = () => {
       setSelectedFoodPreference((prev = []) =>
         prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
       );
-    } else if (type === "meal_type") { 
-      console.log("value",value)
+    } else if (type === "meal_type") {  
       setSelectedMealType((prev = []) => 
         prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
       );
@@ -148,6 +147,8 @@ const AddMeals = () => {
                       label="Calories" 
                       value={formik.values.kcal}
                       onChange={formik.handleChange}
+                      error={formik.touched.kcal && Boolean(formik.errors.kcal)}
+                      helperText={formik.touched.kcal && formik.errors.kcal}
                     />
                   </div>
                   <div className="col-md-6">
@@ -158,6 +159,8 @@ const AddMeals = () => {
                       label="Protein" 
                       value={formik.values.protein}
                       onChange={formik.handleChange}
+                      error={formik.touched.protein && Boolean(formik.errors.protein)}
+                      helperText={formik.touched.protein && formik.errors.protein}
                     />
                   </div>
                   <div className="col-md-6 mb-3">
@@ -168,6 +171,8 @@ const AddMeals = () => {
                       label="Carbs" 
                       value={formik.values.carbs}
                       onChange={formik.handleChange}
+                      error={formik.touched.carbs && Boolean(formik.errors.carbs)}
+                      helperText={formik.touched.carbs && formik.errors.carbs}
                     />
                   </div>
                   <div className="col-md-6 mb-3">
@@ -178,6 +183,8 @@ const AddMeals = () => {
                       label="Fat" 
                       value={formik.values.fat}
                       onChange={formik.handleChange}
+                      error={formik.touched.fat && Boolean(formik.errors.fat)}
+                      helperText={formik.touched.fat && formik.errors.fat}
                     />
                   </div>
                   <div className="col-md-12">
