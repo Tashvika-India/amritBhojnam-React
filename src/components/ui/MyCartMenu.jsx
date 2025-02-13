@@ -75,39 +75,41 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
       <Offcanvas.Body className="px-0 pb-0">
         <div className="d-flex flex-column justify-content-between h-100">
           <div>
-            <div className="mb-3 px-4">
-              <p className="d-flex">
-                <span>
-                  <img
-                    lazyload="true"
-                    className="img-fluid me-3"
-                    src={deliveryImg}
-                    alt="delivery-img"
-                  />
-                </span>
-                {finalCart?.shipping_free_amount > 0 ? (
-                  <>
-                    <span className="me-2 mt-2">SPEND</span>
-                    <strong className="me-2 mt-2">
-                      ₹{finalCart?.shipping_free_amount}
+            {cartItems?.length > 0 && (
+              <div className="mb-4 px-4">
+                <p className="d-flex">
+                  <span>
+                    <img
+                      lazyload="true"
+                      className="img-fluid me-3"
+                      src={deliveryImg}
+                      alt="delivery-img"
+                    />
+                  </span>
+                  {finalCart?.shipping_free_amount > 0 ? (
+                    <>
+                      <span className="me-2 mt-2">SPEND</span>
+                      <strong className="me-2 mt-2">
+                        ₹{finalCart?.shipping_free_amount}
+                      </strong>
+                      <span className="mt-2">MORE FOR FREE SHIPPING</span>
+                    </>
+                  ) : (
+                    <strong className="mt-2 text-success">
+                      Delivery is now FREE! 🎉
                     </strong>
-                    <span className="mt-2">MORE FOR FREE SHIPPING</span>
-                  </>
-                ) : (
-                  <strong className="mt-2 text-success">
-                    Delivery is now FREE! 🎉
-                  </strong>
-                )}
-              </p>
-              <ProgressBar
-                variant="yellow"
-                now={Math.min(
-                  (1000 - (finalCart?.shipping_free_amount || 0)) / 10,
-                  100
-                )}
-                style={{ height: "5px" }}
-              />
-            </div>
+                  )}
+                </p>
+                <ProgressBar
+                  variant="yellow"
+                  now={Math.min(
+                    (1000 - (finalCart?.shipping_free_amount || 0)) / 10,
+                    100
+                  )}
+                  style={{ height: "5px" }}
+                />
+              </div>
+            )}
             <div className="mb-2 cart-items-contianer px-md-4 px-3">
               {loading ? (
                 <div className="prefetch-loading">
