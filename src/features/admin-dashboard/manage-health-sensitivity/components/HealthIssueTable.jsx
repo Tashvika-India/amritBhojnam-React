@@ -62,7 +62,7 @@ function HealthIssueTable() {
       <button
         className="text-danger d-flex gap-2 align-items-center border-0 rounded"
         title="Delete"
-        style={{ backgroundColor: "#d5768f38", paddingBlock: ".3rem" }}
+        style={{ backgroundColor: "#d5768f38", padding: ".3rem .523rem"}}
         onClick={() => showDeleteModal(rowData)}>
         <MdDelete size={20} />
       </button>
@@ -83,9 +83,9 @@ function HealthIssueTable() {
         ) : (
           <>
             <DataTable responsiveLayout="scroll" paginator value={issue} rows={10} rowkey="id">
-              <Column field="health_issues" header="NAME" className="fw-400"></Column>
-              <Column field="user_count" header="USER" className="fw-400"></Column>
-              <Column header="ACTION" body={editButtonTemplate}></Column>
+              <Column field="health_issues" header="NAME" className="fw-400" ></Column>
+              <Column field="user_count" header="USER" className="fw-400" ></Column>
+              <Column header="ACTION" body={editButtonTemplate} style={{ width: "15%" }}></Column>
             </DataTable>
             <DeleteModal visible={isModalVisible} onHide={hideDeleteModal} onDelete={handleDelete} />
             <AddHealthIssue visible={visible} setVisible={setVisible} />

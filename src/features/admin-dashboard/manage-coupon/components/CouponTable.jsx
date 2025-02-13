@@ -69,7 +69,7 @@ const CouponTable = ({ coupons, getCoupons }) => {
                 <button
                     className="text-danger d-flex gap-2 align-items-center border-0 rounded"
                     title="Delete"
-                    style={{ backgroundColor: "#d5768f38", paddingBlock: ".3rem" }}
+                    style={{ backgroundColor: "#d5768f38", padding: ".3rem .523rem" }}
                     onClick={() => showDeleteModal(rowData)}>
                     <MdDelete size={20} />
                 </button>
