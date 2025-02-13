@@ -13,10 +13,9 @@ import {
 import { Checkbox } from "primereact/checkbox";
 import { useLocation, useNavigate } from "react-router-dom";
 import YellowButton from "../../../../components/buttons/YellowButton";
-import { postAddMealApi, putMealApi } from "../../../../services/adminApiRoutes";
+import { getMealFoodSensitivityApi, getMealHealthIssueApi, postAddMealApi, putMealApi } from "../../../../services/adminApiRoutes";
 import { baseURL } from "../../../../utils/constant-variable";
-import MultiFileUpload from "../../../../components/fileUpload/MultiFileUpload";
-import SingleFileUpload from "../../../../components/fileUpload/SingleFileUpload"; 
+import SingleFileUpload from "../../../../components/fileUpload/SingleFileUpload";
 import { notifyError, notifySuccess } from "../../../../components/ui/Notification";
 
 const AddMeals = () => {
@@ -28,6 +27,8 @@ const AddMeals = () => {
   const [selectedFoodPreference, setSelectedFoodPreference] = useState([]);
   const [selectedMealType, setSelectedMealType] = useState([]);
   const [pre, setPre] = useState("");
+  const [issue, setIssue] = useState([]);
+  const [sens, setSens] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -38,19 +39,31 @@ const AddMeals = () => {
       fat: editData?.fat || "",
       image: editData?.image || "",
       img_name: editData?.img_name || "",
-      food_preference: editData?.food_preference ||[],
+      food_preference: editData?.food_preference || [],
       food_sensitivity: editData?.food_sensitivity || [],
       health_issues: editData?.health_issues || [],
       meal_type: editData?.meal_type || []
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Food name is required"),
-      kcal: Yup.number().required("Calories are required"),
-      protein: Yup.number().required("Protein is required"),
-      carbs: Yup.number().required("Carbs are required"),
-      fat: Yup.number().required("Fat is required"),
+      kcal: Yup.number()
+        .typeError("Calories must be a number")
+        .positive("Calories must be a positive number")
+        .required("Calories are required"),
+      protein: Yup.number()
+        .typeError("Protein must be a number")
+        .positive("Protein must be a positive number")
+        .required("Protein is required"),
+      carbs: Yup.number()
+        .typeError("Carbs must be a number")
+        .positive("Carbs must be a positive number")
+        .required("Carbs are required"),
+      fat: Yup.number()
+        .typeError("Fat must be a number")
+        .positive("Fat must be a positive number")
+        .required("Fat is required"),
     }),
-    
+
     onSubmit: async (values) => {
       const payload = {
         ...values,
@@ -59,7 +72,6 @@ const AddMeals = () => {
         food_preference: selectedFoodPreference,
         meal_type: selectedMealType,
       };
-
       try {
         if (editData) {
           await putMealApi(editData.id, payload);
@@ -70,11 +82,13 @@ const AddMeals = () => {
         }
         navigate("/admin/manage-meals");
       } catch (error) {
-        alert("Failed to submit meal."); 
+        alert("Failed to submit meal.");
         notifyError(error.response?.data?.error);
       }
     },
   });
+
+  const { values, handleSubmit, resetForm, setValues, errors } = formik;
 
   useEffect(() => {
     if (editData) {
@@ -84,9 +98,9 @@ const AddMeals = () => {
       setSelectedMealType(editData?.meal_type || []);
       setPre(editData?.image);
     }
-  }, [editData]); 
+  }, [editData]);
 
-  const handleCheckboxChange = (type, value) => {  
+  const handleCheckboxChange = (type, value) => {
     if (type === "food_sensitivity") {
       setSelectedFoodSensitivities((prev = []) =>
         prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
@@ -99,12 +113,36 @@ const AddMeals = () => {
       setSelectedFoodPreference((prev = []) =>
         prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
       );
-    } else if (type === "meal_type") {  
-      setSelectedMealType((prev = []) => 
+    } else if (type === "meal_type") {
+      setSelectedMealType((prev = []) =>
         prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
       );
     }
-  };  
+  };
+
+  async function getHealthIssue() {
+    try {
+      const response = await getMealHealthIssueApi();
+      setIssue(response?.data?.results);
+    } catch (error) {
+      console.log("Error on health issue list", error);
+    }
+  }
+
+  async function getMealFoodSensitivity() {
+    try {
+      const response = await getMealFoodSensitivityApi();
+      setSens(response?.data?.results)
+    } catch (error) {
+      console.log("Error on Food Sensitivity list", error);
+    }
+  }
+
+
+  useEffect(() => {
+    getMealFoodSensitivity();
+    getHealthIssue();
+  }, []);
 
   return (
     <>
@@ -115,7 +153,6 @@ const AddMeals = () => {
       </div>
       <form onSubmit={formik.handleSubmit}>
         <div className="row">
-          {/* Left Side */}
           <div className="col-md-6">
             <div className="card mb-4">
               <div className="card-body">
@@ -144,7 +181,7 @@ const AddMeals = () => {
                       fullWidth
                       id="kcal"
                       name="kcal"
-                      label="Calories" 
+                      label="Calories"
                       value={formik.values.kcal}
                       onChange={formik.handleChange}
                       error={formik.touched.kcal && Boolean(formik.errors.kcal)}
@@ -156,7 +193,7 @@ const AddMeals = () => {
                       fullWidth
                       id="protein"
                       name="protein"
-                      label="Protein" 
+                      label="Protein"
                       value={formik.values.protein}
                       onChange={formik.handleChange}
                       error={formik.touched.protein && Boolean(formik.errors.protein)}
@@ -168,7 +205,7 @@ const AddMeals = () => {
                       fullWidth
                       id="carbs"
                       name="carbs"
-                      label="Carbs" 
+                      label="Carbs"
                       value={formik.values.carbs}
                       onChange={formik.handleChange}
                       error={formik.touched.carbs && Boolean(formik.errors.carbs)}
@@ -180,7 +217,7 @@ const AddMeals = () => {
                       fullWidth
                       id="fat"
                       name="fat"
-                      label="Fat" 
+                      label="Fat"
                       value={formik.values.fat}
                       onChange={formik.handleChange}
                       error={formik.touched.fat && Boolean(formik.errors.fat)}
@@ -190,7 +227,7 @@ const AddMeals = () => {
                   <div className="col-md-12">
                     <div className="p-2 ">
                       <p className="fw-400">Meal Type :</p>
-                      <div className="d-flex flex-wrap align-items-center" style={{columnGap: "2rem"}}>
+                      <div className="d-flex flex-wrap align-items-center" style={{ columnGap: "2rem" }}>
                         {["Lunch", "Breakfast", "Dinner"].map(
                           (item) => (
                             <div key={item} className="mb-3 d-inline-flex align-items-center">
@@ -208,7 +245,7 @@ const AddMeals = () => {
                   <div className="col-md-12">
                     <div className="p-2">
                       <p className="fw-400">Food Preference:</p>
-                      <div className="d-flex flex-wrap align-items-center" style={{columnGap: "2rem"}}>
+                      <div className="d-flex flex-wrap align-items-center" style={{ columnGap: "2rem" }}>
                         {["Vegan", "Vegetarian", "Eggeterian", "Non-Vegeterian"].map(
                           (item) => (
                             <div key={item} className="mb-3 d-inline-flex align-items-center">
@@ -232,15 +269,15 @@ const AddMeals = () => {
             <div className="card p-3 mb-4">
               <div className="card-body">
                 <h5 className="fw-500 mb-3">Avoid Due to Food Sensitivities:</h5>
-                <div className="d-flex flex-wrap align-items-center" style={{columnGap: "2rem"}}>
-                  {["Dairy Sensitivity", "Nut Allergy", "Gluten Sensitivity", "Soy Allergy"].map(
+                <div className="d-flex flex-wrap align-items-center" style={{ columnGap: "2rem" }}>
+                  {sens?.map(
                     (item) => (
-                      <div key={item} className="mb-3 d-inline-flex align-items-center">
+                      <div key={item?.id} className="mb-3 d-inline-flex align-items-center">
                         <Checkbox
-                          checked={selectedFoodSensitivities.includes(item)}
-                          onChange={() => handleCheckboxChange("food_sensitivity", item)}
+                          checked={selectedFoodSensitivities.includes(item?.food_sensitivity)}
+                          onChange={() => handleCheckboxChange("food_sensitivity", item?.food_sensitivity)}
                         />
-                        <span className="ps-3">{item}</span>
+                        <span className="ps-3">{item?.food_sensitivity}</span>
                       </div>
                     )
                   )}
@@ -249,15 +286,15 @@ const AddMeals = () => {
             </div>
             <div className="card p-3">
               <div className="card-body">
-                <h5 className="fw-500">Avoid Due to Health Issue:</h5>
-                <div className="d-flex flex-wrap align-items-center" style={{columnGap: "2rem"}}>
-                  {["Diabetes", "High Blood Pressure", "Heart Disease"].map((issue) => (
-                    <div key={issue} className="mb-3 d-inline-flex align-items-center">
+                <h5 className="fw-500 mb-3">Avoid Due to Health Issue:</h5>
+                <div className="d-flex flex-wrap align-items-center" style={{ columnGap: "2rem" }}>
+                  {issue.map((item) => (
+                    <div key={item?.id} className="mb-3 d-inline-flex align-items-center">
                       <Checkbox
-                        checked={selectedHealthIssues.includes(issue)}
-                        onChange={() => handleCheckboxChange("health_issues", issue)}
+                        checked={selectedHealthIssues.includes(item?.health_issues)}
+                        onChange={() => handleCheckboxChange("health_issues", item?.health_issues)}
                       />
-                      <span className="ps-3">{issue}</span>
+                      <span className="ps-3">{item?.health_issues}</span>
                     </div>
                   ))}
                 </div>

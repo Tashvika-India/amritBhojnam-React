@@ -17,11 +17,14 @@ function HealthIssueTable() {
   const [loading, setLoading] = useState(false);
 
   async function getDataList() {
+    setLoading(true);
     try {
       const response = await getMealHealthIssueApi();
       setIssue(response?.data?.results || []);
+      setLoading(false);
     } catch (error) {
       console.log("Error on health issue list", error);
+      setLoading(false);
     }
   }
 
