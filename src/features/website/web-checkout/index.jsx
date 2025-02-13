@@ -493,7 +493,7 @@ const CheckoutPage = () => {
                           )}
                         </p>
                         <ProgressBar
-                        className="mt-lg-3 mt-md-3 mt-2"
+                          className="mt-lg-3 mt-md-3 mt-2"
                           variant="yellow"
                           now={Math.min(
                             (1000 - (finalCart?.shipping_free_amount || 0)) /
@@ -610,16 +610,18 @@ const CheckoutPage = () => {
                                   </span>
                                 </li>
                               )}
-                              <li className="d-flex justify-content-between my-2">
-                                <span className="fw-500 text-orange">
-                                  Delivery fee
-                                </span>
-                                <span className="fb-fs-18 fw-500 text-orange">
-                                  {finalCart?.shipping_charge === undefined
-                                    ? "₹ 0"
-                                    : `₹ ${finalCart?.shipping_charge}`}
-                                </span>
-                              </li>
+                              {finalCart?.shipping_charge > 0 && (
+                                  <li className="d-flex justify-content-between my-2">
+                                    <span className="fw-500 text-orange">
+                                      Delivery fee
+                                    </span>
+                                    <span className="fb-fs-18 fw-500 text-orange">
+                                      {finalCart?.shipping_charge === undefined
+                                        ? "₹ 0"
+                                        : `₹ ${finalCart?.shipping_charge}`}
+                                    </span>
+                                  </li>
+                                )}
                               {/* <li className="d-flex justify-content-between my-2">
                                   <span className="fw-500 text-green">Coupon Discount</span>
                                   <span className="fb-fs-18 fw-500 text-green">
