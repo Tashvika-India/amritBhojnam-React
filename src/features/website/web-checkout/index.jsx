@@ -116,7 +116,7 @@ const CheckoutPage = () => {
         delivery_date: delivery_date,
         delivery_days: delivery_days,
         productinfo: cartId,
-        courier_id: courier_id || "", 
+        courier_id: courier_id || "",
         apply_amrit_coins: false,
         surl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_success_web/`,
         furl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_failed_web/`,
@@ -465,6 +465,40 @@ const CheckoutPage = () => {
                     style={{ zIndex: 10 }}
                   >
                     <p className="fb-fs-26 fw-500 mb-4">My Cart</p>
+                    <div className="mb-3 px-2">
+                      <p className="d-flex">
+                        <span>
+                          <img
+                            lazyload="true"
+                            className="img-fluid me-3"
+                            src={deliveryImg}
+                            alt="delivery-img"
+                          />
+                        </span>
+                        {finalCart?.shipping_free_amount > 0 ? (
+                          <>
+                            <span className="me-2 mt-2">SPEND</span>
+                            <strong className="me-2 mt-2">
+                              ₹{finalCart?.shipping_free_amount}
+                            </strong>
+                            <span className="mt-2">MORE FOR FREE SHIPPING</span>
+                          </>
+                        ) : (
+                          <strong className="mt-2 text-success">
+                            Delivery is now FREE! 🎉
+                          </strong>
+                        )}
+                      </p>
+                      <ProgressBar
+                        variant="yellow"
+                        now={Math.min(
+                          (1000 - (finalCart?.shipping_free_amount || 0)) / 10,
+                          100
+                        )}
+                        style={{ height: "5px" }}
+                      />
+                    </div>
+
                     <div className="">
                       <div
                         className="cart-list-wrapper pe-3"

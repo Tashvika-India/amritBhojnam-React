@@ -9,6 +9,7 @@ import filterIcon from "../../../assets/images/dashboard/filter-icon.png";
 import ReportTable from "./components/ReportTable";
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs'; 
+import { DateRangePicker } from "rsuite";
 
 
 const ManageReport = () => {
@@ -36,11 +37,11 @@ const ManageReport = () => {
             </FormControl>
           </div>
         </div>
-        <div className="col-md-3 text-end">
+        {/* <div className="col-md-3">
           <div>
             <DateRangePicker size="lg" placeholder="Start Date  -  End Date" style={{ fontSize: "1rem" }} />
           </div>
-        </div>
+        </div> */}
         <div className="col-md-2 text-end position-relative" style={{width: "10%"}}>
           <Link>
             <YellowButton style={{paddingBlock: "0.4rem"}}  lable={<span><img src={filterIcon} className="img-fluid position-absolute" style={{ top: "1rem", left: "3.5rem" }} /> &nbsp; &nbsp; &nbsp;Filter</span>} />
