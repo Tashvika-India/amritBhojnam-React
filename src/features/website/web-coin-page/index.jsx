@@ -44,12 +44,12 @@ const CoinPage = () => {
                           earned
                         </p>
                         <p className="text-dark-grey">Amrit Coins Collected</p>
-                        <p className="fb-fs-22 fw-500 mt-4">
+                        <p className="fb-fs-22 fw-500 mt-lg-4 mt-md-4 mt-2">
                           Jowar Jeggery Choco Chip Cookies
                         </p>
                       </div>
                     <div>
-                      <img className="img-fluid mt-5 pt-5" src={trophyImg} alt="pencil" />
+                      <img className="img-fluid mt-5 pt-lg-5 pt-4" src={trophyImg} alt="pencil" />
                     </div>
                   </div>
                   <div className="coin-step-part d-flex justify-content-between pb-lg-5"> 
@@ -60,12 +60,12 @@ const CoinPage = () => {
                           earned
                         </p>
                         <p className="text-dark-grey">Amrit Coins Collected</p>
-                        <p className="fb-fs-22 fw-500 mt-4">
+                        <p className="fb-fs-22 fw-500 mt-lg-4 mt-md-4 mt-2">
                           Jowar Jeggery Choco Chip Cookies
                         </p>
                       </div>
                     <div>
-                      <img className="img-fluid mt-5 pt-5" src={trophyImg} alt="pencil" />
+                      <img className="img-fluid mt-5 pt-lg-5 pt-4" src={trophyImg} alt="pencil" />
                     </div>
                   </div>
                   <div className="coin-step-part d-flex justify-content-between pb-lg-5"> 
@@ -76,12 +76,12 @@ const CoinPage = () => {
                           earned
                         </p>
                         <p className="text-dark-grey">Amrit Coins Collected</p>
-                        <p className="fb-fs-22 fw-500 mt-4">
+                        <p className="fb-fs-22 fw-500 mt-lg-4 mt-md-4 mt-2">
                           Jowar Jeggery Choco Chip Cookies
                         </p>
                       </div>
                     <div >
-                      <img className="img-fluid mt-5 pt-5" src={trophyImg} alt="pencil" />
+                      <img className="img-fluid mt-5 pt-lg-5 pt-4" src={trophyImg} alt="pencil" />
                     </div>
                   </div>
                 </div>

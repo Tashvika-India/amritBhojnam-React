@@ -2742,16 +2742,17 @@ footer {
     height: 18.75rem;
   }
   .coin-page .coin-stepper-section{
-    margin-top: 9rem;
+    margin-top: 3rem;
   }
   .coin-page .coin-stepper-section{
     .coin-step-part::before {
       margin-left: 1rem;
     }
     &::after {
-      top: 38rem;
-      left: 6.6rem;
-      height: 80%;
+      position: fixed;
+      top: 14rem;
+        left: 4.25rem;
+        height: 45%;
     }
     img{
       max-width: 4rem;
@@ -3142,20 +3143,6 @@ footer {
   }
   .coin-page .coin-stepper-section{
     margin-top: 9rem;
-  }
-  .coin-page .coin-stepper-section{
-    .coin-step-part::before {
-      margin-left: 1rem;
-    }
-    &::after {
-      top: 27rem;
-      left: 3rem;
-      height: 50%
-    }
-    img{
-      max-width: 3.5rem;
-      margin-top: 1.5rem;
-    }
   }
   .user-profile-detail label {
     font-size: x-small;
@@ -4038,12 +4025,40 @@ footer {
     font-size: 0.64rem;
     padding: 0.7rem 0.4rem 0.5rem;
   }
+  .coin-page .coin-stepper-section{
+    .coin-step-part::before {
+      margin-left: .5rem;
+    }
+    &::after {
+      top: 29rem;
+      left: 2.5rem;
+      height: 45%;
+    }
+    img{
+      max-width: 3.5rem;
+      margin-top: 1.5rem;
+    }
+  }
 }
 
 @media (min-width: 350px) and (max-width: 400px) {
   .profile-tabs button {
     font-size: 0.76rem;
     padding: 0.7rem 0.4rem 0.5rem;
+  }
+  .coin-page .coin-stepper-section{
+    .coin-step-part::before {
+      margin-left: .5rem;
+    }
+    &::after {
+      top: 29rem;
+      left: 2.5rem;
+      height: 40%;
+    }
+    img{
+      max-width: 3.5rem;
+      margin-top: 1.5rem;
+    }
   }
 }
 
@@ -4052,6 +4067,37 @@ footer {
     button {
       font-size: 0.89rem;
       padding: 0.7rem 0.4rem 0.5rem;
+    }
+  }
+  .coin-page .coin-stepper-section{
+    .coin-step-part::before {
+      margin-left: .5rem;
+    }
+    &::after {
+      top: 29rem;
+      left: 2.5rem;
+      height: 40%;
+    }
+    img{
+      max-width: 3.5rem;
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+@media (min-width: 500px) and (max-width: 576px) {
+  .coin-page .coin-stepper-section{
+    .coin-step-part::before {
+      margin-left: .5rem;
+    }
+    &::after {
+      top: 29rem;
+      left: 2.5rem;
+      height: 40%;
+    }
+    img{
+      max-width: 3.5rem;
+      margin-top: 1.5rem;
     }
   }
 }

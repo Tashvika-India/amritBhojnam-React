@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import { BiReset } from "react-icons/bi";
@@ -19,11 +25,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { debounce, set } from "lodash";
 import { scrollToTop } from "../../../utils/constant-variable";
 import { Offcanvas } from "react-bootstrap";
-import { clearProductList, fetchProductList } from "../../../redux/slices/productSlice";
+import {
+  clearProductList,
+  fetchProductList,
+} from "../../../redux/slices/productSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Typography from '@mui/material/Typography';
+import Typography from "@mui/material/Typography";
 import { GrPowerReset } from "react-icons/gr";
-import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { notifyError } from "../../../components/ui/Notification";
 import ChildSlider from "../../../components/ui/ChildSlider";
 
@@ -125,7 +134,6 @@ const ProudctList = () => {
     []
   );
 
-
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -144,45 +152,63 @@ const ProudctList = () => {
           <div className="row">
             <div className="col-md-3  d-none d-lg-block">
               <div className="bg-white product-detail-shadow rounded-20 p-4 mb-5">
-                <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between"><span className="text-dark-grey">Category</span>
-                  {isFiltersChanged && (<button onClick={() =>
-                    updateFilters({
-                      ...filters,
-                      category_id: "",
-                      name: "",
-                      minPrice: "0",
-                      maxPrice: "500",
-                      rating: "",
-                    })
-                  } title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
-                  </button>)}
+                <h6 className="underline-heading fw-bold d-flex align-items-center justify-content-between">
+                  <span className="text-dark-grey">Category</span>
+                  {isFiltersChanged && (
+                    <button
+                      onClick={() =>
+                        updateFilters({
+                          ...filters,
+                          category_id: "",
+                          name: "",
+                          minPrice: "0",
+                          maxPrice: "500",
+                          rating: "",
+                        })
+                      }
+                      title="reset all"
+                      className="bg-transparent border-0 text-semi-orange fs-3"
+                    >
+                      <GrPowerReset />
+                    </button>
+                  )}
                 </h6>
                 <div className="mt-5">
                   <ul className="category-select-list">
                     {isLoading
                       ? Array.from({ length: 5 }).map((_, index) => (
-                        <li key={index} className="cat-btn-item cat-skeleton-loader">
-                          <span className="cat-skeleton-text w-50"></span>
-                          <span className="pill-circle cat-skeleton-circle"></span>
-                        </li>
-                      ))
+                          <li
+                            key={index}
+                            className="cat-btn-item cat-skeleton-loader"
+                          >
+                            <span className="cat-skeleton-text w-50"></span>
+                            <span className="pill-circle cat-skeleton-circle"></span>
+                          </li>
+                        ))
                       : categoryList?.map((item, index) => (
-                        <li
-                          className={`cat-btn-item cursor-pointer ${filters?.category_id === item?.id ? "active" : ""}`}
-                          key={index}
-                          onClick={() =>
-                            updateFilters((prevFilters) => ({
-                              ...prevFilters,
-                              category_id: prevFilters.category_id === item?.id ? "" : item?.id,
-                            }))
-                          }
-                        >
-                          <span className="d-inline-flex align-items-center gap-2">
-                            {item?.name}
-                          </span>
-                          <span className="pill-circle">{item?.product_count}</span>
-                        </li>
-                      ))} 
+                          <li
+                            className={`cat-btn-item cursor-pointer ${
+                              filters?.category_id === item?.id ? "active" : ""
+                            }`}
+                            key={index}
+                            onClick={() =>
+                              updateFilters((prevFilters) => ({
+                                ...prevFilters,
+                                category_id:
+                                  prevFilters.category_id === item?.id
+                                    ? ""
+                                    : item?.id,
+                              }))
+                            }
+                          >
+                            <span className="d-inline-flex align-items-center gap-2">
+                              {item?.name}
+                            </span>
+                            <span className="pill-circle">
+                              {item?.product_count}
+                            </span>
+                          </li>
+                        ))}
                   </ul>
                 </div>
               </div>
@@ -251,7 +277,7 @@ const ProudctList = () => {
                 <div className="">
                   <p className="fw-500 pb-2">Customer Ratings</p>
                   <ul className="mt-2">
-                    {[4, 3, 2, 1].map((value) => (
+                    {[5, 4, 3, 2, 1].map((value) => (
                       <li className="d-flex my-3" key={value}>
                         <div className="d-flex align-items-center">
                           <Checkbox
@@ -262,21 +288,27 @@ const ProudctList = () => {
                               const selectedRating = e.target.value;
                               updateFilters((prevFilters) => ({
                                 ...prevFilters,
-                                rating: prevFilters.rating == selectedRating ? "" : selectedRating,
+                                rating:
+                                  prevFilters.rating == selectedRating
+                                    ? ""
+                                    : selectedRating,
                               }));
                             }}
                             checked={filters.rating == value}
                           />
-                          <label htmlFor={`rating-${value}`} className="ms-3 d-flex">
-                            {value}
-                            <span>
+                          <label
+                            htmlFor={`rating-${value}`}
+                            className="ms-3 d-flex align-items-center"
+                          >
+                            <span className="me-2">{value}</span>
+                            {[...Array(value)].map((_, index) => (
                               <img
-                                className="img-fluid mt-1 mx-1"
+                                key={index}
+                                className="img-fluid me-1"
                                 src={starImg}
                                 alt="star"
                               />
-                            </span>
-                            & More
+                            ))}
                           </label>
                         </div>
                       </li>
@@ -290,7 +322,12 @@ const ProudctList = () => {
                 <p className="fb-fs-18 text-mid-grey mb-0">
                   Showing {productList?.length} result
                 </p>
-                <button className="button-primary d-inline-block d-lg-none py-1" onClick={() => setShowFilter(true)}>Filter</button>
+                <button
+                  className="button-primary d-inline-block d-lg-none py-1"
+                  onClick={() => setShowFilter(true)}
+                >
+                  Filter
+                </button>
                 {/* <div className="sort-select d-flex">
                   <p className="mt-1 text-mid-grey">Sort by:</p>
                   <span>
@@ -315,8 +352,8 @@ const ProudctList = () => {
                         window.innerWidth > 1024
                           ? "repeat(4, 1fr)"
                           : window.innerWidth > 768
-                            ? "repeat(3, 1fr)"
-                            : "repeat(2, 1fr)",
+                          ? "repeat(3, 1fr)"
+                          : "repeat(2, 1fr)",
                     }}
                   >
                     {productList.map((item) => (
@@ -324,14 +361,20 @@ const ProudctList = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="align-content-center empty-products-card w-100 mt-lg-5 pt-lg-5" style={{ height: "50dvh" }}>
+                  <div
+                    className="align-content-center empty-products-card w-100 mt-lg-5 pt-lg-5"
+                    style={{ height: "50dvh" }}
+                  >
                     <img
                       className="img-fluid mx-auto mb-4 empty-products"
                       src={emptyProducts}
                       alt="empty-products"
                     />
                     <h3 className="text-center fw-600">No Products Found</h3>
-                    <p className="text-mid-grey fb-fs-20 text-center mt-3">No results for your search. Try different keywords or browse <br></br> our categories.</p>
+                    <p className="text-mid-grey fb-fs-20 text-center mt-3">
+                      No results for your search. Try different keywords or
+                      browse <br></br> our categories.
+                    </p>
                   </div>
                 )}
               </div>
@@ -341,43 +384,83 @@ const ProudctList = () => {
       </section>
       <Footer />
       <div className="d-lg-none">
-        <Offcanvas show={showFilter} onHide={toggleMobileFilter} placement="start" className="cart-offcanvas" style={{ width: "30%" }}>
+        <Offcanvas
+          show={showFilter}
+          onHide={toggleMobileFilter}
+          placement="start"
+          className="cart-offcanvas"
+          style={{ width: "30%" }}
+        >
           <Offcanvas.Header closeButton className="border-bottom">
-            <Offcanvas.Title className="text-ornage fs-5 fw-500">Product Filter</Offcanvas.Title>
+            <Offcanvas.Title className="text-ornage fs-5 fw-500">
+              Product Filter
+            </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body className="px-4 pb-0">
             <div className="mobile-product-filter">
               <div className="bg-white product-detail-shadow rounded-20 p-4 ">
-                <h4 className="underline-heading filter-heading fw-bold d-flex align-items-center justify-content-between"><span>Category</span>  {isFiltersChanged && (<button onClick={() => updateFilters({ ...filters, category_id: "", name: "", minPrice: "", maxPrice: "", rating: "" })} title="reset all" className="bg-transparent border-0 text-semi-orange fs-3"><GrPowerReset />
-                </button>)} </h4>
+                <h4 className="underline-heading filter-heading fw-bold d-flex align-items-center justify-content-between">
+                  <span>Category</span>{" "}
+                  {isFiltersChanged && (
+                    <button
+                      onClick={() =>
+                        updateFilters({
+                          ...filters,
+                          category_id: "",
+                          name: "",
+                          minPrice: "",
+                          maxPrice: "",
+                          rating: "",
+                        })
+                      }
+                      title="reset all"
+                      className="bg-transparent border-0 text-semi-orange fs-3"
+                    >
+                      <GrPowerReset />
+                    </button>
+                  )}{" "}
+                </h4>
                 <div className="">
                   <ul className="category-select-list">
                     {isLoading
                       ? Array.from({ length: 5 }).map((_, index) => (
-                        <li key={index} className="cat-btn-item cat-skeleton-loader">
-                          <span className="cat-skeleton-text w-50"></span>
-                          <span className="pill-circle cat-skeleton-circle"></span>
-                        </li>
-                      ))
+                          <li
+                            key={index}
+                            className="cat-btn-item cat-skeleton-loader"
+                          >
+                            <span className="cat-skeleton-text w-50"></span>
+                            <span className="pill-circle cat-skeleton-circle"></span>
+                          </li>
+                        ))
                       : categoryList?.map((item, index) => (
-                      <li className={`cat-btn-item cursor-pointer ${filters?.category_id === item?.id ? "active" : ""}`}
-                        key={index}
-                        onClick={() =>
-                          updateFilters((prevFilters) => ({
-                            ...prevFilters,
-                            category_id: prevFilters.category_id === item?.id ? "" : item?.id,
-                          }))
-                        }
-                      >
-                        <span className="d-inline-flex align-items-center gap-2">
-                          {item?.name}
-                        </span>
-                        <span className="pill-circle">{item?.product_count}</span>
-                      </li>
-                    ))}
+                          <li
+                            className={`cat-btn-item cursor-pointer ${
+                              filters?.category_id === item?.id ? "active" : ""
+                            }`}
+                            key={index}
+                            onClick={() =>
+                              updateFilters((prevFilters) => ({
+                                ...prevFilters,
+                                category_id:
+                                  prevFilters.category_id === item?.id
+                                    ? ""
+                                    : item?.id,
+                              }))
+                            }
+                          >
+                            <span className="d-inline-flex align-items-center gap-2">
+                              {item?.name}
+                            </span>
+                            <span className="pill-circle">
+                              {item?.product_count}
+                            </span>
+                          </li>
+                        ))}
                   </ul>
                 </div>
-                <h4 className="underline-heading filter-heading fw-bold mt-4">Price & Rating</h4>
+                <h4 className="underline-heading filter-heading fw-bold mt-4">
+                  Price & Rating
+                </h4>
                 <div className="mb-4 pb-3 border-bottom mt-5">
                   <ChildSlider
                     minPrice={parseInt(filters.minPrice, 10)}
@@ -439,7 +522,9 @@ const ProudctList = () => {
                   </div>
                 </div>
                 <div className="">
-                  <h4 className="underline-heading filter-heading fw-bold mt-4">Customer Ratings</h4>
+                  <h4 className="underline-heading filter-heading fw-bold mt-4">
+                    Customer Ratings
+                  </h4>
                   <ul className="mt-2">
                     {[4, 3, 2, 1].map((value) => (
                       <li className="d-flex my-3" key={value}>
@@ -452,12 +537,18 @@ const ProudctList = () => {
                               const selectedRating = e.target.value;
                               updateFilters((prevFilters) => ({
                                 ...prevFilters,
-                                rating: prevFilters.rating == selectedRating ? "" : selectedRating,
+                                rating:
+                                  prevFilters.rating == selectedRating
+                                    ? ""
+                                    : selectedRating,
                               }));
                             }}
                             checked={filters.rating == value}
                           />
-                          <label htmlFor={`rating-${value}`} className="ms-3 d-flex">
+                          <label
+                            htmlFor={`rating-${value}`}
+                            className="ms-3 d-flex"
+                          >
                             {value}
                             <span>
                               <img
