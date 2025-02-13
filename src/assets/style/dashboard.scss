@@ -261,6 +261,21 @@ thead th {
   }
 }
 
+.add-meal{
+  .multi-pre-list{
+    max-width: 10rem !important;
+    min-height: 10rem !important;
+  }
+  .multipule-image-uploader{
+    height: 10rem !important;
+    border: 2px dashed #D59615;
+   
+    svg{
+      display: none;
+    }
+  }
+} 
+
 //// Sidebar Start ////
 .dashboard-sidebar {
   .MuiDrawer-paper {

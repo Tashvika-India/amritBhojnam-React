@@ -82,11 +82,11 @@ export default function AddCategoryModal({ visible, setVisible, editData,getMeal
           <div className="p-fluid">
             <div className="mb-4">
               <p className="text-black">Food Preference:</p>
-              <div className="row">
+              <div className="row mt-4">
                 {["Vegan", "Vegetarian", "Eggeterian", "Non-Vegeterian"].map(
                   (item) => (
                     <div key={item} className="col-6 mb-4">
-                      <div className="mb-3 d-inline-flex align-items-center">
+                      <div className=" d-inline-flex align-items-center">
                         <Checkbox
                           checked={selectedFoodPreference.includes(item)}
                           onChange={() => handleCheckboxChange(item)}

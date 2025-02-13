@@ -57,13 +57,13 @@ function MealsTable({ data,getMealList }) {
   );
 
   const ImageBody = (rowData) => (
-    <div className="d-flex align-items-center gap-3"> 
+    <div className="d-flex align-items-center gap-4"> 
           <img
             src={rowData?.image}
             alt={rowData?.name}
             className="img-fluid" style={{ width: "60px", height: "60px", objectFit : "cover" }}
           />  
-        <p className="fw-400">{rowData?.name}</p> 
+        <p className="fw-400 mb-0">{rowData?.name}</p> 
     </div>
   )
 

@@ -151,13 +151,13 @@ const AddMeals = () => {
           <Heading value={editData ? "Edit Meal" : "Add Meal"} />
         </div>
       </div>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} className="add-meal">
         <div className="row">
           <div className="col-md-6">
             <div className="card mb-4">
-              <div className="card-body">
+              <div className="card-body p-3">
                 <div className="mb-4">
-                  <SingleFileUpload setPre={setPre} pre={pre} formik={formik} name="image" baseURL={baseURL} />
+                  <SingleFileUpload setPre={setPre} pre={pre} formik={formik} style={{height: "10rem"}} name="image" baseURL={baseURL} />
                   {formik.touched.image && formik.errors.image && (
                     <Alert severity="error">{formik.errors.image}</Alert>
                   )}
@@ -227,10 +227,10 @@ const AddMeals = () => {
                   <div className="col-md-12">
                     <div className="p-2 ">
                       <p className="fw-400">Meal Type :</p>
-                      <div className="d-flex flex-wrap align-items-center" style={{ columnGap: "2rem" }}>
+                      <div className="row">
                         {["Lunch", "Breakfast", "Dinner"].map(
                           (item) => (
-                            <div key={item} className="mb-3 d-inline-flex align-items-center">
+                            <div key={item} className="col-md-3 mb-3 d-inline-flex align-items-center">
                               <Checkbox
                                 checked={selectedMealType.includes(item)}
                                 onChange={() => handleCheckboxChange("meal_type", item)}
@@ -245,10 +245,10 @@ const AddMeals = () => {
                   <div className="col-md-12">
                     <div className="p-2">
                       <p className="fw-400">Food Preference:</p>
-                      <div className="d-flex flex-wrap align-items-center" style={{ columnGap: "2rem" }}>
+                      <div className="row">
                         {["Vegan", "Vegetarian", "Eggeterian", "Non-Vegeterian"].map(
                           (item) => (
-                            <div key={item} className="mb-3 d-inline-flex align-items-center">
+                            <div key={item} className="col-md-3 mb-3 d-inline-flex align-items-center">
                               <Checkbox
                                 checked={selectedFoodPreference.includes(item)}
                                 onChange={() => handleCheckboxChange("food_preference", item)}
@@ -266,13 +266,13 @@ const AddMeals = () => {
           </div>
 
           <div className="col-md-6">
-            <div className="card p-3 mb-4">
+            <div className="card p-3 mb-5">
               <div className="card-body">
                 <h5 className="fw-500 mb-3">Avoid Due to Food Sensitivities:</h5>
-                <div className="d-flex flex-wrap align-items-center" style={{ columnGap: "2rem" }}>
+                <div className="row mt-4 pt-2">
                   {sens?.map(
                     (item) => (
-                      <div key={item?.id} className="mb-3 d-inline-flex align-items-center">
+                      <div key={item?.id} className="col-md-4 mb-3">
                         <Checkbox
                           checked={selectedFoodSensitivities.includes(item?.food_sensitivity)}
                           onChange={() => handleCheckboxChange("food_sensitivity", item?.food_sensitivity)}
@@ -282,14 +282,15 @@ const AddMeals = () => {
                     )
                   )}
                 </div>
+                <Alert severity="warning" style={{backgroundColor: "#FFF6DA"}} className="mt-3 px-2 py-0"><span className="fw-500 text-black">Warning:</span> Selecting an option means avoiding foods that may trigger allergies or intolerances.</Alert>
               </div>
             </div>
-            <div className="card p-3">
+            <div className="card p-3 mt-5">
               <div className="card-body">
                 <h5 className="fw-500 mb-3">Avoid Due to Health Issue:</h5>
-                <div className="d-flex flex-wrap align-items-center" style={{ columnGap: "2rem" }}>
+                <div className="row mt-4 pt-2">
                   {issue.map((item) => (
-                    <div key={item?.id} className="mb-3 d-inline-flex align-items-center">
+                    <div key={item?.id} className="col-md-4 mb-3 pe-0">
                       <Checkbox
                         checked={selectedHealthIssues.includes(item?.health_issues)}
                         onChange={() => handleCheckboxChange("health_issues", item?.health_issues)}
@@ -298,6 +299,7 @@ const AddMeals = () => {
                     </div>
                   ))}
                 </div>
+                <Alert severity="warning" style={{backgroundColor: "#FFF6DA"}} className="mt-3 px-2 py-0"><span className="fw-500 text-black">Warning:</span> Selecting an option means avoiding foods that may trigger allergies or intolerances.</Alert>
               </div>
             </div>
           </div>
