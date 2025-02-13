@@ -19,15 +19,16 @@ const ManageReport = () => {
           <Heading value={"Report"} />
         </div>
         <div className="col-md-2 text-end ms-auto">
-          <div style={{ width: "100%" }}>
-            <FormControl fullWidth className="bg-white" style={{ minHeight: "1.9375em"}}>
-              <InputLabel id="demo-simple-select-label" size="small">Today</InputLabel>
+          <div style={{ width: "70%" }}>
+            <FormControl  sx={{ m: 1 }} fullWidth className="bg-white">
+              <InputLabel id="demo-simple-select-label">Today</InputLabel>
               <Select
+              autoWidth
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="Monthly"
                 style={{textAlign: "start"}}
-                size="small">
+                >
                 <MenuItem value={10}>Yesterday</MenuItem>
                 <MenuItem value={20}>Tomorrow</MenuItem>
                 <MenuItem value={30}>Day After Tomorrow</MenuItem>
@@ -35,11 +36,11 @@ const ManageReport = () => {
             </FormControl>
           </div>
         </div>
-        {/* <div className="col-md-3 text-end">
+        <div className="col-md-3 text-end">
           <div>
             <DateRangePicker size="lg" placeholder="Start Date  -  End Date" style={{ fontSize: "1rem" }} />
           </div>
-        </div> */}
+        </div>
         <div className="col-md-2 text-end position-relative" style={{width: "10%"}}>
           <Link>
             <YellowButton style={{paddingBlock: "0.4rem"}}  lable={<span><img src={filterIcon} className="img-fluid position-absolute" style={{ top: "1rem", left: "3.5rem" }} /> &nbsp; &nbsp; &nbsp;Filter</span>} />

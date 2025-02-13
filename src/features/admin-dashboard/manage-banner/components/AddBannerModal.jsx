@@ -225,7 +225,7 @@ function FooterContent({ formik, setVisible, loading, editData }) {
   return (
     <>
       <div className="d-inline-flex gap-3">
-        <RejectButton lable="Cancel" handleClick={() => setVisible(false)} />
+        <RejectButton className="rounded-1" lable="Cancel" handleClick={() => setVisible(false)} />
         <YellowButton lable="Save Changes" handleClick={formik.handleSubmit} disabled={loading} />
       </div>
     </>

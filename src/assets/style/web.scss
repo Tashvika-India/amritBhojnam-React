@@ -2742,16 +2742,17 @@ footer {
     height: 18.75rem;
   }
   .coin-page .coin-stepper-section{
-    margin-top: 9rem;
+    margin-top: 3rem;
   }
   .coin-page .coin-stepper-section{
     .coin-step-part::before {
       margin-left: 1rem;
     }
     &::after {
-      top: 38rem;
-      left: 6.6rem;
-      height: 80%;
+      position: fixed;
+      top: 14rem;
+        left: 4.25rem;
+        height: 45%;
     }
     img{
       max-width: 4rem;
@@ -4031,7 +4032,7 @@ footer {
     &::after {
       top: 29rem;
       left: 2.5rem;
-      height: 80%;
+      height: 45%;
     }
     img{
       max-width: 3.5rem;
@@ -4052,7 +4053,7 @@ footer {
     &::after {
       top: 29rem;
       left: 2.5rem;
-      height: 72%;
+      height: 40%;
     }
     img{
       max-width: 3.5rem;
@@ -4075,7 +4076,7 @@ footer {
     &::after {
       top: 29rem;
       left: 2.5rem;
-      height: 64%;
+      height: 40%;
     }
     img{
       max-width: 3.5rem;
@@ -4092,7 +4093,7 @@ footer {
     &::after {
       top: 29rem;
       left: 2.5rem;
-      height: 65%;
+      height: 40%;
     }
     img{
       max-width: 3.5rem;

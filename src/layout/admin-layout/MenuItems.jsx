@@ -301,7 +301,7 @@ function MenuItems() {
           <ListItemIcon sx={listItemIconStyle}>
             <PiBowlFoodFill size={23} />
           </ListItemIcon>
-          <ListItemText primary="Manage Meals" sx={listItemTextStyle} />
+          <ListItemText primary="Meals" sx={listItemTextStyle} />
         </ListItemButton>
       </Link>
       <Link to="/admin/health" style={{ textDecoration: "none", color: "inherit" }}>

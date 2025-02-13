@@ -432,7 +432,7 @@ const AddCoupon = () => {
                       <YellowButton lable={coupon ? "Update Coupon" : "Add Coupon"} handleClick={formik.handleSubmit} />
                     </Link>
                     <button
-                      className="button-primary-reverse me-4 ms-3 py-2"
+                      className="button-primary-reverse me-4 ms-3 py-2 rounded-2"
                       type="button"
                       onClick={() => navigate("/admin/coupons")}
                     >
