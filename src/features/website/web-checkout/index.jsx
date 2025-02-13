@@ -465,40 +465,45 @@ const CheckoutPage = () => {
                     style={{ zIndex: 10 }}
                   >
                     <p className="fb-fs-26 fw-500 mb-4">My Cart</p>
-                    <div className="mb-3 px-2">
-                      <p className="d-flex">
-                        <span>
-                          <img
-                            lazyload="true"
-                            className="img-fluid me-3"
-                            src={deliveryImg}
-                            alt="delivery-img"
-                          />
-                        </span>
-                        {finalCart?.shipping_free_amount > 0 ? (
-                          <>
-                            <span className="me-2 mt-2">SPEND</span>
-                            <strong className="me-2 mt-2">
-                              ₹{finalCart?.shipping_free_amount}
+                    {cartItems?.length > 0 && (
+                      <div className="mb-3">
+                        <p className="d-flex">
+                          <span>
+                            <img
+                              lazyload="true"
+                              className="img-fluid me-3"
+                              src={deliveryImg}
+                              alt="delivery-img"
+                            />
+                          </span>
+                          {finalCart?.shipping_free_amount > 0 ? (
+                            <>
+                              <span className="me-2 mt-2">SPEND</span>
+                              <strong className="me-2 mt-2">
+                                ₹{finalCart?.shipping_free_amount}
+                              </strong>
+                              <span className="mt-2">
+                                MORE FOR FREE SHIPPING
+                              </span>
+                            </>
+                          ) : (
+                            <strong className="mt-2 text-success">
+                              Delivery is now FREE! 🎉
                             </strong>
-                            <span className="mt-2">MORE FOR FREE SHIPPING</span>
-                          </>
-                        ) : (
-                          <strong className="mt-2 text-success">
-                            Delivery is now FREE! 🎉
-                          </strong>
-                        )}
-                      </p>
-                      <ProgressBar
-                        variant="yellow"
-                        now={Math.min(
-                          (1000 - (finalCart?.shipping_free_amount || 0)) / 10,
-                          100
-                        )}
-                        style={{ height: "5px" }}
-                      />
-                    </div>
-
+                          )}
+                        </p>
+                        <ProgressBar
+                        className="mt-lg-3 mt-md-3 mt-2"
+                          variant="yellow"
+                          now={Math.min(
+                            (1000 - (finalCart?.shipping_free_amount || 0)) /
+                              10,
+                            100
+                          )}
+                          style={{ height: "5px" }}
+                        />
+                      </div>
+                    )}
                     <div className="">
                       <div
                         className="cart-list-wrapper pe-3"
