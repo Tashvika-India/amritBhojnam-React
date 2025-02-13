@@ -41,7 +41,7 @@ const Header = () => {
     finalCart,
     loading: cartLoading,
     error,
-  } = useSelector((state) => state.cart);
+  } = useSelector((state) => state.cart); 
 
   const { wishlist = [] } = useSelector((state) => state.wishlist);
 
@@ -161,7 +161,7 @@ const Header = () => {
                       onChange={(e) =>
                         setFilters((prev) => ({ ...prev, category_id: e.value.id }))
                       }
-                      options={[{ id: "", name: "All Categories" }, ...category]}
+                      options={[{ id: "", name: "All Categories" }, ...category.filter((c) => c.is_active)]}
                       optionLabel="name"
                       placeholder="Select Category"
                       className="w-full border-0"
@@ -183,7 +183,7 @@ const Header = () => {
                     <button
                       type="submit"
                       className="search-icon d-inline-block z-2 h-100 border-0 bg-transparent fw-500"
-                      disabled={!filters.name?.trim()}  
+                      // disabled={!filters.name?.trim()}  
                       aria-label="Search"
                     >
                       <IoSearchOutline color="#918e92" size="1.4rem" />
@@ -192,7 +192,6 @@ const Header = () => {
                 </form>
               </div>
             </div>
-           
             <div className="header-actions mt-3">
               <ul className="list-unstyled align-items-center justify-content-between gap-4 web-header-actions d-none d-xl-flex">
                 <li>

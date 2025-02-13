@@ -221,6 +221,7 @@ export const getNutritionValueApi = () => API.get(`/product-nutritions/`);
 export const postNutritionValueApi = (payload) => API.post(`/product-nutritions/`, payload); 
 
 export const multiImageUploadApi = (payload) => API.post(`/multi_img_upload/`, payload);
+export const singleImageUploadApi = (payload) => API.post(`/single_img_upload/`, payload);
 
 // check pincode
 
@@ -235,4 +236,15 @@ export const getDashboardApi = () => API.get(`/accounts/dashboard/`);
 // Aad meal api 
 export const getMealApi = () => API.get(`/meal_items/`)
 export const postAddMealApi = (payload) => API.post(`/meal_items/`, payload);
+export const putMealApi = (id,payload) => API.put(`/meal_items/${id}/`, payload);
 export const deleteMealApi = (id) => API.delete(`/meal_items/${id}`);
+
+// Aad meal api 
+export const getMealHealthIssueApi = () => API.get(`/meal_health_issue/`)
+export const postMealHealthIssue = (payload) => API.post(`/meal_health_issue/`, payload);
+export const deleteMealHealthIssue = (id) => API.delete(`/meal_health_issue/${id}`);
+
+export const getMealFoodSensitivityApi = () => API.get(`/meal_food_sensitivity/`)
+export const postMealFoodSensitivity = (payload) => API.post(`/meal_food_sensitivity/`, payload);
+export const putMealFoodSensitivity = (id,payload) => API.put(`/meal_food_sensitivity/${id}/`, payload);
+export const deleteFoodSensitivity = (id) => API.delete(`/meal_food_sensitivity/${id}`);

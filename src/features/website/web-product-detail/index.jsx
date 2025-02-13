@@ -244,9 +244,6 @@ const ProudctDetail = () => {
   }, []);
 
 
-  console.log("detail", pinValue);
-
-
   return (
     <div className="web-wrapper-main">
       <Header />

@@ -51,43 +51,12 @@ const ManageMeals = () => {
       </div>
       <div className="">
         <div className="card">
-          <div className="card-body">
-            <div className="row mb-3">
-              <div className="col-md-5">
-                <div>
-                  <div className="mb-3">
-                    {/* <TabsButtons
-                      activeTab={activeTab}
-                      setActiveTab={setActiveTab}
-                      labelOne={"Active"}
-                      labelTwo={"Inactive"}
-                    /> */}
-                  </div>
-                  {/* {activeTab === "Active Orders" && <ProductTable />}
-                  {activeTab === "New Orders" && <ProductTable />} */}
-                </div>
-              </div>
-              <div className="col-md-1"></div>
-              <div className="col-md-3"></div>
-              <div className="col-md-3 ms-auto text-end">
-                {/* <InputText
-                  className="w-100 ps-4"
-                  sx={{ fontFamily: "Poppins, sans-serif" }}
-                  value={filter.coupon_code || ""}
-                  onChange={(e) =>
-                    setFilter({ ...filter, coupon_code: e.target.value })
-                  }
-                  placeholder="Search order"
-                /> */}
-              </div>
-            </div>
-            <div>
+          <div className="card-body"> 
               {loading ? (
                 <Loading />
               ) : (
                 <MealsTable data={data} getMealList={getMealList} />
-              )}
-            </div>
+              )} 
           </div>
         </div>
       </div>

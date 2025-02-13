@@ -146,6 +146,17 @@ function AppRoutes() {
       />
       <Route
         exact
+        path="/admin/edit-meals"
+        element={
+          <AdminPrivateRoute>
+            <DashboardSidebar>
+              <AddMeals />
+            </DashboardSidebar>
+          </AdminPrivateRoute>
+        }
+      />
+      <Route
+        exact
         path="/admin/roles"
         element={
           <AdminPrivateRoute>
