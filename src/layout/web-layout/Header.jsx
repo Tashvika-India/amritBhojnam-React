@@ -41,10 +41,7 @@ const Header = () => {
     finalCart,
     loading: cartLoading,
     error,
-  } = useSelector((state) => state.cart);
-
-  console.log(category);
-  
+  } = useSelector((state) => state.cart); 
 
   const { wishlist = [] } = useSelector((state) => state.wishlist);
 
