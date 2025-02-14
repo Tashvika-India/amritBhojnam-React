@@ -13,6 +13,7 @@ import {
 import useURLFilters from "../../custom-compoents/useURLFilters";
 import { fetchProductList } from "../../redux/slices/productSlice";
 import emptyCart from "../../assets/images/web/empty-cart.png";
+import partyIcon from "../../assets/images/web/party-icon.svg";
 
 const MyCartMenu = ({ showCart, onCloseCart }) => {
   const dispatch = useDispatch();
@@ -77,7 +78,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
           <div>
             {cartItems?.length > 0 && (
               <div className="mb-4 px-4">
-                <p className="d-flex">
+                <p className="d-flex align-items-center">
                   <span>
                     <img
                       lazyload="true"
@@ -95,8 +96,15 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                       <span className="mt-2">MORE FOR FREE SHIPPING</span>
                     </>
                   ) : (
-                    <strong className="mt-2 text-success">
-                      Delivery is now FREE! 🎉
+                    <strong className="d-flex align-items-center gap-2">
+                     Delivered to Your Door – Absolutely Free! 
+                                                <span>
+                                                <img
+                                                  src={partyIcon}
+                                                  alt="empty-cart"
+                                                  className="img-fluid mx-auto empty-cart-image w-75"
+                                                />
+                                                </span>
                     </strong>
                   )}
                 </p>
