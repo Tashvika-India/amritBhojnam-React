@@ -11,20 +11,19 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import pencilImg from "../../../assets/images/web/account/pencil.png";
-import profileBg from "../../../assets/images/web/account/profile-bg.png";
+import pencilImg from "../../../assets/images/web/account/pencil.png"; 
 import otherImg from "../../../assets/images/web/account/other.png";
 import pp from "../../../assets/images/web/account/profile-picture.png";
 import tickImg from "../../../assets/images/web/account/tick-image.png";
 import emptyOrder from "../../../assets/images/web/empty-order.png";
 import emptyAddress from "../../../assets/images/web/empty-address.png";
-import homeImg from "../../../assets/images/web/account/home-img.png";
-import coin from "../../../assets/images/web/star-coin.png";
+import homeImg from "../../../assets/images/web/account/home-img.png"; 
 import { BiEditAlt } from "react-icons/bi";
 import { FaCamera } from "react-icons/fa";
 import {
   deleteAddressApi,
   getAddressApi,
+  getAmritCoinHistoryApi,
   getOrderApi,
   getOrderInvoiceApi,
   getProfile,
@@ -50,11 +49,11 @@ import Loading from "../../../components/ui/Loading";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { useDispatch } from "react-redux";
-import { fetchCart } from "../../../redux/slices/cartSlice";
-import profileBackground from "../../../assets/images/web/profile-background.png";
+import { fetchCart } from "../../../redux/slices/cartSlice"; 
 import AddressDeleteModal from "../../../components/ui/AddressDeleteModal";
 import OrderListComponent from "./components/OrderListComponent";
 import BackdropLoader from "../../../components/ui/BackdropLoader";
+import ProfileBanner from "../../../components/ui/ProfileBanner";
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -69,10 +68,12 @@ const UserProfile = () => {
   const [productId, setProductId] = useState("");
   const [load, setLoad] = useState(10);
   const [filter, setFilter] = useState("");
+  const [coins , setCoins] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [profilePictureImg, setProfilePictureImg] = useState(userDetail?.pp);
+
 
   const formik = useFormik({
     initialValues: {
@@ -346,10 +347,20 @@ const UserProfile = () => {
       setIsLoading(false);
     }
   };
+  const getCoinList = async () => { 
+      try {
+        const response = await getAmritCoinHistoryApi();  
+        setCoins(response?.data);
+      } catch (error) {
+        console.log(error); 
+      }
+    }
+  
 
   useEffect(() => {
     getAddressList();
     getProfileList();
+    getCoinList();
   }, []);
 
   useEffect(() => {
@@ -409,29 +420,7 @@ const UserProfile = () => {
       <div className="container fb-container mb-md-5 pb-md-5">
         <div className="row">
           <div className="col-lg-10 mx-auto">
-            <div className="user-profile-img d-flex justify-content-end mt-lg-5 mt-md-5 mt-4">
-              <div className="pt-4 pe-5 mt-2">
-                <div className="d-flex">
-                  <div className="ms-auto">
-                    <button className="white-button rounded-5 fw-600">
-                      Show Tokens History
-                    </button>
-                  </div>
-                </div>
-
-                <div className="text-white d-flex align-items-center gap-5 mt-4 pt-3">
-                  <div>
-                    <p className="fw-bolder fb-fs-28 lh-normal">Amrit Coins</p>
-                    <p className="fw-600 fb-fs-18">Redeem your coins now</p>
-                  </div>
-                  <div className="d-flex align-items-center gap-3">
-                    <img className="img-fluid" src={coin} alt="empty-address" />
-                    <p style={{ fontWeight: "800", fontSize: "42px" }}>655</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            <ProfileBanner coins={coins}/>
             <div className="p-md-4 p-lg-4 pt-0 ">
               <div className="user-profile-detail  position-relative text-start pb-3">
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center gap-3">
