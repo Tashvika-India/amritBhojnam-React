@@ -496,8 +496,8 @@ const CheckoutPage = () => {
                               </span>
                             </>
                           ) : (
-                            <strong className=" d-flex gap-2 align-items-center">
-                            Delivered to Your Door – Absolutely Free! 
+                            <p className=" d-flex gap-2 align-items-center mb-0">
+                            Delivered to Your Door – <span className="fw-bold">Absolutely Free! </span>
                             <span>
                             <img
                               src={partyIcon}
@@ -505,7 +505,7 @@ const CheckoutPage = () => {
                               className="img-fluid mx-auto empty-cart-image w-75"
                             />
                             </span>
-                            </strong>
+                            </p>
                           )}
                         </p>
                         <ProgressBar
@@ -646,7 +646,7 @@ const CheckoutPage = () => {
                                 </li> */}
                             </ul>
                           </div>
-                          <div className="amrit-coin-toggle mb-3">
+                          <div className="amrit-coin-toggle mb-3 mt-4">
                             <div className="d-flex justify-content-between">
                               <p className="fw-500 d-flex align-items-center">
                                 Use

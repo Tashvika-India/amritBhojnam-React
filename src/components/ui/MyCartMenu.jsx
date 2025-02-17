@@ -96,16 +96,16 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                       <span className="mt-2">MORE FOR FREE SHIPPING</span>
                     </>
                   ) : (
-                    <strong className="d-flex align-items-center gap-2">
-                     Delivered to Your Door – Absolutely Free! 
-                                                <span>
-                                                <img
-                                                  src={partyIcon}
-                                                  alt="empty-cart"
-                                                  className="img-fluid mx-auto empty-cart-image w-75"
-                                                />
-                                                </span>
-                    </strong>
+                    <p className="d-flex align-items-center gap-2 mb-0">
+                      Delivered to Your Door – <span className="fw-bold">Absolutely Free!</span>
+                      <span>
+                        <img
+                          src={partyIcon}
+                          alt="empty-cart"
+                          className="img-fluid mx-auto empty-cart-image w-75"
+                        />
+                      </span>
+                    </p>
                   )}
                 </p>
                 <ProgressBar

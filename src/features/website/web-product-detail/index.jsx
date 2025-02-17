@@ -293,7 +293,7 @@ const ProudctDetail = () => {
                       </p>
                     </button>
                   </div>
-                  <div className="gap-3 d-inline-flex ms-lg-auto">
+                  <div className="gap-2 d-inline-flex ms-lg-auto align-items-center">
                     <span className="pt-2">
                       {loginonWeb ? (
                         <Checkbox
@@ -317,15 +317,16 @@ const ProudctDetail = () => {
                         />
                       )}
                     </span>
-                    {/* <span>
+                    <span>
                       <Button
+                      className="p-0"
                         id="basic-button"
                         aria-controls={open ? "basic-menu" : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? "true" : undefined}
                         onClick={handleClick}
                       >
-                        <span className="d-inline-block bg-icon-background rounded-circle p-2">
+                        <span className="d-inline-block bg-icon-background rounded-circle" style={{padding: "0.6rem"}}>
                           <ShareIcon
                             style={{ color: "#F26722" }}
                             className=""
@@ -346,7 +347,7 @@ const ProudctDetail = () => {
                         <MenuItem onClick={handleClose}>Twitter</MenuItem>
                         <MenuItem onClick={handleClose}>Copy Link</MenuItem>
                       </Menu>
-                    </span> */}
+                    </span>
                   </div>
                 </div>
 
