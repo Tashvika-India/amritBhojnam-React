@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
-import Footer from "../../../layout/web-layout/Footer";
-import profileBg from "../../../assets/images/web/account/profile-bg.png";
-import trophyImg from "../../../assets/images/web/trophy-img.png";
-import coinsImg from "../../../assets/images/web/coins.svg"
+import Footer from "../../../layout/web-layout/Footer"; 
+import coinsImg from "../../../assets/images/web/coins.svg" 
 import { getAmritCoinHistoryApi } from "../../../services/adminApiRoutes";
-import { formatDateTime } from "../../../utils/constant-variable";
+import { formatDateTime } from "../../../utils/constant-variable"; 
+import CoinBanner from "../../../components/ui/CoinBanner";
 
 const CoinPage = () => {
   const [data, setData] = useState([])
@@ -15,14 +14,14 @@ const CoinPage = () => {
     setLoading(true)
     try {
       const response = await getAmritCoinHistoryApi();
-      setData(response?.data?.results)
+      setData(response?.data)
       setLoading(false)
     } catch (error) {
       console.log(error);
       setLoading(false)
     }
-  } 
-  
+  }
+
   useEffect(() => {
     getCoinList();
   }, [])
@@ -34,16 +33,9 @@ const CoinPage = () => {
           <div className="container fb-container">
             <div className="row">
               <div className="col-lg-10 mx-auto">
-                <div className="user-profile-img  mt-lg-5 mt-md-5 mt-4">
-                  <img
-                    className="img-fluid profile-img profile-foreground-img rounded-top w-100 mt-5"
-                    src={profileBg}
-                    alt="pencil"
-                    style={{ height: "200px" }}
-                  />
-                </div>
+                <CoinBanner data={data}/>
                 <ul className="coin-stepper-section mt-lg-5">
-                  { data?.map((data) => (
+                  {data?.results?.map((data) => (
                     <li className="coin-step-part d-flex justify-content-between pb-lg-5">
                       <div className="mt-4 pb-5">
                         <p className="fw-500 fb-fs-14 text-dark-grey mb-2">{formatDateTime(data?.created_at)}</p>
