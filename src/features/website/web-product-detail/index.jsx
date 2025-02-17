@@ -18,8 +18,10 @@ import useURLFilters from "../../../custom-compoents/useURLFilters";
 import MyCartMenu from "../../../components/ui/MyCartMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { cartAdd } from "../../../redux/slices/cartSlice";
+import { Helmet } from "react-helmet-async";
 import Loading from "../../../components/ui/Loading";
 import ProductCard from "../web-home/components/ProductCard";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import fireImg from "../../../assets/images/web/Fire.png";
 import recipeImg from "../../../assets/images/web/recipe-image.png";
 import {
@@ -48,7 +50,7 @@ import {
   notifyError,
   notifySuccess,
 } from "../../../components/ui/Notification";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ImageGallery from "./components/ImageGallery";
 import RatingBar from "./components/RatingProgress";
 import { AiFillThunderbolt } from "react-icons/ai";
@@ -86,6 +88,7 @@ const ProudctDetail = () => {
       ? words.slice(0, limit).join(" ") + "..."
       : text;
   };
+  const currentUrl = window.location.href; 
 
   const { cartItems, finalCart, error, cartId } = useSelector(
     (state) => state.cart
@@ -204,6 +207,32 @@ const ProudctDetail = () => {
     );
   }
 
+  const product = {
+    title: detail?.name,
+    description: detail?.short_description,
+    imageUrl: detail.images ,
+    url: currentUrl,
+  };
+
+  const shareOnWhatsApp = () => {
+    const text = `${product.title} - ${product.description} ${product.url}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+  };
+
+  const shareOnFacebook = () => {
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      product.url
+    )}`;
+    window.open(facebookUrl, "_blank");
+  };
+
+  const shareOnTwitter = () => {
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      product.title
+    )}&url=${encodeURIComponent(product.url)}`;
+    window.open(twitterUrl, "_blank");
+  };
+
   const deliveryDateCustom = pinValue?.delivery_date || "";
   const formattedDateCustom = formatDeliveryDateCustom(
     deliveryDateCustom || ""
@@ -242,7 +271,6 @@ const ProudctDetail = () => {
   useEffect(() => {
     reviewList();
   }, []);
-
 
   return (
     <div className="web-wrapper-main">
@@ -293,8 +321,8 @@ const ProudctDetail = () => {
                       </p>
                     </button>
                   </div>
-                  <div className="gap-3 d-inline-flex ms-lg-auto">
-                    <span className="pt-2">
+                  <div className="gap-2 d-inline-flex ms-lg-auto align-items-center">
+                    <span>
                       {loginonWeb ? (
                         <Checkbox
                           {...label}
@@ -317,19 +345,20 @@ const ProudctDetail = () => {
                         />
                       )}
                     </span>
-                    {/* <span>
+                    <span>
                       <Button
+                        className="p-0"
                         id="basic-button"
                         aria-controls={open ? "basic-menu" : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? "true" : undefined}
                         onClick={handleClick}
                       >
-                        <span className="d-inline-block bg-icon-background rounded-circle p-2">
-                          <ShareIcon
-                            style={{ color: "#F26722" }}
-                            className=""
-                          />
+                        <span
+                          className="d-inline-block bg-icon-background rounded-circle"
+                          style={{ padding: "0.6rem" }}
+                        >
+                          <ShareIcon style={{ color: "#F26722" }} />
                         </span>
                       </Button>
                       <Menu
@@ -341,12 +370,14 @@ const ProudctDetail = () => {
                           "aria-labelledby": "basic-button",
                         }}
                       >
-                        <MenuItem onClick={handleClose}>Whatsapp</MenuItem>
-                        <MenuItem onClick={handleClose}>Facebook</MenuItem>
-                        <MenuItem onClick={handleClose}>Twitter</MenuItem>
-                        <MenuItem onClick={handleClose}>Copy Link</MenuItem>
+                        <MenuItem onClick={shareOnWhatsApp}>WhatsApp</MenuItem>
+                        <MenuItem onClick={shareOnFacebook}>Facebook</MenuItem>
+                        <MenuItem onClick={shareOnTwitter}>Twitter</MenuItem>
+                        <CopyToClipboard text={product.url}>
+                          <MenuItem onClick={handleClose}>Copy Link</MenuItem>
+                        </CopyToClipboard>
                       </Menu>
-                    </span> */}
+                    </span>
                   </div>
                 </div>
 
@@ -389,10 +420,10 @@ const ProudctDetail = () => {
                     ₹{~~selectedOption?.offer_price}
                     {selectedOption?.offer_price !==
                       selectedOption?.max_price && (
-                        <small className="fw-500 fb-fs-30 text-grey ms-3">
-                          <strike>₹{~~selectedOption?.max_price}</strike>
-                        </small>
-                      )}
+                      <small className="fw-500 fb-fs-30 text-grey ms-3">
+                        <strike>₹{~~selectedOption?.max_price}</strike>
+                      </small>
+                    )}
                   </p>
                   <p style={{ fontSize: "0.875rem" }} className="fw-500 mt-3">
                     (Inclusive of all taxes)
@@ -421,11 +452,7 @@ const ProudctDetail = () => {
                       <button
                         className="button-primary mt-4 fb-fs-18"
                         onClick={() =>
-                          addToCart(
-                            detail?.id,
-                            quantity || 1,
-                            selectedOptionId
-                          )
+                          addToCart(detail?.id, quantity || 1, selectedOptionId)
                         }
                         disabled={loading}
                       >
@@ -493,7 +520,11 @@ const ProudctDetail = () => {
                   {pinValue?.delivery_date && pinValue?.delivery_days > 0 && (
                     <>
                       <span>
-                        <img className="img-fluid" src={deliveryImg} alt="delivery-img" />
+                        <img
+                          className="img-fluid"
+                          src={deliveryImg}
+                          alt="delivery-img"
+                        />
                       </span>
                       <span className="text-orange">Get it by</span>
                       <span>{formattedDateCustom}</span>
@@ -629,7 +660,7 @@ const ProudctDetail = () => {
                                               className="img-fluid border-orange"
                                               src={
                                                 !data?.is_anonymous &&
-                                                  data?.user_img
+                                                data?.user_img
                                                   ? `${baseURL}/${data?.user_img}`
                                                   : pp
                                               }
@@ -647,7 +678,7 @@ const ProudctDetail = () => {
                                               {data?.is_anonymous
                                                 ? "Anonymous"
                                                 : data?.user_name ||
-                                                "Anonymous"}
+                                                  "Anonymous"}
                                             </h6>
                                             <span className="d-inline-block">
                                               <Rating
@@ -666,12 +697,12 @@ const ProudctDetail = () => {
                                         <p className="mb-3 text-grey fw-500 pb-3 pt-2">
                                           {data?.created_at
                                             ? new Intl.DateTimeFormat("en-GB", {
-                                              day: "2-digit",
-                                              month: "short",
-                                              year: "numeric",
-                                            }).format(
-                                              new Date(data.created_at)
-                                            )
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric",
+                                              }).format(
+                                                new Date(data.created_at)
+                                              )
                                             : "Date not available"}
                                         </p>
                                         {data?.images?.map((image, index) => (
