@@ -136,7 +136,7 @@ export const deleteBannerApi = (id) => API.delete(`/banners/${id}`);
 
 export const getCartApi = () => API.get(`/cart/`);
 export const postCartApi = (payload) => API.post(`/cart/`, payload);
-export const getFinalCartApi = (cart_id, coupon_code,status=false) => API.get(`/cart/final/?cart_id=${cart_id}&coupon_code=${coupon_code}&apply_amrit_coins=${status}`);
+export const getFinalCartApi = (cart_id, coupon_code,coinStatus) => API.get(`/cart/final/?cart_id=${cart_id}&coupon_code=${coupon_code}&apply_amrit_coins=${coinStatus}`);
 
 // options api
 
@@ -254,3 +254,5 @@ export const deleteFoodSensitivity = (id) => API.delete(`/meal_food_sensitivity/
 
 export const getAmritCoinApi = () => API.get(`/coin_management/`);
 export const postAmritCoinApi = (payload) => API.post(`/coin_management/`, payload);
+
+export const  getAmritCoinHistoryApi = () => API.get(`/amrit_coins_history/`);
