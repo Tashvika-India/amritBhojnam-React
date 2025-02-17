@@ -657,33 +657,36 @@ footer {
 
 //coin-section
 .coin-page .coin-stepper-section{
+  position: relative;
   .coin-step-part{
     position: relative;
+    padding-left: 3rem;
+    margin-left: 3rem;
     &::before{
       content: "";
       position: absolute;
-      background-image: url(src/assets/images/web/star-coin.png);
+      background-image: url("../../assets/images/web/star-coin.png");
       background-repeat: no-repeat;
-      top: 1rem;
-      margin-left: 2rem;
-      left: 0;
+      top: 1rem; 
+      left: -1.1875rem;
       height: 3rem;
       width: 3rem;
+      z-index: 2;
     }
-    
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    background-image: url(/src/assets/images/web/coin-line.png);
-    background-repeat: no-repeat;
-    object-fit: contain;
-    top: 36rem;
-    z-index: -1;
-    left: 26rem;
-    height: 100%;
-    width: 1px;
-
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 110%;
+      width: 1px;
+      background-color: $border;
+    }
+    &:last-child{
+      &::after{
+        all: unset;
+      }
+    }
   }
 } 
 
@@ -2755,15 +2758,6 @@ footer {
     margin-top: 3rem;
   }
   .coin-page .coin-stepper-section{
-    .coin-step-part::before {
-      margin-left: 1rem;
-    }
-    &::after {
-      position: fixed;
-      top: 14rem;
-        left: 4.25rem;
-        height: 45%;
-    }
     img{
       max-width: 4rem;
       margin-top: 1.5rem;
@@ -3690,11 +3684,7 @@ footer {
     font-size: 1rem !important;
   }
 
-  .tab-nav-wrapper .nav-item .nav-link {
-    // font-size: 10px !important;
-    // padding: 8px 12px !important;
-    // margin-right: 4px !important;
-  }
+  
 
   .disc-style {
     font-size: 12px;
@@ -4028,6 +4018,10 @@ footer {
   .order-section .filter-order .demo-simple-select-label {
     font-size: 2px !important;
   }
+  .coin-page .coin-stepper-section .coin-step-part{
+    padding-left: 2rem;
+    margin-left: 1rem;
+  }
 }
 
 @media (min-width: 300px) and (max-width: 350px) {
@@ -4035,20 +4029,15 @@ footer {
     font-size: 0.64rem;
     padding: 0.7rem 0.4rem 0.5rem;
   }
-  .coin-page .coin-stepper-section{
-    .coin-step-part::before {
-      margin-left: .5rem;
-    }
-    &::after {
-      top: 29rem;
-      left: 2.5rem;
-      height: 45%;
-    }
-    img{
-      max-width: 3.5rem;
-      margin-top: 1.5rem;
-    }
-  }
+  // .coin-page .coin-stepper-section{
+  //   .coin-step-part::before {
+  //     margin-left: .5rem;
+  //   }
+  //   img{
+  //     max-width: 3.5rem;
+  //     margin-top: 1.5rem;
+  //   }
+  // }
 }
 
 @media (min-width: 350px) and (max-width: 400px) {
@@ -4056,20 +4045,16 @@ footer {
     font-size: 0.76rem;
     padding: 0.7rem 0.4rem 0.5rem;
   }
-  .coin-page .coin-stepper-section{
-    .coin-step-part::before {
-      margin-left: .5rem;
-    }
-    &::after {
-      top: 29rem;
-      left: 2.5rem;
-      height: 40%;
-    }
-    img{
-      max-width: 3.5rem;
-      margin-top: 1.5rem;
-    }
-  }
+  // .coin-page .coin-stepper-section{
+  //   .coin-step-part::before {
+  //     margin-left: .5rem;
+  //   }
+    
+  //   img{
+  //     max-width: 3.5rem;
+  //     margin-top: 1.5rem;
+  //   }
+  // }
 }
 
 @media (min-width: 400px) and (max-width: 500px) {
@@ -4079,35 +4064,26 @@ footer {
       padding: 0.7rem 0.4rem 0.5rem;
     }
   }
-  .coin-page .coin-stepper-section{
-    .coin-step-part::before {
-      margin-left: .5rem;
-    }
-    &::after {
-      top: 29rem;
-      left: 2.5rem;
-      height: 40%;
-    }
-    img{
-      max-width: 3.5rem;
-      margin-top: 1.5rem;
-    }
-  }
+  // .coin-page .coin-stepper-section{
+  //   .coin-step-part::before {
+  //     margin-left: .5rem;
+  //   }
+    
+  //   img{
+  //     max-width: 3.5rem;
+  //     margin-top: 1.5rem;
+  //   }
+  // }
 }
 
 @media (min-width: 500px) and (max-width: 576px) {
-  .coin-page .coin-stepper-section{
-    .coin-step-part::before {
-      margin-left: .5rem;
-    }
-    &::after {
-      top: 29rem;
-      left: 2.5rem;
-      height: 40%;
-    }
-    img{
-      max-width: 3.5rem;
-      margin-top: 1.5rem;
-    }
-  }
+  // .coin-page .coin-stepper-section{
+  //   .coin-step-part::before {
+  //     margin-left: .5rem;
+  //   }
+  //   img{
+  //     max-width: 3.5rem;
+  //     margin-top: 1.5rem;
+  //   }
+  // }
 }

@@ -254,3 +254,5 @@ export const deleteFoodSensitivity = (id) => API.delete(`/meal_food_sensitivity/
 
 export const getAmritCoinApi = () => API.get(`/coin_management/`);
 export const postAmritCoinApi = (payload) => API.post(`/coin_management/`, payload);
+
+export const  getAmritCoinHistoryApi = () => API.get(`/amrit_coins_history/`);
