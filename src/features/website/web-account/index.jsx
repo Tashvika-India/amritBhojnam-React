@@ -2,9 +2,9 @@ import * as Yup from "yup";
 import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
-import { TabPanel, TabView } from "primereact/tabview"; 
+import { TabPanel, TabView } from "primereact/tabview";
 import {
-  FormControl, 
+  FormControl,
   InputLabel,
   MenuItem,
   OutlinedInput,
@@ -14,12 +14,13 @@ import {
 import pencilImg from "../../../assets/images/web/account/pencil.png";
 import profileBg from "../../../assets/images/web/account/profile-bg.png";
 import otherImg from "../../../assets/images/web/account/other.png";
-import pp from "../../../assets/images/web/account/profile-picture.png"; 
-import tickImg from "../../../assets/images/web/account/tick-image.png"; 
+import pp from "../../../assets/images/web/account/profile-picture.png";
+import tickImg from "../../../assets/images/web/account/tick-image.png";
 import emptyOrder from "../../../assets/images/web/empty-order.png";
-import emptyAddress from "../../../assets/images/web/empty-address.png"; 
-import homeImg from "../../../assets/images/web/account/home-img.png"; 
-import { BiEditAlt } from "react-icons/bi"; 
+import emptyAddress from "../../../assets/images/web/empty-address.png";
+import homeImg from "../../../assets/images/web/account/home-img.png";
+import coin from "../../../assets/images/web/star-coin.png";
+import { BiEditAlt } from "react-icons/bi";
 import { FaCamera } from "react-icons/fa";
 import {
   deleteAddressApi,
@@ -38,18 +39,19 @@ import { Collapse } from "@mui/material";
 import { useFormik } from "formik";
 import Address from "../../../assets/common-components/website/Address";
 import { baseURL } from "../../../utils/constant-variable";
-import { Link, useLocation } from "react-router-dom"; 
-import { RiDeleteBin6Line } from "react-icons/ri"; 
-import ReviewModal from "../../../components/ui/ReviewModal"; 
+import { Link, useLocation } from "react-router-dom";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import ReviewModal from "../../../components/ui/ReviewModal";
 import {
   notifyError,
   notifySuccess,
 } from "../../../components/ui/Notification";
 import Loading from "../../../components/ui/Loading";
 import Typography from "@mui/material/Typography";
-import Breadcrumbs from "@mui/material/Breadcrumbs"; 
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { useDispatch } from "react-redux";
-import { fetchCart } from "../../../redux/slices/cartSlice"; 
+import { fetchCart } from "../../../redux/slices/cartSlice";
+import profileBackground from "../../../assets/images/web/profile-background.png";
 import AddressDeleteModal from "../../../components/ui/AddressDeleteModal";
 import OrderListComponent from "./components/OrderListComponent";
 import BackdropLoader from "../../../components/ui/BackdropLoader";
@@ -145,7 +147,7 @@ const UserProfile = () => {
       setLoading(false);
       scrollTo(0, 0);
       setOpen(false);
-      setEditData(null)
+      setEditData(null);
       notifySuccess("Address updated Successfully");
       formik.resetForm();
     } catch (error) {
@@ -256,20 +258,19 @@ const UserProfile = () => {
       date_of_birth: Yup.date()
         .nullable() // Allow null values
         .max(new Date(), "Date of birth cannot be in the future")
-        .test(
-          "age",
-          "You must be at least 18 years old",
-          (value) => {
-            if (!value) return false; // If no value, validation fails.
-            const today = new Date();
-            const birthDate = new Date(value);
-            const age = today.getFullYear() - birthDate.getFullYear();
-            const monthDiff = today.getMonth() - birthDate.getMonth();
-            const dayDiff = today.getDate() - birthDate.getDate();
-            // Adjust age if the current date is before the birth date in the same year.
-            return age > 18 || (age === 18 && (monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0)));
-          }
-        ),
+        .test("age", "You must be at least 18 years old", (value) => {
+          if (!value) return false; // If no value, validation fails.
+          const today = new Date();
+          const birthDate = new Date(value);
+          const age = today.getFullYear() - birthDate.getFullYear();
+          const monthDiff = today.getMonth() - birthDate.getMonth();
+          const dayDiff = today.getDate() - birthDate.getDate();
+          // Adjust age if the current date is before the birth date in the same year.
+          return (
+            age > 18 ||
+            (age === 18 && (monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0)))
+          );
+        }),
     }),
     onSubmit: async (values, { setSubmitting }) => {
       await updateProfile(values);
@@ -318,7 +319,7 @@ const UserProfile = () => {
         notifyError("Failed to update profile picture");
       }
     }
-  }
+  };
 
   const HandleDaysChanges = (value) => {
     setFilter(value);
@@ -330,10 +331,10 @@ const UserProfile = () => {
     setProductId({ id, name, image });
   };
 
-  const handleInvoiceClick = async (id) => { 
+  const handleInvoiceClick = async (id) => {
     setIsLoading(true);
     try {
-      const response = await getOrderInvoiceApi({shipment_order_id: id});
+      const response = await getOrderInvoiceApi({ shipment_order_id: id });
       const blob = new Blob([response.data], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       window.open(url, "_blank");
@@ -392,7 +393,6 @@ const UserProfile = () => {
     }
   }, [userDetail]);
 
-
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -409,15 +409,29 @@ const UserProfile = () => {
       <div className="container fb-container mb-md-5 pb-md-5">
         <div className="row">
           <div className="col-lg-10 mx-auto">
-            <div className="user-profile-img  mt-lg-5 mt-md-5 mt-4">
-              {/* <img
-                className="img-fluid profile-img profile-foreground-img rounded-top w-100 mt-5"
-                src={profileBg}
-                alt="pencil"
-                style={{ height: "200px" }}
-              /> */}
+            <div className="user-profile-img d-flex justify-content-end mt-lg-5 mt-md-5 mt-4">
+              <div className="pt-4 pe-5 mt-2">
+                <div className="d-flex">
+                  <div className="ms-auto">
+                    <button className="white-button rounded-5 fw-600">
+                      Show Tokens History
+                    </button>
+                  </div>
+                </div>
+
+                <div className="text-white d-flex align-items-center gap-5 mt-4 pt-3">
+                  <div>
+                    <p className="fw-bolder fb-fs-28 lh-normal">Amrit Coins</p>
+                    <p className="fw-600 fb-fs-18">Redeem your coins now</p>
+                  </div>
+                  <div className="d-flex align-items-center gap-3">
+                    <img className="img-fluid" src={coin} alt="empty-address" />
+                    <p style={{ fontWeight: "800", fontSize: "42px" }}>655</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            
+
             <div className="p-md-4 p-lg-4 pt-0 ">
               <div className="user-profile-detail  position-relative text-start pb-3">
                 <div className="text-center rounded-circle  position-relative d-flex align-items-center gap-3">
@@ -428,8 +442,8 @@ const UserProfile = () => {
                         profilePictureImg
                           ? profilePictureImg
                           : userDetail?.pp
-                            ? baseURL + userDetail.pp
-                            : pp
+                          ? baseURL + userDetail.pp
+                          : pp
                       }
                       alt="Profile"
                     />
@@ -442,9 +456,8 @@ const UserProfile = () => {
                     />
                     <label
                       htmlFor="customFile"
-                      className="rounded-circle bg-orange  profile-pic-edit"> 
-                      <FaCamera color="white" />
-                    </label>
+                      className="rounded-circle profile-pic-edit"
+                    ></label>
                   </div>
                   <div className="image-content mt-4 mt-md-3 pt-md-5 ms-md-3">
                     <h4 className="text-dark-grey fw-bold text-start">
@@ -462,10 +475,11 @@ const UserProfile = () => {
             <div>
               <div className="flex mb-2 gap-2 justify-content-end border-bottom profile-tabs">
                 <button
-                  className={`border-0 bg-white fw-600 ${activeIndex === 0
-                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                    : "text-dark-grey"
-                    }`}
+                  className={`border-0 bg-white fw-600 ${
+                    activeIndex === 0
+                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                      : "text-dark-grey"
+                  }`}
                   onClick={() => setActiveIndex(0)}
                   rounded
                   outlined={activeIndex !== 0}
@@ -477,10 +491,11 @@ const UserProfile = () => {
                   My Account
                 </button>
                 <button
-                  className={`border-0 bg-white fw-600 ${activeIndex === 1
-                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                    : "text-dark-grey"
-                    }`}
+                  className={`border-0 bg-white fw-600 ${
+                    activeIndex === 1
+                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                      : "text-dark-grey"
+                  }`}
                   onClick={() => setActiveIndex(1)}
                   rounded
                   outlined={activeIndex !== 1}
@@ -492,10 +507,11 @@ const UserProfile = () => {
                   Order History
                 </button>
                 <button
-                  className={`border-0 bg-white fw-600 ${activeIndex === 2
-                    ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
-                    : "text-dark-grey"
-                    }`}
+                  className={`border-0 bg-white fw-600 ${
+                    activeIndex === 2
+                      ? "text-yellow bg-footer-bg border-bottom border-yellow-color"
+                      : "text-dark-grey"
+                  }`}
                   onClick={() => setActiveIndex(2)}
                   rounded
                   outlined={activeIndex !== 2}
@@ -519,7 +535,8 @@ const UserProfile = () => {
                       <div className="d-flex">
                         <button
                           className="d-inline-flex align-items-end border-0 bg-transparent"
-                          onClick={() => setProfileEdit(true)}>
+                          onClick={() => setProfileEdit(true)}
+                        >
                           <img
                             className="img-fluid"
                             src={pencilImg}
@@ -599,7 +616,7 @@ const UserProfile = () => {
                             </FormControl>
                           </div> */}
                           <div className="col-md-4 mb-4">
-                          <TextField
+                            <TextField
                               fullWidth
                               className="rounded-20 me-5"
                               id="phone_number"
@@ -621,7 +638,7 @@ const UserProfile = () => {
                             />
                           </div>
                           <div className="col-md-4 mb-4">
-                            <FormControl fullWidth >
+                            <FormControl fullWidth>
                               <InputLabel id="demo-simple-select-label">
                                 Gender
                               </InputLabel>
@@ -700,13 +717,16 @@ const UserProfile = () => {
                     <div className="d-flex justify-content-between align-items-center mb-3 mt-3">
                       <h4 className="fb-fs-26 fw-bold mb-3">Order History</h4>
                       <FormControl style={{ width: "9rem" }}>
-                        <InputLabel id="demo-simple-select-label" size="small">Filter Orders</InputLabel>
+                        <InputLabel id="demo-simple-select-label" size="small">
+                          Filter Orders
+                        </InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label="Filter Orders"
                           onChange={(e) => HandleDaysChanges(e.target.value)}
-                          size="small">
+                          size="small"
+                        >
                           <MenuItem value={""}>Select</MenuItem>
                           <MenuItem value={7}>Last Week</MenuItem>
                           <MenuItem value={30}>Last Month</MenuItem>
@@ -717,13 +737,17 @@ const UserProfile = () => {
                     {loading ? (
                       <Loading />
                     ) : order?.results?.length > 0 ? (
-                      (isLoading) ? <BackdropLoader open={isLoading} />  : <OrderListComponent
-                        order={order}
-                        handleReOrderClick={handleReOrderClick}
-                        handleInvoiceClick={handleInvoiceClick}
-                        handleReviewClick={handleReviewClick}
-                        tickImg={tickImg}
-                      />
+                      isLoading ? (
+                        <BackdropLoader open={isLoading} />
+                      ) : (
+                        <OrderListComponent
+                          order={order}
+                          handleReOrderClick={handleReOrderClick}
+                          handleInvoiceClick={handleInvoiceClick}
+                          handleReviewClick={handleReviewClick}
+                          tickImg={tickImg}
+                        />
+                      )
                     ) : (
                       // Show "No Data Found" design
                       <div className="empty-order text-center">
@@ -752,7 +776,8 @@ const UserProfile = () => {
                       <div className="d-flex align-items-center justify-content-center mb-3">
                         <button
                           className="fw-500 text-center border-0 text-orange bg-transparent success-primary-button"
-                          onClick={handleLoadMore}>
+                          onClick={handleLoadMore}
+                        >
                           Load More Orders
                         </button>
                       </div>
@@ -802,15 +827,25 @@ const UserProfile = () => {
                       {addressList.length > 0 ? (
                         addressList.map((item, index) => (
                           <>
-                            <div className={`summary-card ${item?.selected ? "active" : ""} rounded-20 px-2 py-3 mt-3 cursor-pointer`} key={item?.id}>
+                            <div
+                              className={`summary-card ${
+                                item?.selected ? "active" : ""
+                              } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                              key={item?.id}
+                            >
                               <div className="px-md-3">
                                 <div className="row">
                                   <div className="col-md-12 d-flex justify-content-between">
                                     <div className="order-date d-flex gap-2">
                                       <img
-                                        className={`img-fluid me-1 rounded-4 align-self-start ${item?.selected ? "shadow" : ""
-                                          }`}
-                                        src={(item?.save_as === "Home") ? homeImg : otherImg}
+                                        className={`img-fluid me-1 rounded-4 align-self-start ${
+                                          item?.selected ? "shadow" : ""
+                                        }`}
+                                        src={
+                                          item?.save_as === "Home"
+                                            ? homeImg
+                                            : otherImg
+                                        }
                                         alt="pencil"
                                       />
                                       <div className="ms-md-3">
@@ -847,8 +882,8 @@ const UserProfile = () => {
                                   <div className="d-block d-md-none">
                                     <p className="mt-2 text-wrap">
                                       {item?.house_flat_block_no},
-                                      {item?.road_area_colony}, {item?.city}
-                                      ,{item?.state} - {item?.pincode}
+                                      {item?.road_area_colony}, {item?.city},
+                                      {item?.state} - {item?.pincode}
                                     </p>
                                   </div>
                                   <div className="col-md-1"></div>
@@ -862,8 +897,13 @@ const UserProfile = () => {
                                         }}
                                       >
                                         <div className="d-flex align-items-center gap-1">
-                                          <BiEditAlt size={20} color="#428DC5" />
-                                          <p className="fw-500 text-dark-grey">Edit</p>
+                                          <BiEditAlt
+                                            size={20}
+                                            color="#428DC5"
+                                          />
+                                          <p className="fw-500 text-dark-grey">
+                                            Edit
+                                          </p>
                                         </div>
                                       </button>
                                       <button
@@ -872,8 +912,13 @@ const UserProfile = () => {
                                         onClick={() => openModal(item.id)}
                                       >
                                         <div className="d-flex align-items-center gap-1">
-                                          <RiDeleteBin6Line color="#E70900" size={17} />
-                                          <p className="fw-500 text-dark-grey">Delete</p>
+                                          <RiDeleteBin6Line
+                                            color="#E70900"
+                                            size={17}
+                                          />
+                                          <p className="fw-500 text-dark-grey">
+                                            Delete
+                                          </p>
                                         </div>
                                       </button>
                                       <AddressDeleteModal
@@ -907,7 +952,9 @@ const UserProfile = () => {
                               src={emptyAddress}
                               alt="empty-address"
                             />
-                            <h3 className="text-dark-grey fw-600">No Address Saved</h3>
+                            <h3 className="text-dark-grey fw-600">
+                              No Address Saved
+                            </h3>
                             <p className="text-mid-grey fb-fs-20 mb-3">
                               No address saved. Add a new address to proceed.
                             </p>
