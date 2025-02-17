@@ -46,9 +46,10 @@ import starCoin from "../../../assets/images/web/star-coin.png";
 import emptyCart from "../../../assets/images/web/empty-cart.png";
 import { loginonWeb } from "../../../utils/constant-variable";
 import { InputSwitch } from "primereact/inputswitch";
+import BackdropLoader from "../../../components/ui/BackdropLoader";
 
 const CheckoutPage = () => {
-  const [loading, setLoading] = useState(false);
+  const [addressLoading, setAddressLoading] = useState(false);
   const [loadingNew, setLoadingNew] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [couponList, setCouponList] = useState([]);
@@ -58,19 +59,24 @@ const CheckoutPage = () => {
   const [showWebLogin, setShowWebLogin] = useState(false);
   const [visible, setVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedAddressId, setSelectedAddressId] = useState(null);
-  const [checked, setChecked] = useState(true);
-  const [couponCode, setCouponCode] = useState("");
-  const [amritCoin, setAmritCoin] = useState([]);
+  const [selectedAddressId, setSelectedAddressId] = useState(null); 
+  const [couponCode, setCouponCode] = useState(""); 
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
   const dispatch = useDispatch();
-  const { cartItems, finalCart, cartId } = useSelector((state) => state.cart);
-
-  console.log(finalCart, "dfgh");
+  const { cartItems, finalCart, cartId,loading } = useSelector((state) => state.cart);
 
   const handleCouponApply = (coupon) => {
     setCouponCode(coupon);
     dispatch(fetchFinalCart({ cartId, coupon }));
+  };
+
+  const handleCoinStatus = (e) => { 
+    dispatch(fetchFinalCart({ cartId, coinStatus: e })); 
+    if (e === true) {
+      notifySuccess("Coins applied successfully");
+    }else{
+      notifySuccess("Coins removed successfully");
+    }
   };
 
   const getCouponList = async () => {
@@ -103,9 +109,10 @@ const CheckoutPage = () => {
     delivery_date,
     delivery_days,
     coupon_code,
-    courier_id
+    courier_id,
+    apply_amrit_coins
   ) => {
-    setLoading(true);
+    setAddressLoading(true);
     try {
       // Step 1: Fetch User Profile
       const response = await getProfileApi(userId);
@@ -126,7 +133,7 @@ const CheckoutPage = () => {
         delivery_days: delivery_days,
         productinfo: cartId,
         courier_id: courier_id || "",
-        apply_amrit_coins: false,
+        apply_amrit_coins,
         surl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_success_web/`,
         furl: `https://dev-env.amritbhojanam.com/api/accounts/payu/payment_failed_web/`,
       };
@@ -154,12 +161,12 @@ const CheckoutPage = () => {
       document.body.appendChild(form);
       form.submit();
       notifySuccess("Payment Initiated Successfully");
-      setLoading(false);
+      setAddressLoading(false);
     } catch (error) {
       console.error("Error during payment:", error);
       notifyError(error.response?.data?.error);
     } finally {
-      setLoading(false);
+      setAddressLoading(false);
     }
   };
 
@@ -209,13 +216,14 @@ const CheckoutPage = () => {
         dispatch(fetchFinalCart({ cartId }));
         notifySuccess("Address added Successfully");
       }
-      setLoading(false);
+      setAddressLoading(false);
       setOpen(false);
       scrollTo(0, 0);
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
       notifyError(error.response?.data?.error);
+      setAddressLoading(false);
     } finally {
       formik.setSubmitting(false);
     }
@@ -418,7 +426,7 @@ const CheckoutPage = () => {
                             <Collapse in={editData?.id === item?.id}>
                               <Address
                                 formik={formik}
-                                loading={loading}
+                                loading={addressLoading}
                                 setEditData={setEditData}
                                 setOpen={setOpen}
                                 editData={editData}
@@ -461,7 +469,7 @@ const CheckoutPage = () => {
                       <Address
                         formik={formik}
                         setEditData={setEditData}
-                        loading={loading}
+                        loading={addressLoading}
                         setOpen={setOpen}
                         editData={editData}
                       />
@@ -529,9 +537,7 @@ const CheckoutPage = () => {
                           scrollbarWidth: "none",
                         }}
                       >
-                        {loading ? (
-                          <Loading />
-                        ) : cartItems?.length > 0 ? (
+                        { cartItems?.length > 0 ? (
                           cartItems?.map((item, index) => (
                             <>
                               <div className="cart-items mt-4" key={index}>
@@ -646,7 +652,7 @@ const CheckoutPage = () => {
                                 </li> */}
                             </ul>
                           </div>
-                          <div className="amrit-coin-toggle mb-3">
+                          { finalCart?.availability_amrit_coins && <div className="amrit-coin-toggle mb-3">
                             <div className="d-flex justify-content-between">
                               <p className="fw-500 d-flex align-items-center">
                                 Use
@@ -656,32 +662,33 @@ const CheckoutPage = () => {
                                     src={starCoin}
                                     alt="pencil"
                                   />
-                                </span>{" "}
+                                </span>
                                 <span className="fw-bold">
                                   {finalCart?.use_amrit_coins} Amrit Coins to
                                   get Rs.{finalCart?.amrit_coins_rs_off} OFF
-                                </span>{" "}
+                                </span>
                               </p>
                               <InputSwitch
-                                checked={checked}
-                                onChange={(e) => setChecked(e.value)}
+                                checked={finalCart?.apply_amrit_coins}
+                                onChange={(e) => handleCoinStatus(e.value)}
                               />
                             </div>
                             <div className="d-flex justify-content-between mt-2">
                               <p className="">
-                                Total Balance :{" "}
+                                Total Balance :
                                 <span className="fw-600">
                                   {finalCart?.total_amrit_coins}
                                 </span>
                               </p>
                               <p className="text-yellow fw-bold">
-                                {finalCart?.per_coin_value} Amrit Coin ={" "}
+                                {finalCart?.per_coin_value} Amrit Coin =
                                 {finalCart?.per_rs_value} Rupee
                               </p>
                             </div>
-                          </div>
-                          <p className="d-flex align-items-center fw-500 ms-5 ps-3 pt-3">
-                            You will earn{" "}
+                          </div>}
+                          { (loading) ? <BackdropLoader open={loading} /> : 
+                          (<p className="d-flex align-items-center fw-500 ms-5 ps-3 pt-3">
+                            You will earn
                             <span>
                               <img
                                 className="img-fluid mx-1"
@@ -689,12 +696,12 @@ const CheckoutPage = () => {
                                 style={{ maxWidth: "1rem" }}
                                 alt="pencil"
                               />
-                            </span>{" "}
+                            </span>
                             <span className="fw-bold me-1">
-                              {finalCart?.earn_amrit_coins} Amrit Coins{" "}
-                            </span>{" "}
-                            on this purchase{" "}
-                            <div className="card flex justify-content-center">
+                              {finalCart?.earn_amrit_coins} Amrit Coins
+                            </span>
+                            on this purchase &nbsp;
+                            <div className="me-2">
                               <Tooltip target=".custom-target-icon" />
                               <MdInfoOutline
                                 size={17}
@@ -703,11 +710,11 @@ const CheckoutPage = () => {
                                 data-pr-position="top"
                                 data-pr-at="center bottom-5"
                                 data-pr-my="center top"
-                                style={{ fontSize: "2rem", cursor: "pointer" }}
+                                style={{cursor: "pointer" }}
                               />
-                            </div>{" "}
+                            </div>
                             <span className="ms-1"></span>
-                          </p>
+                          </p>)}
                           <div className="cart-items mt-4 border-top mb-2">
                             <div className="product-details w-100 ms-lg-3 pt-4">
                               <h6 className="fw-bolder">Total Amount </h6>
@@ -738,7 +745,8 @@ const CheckoutPage = () => {
                                     finalCart?.delivery_date,
                                     finalCart?.delivery_days,
                                     finalCart?.coupon_data?.coupon_code,
-                                    finalCart?.courier_id
+                                    finalCart?.courier_id,
+                                    finalCart?.apply_amrit_coins
                                   )
                                 }
                               >
