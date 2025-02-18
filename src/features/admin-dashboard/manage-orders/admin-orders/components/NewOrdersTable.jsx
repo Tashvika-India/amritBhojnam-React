@@ -64,14 +64,14 @@ const NewOrdersTable = ({ order, getOrderList }) => {
         <p className="mb-0 fw-500">
           {rowData?.payment_details?.payment_mode}
         </p>
-        <p className="mb-0 fw-400 text-orange">
-          {rowData?.status}
+        <p className="fw-400 text-success" style={{ color: "#D3F4D4", fontSize: ".9rem" }}>
+          Paid
         </p>
       </div>
     );
   };
 
-  const orderTemplate = (rowData) => {
+  const orderTemplate = (rowData) => { 
     return (
       <>
         {/* {(rowData?.product_details.map((item) => {
@@ -91,7 +91,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
           <img src={rowData?.product_details[0]?.product?.images[0]?.image} alt="img" style={{ width: "3.5rem", height: "4rem" }} />
           <div className="d-flex flex-column">
             <p className="fw-400 mb-0" style={{ fontSize: "1rem" }}>{rowData?.product_details[0]?.product?.name}</p>
-            <Link to={`/admin/order-details/${rowData.id}`} className="fw-400 mb-0 " style={{ fontSize: ".88rem", color: "#584EE0" }}>View all orders</Link> 
+            <Link to={`/admin/order-details/${rowData.id}`} className="fw-400 mb-0 " style={{ fontSize: ".88rem", color: "#584EE0" }}>{rowData?.product_details.length > 0 && `${rowData?.product_details.length} more...`}</Link> 
           </div>
         </div>
       </>
@@ -119,44 +119,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
     );
   };
 
-  const actionBodyTemplate = (rowData) => {
-    const [acceptVisible, setAcceptVisible] = useState(false);
-    const [cancelVisible, setCancelVisible] = useState(false);
-
-    const handleAcceptOrder = async (rowData) => {
-      try {
-        const payload = {
-          order_id: rowData.id,
-          status: "accepted",
-          cancel_reason: "",
-        };
-        await getOrderSuccessApi(payload);
-        getOrderList();
-        notifySuccess("Order accepted successfully");
-        setAcceptVisible(false);
-      } catch (error) {
-        notifyError(error.response?.data?.error);
-        console.error("Error accepting order:", error);
-      }
-    };
-
-    const handleCancelOrder = async (rowData, remarks) => {
-      try {
-        const payload = {
-          order_id: rowData.id,
-          status: "cancelled",
-          cancel_reason: remarks,
-        };
-        await getOrderSuccessApi(payload);
-        getOrderList();
-        notifySuccess("Order cancelled successfully");
-        setCancelVisible(false);
-      } catch (error) {
-        notifyError(error.response?.data?.error);
-        console.error("Error cancelling order:", error);
-      }
-    };
-    
+  const actionBodyTemplate = (rowData) => { 
     return (
       <>
         {
