@@ -25,6 +25,7 @@ import Address from "../../../assets/common-components/website/Address";
 import MobileLogin from "../../../components/ui/MobileLogin";
 import { Dialog } from "primereact/dialog";
 import partyIcon from "../../../assets/images/web/party-icon.svg";
+import Tooltip from "./components/Tooltip";
 import {
   notifyError,
   notifySuccess,
@@ -40,7 +41,7 @@ import editButton from "../../../assets/images/web/account/edit-button.png";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
 import AddressDeleteModal from "../../../components/ui/AddressDeleteModal";
 import { BiEditAlt } from "react-icons/bi";
-import { Tooltip } from "primereact/tooltip";
+
 import { RiDeleteBin6Line } from "react-icons/ri";
 import starCoin from "../../../assets/images/web/star-coin.png";
 import emptyCart from "../../../assets/images/web/empty-cart.png";
@@ -59,22 +60,24 @@ const CheckoutPage = () => {
   const [showWebLogin, setShowWebLogin] = useState(false);
   const [visible, setVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedAddressId, setSelectedAddressId] = useState(null); 
-  const [couponCode, setCouponCode] = useState(""); 
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
+  const [couponCode, setCouponCode] = useState("");
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
   const dispatch = useDispatch();
-  const { cartItems, finalCart, cartId,loading } = useSelector((state) => state.cart);
+  const { cartItems, finalCart, cartId, loading } = useSelector(
+    (state) => state.cart
+  );
 
   const handleCouponApply = (coupon) => {
     setCouponCode(coupon);
     dispatch(fetchFinalCart({ cartId, coupon }));
   };
 
-  const handleCoinStatus = (e) => { 
-    dispatch(fetchFinalCart({ cartId, coinStatus: e })); 
+  const handleCoinStatus = (e) => {
+    dispatch(fetchFinalCart({ cartId, coinStatus: e }));
     if (e === true) {
       notifySuccess("Coins applied successfully");
-    }else{
+    } else {
       notifySuccess("Coins removed successfully");
     }
   };
@@ -505,14 +508,15 @@ const CheckoutPage = () => {
                             </>
                           ) : (
                             <p className=" d-flex gap-2 align-items-center mb-0">
-                            Delivered to Your Door – <span className="fw-bold">Absolutely Free! </span>
-                            <span>
-                            <img
-                              src={partyIcon}
-                              alt="empty-cart"
-                              className="img-fluid mx-auto empty-cart-image w-75"
-                            />
-                            </span>
+                              Delivered to Your Door –{" "}
+                              <span className="fw-bold">Absolutely Free! </span>
+                              <span>
+                                <img
+                                  src={partyIcon}
+                                  alt="empty-cart"
+                                  className="img-fluid mx-auto empty-cart-image w-75"
+                                />
+                              </span>
                             </p>
                           )}
                         </p>
@@ -537,7 +541,7 @@ const CheckoutPage = () => {
                           scrollbarWidth: "none",
                         }}
                       >
-                        { cartItems?.length > 0 ? (
+                        {cartItems?.length > 0 ? (
                           cartItems?.map((item, index) => (
                             <>
                               <div className="cart-items mt-4" key={index}>
@@ -651,70 +655,81 @@ const CheckoutPage = () => {
                                   </span>
                                 </li> */}
                             </ul>
-                          </div> 
-                          { finalCart?.availability_amrit_coins && <div className="amrit-coin-toggle mb-3 mt-4"> 
-                            <div className="d-flex justify-content-between">
-                              <p className="fw-500 d-flex align-items-center">
-                                Use
-                                <span>
-                                  <img
-                                    className="img-fluid mx-1"
-                                    src={starCoin}
-                                    alt="pencil"
+                          </div>
+                          {finalCart?.availability_amrit_coins && (
+                            <div className="amrit-coin-toggle mb-3 mt-4">
+                              <div className="d-flex justify-content-between">
+                                <p className="fw-500 d-flex align-items-center">
+                                  Use
+                                  <span>
+                                    <img
+                                      className="img-fluid mx-1"
+                                      src={starCoin}
+                                      alt="pencil"
+                                    />
+                                  </span>
+                                  <span className="fw-bold">
+                                    {finalCart?.use_amrit_coins} Amrit Coins to
+                                    get Rs.{finalCart?.amrit_coins_rs_off} OFF
+                                  </span>
+                                </p>
+                                <InputSwitch
+                                  checked={finalCart?.apply_amrit_coins}
+                                  onChange={(e) => handleCoinStatus(e.value)}
+                                />
+                              </div>
+                              <div className="d-flex justify-content-between mt-2">
+                                <p className="">
+                                  Total Balance :
+                                  <span className="fw-600">
+                                    {finalCart?.total_amrit_coins}
+                                  </span>
+                                </p>
+                                <p className="text-yellow fw-bold">
+                                  {finalCart?.per_coin_value} Amrit Coin =
+                                  {finalCart?.per_rs_value} Rupee
+                                </p>
+                              </div>
+                            </div>
+                          )}
+                          {loading ? (
+                            <BackdropLoader open={loading} />
+                          ) : (
+                            <p className="d-flex align-items-center fw-500 ms-5 ps-3 pt-3">
+                              You will earn
+                              <span>
+                                <img
+                                  className="img-fluid mx-1"
+                                  src={starCoin}
+                                  style={{ maxWidth: "1rem" }}
+                                  alt="pencil"
+                                />
+                              </span>
+                              <span className="fw-bold me-1">
+                                {finalCart?.earn_amrit_coins} Amrit Coins
+                              </span>
+                              on this purchase &nbsp;
+                              <div className="me-2 mt-2">
+                                <Tooltip
+                                  content={
+                                    <>
+                                     Redeem these Amrit Coins and 
+                                      <br />
+                                      use avail exiting discount offers 
+                                    </>
+                                  }
+                                  delay="0"
+                                  direction="top"
+                                >
+                                  <MdInfoOutline
+                                    size={17}
+                                    style={{ cursor: "pointer" }}
                                   />
-                                </span>
-                                <span className="fw-bold">
-                                  {finalCart?.use_amrit_coins} Amrit Coins to
-                                  get Rs.{finalCart?.amrit_coins_rs_off} OFF
-                                </span>
-                              </p>
-                              <InputSwitch
-                                checked={finalCart?.apply_amrit_coins}
-                                onChange={(e) => handleCoinStatus(e.value)}
-                              />
-                            </div>
-                            <div className="d-flex justify-content-between mt-2">
-                              <p className="">
-                                Total Balance :
-                                <span className="fw-600">
-                                  {finalCart?.total_amrit_coins}
-                                </span>
-                              </p>
-                              <p className="text-yellow fw-bold">
-                                {finalCart?.per_coin_value} Amrit Coin =
-                                {finalCart?.per_rs_value} Rupee
-                              </p>
-                            </div>
-                          </div>}
-                          { (loading) ? <BackdropLoader open={loading} /> : 
-                          (<p className="d-flex align-items-center fw-500 ms-5 ps-3 pt-3">
-                            You will earn
-                            <span>
-                              <img
-                                className="img-fluid mx-1"
-                                src={starCoin}
-                                style={{ maxWidth: "1rem" }}
-                                alt="pencil"
-                              />
-                            </span>
-                            <span className="fw-bold me-1">
-                              {finalCart?.earn_amrit_coins} Amrit Coins
-                            </span>
-                            on this purchase &nbsp;
-                            <div className="me-2">
-                              <Tooltip target=".custom-target-icon" />
-                              <MdInfoOutline
-                                size={17}
-                                className="custom-target-icon p-text-secondary p-overlay-badge"
-                                data-pr-tooltip="Redeem these Amrit Coins and use avail exiting discount offers "
-                                data-pr-position="top"
-                                data-pr-at="center bottom-5"
-                                data-pr-my="center top"
-                                style={{cursor: "pointer" }}
-                              />
-                            </div>
-                            <span className="ms-1"></span>
-                          </p>)}
+                                </Tooltip>
+                              </div>
+                              <span className="ms-1"></span>
+                            </p>
+                          )}
                           <div className="cart-items mt-4 border-top mb-2">
                             <div className="product-details w-100 ms-lg-3 pt-4">
                               <h6 className="fw-bolder">Total Amount </h6>
