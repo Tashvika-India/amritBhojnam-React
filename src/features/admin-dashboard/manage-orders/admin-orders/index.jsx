@@ -21,7 +21,10 @@ function AdminOrders() {
     setLoading(true);
     try {
       const response = await getAdminOrderListApi(search);
-      setOrder(response?.data?.results);
+      const filteredData = response?.data?.results?.filter((item) => 
+        activeTab === "Active" ? item?.status !== "confirmed" : item?.status === "confirmed"
+      );
+      setOrder(filteredData);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -32,7 +35,8 @@ function AdminOrders() {
 
   useEffect(() => {
     getOrderList();
-  }, [search]);
+  }, [search, activeTab]); 
+  
 
   return (
     <>
@@ -45,27 +49,34 @@ function AdminOrders() {
             <Typography >Orders</Typography>
             <Typography className="text-orange">Order list</Typography>
           </Breadcrumbs>
-        </div> 
+        </div>
       </div>
       <div className="">
         <div className="card">
           <div className="card-body">
             <div className="row">
-              <div className="col-12 mb-4">
-                <div className="col-md-3 ms-auto text-end">
-                  <InputText
-                    className="w-100 rounded-2 ps-4"
-                    type="text"
-                    placeholder="Search Order by Id..."
-                    onChange={(e) => setSearch(e.target.value)}
+              <div className="col-md-4">
+                <div className="mb-3">
+                  <TabsButtons
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                    labelOne={"Active"}
+                    labelTwo={"Inactive"}
                   />
                 </div>
+              </div>
+              <div className="col-md-3 ms-auto text-end mb-4">
+                <InputText
+                  className="w-100 rounded-2 ps-4"
+                  type="text"
+                  placeholder="Search Order by Id..."
+                  onChange={(e) => setSearch(e.target.value)}
+                />
               </div>
               <div className="col-12">
                 {loading ? (
                   <Loading />
-                ) : (
-                  // <ActiveOrdersTable order={order} />
+                ) : ( 
                   <NewOrdersTable order={order} getOrderList={getOrderList} />
                 )}
               </div>
