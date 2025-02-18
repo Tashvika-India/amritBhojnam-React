@@ -137,21 +137,20 @@ const AdminOrderDetail = () => {
     return <RadioButtonUncheckedIcon sx={{ color: "gray" }} />;
   };
 
-  const [activeStep, setActiveStep] = React.useState(1); 
-  
+  const [activeStep, setActiveStep] = React.useState(1);
 
   return (
     <>
       <div className="mt-5 mb-5 row">
-      <div className="col-12 mb-3">
+        <div className="col-12 mb-3">
           <Breadcrumbs aria-label="breadcrumb">
             <Link to={"/admin/orders"} >Orders List</Link>
             <Typography className="text-orange">Order Detail</Typography>
           </Breadcrumbs>
-        </div> 
+        </div>
         <div className="col-6">
           <Heading value={`Order : ${orderData?.display_order_id}`} />
-        </div> 
+        </div>
       </div>
       <div className="row">
         <div className="col-md-8 mb-4">
@@ -212,9 +211,15 @@ const AdminOrderDetail = () => {
                   <p className="fw-500 fb-fs-18 mb-0">Track Order</p>
                 </div>
                 <div>
-                  <button className="btn light-aqua-button py-1">
-                    Accepted
-                  </button>
+                  {orderData?.status === "confirmed" ? (
+                    <>
+                      <button className="fw-400 lt-pending-button">Pending</button>
+                    </>
+                  ) : orderData?.status === "cancelled" ? (
+                    <button className="fw-400 lt-red-button">Cancel</button>
+                  ) : orderData?.status === "accepted" ? (
+                    <button className="btn light-aqua-button py-1">Accepted</button>
+                  ) : null}
                 </div>
               </div>
               <div className="text-start Track-stepper pt-4">
@@ -422,22 +427,43 @@ const AdminOrderDetail = () => {
                       <p className="fw-500 fb-fs-18 mb-0">Action</p>
                     </div>
                   </div>
-                  {/* <div className="mt-4 d-flex gap-3">
-                    <FloatLabel>
-                      <Calendar inputId="birth_date" value={datetime12h} onChange={(e) => setDateTime12h(e.value)} showTime hourFormat="12" />
-                      <label htmlFor="birth_date">Enter Delivery Date</label>
-                    </FloatLabel>
-                    <div className="">
-                      <button className="lt-blue-button">Update</button>
-                    </div>
-                  </div> */}
-                  <div className="mt-2 d-flex gap-4 align-items-center">
-                  <p className="mb-0 fw-600">Order is Ready to Book</p>
-                      <button className="button-yellow d-flex gap-2 px-3 fb-fs-16" style={{paddingBlock: ".8rem"}}>
-                      <TiTick color="white" size={20}/>
-                      Order Ready
+                  {orderData?.status === "accepted" && (
+                    <div className="mt-2 d-flex gap-4 align-items-center">
+                      <p className="mb-0 fw-600">Order is Ready to Book</p>
+                      <button className="button-yellow d-flex gap-2 px-3 fb-fs-16" style={{ paddingBlock: ".8rem" }}>
+                        <TiTick size={20} />
+                        Accept Order
                       </button>
                     </div>
+                  )}
+
+                  {orderData?.status === "cancelled" && (
+                    <>
+                      <div className="mt-4 d-flex gap-3">
+                        <FloatLabel>
+                          <Calendar
+                            inputId="birth_date"
+                            value={datetime12h}
+                            onChange={(e) => setDateTime12h(e.value)}
+                            showTime
+                            hourFormat="12"
+                          />
+                          <label htmlFor="birth_date">Enter Delivery Date</label>
+                        </FloatLabel>
+                        <div>
+                          <button className="lt-blue-button">Update</button>
+                        </div>
+                      </div>
+                      <div className="mt-2 d-flex gap-4 align-items-center">
+                        <p className="mb-0 fw-600">Order is Ready to Book</p>
+                        <button className="button-yellow d-flex gap-2 px-3 fb-fs-16" style={{ paddingBlock: ".8rem" }}>
+                          <TiTick size={20} />
+                          Ready to Dispatch
+                        </button>
+                      </div>
+                    </>
+                  )}
+
                 </div>
               </div>
             </div>
@@ -455,40 +481,40 @@ const AdminOrderDetail = () => {
                       <p className="fw-600 mb-0">Delivery Address</p>
                       <div className="mt-4">
                         <div className="d-flex align-items-start">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Name </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}>{orderData?.delivering_to?.ads_name || ''}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Name </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}>{orderData?.delivering_to?.ads_name || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Address </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> {`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Address </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> {`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Address Line 2 </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> {`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Address Line 2 </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> {`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>City </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.city || ''}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>City </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> {orderData?.delivering_to?.city || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Pin Code </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.pincode || ''}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Pin Code </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> {orderData?.delivering_to?.pincode || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>State </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.state || ''}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>State </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> {orderData?.delivering_to?.state || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Country </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> India</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Country </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> India</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Phone </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{ color: "#584EE0",width: "60%" }}> {orderData?.delivering_to?.ads_phone || ''}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Phone </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0", width: "60%" }}> {orderData?.delivering_to?.ads_phone || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Email </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{ color: "#584EE0",width: "60%" }}> {orderData?.delivering_to?.ads_email || ''}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Email </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0", width: "60%" }}> {orderData?.delivering_to?.ads_email || ''}</p>
                         </div>
                       </div>
                     </div>
@@ -496,40 +522,40 @@ const AdminOrderDetail = () => {
                       <p className="fw-600 mb-0">Shipping Address</p>
                       <div className="mt-4">
                         <div className="d-flex align-items-start">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Name </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.ads_name || ''}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Name </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> {orderData?.delivering_to?.ads_name || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Address </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> {`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Address </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> {`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Address Line 2 </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> {`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Address Line 2 </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> {`${orderData?.delivering_to?.house_flat_block_no || ''} ${orderData?.delivering_to?.road_area_colony || ''} ${orderData?.delivering_to?.state || ''} ${orderData?.delivering_to?.pincode || ''}`}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>City </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.city || ''}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>City </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> {orderData?.delivering_to?.city || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Pin Code </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.pincode || ''}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Pin Code </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> {orderData?.delivering_to?.pincode || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>State </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> {orderData?.delivering_to?.state || ''}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>State </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> {orderData?.delivering_to?.state || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Country </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{width: "80%"}}> India</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Country </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ width: "80%" }}> India</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Phone </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{ color: "#584EE0",width: "60%" }}> {orderData?.delivering_to?.ads_phone || ''}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Phone </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0", width: "60%" }}> {orderData?.delivering_to?.ads_phone || ''}</p>
                         </div>
                         <div className="d-flex align-items-start pt-2">
-                          <p className="fw-500 mb-0" style={{width: "20%"}}>Email </p> <span> :</span>
-                          <p className="mb-0 ps-4" style={{ color: "#584EE0",width: "60%" }}> {orderData?.delivering_to?.ads_email || ''}</p>
+                          <p className="fw-500 mb-0" style={{ width: "20%" }}>Email </p> <span> :</span>
+                          <p className="mb-0 ps-4" style={{ color: "#584EE0", width: "60%" }}> {orderData?.delivering_to?.ads_email || ''}</p>
                         </div>
                       </div>
                     </div>
@@ -539,7 +565,7 @@ const AdminOrderDetail = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 };
