@@ -31,6 +31,7 @@ import {
 } from "../../../../components/ui/Notification";
 import NutritionComponent from "../product-nutrition/NutritionComponent";
 import { RxCross2 } from "react-icons/rx";
+import { productSchema } from "../../../../schemas/product-schema";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Product name is required"),
@@ -90,7 +91,7 @@ const ProductAdd = () => {
 
   const formik = useFormik({
     initialValues: productInitalValues,
-    // validationSchema: productSchema,
+    validationSchema: productSchema,
     onSubmit: async (values) => {
       isEditMode
         ? updateProduct({
@@ -101,6 +102,9 @@ const ProductAdd = () => {
     },
   });
   const { values, resetForm, setValues, errors, touched } = formik;
+
+  console.log(errors);
+  
 
   async function addProduct(values) {
     try {
@@ -594,12 +598,12 @@ const ProductAdd = () => {
                   type="number"
                   fullWidth
                   disabled={!activeInput}
-                  name="stock"
+                  name="option"
                   value={formik.values?.options[activeOption]?.option}
                   onChange={(event) =>
                     handleOptionsChange("option", event.target.value)
-                  }
-                />
+                  }/>
+                  <p className="text-danger">{errors.options?.[activeOption]?.option}</p>
               </div>
               <div className="col-md-4 mb-4">
                 <FormControl fullWidth
@@ -618,6 +622,7 @@ const ProductAdd = () => {
                     <MenuItem value="gm">gm</MenuItem>
                     <MenuItem value="kg">kg</MenuItem>
                   </Select>
+                  <p className="text-danger">{errors.options?.[activeOption]?.measurement_unit}</p>
                 </FormControl>
               </div>
               <div className="col-md-4 mb-4">
@@ -633,6 +638,7 @@ const ProductAdd = () => {
                     handleOptionsChange("stock", event.target.value)
                   }
                 />
+                <p className="text-danger">{errors.options?.[activeOption]?.stock}</p>
               </div>
               <div className="col-md-4 mb-4">
                 <TextField
@@ -648,6 +654,7 @@ const ProductAdd = () => {
                   fullWidth
                   disabled={!activeInput}
                 />
+                <p className="text-danger">{errors.options?.[activeOption]?.max_price}</p>
               </div>
               <div className="col-md-4 mb-4">
                 <TextField
@@ -663,6 +670,7 @@ const ProductAdd = () => {
                   fullWidth
                   disabled={!activeInput}
                 />
+                <p className="text-danger">{errors.options?.[activeOption]?.discount}</p>
               </div>
               <div className="col-md-4 mb-4">
                 <TextField
@@ -677,6 +685,7 @@ const ProductAdd = () => {
                   fullWidth
                   disabled={!activeInput}
                 />
+                <p className="text-danger">{errors.options?.[activeOption]?.length}</p>
               </div>
               <div className="col-md-4 mb-4">
                 <TextField
@@ -691,6 +700,7 @@ const ProductAdd = () => {
                   fullWidth
                   disabled={!activeInput}
                 />
+                <p className="text-danger">{errors.options?.[activeOption]?.breadth}</p>
               </div>
               <div className="col-md-4 mb-4">
                 <TextField
@@ -705,6 +715,7 @@ const ProductAdd = () => {
                   fullWidth
                   disabled={!activeInput}
                 />
+                <p className="text-danger">{errors.options?.[activeOption]?.height}</p>
               </div>
             </div>
           </div>
@@ -712,7 +723,6 @@ const ProductAdd = () => {
         <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <h6 className="mb-4">Nutrition Details</h6>
-
             <div className="col-12">
               <NutritionComponent
                 nutritionList={nutritionList}
