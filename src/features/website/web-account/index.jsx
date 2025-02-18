@@ -423,7 +423,7 @@ const UserProfile = () => {
             <ProfileBanner coins={coins}/>
             <div className="p-md-4 p-lg-4 pt-0 ">
               <div className="user-profile-detail  position-relative text-start pb-3">
-                <div className="text-center rounded-circle  position-relative d-flex align-items-center gap-3">
+                <div className="text-center rounded-circle  position-relative d-flex align-items-center gap-lg-3 gap-md-3 gap-2">
                   <div className="position-relative">
                     <img
                       className="img-profile avatar-xl rounded-circle img-fluid justify-content-md-center p-2 bg-white"
@@ -443,10 +443,11 @@ const UserProfile = () => {
                       onChange={handleProfileImageChange}
                       accept="image/*"
                     />
-                    <label
+                     <label
                       htmlFor="customFile"
-                      className="rounded-circle profile-pic-edit"
-                    ></label>
+                      className="rounded-circle bg-orange  profile-pic-edit"> 
+                      <FaCamera color="white" />
+                    </label>
                   </div>
                   <div className="image-content mt-4 mt-md-3 pt-md-5 ms-md-3">
                     <h4 className="text-dark-grey fw-bold text-start">
