@@ -30,6 +30,7 @@ import {
   notifySuccess,
 } from "../../../../components/ui/Notification";
 import NutritionComponent from "../product-nutrition/NutritionComponent";
+import { RxCross2 } from "react-icons/rx";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Product name is required"),
@@ -155,7 +156,7 @@ const ProductAdd = () => {
       );
       setCategories(filteredData);
     } catch (error) {
-       notifyError("Failed to save coupon. Please try again.");
+      notifyError("Failed to save coupon. Please try again.");
       console.log("Error on Category List", error);
     }
   }
@@ -203,6 +204,17 @@ const ProductAdd = () => {
     ]);
   }
 
+  const handleRemoveOption = (index) => {
+    const updatedOptions = [...values.options];
+    updatedOptions.splice(index, 1); // Remove the option at the specified index
+    formik.setFieldValue("options", updatedOptions);
+  
+    // Reset the active option to the first one if the removed option was the active one
+    if (activeOption >= updatedOptions.length) {
+      setActiveOption(updatedOptions.length - 1);
+    }
+  };
+
   function handleOptionsChange(name, value, number = false) {
     const updatedOptions = [...values.options];
     updatedOptions[activeOption][name] = value;
@@ -215,7 +227,7 @@ const ProductAdd = () => {
         <div className="col-md-12 d-flex justify-content-between align-items-center">
           <Heading value={(!isEditMode) ? "Add Product" : "Edit Product"} />
           {
-          (isEditMode) && <button className="button-primary" type="button" onClick={() => setActiveInput(!activeInput)}>Edit Product</button>
+            (isEditMode) && <button className="button-primary" type="button" onClick={() => setActiveInput(!activeInput)}>Edit Product</button>
           }
         </div>
       </div>
@@ -538,67 +550,6 @@ const ProductAdd = () => {
             </div>
           </div>
         </div>
-        {/* <div className="card mb-4 px-3 pt-2">
-          <div className="card-body">
-            <h6 className="mb-4">Package Dimensions & Weight</h6>
-            <div className="row">
-              <div className="col-md-3 mb-4">
-                <FormControl fullWidth
-                  disabled={!activeInput}>
-                  <InputLabel id="demo-simple-select-label">Weight</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    name="quantity"
-                    value={formik.values?.quantity}
-                    onChange={formik.handleChange}
-                    error={ifError("quantity")}
-                    label="Weight"
-                  >
-                    <MenuItem value=" ">&nbsp;</MenuItem>
-                    <MenuItem value="5 gm">5 gm</MenuItem>
-                    <MenuItem value="10 gm">10 gm</MenuItem>
-                    <MenuItem value="20 gm">20 gm</MenuItem>
-                    <MenuItem value="25 gm">25 gm</MenuItem>
-                    <MenuItem value="30 gm">30 gm</MenuItem>
-                    <MenuItem value="50 gm">50 gm</MenuItem>
-                    <MenuItem value="75 gm">75 gm</MenuItem>
-                    <MenuItem value="100 gm">100 gm</MenuItem>
-                    <MenuItem value="120 gm">120 gm</MenuItem>
-                    <MenuItem value="125 gm">125 gm</MenuItem>
-                    <MenuItem value="150 gm">150 gm</MenuItem>
-                    <MenuItem value="200 gm">200 gm</MenuItem>
-                    <MenuItem value="250 gm">250 gm</MenuItem>
-                    <MenuItem value="300 gm">300 gm</MenuItem>
-                    <MenuItem value="350 gm">350 gm</MenuItem>
-                    <MenuItem value="400 gm">400 gm</MenuItem>
-                    <MenuItem value="500 gm">500 gm</MenuItem>
-                    <MenuItem value="600 gm">600 gm</MenuItem>
-                    <MenuItem value="750 gm">750 gm</MenuItem>
-                    <MenuItem value="800 gm">800 gm</MenuItem>
-                    <MenuItem value="900 gm">900 gm</MenuItem>
-                    <MenuItem value="1000 gm">1 kg</MenuItem>
-                    <MenuItem value="1500 gm">1.5 kg</MenuItem>
-                    <MenuItem value="2000 gm">2 kg</MenuItem>
-                  </Select>
-                </FormControl>
-                {ifError("quantity") && (
-                  <p className="text-danger">{errors.quantity}</p>
-                )}
-              </div>
-
-              <div className="col-md-3 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Weight"
-                  variant="outlined"
-                  fullWidth
-                  disabled={!activeInput}
-                />
-              </div>
-            </div>
-          </div>
-        </div> */}
         <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <div className="d-flex justify-content-between align-items-center">
@@ -606,14 +557,24 @@ const ProductAdd = () => {
             </div>
             <div className="mb-4 mt-2">
               {values?.options?.map((_, index) => (
-                <button
-                  className={`option-button py-2 px-3 me-3 rounded ${activeOption === index && "active"
-                    }`}
-                  type="button"
-                  onClick={() => setActiveOption(index)}
-                >
-                  Option {index + 1}
-                </button>
+                <div key={index} className="d-inline-block me-3">
+                  <button
+                    className={`option-button py-2 px-3 rounded ${activeOption === index && "active"
+                      }`}
+                    type="button"
+                    onClick={() => setActiveOption(index)}
+                  >
+                    Option {index + 1}  {index > 0 && ( // Only show the remove button for options other than the first one
+                    <button
+                      type="button"
+                      className="btn btn-danger px-1 btn-sm ms-2"
+                      onClick={() => handleRemoveOption(index)}
+                    >
+                    <RxCross2 />
+                    </button>
+                  )}
+                  </button>
+                </div>
               ))}
               <p
                 className="m-0 d-inline cursor-pointer"
@@ -826,180 +787,6 @@ const ProductAdd = () => {
             </div>
           </div>
         </div>
-
-        {/* <div className="card mb-4 px-3 pt-2">
-          <div className="card-body">
-            <h6 className="mb-3">Options</h6>
-            <div
-              className="mb-4 mt-4 pb-2"
-              style={{ borderTop: "1px solid #F0F0F0" }}
-            ></div>
-            <div className="row">
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Option"
-                  name="option"
-                  value={formik.values?.meta_title}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                  disabled={!activeInput}
-                />
-              </div>
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Option"
-                  name="option"
-                  value={formik.values?.meta_title}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                  disabled={!activeInput}
-                />
-              </div>
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Stock"
-                  name="stock"
-                  value={formik.values?.meta_title}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                  disabled={!activeInput}
-                />
-              </div>
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Discount"
-                  name="discount"
-                  value={formik.values?.meta_title}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                  disabled={!activeInput}
-                />
-              </div>
-              <div className="col-md-4 mb-4">
-                <FormControl fullWidth
-                disabled={!activeInput}>
-                  <InputLabel id="demo-simple-select-label">
-                    Discount Type
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    name="quantity"
-                    value={formik.values?.quantity}
-                    onChange={formik.handleChange}
-                    error={ifError("quantity")}
-                    label="Quantity"
-                  >
-                    <MenuItem value=" ">&nbsp;</MenuItem>
-                    <MenuItem value="10 gm">10 gm</MenuItem>
-                    <MenuItem value="20 gm">20 gm</MenuItem>
-                    <MenuItem value="30 gm">30 gm</MenuItem>
-                    <MenuItem value="50 gm">50 gm</MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="SKU"
-                  name="sku"
-                  value={formik.values?.meta_title}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                  disabled={!activeInput}
-                />
-              </div>
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Unique Barcode(If you want)"
-                  name="unique barcode"
-                  value={formik.values?.meta_title}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                  disabled={!activeInput}
-                />
-              </div>
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Reward Coins"
-                  name="reward coins"
-                  value={formik.values?.meta_title}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                  disabled={!activeInput}
-                />
-              </div>
-            </div>
-          </div>
-        </div> */}
-
-        {/* <div className="card mb-4 px-3 pt-2">
-          <div className="card-body">
-            <h6 className="mb-3">Add Recipe</h6>
-            <div
-              className="mb-4 mt-4 pb-2"
-              style={{ borderTop: "1px solid #F0F0F0" }}
-            ></div>
-            <div className="row">
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Recipe Name"
-                  name="recipe name"
-                  value={formik.values?.meta_title}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                  disabled={!activeInput}
-                />
-              </div>
-              <div className="col-md-4 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Option"
-                  name="option"
-                  value={formik.values?.meta_title}
-                  onChange={formik.handleChange}
-                  variant="outlined"
-                  fullWidth
-                  disabled={!activeInput}
-                />
-              </div>
-              <div className="col-md-4 mb-4">
-
-              </div>
-              <div className="col-md-8 mb-4">
-                <TextField
-                  id="outlined-basic"
-                  label="Add Recipe Description"
-                  name="Add Recipe Description"
-                  variant="outlined"
-                  fullWidth
-                  disabled={!activeInput}
-                  multiline
-                  rows={7}
-                />
-              </div>
-              <div className="col-md-4 mb-4">
-
-              </div>
-            </div>
-          </div>
-        </div> */}
-
         <div className="card mb-4 px-3 pt-2">
           <div className="card-body">
             <div className="d-flex gap-3 justify-content-end">
