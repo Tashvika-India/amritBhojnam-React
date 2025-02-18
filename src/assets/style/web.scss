@@ -62,7 +62,11 @@
 
   // Responsive Headings with Clamp
   h1 {
-    font-size: clamp(2.5rem, 5vw + 1rem, 4.3325rem); //69.32px Min 2.5rem, Max 4.3325rem
+    font-size: clamp(
+      2.5rem,
+      5vw + 1rem,
+      4.3325rem
+    ); //69.32px Min 2.5rem, Max 4.3325rem
     font-family: $font-Manrope !important;
   }
 
@@ -72,27 +76,47 @@
   }
 
   h3 {
-    font-size: clamp(1.5rem, 3vw + 1rem, 2.25rem); //36px Min 1.5rem, Max 2.25rem
+    font-size: clamp(
+      1.5rem,
+      3vw + 1rem,
+      2.25rem
+    ); //36px Min 1.5rem, Max 2.25rem
     font-family: $font-Manrope !important;
   }
 
   h4 {
-    font-size: clamp(1.25rem, 2.5vw + 1rem, 2.0219rem); //32.35px Min 1.25rem, Max 2.0219rem
+    font-size: clamp(
+      1.25rem,
+      2.5vw + 1rem,
+      2.0219rem
+    ); //32.35px Min 1.25rem, Max 2.0219rem
     font-family: $font-Manrope !important;
   }
 
   h5 {
-    font-size: clamp(1rem, 2vw + 0.5rem, 1.375rem); //22px Min 1rem, Max 1.375rem
+    font-size: clamp(
+      1rem,
+      2vw + 0.5rem,
+      1.375rem
+    ); //22px Min 1rem, Max 1.375rem
     font-family: $font-Manrope !important;
   }
 
   h6 {
-    font-size: clamp(0.875rem, 1.5vw + 0.5rem, 1.25rem); //20px Min 0.875rem, Max 1.25rem
+    font-size: clamp(
+      0.875rem,
+      1.5vw + 0.5rem,
+      1.25rem
+    ); //20px Min 0.875rem, Max 1.25rem
     font-family: $font-Manrope !important;
   }
 
   p {
-    font-size: clamp(0.875rem, 1vw + 0.5rem, 1rem); //16px Min 0.875rem, Max 1rem
+    font-size: clamp(
+      0.875rem,
+      1vw + 0.5rem,
+      1rem
+    ); //16px Min 0.875rem, Max 1rem
     margin-bottom: 0;
     font-family: $font-Manrope !important;
   }
@@ -114,11 +138,19 @@
   }
 
   .fb-fs-18 {
-    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.125rem); //18px Min 1rem, Max 1.125rem
+    font-size: clamp(
+      1rem,
+      1.5vw + 0.5rem,
+      1.125rem
+    ); //18px Min 1rem, Max 1.125rem
     font-family: $font-Manrope !important;
   }
   .fb-fs-14 {
-    font-size: clamp(0.75rem, 1vw + 0.5rem, 0.9281rem); //14.85px Min 0.75rem, Max 0.9281rem
+    font-size: clamp(
+      0.75rem,
+      1vw + 0.5rem,
+      0.9281rem
+    ); //14.85px Min 0.75rem, Max 0.9281rem
     font-family: $font-Manrope !important;
   }
 
@@ -142,7 +174,11 @@
   }
 
   .fb-fs-12 {
-    font-size: clamp(0.625rem, 0.75vw + 0.5rem, 0.8119rem) !important; //12.99px Min 0.625rem, Max 0.8119rem
+    font-size: clamp(
+      0.625rem,
+      0.75vw + 0.5rem,
+      0.8119rem
+    ) !important; //12.99px Min 0.625rem, Max 0.8119rem
     font-family: $font-Manrope !important;
   }
 
@@ -152,7 +188,11 @@
   }
 
   .fb-fs-16-big {
-    font-size: clamp(0.875rem, 1vw + 0.5rem, 1.0444rem); //16.71px Min 0.875rem, Max 1.0444rem
+    font-size: clamp(
+      0.875rem,
+      1vw + 0.5rem,
+      1.0444rem
+    ); //16.71px Min 0.875rem, Max 1.0444rem
     font-family: $font-Manrope !important;
   }
 
@@ -232,13 +272,13 @@
 }
 
 #review-container {
-  scroll-margin-top: 13.125rem;  
+  scroll-margin-top: 13.125rem;
 }
 
-#best, #popular {
-  scroll-margin-top: 13.125rem; 
+#best,
+#popular {
+  scroll-margin-top: 13.125rem;
 }
-
 
 .cat-skeleton-loader {
   display: flex;
@@ -276,8 +316,6 @@
     background-color: #e0e0e0;
   }
 }
-
-
 
 .thunder-icon {
   animation: thunderAnimation 1.5s infinite;
@@ -387,14 +425,14 @@
   font-family: Arial, sans-serif;
 }
 
-.checkout-page .my-card-section .amrit-coin-toggle{
-  border: 1px solid #D59615;
+.checkout-page .my-card-section .amrit-coin-toggle {
+  border: 1px solid #d59615;
   border-radius: 1rem;
   padding: 1rem;
-  background-color: #FFF3DB;
-img{
-  max-width: 1.7rem;
-}
+  background-color: #fff3db;
+  img {
+    max-width: 1.7rem;
+  }
 }
 
 .rating-row {
@@ -417,7 +455,7 @@ img{
   font-weight: bold;
 }
 .coin-div {
-  border: 1px solid #DCDAD5 !important;
+  border: 1px solid #dcdad5 !important;
   border-radius: 10px;
   width: 11rem;
   display: flex;
@@ -431,7 +469,7 @@ img{
     padding: 8px 1.5rem;
     background: transparent;
   }
-  
+
   .coin-text {
     margin: 0;
     padding: 13px;
@@ -529,50 +567,49 @@ img{
     }
   }
 }
-.track-left{
-  border: 2px solid #E5E7EB;
+.track-left {
+  border: 2px solid #e5e7eb;
   border-radius: 1rem;
-  background-color: #FFFCF4;
-  .top-track-left{
-    border-bottom: 2px solid #E5E7EB;
-    padding: 1rem 1.8rem; 
+  background-color: #fffcf4;
+  .top-track-left {
+    border-bottom: 2px solid #e5e7eb;
+    padding: 1rem 1.8rem;
   }
-  .center-track-left{
-    .MuiBox-root{
+  .center-track-left {
+    .MuiBox-root {
       max-width: 100%;
       background-color: transparent;
       margin-bottom: 0;
       box-shadow: none;
-      .MuiSvgIcon-root{
-        
+      .MuiSvgIcon-root {
       }
     }
   }
-  .bottom-track-left{
-    border-top: 2px solid #E5E7EB;
+  .bottom-track-left {
+    border-top: 2px solid #e5e7eb;
     padding: 1.3rem;
   }
 }
-.track-right{
-  .top-track-right{
-    border: 2px solid #E5E7EB;
+.track-right {
+  .top-track-right {
+    border: 2px solid #e5e7eb;
     border-radius: 1rem;
-    h5{
-      border-bottom: 2px solid #E5E7EB;
+    h5 {
+      border-bottom: 2px solid #e5e7eb;
       padding: 1.5rem 1.8rem;
     }
-    .order-date{
-      padding: .8rem 1.8rem;
+    .order-date {
+      padding: 0.8rem 1.8rem;
     }
   }
-  .bottom-track-right{
-    border: 2px solid #E5E7EB;
+  .bottom-track-right {
+    border: 2px solid #e5e7eb;
     border-radius: 1rem;
-    h5{
-      border-bottom: 2px solid #E5E7EB;
+    h5 {
+      border-bottom: 2px solid #e5e7eb;
       padding: 1.5rem 1.8rem;
     }
-    .cart-list-wrapper{
+    .cart-list-wrapper {
       padding: 0.8rem 1.8rem;
     }
   }
@@ -656,18 +693,18 @@ footer {
 }
 
 //coin-section
-.coin-page .coin-stepper-section{
+.coin-page .coin-stepper-section {
   position: relative;
-  .coin-step-part{
+  .coin-step-part {
     position: relative;
     padding-left: 3rem;
     margin-left: 3rem;
-    &::before{
+    &::before {
       content: "";
       position: absolute;
       background-image: url("../../assets/images/web/star-coin.png");
       background-repeat: no-repeat;
-      top: 1rem; 
+      top: 1rem;
       left: -1.1875rem;
       height: 3rem;
       width: 3rem;
@@ -682,14 +719,13 @@ footer {
       width: 1px;
       background-color: $border;
     }
-    &:last-child{
-      &::after{
+    &:last-child {
+      &::after {
         all: unset;
       }
     }
   }
-} 
-
+}
 
 //explore-categories
 .explore-categories {
@@ -741,7 +777,12 @@ footer {
 
 .skeleton-loading {
   height: 39rem;
-  background-image: linear-gradient(90deg, #bebebe 0%, #f2f2f2 50%, #bebebe 100%);
+  background-image: linear-gradient(
+    90deg,
+    #bebebe 0%,
+    #f2f2f2 50%,
+    #bebebe 100%
+  );
   background-size: 200% 100%;
   border-radius: 1.375rem;
   width: 100%;
@@ -1211,7 +1252,7 @@ footer {
 
 @media (max-width: 576px) {
   #review-container {
-    scroll-margin-top: 7rem;  
+    scroll-margin-top: 7rem;
   }
   .cards-wrapper {
     grid-template-columns: 1fr;
@@ -1719,27 +1760,37 @@ footer {
 }
 
 .user-profile-img {
- background-image: url(../images/web/profile-background.png);
+  background-image: url(../images/web/profile-background.png);
   border-radius: 1rem;
   height: 13.5rem;
   width: 100%;
 }
 
 .profile-pic-edit {
-  background-image: url(../images/web/profile-edit.png);
   position: absolute;
   cursor: pointer;
   z-index: 1;
-  right: 0.1rem;
+  right: 0.5rem;
   bottom: 1.9rem;
   aspect-ratio: 1/1;
-  width: 3.3rem;
-  height: 3.3rem;
+  width: 2.3rem;
+  height: 2.3rem;
   display: inline-grid;
   place-items: center;
   i {
     color: $white;
     font-size: 1rem;
+  }
+}
+
+.profile-tabs {
+  button {
+    padding: 1rem 3.5rem;
+    font-size: 1.125rem;
+
+    i {
+      font-size: 1.125rem;
+    }
   }
 }
 
@@ -1906,30 +1957,30 @@ footer {
   .web-wrapper-main section {
     padding-block: 3rem;
   }
-  
+
   .header-actions {
-    transform: scale(0.85); 
+    transform: scale(0.85);
   }
-  
+
   .web-header-actions li,
   .mobile-header-actions li {
-    transform: scale(0.95); 
+    transform: scale(0.95);
   }
-  
+
   .web-header-actions .login-card-icon,
   .web-header-actions .wishlist-box svg,
   .web-header-actions .shoping-bag,
   .mobile-header-actions svg {
-    font-size: 1.5rem !important; 
+    font-size: 1.5rem !important;
   }
-  
+
   .web-header-actions span,
   .mobile-header-actions span {
     font-size: 0.875rem !important;
   }
-  
+
   .web-header-actions .badge {
-    font-size: 0.625rem !important; 
+    font-size: 0.625rem !important;
     padding: 0.1875rem 0.375rem;
   }
 
@@ -2752,14 +2803,72 @@ footer {
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
+  .coin-banner{
+    .fb-fs-28{
+      font-size: 20px;
+    }
+    .fb-fs-18{
+      font-size: 14px;
+    }
+    .earn{
+      font-size: 12px; 
+      margin-top: 2rem;
+    }
+    .coin-count-section{
+      margin-bottom: 2rem !important;
+      img{
+        max-width: 2rem;
+      }
+      p{
+        font-size: 2rem !important;
+      }
+    }
+  }
+  .user-profile-detail{
+    p{
+      padding-top: 2rem;
+    }
+  }
+  .user-profile-img {
+    height: 11rem;
+    .white-button {
+      padding: 6px 1rem;
+      font-size: 14px;
+      margin-top: 1.5rem;
+      margin-right: 2rem;
+    }
+    .amrit-coin-heading-profile-container {
+      margin-top: 3rem;
+      margin-right: 2rem;
+      .amrit-coin-heading-profile {
+        .fb-fs-28 {
+          font-size: 22px !important;
+        }
+        .fb-fs-18 {
+          font-size: 14px !important;
+        }
+        p {
+          line-height: 1.5rem;
+        }
+      }
+      .coin-count-section{
+        img{
+          max-width: 2rem;
+        }
+        p{
+          font-size: 2rem !important;
+        }
+      }
+    }
+  }
   .skeleton-loading {
     height: 18.75rem;
   }
-  .coin-page .coin-stepper-section{
+  .coin-page .coin-stepper-section {
     margin-top: 3rem;
   }
-  .coin-page .coin-stepper-section{
-    img{
+  .coin-page .coin-stepper-section {
+    img {
       max-width: 4rem;
       margin-top: 1.5rem;
     }
@@ -3143,10 +3252,58 @@ footer {
 }
 
 @media (max-width: 576px) {
+  .user-profile-img {
+    .white-button {
+      padding: 2px 14px;
+      font-size: 10px;
+    }
+    .amrit-coin-heading-profile-container {
+      margin-top: 1rem;
+      .amrit-coin-heading-profile {
+        .fb-fs-28 {
+          font-size: 18px !important;
+        }
+        .fb-fs-18 {
+          font-size: 11px !important;
+        }
+        p {
+          line-height: 1.3rem;
+        }
+      }
+      .coin-count-section{
+        img{
+          max-width: 1.2rem;
+        }
+        p{
+          font-size: 1.2rem !important;
+        }
+      }
+    }
+  }
+  .coin-banner{
+    .fb-fs-28{
+      font-size: 14px;
+    }
+    .fb-fs-18{
+      font-size: 10px;
+    }
+    .earn{
+      font-size: 8px; 
+      margin-top: 1rem;
+    }
+    .coin-count-section{
+      img{
+        max-width: 1rem;
+      }
+      p{
+        font-size: 1rem !important;
+      }
+    }
+  }
   .product-card .masala-con {
     height: 1.95rem !important;
   }
-  .coin-page .coin-stepper-section{
+  .coin-page .coin-stepper-section {
     margin-top: 9rem;
   }
   .user-profile-detail label {
@@ -3398,7 +3555,7 @@ footer {
   }
 
   .img-profile {
-    height: 6rem;
+    height: 5rem;
   }
 
   .default-btn {
@@ -3684,8 +3841,6 @@ footer {
   h4 {
     font-size: 1rem !important;
   }
-
-  
 
   .disc-style {
     font-size: 12px;
@@ -4019,7 +4174,7 @@ footer {
   .order-section .filter-order .demo-simple-select-label {
     font-size: 2px !important;
   }
-  .coin-page .coin-stepper-section .coin-step-part{
+  .coin-page .coin-stepper-section .coin-step-part {
     padding-left: 2rem;
     margin-left: 1rem;
   }
@@ -4050,7 +4205,7 @@ footer {
   //   .coin-step-part::before {
   //     margin-left: .5rem;
   //   }
-    
+
   //   img{
   //     max-width: 3.5rem;
   //     margin-top: 1.5rem;
@@ -4069,7 +4224,7 @@ footer {
   //   .coin-step-part::before {
   //     margin-left: .5rem;
   //   }
-    
+
   //   img{
   //     max-width: 3.5rem;
   //     margin-top: 1.5rem;
