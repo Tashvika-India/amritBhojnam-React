@@ -9,23 +9,28 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs'; 
 import { InputText } from "primereact/inputtext";
 import { Link } from "react-router-dom";
+import Loading from "../../../components/ui/Loading";
 
 function AdminCustomer() {
   const [customer, setCustomer] = useState([]);
   const [filter, setFilter] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const getCustomerDetail = async () => {
+    setLoading(true);
     try {
       const response = await getProfile();
       setCustomer(response?.data || []);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching profile data:", error);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getCustomerDetail();
-  }, []);
+  }, [filter]);
 
   // Filter customers based on search input
   const filteredCustomers = customer.filter((cust) =>
@@ -58,7 +63,7 @@ function AdminCustomer() {
                 />
               </div>
             </div>
-            <ActiveCustomersTable customer={filteredCustomers} />
+            { loading ? ( <Loading />) : <ActiveCustomersTable customer={filteredCustomers} />}
           </div>
         </div>
       </div>
