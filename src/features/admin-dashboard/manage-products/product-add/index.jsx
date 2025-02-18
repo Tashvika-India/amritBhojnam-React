@@ -31,6 +31,7 @@ import {
 } from "../../../../components/ui/Notification";
 import NutritionComponent from "../product-nutrition/NutritionComponent";
 import { RxCross2 } from "react-icons/rx";
+import { productSchema } from "../../../../schemas/product-schema";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Product name is required"),
@@ -90,7 +91,7 @@ const ProductAdd = () => {
 
   const formik = useFormik({
     initialValues: productInitalValues,
-    // validationSchema: productSchema,
+    validationSchema: productSchema,
     onSubmit: async (values) => {
       isEditMode
         ? updateProduct({
