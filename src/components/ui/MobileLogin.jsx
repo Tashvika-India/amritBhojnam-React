@@ -97,7 +97,7 @@ const MobileLogin = ({ otpShow, onOtpClose, align }) => {
     setLoading(true);
     try {
       const otp = otpValues.join("");
-      const payload = { phone_or_email: formik.values.email, otp };
+      const payload = { phone_or_email: formik.values.email, otp , device_token: ""}; 
       const data = await verifyOtpApi(payload);
       const accessToken = data?.data?.access;
       const refreshToken = data?.data?.refresh;

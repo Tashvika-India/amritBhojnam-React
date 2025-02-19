@@ -108,12 +108,12 @@ export const transformApiData = (apiData) => {
   };
 
   const months = Object.values(monthMapping);
-
+  const currentYear = new Date().getFullYear();
   // Create a default dataset with all months set to 0
   const formattedData = months.map((month) => ({
     month,
     order: 0,
-    year: 2025,
+    year: currentYear,
   }));
 
   // Update default dataset with actual API data
@@ -145,12 +145,12 @@ export const transformApiDataRevenue = (apiData) => {
   };
 
   const months = Object.values(monthMapping);
-
+  const currentYear = new Date().getFullYear();
   // Create a default dataset with all months set to 0
   const formattedData = months.map((month) => ({
     month,
     revenue: 0,
-    year: 2025,
+    year: currentYear,
   }));
 
   // Update default dataset with actual API data
