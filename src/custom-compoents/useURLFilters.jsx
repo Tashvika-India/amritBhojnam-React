@@ -20,16 +20,22 @@ const useURLFilters = () => {
     const searchParams = new URLSearchParams(location.search);
     const parsedFilters = {
       search: searchParams.get("search") || "",
-      product_id: search.get("product_id") || "",
-      category_id: search.get("category_id") || "",
-      name: search.get("name") || "",
-      minPrice : search.get("minPrice") || 0,
-      maxPrice : search.get("maxPrice") || 500,
-      rating : search.get("rating") || ""
+      product_id: searchParams.get("product_id") || "",
+      category_id: searchParams.get("category_id") || "",
+      name: searchParams.get("name") || "",
+      minPrice: searchParams.get("minPrice") || 0,
+      maxPrice: searchParams.get("maxPrice") || 500,
+      rating: searchParams.get("rating") || "",
     };
-    setFilters(parsedFilters);
+  
+    // Only update state if filters have actually changed
+    setFilters((prevFilters) => {
+      if (JSON.stringify(prevFilters) !== JSON.stringify(parsedFilters)) {
+        return parsedFilters;
+      }
+      return prevFilters;
+    });
   }, [location.search]);
-
   const updateFilters = (newFilters) => {
     setFilters(newFilters);
     const searchParams = new URLSearchParams();
