@@ -113,10 +113,11 @@ const ProudctList = () => {
 
   useEffect(() => {
     const queryString = `/products?category_id=${filters.category_id}&name=${filters.name}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}&rating=${filters.rating}`;
+
     if (window.location.pathname + window.location.search !== queryString) {
       navigate(queryString, { replace: true });
     }
-    setShowFilter(false);   
+    setShowFilter(false);
   }, [filters]);
 
   const handleSliderChange = useCallback(
@@ -176,38 +177,42 @@ const ProudctList = () => {
                   <ul className="category-select-list">
                     {isLoading
                       ? Array.from({ length: 5 }).map((_, index) => (
-                          <li
-                            key={index}
-                            className="cat-btn-item cat-skeleton-loader"
-                          >
-                            <span className="cat-skeleton-text w-50"></span>
-                            <span className="pill-circle cat-skeleton-circle"></span>
-                          </li>
-                        ))
+                        <li
+                          key={index}
+                          className="cat-btn-item cat-skeleton-loader"
+                        >
+                          <span className="cat-skeleton-text w-50"></span>
+                          <span className="pill-circle cat-skeleton-circle"></span>
+                        </li>
+                      ))
                       : categoryList?.map((item, index) => (
-                          <li
-                            className={`cat-btn-item cursor-pointer ${
-                              filters?.category_id === item?.id ? "active" : ""
+                        <li
+                          className={`cat-btn-item cursor-pointer ${filters?.category_id?.includes(item?.id) ? "active" : ""
                             }`}
-                            key={index}
-                            onClick={() =>
-                              updateFilters((prevFilters) => ({
+                          key={index}
+                          onClick={() =>
+                            updateFilters((prevFilters) => {
+                              const categoryArray = prevFilters.category_id
+                                ? prevFilters.category_id.split(",")
+                                : [];
+                              const newCategoryArray = categoryArray.includes(item?.id)
+                                ? categoryArray.filter((id) => id !== item?.id)
+                                : [...categoryArray, item?.id];
+                              return {
                                 ...prevFilters,
-                                category_id:
-                                  prevFilters.category_id === item?.id
-                                    ? ""
-                                    : item?.id,
-                              }))
-                            }
-                          >
-                            <span className="d-inline-flex align-items-center gap-2">
-                              {item?.name}
-                            </span>
-                            <span className="pill-circle">
-                              {item?.product_count}
-                            </span>
-                          </li>
-                        ))}
+                                category_id: newCategoryArray.join(","),
+                              };
+                            })
+                          }
+                        >
+                          <span className="d-inline-flex align-items-center gap-2">
+                            {item?.name}
+                          </span>
+                          <span className="pill-circle">
+                            {item?.product_count}
+                          </span>
+                        </li>
+                      ))}
                   </ul>
                 </div>
               </div>
@@ -284,16 +289,23 @@ const ProudctList = () => {
                             inputId={`rating-${value}`}
                             value={value}
                             onChange={(e) => {
-                              const selectedRating = e.target.value;
-                              updateFilters((prevFilters) => ({
-                                ...prevFilters,
-                                rating:
-                                  prevFilters.rating == selectedRating
-                                    ? ""
-                                    : selectedRating,
-                              }));
+                              updateFilters((prevFilters) => {
+                                const ratingArray = prevFilters.rating
+                                  ? prevFilters.rating.split(",").map(Number)
+                                  : [];
+                                const selectedRating = Number(e.target.value);
+
+                                const newRatingArray = ratingArray.includes(selectedRating)
+                                  ? ratingArray.filter((r) => r !== selectedRating)
+                                  : [...ratingArray, selectedRating];
+
+                                return {
+                                  ...prevFilters,
+                                  rating: newRatingArray.join(","),
+                                };
+                              });
                             }}
-                            checked={filters.rating == value}
+                            checked={filters.rating.split(",").map(Number).includes(value)}
                           />
                           <label
                             htmlFor={`rating-${value}`}
@@ -351,8 +363,8 @@ const ProudctList = () => {
                         window.innerWidth > 1024
                           ? "repeat(4, 1fr)"
                           : window.innerWidth > 768
-                          ? "repeat(3, 1fr)"
-                          : "repeat(2, 1fr)",
+                            ? "repeat(3, 1fr)"
+                            : "repeat(2, 1fr)",
                     }}
                   >
                     {productList.map((item) => (
@@ -423,38 +435,42 @@ const ProudctList = () => {
                   <ul className="category-select-list">
                     {isLoading
                       ? Array.from({ length: 5 }).map((_, index) => (
-                          <li
-                            key={index}
-                            className="cat-btn-item cat-skeleton-loader"
-                          >
-                            <span className="cat-skeleton-text w-50"></span>
-                            <span className="pill-circle cat-skeleton-circle"></span>
-                          </li>
-                        ))
+                        <li
+                          key={index}
+                          className="cat-btn-item cat-skeleton-loader"
+                        >
+                          <span className="cat-skeleton-text w-50"></span>
+                          <span className="pill-circle cat-skeleton-circle"></span>
+                        </li>
+                      ))
                       : categoryList?.map((item, index) => (
-                          <li
-                            className={`cat-btn-item cursor-pointer ${
-                              filters?.category_id === item?.id ? "active" : ""
+                        <li
+                          className={`cat-btn-item cursor-pointer ${filters?.category_id?.includes(item?.id) ? "active" : ""
                             }`}
-                            key={index}
-                            onClick={() =>
-                              updateFilters((prevFilters) => ({
+                          key={index}
+                          onClick={() =>
+                            updateFilters((prevFilters) => {
+                              const categoryArray = prevFilters.category_id
+                                ? prevFilters.category_id.split(",")
+                                : [];
+                              const newCategoryArray = categoryArray.includes(item?.id)
+                                ? categoryArray.filter((id) => id !== item?.id)
+                                : [...categoryArray, item?.id];
+                              return {
                                 ...prevFilters,
-                                category_id:
-                                  prevFilters.category_id === item?.id
-                                    ? ""
-                                    : item?.id,
-                              }))
-                            }
-                          >
-                            <span className="d-inline-flex align-items-center gap-2">
-                              {item?.name}
-                            </span>
-                            <span className="pill-circle">
-                              {item?.product_count}
-                            </span>
-                          </li>
-                        ))}
+                                category_id: newCategoryArray.join(","),
+                              };
+                            })
+                          }
+                        >
+                          <span className="d-inline-flex align-items-center gap-2">
+                            {item?.name}
+                          </span>
+                          <span className="pill-circle">
+                            {item?.product_count}
+                          </span>
+                        </li>
+                      ))}
                   </ul>
                 </div>
                 <h4 className="underline-heading filter-heading fw-bold mt-4">
@@ -533,16 +549,21 @@ const ProudctList = () => {
                             inputId={`rating-${value}`}
                             value={value}
                             onChange={(e) => {
-                              const selectedRating = e.target.value;
-                              updateFilters((prevFilters) => ({
-                                ...prevFilters,
-                                rating:
-                                  prevFilters.rating == selectedRating
-                                    ? ""
-                                    : selectedRating,
-                              }));
+                              updateFilters((prevFilters) => {
+                                const ratingArray = prevFilters.rating
+                                  ? prevFilters.rating.split(",").map(Number)
+                                  : [];
+                                const selectedRating = Number(e.target.value);
+                                const newRatingArray = ratingArray.includes(selectedRating)
+                                  ? ratingArray.filter((r) => r !== selectedRating)
+                                  : [...ratingArray, selectedRating];
+                                return {
+                                  ...prevFilters,
+                                  rating: newRatingArray.join(","),
+                                };
+                              });
                             }}
-                            checked={filters.rating == value}
+                            checked={filters.rating.split(",").map(Number).includes(value)}
                           />
                           <label
                             htmlFor={`rating-${value}`}
