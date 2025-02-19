@@ -88,3 +88,80 @@ export const darkenColor = (color, percent) => {
 
   return `#${((1 << 24) + (Math.round(r) << 16) + (Math.round(g) << 8) + Math.round(b)).toString(16).slice(1)}`;
 };
+
+
+
+export const transformApiData = (apiData) => {
+  const monthMapping = {
+    january: "Jan",
+    february: "Feb",
+    march: "Mar",
+    april: "Apr",
+    may: "May",
+    june: "Jun",
+    july: "Jul",
+    august: "Aug",
+    september: "Sep",
+    october: "Oct",
+    november: "Nov",
+    december: "Dec",
+  };
+
+  const months = Object.values(monthMapping);
+  const currentYear = new Date().getFullYear();
+  // Create a default dataset with all months set to 0
+  const formattedData = months.map((month) => ({
+    month,
+    order: 0,
+    year: currentYear,
+  }));
+
+  // Update default dataset with actual API data
+  apiData.forEach(({ month, year, orders }) => {
+    const formattedMonth = monthMapping[month.toLowerCase()];
+    const index = formattedData.findIndex((item) => item.month === formattedMonth);
+    if (index !== -1) {
+      formattedData[index].order = orders;
+    }
+  });
+
+  return formattedData;
+};
+
+export const transformApiDataRevenue = (apiData) => {
+  const monthMapping = {
+    january: "Jan",
+    february: "Feb",
+    march: "Mar",
+    april: "Apr",
+    may: "May",
+    june: "Jun",
+    july: "Jul",
+    august: "Aug",
+    september: "Sep",
+    october: "Oct",
+    november: "Nov",
+    december: "Dec",
+  };
+
+  const months = Object.values(monthMapping);
+  const currentYear = new Date().getFullYear();
+  // Create a default dataset with all months set to 0
+  const formattedData = months.map((month) => ({
+    month,
+    revenue: 0,
+    year: currentYear,
+  }));
+
+  // Update default dataset with actual API data
+  apiData.forEach(({ month, year, revenue }) => {
+    const formattedMonth = monthMapping[month.toLowerCase()];
+    const index = formattedData.findIndex((item) => item.month === formattedMonth);
+    if (index !== -1) {
+      formattedData[index].order = revenue;
+    }
+  });
+
+  return formattedData;
+};
+
