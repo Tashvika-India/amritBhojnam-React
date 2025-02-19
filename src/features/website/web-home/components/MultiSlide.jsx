@@ -48,7 +48,7 @@ function AsNavFor({ data }) {
           <div key={index} className="slider-bottom-item">
             <img
               loading="lazy"
-              className="img-fluid product-thumbnail-image"  
+              className="img-fluid product-thumbnail-image mx-auto"  
               src={item?.image || ""}   
               alt={item?.name || "img"} 
             />

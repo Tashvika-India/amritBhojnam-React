@@ -11,7 +11,7 @@ const WebBanner = () => {
 
   const settings = {
     dots: false, 
-    infinite: false,  
+    infinite: true,  
     speed: 100,  
     slidesToShow: 1,  
     slidesToScroll: 1,  
@@ -109,7 +109,7 @@ const spanStyles = {
   textTransform: "uppercase",
 };
 
-// Customize Next Arrow
+// Customize Next Arrow //
 const SampleNextArrow = (props) => {
   const { onClick } = props;
   return (
@@ -125,7 +125,7 @@ const SampleNextArrow = (props) => {
   );
 };
 
-// Customize Previous Arrow
+// Customize Previous Arrow //
 const SamplePrevArrow = (props) => {
   const { onClick } = props;
   return (
