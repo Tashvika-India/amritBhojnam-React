@@ -1521,6 +1521,10 @@ footer {
 //   }
 // }
 
+.slider-container .slider-bottom-thumbs .slider-bottom-item img{
+  max-height: 6.5rem;
+}
+
 .recipe-section {
   .tab-nav-wrapper {
     .btn-tab {
@@ -1835,7 +1839,7 @@ footer {
 
     img {
       width: 8rem;
-      height: auto;
+      height: 5.2rem;
       object-fit: contain;
     }
 
@@ -2857,6 +2861,29 @@ footer {
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
+  .user-profile-detail .image-content{
+    margin-top: 4.5rem !important;
+    h4{
+      margin-bottom: 0;
+    }
+  }
+  .cart-offcanvas{
+    p {
+      img{
+        max-width: 1.5rem;
+      }
+      .spend{
+        font-size: 10px; 
+        padding-left: .5rem;
+      }
+      .delivered{
+        font-size: 10px;
+        img{
+          max-width: 1rem;
+        }
+      }
+    }
+  } 
   .coin-banner{
     .fb-fs-28{
       font-size: 20px;
@@ -2876,11 +2903,6 @@ footer {
       p{
         font-size: 2rem !important;
       }
-    }
-  }
-  .user-profile-detail{
-    p{
-      padding-top: 2rem;
     }
   }
   .user-profile-img {
@@ -3306,6 +3328,24 @@ footer {
 }
 
 @media (max-width: 576px) {
+  .cart-offcanvas{
+    p {
+      img{
+        max-width: 1.5rem;
+      }
+      .spend{
+        font-size: 12px; 
+        padding-left: .5rem;
+      }
+      .delivered{
+        font-size: 11px;
+        img{
+          max-width: 1rem;
+        }
+      }
+    }
+  } 
+ 
   .user-profile-img {
     .white-button {
       padding: 2px 14px;

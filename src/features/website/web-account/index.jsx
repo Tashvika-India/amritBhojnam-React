@@ -628,7 +628,7 @@ const UserProfile = () => {
                             />
                           </div>
                           <div className="col-md-4 mb-4">
-                            <FormControl fullWidth>
+                            <FormControl fullWidth >
                               <InputLabel id="demo-simple-select-label">
                                 Gender
                               </InputLabel>
@@ -638,6 +638,7 @@ const UserProfile = () => {
                                 name="gender"
                                 value={profile.values.gender}
                                 label="Gender"
+                                style={{borderRadius: "10px"}}
                                 onChange={profile.handleChange}
                                 onBlur={profile.handleBlur}
                                 disabled={!profileEdit}

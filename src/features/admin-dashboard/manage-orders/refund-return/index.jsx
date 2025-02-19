@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Heading from "@/components/ui/Heading";
 import TabsButtons from "../../../../components/ui/TabsButton";
 import PendingOrdersTable from "./components/PendingOrdersTable";
+import InitiatedModal from "./components/InitiatedModal";
 import InitiatedOrdersTable from "./components/InitiatedOrdersTable";
 
 function ReturnRefund() {
@@ -35,6 +36,12 @@ function ReturnRefund() {
           </div>
         </div>
       </div>
+      <InitiatedModal
+        visible={visible}
+        setVisible={setVisible}
+        getCategories={getCategories}
+        editData={editData}
+      />
     </>
   );
 }

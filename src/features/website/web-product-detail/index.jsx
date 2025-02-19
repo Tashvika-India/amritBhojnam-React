@@ -210,15 +210,10 @@ const ProudctDetail = () => {
   const product = {
     title: detail?.name,
     description: detail?.short_description,
-    imageUrl: detail?.images?.[0]?.image,
+    imageUrl: detail.images,
     url: currentUrl,
   };
-  console.log(product, "dfgh")
-  // console.log("Detail Images:", detail.images);
-  // console.log("Detail Images:", Array.isArray(detail.images), detail.images);
-  // console.log("First Image:", detail?.images?.[0]?.image);
-  console.log("Product Image URL:", product.imageUrl);
-
+ 
   const shareOnWhatsApp = () => {
     const text = `${product.title} - ${product.description} ${product.url}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");

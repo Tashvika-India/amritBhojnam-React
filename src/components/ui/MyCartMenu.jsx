@@ -62,6 +62,8 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
     }
   }, [showCart, dispatch, cartId]);
 
+  
+
   return (
     <Offcanvas
       show={showCart}
@@ -77,32 +79,32 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
         <div className="d-flex flex-column justify-content-between h-100">
           <div>
             {cartItems?.length > 0 && (
-              <div className="mb-4 px-4">
+              <div className="mb-4 px-lg-4 px-md-4 px-3">
                 <p className="d-flex align-items-center">
                   <span>
                     <img
                       lazyload="true"
-                      className="img-fluid me-3"
+                      className="img-fluid me-lg-3 me-md-3 me-1"
                       src={deliveryImg}
                       alt="delivery-img"
                     />
                   </span>
                   {finalCart?.shipping_free_amount > 0 ? (
-                    <>
+                    <div className="spend">
                       <span className="me-2 mt-2">SPEND</span>
                       <strong className="me-2 mt-2">
                         ₹{finalCart?.shipping_free_amount}
                       </strong>
                       <span className="mt-2">MORE FOR FREE SHIPPING</span>
-                    </>
+                    </div>
                   ) : (
-                    <p className="d-flex align-items-center gap-2 mb-0">
+                    <p className="d-flex align-items-center gap-lg-2 gap-md-2 gap-1 mb-0 delivered">
                       Delivered to Your Door – <span className="fw-bold">Absolutely Free!</span>
                       <span>
                         <img
                           src={partyIcon}
                           alt="empty-cart"
-                          className="img-fluid mx-auto empty-cart-image w-75"
+                          className="img-fluid mx-auto empty-cart-image w-75 "
                         />
                       </span>
                     </p>
