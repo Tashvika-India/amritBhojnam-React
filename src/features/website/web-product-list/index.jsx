@@ -113,12 +113,11 @@ const ProudctList = () => {
 
   useEffect(() => {
     const queryString = `/products?category_id=${filters.category_id}&name=${filters.name}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}&rating=${filters.rating}`;
-
     if (window.location.pathname + window.location.search !== queryString) {
       navigate(queryString, { replace: true });
     }
-    setShowFilter(false);
-  }, [filters, navigate]);
+    setShowFilter(false);   
+  }, [filters]);
 
   const handleSliderChange = useCallback(
     debounce((newValue) => {
