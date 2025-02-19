@@ -9,42 +9,47 @@ import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { Alert, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import DashboardRecentOrderTable from "./components/DashboardRecentOrderTable";
 import { getDashboardApi } from "../../../services/adminApiRoutes";
+import { transformApiData, transformApiDataRevenue } from "../../../utils/constant-variable";
 
 function DashboardHome() {
-const [dashboard, setDashboard] = useState([]);
-   const [loading, setLoading] = useState(false);
+  const [dashboard, setDashboard] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [revenueYear, setRevenueYear] = useState("");
+  const [ordersYear, setOrdersYear] = useState("");
 
- async function getDashboard() {
-      setLoading(true);
-      try {
-        const response = await getDashboardApi(); 
-        setDashboard(response?.data || []);
-      } catch (error) {
-        console.log("Error on Dashboard List", error);
-      } finally {
-        setLoading(false);
-      }
-    } 
-    
-useEffect(() => {
-    getDashboard();
-  }, []);
- 
 
-  const dynamicData = [
-    { month: "Jan", order: 95, year: 2025 },
-    { month: "Feb", order: 1, year: 2025 },
-    { month: "Mar", order: 0, year: 2025 },
-    { month: "Apr", order: 0, year: 2025 },
-    { month: "May", order: 0, year: 2025 },
-    { month: "Jun", order: 0, year: 2025 },
-    { month: "Jul", order: 0, year: 2025 },
-    { month: "Aug", order: 0, year: 2025 },
-    { month: "Sep", order: 0, year: 2025 },
-    { month: "Oct", order: 0, year: 2025 },
-    { month: "Nov", order: 0, year: 2025 },
-    { month: "Dec", order: 0, year: 2025 }
-  ];
+  const fetchDashboardData = async (revenueYear, ordersYear) => {
+    setLoading(true);
+    try {
+      const response = await getDashboardApi({
+        revenue_current_year: revenueYear,
+        orders_current_year: ordersYear,
+      });
+      setDashboard(response?.data || []);
+    } catch (error) {
+      console.log("Error on Dashboard List", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: currentYear - 2018 }, (_, i) => currentYear - i);
+
+  const handleRevenueYearChange = (event) => {
+    setRevenueYear(event.target.value);
+  };
+
+  const handleOrdersYearChange = (event) => {
+    setOrdersYear(event.target.value);
+  };
+
+  const orderChartData = transformApiData(dashboard?.orders || []);
+  const revenueChartData = transformApiDataRevenue(dashboard?.revenue_stats || []);
+
+  useEffect(() => {
+    fetchDashboardData(revenueYear, ordersYear);
+  }, [revenueYear, ordersYear]);
 
   return (
     <>
@@ -62,28 +67,28 @@ useEffect(() => {
             <div className="d-flex justify-content-between">
               <h5 className="mb-3 fw-500">Revenue Status</h5>
               <div style={{ width: "11%" }}>
-                <FormControl fullWidth w-50>
-                    <InputLabel id="demo-simple-select-label" size="small">
-                      Monthly
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      label="Monthly"
-                      size="small"
-                    >
-                      <MenuItem value="2025">2025</MenuItem>
-                      <MenuItem value="2024">2024</MenuItem>
-                      <MenuItem value="2023">2023</MenuItem>
-                      <MenuItem value="2022">2022</MenuItem>
-                      <MenuItem value="2021">2021</MenuItem>
-                      <MenuItem value="2020">2020</MenuItem>
-                      <MenuItem value="2019">2019</MenuItem>
-                    </Select>
-                  </FormControl>
+                <FormControl fullWidth>
+                  <InputLabel id="revenue-year-select-label" size="small">
+                    Year
+                  </InputLabel>
+                  <Select
+                    labelId="revenue-year-select-label"
+                    id="revenue-year-select"
+                    value={revenueYear}
+                    label="Year"
+                    size="small"
+                    onChange={handleRevenueYearChange}
+                  >
+                    {years.map((year) => (
+                      <MenuItem key={year} value={year}>
+                        {year}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             </div>
-            <LineChart height={400} />
+            <LineChart height={400} chartData={revenueChartData} />
           </div>
         </div>
       </div>
@@ -116,7 +121,7 @@ useEffect(() => {
                   />
                 </Link>
               </div>
-              <DashboardRecentOrderTable dashboard={dashboard}/>
+              <DashboardRecentOrderTable dashboard={dashboard} />
             </div>
           </div>
         </div>
@@ -144,28 +149,28 @@ useEffect(() => {
               <div className="d-flex justify-content-between">
                 <h5 className="mb-3 mt-3 fw-500">Orders</h5>
                 <div style={{ width: "24%" }}>
-                  <FormControl fullWidth w-50>
-                    <InputLabel id="demo-simple-select-label" size="small">
-                      Monthly
+                  <FormControl fullWidth>
+                    <InputLabel id="orders-year-select-label" size="small">
+                      Year
                     </InputLabel>
                     <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      label="Monthly"
+                      labelId="orders-year-select-label"
+                      id="orders-year-select"
+                      value={ordersYear}
+                      label="Year"
                       size="small"
+                      onChange={handleOrdersYearChange}
                     >
-                      <MenuItem value="2025">2025</MenuItem>
-                      <MenuItem value="2024">2024</MenuItem>
-                      <MenuItem value="2023">2023</MenuItem>
-                      <MenuItem value="2022">2022</MenuItem>
-                      <MenuItem value="2021">2021</MenuItem>
-                      <MenuItem value="2020">2020</MenuItem>
-                      <MenuItem value="2019">2019</MenuItem>
+                      {years.map((year) => (
+                        <MenuItem key={year} value={year}>
+                          {year}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                 </div>
               </div>
-              <LineChart height={370} chartData={dynamicData} />
+              <LineChart height={370} chartData={orderChartData} />
             </div>
           </div>
         </div>
