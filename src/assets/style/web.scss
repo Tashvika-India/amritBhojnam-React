@@ -3324,6 +3324,14 @@ footer {
 }
 
 @media (max-width: 576px) {
+  .earn-statement{
+    font-size: 10px !important;
+  }
+  .Tooltip-Wrapper{
+    svg{
+      max-width: .8rem !important;
+    }
+  }
   .cart-offcanvas{
     p {
       img{

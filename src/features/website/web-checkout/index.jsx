@@ -654,6 +654,12 @@ const CheckoutPage = () => {
                                     {finalCart.discount === undefined ? '₹ 0' : `- ₹ ${finalCart.discount}`}
                                   </span>
                                 </li> */}
+                                <li className="d-flex justify-content-between my-2">
+                                  <span className="fw-500">Amrit Coin Discount</span>
+                                  <span className="fb-fs-18 fw-500 text-danger">
+                                  -₹ 4.0
+                                  </span>
+                                </li>
                             </ul>
                           </div>
                           {finalCart?.availability_amrit_coins && (
@@ -695,7 +701,7 @@ const CheckoutPage = () => {
                           {loading ? (
                             <BackdropLoader open={loading} />
                           ) : (
-                            <p className="d-flex align-items-center fw-500 ms-5 ps-3 pt-3">
+                            <p className="d-flex align-items-center fw-500 ms-lg-5 ms-md-5 ms-0 earn-statement ps-lg-3 ps-md-3 pt-3">
                               You will earn
                               <span>
                                 <img
@@ -709,7 +715,7 @@ const CheckoutPage = () => {
                                 {finalCart?.earn_amrit_coins} Amrit Coins
                               </span>
                               on this purchase &nbsp;
-                              <div className="me-2 mt-2">
+                              <div className="me-2 mt-lg-2 mt-md-2 mt-1" >
                                 <Tooltip
                                   content={
                                     <>
