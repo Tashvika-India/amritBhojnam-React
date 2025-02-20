@@ -188,7 +188,7 @@ export const reOrderApi = (id) => API.post(`/re_orders/?order_id=${id}`);
 
 
 //order success
-export const getOrderSuccessApi = (payload) => API.patch(`/orders/status/`,payload);
+export const getOrderSuccessApi = (payload) => API.post(`/accounts/accept_order/`,payload);
 
 // Contact api
 export const getContactApi = () => API.get(`/contact/`);

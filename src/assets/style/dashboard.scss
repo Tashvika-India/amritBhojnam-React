@@ -54,7 +54,7 @@ thead th {
 //   border-radius: 0.625rem !important;
 // }
 
-.p-datatable .p-datatable-tbody>tr {
+.p-datatable .p-datatable-tbody > tr {
   color: $dark-grey !important;
 }
 
@@ -126,8 +126,8 @@ thead th {
 }
 
 .lt-pending-button {
-  background: #FFF2DF;
-  color: #F3A638;
+  background: #fff2df;
+  color: #f3a638;
   padding: 0.3rem 1rem;
   border-radius: 5px;
   border: none;
@@ -261,20 +261,20 @@ thead th {
   }
 }
 
-.add-meal{
-  .multi-pre-list{
+.add-meal {
+  .multi-pre-list {
     max-width: 10rem !important;
     min-height: 10rem !important;
   }
-  .multipule-image-uploader{
+  .multipule-image-uploader {
     height: 10rem !important;
-    border: 2px dashed #D59615;
-   
-    svg{
+    border: 2px dashed #d59615;
+
+    svg {
       display: none;
     }
   }
-} 
+}
 
 //// Sidebar Start ////
 .dashboard-sidebar {
@@ -330,6 +330,55 @@ thead th {
     height: 700px !important;
     scrollbar-width: none;
   }
+}
+
+.stepper-wrapper-order {
+  position: relative;
+  z-index: 5;
+  &::before {
+    content: "";
+    position: absolute;
+    height: 71%;
+    width: 3px;
+    background-color: #DADADA;
+    top: 27px;
+    left: 10px;
+    z-index: -1;
+    transition: background-color 0.5s ease;
+  }
+
+  &.active{
+    &::before{ 
+      background-color: #4BAE4F; 
+      animation: heightAnimation 0.5s ease;
+    }
+  }
+
+  &:last-child {
+    &::before {
+      display: none;
+    }
+  }
+  .stepper-content{
+    height: 105px;
+  }
+}
+
+@keyframes heightAnimation {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 71%;
+  }
+}
+
+.light-default-button {
+  background-color:  transparent ;
+  border-radius: 7px;
+  padding: 13px 1.2rem;
+  border: 1px solid transparent ;
+  color: $white;
 }
 
 @media (min-width: 1400px) and (max-width: 1600px) {
@@ -403,13 +452,13 @@ thead th {
 }
 
 .option-button {
-  background-color: #FFF1EB;
-  color: #AC562D;
+  background-color: #fff1eb;
+  color: #ac562d;
   border: none !important;
 }
 
 .option-button.active {
-  background-color: #AC562D;
-  color: #FFF1EB;
+  background-color: #ac562d;
+  color: #fff1eb;
   border: none !important;
 }

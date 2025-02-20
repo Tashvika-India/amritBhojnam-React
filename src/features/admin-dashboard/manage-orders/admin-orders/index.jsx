@@ -61,7 +61,7 @@ function AdminOrders() {
                     activeTab={activeTab}
                     setActiveTab={setActiveTab}
                     labelOne={"Active"}
-                    labelTwo={"Inactive"}
+                    labelTwo={"New Orders"}
                   />
                 </div>
               </div>
