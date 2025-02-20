@@ -127,7 +127,8 @@ const NewOrdersTable = ({ order, getOrderList }) => {
             ?
             <div className="d-flex gap-3 align-items-center">
               <button className="lt-green-button" onClick={() => showAcceptModal(true, rowData?.id, rowData?.display_order_id)}>Accept</button>
-              <button className="lt-red-button" onClick={() => showAcceptModal(false, rowData?.id,rowData?.display_order_id)}>Cancel</button>
+              {/* <button className="lt-red-button" onClick={() => showAcceptModal(false, rowData?.id,rowData?.display_order_id)}>Cancel</button> */}
+              <button className="lt-red-button">Cancel</button>
             </div>
             :
             <div>

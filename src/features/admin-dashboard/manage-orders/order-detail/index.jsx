@@ -3,11 +3,6 @@ import Heading from "@/components/ui/Heading";
 import {
   Breadcrumbs,
   Divider,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
 } from "@mui/material";
 import { Checkbox } from "primereact/checkbox";
 import { DataTable } from "primereact/datatable";
@@ -15,7 +10,7 @@ import { TiTick } from "react-icons/ti";
 import { Column } from "primereact/column";
 import { Timeline } from "primereact/timeline";
 import { BsBoxFill, BsFillHandbagFill } from "react-icons/bs";
-import { FaGears, FaLocationDot, FaRoute } from "react-icons/fa6";
+import { FaCheck, FaGears, FaLocationDot, FaRoute } from "react-icons/fa6";
 import { ImPrinter } from "react-icons/im";
 import { Avatar } from "primereact/avatar";
 import { FaUser } from "react-icons/fa6";
@@ -36,13 +31,24 @@ import { styled } from "@mui/material/styles";
 import { Calendar } from "primereact/calendar";
 import { FloatLabel } from 'primereact/floatlabel';
 import { notifyError } from "../../../../components/ui/Notification";
+import { date } from "yup";
+import AcceptOrderModal from "../admin-orders/components/AcceptOrderModal";
 
 const AdminOrderDetail = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [orderData, setOrderData] = useState([]);
   const [datetime12h, setDateTime12h] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [orderStatus, setOrderStatus] = useState([]);
 
+
+    const showAcceptModal = (status, orderId, display_order_id) => {
+      const data = { status, orderId , display_order_id};
+      setModalVisible(true);
+      setOrderStatus(data);
+    };
+  
 
   const getOrderList = async (name = "") => {
     setLoading(true);
@@ -61,36 +67,27 @@ const AdminOrderDetail = () => {
     getOrderList();
   }, []);
 
+  const currentStatus = orderData?.status;
 
-  const events = [
-    {
-      status: "Ordered",
-      date: "15/10/2020 10:30",
-      icon: "pi pi-shopping-cart",
-      color: "#9C27B0",
-      image: "game-controller.jpg",
-    },
-    {
-      status: "Processing",
-      date: "15/10/2020 14:00",
-      icon: "pi pi-cog",
-      color: "#673AB7",
-    },
-    {
-      status: "Shipped",
-      date: "15/10/2020 16:15",
-      icon: "pi pi-shopping-cart",
-      color: "#FF9800",
-    },
-    {
-      status: "Delivered",
-      date: "16/10/2020 10:00",
-      icon: "pi pi-check",
-      color: "#607D8B",
-    },
+  const steps = [
+    { id: 1, name: 'confirmed', date: "10 Aug, 2024 - 07:00 PM" },
+    { id: 2, name: 'accepted', date: "10 Aug, 2024 - 07:00 PM" },
+    { id: 3, name: 'ready_to_dispatch', date: "10 Aug, 2024 - 07:00 PM" },
+    { id: 4, name: 'out_of_delivery', date: "10 Aug, 2024 - 07:00 PM" },
+    { id: 5, name: 'delivered', date: "10 Aug, 2024 - 07:00 PM" },
   ];
 
-  const initials = "Aman Kumar"
+  const stepsline = steps?.filter((items) => items.name !== "confirmed"); 
+  const currentStepIndex = stepsline.findIndex(step => step.name === currentStatus);
+
+  const formatStepName = (name) => {
+    return name
+      .replace(/_/g, ' ')  
+      .replace(/\b\w/g, (char) => char.toUpperCase());  
+  };
+
+
+  const initials = orderData?.delivering_to?.ads_name
     .split(" ")
     .map((n) => n[0])
     .join("");
@@ -103,41 +100,41 @@ const AdminOrderDetail = () => {
     );
   };
 
-  const steps = [
-    {
-      label: "Accepted",
-      description: "10 Aug, 2024 - 07:00 PM",
-    },
-    {
-      label: "In Progress",
-      description: "11 Aug, 2024 - 09:00 AM",
-    },
-    {
-      label: "Completed",
-      description: "12 Aug, 2024 - 05:30 PM",
-    },
-  ];
+  // const steps = [
+  //   {
+  //     label: "Accepted",
+  //     description: "10 Aug, 2024 - 07:00 PM",
+  //   },
+  //   {
+  //     label: "In Progress",
+  //     description: "11 Aug, 2024 - 09:00 AM",
+  //   },
+  //   {
+  //     label: "Completed",
+  //     description: "12 Aug, 2024 - 05:30 PM",
+  //   },
+  // ];
 
-  const CustomConnector = styled(StepConnector)(({ theme }) => ({
-    "& .MuiStepConnector-line": {
-      borderColor: theme.palette.mode === "light" ? "gray" : "gray",
-      borderWidth: 3,
-      borderRadius: 1,
-    },
-  }));
+  // const CustomConnector = styled(StepConnector)(({ theme }) => ({
+  //   "& .MuiStepConnector-line": {
+  //     borderColor: theme.palette.mode === "light" ? "gray" : "gray",
+  //     borderWidth: 3,
+  //     borderRadius: 1,
+  //   },
+  // }));
 
   // Custom Step Icon Component
-  const StepIcon = ({ active, completed }) => {
-    if (completed) {
-      return <CheckCircleIcon sx={{ color: "#4BAE4F" }} />;
-    }
-    if (active) {
-      return <RadioButtonCheckedIcon sx={{ color: "#4BAE4F" }} />;
-    }
-    return <RadioButtonUncheckedIcon sx={{ color: "gray" }} />;
-  };
+  // const StepIcon = ({ active, completed }) => {
+  //   if (completed) {
+  //     return <CheckCircleIcon sx={{ color: "#4BAE4F" }} />;
+  //   }
+  //   if (active) {
+  //     return <RadioButtonCheckedIcon sx={{ color: "#4BAE4F" }} />;
+  //   }
+  //   return <RadioButtonUncheckedIcon sx={{ color: "gray" }} />;
+  // };
 
-  const [activeStep, setActiveStep] = React.useState(1);
+  // const [activeStep, setActiveStep] = React.useState(1);
 
   return (
     <>
@@ -213,86 +210,41 @@ const AdminOrderDetail = () => {
                 <div>
                   {orderData?.status === "confirmed" ? (
                     <>
-                      <button className="fw-400 lt-pending-button">Pending</button>
+                      <button className="btn light-default-button py-1" style={{backgroundColor: '#E8C51E',color: 'white'}}>Pending</button>
                     </>
-                  ) : orderData?.status === "cancelled" ? (
-                    <button className="fw-400 lt-red-button">Cancel</button>
-                  ) : orderData?.status === "accepted" ? (
-                    <button className="btn light-aqua-button py-1">Accepted</button>
+                  )  : orderData?.status === "accepted" ? (
+                    <button className="btn light-default-button py-1" style={{backgroundColor: '#4BAE4F',color: 'white'}}>Accepted</button>
                   ) : null}
                 </div>
               </div>
               <div className="text-start Track-stepper pt-4">
-                <Box sx={{ maxWidth: 400 }}>
-                  <Stepper
-                    activeStep={activeStep}
-                    orientation="vertical"
-                    connector={<CustomConnector />}
-                  >
-                    {steps.map((step, index) => (
-                      <Step key={step.label}>
-                        <StepLabel
-                          StepIconComponent={(props) => (
-                            <StepIcon
-                              active={props.active}
-                              completed={props.completed}
-                            />
-                          )}
+                <div>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    {stepsline.map((step, index) => (
+                      <div className={`d-flex gap-3 stepper-wrapper-order ${index <= currentStepIndex ? 'active' : ''}`} key={step.id} >
+                        <div
+                          style={{
+                            width: '23px',
+                            height: '23px',
+                            borderRadius: '50%',
+                            backgroundColor: index <= currentStepIndex ? '#4BAE4F' : '#DADADA',
+                            color: 'white',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginBottom: '10px',
+                          }}
                         >
-                          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                            {step.label}
-                          </Typography>
-                          <Typography variant="body2" color="textSecondary">
-                            {step.description}
-                          </Typography>
-                        </StepLabel>
-                      </Step>
+                          <FaCheck color="white" size={12} />
+                        </div>
+                        <div className="d-flex flex-column justify-content-start align-items-start stepper-content">
+                          <h6 className="fw-400 mb-0 " style={{ fontSize: "1rem"}}>{formatStepName(step.name)}</h6>
+                          {index <= currentStepIndex && <p className="fw-400" style={{ fontSize: "0.875rem", color: "#918E92" }}>{step.date}</p>}
+                        </div>
+                      </div>
                     ))}
-                  </Stepper>
-                  {/* <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      mt: 3,
-                    }}
-                  >
-                    <button
-                      onClick={() =>
-                        setActiveStep((prevStep) =>
-                          prevStep > 0 ? prevStep - 1 : prevStep
-                        )
-                      }
-                      disabled={activeStep === 0}
-                      style={{
-                        padding: "10px 15px",
-                        border: "1px solid gray",
-                        borderRadius: "5px",
-                        backgroundColor:
-                          activeStep === 0 ? "lightgray" : "white",
-                        cursor: activeStep === 0 ? "not-allowed" : "pointer",
-                      }}
-                    >
-                      Back
-                    </button>
-                    <button
-                      onClick={() =>
-                        setActiveStep((prevStep) =>
-                          prevStep < steps.length - 1 ? prevStep + 1 : prevStep
-                        )
-                      }
-                      style={{
-                        padding: "10px 15px",
-                        border: "none",
-                        borderRadius: "5px",
-                        backgroundColor: "green",
-                        color: "white",
-                        cursor: "pointer",
-                      }}
-                    >
-                      {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                    </button>
-                  </Box> */}
-                </Box>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -412,7 +364,7 @@ const AdminOrderDetail = () => {
                   <div className="mt-4 pt-2">
                     <div className="d-flex align-items-start gap-5">
                       <p className="fw-500 mb-0">Type</p> <span> :</span>
-                      <p className="mb-0">POS</p>
+                      <p className="mb-0">Standard Delivery</p>
                     </div>
                   </div>
                 </div>
@@ -427,35 +379,20 @@ const AdminOrderDetail = () => {
                       <p className="fw-500 fb-fs-18 mb-0">Action</p>
                     </div>
                   </div>
-                  {orderData?.status === "accepted" && (
+                  {orderData?.status === "confirmed" && (
                     <div className="mt-2 d-flex gap-4 align-items-center">
                       <p className="mb-0 fw-600">Order is Ready to Book</p>
-                      <button className="button-yellow d-flex gap-2 px-3 fb-fs-16" style={{ paddingBlock: ".8rem" }}>
+                      <button className="button-yellow d-flex gap-2 px-3 fb-fs-16" onClick={() => showAcceptModal(true, orderData?.id, orderData?.display_order_id)} style={{ paddingBlock: ".8rem" }}>
                         <TiTick size={20} />
                         Accept Order
                       </button>
                     </div>
                   )}
 
-                  {orderData?.status === "cancelled" && (
+                  {orderData?.status !== "confirmed" && (
                     <>
-                      <div className="mt-4 d-flex gap-3">
-                        <FloatLabel>
-                          <Calendar
-                            inputId="birth_date"
-                            value={datetime12h}
-                            onChange={(e) => setDateTime12h(e.value)}
-                            showTime
-                            hourFormat="12"
-                          />
-                          <label htmlFor="birth_date">Enter Delivery Date</label>
-                        </FloatLabel>
-                        <div>
-                          <button className="lt-blue-button">Update</button>
-                        </div>
-                      </div>
                       <div className="mt-2 d-flex gap-4 align-items-center">
-                        <p className="mb-0 fw-600">Order is Ready to Book</p>
+                        <p className="mb-0 fw-600">Order is Ready to Dispatch</p>
                         <button className="button-yellow d-flex gap-2 px-3 fb-fs-16" style={{ paddingBlock: ".8rem" }}>
                           <TiTick size={20} />
                           Ready to Dispatch
@@ -463,7 +400,6 @@ const AdminOrderDetail = () => {
                       </div>
                     </>
                   )}
-
                 </div>
               </div>
             </div>
@@ -566,6 +502,7 @@ const AdminOrderDetail = () => {
           </div>
         </div>
       </div >
+      <AcceptOrderModal visible={modalVisible} getOrderList={getOrderList} setVisible={() => setModalVisible(false)} orderStatus={orderStatus} />
     </>
   );
 };

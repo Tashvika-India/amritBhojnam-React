@@ -6,7 +6,7 @@ import { getOrderSuccessApi } from '../../../../../services/adminApiRoutes';
 import acceptModalImg from "../../../../../assets/images/dashboard/accept-modal.png";
 import cancelModalImg from "../../../../../assets/images/dashboard/cancel-modal.png";
 
-function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
+function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) { 
 
   const [remarks, setRemarks] = useState('') 
 
@@ -14,10 +14,10 @@ function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
     try {
       const payload = {
         order_id: orderStatus?.orderId || '',
-        status: orderStatus?.status,
-        cancel_reason: remarks,
-      };
+      }; 
+      
       await getOrderSuccessApi(payload);
+
       setVisible();
       getOrderList();
       notifySuccess('Order updated successfully');
@@ -65,7 +65,7 @@ function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
               </div>
             </>
         }
-        {(orderStatus?.status) ?
+        {/* {(orderStatus?.status) ?
           <div className="d-flex justify-content-center gap-3 mb-3">
             <button className="button-yellow px-5 fs-6 fw-500 rounded-3" onClick={handleAcceptOrder} hidden={!(orderStatus?.status)}>Accept</button>
             <button className="bright-red-button-reverse fw-500" onClick={setVisible}>No</button>
@@ -74,7 +74,11 @@ function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
             <button className="button-yellow px-4 fs-6 fw-500 rounded-3" onClick={handleAcceptOrder} disabled={!remarks} hidden={(orderStatus?.status)} >Yes Cancel</button>
             <button className="bright-red-button-reverse fw-500" onClick={setVisible}>No</button>
           </div>
-        }
+        } */}
+          <div className="d-flex justify-content-center gap-3 mb-3">
+            <button className="button-yellow px-5 fs-6 fw-500 rounded-3" onClick={handleAcceptOrder} hidden={!(orderStatus?.status)}>Accept</button>
+            <button className="bright-red-button-reverse fw-500" onClick={setVisible}>No</button>
+          </div> 
       </Modal.Body>
     </Modal>
   );
