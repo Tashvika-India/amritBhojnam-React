@@ -3,12 +3,10 @@ import Heading from "@/components/ui/Heading";
 import {
   Breadcrumbs,
   Divider,
-} from "@mui/material";
-import { Checkbox } from "primereact/checkbox";
+} from "@mui/material"; 
 import { DataTable } from "primereact/datatable";
 import { TiTick } from "react-icons/ti";
-import { Column } from "primereact/column";
-import { Timeline } from "primereact/timeline";
+import { Column } from "primereact/column"; 
 import { BsBoxFill, BsFillHandbagFill } from "react-icons/bs";
 import { FaCheck, FaGears, FaLocationDot, FaRoute } from "react-icons/fa6";
 import { ImPrinter } from "react-icons/im";
@@ -17,22 +15,12 @@ import { FaUser } from "react-icons/fa6";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaPhoneAlt } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
-import { getOrderAdminApi } from "../../../../services/adminApiRoutes";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import StepConnector from "@mui/material/StepConnector";
-import Typography from "@mui/material/Typography";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import { styled } from "@mui/material/styles";
-import { Calendar } from "primereact/calendar";
-import { FloatLabel } from 'primereact/floatlabel';
-import { notifyError } from "../../../../components/ui/Notification";
-import { date } from "yup";
+import { getOrderAdminApi } from "../../../../services/adminApiRoutes"; 
+import Typography from "@mui/material/Typography"; 
+import { notifyError } from "../../../../components/ui/Notification"; 
 import AcceptOrderModal from "../admin-orders/components/AcceptOrderModal";
+import Loading from "../../../../components/ui/Loading";
+import AcceptDispatchOrderModal from "../admin-orders/components/AcceptDispatchOrderModal";
 
 const AdminOrderDetail = () => {
   const { id } = useParams();
@@ -40,15 +28,22 @@ const AdminOrderDetail = () => {
   const [orderData, setOrderData] = useState([]);
   const [datetime12h, setDateTime12h] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [dispatchVisible, setDispatchVisible] = useState(false);
   const [orderStatus, setOrderStatus] = useState([]);
+  const [orderDispatch, setOrderDispatch] = useState([]);
 
 
     const showAcceptModal = (status, orderId, display_order_id) => {
       const data = { status, orderId , display_order_id};
       setModalVisible(true);
-      setOrderStatus(data);
+      setOrderStatus(data); 
     };
-  
+    
+    const dispatchModal = (status, orderId, display_order_id) => {
+      const data = { status, orderId , display_order_id};
+      setDispatchVisible(true);
+      setOrderDispatch(data);
+    };
 
   const getOrderList = async (name = "") => {
     setLoading(true);
@@ -67,14 +62,14 @@ const AdminOrderDetail = () => {
     getOrderList();
   }, []);
 
-  const currentStatus = orderData?.status;
+  const currentStatus = orderData?.status;  
 
   const steps = [
-    { id: 1, name: 'confirmed', date: "10 Aug, 2024 - 07:00 PM" },
-    { id: 2, name: 'accepted', date: "10 Aug, 2024 - 07:00 PM" },
-    { id: 3, name: 'ready_to_dispatch', date: "10 Aug, 2024 - 07:00 PM" },
-    { id: 4, name: 'out_of_delivery', date: "10 Aug, 2024 - 07:00 PM" },
-    { id: 5, name: 'delivered', date: "10 Aug, 2024 - 07:00 PM" },
+    { id: 1, name: 'confirmed',title: 'Confirmed', date: "10 Feb, 2025 - 04:00 PM" },
+    { id: 2, name: 'accepted',title: 'Accepted', date: "11 Feb, 2025 - 07:00 PM" },
+    { id: 3, name: 'dispatched', title: 'Ready to dispatch', date: "14 Feb, 2025 - 01:00 PM" },
+    { id: 4, name: 'out_of_delivery', title: 'Out of delivery', date: "14 Feb, 2025 - 05:00 PM" },
+    { id: 5, name: 'delivered', title: 'Delivered', date: "15 Feb, 2025 - 06:00 PM" },
   ];
 
   const stepsline = steps?.filter((items) => items.name !== "confirmed"); 
@@ -100,41 +95,6 @@ const AdminOrderDetail = () => {
     );
   };
 
-  // const steps = [
-  //   {
-  //     label: "Accepted",
-  //     description: "10 Aug, 2024 - 07:00 PM",
-  //   },
-  //   {
-  //     label: "In Progress",
-  //     description: "11 Aug, 2024 - 09:00 AM",
-  //   },
-  //   {
-  //     label: "Completed",
-  //     description: "12 Aug, 2024 - 05:30 PM",
-  //   },
-  // ];
-
-  // const CustomConnector = styled(StepConnector)(({ theme }) => ({
-  //   "& .MuiStepConnector-line": {
-  //     borderColor: theme.palette.mode === "light" ? "gray" : "gray",
-  //     borderWidth: 3,
-  //     borderRadius: 1,
-  //   },
-  // }));
-
-  // Custom Step Icon Component
-  // const StepIcon = ({ active, completed }) => {
-  //   if (completed) {
-  //     return <CheckCircleIcon sx={{ color: "#4BAE4F" }} />;
-  //   }
-  //   if (active) {
-  //     return <RadioButtonCheckedIcon sx={{ color: "#4BAE4F" }} />;
-  //   }
-  //   return <RadioButtonUncheckedIcon sx={{ color: "gray" }} />;
-  // };
-
-  // const [activeStep, setActiveStep] = React.useState(1);
 
   return (
     <>
@@ -149,7 +109,10 @@ const AdminOrderDetail = () => {
           <Heading value={`Order : ${orderData?.display_order_id}`} />
         </div>
       </div>
-      <div className="row">
+
+      { 
+        loading ? ( <Loading />) :
+        <div className="row">
         <div className="col-md-8 mb-4">
           <div className="card px-3">
             <div className="card-body">
@@ -214,6 +177,8 @@ const AdminOrderDetail = () => {
                     </>
                   )  : orderData?.status === "accepted" ? (
                     <button className="btn light-default-button py-1" style={{backgroundColor: '#4BAE4F',color: 'white'}}>Accepted</button>
+                  ) : orderData?.status === "dispatched" ? (
+                    <button className="btn light-default-button py-1" style={{backgroundColor: '#d59615',color: 'white'}}>Dispatched</button>
                   ) : null}
                 </div>
               </div>
@@ -238,8 +203,8 @@ const AdminOrderDetail = () => {
                           <FaCheck color="white" size={12} />
                         </div>
                         <div className="d-flex flex-column justify-content-start align-items-start stepper-content">
-                          <h6 className="fw-400 mb-0 " style={{ fontSize: "1rem"}}>{formatStepName(step.name)}</h6>
-                          {index <= currentStepIndex && <p className="fw-400" style={{ fontSize: "0.875rem", color: "#918E92" }}>{step.date}</p>}
+                          <h6 className="fw-400 mb-0 " style={{ fontSize: "1rem"}}>{formatStepName(step.title)}</h6>
+                          {index <= currentStepIndex && <p className="fw-400" style={{ fontSize: "0.875rem", color: "#918E92" }}>{step.date || ""}</p>}
                         </div>
                       </div>
                     ))}
@@ -388,15 +353,21 @@ const AdminOrderDetail = () => {
                       </button>
                     </div>
                   )}
-
-                  {orderData?.status !== "confirmed" && (
+                  {orderData?.status === "accepted" && (
                     <>
                       <div className="mt-2 d-flex gap-4 align-items-center">
                         <p className="mb-0 fw-600">Order is Ready to Dispatch</p>
-                        <button className="button-yellow d-flex gap-2 px-3 fb-fs-16" style={{ paddingBlock: ".8rem" }}>
+                        <button className="button-yellow d-flex gap-2 px-3 fb-fs-16" onClick={() => dispatchModal(true, orderData?.id, orderData?.display_order_id)} style={{ paddingBlock: ".8rem" }}>
                           <TiTick size={20} />
                           Ready to Dispatch
                         </button>
+                      </div>
+                    </>
+                  )}
+                  {orderData?.status === "dispatched" && (
+                    <>
+                      <div className="mt-2 d-flex gap-4 align-items-center">
+                        <p className="mb-0 fw-600">Order is Dispatched</p>
                       </div>
                     </>
                   )}
@@ -501,8 +472,9 @@ const AdminOrderDetail = () => {
             </div>
           </div>
         </div>
-      </div >
+      </div >}
       <AcceptOrderModal visible={modalVisible} getOrderList={getOrderList} setVisible={() => setModalVisible(false)} orderStatus={orderStatus} />
+      <AcceptDispatchOrderModal visible={dispatchVisible} getOrderList={getOrderList} setVisible={() => setDispatchVisible(false)} orderStatus={orderDispatch} />
     </>
   );
 };

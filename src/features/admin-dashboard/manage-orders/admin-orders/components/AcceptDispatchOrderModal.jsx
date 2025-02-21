@@ -2,13 +2,11 @@ import { TextField } from '@mui/material';
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { notifyError, notifySuccess } from '../../../../../components/ui/Notification';
-import { getOrderSuccessApi } from '../../../../../services/adminApiRoutes';
+import { getOrderSuccessApi, postOrderDispatchApi } from '../../../../../services/adminApiRoutes';
 import acceptModalImg from "../../../../../assets/images/dashboard/accept-modal.png";
 import cancelModalImg from "../../../../../assets/images/dashboard/cancel-modal.png";
 
-function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) { 
-
-  const [remarks, setRemarks] = useState('') 
+function AcceptDispatchOrderModal({ visible, setVisible, orderStatus, getOrderList }) {  
 
   const handleAcceptOrder = async () => {
     try {
@@ -16,8 +14,7 @@ function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
         order_id: orderStatus?.orderId || '',
       }; 
       
-      await getOrderSuccessApi(payload);
-
+      await postOrderDispatchApi(payload);
       setVisible();
       getOrderList();
       notifySuccess('Order updated successfully');
@@ -36,7 +33,7 @@ function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
           (orderStatus?.status) ?
             <div className='d-inline-flex justify-content-center flex-column align-items-center w-100'>
               <img className="img-fluid mt-1 mx-1" src={acceptModalImg} alt="order" />
-              <h5 className='fw-600 mb-2 mt-3 fb-fs-26 text-center'>Accept Order ?</h5>
+              <h5 className='fw-600 mb-2 mt-3 fb-fs-26 text-center'>Dispatch Order ?</h5>
               <p className='mb-0'>You’re about to confirm this order</p>
               <span className='fw-500 d-inline-block mt-2 mb-4' style={{ color: "#584EE0" }}>#{orderStatus?.display_order_id}</span>
             </div>
@@ -85,4 +82,4 @@ function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
   );
 }
 
-export default AcceptOrderModal;
+export default AcceptDispatchOrderModal;

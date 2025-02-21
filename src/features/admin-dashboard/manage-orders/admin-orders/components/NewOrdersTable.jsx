@@ -14,12 +14,13 @@ import StatusModal from "./StatusModal";
 import AcceptOrder from "./OrderStatusModal/AcceptOrder";
 import CancelOrder from "./OrderStatusModal/CancelOrder";
 import { getOrderSuccessApi } from "../../../../../services/adminApiRoutes";
+import { RxOpenInNewWindow } from "react-icons/rx";
 const NewOrdersTable = ({ order, getOrderList }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [orderStatus, setOrderStatus] = useState([]);
 
   const showAcceptModal = (status, orderId, display_order_id) => {
-    const data = { status, orderId , display_order_id};
+    const data = { status, orderId, display_order_id };
     setModalVisible(true);
     setOrderStatus(data);
   };
@@ -71,7 +72,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
     );
   };
 
-  const orderTemplate = (rowData) => { 
+  const orderTemplate = (rowData) => {
     return (
       <>
         {/* {(rowData?.product_details.map((item) => {
@@ -91,7 +92,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
           <img src={rowData?.product_details[0]?.product?.images[0]?.image} alt="img" style={{ width: "3.5rem", height: "4rem" }} />
           <div className="d-flex flex-column">
             <p className="fw-400 mb-0" style={{ fontSize: "1rem" }}>{rowData?.product_details[0]?.product?.name}</p>
-            <Link to={`/admin/order-details/${rowData.id}`} className="fw-400 mb-0 " style={{ fontSize: ".88rem", color: "#584EE0" }}>{rowData?.product_details.length > 0 && `${rowData?.product_details.length} more...`}</Link> 
+            <Link to={`/admin/order-details/${rowData.id}`} className="fw-400 mb-0 " style={{ fontSize: ".88rem", color: "#584EE0" }}>{rowData?.product_details.length > 0 && `${rowData?.product_details.length} more...`}</Link>
           </div>
         </div>
       </>
@@ -110,6 +111,8 @@ const NewOrdersTable = ({ order, getOrderList }) => {
           <>
             <button className="fw-400 lt-pending-button">Pending</button>
           </>
+        ) : rowData?.status === "dispatched" ? (
+          <button className="fw-400 lt-yellow-button">Dispatched</button>
         ) : rowData?.status === "cancelled" ? (
           <button className="fw-400 lt-red-button">Cancel</button>
         ) : rowData?.status === "accepted" ? (
@@ -119,7 +122,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
     );
   };
 
-  const actionBodyTemplate = (rowData) => { 
+  const actionBodyTemplate = (rowData) => {
     return (
       <>
         {
@@ -131,12 +134,14 @@ const NewOrdersTable = ({ order, getOrderList }) => {
               <button className="lt-red-button">Cancel</button>
             </div>
             :
-            <div>
-              {(rowData?.status === "accepted") && <button className="lt-green-button">Order Accepted</button>}
-              {(rowData?.status === "cancelled") && <button className="lt-red-button">Order cancelled</button>}
-            </div>
+            <Link to={`/admin/order-details/${rowData.id}`}  title="View"
+            className="d-inline-flex gap-2 align-items-center border-0 rounded me-3"
+            style={{
+              color: "#AC562D",
+              backgroundColor: "#FFF1EB",
+              padding: ".5rem .5rem",
+            }}><RxOpenInNewWindow size={20} /></Link>
         }
-
       </>
     );
   };
