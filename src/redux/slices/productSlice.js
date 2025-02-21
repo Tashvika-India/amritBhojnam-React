@@ -25,7 +25,7 @@ const productSlice = createSlice({
         bestChoiceProducts: [],
         deliciousProducts: [],
         healthyBitesProducts: [],
-        loading: false,
+        loading: true,
         error: null,
     },
     reducers: {

@@ -47,7 +47,7 @@ const ProudctList = () => {
 
   const [filters, updateFilters] = useURLFilters();
 
-  const { productList, loading, error } = useSelector((state) => state.product);
+  const { productList, loading = true, error } = useSelector((state) => state.product); 
 
   const defaultFilters = useMemo(
     () => ({
@@ -63,20 +63,24 @@ const ProudctList = () => {
   );
 
   // Memoized debounced function to reduce API calls
-  const debouncedFilters = useMemo(
-    () =>
-      debounce((updatedFilters) => {
-        dispatch(fetchProductList(updatedFilters));
-      }, 300),
-    [dispatch]
-  );
+  // const debouncedFilters = useMemo(
+  //   () =>
+  //     debounce((updatedFilters) => {
+  //       dispatch(fetchProductList(updatedFilters));
+  //     }, 300),
+  //   [dispatch]
+  // );
+
+  // useEffect(() => {
+  //   debouncedFilters(filters);
+  //   return () => {
+  //     debouncedFilters.cancel();
+  //   };
+  // }, [filters, debouncedFilters]);
 
   useEffect(() => {
-    debouncedFilters(filters);
-    return () => {
-      debouncedFilters.cancel();
-    };
-  }, [filters, debouncedFilters]);
+    dispatch(fetchProductList(filters)); 
+  }, [filters]);
 
   const areObjectsEqual = (obj1, obj2) =>
     Object.keys(obj1).every((key) => obj1[key] === obj2[key]);
@@ -355,38 +359,42 @@ const ProudctList = () => {
               <div className="row">
                 {loading ? (
                   <Loading />
-                ) : Array.isArray(productList) && productList.length > 0 ? (
-                  <div
-                    className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
-                    style={{
-                      gridTemplateColumns:
-                        window.innerWidth > 1024
-                          ? "repeat(4, 1fr)"
-                          : window.innerWidth > 768
-                            ? "repeat(3, 1fr)"
-                            : "repeat(2, 1fr)",
-                    }}
-                  >
-                    {productList.map((item) => (
-                      <ProductCard product={item} key={item.id || item.index} />
-                    ))}
-                  </div>
                 ) : (
-                  <div
-                    className="align-content-center empty-products-card w-100 mt-lg-5 pt-lg-5"
-                    style={{ height: "50dvh" }}
-                  >
-                    <img
-                      className="img-fluid mx-auto mb-4 empty-products"
-                      src={emptyProducts}
-                      alt="empty-products"
-                    />
-                    <h3 className="text-center fw-600">No Products Found</h3>
-                    <p className="text-mid-grey fb-fs-20 text-center mt-3">
-                      No results for your search. Try different keywords or
-                      browse <br></br> our categories.
-                    </p>
-                  </div>
+                  <>
+                    {Array.isArray(productList) && productList.length > 0 ? (
+                      <div
+                        className="d-grid mt-4 pt-2 gap-4 flex-wrap justify-content-between"
+                        style={{
+                          gridTemplateColumns:
+                            window.innerWidth > 1024
+                              ? "repeat(4, 1fr)"
+                              : window.innerWidth > 768
+                                ? "repeat(3, 1fr)"
+                                : "repeat(2, 1fr)",
+                        }}
+                      >
+                        {productList.map((item) => (
+                          <ProductCard product={item} key={item.id || item.index} />
+                        ))}
+                      </div>
+                    ) : (
+                      <div
+                        className="align-content-center empty-products-card w-100 mt-lg-5 pt-lg-5"
+                        style={{ height: "50dvh" }}
+                      >
+                        <img
+                          className="img-fluid mx-auto mb-4 empty-products"
+                          src={emptyProducts}
+                          alt="empty-products"
+                        />
+                        <h3 className="text-center fw-600">No Products Found</h3>
+                        <p className="text-mid-grey fb-fs-20 text-center mt-3">
+                          No results for your search. Try different keywords or
+                          browse <br></br> our categories.
+                        </p>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </div>
@@ -411,7 +419,7 @@ const ProudctList = () => {
             <div className="mobile-product-filter">
               <div className="bg-white product-detail-shadow rounded-20 p-4 ">
                 <h4 className="underline-heading filter-heading fw-bold d-flex align-items-center justify-content-between">
-                  <span>Category</span>{" "}
+                  <span>Category</span>
                   {isFiltersChanged && (
                     <button
                       onClick={() =>
@@ -420,7 +428,7 @@ const ProudctList = () => {
                           category_id: "",
                           name: "",
                           minPrice: "",
-                          maxPrice: "",
+                          maxPrice: "500",
                           rating: "",
                         })
                       }
@@ -429,7 +437,7 @@ const ProudctList = () => {
                     >
                       <GrPowerReset />
                     </button>
-                  )}{" "}
+                  )}
                 </h4>
                 <div className="">
                   <ul className="category-select-list">
