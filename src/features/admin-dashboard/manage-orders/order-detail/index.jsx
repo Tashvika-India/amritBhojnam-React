@@ -19,6 +19,8 @@ import { getOrderAdminApi } from "../../../../services/adminApiRoutes";
 import Typography from "@mui/material/Typography"; 
 import { notifyError } from "../../../../components/ui/Notification"; 
 import AcceptOrderModal from "../admin-orders/components/AcceptOrderModal";
+import Loading from "../../../../components/ui/Loading";
+import AcceptDispatchOrderModal from "../admin-orders/components/AcceptDispatchOrderModal";
 
 const AdminOrderDetail = () => {
   const { id } = useParams();
@@ -26,7 +28,9 @@ const AdminOrderDetail = () => {
   const [orderData, setOrderData] = useState([]);
   const [datetime12h, setDateTime12h] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [dispatchVisible, setDispatchVisible] = useState(false);
   const [orderStatus, setOrderStatus] = useState([]);
+  const [orderDispatch, setOrderDispatch] = useState([]);
 
 
     const showAcceptModal = (status, orderId, display_order_id) => {
@@ -34,7 +38,12 @@ const AdminOrderDetail = () => {
       setModalVisible(true);
       setOrderStatus(data); 
     };
-  
+    
+    const dispatchModal = (status, orderId, display_order_id) => {
+      const data = { status, orderId , display_order_id};
+      setDispatchVisible(true);
+      setOrderDispatch(data);
+    };
 
   const getOrderList = async (name = "") => {
     setLoading(true);
@@ -100,7 +109,10 @@ const AdminOrderDetail = () => {
           <Heading value={`Order : ${orderData?.display_order_id}`} />
         </div>
       </div>
-      <div className="row">
+
+      { 
+        loading ? ( <Loading />) :
+        <div className="row">
         <div className="col-md-8 mb-4">
           <div className="card px-3">
             <div className="card-body">
@@ -345,7 +357,7 @@ const AdminOrderDetail = () => {
                     <>
                       <div className="mt-2 d-flex gap-4 align-items-center">
                         <p className="mb-0 fw-600">Order is Ready to Dispatch</p>
-                        <button className="button-yellow d-flex gap-2 px-3 fb-fs-16" style={{ paddingBlock: ".8rem" }}>
+                        <button className="button-yellow d-flex gap-2 px-3 fb-fs-16" onClick={() => dispatchModal(true, orderData?.id, orderData?.display_order_id)} style={{ paddingBlock: ".8rem" }}>
                           <TiTick size={20} />
                           Ready to Dispatch
                         </button>
@@ -460,8 +472,9 @@ const AdminOrderDetail = () => {
             </div>
           </div>
         </div>
-      </div >
+      </div >}
       <AcceptOrderModal visible={modalVisible} getOrderList={getOrderList} setVisible={() => setModalVisible(false)} orderStatus={orderStatus} />
+      <AcceptDispatchOrderModal visible={dispatchVisible} getOrderList={getOrderList} setVisible={() => setDispatchVisible(false)} orderStatus={orderDispatch} />
     </>
   );
 };
