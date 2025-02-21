@@ -49,7 +49,7 @@ const CoinPage = () => {
                       </div>
                       <div className="d-inline-flex align-items-center gap-2">
                         <p className="fb-fs-24 fw-600">
-                          {(data?.transaction_type === "deduct") ? <span style={{ color: "#E70900" }}>+{data?.coins} </span> : <span style={{ color: "#4CD964" }} >-{data?.coins}</span>}
+                          {(data?.transaction_type === "deduct") ? <span style={{ color: "#E70900" }}>-{data?.coins} </span> : <span style={{ color: "#4CD964" }} >+{data?.coins}</span>}
                         </p>
                         <img className="img-fluid" src={coinsImg} alt="pencil" />
                       </div>
