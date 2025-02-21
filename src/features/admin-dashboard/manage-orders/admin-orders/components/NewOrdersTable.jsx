@@ -110,6 +110,8 @@ const NewOrdersTable = ({ order, getOrderList }) => {
           <>
             <button className="fw-400 lt-pending-button">Pending</button>
           </>
+        ) : rowData?.status === "dispatched" ? (
+          <button className="fw-400 lt-yellow-button">Dispatched</button>
         ) : rowData?.status === "cancelled" ? (
           <button className="fw-400 lt-red-button">Cancel</button>
         ) : rowData?.status === "accepted" ? (
@@ -133,6 +135,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
             :
             <div>
               {(rowData?.status === "accepted") && <button className="lt-green-button">Order Accepted</button>}
+              {(rowData?.status === "dispatched") && <button className="lt-yellow-button">Order Dispatched</button>}
               {(rowData?.status === "cancelled") && <button className="lt-red-button">Order cancelled</button>}
             </div>
         }

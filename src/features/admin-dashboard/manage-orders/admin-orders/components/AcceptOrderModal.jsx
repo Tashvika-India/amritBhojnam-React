@@ -21,6 +21,7 @@ function AcceptOrderModal({ visible, setVisible, orderStatus, getOrderList }) {
       setVisible();
       getOrderList();
       notifySuccess('Order updated successfully');
+      window.location.reload(true);
     } catch (error) {
       notifyError(error.response?.data?.error);
       console.error("Error updating order:", error);
