@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const ProfileBanner = ({coins}) => {
     return (
         <div className="user-profile-img d-flex justify-content-end mt-lg-5 mt-md-5 mt-4">
-            <div className="pt-lg-4 pt-md-4 pe-lg-5 pe-md-5 pe-2 mt-2">
+            <div className="pt-lg-4 pt-md-4 pe-lg-5 pe-md-5 pe-3 mt-2">
                 <div className="d-flex">
                     <div className="ms-auto">
                         <Link to="/coin-history" className="d-inline-block white-button rounded-5 fw-600">

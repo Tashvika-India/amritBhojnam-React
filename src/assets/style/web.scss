@@ -3324,9 +3324,6 @@ footer {
 }
 
 @media (max-width: 576px) {
-  .earn-statement{
-    font-size: 10px !important;
-  }
   .Tooltip-Wrapper{
     svg{
       max-width: .8rem !important;
@@ -3359,13 +3356,13 @@ footer {
       margin-top: 1rem;
       .amrit-coin-heading-profile {
         .fb-fs-28 {
-          font-size: 18px !important;
+          font-size: 1rem !important;
         }
         .fb-fs-18 {
-          font-size: 11px !important;
+          font-size: 10px !important;
         }
         p {
-          line-height: 1.3rem;
+          line-height: 1rem;
         }
       }
       .coin-count-section{
