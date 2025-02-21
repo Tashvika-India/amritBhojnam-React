@@ -636,6 +636,14 @@ const CheckoutPage = () => {
                                   </span>
                                 </li>
                               )}
+                              { finalCart?.apply_amrit_coins && <li className="d-flex justify-content-between my-2">
+                                  <span className="fw-500 text-success">Amrit Coin Discount</span>
+                                  <span className="fb-fs-18 fw-500 text-success">
+                                    {finalCart?.amrit_coins_rs_off === undefined
+                                      ? "₹ 0"
+                                      : `₹ -${finalCart?.amrit_coins_rs_off}`}
+                                  </span>
+                                </li>}
                               {finalCart?.shipping_charge > 0 && (
                                 <li className="d-flex justify-content-between my-2">
                                   <span className="fw-500 text-orange">
@@ -654,16 +662,10 @@ const CheckoutPage = () => {
                                     {finalCart.discount === undefined ? '₹ 0' : `- ₹ ${finalCart.discount}`}
                                   </span>
                                 </li> */}
-                                <li className="d-flex justify-content-between my-2">
-                                  <span className="fw-500">Amrit Coin Discount</span>
-                                  <span className="fb-fs-18 fw-500 text-danger">
-                                  -₹ 4.0
-                                  </span>
-                                </li>
                             </ul>
                           </div>
                           {finalCart?.availability_amrit_coins && (
-                            <div className="amrit-coin-toggle mb-3 mt-4">
+                            <div className="amrit-coin-toggle mt-4">
                               <div className="d-flex justify-content-between">
                                 <p className="fw-500 d-flex align-items-center">
                                   Use
@@ -686,8 +688,7 @@ const CheckoutPage = () => {
                               </div>
                               <div className="d-flex justify-content-between mt-2">
                                 <p className="">
-                                  Total Balance :
-                                  <span className="fw-600">
+                                  Total Balance : <span className="fw-600">
                                     {finalCart?.total_amrit_coins}
                                   </span>
                                 </p>
