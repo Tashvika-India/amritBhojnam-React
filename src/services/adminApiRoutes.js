@@ -191,6 +191,9 @@ export const reOrderApi = (id) => API.post(`/re_orders/?order_id=${id}`);
 export const getOrderSuccessApi = (payload) => API.post(`/accounts/accept_order/`,payload);
 export const postOrderDispatchApi = (payload) => API.post(`/accounts/ready_to_dispatch/`,payload);
 
+//track order
+export const trackOrderApi = (id) => API.get(`/order_tracking_status/?order_id=${id}`);
+
 // Contact api
 export const getContactApi = () => API.get(`/contact/`);
 export const postContactApi = (payload) => API.post(`/contact/`, payload);

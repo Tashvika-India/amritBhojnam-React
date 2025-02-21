@@ -427,7 +427,7 @@ function AppRoutes() {
       <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route exact path="/refund-policy" element={<RefundPolicy />} />
       <Route exact path="/shiping-policy" element={<ShipingPolicy />} />
-      <Route exact path="/track-order" element={<TrackOrder />} />
+      <Route exact path="/track-order/:id" element={<TrackOrder />} />
       <Route exact path="/coin-history" element={<CoinPage />} />
       <Route
         exact

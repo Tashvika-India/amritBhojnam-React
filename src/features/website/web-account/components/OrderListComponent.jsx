@@ -172,9 +172,9 @@ const OrderListComponent = ({
                 <div className="track-order-button mb-2 mb-md-0">
                   <Link
                     className="text-orange fb-fs-16 d-flex align-items-center"
-                    to="/track-order"
+                    to={`/track-order/${item.id}`}
                   >
-                    Track Order{" "}
+                    Track Order
                     <MdKeyboardDoubleArrowRight
                       color="#F26722"
                       className="mt-1"
