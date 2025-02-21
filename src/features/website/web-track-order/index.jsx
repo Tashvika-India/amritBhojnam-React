@@ -1,5 +1,4 @@
-import * as Yup from "yup";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../../layout/web-layout/Header";
 import Footer from "../../../layout/web-layout/Footer";
 import addressHome from "../../../assets/images/web/account/home-img.png";
@@ -16,50 +15,116 @@ import OrderConfirmed from "../../../assets/images/web/order-confirmed.svg";
 import OrderDispatched from "../../../assets/images/web/order-dispatched.svg";
 import OutDelivery from "../../../assets/images/web/out-delivery.svg";
 import ProductDelivered from "../../../assets/images/web/product-delivered.svg";
+import { Link, useParams } from "react-router-dom";
+import { trackOrderApi } from "../../../services/adminApiRoutes";
+import { Breadcrumbs } from "@mui/material";
 
 const TrackOrder = () => {
   const [value, setValue] = useState(2);
+  const { id } = useParams();
+  const [trackOrder, setTrackOrder] = useState([]);
 
-  const steps = [
+  const getTrackOrder = async () => {
+    try {
+      const response = await trackOrderApi(id);
+      setTrackOrder(response?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getTrackOrder();
+  }, []);
+
+  // Default steps data
+  const defaultSteps = [
     {
       label: "Order Placed",
       description: "We have received your order",
-      icon: <CheckCircleIcon style={{ color: "#D59615", fontSize: "2rem" }} />,
+      date: "",
+      time: "",
+      icon: <CheckCircleIcon style={{ color: "", fontSize: "2rem" }} />,
       image: OrderPlaced,
     },
-    { 
+    {
       label: "Order Confirmed",
       description: "Your product packed and ready to ship",
-      icon: <CheckCircleIcon style={{ color: "#D59615", fontSize: "2rem" }} />,
+      date: "",
+      time: "",
+      icon: <CheckCircleIcon style={{ color: "", fontSize: "2rem" }} />,
       image: OrderConfirmed,
     },
     {
       label: "Order Dispatched",
-      description: "Your product is out for delivery",
-      icon: <CheckCircleIcon style={{ color: "#DADADA", fontSize: "2rem" }} />,
+      description: "Your Product has been Dispatch",
+      date: "",
+      time: "",
+      icon: <CheckCircleIcon style={{ color: "", fontSize: "2rem" }} />,
       image: OrderDispatched,
     },
     {
       label: "Out Of Delivery",
-      icon: <CheckCircleIcon style={{ color: "#DADADA", fontSize: "2rem" }} />,
+      description: "Your Product is out fo delivery ",
+      date: "",
+      time: "",
+      icon: <CheckCircleIcon style={{ color: "", fontSize: "2rem" }} />,
       image: OutDelivery,
     },
     {
       label: "Product Delivered",
-      description: "Delivery Expected - 20 Jan, 2025",
-      icon: <CheckCircleIcon style={{ color: "#DADADA", fontSize: "2rem" }} />,
+      description: "Delivery Expected - ",
+      date: "",
+      time: "",
+      icon: <CheckCircleIcon style={{ color: "", fontSize: "2rem" }} />,
       image: ProductDelivered,
     },
   ];
 
+  // Mapping between trackOrder status and steps label
+  const statusToLabelMap = {
+    confirmed: "Order Placed",
+    accepted: "Order Confirmed",
+    dispatched: "Order Dispatched",
+    out_for_delivery: "Out Of Delivery",
+    delivered: "Product Delivered",
+  };
+
+  // Map trackOrder data to steps
+  const steps = defaultSteps.map((step) => {
+    const trackOrderStep = trackOrder.find(
+      (order) => statusToLabelMap[order.status] === step.label
+    );
+    return {
+      ...step,
+      date: trackOrderStep?.date || step.date,
+      time: trackOrderStep?.time || step.time,
+    };
+  });
+
+
+  const activeStepIndex = Math.max(
+    ...trackOrder.map((step, index) => (step.is_active ? index : -1))
+  );
+
   return (
     <div className="web-wrapper-main">
       <Header />
+      <div className="pt-4">
+        <div className="container fb-container">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link underline="hover" color="inherit" to="/profile?tab=orders">
+              Order
+            </Link>
+            <Typography className="text-orange">Track Order</Typography>
+          </Breadcrumbs>
+        </div>
+      </div>
       <div className="container fb-container mt-5">
         <div className="row">
           <p className="fb-fs-40 fw-bold">Track Order</p>
           <p className="fb-fs-26 fw-500 my-4">
-            Order ID: <span className="text-yellow fw-600"> #123456789</span>
+            Order ID: <span className="text-yellow fw-600"> #{id}</span>
           </p>
           <div className="col-md-7">
             <div className="track-left">
@@ -79,93 +144,74 @@ const TrackOrder = () => {
                   </button>
                 </div>
               </div>
-              <div className="center-track-left mt-4 mb-5 ms-4">
-                <Box
-                  sx={{
-                    maxWidth: 500,
-                    margin: "auto",
-                    backgroundColor: "#fff8e1",
-                    padding: "20px",
-                    borderRadius: "10px",
-                    boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-                    fontFamily: "Arial, sans-serif",
-                  }}
-                >
-                  {steps.map((step, index) => (
-                    <Box
-                      key={index}
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      {/* Icon and line connector */}
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          marginRight: "20px",  
-                        }}
-                      >
-                        {step.icon}
-                        {index < steps.length - 1 && (
-                          <Box
-                            sx={{
-                              width: "2px",
-                              height: "80px",
-                              border: "1px dashed #D59615",
-                              paddingBottom: "18px",
-                              paddingTop: "10px",
+              <div className="center-track-left mt-4 mb-5 mx-3">
+                <div className="px-md-5 web-track-order" >
+                  {steps.map((step, index) => {
+                    const isActive = index <= activeStepIndex;
+                    const isCompleted = index <= activeStepIndex;
+                    return (
+                      <div key={index}
+                        className="d-flex align-items-start w-100">
+                        <div className="d-flex flex-column align-items-center me-md-4">
+                          <CheckCircleIcon
+                            style={{
+                              color: isCompleted ? "#D59615" : "#DADADA",
+                              fontSize: "2rem", 
                             }}
                           />
-                        )}
-                      </Box>
-
-                      {/* Content */}
-                      <Box sx={{ display: "flex", alignItems: "center",  paddingBottom: index === steps.length - 1 ? "0" : "55px",}}>
-                        {/* Step Image */}
-                        <img
-                          src={step.image}
-                          alt={step.label}
+                          {index < steps.length - 1 && (
+                            <div
+                              style={{
+                                width: "2px",
+                                height: "5rem",
+                                border: isCompleted ? "1px dashed #D59615" : "1px dashed #DADADA",
+                                paddingBottom: "1.125rem",
+                                paddingTop: "0.625rem",
+                              }}
+                            />
+                          )}
+                        </div>
+                        <div
                           style={{
-                            width: "60px",
-                            height: "60px",
-                            marginRight: "10px",
+                            display: "flex",
+                            alignItems: "center",
+                            width: "100%",
+                            paddingBottom: index === steps.length - 1 ? "0" : "",
                           }}
-                        />
-                        {/* Step Details */}
-                        <Box>
-                          <Typography
-                            variant="h6"
-                            sx={{ fontWeight: "bold", marginBottom: "5px", fontSize: "24px" }}
                           >
-                            {step.label}
-                          </Typography>
-                          <Typography variant="body2" sx={{ color: "#757575", fontSize: "22px" }}>
-                            {step.description}
-                          </Typography>
-                        </Box>
-                      </Box>
-                    </Box>
-                  ))}
-                </Box>
-              </div>
-              <div className="bottom-track-left d-flex justify-content-between align-items-center">
-                <Box sx={{ "& > legend": { mt: 2 } }}>
-                  <Rating
-                    name="simple-controlled"
-                    value={value}
-                    onChange={(event, newValue) => {
-                      setValue(newValue);
-                    }}
-                  />
-                </Box>
-                <div>
-                  <a href="" className="d-flex gap-3">
-                    <IoReceiptOutline color="#D59615" size={27} />
-                    <p className="fb-fs-18 fw-bold">Raise Complaint</p>
-                  </a>
+                          <img
+                            src={step.image}
+                            alt={step.label}
+                            style={{
+                              width: "3.875rem",
+                              height: "3.875rem",
+                              marginRight: "0.625rem",
+                            }}
+                          />
+                          <div className="d-flex justify-content-between align-items-center w-100">
+                            <div className="">
+                              <h6
+                                style={{
+                                  fontWeight: "bold",
+                                  marginBottom: "5px",
+                                  fontSize: "1.25rem",
+                                  color: isActive ? "#000" : "#757575",
+                                }}
+                              >
+                                {step.label}
+                              </h6>
+                              <p style={{ color: "#757575", fontSize: "1rem" }}>
+                                {step.description}
+                              </p>
+                            </div>
+                            <p style={{ color: "#757575", fontSize: "1rem" }}>
+                              {step.date} {step.time}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
