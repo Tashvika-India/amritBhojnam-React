@@ -1517,7 +1517,7 @@ footer {
 //   }
 // }
 
-.slider-container .slider-bottom-thumbs .slider-bottom-item img{
+.slider-container .slider-bottom-thumbs .slider-bottom-item img {
   max-height: 6.5rem;
 }
 
@@ -1928,7 +1928,7 @@ footer {
   transform: translateX(-80%);
   padding: 12px 1.5rem;
   color: white;
-  background: #D59615;
+  background: #d59615;
   font-size: 14px;
   font-family: "Manrope", serif;
   font-weight: 500;
@@ -1946,26 +1946,22 @@ footer {
   position: absolute;
   pointer-events: none;
   border-width: 8px;
-  margin-left: 5px
+  margin-left: 5px;
 }
 
 /* Absolute positioning */
 .Tooltip-Tip.top {
- top: -4.8rem;
- left: -0.3rem;
+  top: -4.8rem;
+  left: -0.3rem;
 }
 /* CSS border triangles */
 .Tooltip-Tip.top::before {
   top: 100%;
   left: 80%;
-  border-top-color: #D59615;
+  border-top-color: #d59615;
 }
 
-
 // tooltip css end
-
-
-
 
 // responsive styles
 
@@ -2857,46 +2853,46 @@ footer {
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
-  .user-profile-detail .image-content{
+  .user-profile-detail .image-content {
     margin-top: 4.5rem !important;
-    h4{
+    h4 {
       margin-bottom: 0;
     }
   }
-  .cart-offcanvas{
+  .cart-offcanvas {
     p {
-      img{
+      img {
         max-width: 1.5rem;
       }
-      .spend{
-        font-size: 10px; 
-        padding-left: .5rem;
-      }
-      .delivered{
+      .spend {
         font-size: 10px;
-        img{
+        padding-left: 0.5rem;
+      }
+      .delivered {
+        font-size: 10px;
+        img {
           max-width: 1rem;
         }
       }
     }
-  } 
-  .coin-banner{
-    .fb-fs-28{
+  }
+  .coin-banner {
+    .fb-fs-28 {
       font-size: 20px;
     }
-    .fb-fs-18{
+    .fb-fs-18 {
       font-size: 14px;
     }
-    .earn{
-      font-size: 12px; 
+    .earn {
+      font-size: 12px;
       margin-top: 2rem;
     }
-    .coin-count-section{
+    .coin-count-section {
       margin-bottom: 2rem !important;
-      img{
+      img {
         max-width: 2rem;
       }
-      p{
+      p {
         font-size: 2rem !important;
       }
     }
@@ -2923,11 +2919,11 @@ footer {
           line-height: 1.5rem;
         }
       }
-      .coin-count-section{
-        img{
+      .coin-count-section {
+        img {
           max-width: 2rem;
         }
-        p{
+        p {
           font-size: 2rem !important;
         }
       }
@@ -3324,29 +3320,29 @@ footer {
 }
 
 @media (max-width: 576px) {
-  .Tooltip-Wrapper{
-    svg{
-      max-width: .8rem !important;
+  .Tooltip-Wrapper {
+    svg {
+      max-width: 0.8rem !important;
     }
   }
-  .cart-offcanvas{
+  .cart-offcanvas {
     p {
-      img{
+      img {
         max-width: 1.5rem;
       }
-      .spend{
-        font-size: 12px; 
-        padding-left: .5rem;
+      .spend {
+        font-size: 12px;
+        padding-left: 0.5rem;
       }
-      .delivered{
+      .delivered {
         font-size: 11px;
-        img{
+        img {
           max-width: 1rem;
         }
       }
     }
-  } 
- 
+  }
+
   .user-profile-img {
     .white-button {
       padding: 2px 14px;
@@ -3365,32 +3361,32 @@ footer {
           line-height: 1rem;
         }
       }
-      .coin-count-section{
-        img{
+      .coin-count-section {
+        img {
           max-width: 1.2rem;
         }
-        p{
+        p {
           font-size: 1.2rem !important;
         }
       }
     }
   }
-  .coin-banner{
-    .fb-fs-28{
+  .coin-banner {
+    .fb-fs-28 {
       font-size: 14px;
     }
-    .fb-fs-18{
+    .fb-fs-18 {
       font-size: 10px;
     }
-    .earn{
-      font-size: 8px; 
+    .earn {
+      font-size: 8px;
       margin-top: 1rem;
     }
-    .coin-count-section{
-      img{
+    .coin-count-section {
+      img {
         max-width: 1rem;
       }
-      p{
+      p {
         font-size: 1rem !important;
       }
     }
@@ -3434,9 +3430,6 @@ footer {
     }
   }
 
-  .button-set-default {
-    border-radius: 0.3rem;
-  }
   .cart-items {
     .product-details {
       .item-amount {
@@ -3844,6 +3837,10 @@ footer {
     margin-bottom: 0 !important;
   }
 
+  .buy-again-icon{
+    display: none;
+  }
+
   .fb-fs-40 {
     font-size: 1.5rem !important;
   }
@@ -4040,8 +4037,10 @@ footer {
   }
 
   .button-set-default {
-    padding: 0.625rem;
+    padding: 0.75rem 0.625rem;
     margin-top: 0.625rem;
+    border-radius: 0.3rem;
+    font-size: 0.65rem;
   }
 
   // first-purchase

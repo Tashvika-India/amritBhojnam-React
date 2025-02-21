@@ -14,7 +14,10 @@ const OrderListComponent = ({
   return (
     <>
       {order.results.map((item) => (
-        <div className="summary-card rounded-20 mb-4 overflow-hidden" key={item.id}>
+        <div
+          className="summary-card rounded-20 mb-4 overflow-hidden"
+          key={item.id}
+        >
           <div className="container">
             <div className="row border-bottom px-0 px-md-3 py-3 align-items-center">
               <div className="col-lg-3 col-md-3 col-5 mb-lg-0 mb-md-0 mb-2">
@@ -51,7 +54,7 @@ const OrderListComponent = ({
                   onClick={() => handleReOrderClick(item?.id)}
                   className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-2 text-nowrap"
                 >
-                  <BsArrowRepeat size={"1.2rem"} />
+                  <BsArrowRepeat size={"1.2rem"} className="buy-again-icon" />
                   Buy Again
                 </button>
                 <button
@@ -60,7 +63,7 @@ const OrderListComponent = ({
                     handleInvoiceClick(item?.shipment_order_id || "")
                   }
                 >
-                  <HiDownload size={"1.2rem"} />
+                  <HiDownload size={"1.2rem"} className="buy-again-icon" />
                   Invoice
                 </button>
               </div>
@@ -152,7 +155,7 @@ const OrderListComponent = ({
                 </div> */}
               </div>
             ))}
-            <div className="row bg-custom-light-yellow  px-0 px-md-3 py-3 align-items-center">
+            <div className="row bg-custom-light-yellow px-0 px-md-3 py-3 align-items-center">
               <div className="d-flex align-items-center justify-content-between bg-custom-light-yellow">
                 <div className="d-flex mb-2 mb-md-0 delivery-check">
                   <img
