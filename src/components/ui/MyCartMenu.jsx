@@ -3,7 +3,7 @@ import { Offcanvas, Button, ProgressBar } from "react-bootstrap";
 import product from "../../assets/images/web/product-card.png";
 import deliveryImg from "../../assets/images/web/product-detail/delivery-img.png";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   fetchCart,
   fetchFinalCart,
@@ -16,11 +16,19 @@ import emptyCart from "../../assets/images/web/empty-cart.png";
 import partyIcon from "../../assets/images/web/party-icon.svg";
 
 const MyCartMenu = ({ showCart, onCloseCart }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
+  const location = useLocation();
   const [filters, setFilters] = useURLFilters();
   const { cartItems, finalCart, cartId, loading } = useSelector(
     (state) => state.cart
   );
+
+  // Get existing query parameters
+  const searchParams = new URLSearchParams(location.search);
+
+  // Update or add new parameters
+  const coupon = searchParams.get("couponCode") || "";
+  const coin = searchParams.get("coinStatus") || "";  
 
   const handleUpdateCart = (product_id, newQuantity, option_id) => {
     dispatch(updateCart({ product_id, item_quantity: newQuantity, option_id }));
@@ -30,7 +38,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
   const handleIncreaseQuantity = (product_id, currentQuantity, option_id) => {
     if (currentQuantity < 10) {
       handleUpdateCart(product_id, currentQuantity + 1, option_id);
-      dispatch(fetchFinalCart({ cartId }));
+      dispatch(fetchFinalCart({ cartId, coinStatus: coin, coupon: coupon }));
     }
   };
 
@@ -41,13 +49,13 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
     } else {
       handleRemoveQuantity(product_id, 0, option_id); // Remove item when quantity reaches 0
     }
-    dispatch(fetchFinalCart({ cartId }));
+    dispatch(fetchFinalCart({ cartId, coinStatus: coin, coupon: coupon }));
   };
 
   const handleRemoveQuantity = (product_id, currentQuantity, option_id) => {
     dispatch(removeCart(product_id));
     handleUpdateCart(product_id, currentQuantity, option_id);
-    dispatch(fetchFinalCart({ cartId }));
+    dispatch(fetchFinalCart({ cartId , coinStatus: coin, coupon: coupon }));
   };
 
   useEffect(() => {
@@ -58,11 +66,10 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
 
   useEffect(() => {
     if (cartId) {
-      dispatch(fetchFinalCart({ cartId }));
+      dispatch(fetchFinalCart({ cartId , coinStatus: coin, coupon: coupon }));
     }
   }, [showCart, dispatch, cartId]);
 
-  
 
   return (
     <Offcanvas
@@ -149,9 +156,8 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                         {item?.product?.name}
                       </p>
                       <p className="item-weight fw-400 text-grey mb-0 mt-1">{`${item?.option} ${item?.measurement_unit}`}</p>
-                      <p className="item-weight mb-0 mt-1">{`₹ ${~~item?.price} X ${
-                        item?.item_quantity
-                      }`}</p>
+                      <p className="item-weight mb-0 mt-1">{`₹ ${~~item?.price} X ${item?.item_quantity
+                        }`}</p>
                     </div>
                     <div className="product-quantity text-end">
                       <div
@@ -167,7 +173,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                               item?.option_id
                             )
                           }
-                          disabled={item?.item_quantity <= 1}
+                          disabled={item?.item_quantity < 1}
                         >
                           -
                         </button>
@@ -199,7 +205,6 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
                           )
                         }
                       >
-                        {" "}
                         Remove
                       </button>
                     </div>
