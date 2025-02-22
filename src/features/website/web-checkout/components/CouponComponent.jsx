@@ -2,16 +2,9 @@ import React, { useState } from "react";
 import { TextField, Autocomplete, Button, Box } from "@mui/material";
 import { notifySuccess } from "../../../../components/ui/Notification";
 
-const CouponComponent = ({ couponList, onCouponApply }) => {
+const CouponComponent = ({ couponList, onCouponApply, couponCode }) => {
     const [selectedCoupon, setSelectedCoupon] = useState("");
-    const [isApplied, setIsApplied] = useState(false);
-
-    const handleApplyCoupon = () => {
-        if (selectedCoupon) {
-            onCouponApply(selectedCoupon);
-            setIsApplied(true); 
-        }
-    };
+    const [isApplied, setIsApplied] = useState(false); 
 
     const handleCouponChange = (event, newValue) => {
         setSelectedCoupon(newValue ? newValue.coupon_code : "");
@@ -27,6 +20,7 @@ const CouponComponent = ({ couponList, onCouponApply }) => {
                 options={couponList}
                 getOptionLabel={(option) => option.coupon_code}
                 onChange={handleCouponChange}
+                value={couponList.find((option) => option.coupon_code === couponCode) || null}
                 renderInput={(params) => (
                     <TextField
                         {...params}
@@ -34,6 +28,7 @@ const CouponComponent = ({ couponList, onCouponApply }) => {
                         placeholder="Search or select a coupon"
                         variant="outlined"
                         fullWidth
+                        value={couponCode}
                         onChange={() => setIsApplied(false)} />)}
                         renderOption={(props, option) => (
                     <Box
