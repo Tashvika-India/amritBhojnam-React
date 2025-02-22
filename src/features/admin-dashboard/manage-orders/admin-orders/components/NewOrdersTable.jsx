@@ -25,11 +25,10 @@ const NewOrdersTable = ({ order, getOrderList }) => {
     setOrderStatus(data);
   };
 
-
   const getRandomColor = () => {
     // Generate a random color in hex format
-    const letters = '0123456789ABCDEF';
-    let color = '#';
+    const letters = "0123456789ABCDEF";
+    let color = "#";
     for (let i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
@@ -38,34 +37,41 @@ const NewOrdersTable = ({ order, getOrderList }) => {
   const isGreyColor = (color) => {
     // Check if the color is grey by comparing RGB values
     const rgb = parseInt(color.slice(1), 16);
-    const r = (rgb >> 16) & 0xFF;
-    const g = (rgb >> 8) & 0xFF;
-    const b = rgb & 0xFF;
+    const r = (rgb >> 16) & 0xff;
+    const g = (rgb >> 8) & 0xff;
+    const b = rgb & 0xff;
     return r === g && g === b; // Check if all RGB components are equal
   };
 
   const lightenColor = (color, percent) => {
     // Lighten the color by the given percentage
     const rgb = parseInt(color.slice(1), 16);
-    let r = (rgb >> 16) & 0xFF;
-    let g = (rgb >> 8) & 0xFF;
-    let b = rgb & 0xFF;
+    let r = (rgb >> 16) & 0xff;
+    let g = (rgb >> 8) & 0xff;
+    let b = rgb & 0xff;
 
     r = Math.min(255, r + (255 - r) * percent);
     g = Math.min(255, g + (255 - g) * percent);
     b = Math.min(255, b + (255 - b) * percent);
 
-    return `#${((1 << 24) + (Math.round(r) << 16) + (Math.round(g) << 8) + Math.round(b)).toString(16).slice(1)}`;
+    return `#${(
+      (1 << 24) +
+      (Math.round(r) << 16) +
+      (Math.round(g) << 8) +
+      Math.round(b)
+    )
+      .toString(16)
+      .slice(1)}`;
   };
-
 
   const paymentStatusTemplate = (rowData) => {
     return (
       <div>
-        <p className="mb-0 fw-500">
-          {rowData?.payment_details?.payment_mode}
-        </p>
-        <p className="fw-400 text-success" style={{ color: "#D3F4D4", fontSize: ".9rem" }}>
+        <p className="mb-0 fw-500">{rowData?.payment_details?.payment_mode}</p>
+        <p
+          className="fw-400 text-success"
+          style={{ color: "#D3F4D4", fontSize: ".9rem" }}
+        >
           Paid
         </p>
       </div>
@@ -89,10 +95,23 @@ const NewOrdersTable = ({ order, getOrderList }) => {
         }))} */}
 
         <div className="d-flex align-items-center gap-3 mb-2 pb-2">
-          <img src={rowData?.product_details[0]?.product?.images[0]?.image} alt="img" style={{ width: "3.5rem", height: "4rem" }} />
+          <img
+            src={rowData?.product_details[0]?.product?.images[0]?.image}
+            alt="img"
+            style={{ width: "3.5rem", height: "4rem" }}
+          />
           <div className="d-flex flex-column">
-            <p className="fw-400 mb-0" style={{ fontSize: "1rem" }}>{rowData?.product_details[0]?.product?.name}</p>
-            <Link to={`/admin/order-details/${rowData.id}`} className="fw-400 mb-0 " style={{ fontSize: ".88rem", color: "#584EE0" }}>{rowData?.product_details.length > 0 && `${rowData?.product_details.length} more...`}</Link>
+            <p className="fw-400 mb-0" style={{ fontSize: "1rem" }}>
+              {rowData?.product_details[0]?.product?.name}
+            </p>
+            <Link
+              to={`/admin/order-details/${rowData.id}`}
+              className="fw-400 mb-0 "
+              style={{ fontSize: ".88rem", color: "#584EE0" }}
+            >
+              {rowData?.product_details.length > 0 &&
+                `${rowData?.product_details.length} more...`}
+            </Link>
           </div>
         </div>
       </>
@@ -101,7 +120,11 @@ const NewOrdersTable = ({ order, getOrderList }) => {
 
   const duration = (rowData) => {
     const formattedDateRange = formatDateTime(rowData?.created_at);
-    return <div className="fw-400 w-75" style={{ fontSize: ".9rem" }}>{formattedDateRange}</div>;
+    return (
+      <div className="fw-400 w-75" style={{ fontSize: ".9rem" }}>
+        {formattedDateRange}
+      </div>
+    );
   };
 
   const statusBodyTemplate = (rowData) => {
@@ -125,23 +148,33 @@ const NewOrdersTable = ({ order, getOrderList }) => {
   const actionBodyTemplate = (rowData) => {
     return (
       <>
-        {
-          rowData?.status === "confirmed"
-            ?
-            <div className="d-flex gap-3 align-items-center">
-              <button className="lt-green-button" onClick={() => showAcceptModal(true, rowData?.id, rowData?.display_order_id)}>Accept</button>
-              {/* <button className="lt-red-button" onClick={() => showAcceptModal(false, rowData?.id,rowData?.display_order_id)}>Cancel</button> */}
-              <button className="lt-red-button">Cancel</button>
-            </div>
-            :
-            <Link to={`/admin/order-details/${rowData.id}`}  title="View"
+        {rowData?.status === "confirmed" ? (
+          <div className="d-flex gap-3 align-items-center">
+            <button
+              className="lt-green-button"
+              onClick={() =>
+                showAcceptModal(true, rowData?.id, rowData?.display_order_id)
+              }
+            >
+              Accept
+            </button>
+            {/* <button className="lt-red-button" onClick={() => showAcceptModal(false, rowData?.id,rowData?.display_order_id)}>Cancel</button> */}
+            <button className="lt-red-button">Cancel</button>
+          </div>
+        ) : (
+          <Link
+            to={`/admin/order-details/${rowData.id}`}
+            title="View"
             className="d-inline-flex gap-2 align-items-center border-0 rounded me-3"
             style={{
               color: "#AC562D",
               backgroundColor: "#FFF1EB",
               padding: ".5rem .5rem",
-            }}><RxOpenInNewWindow size={20} /></Link>
-        }
+            }}
+          >
+            <RxOpenInNewWindow size={20} />
+          </Link>
+        )}
       </>
     );
   };
@@ -162,17 +195,39 @@ const NewOrdersTable = ({ order, getOrderList }) => {
       <div className="d-flex align-items-center gap-3">
         <Avatar
           label={initials}
-          style={{ height: "3.3rem", width: "3.3rem", aspectRatio: "1/1", backgroundColor: backgroundColor, color: color, textTransform: 'uppercase' }}
+          style={{
+            height: "3.3rem",
+            width: "3.3rem",
+            aspectRatio: "1/1",
+            backgroundColor: backgroundColor,
+            color: color,
+            textTransform: "uppercase",
+          }}
           shape="circle"
           className="p-mr-2"
         />
         <div>
           <p className="mb-0 ">{rowData?.delivering_to?.ads_name}</p>
-          <small className="fw-400" style={{ fontSize: "0.88rem", color: "#584EE0" }}>{rowData?.delivering_to?.ads_phone}</small>
+          <small
+            className="fw-400"
+            style={{ fontSize: "0.88rem", color: "#584EE0" }}
+          >
+            {rowData?.delivering_to?.ads_phone}
+          </small>
         </div>
       </div>
     );
   };
+
+  const stockTemplate = (rowData) => {
+    return(
+      <>
+        <p style={{color: "#4FB74F"}}>Stock</p>
+        <p>{rowData?.stock_status}</p>
+      </>
+      
+    )
+  }
 
   return (
     <div className="datatable">
@@ -180,23 +235,58 @@ const NewOrdersTable = ({ order, getOrderList }) => {
         <Column
           field="id"
           header="ID"
-          body={(rowData) => <><Link to={`/admin/order-details/${rowData?.id}`} style={{ width: "100%", color: "#584EE0" }}>#{rowData?.display_order_id}</Link></>}
+          body={(rowData) => (
+            <>
+              <Link
+                to={`/admin/order-details/${rowData?.id}`}
+                style={{ width: "100%", color: "#584EE0" }}
+              >
+                #{rowData?.display_order_id}
+              </Link>
+            </>
+          )}
         ></Column>
-        <Column header="ORDER" body={orderTemplate} style={{ width: "18%" }}></Column>
-        <Column header="CUSTOMER" body={customerTemplate} style={{ width: "20%" }}></Column>
-        <Column field="amount_to_pay" header="AMOUNT" body={(rowData) => `Rs. ${~~(rowData.amount_to_pay)}`}></Column>
+        <Column
+          header="ORDER"
+          body={orderTemplate}
+          style={{ width: "18%" }}
+        ></Column>
+        <Column
+          header="CUSTOMER"
+          body={customerTemplate}
+          style={{ width: "20%" }}
+        ></Column>
+        <Column
+          field="amount_to_pay"
+          header="AMOUNT"
+          body={(rowData) => `Rs. ${~~rowData.amount_to_pay}`}
+        ></Column>
         <Column
           field="status"
           header="STATUS"
           body={statusBodyTemplate}
         ></Column>
         <Column header="PAYMENT" body={paymentStatusTemplate}></Column>
-        <Column header="ORDER DATE" body={duration} style={{ width: "10%" }}></Column>
+        <Column
+          header="ORDER DATE"
+          body={duration}
+          style={{ width: "10%" }}
+        ></Column>
+        <Column
+          header="STOCKS"
+          field="stock_status"
+          body={stockTemplate}
+          style={{ width: "10%" }}
+        ></Column>
         <Column header="ACTION" body={actionBodyTemplate}></Column>
       </DataTable>
-      <AcceptOrderModal visible={modalVisible} getOrderList={getOrderList} setVisible={() => setModalVisible(false)} orderStatus={orderStatus} />
+      <AcceptOrderModal
+        visible={modalVisible}
+        getOrderList={getOrderList}
+        setVisible={() => setModalVisible(false)}
+        orderStatus={orderStatus}
+      />
     </div>
-
   );
 };
 
