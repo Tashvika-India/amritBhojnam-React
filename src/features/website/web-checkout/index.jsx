@@ -49,6 +49,7 @@ import { loginonWeb } from "../../../utils/constant-variable";
 import { InputSwitch } from "primereact/inputswitch";
 import BackdropLoader from "../../../components/ui/BackdropLoader";
 import { set } from "lodash";
+import { use } from "react";
 
 const CheckoutPage = () => {
   const [addressLoading, setAddressLoading] = useState(false);
@@ -105,19 +106,6 @@ const CheckoutPage = () => {
       setCouponList(response?.data || []);
     } catch (error) {
       console.log("Error fetching data:", error);
-    }
-  };
-
-  const getAddressList = async () => {
-    setLoadingNew(true);
-    try {
-      const response = await getAddressApi();
-      setAddressList(response?.data || []);
-      setLoadingNew(false);
-    } catch (error) {
-      console.log("Error fetching cart data:", error);
-    } finally {
-      setLoadingNew(false);
     }
   };
 
@@ -226,6 +214,21 @@ const CheckoutPage = () => {
     },
   });
 
+
+  const getAddressList = async () => {
+    setLoadingNew(true);
+    try {
+      const response = await getAddressApi();
+      setAddressList(response?.data || []);
+      setLoadingNew(false);
+      dispatch(fetchFinalCart({ cartId, coinStatus: coin_status, coupon: coupon_code }));
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+    } finally {
+      setLoadingNew(false);
+    }
+  };
+
   const addAddress = async (values) => {
     try {
       const response = await postAddressApi(values);
@@ -235,7 +238,7 @@ const CheckoutPage = () => {
         getAddressList();
         dispatch(fetchFinalCart({ cartId }));
         notifySuccess("Address added Successfully");
-      }
+      } 
       setAddressLoading(false);
       setOpen(false);
       scrollTo(0, 0);
@@ -262,8 +265,7 @@ const CheckoutPage = () => {
       scrollTo(0, 0);
       setOpen(false);
       setEditData(null);
-      notifySuccess("Address updated Successfully");
-      dispatch(fetchFinalCart({ cartId, coupon: couponCode, coinStatus: coinStatus }));
+      notifySuccess("Address updated Successfully"); 
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -277,8 +279,7 @@ const CheckoutPage = () => {
     try {
       await postSelectAddressApi({ address_id });
       scrollTo(0, 0);
-      getAddressList();
-      dispatch(fetchFinalCart({ cartId, coupon: couponCode, coinStatus: coinStatus }));
+      getAddressList(); 
       notifySuccess("Address Selected Successfully");
     } catch (error) {
       console.log("Error fetching cart data:", error);
@@ -300,6 +301,7 @@ const CheckoutPage = () => {
     try {
       const response = await deleteAddressApi(selectedAddressId);
       await getAddressList();
+      handleSelectAddress(addressList[0]?.id);
       notifySuccess("Address deleted Successfully");
     } catch (error) {
       notifyError(error.response?.data?.error || "Failed to delete address");
@@ -314,7 +316,6 @@ const CheckoutPage = () => {
     getAddressList();
     getCouponList();
   }, []);
-
 
 
   return (
