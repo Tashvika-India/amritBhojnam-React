@@ -216,12 +216,12 @@ const CheckoutPage = () => {
 
 
   const getAddressList = async () => {
-    setLoadingNew(true);
+    setLoadingNew(true); 
     try {
       const response = await getAddressApi();
       setAddressList(response?.data || []);
-      setLoadingNew(false);
-      dispatch(fetchFinalCart({ cartId, coinStatus: coin_status, coupon: coupon_code }));
+      dispatch(fetchFinalCart({ cartId, coinStatus: coinStatus, coupon: couponCode }));
+      setLoadingNew(false);  
     } catch (error) {
       console.log("Error fetching cart data:", error);
     } finally {
@@ -235,8 +235,7 @@ const CheckoutPage = () => {
       const address_id = response?.data?.id;
       if (address_id) {
         await postSelectAddressApi({ address_id });
-        getAddressList();
-        dispatch(fetchFinalCart({ cartId }));
+        getAddressList(); 
         notifySuccess("Address added Successfully");
       } 
       setAddressLoading(false);
