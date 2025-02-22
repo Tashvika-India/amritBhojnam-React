@@ -49,6 +49,7 @@ import { loginonWeb } from "../../../utils/constant-variable";
 import { InputSwitch } from "primereact/inputswitch";
 import BackdropLoader from "../../../components/ui/BackdropLoader";
 import { set } from "lodash";
+import { use } from "react";
 
 const CheckoutPage = () => {
   const [addressLoading, setAddressLoading] = useState(false);
@@ -81,9 +82,9 @@ const CheckoutPage = () => {
 
 
   const handleCouponApply = (coupon) => {
-    setCouponCode(coupon); 
+    setCouponCode(coupon);
     setCoinStatus(coin_status);
-    dispatch(fetchFinalCart({ cartId, coinStatus: coinStatus, coupon: coupon })); 
+    dispatch(fetchFinalCart({ cartId, coinStatus: coinStatus, coupon: coupon }));
     navigate(`?couponCode=${coupon || ""}&coinStatus=${coinStatus}`);
   };
 
@@ -91,7 +92,7 @@ const CheckoutPage = () => {
     setCoinStatus(e);
     setCouponCode(coupon_code);
     dispatch(fetchFinalCart({ cartId, coinStatus: e, coupon: couponCode }));
-    navigate(`?couponCode=${couponCode}&coinStatus=${e}`); 
+    navigate(`?couponCode=${couponCode}&coinStatus=${e}`);
     if (e === true) {
       notifySuccess("Coins applied successfully");
     } else {
@@ -105,19 +106,6 @@ const CheckoutPage = () => {
       setCouponList(response?.data || []);
     } catch (error) {
       console.log("Error fetching data:", error);
-    }
-  };
-
-  const getAddressList = async () => {
-    setLoadingNew(true);
-    try {
-      const response = await getAddressApi();
-      setAddressList(response?.data || []);
-      setLoadingNew(false);
-    } catch (error) {
-      console.log("Error fetching cart data:", error);
-    } finally {
-      setLoadingNew(false);
     }
   };
 
@@ -226,6 +214,21 @@ const CheckoutPage = () => {
     },
   });
 
+
+  const getAddressList = async () => {
+    setLoadingNew(true);
+    try {
+      const response = await getAddressApi();
+      setAddressList(response?.data || []);
+      setLoadingNew(false);
+      dispatch(fetchFinalCart({ cartId, coinStatus: coin_status, coupon: coupon_code }));
+    } catch (error) {
+      console.log("Error fetching cart data:", error);
+    } finally {
+      setLoadingNew(false);
+    }
+  };
+
   const addAddress = async (values) => {
     try {
       const response = await postAddressApi(values);
@@ -235,7 +238,7 @@ const CheckoutPage = () => {
         getAddressList();
         dispatch(fetchFinalCart({ cartId }));
         notifySuccess("Address added Successfully");
-      }
+      } 
       setAddressLoading(false);
       setOpen(false);
       scrollTo(0, 0);
@@ -262,7 +265,7 @@ const CheckoutPage = () => {
       scrollTo(0, 0);
       setOpen(false);
       setEditData(null);
-      notifySuccess("Address updated Successfully");
+      notifySuccess("Address updated Successfully"); 
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -276,8 +279,7 @@ const CheckoutPage = () => {
     try {
       await postSelectAddressApi({ address_id });
       scrollTo(0, 0);
-      getAddressList();
-      dispatch(fetchFinalCart({ cartId, coupon: couponCode, coinStatus: coinStatus }));
+      getAddressList(); 
       notifySuccess("Address Selected Successfully");
     } catch (error) {
       console.log("Error fetching cart data:", error);
@@ -299,6 +301,7 @@ const CheckoutPage = () => {
     try {
       const response = await deleteAddressApi(selectedAddressId);
       await getAddressList();
+      handleSelectAddress(addressList[0]?.id);
       notifySuccess("Address deleted Successfully");
     } catch (error) {
       notifyError(error.response?.data?.error || "Failed to delete address");
@@ -314,7 +317,6 @@ const CheckoutPage = () => {
     getCouponList();
   }, []);
 
-  
 
   return (
     <div className="web-wrapper-main">
@@ -697,7 +699,7 @@ const CheckoutPage = () => {
                               </div>
                             </div>
                           )}
-                          {loading ? (
+                          {/* {loading ? (
                             <BackdropLoader open={loading} />
                           ) : (
                             <p className="d-flex align-items-center fw-500 ms-lg-5 ms-md-5 ms-0 earn-statement ps-lg-3 ps-md-3 pt-3">
@@ -734,7 +736,42 @@ const CheckoutPage = () => {
                               </div>
                               <span className="ms-1"></span>
                             </p>
-                          )}
+                          )} */}
+
+                          <p className="d-flex align-items-center fw-500 ms-lg-5 ms-md-5 ms-0 earn-statement ps-lg-3 ps-md-3 pt-3">
+                            You will earn
+                            <span>
+                              <img
+                                className="img-fluid mx-1"
+                                src={starCoin}
+                                style={{ maxWidth: "1rem" }}
+                                alt="pencil"
+                              />
+                            </span>
+                            <span className="fw-bold me-1">
+                              {finalCart?.earn_amrit_coins} Amrit Coins
+                            </span>
+                            on this purchase &nbsp;
+                            <div className="me-2 mt-lg-2 mt-md-2 mt-1" >
+                              <Tooltip
+                                content={
+                                  <>
+                                    Redeem these Amrit Coins and
+                                    <br />
+                                    use avail exiting discount offers
+                                  </>
+                                }
+                                delay="0"
+                                direction="top"
+                              >
+                                <MdInfoOutline
+                                  size={17}
+                                  style={{ cursor: "pointer" }}
+                                />
+                              </Tooltip>
+                            </div>
+                            <span className="ms-1"></span>
+                          </p>
                           <div className="cart-items mt-4 border-top mb-2">
                             <div className="product-details w-100 ms-lg-3 pt-4">
                               <h6 className="fw-bolder">Total Amount </h6>
@@ -791,7 +828,10 @@ const CheckoutPage = () => {
                       ) : (
                         <>
                           <div className="w-100 text-center">
-                            {cartItems.length > 0 ? (
+                        {  loading ? (
+                            <BackdropLoader open={loading} />
+                          ) : (
+                            cartItems.length > 0 ? (
                               <h6 className="text-danger text-uppercase fs-6 mt-3">
                                 Please Add Your address
                               </h6>
@@ -815,7 +855,7 @@ const CheckoutPage = () => {
                                   Browse Products
                                 </Link>
                               </div>
-                            )}
+                            ))}
                           </div>
                         </>
                       )}
