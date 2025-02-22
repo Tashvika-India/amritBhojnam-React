@@ -36,7 +36,7 @@ import deliveryImg from "../../../assets/images/web/product-detail/delivery-img.
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFinalCart } from "../../../redux/slices/cartSlice";
 import CouponComponent from "./components/CouponComponent";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import editButton from "../../../assets/images/web/account/edit-button.png";
 import deleteButton from "../../../assets/images/web/account/delete-button.png";
 import AddressDeleteModal from "../../../components/ui/AddressDeleteModal";
@@ -48,9 +48,12 @@ import emptyCart from "../../../assets/images/web/empty-cart.png";
 import { loginonWeb } from "../../../utils/constant-variable";
 import { InputSwitch } from "primereact/inputswitch";
 import BackdropLoader from "../../../components/ui/BackdropLoader";
+import { set } from "lodash";
 
 const CheckoutPage = () => {
   const [addressLoading, setAddressLoading] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
   const [loadingNew, setLoadingNew] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [couponList, setCouponList] = useState([]);
@@ -62,19 +65,33 @@ const CheckoutPage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [couponCode, setCouponCode] = useState("");
+  const [coinStatus, setCoinStatus] = useState(false);
   const toggleWebLogin = () => setShowWebLogin((prev) => !prev);
   const dispatch = useDispatch();
   const { cartItems, finalCart, cartId, loading } = useSelector(
     (state) => state.cart
   );
 
+  // Get existing query parameters
+  const searchParams = new URLSearchParams(location.search);
+
+  // Update or add new parameters
+  const coupon_code = searchParams.get("couponCode") || "";
+  const coin_status = searchParams.get("coinStatus") || "";
+
+
   const handleCouponApply = (coupon) => {
-    setCouponCode(coupon);
-    dispatch(fetchFinalCart({ cartId, coupon }));
+    setCouponCode(coupon); 
+    setCoinStatus(coin_status);
+    dispatch(fetchFinalCart({ cartId, coinStatus: coinStatus, coupon: coupon })); 
+    navigate(`?couponCode=${coupon || ""}&coinStatus=${coinStatus}`);
   };
 
   const handleCoinStatus = (e) => {
-    dispatch(fetchFinalCart({ cartId, coinStatus: e }));
+    setCoinStatus(e);
+    setCouponCode(coupon_code);
+    dispatch(fetchFinalCart({ cartId, coinStatus: e, coupon: couponCode }));
+    navigate(`?couponCode=${couponCode}&coinStatus=${e}`); 
     if (e === true) {
       notifySuccess("Coins applied successfully");
     } else {
@@ -260,7 +277,7 @@ const CheckoutPage = () => {
       await postSelectAddressApi({ address_id });
       scrollTo(0, 0);
       getAddressList();
-      dispatch(fetchFinalCart({ cartId, coupon: couponCode }));
+      dispatch(fetchFinalCart({ cartId, coupon: couponCode, coinStatus: coinStatus }));
       notifySuccess("Address Selected Successfully");
     } catch (error) {
       console.log("Error fetching cart data:", error);
@@ -297,6 +314,8 @@ const CheckoutPage = () => {
     getCouponList();
   }, []);
 
+  
+
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -326,9 +345,8 @@ const CheckoutPage = () => {
                     addressList.map((item, index) => (
                       <>
                         <div
-                          className={`summary-card ${
-                            item?.selected ? "active" : ""
-                          } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                          className={`summary-card ${item?.selected ? "active" : ""
+                            } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
                           key={item?.id}
                         >
                           <div className="px-md-3">
@@ -336,9 +354,8 @@ const CheckoutPage = () => {
                               <div className="col-md-12 d-flex justify-content-between">
                                 <div className="order-date d-flex gap-2">
                                   <img
-                                    className={`img-fluid me-1 rounded-4 align-self-start ${
-                                      item?.selected ? "shadow" : ""
-                                    }`}
+                                    className={`img-fluid me-1 rounded-4 align-self-start ${item?.selected ? "shadow" : ""
+                                      }`}
                                     src={
                                       item?.save_as === "Home"
                                         ? homeImg
@@ -508,7 +525,7 @@ const CheckoutPage = () => {
                             </>
                           ) : (
                             <p className=" d-flex gap-2 align-items-center mb-0">
-                              Delivered to Your Door –{" "}
+                              Delivered to Your Door –
                               <span className="fw-bold">Absolutely Free! </span>
                               <span>
                                 <img
@@ -525,7 +542,7 @@ const CheckoutPage = () => {
                           variant="yellow"
                           now={Math.min(
                             (1000 - (finalCart?.shipping_free_amount || 0)) /
-                              10,
+                            10,
                             100
                           )}
                           style={{ height: "5px" }}
@@ -562,39 +579,21 @@ const CheckoutPage = () => {
                                   )} X ${item?.item_quantity}`}</h6>
                                 </div>
                                 <div className="product-quantity text-end d-flex align-items-center">
-                                  <h6 style={{ fontWeight: "800" }}>{`₹${
-                                    Math.trunc(item?.price) *
+                                  <h6 style={{ fontWeight: "800" }}>{`₹${Math.trunc(item?.price) *
                                     item?.item_quantity
-                                  }`}</h6>
+                                    }`}</h6>
                                 </div>
                               </div>
                             </>
                           ))
                         ) : (
-                          <div className="text-center py-4">
-                            <img
-                              src={emptyCart}
-                              alt="empty-cart"
-                              className="img-fluid mx-auto empty-cart-image w-25"
-                            />
-                            <h4 className="text-black">Your Cart is Empty!</h4>
-                            <small className="text-muted text-balance mb-4">
-                              Looks like you haven’t added anything to your cart
-                              yet
-                            </small>
-                            <Link
-                              className="button-primary d-block fw-normal mt-3"
-                              style={{ fontSize: "14px" }}
-                              to="/products"
-                            >
-                              Browse Products
-                            </Link>
-                          </div>
+                          <></>
                         )}
                       </div>
                       {cartItems.length > 0 && addressList.length > 0 ? (
                         <>
                           <CouponComponent
+                            couponCode={coupon_code}
                             couponList={couponList}
                             onCouponApply={handleCouponApply}
                           />
@@ -625,25 +624,24 @@ const CheckoutPage = () => {
                                   </span>
                                   <span className="fb-fs-18 fw-500 text-success">
                                     {finalCart?.coupon_data?.coupon_discount ===
-                                    undefined
+                                      undefined
                                       ? "₹ 0"
-                                      : `₹${
-                                          finalCart?.coupon_data
-                                            ?.coupon_discount == 0
-                                            ? 0
-                                            : `-${finalCart?.coupon_data?.coupon_discount}`
-                                        }`}
+                                      : `₹${finalCart?.coupon_data
+                                        ?.coupon_discount == 0
+                                        ? 0
+                                        : `-${finalCart?.coupon_data?.coupon_discount}`
+                                      }`}
                                   </span>
                                 </li>
                               )}
-                              { finalCart?.apply_amrit_coins && <li className="d-flex justify-content-between my-2">
-                                  <span className="fw-500 text-success">Amrit Coin Discount</span>
-                                  <span className="fb-fs-18 fw-500 text-success">
-                                    {finalCart?.amrit_coins_rs_off === undefined
-                                      ? "₹ 0"
-                                      : `₹ -${finalCart?.amrit_coins_rs_off}`}
-                                  </span>
-                                </li>}
+                              {finalCart?.apply_amrit_coins && <li className="d-flex justify-content-between my-2">
+                                <span className="fw-500 text-success">Amrit Coin Discount</span>
+                                <span className="fb-fs-18 fw-500 text-success">
+                                  {finalCart?.amrit_coins_rs_off === undefined
+                                    ? "₹ 0"
+                                    : `₹ -${finalCart?.amrit_coins_rs_off}`}
+                                </span>
+                              </li>}
                               {finalCart?.shipping_charge > 0 && (
                                 <li className="d-flex justify-content-between my-2">
                                   <span className="fw-500 text-orange">
@@ -720,9 +718,9 @@ const CheckoutPage = () => {
                                 <Tooltip
                                   content={
                                     <>
-                                     Redeem these Amrit Coins and 
+                                      Redeem these Amrit Coins and
                                       <br />
-                                      use avail exiting discount offers 
+                                      use avail exiting discount offers
                                     </>
                                   }
                                   delay="0"
@@ -756,24 +754,25 @@ const CheckoutPage = () => {
                           </div>
                           <div className="w-100">
                             {loginonWeb ? (
-                              <button
-                                className="button-primary w-100"
-                                onClick={() =>
-                                  handlePayNow(
-                                    finalCart?.amount_to_pay,
-                                    finalCart?.user_id,
-                                    finalCart?.id,
-                                    finalCart?.shipping_charge,
-                                    finalCart?.delivery_date,
-                                    finalCart?.delivery_days,
-                                    finalCart?.coupon_data?.coupon_code,
-                                    finalCart?.courier_id,
-                                    finalCart?.apply_amrit_coins
-                                  )
-                                }
-                              >
-                                Proceed to Pay
-                              </button>
+                              <>
+                                <button
+                                  className="button-primary w-100"
+                                  onClick={() =>
+                                    handlePayNow(
+                                      finalCart?.amount_to_pay,
+                                      finalCart?.user_id,
+                                      finalCart?.id,
+                                      finalCart?.shipping_charge,
+                                      finalCart?.delivery_date,
+                                      finalCart?.delivery_days,
+                                      finalCart?.coupon_data?.coupon_code,
+                                      finalCart?.courier_id,
+                                      finalCart?.apply_amrit_coins
+                                    )
+                                  }>
+                                  Proceed to Pay
+                                </button>
+                              </>
                             ) : (
                               <button
                                 className="button-primary w-100"
@@ -793,14 +792,29 @@ const CheckoutPage = () => {
                         <>
                           <div className="w-100 text-center">
                             {cartItems.length > 0 ? (
-                              <h6 className="text-danger text-uppercase fs-6">
+                              <h6 className="text-danger text-uppercase fs-6 mt-3">
                                 Please Add Your address
                               </h6>
                             ) : (
-                              <></>
-                              // <h6 className="text-danger text-uppercase fs-6">
-                              //   Please Add Product in Cart
-                              // </h6>
+                              <div className="text-center py-4">
+                                <img
+                                  src={emptyCart}
+                                  alt="empty-cart"
+                                  className="img-fluid mx-auto empty-cart-image w-25"
+                                />
+                                <h4 className="text-black">Your Cart is Empty!</h4>
+                                <small className="text-muted text-balance mb-4">
+                                  Looks like you haven’t added anything to your cart
+                                  yet
+                                </small>
+                                <Link
+                                  className="button-primary d-block fw-normal mt-3"
+                                  style={{ fontSize: "14px" }}
+                                  to="/products"
+                                >
+                                  Browse Products
+                                </Link>
+                              </div>
                             )}
                           </div>
                         </>
