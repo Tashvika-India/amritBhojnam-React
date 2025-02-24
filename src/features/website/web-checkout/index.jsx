@@ -81,11 +81,21 @@ const CheckoutPage = () => {
   const coin_status = searchParams.get("coinStatus") || "";
 
 
-  const handleCouponApply = (coupon) => {
+  const handleCouponApply = async (coupon) => {
     setCouponCode(coupon);
     setCoinStatus(coin_status);
-    dispatch(fetchFinalCart({ cartId, coinStatus: coinStatus, coupon: coupon }));
     navigate(`?couponCode=${coupon || ""}&coinStatus=${coinStatus}`);
+    await dispatch( fetchFinalCart({ cartId, coinStatus: coinStatus, coupon: coupon })).unwrap()
+    await getCouponList();
+};
+
+  const getCouponList = async () => {
+    try {
+      const response = await getCouponApi();
+      setCouponList(response?.data || []);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
   };
 
   const handleCoinStatus = (e) => {
@@ -97,15 +107,6 @@ const CheckoutPage = () => {
       notifySuccess("Coins applied successfully");
     } else {
       notifySuccess("Coins removed successfully");
-    }
-  };
-
-  const getCouponList = async () => {
-    try {
-      const response = await getCouponApi();
-      setCouponList(response?.data || []);
-    } catch (error) {
-      console.log("Error fetching data:", error);
     }
   };
 
@@ -262,7 +263,7 @@ const CheckoutPage = () => {
         getAddressList();
       }
       setLoadingNew(false);
-      scrollTo(0, 0);
+      // scrollTo(0, 0);
       setOpen(false);
       setEditData(null);
       notifySuccess("Address updated Successfully"); 
@@ -598,6 +599,7 @@ const CheckoutPage = () => {
                             couponCode={coupon_code}
                             couponList={couponList}
                             onCouponApply={handleCouponApply}
+                            getCouponList={getCouponList}
                           />
                           <div className="cart-items mt-2">
                             <ul className="list-unstyled w-100">
