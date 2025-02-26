@@ -1,39 +1,33 @@
 import React, {
   useCallback,
   useEffect,
-  useMemo,
-  useRef,
+  useMemo, 
   useState,
 } from "react";
 import Header from "../../../layout/web-layout/Header";
-import Footer from "../../../layout/web-layout/Footer";
-import { BiReset } from "react-icons/bi";
-import { FiMinus } from "react-icons/fi";
-import { Slider } from "primereact/slider";
+import Footer from "../../../layout/web-layout/Footer"; 
+import { FiMinus } from "react-icons/fi"; 
 import starImg from "../../../assets/images/web/products/star.png";
 import { Checkbox } from "primereact/checkbox";
 import ProductCard from "../web-home/components/ProductCard";
 import { InputText } from "primereact/inputtext";
 import Loading from "../../../components/ui/Loading";
 import emptyProducts from "../../../assets/images/web/empty-products.png";
+import ScrollTopBehaviour from "../../../custom-compoents/ScrollTopBehaviour";
 import {
-  getCategoriesApi,
-  getProductApi,
+  getCategoriesApi, 
 } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import { Link, useNavigate } from "react-router-dom";
-import { debounce, set } from "lodash";
-import { scrollToTop } from "../../../utils/constant-variable";
+import { debounce, set } from "lodash"; 
 import { Offcanvas } from "react-bootstrap";
-import {
-  clearProductList,
+import { 
   fetchProductList,
 } from "../../../redux/slices/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import { GrPowerReset } from "react-icons/gr";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import { notifyError } from "../../../components/ui/Notification";
+import Breadcrumbs from "@mui/material/Breadcrumbs"; 
 import ChildSlider from "../../../components/ui/ChildSlider";
 
 const ProudctList = () => {
@@ -141,6 +135,7 @@ const ProudctList = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
+      <ScrollTopBehaviour/>
       <div className="pt-4">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
