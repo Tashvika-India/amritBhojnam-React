@@ -10,18 +10,18 @@ const WebBanner = () => {
   const [loading, setLoading] = useState(false);
 
   const settings = {
-    dots: false, 
-    infinite: true,  
-    speed: 100,  
-    slidesToShow: 1,  
-    slidesToScroll: 1,  
-    autoplay: banner.length > 1,  
-    autoplaySpeed: 1000,  
-    arrows: banner.length > 1, 
+    dots: false,
+    infinite: true,
+    speed: 100,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: banner.length > 1,
+    autoplaySpeed: 1000,
+    arrows: banner.length > 1,
     nextArrow: banner.length > 1 ? <SampleNextArrow /> : null,
     prevArrow: banner.length > 1 ? <SamplePrevArrow /> : null,
     afterChange: (current) => {
-      if (current === banner.length - 1) { 
+      if (current === banner.length - 1) {
         settings.autoplay = false;
       }
     },
@@ -58,19 +58,24 @@ const WebBanner = () => {
 
   return (
     <>
-      <Slider {...settings} className="banner-slider">
-        {
-          loading ? <div className="skeleton-loading"></div> :
-            banner?.map((item, index) => (
-              <Link to="/products" className="banner-slide" key={index}>
-                <img loading="lazy" height="600px" width="100%"
-                  src={baseURL + item.img_file}
-                  alt="banner"
-                  className="img-fluid"
-                />
-              </Link>
-            ))}
-      </Slider>
+      {loading ? (
+        <div className="skeleton-loading"></div>
+      ) : (
+        <Slider {...settings} className="banner-slider">
+          {banner?.map((item, index) => (
+            <Link to="/products" className="banner-slide" key={index}>
+              <img
+                loading="lazy"
+                height="600px"
+                width="100%"
+                src={baseURL + item.img_file}
+                alt="banner"
+                className="img-fluid"
+              />
+            </Link>
+          ))}
+        </Slider>
+      )}
     </>
   );
 };
