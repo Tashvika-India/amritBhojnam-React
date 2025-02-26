@@ -8,7 +8,7 @@ import "primeicons/primeicons.css";
 import { MdEdit } from "react-icons/md";
 import { IoMdPrint } from "react-icons/io";
 import { formatDateTime } from "../../../../../utils/constant-variable";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AcceptOrderModal from "./AcceptOrderModal";
 import StatusModal from "./StatusModal";
 import AcceptOrder from "./OrderStatusModal/AcceptOrder";
@@ -18,6 +18,7 @@ import { RxOpenInNewWindow } from "react-icons/rx";
 const NewOrdersTable = ({ order, getOrderList }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [orderStatus, setOrderStatus] = useState([]);
+  const navigator = useNavigate();
 
   const showAcceptModal = (status, orderId, display_order_id) => {
     const data = { status, orderId, display_order_id };
@@ -63,6 +64,13 @@ const NewOrdersTable = ({ order, getOrderList }) => {
       .toString(16)
       .slice(1)}`;
   };
+
+  const formatStepName = (name) => {
+    return name
+      .replace(/_/g, ' ')  
+      .replace(/\b\w/g, (char) => char.toUpperCase());  
+  };
+
 
   const paymentStatusTemplate = (rowData) => {
     return (
@@ -221,17 +229,25 @@ const NewOrdersTable = ({ order, getOrderList }) => {
 
   const stockTemplate = (rowData) => {
     return(
-      <>
-        <p style={{color: "#4FB74F"}}>Stock</p>
-        <p>{rowData?.stock_status}</p>
+      <> 
+        <p style={rowData?.stock_status === "in_stock" ? {color: "#4FB74F"} : {color: "#E50000"}}>{formatStepName(rowData?.stock_status)}</p>
       </>
-      
     )
   }
 
+  const onRowClick = (e) => {
+    const orderId = e.data.id;   
+    navigator(`/admin/order-details/${orderId}`);
+  };
+
   return (
     <div className="datatable">
-      <DataTable value={order} paginator rows={10}>
+      <DataTable value={order} paginator rows={10} 
+      onRowClick={onRowClick}
+      responsiveLayout="scroll"
+      emptyMessage="No orders found" 
+      selectionMode="single"  
+      >
         <Column
           field="id"
           header="ID"
@@ -273,7 +289,7 @@ const NewOrdersTable = ({ order, getOrderList }) => {
           style={{ width: "10%" }}
         ></Column>
         <Column
-          header="STOCKS"
+          header="Stock Status"
           field="stock_status"
           body={stockTemplate}
           style={{ width: "10%" }}
