@@ -123,7 +123,7 @@ const TrackOrder = () => {
       <div className="container fb-container mt-5">
         <div className="row">
           <p className="fb-fs-40 fw-bold">Track Order</p>
-          <p className="fb-fs-26 fw-500 my-4">
+          <p className="fb-fs-26 fw-500 my-4 order-id-p">
             Order ID: <span className="text-yellow fw-600"> #{id}</span>
           </p>
           <div className="col-md-7">
@@ -133,7 +133,7 @@ const TrackOrder = () => {
                   Order Placed:
                   <span className="fw-600">&nbsp;&nbsp;March 10, 2024</span>
                 </p>
-                <div className="d-flex gap-4 text-end align-items-end">
+                <div className="d-flex gap-lg-4 gap-md-4 gap-2 text-end align-items-end">
                   <button className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-1 text-nowrap">
                     <BsArrowRepeat size={"1.2rem"} />
                     Buy Again
@@ -188,7 +188,7 @@ const TrackOrder = () => {
                               marginRight: "0.625rem",
                             }}
                           />
-                          <div className="d-flex justify-content-between align-items-center w-100">
+                          <div className="d-flex justify-content-between align-items-center w-100 inner-track-content">
                             <div className="">
                               <h6
                                 style={{

@@ -337,9 +337,10 @@ const CheckoutPage = () => {
               <p className="fb-fs-40 fw-bold mt-4 mb-4 checkout-head">
                 Checkout
               </p>
-              <p className="fb-fs-26 fw-bold checkout-save">Saved Address</p>
+              
               <div className="row">
-                <div className="col-lg-7 col-md-12">
+                <div className="col-lg-7 col-md-12 grid grid-col-2 order-lg-1 order-md-2 order-2">
+                <p className="fb-fs-26 fw-bold checkout-save">Saved Address</p>
                   {loadingNew ? (
                     <Loading />
                   ) : addressList.length > 0 ? (
@@ -497,7 +498,7 @@ const CheckoutPage = () => {
                     </Collapse>
                   </div>
                 </div>
-                <div className="col-lg-5 col-md-12">
+                <div className="col-lg-5 col-md-12 grid grid-col-1 order-lg-2 order-md-1 order-1">
                   <div
                     className="my-card-section product-detail-shadow rounded-20 p-2 p-md-4 mb-4 sticky-top "
                     style={{ zIndex: 10 }}
