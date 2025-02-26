@@ -18,7 +18,7 @@ const CouponComponent = ({ couponList, onCouponApply, couponCode, getCouponList 
     };
 
     const handleRemoveCoupon = () => {
-        setSelectedCoupon(""); 
+        setSelectedCoupon("");
         onCouponApply("");
         notifySuccess("Coupon removed successfully");
     };
@@ -53,18 +53,17 @@ const CouponComponent = ({ couponList, onCouponApply, couponCode, getCouponList 
                             <small style={{ color: "gray" }}>{option.description}</small>
                         </Box>
                     )}
-                    sx={{ mb: 2 }} 
+                    sx={{ mb: 2 }}
                 />
                 {selectedCoupon && (
-                    <Box sx={{ mt: 2, display: "flex", alignItems: "center" }}>
-                        <strong>Coupon Applied:</strong> {selectedCoupon}
+                    <Box sx={{ mt: 2, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <p><strong>Coupon Applied:</strong> {selectedCoupon}</p>
                         <Button
                             variant="outlined"
                             color="error"
                             size="small"
                             sx={{ ml: 2 }}
-                            onClick={handleRemoveCoupon}
-                        >
+                            onClick={handleRemoveCoupon}>
                             Remove
                         </Button>
                     </Box>

@@ -1,7 +1,6 @@
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
-import React, { useEffect, useState } from "react";
-import { CiLocationOn } from "react-icons/ci";
+import React, { useEffect, useState } from "react"; 
 import { IoSearchOutline } from "react-icons/io5";
 import logo from "../../assets/images/web/logo.svg";
 import { FaRegHeart, FaRegUser } from "react-icons/fa";
@@ -13,13 +12,12 @@ import MobileMenu from "../../components/ui/MobileMenu";
 import MyCartMenu from "../../components/ui/MyCartMenu";
 import MobileLogin from "../../components/ui/MobileLogin";
 import { getCategoriesApi, getProfile } from "../../services/adminApiRoutes";
-import useURLFilters from "../../custom-compoents/useURLFilters";
-import { getWishlist } from "../../services/adminApiRoutes";
+import useURLFilters from "../../custom-compoents/useURLFilters"; 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart } from "../../redux/slices/cartSlice";
-import ScrollTopBehaviour from "../../custom-compoents/ScrollTopBehaviour";
+import { fetchCart } from "../../redux/slices/cartSlice"; 
 import { fetchWishlist } from "../../redux/slices/wishlistSlice";
 import { loginonWeb } from "../../utils/constant-variable";
+import ScrollTopDefault from "../../custom-compoents/ScrollTopDefault";
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -114,7 +112,7 @@ const Header = () => {
 
   return (
     <>
-      <ScrollTopBehaviour />
+      <ScrollTopDefault />
 
       <header className="fb-bottom-shadow sticky-top bg-white z-100">
         <div className="header-top bg-semi-orange py-2">
