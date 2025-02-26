@@ -126,7 +126,6 @@ const UserProfile = () => {
       setLoading(false);
       setOpen(false);
       notifySuccess("Address added Successfully");
-      scrollTo(0, 0);
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -146,7 +145,6 @@ const UserProfile = () => {
         getAddressList();
       }
       setLoading(false);
-      scrollTo(0, 0);
       setOpen(false);
       setEditData(null);
       notifySuccess("Address updated Successfully");
@@ -204,6 +202,7 @@ const UserProfile = () => {
       const response = await getAddressApi();
       setAddressList(response?.data || []);
       setLoading(false);
+      scrollTo(0, 0);
     } catch (error) {
       console.log("Error fetching cart data:", error);
     } finally {
@@ -212,8 +211,9 @@ const UserProfile = () => {
 
   const handleSelectAddress = async (address_id) => {
     try {
-      const response = await postSelectAddressApi({ address_id });
+      await postSelectAddressApi({ address_id });
       getAddressList();
+      notifySuccess("Address Selected Successfully");
     } catch (error) {
       console.log("Error fetching cart data:", error);
     }

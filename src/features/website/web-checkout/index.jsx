@@ -223,6 +223,7 @@ const CheckoutPage = () => {
       setAddressList(response?.data || []);
       setLoadingNew(false);
       dispatch(fetchFinalCart({ cartId, coinStatus: coin_status, coupon: coupon_code }));
+      scrollTo(0, 0);
     } catch (error) {
       console.log("Error fetching cart data:", error);
     } finally {
@@ -242,7 +243,6 @@ const CheckoutPage = () => {
       } 
       setAddressLoading(false);
       setOpen(false);
-      scrollTo(0, 0);
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -263,7 +263,6 @@ const CheckoutPage = () => {
         getAddressList();
       }
       setLoadingNew(false);
-      // scrollTo(0, 0);
       setOpen(false);
       setEditData(null);
       notifySuccess("Address updated Successfully"); 
@@ -279,7 +278,6 @@ const CheckoutPage = () => {
   const handleSelectAddress = async (address_id) => {
     try {
       await postSelectAddressApi({ address_id });
-      scrollTo(0, 0);
       getAddressList(); 
       notifySuccess("Address Selected Successfully");
     } catch (error) {
