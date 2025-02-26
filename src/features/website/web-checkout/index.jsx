@@ -263,7 +263,7 @@ const CheckoutPage = () => {
         getAddressList();
       }
       setLoadingNew(false);
-      // scrollTo(0, 0);
+      scrollTo(0, 0);
       setOpen(false);
       setEditData(null);
       notifySuccess("Address updated Successfully"); 
