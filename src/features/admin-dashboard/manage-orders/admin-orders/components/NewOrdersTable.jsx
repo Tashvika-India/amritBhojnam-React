@@ -198,7 +198,8 @@ const NewOrdersTable = ({ order, getOrderList }) => {
     // If the color is grey, set the background color to a lighter shade
     if (isGreyColor(backgroundColor)) {
       backgroundColor = lightenColor(backgroundColor, 0.5); // 30% lighter
-    }
+    } 
+    
     return (
       <div className="d-flex align-items-center gap-3">
         <Avatar
@@ -266,6 +267,10 @@ const NewOrdersTable = ({ order, getOrderList }) => {
           header="ORDER"
           body={orderTemplate}
           style={{ width: "18%" }}
+        ></Column>
+        <Column
+          header="Qty."
+          body={(rowData) => `${rowData?.product_details[0]?.item_quantity}`}
         ></Column>
         <Column
           header="CUSTOMER"
