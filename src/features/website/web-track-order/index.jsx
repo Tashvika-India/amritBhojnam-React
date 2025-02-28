@@ -4,12 +4,9 @@ import Footer from "../../../layout/web-layout/Footer";
 import addressHome from "../../../assets/images/web/account/home-img.png";
 import productImage from "../../../assets/images/web/product-card.png";
 import { BsArrowRepeat } from "react-icons/bs";
-import { HiDownload } from "react-icons/hi";
-import Box from "@mui/material/Box";
-import Rating from "@mui/material/Rating";
+import { HiDownload } from "react-icons/hi"; 
 import Typography from "@mui/material/Typography";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { IoReceiptOutline } from "react-icons/io5";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle"; 
 import OrderPlaced from "../../../assets/images/web/order-placed.svg";
 import OrderConfirmed from "../../../assets/images/web/order-confirmed.svg";
 import OrderDispatched from "../../../assets/images/web/order-dispatched.svg";
@@ -23,11 +20,15 @@ const TrackOrder = () => {
   const [value, setValue] = useState(2);
   const { id } = useParams();
   const [trackOrder, setTrackOrder] = useState([]);
+  const [data, setData] = useState([]);
+  const [items, setItems] = useState([]);
 
   const getTrackOrder = async () => {
     try {
       const response = await trackOrderApi(id);
-      setTrackOrder(response?.data);
+      setTrackOrder(response?.data?.tracking_status);
+      setData(response?.data?.delivery_address);
+      setItems(response?.data?.items_in_order);  
     } catch (error) {
       console.log(error);
     }
@@ -156,7 +157,7 @@ const TrackOrder = () => {
                           <CheckCircleIcon
                             style={{
                               color: isCompleted ? "#D59615" : "#DADADA",
-                              fontSize: "2rem", 
+                              fontSize: "2rem",
                             }}
                           />
                           {index < steps.length - 1 && (
@@ -178,7 +179,7 @@ const TrackOrder = () => {
                             width: "100%",
                             paddingBottom: index === steps.length - 1 ? "0" : "",
                           }}
-                          >
+                        >
                           <img
                             src={step.image}
                             alt={step.label}
@@ -231,15 +232,49 @@ const TrackOrder = () => {
                       <p className="fw-600">shivani | 9990323287</p>
                     </div>
                     <p className="mt-1 pt-1 text-wrap d-none d-md-block">
-                      136/b,Ratiya, SOUTH DELHI - 110080, near cribs hospital,
-                      ratiya marg, delhi, New Delhi
+                      {
+                        `${data?.house_flat_block_no}, ${data?.city}, ${data?.pincode},${data?.road_area_colony}, ${data?.state}`
+                      }
                     </p>
                   </div>
                 </div>
               </div>
               <div className="bottom-track-right mt-4">
                 <h5 className="fw-bold">Items in Order</h5>
-                <div className="row px-2 px-md-3 pt-3 py-md-3 mb-3">
+
+                {items?.map((item, index) => {
+                  return (
+                    <div className="row px-2 px-md-3 pt-3 py-md-1 mb-1" key={index}>
+                      <div className="col-md-8">
+                        <div className="prod-detail d-flex align-items-center">
+                          <img
+                            className="img-fluid me-4 rounded-4"
+                            src={item?.product_img}
+                            alt="image"
+                            style={{ height: "6rem", width: "6rem" }}
+                          />
+                          <div>
+                            <p className="fb-fs-18 fw-600 text-dark-grey">
+                              {item?.product_name}
+                            </p>
+                            <p className="mt-1">
+                              Qty:<span className="fw-600">{item?.qty}</span>
+                            </p>
+                            <p className="mt-1">
+                              Size:<span className="fw-600">{`${item?.size}`}</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-4">
+                        <div className="price-sec text-end text-dark-grey">
+                          <p className="fb-fs-24 fw-bold">₹{item?.price}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                {/* <div className="row px-2 px-md-3 pt-3 py-md-1 mb-1">
                   <div className="col-md-8">
                     <div className="prod-detail d-flex align-items-center">
                       <img
@@ -266,7 +301,7 @@ const TrackOrder = () => {
                       <p className="fb-fs-24 fw-bold">₹140</p>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
