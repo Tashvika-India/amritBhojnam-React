@@ -213,7 +213,7 @@ export const postRatingApi = (payload) => API.post(`/product/rating/`, payload);
 // order
 export const getAdminOrderApi = ( ) => API.get(`/orders/`);
 
-export const getAdminOrderListApi = (id) => API.get(`/orders/?display_order_id=${id}`);
+export const getAdminOrderListApi = (id,page=1,page_size=1000) => API.get(`/orders/?display_order_id=${id}&page=${page}&page_size=${page_size}`);
 //nutrition
 export const getNutritionApi = () => API.get(`/nutritions/`);
 export const postNutritionApi = (payload) => API.post(`/nutritions/`, payload); 
