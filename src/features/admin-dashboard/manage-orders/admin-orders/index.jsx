@@ -20,11 +20,12 @@ function AdminOrders() {
   const getOrderList = async () => {
     setLoading(true);
     try {
-      const response = await getAdminOrderListApi(search);
+      const response = await getAdminOrderListApi(search); 
+      
       const filteredData = response?.data?.results?.filter((item) => 
-        activeTab === "Active" ? item?.status !== "confirmed" : item?.status === "confirmed"
+        activeTab === "Active" ? item?.status != "confirmed" : item?.status == "confirmed"
       );
-      setOrder(filteredData);
+      setOrder(filteredData); 
       setLoading(false);
     } catch (error) {
       console.log(error);
