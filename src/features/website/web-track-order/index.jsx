@@ -4,17 +4,20 @@ import Footer from "../../../layout/web-layout/Footer";
 import addressHome from "../../../assets/images/web/account/home-img.png";
 import productImage from "../../../assets/images/web/product-card.png";
 import { BsArrowRepeat } from "react-icons/bs";
-import { HiDownload } from "react-icons/hi"; 
+import { HiDownload } from "react-icons/hi";
 import Typography from "@mui/material/Typography";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle"; 
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import OrderPlaced from "../../../assets/images/web/order-placed.svg";
 import OrderConfirmed from "../../../assets/images/web/order-confirmed.svg";
 import OrderDispatched from "../../../assets/images/web/order-dispatched.svg";
 import OutDelivery from "../../../assets/images/web/out-delivery.svg";
 import ProductDelivered from "../../../assets/images/web/product-delivered.svg";
 import { Link, useParams } from "react-router-dom";
-import { trackOrderApi } from "../../../services/adminApiRoutes";
+import { reOrderApi, trackOrderApi } from "../../../services/adminApiRoutes";
 import { Breadcrumbs } from "@mui/material";
+import { formatDateTime } from "../../../utils/constant-variable";
+import { fetchCart } from "../../../redux/slices/cartSlice";
+import { notifyError, notifySuccess } from "../../../components/ui/Notification";
 
 const TrackOrder = () => {
   const [value, setValue] = useState(2);
@@ -22,13 +25,15 @@ const TrackOrder = () => {
   const [trackOrder, setTrackOrder] = useState([]);
   const [data, setData] = useState([]);
   const [items, setItems] = useState([]);
+  const [detail, setDetail] = useState("");
 
   const getTrackOrder = async () => {
     try {
       const response = await trackOrderApi(id);
       setTrackOrder(response?.data?.tracking_status);
       setData(response?.data?.delivery_address);
-      setItems(response?.data?.items_in_order);  
+      setItems(response?.data?.items_in_order);
+      setDetail(response?.data);
     } catch (error) {
       console.log(error);
     }
@@ -108,6 +113,16 @@ const TrackOrder = () => {
     ...trackOrder.map((step, index) => (step.is_active ? index : -1))
   );
 
+  const handleReOrderClick = async (order_id) => {
+    try {
+      await reOrderApi(order_id);
+      notifySuccess("Order Added to Cart Successfully");
+      dispatch(fetchCart());
+    } catch (error) { 
+      console.log("Error placing order:", error);
+    }
+  };
+
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -125,17 +140,17 @@ const TrackOrder = () => {
         <div className="row">
           <p className="fb-fs-40 fw-bold">Track Order</p>
           <p className="fb-fs-26 fw-500 my-4 order-id-p">
-            Order ID: <span className="text-yellow fw-600"> #{id}</span>
+            Order ID: <span className="text-yellow fw-600"> #{detail?.display_order_id}</span>
           </p>
-          <div className="col-md-7">
+          <div className="col-md-7 mb-4 mb-md-0">
             <div className="track-left">
               <div className="top-track-left d-flex justify-content-between align-items-center">
                 <p>
                   Order Placed:
-                  <span className="fw-600">&nbsp;&nbsp;March 10, 2024</span>
+                  <span className="fw-600">&nbsp;&nbsp;{formatDateTime(detail?.order_date) || ""}</span>
                 </p>
                 <div className="d-flex gap-lg-4 gap-md-4 gap-2 text-end align-items-end">
-                  <button className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-1 text-nowrap">
+                  <button onClick={() => handleReOrderClick(id)} className="fw-500 text-center border-0 text-orange bg-custom-btn-bg px-2 py-1 rounded-2 d-flex align-items-center gap-1 text-nowrap">
                     <BsArrowRepeat size={"1.2rem"} />
                     Buy Again
                   </button>
@@ -217,7 +232,7 @@ const TrackOrder = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-5">
+          <div className="col-md-5 mb-4 mb-md-0">
             <div className="track-right">
               <div className="top-track-right">
                 <h5 className="fw-bold">Delivery Address</h5>
@@ -229,7 +244,7 @@ const TrackOrder = () => {
                   />
                   <div className="ms-md-3">
                     <div className="d-flex mt-2 gap-1 align-items-center">
-                      <p className="fw-600">shivani | 9990323287</p>
+                      <p className="fw-600">{`${data?.full_name} | ${data?.number}`}</p>
                     </div>
                     <p className="mt-1 pt-1 text-wrap d-none d-md-block">
                       {
@@ -244,8 +259,8 @@ const TrackOrder = () => {
 
                 {items?.map((item, index) => {
                   return (
-                    <div className="row px-2 px-md-3 pt-3 py-md-1 mb-1" key={index}>
-                      <div className="col-md-8">
+                    <div className="d-flex justify-content-between pt-3 py-md-1 mb-1" key={index}>
+                      <div className="">
                         <div className="prod-detail d-flex align-items-center">
                           <img
                             className="img-fluid me-4 rounded-4"
@@ -266,8 +281,8 @@ const TrackOrder = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="col-md-4">
-                        <div className="price-sec text-end text-dark-grey">
+                      <div className="">
+                        <div className="price-sec text-end text-dark-grey pe-4">
                           <p className="fb-fs-24 fw-bold">₹{item?.price}</p>
                         </div>
                       </div>
