@@ -7,10 +7,10 @@ const addressSchema = Yup.object({
     ads_email: Yup.string()
         .email("Invalid email format")
         .required("Email is required"),
-    house_flat_block_no: Yup.string().required(
+    house_flat_block_no: Yup.string().max(100, "Must be 100 characters or less").required(
         "House/Flat/Block No is required"
     ),
-    road_area_colony: Yup.string().required("Road/Area/Colony is required"),
+    road_area_colony: Yup.string().max(100, "Must be 100 characters or less").required("Road/Area/Colony is required"),
     city: Yup.string().required("City is required"),
     state: Yup.string().required("State is required"),
     pincode: Yup.string()
