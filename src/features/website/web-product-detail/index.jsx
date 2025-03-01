@@ -317,7 +317,7 @@ const ProudctDetail = () => {
                         cancel={false}
                       />
                       <p className="text-mid-grey">
-                        ({(detail?.ratings ?? 0).toFixed(1)} Reviews)
+                        ({Math.round(detail.ratings)} Reviews)
                       </p>
                     </button>
                   </div>

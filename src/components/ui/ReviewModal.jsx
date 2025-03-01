@@ -37,12 +37,17 @@ const ReviewModal = ({ visible, setVisible, data }) => {
         },
     });
 
-    const { values, errors, touched, setFieldValue, handleSubmit, handleChange } = formik;
+    const { values, errors, touched, setFieldValue, handleSubmit, handleChange, resetForm } = formik; 
+
+    const handleClose = () => {
+        setVisible(false);
+        resetForm();
+    };
 
 
     return (
         <Dialog className="web-review-modal" header="Add Review" visible={visible} draggable={false}
-        position="center" modal={false} style={{ minWidth: "50vw", borderRadius: "1.25rem", overflow: "hidden" }} onHide={() => setVisible(false)}>
+        position="center" modal={false} style={{ minWidth: "50vw", borderRadius: "1.25rem", overflow: "hidden" }} onHide={() => handleClose()}>
             <form onSubmit={handleSubmit}>
                 <div className="px-lg-3 pt-2">
                     <div className="">
@@ -111,7 +116,7 @@ const ReviewModal = ({ visible, setVisible, data }) => {
                     <button
                         className="button-primary-reverse px-lg-5"
                         type="button"
-                        onClick={() => setVisible(false)}
+                        onClick={() => handleClose()}
                     >
                         Cancel
                     </button>

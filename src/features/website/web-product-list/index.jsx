@@ -1,12 +1,12 @@
 import React, {
   useCallback,
   useEffect,
-  useMemo, 
+  useMemo,
   useState,
 } from "react";
 import Header from "../../../layout/web-layout/Header";
-import Footer from "../../../layout/web-layout/Footer"; 
-import { FiMinus } from "react-icons/fi"; 
+import Footer from "../../../layout/web-layout/Footer";
+import { FiMinus } from "react-icons/fi";
 import starImg from "../../../assets/images/web/products/star.png";
 import { Checkbox } from "primereact/checkbox";
 import ProductCard from "../web-home/components/ProductCard";
@@ -15,19 +15,19 @@ import Loading from "../../../components/ui/Loading";
 import emptyProducts from "../../../assets/images/web/empty-products.png";
 import ScrollTopBehaviour from "../../../custom-compoents/ScrollTopBehaviour";
 import {
-  getCategoriesApi, 
+  getCategoriesApi,
 } from "../../../services/adminApiRoutes";
 import useURLFilters from "../../../custom-compoents/useURLFilters";
 import { Link, useNavigate } from "react-router-dom";
-import { debounce, set } from "lodash"; 
+import { debounce, set } from "lodash";
 import { Offcanvas } from "react-bootstrap";
-import { 
+import {
   fetchProductList,
 } from "../../../redux/slices/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import { GrPowerReset } from "react-icons/gr";
-import Breadcrumbs from "@mui/material/Breadcrumbs"; 
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 import ChildSlider from "../../../components/ui/ChildSlider";
 
 const ProudctList = () => {
@@ -41,7 +41,7 @@ const ProudctList = () => {
 
   const [filters, updateFilters] = useURLFilters();
 
-  const { productList, loading = true, error } = useSelector((state) => state.product); 
+  const { productList, loading = true, error } = useSelector((state) => state.product);
 
   const defaultFilters = useMemo(
     () => ({
@@ -73,7 +73,7 @@ const ProudctList = () => {
   // }, [filters, debouncedFilters]);
 
   useEffect(() => {
-    dispatch(fetchProductList(filters)); 
+    dispatch(fetchProductList(filters));
   }, [filters]);
 
   const areObjectsEqual = (obj1, obj2) =>
@@ -135,7 +135,7 @@ const ProudctList = () => {
   return (
     <div className="web-wrapper-main">
       <Header />
-      <ScrollTopBehaviour/>
+      <ScrollTopBehaviour />
       <div className="pt-4">
         <div className="container fb-container">
           <Breadcrumbs aria-label="breadcrumb">
@@ -544,7 +544,7 @@ const ProudctList = () => {
                     Customer Ratings
                   </h4>
                   <ul className="mt-2">
-                    {[4, 3, 2, 1].map((value) => (
+                    {[5, 4, 3, 2, 1].map((value) => (
                       <li className="d-flex my-3" key={value}>
                         <div className="d-flex align-items-center">
                           <Checkbox
@@ -557,9 +557,11 @@ const ProudctList = () => {
                                   ? prevFilters.rating.split(",").map(Number)
                                   : [];
                                 const selectedRating = Number(e.target.value);
+
                                 const newRatingArray = ratingArray.includes(selectedRating)
                                   ? ratingArray.filter((r) => r !== selectedRating)
                                   : [...ratingArray, selectedRating];
+
                                 return {
                                   ...prevFilters,
                                   rating: newRatingArray.join(","),
@@ -570,17 +572,17 @@ const ProudctList = () => {
                           />
                           <label
                             htmlFor={`rating-${value}`}
-                            className="ms-3 d-flex"
+                            className="ms-3 d-flex align-items-center"
                           >
-                            {value}
-                            <span>
+                            <span className="me-2">{value}</span>
+                            {[...Array(value)].map((_, index) => (
                               <img
-                                className="img-fluid mt-1 mx-1"
+                                key={index}
+                                className="img-fluid me-1"
                                 src={starImg}
                                 alt="star"
                               />
-                            </span>
-                            & More
+                            ))}
                           </label>
                         </div>
                       </li>

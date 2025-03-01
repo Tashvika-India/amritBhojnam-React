@@ -65,7 +65,7 @@ const MyCartMenu = ({ showCart, onCloseCart }) => {
   }, [showCart, dispatch]);
 
   useEffect(() => {
-    if (cartId) {
+    if (cartId ) {
       dispatch(fetchFinalCart({ cartId , coinStatus: coin, coupon: coupon }));
     }
   }, [showCart, dispatch, cartId]);

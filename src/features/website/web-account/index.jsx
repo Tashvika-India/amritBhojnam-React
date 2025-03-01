@@ -54,6 +54,8 @@ import AddressDeleteModal from "../../../components/ui/AddressDeleteModal";
 import OrderListComponent from "./components/OrderListComponent";
 import BackdropLoader from "../../../components/ui/BackdropLoader";
 import ProfileBanner from "../../../components/ui/ProfileBanner";
+import addressSchema from "../../../utils/form-schema/addressSchema";
+import addressIniialValues from "../../../utils/form-inital-values/addressIniialValues";
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -76,36 +78,8 @@ const UserProfile = () => {
 
 
   const formik = useFormik({
-    initialValues: {
-      ads_name: "",
-      ads_phone: "",
-      ads_email: "",
-      house_flat_block_no: "",
-      road_area_colony: "",
-      city: "",
-      state: "",
-      pincode: "",
-      save_as: "",
-    },
-    validationSchema: Yup.object({
-      ads_name: Yup.string().required("Name is required"),
-      ads_phone: Yup.string()
-        .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
-        .required("Phone number is required"),
-      ads_email: Yup.string()
-        .email("Invalid email format")
-        .required("Email is required"),
-      house_flat_block_no: Yup.string().required(
-        "House/Flat/Block No is required"
-      ),
-      road_area_colony: Yup.string().required("Road/Area/Colony is required"),
-      city: Yup.string().required("City is required"),
-      state: Yup.string().required("State is required"),
-      pincode: Yup.string()
-        .matches(/^\d{6}$/, "Pincode must be exactly 6 digits")
-        .required("Pincode is required"),
-      save_as: Yup.string().required("Save as field is required"),
-    }),
+    initialValues: addressIniialValues,
+    validationSchema: addressSchema,
 
     onSubmit: async (values) => {
       editData ? updateAddress(values) : addAddress(values);
@@ -256,6 +230,10 @@ const UserProfile = () => {
     validationSchema: Yup.object({
       full_name: Yup.string().required("Full name is required"),
       email: Yup.string().email("Invalid email").required("Email is required"),
+      phone_number: Yup.string().required("Phone number is required"). matches(
+        /^\d{10}$/,
+        "Phone number must be exactly 10 digits"
+      ),
       date_of_birth: Yup.date()
         .nullable() // Allow null values
         .max(new Date(), "Date of birth cannot be in the future")
