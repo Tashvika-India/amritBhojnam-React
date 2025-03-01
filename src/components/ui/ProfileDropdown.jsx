@@ -4,9 +4,12 @@ import { Dropdown } from 'react-bootstrap';
 import { CiLogout } from 'react-icons/ci';
 import { FaBox, FaRegUser } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const ProfileDropdown = ({ userDetail }) => {
+
+    const navigate = useNavigate();
     const handleLogout = async () => {
+        navigate("/");
         localStorage.clear();
         window.location.reload(true);
     }
@@ -17,7 +20,7 @@ const ProfileDropdown = ({ userDetail }) => {
             <Dropdown.Toggle
                 id="dropdown-basic"
                 as="a"
-                style={{cursor:"pointer"}} className='no-caret'>
+                style={{ cursor: "pointer" }} className='no-caret'>
                 {(window.innerWidth > 992) ?
                     <div className="d-inline-flex flex-column align-items-center position-relative justify-content-center">
                         <FaRegUser size={"1.625rem"} />
