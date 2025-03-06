@@ -51,6 +51,10 @@ function DashboardHome() {
     fetchDashboardData(revenueYear, ordersYear);
   }, [revenueYear, ordersYear]);
 
+
+  console.log("dashboard", dashboard);
+  
+
   return (
     <>
       <Alert severity="info" className="mt-3">Currently, the dashboard data is static and under development. It will be dynamic once the order flow is complete.</Alert>
@@ -139,7 +143,7 @@ function DashboardHome() {
                   />
                 </Link>
               </div>
-              <DashboardOrderTable />
+              <DashboardOrderTable dashboard={dashboard} />
             </div>
           </div>
         </div>

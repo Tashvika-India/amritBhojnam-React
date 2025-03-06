@@ -1,12 +1,7 @@
 import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { FaRegEdit } from "react-icons/fa";
-import productOne from "@/assets/images/dashboard/product-one.png";
-import productTwo from "@/assets/images/dashboard/product-two.png";
-import productThree from "@/assets/images/dashboard/product-three.png";
-import productFour from "@/assets/images/dashboard/product-four.png";
-import productFive from "@/assets/images/dashboard/product-five.png";
+import { FaRegEdit } from "react-icons/fa"; 
 import { Rating } from "primereact/rating";
 
 function DashboardRecentOrderTable({dashboard}) {
@@ -38,7 +33,7 @@ function DashboardRecentOrderTable({dashboard}) {
   };
 
   return (
-    <DataTable value={dashboard?.top_selling_product || []} responsiveLayout="scroll">
+    <DataTable value={dashboard?.top_selling_product || []} responsiveLayout="scroll" paginator rows={4} rowKey="id">
       <Column field="product_name" header="Product" body={imageBodyTemplate}></Column>
       <Column field="offer_price" header="Price"></Column> 
     </DataTable>
