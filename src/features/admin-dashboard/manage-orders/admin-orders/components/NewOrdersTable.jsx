@@ -270,7 +270,8 @@ const NewOrdersTable = ({ order, getOrderList }) => {
         ></Column>
         <Column
           header="Qty."
-          body={(rowData) => `${rowData?.product_details[0]?.item_quantity}`}
+          field="total_item_qty"
+          // body={(rowData) => `${rowData?.product_details[0]?.item_quantity}`}
         ></Column>
         <Column
           header="CUSTOMER"

@@ -29,7 +29,7 @@ function DashboardCategoryTable({ dashboard }) {
   };
 
   return (
-    <DataTable value={dashboard?.categories || []} responsiveLayout="scroll" rows={5}>
+    <DataTable value={dashboard?.categories || []} responsiveLayout="scroll" paginator rows={4} rowKey="id">
       <Column field="category_name" header="Category" body={imageBodyTemplate} />
       <Column field="total_product_of_category" header="Products" />
       {/* <Column header="Action" body={editButtonTemplate} /> */}
