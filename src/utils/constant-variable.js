@@ -128,6 +128,45 @@ export const transformApiData = (apiData) => {
   return formattedData;
 };
 
+
+export const transformRevenueData = (apiData) => {
+  const monthMapping = {
+    january: "Jan",
+    february: "Feb",
+    march: "Mar",
+    april: "Apr",
+    may: "May",
+    june: "Jun",
+    july: "Jul",
+    august: "Aug",
+    september: "Sep",
+    october: "Oct",
+    november: "Nov",
+    december: "Dec",
+  };
+
+  const months = Object.values(monthMapping);
+  const currentYear = new Date().getFullYear();
+  
+  // Create a default dataset with all months set to 0
+  const formattedData = months.map((month) => ({
+    month,
+    revenue: 0,
+    year: currentYear,
+  }));
+
+  // Update default dataset with actual API data
+  apiData.forEach(({ data, year, revenue }) => {
+    const formattedMonth = monthMapping[data.toLowerCase()];
+    const index = formattedData.findIndex((item) => item.month === formattedMonth);
+    if (index !== -1) {
+      formattedData[index].revenue = revenue;
+    }
+  });
+
+  return formattedData;
+};
+
 export const transformApiDataRevenue = (apiData) => {
   const monthMapping = {
     january: "Jan",

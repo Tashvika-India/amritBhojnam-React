@@ -22,7 +22,7 @@ Chart.register(
   Legend
 );
 
-const LineChart = ({ height = 400, chartData = [], revenueData =[] }) => {
+const LineChart = ({ height = 400, chartData = [] }) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const LineChart = ({ height = 400, chartData = [], revenueData =[] }) => {
     }
   }, []);
 
-  // Assuming dynamic data with month, order, and year
+  // Assuming dynamic data with month, revenue, and year
   const months = [
     "Jan",
     "Feb",
@@ -61,10 +61,10 @@ const LineChart = ({ height = 400, chartData = [], revenueData =[] }) => {
     labels: months,
     datasets: [
       {
-        label: "Data Growth",
+        label: "Revenue Growth",
         data: months.map((month) => {
           const monthData = chartData.find((item) => item.month === month);
-          return monthData ? monthData.order : 0; // If no data, return 0
+          return monthData ? monthData.revenue : 0; // If no data, return 0
         }),
         borderColor: orange,
         pointBackgroundColor: orange,

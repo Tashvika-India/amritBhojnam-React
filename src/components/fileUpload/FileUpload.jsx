@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Image } from "primereact/image";
 import { RxCross2 } from "react-icons/rx";
 import { baseURL } from "../../utils/constant-variable";
@@ -6,6 +6,7 @@ import { baseURL } from "../../utils/constant-variable";
 export default function DraggableFileUpload({ formik, name }) {
   const { values, setFieldValue } = formik;
   const [dragActive, setDragActive] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
     const uploadedFile = e.target.files[0];
@@ -37,13 +38,16 @@ export default function DraggableFileUpload({ formik, name }) {
   };
 
   const removeFile = () => {
-    setFieldValue(name, null);
+    setFieldValue(name, null); // Clear the field value in Formik
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""; // Reset the file input value
+    }
   };
 
   return (
     <div className="file-upload-wrapper d-flex gap-3">
       <div className="w-75">
-        <input type="file" id="image" hidden onChange={handleFileChange} />
+        <input type="file" id="image" hidden onChange={handleFileChange} ref={fileInputRef} />
         <label
           htmlFor="image"
           className={`image-uploader ${dragActive ? "drag-active" : ""}`}

@@ -6,7 +6,7 @@ import IosSwitch from "../../../../components/ui/IosSwitch";
 import { baseURL } from "../../../../utils/constant-variable";
 import { notifySuccess } from "../../../../components/ui/Notification";
 
-function CategoryTable({ categories, setEditData, setVisible, categoriesStatusChange }) {
+function CategoryTable({ categories, setEditData, setVisible, categoriesStatusChange, getCategories }) {
   const handleEditClick = (rowData) => {
     setEditData(rowData);
     setVisible(true);
@@ -17,6 +17,7 @@ function CategoryTable({ categories, setEditData, setVisible, categoriesStatusCh
       const updatedStatus = event.target.checked;
       categoriesStatusChange(rowData, updatedStatus);  
       notifySuccess("Status updated successfully");
+      getCategories();
     };
 
     return (

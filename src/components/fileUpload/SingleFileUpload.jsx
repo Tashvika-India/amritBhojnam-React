@@ -39,7 +39,10 @@ export default React.memo(function SingleFileUpload({ formik, name, disabled,set
 
     // Remove file
     const removeFile = () => {
-        !disabled && setFieldValue(name, null);
+        if (!disabled) {
+            setFieldValue(name, null); 
+            setPre(null);  
+        }
     };
 
     useEffect(() => {
