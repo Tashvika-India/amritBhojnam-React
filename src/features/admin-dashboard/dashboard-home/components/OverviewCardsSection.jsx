@@ -37,10 +37,12 @@ function RevenueCard({ title, icon,dashboard }) {
           <h5 className="">{title}</h5>
           <img src={icon}></img>
         </div>
-        <h5 className="mb-2 fw-600">{dashboard?.total_revenue} <small className="fw-400" style={{ fontSize: "0.75rem" }}>Rs</small> </h5>
+        <h5 className="mb-2 fw-600">{~~(dashboard?.total_revenue)} <small className="fw-400" style={{ fontSize: "0.75rem" }}>Rs</small> </h5>
         <div className="d-between">
-          <span className="text-secondary text-sm d-flex gap-2"> <img src={dashboardArrow}></img>{dashboard?.revenue_percentage}% vs last month</span>
-          <span className="text-sm">View all transactions</span>
+          {/* <span className="text-secondary text-sm d-flex gap-2"> 
+            <img src={dashboardArrow}></img>
+          {dashboard.revenue_percentage}% ({dashboard.revenue_comparison})</span> */}
+          {/* <span className="text-sm">View all transactions</span> */}
         </div>
       </div>
     </div>
@@ -58,8 +60,10 @@ function OrderCard({ title, icon, dashboard }) {
         </div>
         <h5 className="mb-2 fw-600">{dashboard?.total_orders} </h5>
         <div className="d-between">
-          <span className="text-secondary text-sm d-flex gap-2"> <img src={dashboardArrow}></img>{dashboard?.orders_percentage}% vs last month</span>
-          <span className="text-sm">View all transactions</span>
+          {/* <span className="text-secondary text-sm d-flex gap-2"> 
+            <img src={dashboardArrow}></img>
+            {dashboard.orders_percentage}% ({dashboard.orders_comparison})</span> */}
+          {/* <span className="text-sm">View all transactions</span> */}
         </div>
       </div>
     </div>
@@ -76,7 +80,7 @@ function TotalProductCard({ title, icon, dashboard }) {
         </div>
         <div className="d-between">
           <span className=""> <h5 className="mb-0 fw-600">{dashboard?.total_products} </h5></span>
-          <span className="text-sm">View all transactions</span>
+          {/* <span className="text-sm">View all transactions</span> */}
         </div>
       </div>
     </div>
@@ -92,8 +96,8 @@ function CategoriesCard({ title, icon, dashboard }) {
           <img src={icon}></img>
         </div>
         <div className="d-between">
-          <span className=""> <h5 className="mb-0 fw-600">{dashboard?.total_categories}  <small className="fw-400" style={{ fontSize: "0.75rem" }}>Rs</small> </h5></span>
-          <span className="text-sm">View all transactions</span>
+          <span className=""> <h5 className="mb-0 fw-600">{dashboard?.total_categories}  <small className="fw-400" style={{ fontSize: "0.75rem" }}></small> </h5></span>
+          {/* <span className="text-sm">View all transactions</span> */}
         </div>
       </div>
     </div>

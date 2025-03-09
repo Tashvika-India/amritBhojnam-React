@@ -8,33 +8,16 @@ import DashboardOrderTable from "./components/DashboardOrderTable";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { Alert, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import DashboardRecentOrderTable from "./components/DashboardRecentOrderTable";
-import { getDashboardApi } from "../../../services/adminApiRoutes";
-import { transformApiData, transformApiDataRevenue } from "../../../utils/constant-variable";
+import { getDashboardApi } from "../../../services/adminApiRoutes"; 
+import { transformRevenueData } from "../../../utils/constant-variable";
 
 function DashboardHome() {
   const [dashboard, setDashboard] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [revenueYear, setRevenueYear] = useState("");
-  const [ordersYear, setOrdersYear] = useState("");
-
-
-  const fetchDashboardData = async (revenueYear, ordersYear) => {
-    setLoading(true);
-    try {
-      const response = await getDashboardApi({
-        revenue_current_year: revenueYear,
-        orders_current_year: ordersYear,
-      });
-      setDashboard(response?.data || []);
-    } catch (error) {
-      console.log("Error on Dashboard List", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: currentYear - 2018 }, (_, i) => currentYear - i);
+  const [revenueYear, setRevenueYear] = useState(currentYear);
+  const [ordersYear, setOrdersYear] = useState(currentYear);
+
 
   const handleRevenueYearChange = (event) => {
     setRevenueYear(event.target.value);
@@ -44,20 +27,48 @@ function DashboardHome() {
     setOrdersYear(event.target.value);
   };
 
-  const orderChartData = transformApiData(dashboard?.orders || []);
-  const revenueChartData = transformApiDataRevenue(dashboard?.revenue_stats || []);
+  // Years array for the dropdown
+  const years = Array.from({ length: currentYear - 2018 }, (_, i) => currentYear - i);
+
+
+  const fetchDashboardData = async (revenueYear, ordersYear) => {
+    setLoading(true);
+
+    // Calculate the start and end dates for the last month
+    const now = new Date();
+    const firstDayOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const lastDayOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+
+    const formatDate = (date) => date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+
+    try {
+      const response = await getDashboardApi({
+        revenue_start_date: formatDate(firstDayOfLastMonth),
+        revenue_end_date: formatDate(lastDayOfLastMonth),
+        order_start_date: formatDate(firstDayOfLastMonth),
+        order_end_date: formatDate(lastDayOfLastMonth),
+      });
+      setDashboard(response?.data || []);
+    } catch (error) {
+      console.log("Error on Dashboard List", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const revenueChartData = transformRevenueData(dashboard?.revenue_stats || []);
+
+
+  const orderChartData = transformRevenueData(dashboard?.orders || []); 
 
   useEffect(() => {
     fetchDashboardData(revenueYear, ordersYear);
   }, [revenueYear, ordersYear]);
 
 
-  console.log("dashboard", dashboard);
-  
-
   return (
     <>
-      <Alert severity="info" className="mt-3">Currently, the dashboard data is static and under development. It will be dynamic once the order flow is complete.</Alert>
+      {/* <Alert severity="info" className="mt-3">Currently, the dashboard data is static and under development. It will be dynamic once the order flow is complete.</Alert> */}
 
       <div className="mt-4 mb-5">
         <Heading value={"Dashboard"} />

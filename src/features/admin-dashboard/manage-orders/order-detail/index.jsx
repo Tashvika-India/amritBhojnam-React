@@ -65,11 +65,11 @@ const AdminOrderDetail = () => {
   const currentStatus = orderData?.status;  
 
   const steps = [
-    { id: 1, name: 'confirmed',title: 'Confirmed', date: "10 Feb, 2025 - 04:00 PM" },
-    { id: 2, name: 'accepted',title: 'Accepted', date: "11 Feb, 2025 - 07:00 PM" },
-    { id: 3, name: 'dispatched', title: 'Ready to dispatch', date: "14 Feb, 2025 - 01:00 PM" },
-    { id: 4, name: 'out_of_delivery', title: 'Out of delivery', date: "14 Feb, 2025 - 05:00 PM" },
-    { id: 5, name: 'delivered', title: 'Delivered', date: "15 Feb, 2025 - 06:00 PM" },
+    { id: 1, name: 'confirmed',title: 'Confirmed', date: " " },
+    { id: 2, name: 'accepted',title: 'Accepted', date: " " },
+    { id: 3, name: 'dispatched', title: 'Ready to dispatch', date: " " },
+    { id: 4, name: 'out_of_delivery', title: 'Out of delivery', date: " " },
+    { id: 5, name: 'delivered', title: 'Delivered', date: " " },
   ];
 
   const stepsline = steps?.filter((items) => items.name !== "confirmed"); 
@@ -253,7 +253,7 @@ const AdminOrderDetail = () => {
               <div className="mb-4">
                 <p className="fw-500 text-mid-grey mb-0 pb-2 fb-fs-14">Email</p>
                 <p className="fw-400" style={{ color: "#584EE0" }}>
-                  {orderData?.delivering_to?.ads_email || "N/A"}
+                  {orderData?.delivering_to?.ads_email || orderData?.delivering_to?.user_detail?.email || "N/A"}
                 </p>
               </div>
               <Divider />

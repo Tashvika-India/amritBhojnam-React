@@ -8,8 +8,7 @@ import Loading from "../../../components/ui/Loading";
 import TabsButtons from "../../../components/ui/TabsButton";
 import { InputText } from "primereact/inputtext";
 import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
+import Breadcrumbs from '@mui/material/Breadcrumbs'; 
 
 
 function ManageCategories() {
@@ -127,6 +126,7 @@ function ManageCategories() {
                 categories={categories}
                 setEditData={setEditData}
                 setVisible={setVisible}
+                getCategories={getCategories}
                 categoriesStatusChange={categoriesStatusChange} // Pass this function
               />
             )}

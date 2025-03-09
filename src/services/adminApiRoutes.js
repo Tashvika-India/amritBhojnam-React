@@ -236,8 +236,7 @@ export const getOrderInvoiceApi = (id) => API.post(`/accounts/invoice_download_b
 
 //Dashboard
 // export const getDashboardApi = () => API.get(`/accounts/dashboard/`);
-export const getDashboardApi = (params = {}) => 
-  API.get('/accounts/dashboard/', { params });
+export const getDashboardApi = (params = {}) => API.get('/accounts/dashboard/', { params });
 
 // Aad meal api 
 export const getMealApi = () => API.get(`/meal_items/`)
