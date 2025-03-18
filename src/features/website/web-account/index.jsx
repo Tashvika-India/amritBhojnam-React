@@ -566,23 +566,7 @@ const UserProfile = () => {
                               }
                             />
                           </div>
-                          {/* <div className="col-md-4 mb-4">
-                            <FormControl fullWidth variant="outlined">
-                              <InputLabel shrink htmlFor="file-input">
-                                Profile Picture
-                              </InputLabel>
-                              <OutlinedInput
-                                id="file-input"
-                                type="file"
-                                notched
-                                disabled={!profileEdit}
-                                onChange={handleImageChange}
-                                label="Profile Picture"
-                                inputProps={{ style: { cursor: "pointer" } }}
-                                className="rounded-3"
-                              />
-                            </FormControl>
-                          </div> */}
+                        
                           <div className="col-md-4 mb-4">
                             <TextField
                               fullWidth

@@ -63,6 +63,7 @@ function LoginForm() {
       }
       notifySuccess("Login successful!");
     } catch (error) {
+      console.log("Error" , error)
       setErrorMessage("Login failed. Please check your credentials.",{error});
       notifyError(error?.response?.data?.non_field_errors[0]); 
     }

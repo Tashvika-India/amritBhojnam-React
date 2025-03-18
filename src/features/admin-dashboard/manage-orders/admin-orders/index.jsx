@@ -9,23 +9,38 @@ import Loading from "../../../../components/ui/Loading";
 import { InputText } from "primereact/inputtext";
 import { notifyError } from "../../../../components/ui/Notification";
 import { Breadcrumbs, Typography } from "@mui/material";
-
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import {
+  DateRangePicker,
+  SingleInputDateRangeField,
+} from "@mui/x-date-pickers-pro";
 function AdminOrders() {
   const [activeTab, setActiveTab] = useState("Active");
   const [loading, setLoading] = useState(false);
-
+  const [dateFilter, setDateFilter] = useState([null, null]);
   const [order, setOrder] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
+  const orderStartDate = dateFilter[0]
+  ? dayjs(dateFilter[0]).format("YYYY-MM-DD")
+  : "";
 
+const orderEndDate = dateFilter[1]
+  ? dayjs(dateFilter[1]).format("YYYY-MM-DD")
+  : "";
+    console.log("dateeeee",orderStartDate,orderEndDate)
   const getOrderList = async () => {
     setLoading(true);
     try {
-      const response = await getAdminOrderListApi(search); 
-      
-      const filteredData = response?.data?.results?.filter((item) => 
-        activeTab === "Active" ? item?.status != "confirmed" : item?.status == "confirmed"
+      const response = await getAdminOrderListApi(search,orderStartDate,orderEndDate);
+
+      const filteredData = response?.data?.results?.filter((item) =>
+        activeTab === "Active"
+          ? item?.status != "confirmed"
+          : item?.status == "confirmed"
       );
-      setOrder(filteredData); 
+      setOrder(filteredData);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -36,8 +51,7 @@ function AdminOrders() {
 
   useEffect(() => {
     getOrderList();
-  }, [search, activeTab]); 
-  
+  }, [search, activeTab,orderStartDate ,orderEndDate]);
 
   return (
     <>
@@ -47,7 +61,7 @@ function AdminOrders() {
         </div>
         <div className="col-12 my-3">
           <Breadcrumbs aria-label="breadcrumb">
-            <Typography >Orders</Typography>
+            <Typography>Orders</Typography>
             <Typography className="text-orange">Order list</Typography>
           </Breadcrumbs>
         </div>
@@ -66,7 +80,35 @@ function AdminOrders() {
                   />
                 </div>
               </div>
-              <div className="col-md-3 ms-auto text-end mb-4">
+              <div className="col-md-3 ms-auto ">
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  fullWidth
+             
+                >
+                  <DateRangePicker
+                    value={dateFilter}
+                    onChange={(newValue) => setDateFilter(newValue)}
+                    slots={{ field: SingleInputDateRangeField }}
+                    slotProps={{
+                      textField: {
+                        size: "small",
+                        label: "Select Date Range",
+                        className :"rounded-2", 
+                        fullWidth: true,
+                        placeholder: "Select Date Range",
+                        sx: { backgroundColor: "white",
+                          "& .MuiInputBase-root": {
+                            minHeight: "2.6875rem",   
+                         
+                          },
+                         },
+                      },
+                    }}
+                  />
+                </LocalizationProvider>
+              </div>
+              <div className="col-md-3 text-end mb-4">
                 <InputText
                   className="w-100 rounded-2 ps-4"
                   type="text"
@@ -77,7 +119,7 @@ function AdminOrders() {
               <div className="col-12">
                 {loading ? (
                   <Loading />
-                ) : ( 
+                ) : (
                   <NewOrdersTable order={order} getOrderList={getOrderList} />
                 )}
               </div>

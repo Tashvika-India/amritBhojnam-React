@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsArrowRepeat } from "react-icons/bs";
 import { HiDownload, HiOutlineExternalLink } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-
+import { downloadInvoiceApi } from "../../../../services/adminApiRoutes";
 const OrderListComponent = ({
   order,
   handleReOrderClick,
@@ -11,6 +11,45 @@ const OrderListComponent = ({
   handleReviewClick,
   tickImg,
 }) => {
+  const [downloadLoading, setDownloadLoading] = useState(false);
+  const handleDownloadInvoice = async (id) => {
+    setDownloadLoading(true);
+    try {
+      const response = await downloadInvoiceApi(id);
+      const base64String = response?.data?.pdf_base64; // Base64 data
+
+      if (base64String) {
+        // Convert Base64 string to a Blob
+        const byteCharacters = atob(base64String); // Decode Base64
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: "application/pdf" });
+
+        // Create a URL for the Blob
+        const blobUrl = window.URL.createObjectURL(blob);
+
+        // Create a temporary link to trigger download
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = "invoice.pdf";
+        name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        window.URL.revokeObjectURL(blobUrl);
+      } else {
+        console.error("No file data found in the response");
+      }
+    } catch (error) {
+      console.error("Error downloading invoice:", error);
+    } finally {
+      setDownloadLoading(false);
+    }
+  };
   return (
     <>
       {order.results.map((item) => (
@@ -59,12 +98,11 @@ const OrderListComponent = ({
                 </button>
                 <button
                   className="fw-500 text-center border-0 text-orange bg-custom-btn-bg d-flex align-items-center py-1 rounded-2 px-2 gap-2"
-                  onClick={() =>
-                    handleInvoiceClick(item?.shipment_order_id || "")
-                  }
+                  disabled ={downloadLoading}
+                  onClick={() => handleDownloadInvoice(item?.id || "")}
                 >
                   <HiDownload size={"1.2rem"} className="buy-again-icon" />
-                  Invoice
+                 {downloadLoading ? "download..." : "Invoice"}
                 </button>
               </div>
             </div>
