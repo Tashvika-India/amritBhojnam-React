@@ -15,8 +15,8 @@ function LoginForm() {
 
   const initialValues = {
 
-    email: "admin@amritbhojanam.com",
-    password: "Admin@2025",
+    email: "",
+    password: "",
   };
 
   const formik = useFormik({
