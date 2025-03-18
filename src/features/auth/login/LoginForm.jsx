@@ -15,8 +15,8 @@ function LoginForm() {
 
   const initialValues = {
 
-    email: "",
-    password: "",
+    email: "admin@amritbhojanam.com",
+    password: "Admin@2025",
   };
 
   const formik = useFormik({
@@ -63,6 +63,7 @@ function LoginForm() {
       }
       notifySuccess("Login successful!");
     } catch (error) {
+      console.log("Error" , error)
       setErrorMessage("Login failed. Please check your credentials.",{error});
       notifyError(error?.response?.data?.non_field_errors[0]); 
     }

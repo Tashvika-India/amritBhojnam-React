@@ -6,19 +6,57 @@ import Heading from "@/components/ui/Heading";
 import LineChart from "../../../components/charts/LineChart";
 import DashboardOrderTable from "./components/DashboardOrderTable";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
-import { Alert, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import DashboardRecentOrderTable from "./components/DashboardRecentOrderTable";
-import { getDashboardApi } from "../../../services/adminApiRoutes"; 
-import { transformRevenueData } from "../../../utils/constant-variable";
 
+import {
+  Alert,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
+import DashboardRecentOrderTable from "./components/DashboardRecentOrderTable";
+import { getDashboardApi } from "../../../services/adminApiRoutes";
+import { transformRevenueData } from "../../../utils/constant-variable";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import {
+  DateRangePicker,
+  SingleInputDateRangeField,
+} from "@mui/x-date-pickers-pro";
 function DashboardHome() {
   const [dashboard, setDashboard] = useState([]);
   const [loading, setLoading] = useState(false);
   const currentYear = new Date().getFullYear();
+  const now = new Date();
+  const firstDayOfLastMonth = new Date(
+    now.getFullYear(),
+    now.getMonth() - 1,
+    1
+  );
+  const lastDayOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
   const [revenueYear, setRevenueYear] = useState(currentYear);
   const [ordersYear, setOrdersYear] = useState(currentYear);
+  const [value, setValue] = useState([
+    dayjs(firstDayOfLastMonth),
+    dayjs(lastDayOfLastMonth),
+  ]);
+  const [orderDate, setorderDate] = useState([
+    dayjs(firstDayOfLastMonth),
+    dayjs(lastDayOfLastMonth),
+  ]);
+  const revenueStartDate = value[0]
+    ? dayjs(value[0]).format("YYYY-MM-DD")
+    : null;
+  const revenueEndDate = value[1] ? dayjs(value[1]).format("YYYY-MM-DD") : null;
+  const orderStartDate = orderDate[0]
+    ? dayjs(orderDate[0]).format("YYYY-MM-DD")
+    : null;
+  const orderEndDate = orderDate[1]
+    ? dayjs(orderDate[1]).format("YYYY-MM-DD")
+    : null;
 
-
+  const formatDate = (date) => date.toISOString().split("T")[0];
   const handleRevenueYearChange = (event) => {
     setRevenueYear(event.target.value);
   };
@@ -28,25 +66,31 @@ function DashboardHome() {
   };
 
   // Years array for the dropdown
-  const years = Array.from({ length: currentYear - 2018 }, (_, i) => currentYear - i);
-
+  const years = Array.from(
+    { length: currentYear - 2018 },
+    (_, i) => currentYear - i
+  );
 
   const fetchDashboardData = async (revenueYear, ordersYear) => {
     setLoading(true);
 
     // Calculate the start and end dates for the last month
     const now = new Date();
-    const firstDayOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const firstDayOfLastMonth = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      1
+    );
     const lastDayOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
 
-    const formatDate = (date) => date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+    const formatDate = (date) => date.toISOString().split("T")[0]; // Format date as YYYY-MM-DD
 
     try {
       const response = await getDashboardApi({
-        revenue_start_date: formatDate(firstDayOfLastMonth),
-        revenue_end_date: formatDate(lastDayOfLastMonth),
-        order_start_date: formatDate(firstDayOfLastMonth),
-        order_end_date: formatDate(lastDayOfLastMonth),
+        revenue_start_date: revenueStartDate,
+        revenue_end_date: revenueEndDate,
+        order_start_date: orderStartDate,
+        order_end_date: orderEndDate,
       });
       setDashboard(response?.data || []);
     } catch (error) {
@@ -58,13 +102,16 @@ function DashboardHome() {
 
   const revenueChartData = transformRevenueData(dashboard?.revenue_stats || []);
 
-
-  const orderChartData = transformRevenueData(dashboard?.orders || []); 
+  const orderChartData = transformRevenueData(dashboard?.orders || []);
 
   useEffect(() => {
-    fetchDashboardData(revenueYear, ordersYear);
-  }, [revenueYear, ordersYear]);
-
+    fetchDashboardData(
+      revenueStartDate,
+      revenueEndDate,
+      orderStartDate,
+      orderEndDate
+    );
+  }, [revenueYear, orderDate, value]);
 
   return (
     <>
@@ -81,26 +128,28 @@ function DashboardHome() {
           <div className="card-body p-4">
             <div className="d-flex justify-content-between">
               <h5 className="mb-3 fw-500">Revenue Status</h5>
-              <div style={{ width: "11%" }}>
-                <FormControl fullWidth>
-                  <InputLabel id="revenue-year-select-label" size="small">
-                    Year
-                  </InputLabel>
-                  <Select
-                    labelId="revenue-year-select-label"
-                    id="revenue-year-select"
-                    value={revenueYear}
-                    label="Year"
-                    size="small"
-                    onChange={handleRevenueYearChange}
-                  >
-                    {years.map((year) => (
-                      <MenuItem key={year} value={year}>
-                        {year}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+              <div style={{ width: "17%" }}>
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  fullWidth
+                  size="small"
+                >
+                  <DateRangePicker
+                    value={value}
+                    onChange={(newValue) => setValue(newValue)}
+                    slots={{ field: SingleInputDateRangeField }}
+                    slotProps={{
+                      textField: {
+                        size: "small",
+                        label: "Select Date Range",
+
+                        fullWidth: true,
+                        placeholder: "Select Date Range",
+                        sx: { backgroundColor: "white" },
+                      },
+                    }}
+                  />
+                </LocalizationProvider>
               </div>
             </div>
             <LineChart height={400} chartData={revenueChartData} />
@@ -113,7 +162,10 @@ function DashboardHome() {
             <div className="card-body">
               <div className="d-between align-items-center p-3">
                 <h5 className="mb-0 fw-500">Categories</h5>
-                <Link to="/admin/category" className="text-orange d-flex align-items-center fw-500 gap-1">
+                <Link
+                  to="/admin/category"
+                  className="text-orange d-flex align-items-center fw-500 gap-1"
+                >
                   View All
                   <MdOutlineKeyboardDoubleArrowRight
                     style={{ fontSize: "large" }}
@@ -129,7 +181,10 @@ function DashboardHome() {
             <div className="card-body">
               <div className="d-between align-items-center p-3">
                 <h5 className="mb-0 fw-500">Top Selling Products</h5>
-                <Link to="/admin/product" className="text-orange d-flex align-items-center fw-500 gap-1">
+                <Link
+                  to="/admin/product"
+                  className="text-orange d-flex align-items-center fw-500 gap-1"
+                >
                   View All
                   <MdOutlineKeyboardDoubleArrowRight
                     style={{ fontSize: "large" }}
@@ -147,7 +202,10 @@ function DashboardHome() {
             <div className="card-body">
               <div className="d-between align-items-center p-3">
                 <h5 className="mb-0 fw-500">Recent Orders</h5>
-                <Link to="/admin/orders" className="text-orange d-flex align-items-center fw-500 gap-1">
+                <Link
+                  to="/admin/orders"
+                  className="text-orange d-flex align-items-center fw-500 gap-1"
+                >
                   View All
                   <MdOutlineKeyboardDoubleArrowRight
                     style={{ fontSize: "large" }}
@@ -163,26 +221,28 @@ function DashboardHome() {
             <div className="card-body h-100">
               <div className="d-flex justify-content-between">
                 <h5 className="mb-3 mt-3 fw-500">Orders</h5>
-                <div style={{ width: "24%" }}>
-                  <FormControl fullWidth>
-                    <InputLabel id="orders-year-select-label" size="small">
-                      Year
-                    </InputLabel>
-                    <Select
-                      labelId="orders-year-select-label"
-                      id="orders-year-select"
-                      value={ordersYear}
-                      label="Year"
-                      size="small"
-                      onChange={handleOrdersYearChange}
-                    >
-                      {years.map((year) => (
-                        <MenuItem key={year} value={year}>
-                          {year}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
+                <div style={{ width: "31%" }}>
+                  <LocalizationProvider
+                    dateAdapter={AdapterDayjs}
+                    fullWidth
+                    size="small"
+                  >
+                    <DateRangePicker
+                      value={value}
+                      onChange={(newValue) => setorderDate(newValue)}
+                      slots={{ field: SingleInputDateRangeField }}
+                      slotProps={{
+                        textField: {
+                          size: "small",
+                          label: "Select Date Range",
+
+                          fullWidth: true,
+                          placeholder: "Select Date Range",
+                          sx: { backgroundColor: "white" },
+                        },
+                      }}
+                    />
+                  </LocalizationProvider>
                 </div>
               </div>
               <LineChart height={370} chartData={orderChartData} />

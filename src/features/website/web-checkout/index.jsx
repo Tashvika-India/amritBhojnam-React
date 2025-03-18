@@ -82,14 +82,15 @@ const CheckoutPage = () => {
   const coupon_code = searchParams.get("couponCode") || "";
   const coin_status = searchParams.get("coinStatus") || "";
 
-
   const handleCouponApply = async (coupon) => {
     setCouponCode(coupon);
     setCoinStatus(coin_status);
     navigate(`?couponCode=${coupon || ""}&coinStatus=${coinStatus}`);
-    await dispatch( fetchFinalCart({ cartId, coinStatus: coinStatus, coupon: coupon })).unwrap()
+    await dispatch(
+      fetchFinalCart({ cartId, coinStatus: coinStatus, coupon: coupon })
+    ).unwrap();
     await getCouponList();
-};
+  };
 
   const getCouponList = async () => {
     try {
@@ -189,14 +190,15 @@ const CheckoutPage = () => {
     },
   });
 
-
   const getAddressList = async () => {
     setLoadingNew(true);
     try {
       const response = await getAddressApi();
       setAddressList(response?.data || []);
       setLoadingNew(false);
-      dispatch(fetchFinalCart({ cartId, coinStatus: coin_status, coupon: coupon_code }));
+      dispatch(
+        fetchFinalCart({ cartId, coinStatus: coin_status, coupon: coupon_code })
+      );
       scrollTo(0, 0);
     } catch (error) {
       console.log("Error fetching cart data:", error);
@@ -214,7 +216,7 @@ const CheckoutPage = () => {
         getAddressList();
         dispatch(fetchFinalCart({ cartId }));
         notifySuccess("Address added Successfully");
-      } 
+      }
       setAddressLoading(false);
       setOpen(false);
       formik.resetForm();
@@ -239,7 +241,7 @@ const CheckoutPage = () => {
       setLoadingNew(false);
       setOpen(false);
       setEditData(null);
-      notifySuccess("Address updated Successfully"); 
+      notifySuccess("Address updated Successfully");
       formik.resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -252,7 +254,7 @@ const CheckoutPage = () => {
   const handleSelectAddress = async (address_id) => {
     try {
       await postSelectAddressApi({ address_id });
-      getAddressList(); 
+      getAddressList();
       notifySuccess("Address Selected Successfully");
     } catch (error) {
       console.log("Error fetching cart data:", error);
@@ -290,7 +292,6 @@ const CheckoutPage = () => {
     getCouponList();
   }, []);
 
-
   return (
     <div className="web-wrapper-main">
       <Header />
@@ -311,18 +312,21 @@ const CheckoutPage = () => {
               <p className="fb-fs-40 fw-bold mt-4 mb-4 checkout-head">
                 Checkout
               </p>
-              
+
               <div className="row">
                 <div className="col-lg-7 col-md-12 grid grid-col-2 order-lg-1 order-md-2 order-2">
-                <p className="fb-fs-26 fw-bold checkout-save">Saved Address</p>
+                  <p className="fb-fs-26 fw-bold checkout-save">
+                    Saved Address
+                  </p>
                   {loadingNew ? (
                     <Loading />
                   ) : addressList.length > 0 ? (
                     addressList.map((item, index) => (
                       <>
                         <div
-                          className={`summary-card ${item?.selected ? "active" : ""
-                            } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
+                          className={`summary-card ${
+                            item?.selected ? "active" : ""
+                          } rounded-20 px-2 py-3 mt-3 cursor-pointer`}
                           key={item?.id}
                         >
                           <div className="px-md-3">
@@ -330,8 +334,9 @@ const CheckoutPage = () => {
                               <div className="col-md-12 d-flex justify-content-between">
                                 <div className="order-date d-flex gap-2">
                                   <img
-                                    className={`img-fluid me-1 rounded-4 align-self-start ${item?.selected ? "shadow" : ""
-                                      }`}
+                                    className={`img-fluid me-1 rounded-4 align-self-start ${
+                                      item?.selected ? "shadow" : ""
+                                    }`}
                                     src={
                                       item?.save_as === "Home"
                                         ? homeImg
@@ -518,7 +523,7 @@ const CheckoutPage = () => {
                           variant="yellow"
                           now={Math.min(
                             (1000 - (finalCart?.shipping_free_amount || 0)) /
-                            10,
+                              10,
                             100
                           )}
                           style={{ height: "5px" }}
@@ -555,9 +560,10 @@ const CheckoutPage = () => {
                                   )} X ${item?.item_quantity}`}</h6>
                                 </div>
                                 <div className="product-quantity text-end d-flex align-items-center">
-                                  <h6 style={{ fontWeight: "800" }}>{`₹${Math.trunc(item?.price) *
+                                  <h6 style={{ fontWeight: "800" }}>{`₹${
+                                    Math.trunc(item?.price) *
                                     item?.item_quantity
-                                    }`}</h6>
+                                  }`}</h6>
                                 </div>
                               </div>
                             </>
@@ -601,24 +607,29 @@ const CheckoutPage = () => {
                                   </span>
                                   <span className="fb-fs-18 fw-500 text-success">
                                     {finalCart?.coupon_data?.coupon_discount ===
-                                      undefined
+                                    undefined
                                       ? "₹ 0"
-                                      : `₹${finalCart?.coupon_data
-                                        ?.coupon_discount == 0
-                                        ? 0
-                                        : `-${finalCart?.coupon_data?.coupon_discount}`
-                                      }`}
+                                      : `₹${
+                                          finalCart?.coupon_data
+                                            ?.coupon_discount == 0
+                                            ? 0
+                                            : `-${finalCart?.coupon_data?.coupon_discount}`
+                                        }`}
                                   </span>
                                 </li>
                               )}
-                              {finalCart?.apply_amrit_coins && <li className="d-flex justify-content-between my-2">
-                                <span className="fw-500 text-success">Amrit Coin Discount</span>
-                                <span className="fb-fs-18 fw-500 text-success">
-                                  {finalCart?.amrit_coins_rs_off === undefined
-                                    ? "₹ 0"
-                                    : `₹ -${finalCart?.amrit_coins_rs_off}`}
-                                </span>
-                              </li>}
+                              {finalCart?.apply_amrit_coins && (
+                                <li className="d-flex justify-content-between my-2">
+                                  <span className="fw-500 text-success">
+                                    Amrit Coin Discount
+                                  </span>
+                                  <span className="fb-fs-18 fw-500 text-success">
+                                    {finalCart?.amrit_coins_rs_off === undefined
+                                      ? "₹ 0"
+                                      : `₹ -${finalCart?.amrit_coins_rs_off}`}
+                                  </span>
+                                </li>
+                              )}
                               {finalCart?.shipping_charge > 0 && (
                                 <li className="d-flex justify-content-between my-2">
                                   <span className="fw-500 text-orange">
@@ -663,7 +674,8 @@ const CheckoutPage = () => {
                               </div>
                               <div className="d-flex justify-content-between mt-2">
                                 <p className="">
-                                  Total Balance : <span className="fw-600">
+                                  Total Balance :{" "}
+                                  <span className="fw-600">
                                     {finalCart?.total_amrit_coins}
                                   </span>
                                 </p>
@@ -727,7 +739,7 @@ const CheckoutPage = () => {
                               {finalCart?.earn_amrit_coins} Amrit Coins
                             </span>
                             on this purchase &nbsp;
-                            <div className="me-2 mt-lg-2 mt-md-2 mt-1" >
+                            <div className="me-2 mt-lg-2 mt-md-2 mt-1">
                               <Tooltip
                                 content={
                                   <>
@@ -781,7 +793,8 @@ const CheckoutPage = () => {
                                       finalCart?.courier_id,
                                       finalCart?.apply_amrit_coins
                                     )
-                                  }>
+                                  }
+                                >
                                   Proceed to Pay
                                 </button>
                               </>
@@ -803,10 +816,9 @@ const CheckoutPage = () => {
                       ) : (
                         <>
                           <div className="w-100 text-center">
-                        {  loading ? (
-                            <BackdropLoader open={loading} />
-                          ) : (
-                            cartItems.length > 0 ? (
+                            {loading ? (
+                              <BackdropLoader open={loading} />
+                            ) : cartItems.length > 0 ? (
                               <h6 className="text-danger text-uppercase fs-6 mt-3">
                                 Please Add Your address
                               </h6>
@@ -817,10 +829,12 @@ const CheckoutPage = () => {
                                   alt="empty-cart"
                                   className="img-fluid mx-auto empty-cart-image w-25"
                                 />
-                                <h4 className="text-black">Your Cart is Empty!</h4>
+                                <h4 className="text-black">
+                                  Your Cart is Empty!
+                                </h4>
                                 <small className="text-muted text-balance mb-4">
-                                  Looks like you haven’t added anything to your cart
-                                  yet
+                                  Looks like you haven’t added anything to your
+                                  cart yet
                                 </small>
                                 <Link
                                   className="button-primary d-block fw-normal mt-3"
@@ -830,7 +844,7 @@ const CheckoutPage = () => {
                                   Browse Products
                                 </Link>
                               </div>
-                            ))}
+                            )}
                           </div>
                         </>
                       )}
