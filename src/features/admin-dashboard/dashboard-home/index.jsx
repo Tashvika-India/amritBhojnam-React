@@ -59,6 +59,7 @@ function DashboardHome() {
     : null;
 
   const handleDateChange = (range) => {
+    console.log("range",range)
     if (range && range.length === 2) {
       setSelectedRange(range);
     }
