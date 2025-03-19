@@ -9,7 +9,7 @@ function DashboardRecentOrderTable({dashboard}) {
   // Template for displaying category image and name
   const imageBodyTemplate = (rowData) => {
     return (
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center",padding: "0.5625rem 0" }}>
         <img 
           src={rowData.product_img}
           alt={rowData.name}
