@@ -88,8 +88,8 @@ function OrderCard({ title, icon, dashboard }) {
         <h5 className="mb-2 fw-600">{dashboard?.total_orders} </h5>
         <div className="d-between">
           <span className="text-secondary text-sm d-flex gap-2">
-          <>
-              {dashboard?.revenue_comparison == "Up" ? (
+            <>
+              {dashboard?.orders_comparison == "Up" ? (
                 <HiArrowTrendingUp
                   size={23}
                   className="text-success "

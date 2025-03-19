@@ -16,6 +16,7 @@ function AdminOrders() {
   const [dateFilter, setDateFilter] = useState([null, null]);
   const [order, setOrder] = useState([]);
   const [search, setSearch] = useState("");
+  const [timer, setTimer] = useState(null);
   const [selectedOrderRange, setSelectedOrderRange] = useState(null);
   const orderStartDate = selectedOrderRange?.[0]
     ? dayjs(selectedOrderRange[0]).format("YYYY-MM-DD")
@@ -51,8 +52,14 @@ function AdminOrders() {
     }
   };
 
+ 
   useEffect(() => {
-    getOrderList();
+    clearTimeout(timer);
+    const delay = setTimeout(() => {
+      getOrderList();
+    }, 1000);
+    setTimer(delay);
+    return () => clearTimeout(delay);
   }, [search, activeTab, orderStartDate, orderEndDate]);
 
   return (
