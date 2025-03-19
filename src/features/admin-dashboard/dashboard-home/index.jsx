@@ -7,23 +7,13 @@ import LineChart from "../../../components/charts/LineChart";
 import DashboardOrderTable from "./components/DashboardOrderTable";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { transformApiDataRevenue } from "../../../utils/constant-variable";
-import {
-  Alert,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
 import DashboardRecentOrderTable from "./components/DashboardRecentOrderTable";
 import { getDashboardApi } from "../../../services/adminApiRoutes";
 import { transformRevenueData } from "../../../utils/constant-variable";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import {
-  DateRangePicker,
-  SingleInputDateRangeField,
-} from "@mui/x-date-pickers-pro";
+import "rsuite/dist/rsuite.min.css"; //
+import { DateRangePicker } from "rsuite";
+
 function DashboardHome() {
   const [dashboard, setDashboard] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -37,24 +27,48 @@ function DashboardHome() {
   const lastDayOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
   const [revenueYear, setRevenueYear] = useState(currentYear);
   const [ordersYear, setOrdersYear] = useState(currentYear);
-  const [value, setValue] = useState([
-    dayjs(firstDayOfLastMonth),
-    dayjs(lastDayOfLastMonth),
+  const firstDayOfCurrentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const lastDayOfCurrentMonth = new Date(
+    now.getFullYear(),
+    now.getMonth() + 1,
+    0
+  );
+
+  const [selectedRange, setSelectedRange] = useState([
+    firstDayOfCurrentMonth,
+    lastDayOfCurrentMonth,
   ]);
-  const [orderDate, setorderDate] = useState([
-    dayjs(firstDayOfLastMonth),
-    dayjs(lastDayOfLastMonth),
+
+  const [selectedOrderRange, setSelectedOrderRange] = useState([
+    firstDayOfCurrentMonth,
+    lastDayOfCurrentMonth,
   ]);
-  const revenueStartDate = value[0]
-    ? dayjs(value[0]).format("YYYY-MM-DD")
+
+  const revenueStartDate = selectedRange?.[0]
+    ? dayjs(selectedRange[0]).format("YYYY-MM-DD")
     : null;
-  const revenueEndDate = value[1] ? dayjs(value[1]).format("YYYY-MM-DD") : null;
-  const orderStartDate = orderDate[0]
-    ? dayjs(orderDate[0]).format("YYYY-MM-DD")
+  const revenueEndDate = selectedRange?.[1]
+    ? dayjs(selectedRange[1]).format("YYYY-MM-DD")
     : null;
-  const orderEndDate = orderDate[1]
-    ? dayjs(orderDate[1]).format("YYYY-MM-DD")
+
+  const orderStartDate = selectedOrderRange?.[0]
+    ? dayjs(selectedOrderRange[0]).format("YYYY-MM-DD")
     : null;
+  const orderEndDate = selectedOrderRange?.[1]
+    ? dayjs(selectedOrderRange[1]).format("YYYY-MM-DD")
+    : null;
+
+  const handleDateChange = (range) => {
+    if (range && range.length === 2) {
+      setSelectedRange(range);
+    }
+  };
+
+  const handleOrderDateChange = (range) => {
+    if (range && range.length === 2) {
+      setSelectedOrderRange(range);
+    }
+  };
 
   const formatDate = (date) => date.toISOString().split("T")[0];
   const handleRevenueYearChange = (event) => {
@@ -74,17 +88,6 @@ function DashboardHome() {
   const fetchDashboardData = async (revenueYear, ordersYear) => {
     setLoading(true);
 
-    // Calculate the start and end dates for the last month
-    const now = new Date();
-    const firstDayOfLastMonth = new Date(
-      now.getFullYear(),
-      now.getMonth() - 1,
-      1
-    );
-    const lastDayOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-
-    const formatDate = (date) => date.toISOString().split("T")[0]; // Format date as YYYY-MM-DD
-
     try {
       const response = await getDashboardApi({
         revenue_start_date: revenueStartDate,
@@ -100,8 +103,10 @@ function DashboardHome() {
     }
   };
 
-  const revenueChartData = transformApiDataRevenue(dashboard?.revenue_stats || []);
-  console.log("revenue",revenueChartData)
+  const revenueChartData = transformApiDataRevenue(
+    dashboard?.revenue_stats || []
+  );
+  console.log("revenue", revenueChartData);
 
   const orderChartData = transformRevenueData(dashboard?.orders || []);
 
@@ -112,7 +117,7 @@ function DashboardHome() {
       orderStartDate,
       orderEndDate
     );
-  }, [revenueYear, orderDate, value]);
+  }, [revenueYear, selectedRange, selectedOrderRange]);
 
   return (
     <>
@@ -130,30 +135,17 @@ function DashboardHome() {
             <div className="d-flex justify-content-between">
               <h5 className="mb-3 fw-500">Revenue Status</h5>
               <div style={{ width: "17%" }}>
-                <LocalizationProvider
-                  dateAdapter={AdapterDayjs}
-                  fullWidth
-                  size="small"
-                >
-                  <DateRangePicker
-                    value={value}
-                    onChange={(newValue) => setValue(newValue)}
-                    slots={{ field: SingleInputDateRangeField }}
-                    slotProps={{
-                      textField: {
-                        size: "small",
-                        label: "Select Date Range",
-
-                        fullWidth: true,
-                        placeholder: "Select Date Range",
-                        sx: { backgroundColor: "white" },
-                      },
-                    }}
-                  />
-                </LocalizationProvider>
+                <DateRangePicker
+                  className="w-100 border-1 border-grey-3"
+                  placement="bottomEnd"
+                  placeholder="Select Date Range"
+                  format="dd-MM-yyyy"
+                  value={selectedRange}
+                  onChange={handleDateChange}
+                />
               </div>
             </div>
-            <LineChart height={400} chartData={revenueChartData} />
+            <LineChart height={400} chartData={dashboard?.revenue_stats} />
           </div>
         </div>
       </div>
@@ -223,30 +215,17 @@ function DashboardHome() {
               <div className="d-flex justify-content-between">
                 <h5 className="mb-3 mt-3 fw-500">Orders</h5>
                 <div style={{ width: "31%" }}>
-                  <LocalizationProvider
-                    dateAdapter={AdapterDayjs}
-                    fullWidth
-                    size="small"
-                  >
-                    <DateRangePicker
-                      value={value}
-                      onChange={(newValue) => setorderDate(newValue)}
-                      slots={{ field: SingleInputDateRangeField }}
-                      slotProps={{
-                        textField: {
-                          size: "small",
-                          label: "Select Date Range",
-
-                          fullWidth: true,
-                          placeholder: "Select Date Range",
-                          sx: { backgroundColor: "white" },
-                        },
-                      }}
-                    />
-                  </LocalizationProvider>
+                  <DateRangePicker
+                    className="w-100 border-1 border-grey-3"
+                    placement="bottomEnd"
+                    placeholder="Select Date Range"
+                    format="dd-MM-yyyy"
+                    value={selectedOrderRange}
+                    onChange={handleOrderDateChange}
+                  />
                 </div>
               </div>
-              <LineChart height={370} chartData={orderChartData} />
+              <LineChart height={370} chartData={dashboard?.orders} />
             </div>
           </div>
         </div>

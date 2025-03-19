@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
-import YellowButton from "@/components/buttons/YellowButton";
-import ActiveOrdersTable from "./components/ActiveOrdersTable";
 import TabsButtons from "../../../../components/ui/TabsButton";
 import NewOrdersTable from "./components/NewOrdersTable";
 import { getAdminOrderListApi } from "../../../../services/adminApiRoutes";
@@ -9,31 +7,35 @@ import Loading from "../../../../components/ui/Loading";
 import { InputText } from "primereact/inputtext";
 import { notifyError } from "../../../../components/ui/Notification";
 import { Breadcrumbs, Typography } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import {
-  DateRangePicker,
-  SingleInputDateRangeField,
-} from "@mui/x-date-pickers-pro";
+import { DateRangePicker } from "rsuite";
+
 function AdminOrders() {
   const [activeTab, setActiveTab] = useState("Active");
   const [loading, setLoading] = useState(false);
   const [dateFilter, setDateFilter] = useState([null, null]);
   const [order, setOrder] = useState([]);
   const [search, setSearch] = useState("");
-  const orderStartDate = dateFilter[0]
-  ? dayjs(dateFilter[0]).format("YYYY-MM-DD")
-  : "";
-
-const orderEndDate = dateFilter[1]
-  ? dayjs(dateFilter[1]).format("YYYY-MM-DD")
-  : "";
-    console.log("dateeeee",orderStartDate,orderEndDate)
+  const [selectedOrderRange, setSelectedOrderRange] = useState(null);
+  const orderStartDate = selectedOrderRange?.[0]
+    ? dayjs(selectedOrderRange[0]).format("YYYY-MM-DD")
+    : null;
+  const orderEndDate = selectedOrderRange?.[1]
+    ? dayjs(selectedOrderRange[1]).format("YYYY-MM-DD")
+    : null;
+  const handleOrderDateChange = (range) => {
+    if (range && range.length === 2) {
+      setSelectedOrderRange(range);
+    }
+  };
   const getOrderList = async () => {
     setLoading(true);
     try {
-      const response = await getAdminOrderListApi(search,orderStartDate,orderEndDate);
+      const response = await getAdminOrderListApi(
+        search,
+        orderStartDate,
+        orderEndDate
+      );
 
       const filteredData = response?.data?.results?.filter((item) =>
         activeTab === "Active"
@@ -51,7 +53,7 @@ const orderEndDate = dateFilter[1]
 
   useEffect(() => {
     getOrderList();
-  }, [search, activeTab,orderStartDate ,orderEndDate]);
+  }, [search, activeTab, orderStartDate, orderEndDate]);
 
   return (
     <>
@@ -81,32 +83,16 @@ const orderEndDate = dateFilter[1]
                 </div>
               </div>
               <div className="col-md-3 ms-auto ">
-                <LocalizationProvider
-                  dateAdapter={AdapterDayjs}
-                  fullWidth
-             
-                >
-                  <DateRangePicker
-                    value={dateFilter}
-                    onChange={(newValue) => setDateFilter(newValue)}
-                    slots={{ field: SingleInputDateRangeField }}
-                    slotProps={{
-                      textField: {
-                        size: "small",
-                        label: "Select Date Range",
-                        className :"rounded-2", 
-                        fullWidth: true,
-                        placeholder: "Select Date Range",
-                        sx: { backgroundColor: "white",
-                          "& .MuiInputBase-root": {
-                            minHeight: "2.6875rem",   
-                         
-                          },
-                         },
-                      },
-                    }}
-                  />
-                </LocalizationProvider>
+               
+                <DateRangePicker
+                  className="w-100 border-1 border-grey-3 custom-date-range "
+                  placement="bottomEnd"
+                  placeholder="Select Date Range"
+                  format="dd-MM-yyyy"
+                  value={selectedOrderRange}
+                  onChange={handleOrderDateChange}
+                  style={{height:"45px"}}
+                />
               </div>
               <div className="col-md-3 text-end mb-4">
                 <InputText
