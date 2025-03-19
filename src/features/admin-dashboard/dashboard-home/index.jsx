@@ -6,7 +6,7 @@ import Heading from "@/components/ui/Heading";
 import LineChart from "../../../components/charts/LineChart";
 import DashboardOrderTable from "./components/DashboardOrderTable";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
-
+import { transformApiDataRevenue } from "../../../utils/constant-variable";
 import {
   Alert,
   FormControl,
@@ -100,7 +100,8 @@ function DashboardHome() {
     }
   };
 
-  const revenueChartData = transformRevenueData(dashboard?.revenue_stats || []);
+  const revenueChartData = transformApiDataRevenue(dashboard?.revenue_stats || []);
+  console.log("revenue",revenueChartData)
 
   const orderChartData = transformRevenueData(dashboard?.orders || []);
 
