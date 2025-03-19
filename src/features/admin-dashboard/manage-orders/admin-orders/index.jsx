@@ -91,7 +91,7 @@ function AdminOrders() {
                   format="dd-MM-yyyy"
                   value={selectedOrderRange}
                   onChange={handleOrderDateChange}
-                  style={{height:"45px"}}
+                
                 />
               </div>
               <div className="col-md-3 text-end mb-4">
