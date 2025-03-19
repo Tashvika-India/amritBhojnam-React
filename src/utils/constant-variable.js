@@ -194,7 +194,8 @@ export const transformApiDataRevenue = (apiData) => {
 
   // Update default dataset with actual API data
   apiData.forEach(({ month, year, revenue }) => {
-    const formattedMonth = monthMapping[month.toLowerCase()];
+    const formattedMonth = monthMapping[month?.toLowerCase()];
+    console.log(formattedMonth)
     const index = formattedData.findIndex((item) => item.month === formattedMonth);
     if (index !== -1) {
       formattedData[index].order = revenue;

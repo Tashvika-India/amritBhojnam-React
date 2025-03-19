@@ -19,7 +19,7 @@ function DashboardOrderTable({dashboard}) {
   // Template for the Edit button
   const statusTemplate = (rowData) => {
     return (
-      <p className="fw-500">
+      <p className="fw-500 text-capitalize">
           {rowData.order_status}
       </p>
     );
