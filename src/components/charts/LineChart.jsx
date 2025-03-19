@@ -128,7 +128,7 @@ Chart.register(
   Legend
 );
 
-const LineChart = ({ height = 400, chartData = [] }) => {
+const LineChart = ({ height = 400, chartData = [],tooltipLabel }) => {
   const chartRef = useRef(null);
 console.log("chartData",chartData)
   useEffect(() => {
@@ -161,14 +161,21 @@ console.log("chartData",chartData)
     "Nov",
     "Dec",
   ];
-const labels = chartData.map((data)=>data?.data)
+
+const labels = chartData.map((data) => {
+  let label = data?.data;
+ 
+  if (label == "0am") return "12am";
+  if (label == "0pm") return "12pm";
+  return label;
+})
 const values = chartData.map((data)=>data?.value)
   // Map dynamic data to chart-friendly format
   const data = {
     labels:labels ,
     datasets: [
       {
-        label: "Revenue Growth",
+        label: tooltipLabel,
         data: values,
         borderColor: orange,
         pointBackgroundColor: orange,
