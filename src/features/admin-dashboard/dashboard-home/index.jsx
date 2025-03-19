@@ -145,7 +145,7 @@ function DashboardHome() {
                 />
               </div>
             </div>
-            <LineChart height={400} chartData={dashboard?.revenue_stats} />
+            <LineChart height={400} chartData={dashboard?.revenue_stats} tooltipLabel={"Revenue Growth"} />
           </div>
         </div>
       </div>
@@ -225,7 +225,7 @@ function DashboardHome() {
                   />
                 </div>
               </div>
-              <LineChart height={370} chartData={dashboard?.orders} />
+              <LineChart height={370} chartData={dashboard?.orders}  tooltipLabel={"Order"}/>
             </div>
           </div>
         </div>
