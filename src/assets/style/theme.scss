@@ -26,7 +26,12 @@ $light-orange: #ffede3;
     border-color: var(--primary-color);
 }
 
-tr{
+tr {
     border-bottom: 1px solid #eeeeee !important;
 }
 
+.custom-date-range .rs-input {
+
+    height: 40px;
+
+}
