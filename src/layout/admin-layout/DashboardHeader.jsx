@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -21,7 +21,8 @@ import notificationIcon from "../../assets/images/dashboard/notification-bag-ico
 import notificationBell from "../../assets/images/dashboard/notification-bell.png";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import coinManagement from "../../assets/images/dashboard/coin-management.png";
-
+import { getNotificationApi } from "../../services/adminApiRoutes";
+import Loading from "../../components/ui/Loading";
 const drawerWidth = 280;
 
 const AppBar = styled(MuiAppBar, {
@@ -54,6 +55,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
 
   const handleNotificationsClose = () => {
     setAnchorElNotifications(null);
+
   };
 
   const notifications = [
@@ -66,7 +68,7 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
   ];
 
   const [loading, setLoading] = useState(false);
-
+const[notification,setNotification] = useState([])
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -89,7 +91,25 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
       navigate("/admin/login");
     }, 1000);
   };
+const handleNotification =async()=>{
+  setLoading(true)
+try{
+  const response = await getNotificationApi()
+  setNotification(response?.data)
+  
+}catch(error){
+  console.log(error)
+}finally{
+  setLoading(false)
+}
+}
 
+useEffect(()=>{
+  if(openNotificationsMenu){
+    handleNotification()
+  }
+
+},[openNotificationsMenu])
   return (
     <>
       <AppBar position="fixed" open={open}>
@@ -149,24 +169,24 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                   sx={{ padding: 2 }}
                   style={{ maxHeight: "97vh", overflowY: "auto" }}
                 >
-                  <div
-                    className="d-flex justify-content-between align-items-center py-2"
+                  {loading?<Loading/>:notification?.results?.length>0?notification?.results?.slice(0,5)?.map((notification,index)=> <div
+                    className="d-flex justify-content-between align-items-center py-2" key={index}
                     style={{ borderBottom: "1px solid #EEEEEE" }}
                   >
                     <ul>
                       <li className="d-flex gap-2 align-items-center">
                         <img
                           className="img-fluid mt-1 mx-1"
-                          src={orderDelivered}
+                          src={notification?.icon_url}
                           style={{ maxWidth: "3.5rem" }}
                           alt="star"
                         />
                         <div>
                           <p className="fb-fs-18 fw-600 mb-0">
-                            New Order Received
+                           {notification?.web_notification_title}
                           </p>
                           <p className="mb-0" style={{ fontSize: "12.2px" }}>
-                            Order #7890 placed by Rahul ₹2,49. Payment...
+                          {notification?.sub_title}
                           </p>
                         </div>
                       </li>
@@ -177,153 +197,22 @@ export default function DashboardHeader({ open, handleDrawerOpen }) {
                           className="text-mid-grey mb-0 me-2 w-100"
                           style={{ fontSize: "13px" }}
                         >
-                          1 Day ago
+                         {notification?.days} Day ago
                         </p>
                       </li>
                     </ul>
-                  </div>
-                  <div
-                    className="d-flex justify-content-between align-items-center py-2"
-                    style={{ borderBottom: "1px solid #EEEEEE" }}
-                  >
-                    <ul>
-                      <li className="d-flex gap-2 align-items-center">
-                        <img
-                          className="img-fluid mt-1 mx-1"
-                          src={orderDelivered}
-                          style={{ maxWidth: "3.5rem" }}
-                          alt="star"
-                        />
-                        <div>
-                          <p className="fb-fs-18 fw-600 mb-0">
-                            New Order Received
-                          </p>
-                          <p className="mb-0" style={{ fontSize: "12.2px" }}>
-                            Order #7890 placed by Rahul ₹2,49. Payment...
-                          </p>
-                        </div>
-                      </li>
-                    </ul>
-                    <ul>
-                      <li style={{ width: "100%" }}>
-                        <p
-                          className="text-mid-grey mb-0 me-2"
-                          style={{ fontSize: "13px" }}
-                        >
-                          1 Day ago
-                        </p>
-                      </li>
-                    </ul>
-                  </div>
-                  <div
-                    className="d-flex justify-content-between align-items-center py-2"
-                    style={{ borderBottom: "1px solid #EEEEEE" }}
-                  >
-                    <ul>
-                      <li className="d-flex gap-2 align-items-center">
-                        <img
-                          className="img-fluid mt-1 mx-1"
-                          src={notificationIcon}
-                          style={{ maxWidth: "3.5rem" }}
-                          alt="star"
-                        />
-                        <div>
-                          <p className="fb-fs-18 fw-600 mb-0">
-                            New Order Received
-                          </p>
-                          <p className="mb-0" style={{ fontSize: "12.2px" }}>
-                            Order #7890 placed by Rahul ₹2,49. Payment...
-                          </p>
-                        </div>
-                      </li>
-                    </ul>
-                    <ul>
-                      <li style={{ width: "100%" }}>
-                        <p
-                          className="text-mid-grey mb-0 me-2"
-                          style={{ fontSize: "13px" }}
-                        >
-                          1 Day ago
-                        </p>
-                      </li>
-                    </ul>
-                  </div>
-                  <div
-                    className="d-flex justify-content-between align-items-center py-2"
-                    style={{ borderBottom: "1px solid #EEEEEE" }}
-                  >
-                    <ul>
-                      <li className="d-flex gap-2 align-items-center">
-                        <img
-                          className="img-fluid mt-1 mx-1"
-                          src={notificationBell}
-                          style={{ maxWidth: "3.5rem" }}
-                          alt="star"
-                        />
-                        <div>
-                          <p className="fb-fs-18 fw-600 mb-0">
-                            New Order Received
-                          </p>
-                          <p className="mb-0" style={{ fontSize: "12.2px" }}>
-                            Order #7890 placed by Rahul ₹2,49. Payment...
-                          </p>
-                        </div>
-                      </li>
-                    </ul>
-                    <ul>
-                      <li style={{ width: "100%" }}>
-                        <p
-                          className="text-mid-grey mb-0 me-2"
-                          style={{ fontSize: "13px" }}
-                        >
-                          1 Day ago
-                        </p>
-                      </li>
-                    </ul>
-                  </div>
-                  <div
-                    className="d-flex justify-content-between align-items-center py-2"
-                    style={{ borderBottom: "1px solid #EEEEEE" }}
-                  >
-                    <ul>
-                      <li className="d-flex gap-2 align-items-center">
-                        <img
-                          className="img-fluid mt-1 mx-1"
-                          src={orderDelivered}
-                          style={{ maxWidth: "3.5rem" }}
-                          alt="star"
-                        />
-                        <div>
-                          <p className="fb-fs-18 fw-600 mb-0">
-                            New Order Received
-                          </p>
-                          <p className="mb-0" style={{ fontSize: "12.2px" }}>
-                            Order #7890 placed by Rahul ₹2,49. Payment...
-                          </p>
-                        </div>
-                      </li>
-                    </ul>
-                    <ul>
-                      <li style={{ width: "100%" }}>
-                        <p
-                          className="text-mid-grey mb-0 me-2 w-100"
-                          style={{ fontSize: "13px" }}
-                        >
-                          1 Day ago
-                        </p>
-                      </li>
-                    </ul>
-                  </div>
+                  </div>):"No Notification Found"}
+                
                 </List>
                 <Divider />
                 <MenuItem onClick={handleNotificationsClose}>
-                  <Link
+                  {notification?.results?.length>5&&<Link
                     to={"/admin/notifications"}
                     color="primary"
                     className="mx-auto text-orange"
                   >
                     View More...{" "}
-                  </Link>
+                  </Link>}
                 </MenuItem>
               </Menu>
             </div>
