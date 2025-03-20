@@ -9,7 +9,7 @@ import { notifyError } from "../../../../components/ui/Notification";
 import { Breadcrumbs, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import { DateRangePicker } from "rsuite";
-
+import debounce from "lodash.debounce";
 function AdminOrders() {
   const [activeTab, setActiveTab] = useState("Active");
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,8 @@ function AdminOrders() {
       setSelectedOrderRange(range);
     }
   };
-  const getOrderList = async () => {
+ 
+  const getOrderList = async (controller) => {
     setLoading(true);
     try {
       const response = await getAdminOrderListApi(
@@ -37,31 +38,39 @@ function AdminOrders() {
         orderStartDate,
         orderEndDate
       );
-
-      const filteredData = response?.data?.results?.filter((item) =>
-        activeTab === "Active"
-          ? item?.status != "confirmed"
-          : item?.status == "confirmed"
-      );
-      setOrder(filteredData);
-      setLoading(false);
+  
+      if (!controller.signal.aborted) {
+        const filteredData = response?.data?.results?.filter((item) =>
+          activeTab === "Active"
+            ? item?.status !== "confirmed"
+            : item?.status === "confirmed"
+        );
+        setOrder(filteredData);
+      }
     } catch (error) {
-      console.log(error);
-      setLoading(false);
-      notifyError(error?.response?.data?.message);
+      if (error.name === "AbortError") {
+        console.log("Previous API request aborted");
+      } else {
+        notifyError(error?.response?.data?.message);
+      }
+    } finally {
+      if (!controller.signal.aborted) {
+        setLoading(false);
+      }
     }
   };
-
- 
+  
   useEffect(() => {
-    clearTimeout(timer);
-    const delay = setTimeout(() => {
-      getOrderList();
-    }, 1000);
-    setTimer(delay);
-    return () => clearTimeout(delay);
+    const controller = new AbortController(); // ✅ Create a new controller
+  
+    getOrderList(controller); // ✅ Call API with controller
+  
+    return () => {
+      controller.abort(); // ✅ Cancel previous request before making a new one
+    };
   }, [search, activeTab, orderStartDate, orderEndDate]);
-
+  
+  
   return (
     <>
       <div className="mt-5 mb-3 row">

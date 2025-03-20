@@ -38,7 +38,7 @@ function RevenueCard({ title, icon,dashboard }) {
         <h5 className="mb-2 fw-600">3855 <small className="fw-400" style={{ fontSize: "0.75rem" }}>Rs</small> </h5>
         <div className="d-between">
           <span className="text-secondary text-sm d-flex gap-2"> <img src={dashboardArrow}></img>35% vs last month</span>
-          <span className="text-sm">View all transactions</span>
+     
         </div>
       </div>
     </div>
@@ -57,7 +57,7 @@ function OrderCard({ title, icon, dashboard }) {
         <h5 className="mb-2 fw-600">3855</h5>
         <div className="d-between">
           <span className="text-secondary text-sm d-flex gap-2"> <img src={dashboardArrow}></img>{dashboard?.orders_percentage}35% vs last month</span>
-          <span className="text-sm">View all transactions</span>
+        
         </div>
       </div>
     </div>

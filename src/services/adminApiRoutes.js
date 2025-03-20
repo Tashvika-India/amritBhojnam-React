@@ -314,3 +314,5 @@ export const postAmritCoinApi = (payload) =>
   API.post(`/coin_management/`, payload);
 
 export const getAmritCoinHistoryApi = () => API.get(`/amrit_coins_history/`);
+// notification
+export const getNotificationApi =(page=1,page_size=10)=>API.get(`/notification_history?page=${page}&page_size=${page_size}/`);
