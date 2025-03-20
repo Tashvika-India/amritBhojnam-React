@@ -1,47 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FaRegEdit } from "react-icons/fa";
 import IosSwitch from "../../../../components/ui/IosSwitch";
 import { baseURL } from "../../../../utils/constant-variable";
+import { notifySuccess } from "../../../../components/ui/Notification";
 
-function CategoryTable({categories , setEditData}) {
+function CategoryTable({ categories, setEditData, setVisible, categoriesStatusChange, getCategories }) {
+  const handleEditClick = (rowData) => {
+    setEditData(rowData);
+    setVisible(true);
+  };
 
-  console.log("Base Url" , baseURL)
+  const iosSwitchTemplate = (rowData) => {
+    const handleToggleChange = (event) => {
+      const updatedStatus = event.target.checked;
+      categoriesStatusChange(rowData, updatedStatus);  
+      notifySuccess("Status updated successfully");
+      getCategories();
+    };
 
+    return (
+      <IosSwitch
+        name="is_active"
+        checked={rowData.is_active}
+        onChange={handleToggleChange}
+      />
+    );
+  };
 
-  // Template for displaying category image and name
   const imageBodyTemplate = (rowData) => {
     return (
       <div style={{ display: "flex", alignItems: "center" }}>
         <img
-          src={baseURL+rowData.img_file	}
-          alt={rowData.name}
-          style={{ width: "40px", marginRight: "10px" }}
+          src={baseURL + rowData?.img_file}
+          alt={rowData?.name}
+          className="img-fluid" style={{ width: "3.5rem", height: "4.5rem" }}
         />
       </div>
     );
   };
 
-  // Template for the Edit button
   const editButtonTemplate = (rowData) => {
     return (
-      <span className="text-orange d-flex gap-2 align-items-center" onClick={()=>setEditData(rowData)}>
-        Edit <FaRegEdit />{" "}
-      </span>
+      <button className="text-orange d-flex gap-2 align-items-center border-0 bg-white" onClick={() => handleEditClick(rowData)}>
+        Edit <FaRegEdit />
+      </button>
     );
-  };
-
-  const iosSwitch = () => {
-    return <IosSwitch />;
-  };
-
+  }; 
+  
   return (
-    <DataTable value={categories} responsiveLayout="scroll" paginator rows={10}>
-      <Column field="image" header="Image" body={imageBodyTemplate}></Column>
-      <Column field="name" header="Name"></Column>
-      <Column field="quantity" header="Products"></Column>
-      <Column field="status" header="Status" body={iosSwitch}></Column>
+    <DataTable value={categories} responsiveLayout="scroll" paginator rows={10} rowkey="id">
+      <Column   header="S.NO" body={(index) => categories.indexOf(index) + 1}></Column>
+      <Column field="image" header="IMAGE" body={imageBodyTemplate}></Column>
+      <Column field="name" header="NAME" className="fw-400"></Column>
+      <Column field="product_count" header="Products"></Column>
+      <Column field="is_active" header="Status" body={iosSwitchTemplate}></Column>
       <Column header="Action" body={editButtonTemplate}></Column>
     </DataTable>
   );

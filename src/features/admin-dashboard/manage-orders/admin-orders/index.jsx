@@ -1,38 +1,131 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
-import YellowButton from "@/components/buttons/YellowButton";
-import ActiveOrdersTable from "./components/ActiveOrdersTable";
 import TabsButtons from "../../../../components/ui/TabsButton";
 import NewOrdersTable from "./components/NewOrdersTable";
-
+import { getAdminOrderListApi } from "../../../../services/adminApiRoutes";
+import Loading from "../../../../components/ui/Loading";
+import { InputText } from "primereact/inputtext";
+import { notifyError } from "../../../../components/ui/Notification";
+import { Breadcrumbs, Typography } from "@mui/material";
+import dayjs from "dayjs";
+import { DateRangePicker } from "rsuite";
+import debounce from "lodash.debounce";
 function AdminOrders() {
-  const [activeTab, setActiveTab] = useState("Active Orders");
-
-
+  const [activeTab, setActiveTab] = useState("Active");
+  const [loading, setLoading] = useState(false);
+  const [dateFilter, setDateFilter] = useState([null, null]);
+  const [order, setOrder] = useState([]);
+  const [search, setSearch] = useState("");
+  const [timer, setTimer] = useState(null);
+  const [selectedOrderRange, setSelectedOrderRange] = useState(null);
+  const orderStartDate = selectedOrderRange?.[0]
+    ? dayjs(selectedOrderRange[0]).format("YYYY-MM-DD")
+    : null;
+  const orderEndDate = selectedOrderRange?.[1]
+    ? dayjs(selectedOrderRange[1]).format("YYYY-MM-DD")
+    : null;
+  const handleOrderDateChange = (range) => {
+    if (range && range.length === 2) {
+      setSelectedOrderRange(range);
+    }
+  };
+ 
+  const getOrderList = async (controller) => {
+    setLoading(true);
+    try {
+      const response = await getAdminOrderListApi(
+        search,
+        orderStartDate,
+        orderEndDate
+      );
+  
+      if (!controller.signal.aborted) {
+        const filteredData = response?.data?.results?.filter((item) =>
+          activeTab === "Active"
+            ? item?.status !== "confirmed"
+            : item?.status === "confirmed"
+        );
+        setOrder(filteredData);
+      }
+    } catch (error) {
+      if (error.name === "AbortError") {
+        console.log("Previous API request aborted");
+      } else {
+        notifyError(error?.response?.data?.message);
+      }
+    } finally {
+      if (!controller.signal.aborted) {
+        setLoading(false);
+      }
+    }
+  };
+  
+  useEffect(() => {
+    const controller = new AbortController(); // ✅ Create a new controller
+  
+    getOrderList(controller); // ✅ Call API with controller
+  
+    return () => {
+      controller.abort(); // ✅ Cancel previous request before making a new one
+    };
+  }, [search, activeTab, orderStartDate, orderEndDate]);
+  
+  
   return (
     <>
-      <div className="mt-3 mb-5 row">
+      <div className="mt-5 mb-3 row">
         <div className="col-md-6">
-          <Heading value={"Orders"} />
+          <Heading value={"Orders List"} />
         </div>
-        <div className="col-md-6 text-end">
-          <YellowButton lable={"+ Add Orders"} />
+        <div className="col-12 my-3">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Typography>Orders</Typography>
+            <Typography className="text-orange">Order list</Typography>
+          </Breadcrumbs>
         </div>
       </div>
-
       <div className="">
         <div className="card">
           <div className="card-body">
-            <div className="mb-3">
-              <TabsButtons
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-                labelOne={"Active Orders"}
-                labelTwo={"New Orders"}
-              />
+            <div className="row">
+              <div className="col-md-4">
+                <div className="mb-3">
+                  <TabsButtons
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                    labelOne={"Active"}
+                    labelTwo={"New Orders"}
+                  />
+                </div>
+              </div>
+              <div className="col-md-3 ms-auto ">
+               
+                <DateRangePicker
+                  className="w-100 border-1 border-grey-3 custom-date-range "
+                  placement="bottomEnd"
+                  placeholder="Select Date Range"
+                  format="dd-MM-yyyy"
+                  value={selectedOrderRange}
+                  onChange={handleOrderDateChange}
+                
+                />
+              </div>
+              <div className="col-md-3 text-end mb-4">
+                <InputText
+                  className="w-100 rounded-2 ps-4"
+                  type="text"
+                  placeholder="Search Order by Id..."
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+              <div className="col-12">
+                {loading ? (
+                  <Loading />
+                ) : (
+                  <NewOrdersTable order={order} getOrderList={getOrderList} />
+                )}
+              </div>
             </div>
-            {activeTab === "Active Orders" && <ActiveOrdersTable />}
-            {activeTab === "New Orders" && <NewOrdersTable />}
           </div>
         </div>
       </div>

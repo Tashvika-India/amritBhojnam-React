@@ -4,31 +4,48 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
-import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { Link, useLocation } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
-import CategoryIcon from "@mui/icons-material/Category";
+import { BiHealth, BiSolidCategory } from "react-icons/bi";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
+import { BsFillBoxSeamFill } from "react-icons/bs";
+import { IoReceiptSharp } from "react-icons/io5";
+import { BsImage } from "react-icons/bs";
+import { BiSolidOffer } from "react-icons/bi";
+import { PiBowlFoodFill } from "react-icons/pi";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import BadgeIcon from "@mui/icons-material/Badge";
+import { FaUserCog } from "react-icons/fa";
+import { TbMessageUser } from "react-icons/tb";
 
 function MenuItems() {
   const [openSections, setOpenSections] = React.useState({
     category: false,
     orders: false,
+    products: false,
   });
   const location = useLocation();
 
   const handleToggle = (section) => {
     setOpenSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
+      category: section === "category" ? !prev.category : false,
+      orders: section === "orders" ? !prev.orders : false,
+      products: section === "products" ? !prev.products : false,
     }));
   };
+  
+  // Function to close all open menus when clicking on a non-expandable item
+  const closeAllMenus = () => {
+    setOpenSections({
+      category: false,
+      orders: false,
+      products: false,
+    });
+  };
+  
 
   const isActive = (path) =>
     location.pathname === path || location.pathname.startsWith(path);
@@ -36,7 +53,7 @@ function MenuItems() {
   const activeStyles = {
     backgroundColor: "#FFEDE3",
     color: "#F26722",
-    fontWeight: "bold",
+    fontWeight: "500",
     "& .MuiListItemIcon-root": {
       color: "#F26722",
     },
@@ -50,7 +67,7 @@ function MenuItems() {
 
   const activeColorOnly = {
     color: "#F26722",
-    fontWeight: "bold",
+    fontWeight: "500",
     "& .MuiListItemIcon-root": {
       color: "#F26722",
     },
@@ -61,18 +78,20 @@ function MenuItems() {
   };
 
   const listItemIconStyle = {
-    minWidth: "30px",
+    minWidth: "1.875rem",
   };
 
   const listItemTextStyle = {
-    fontWeight: "600",
+    fontWeight: "500",
   };
 
   React.useEffect(() => {
-    if (isActive("/category-one") || isActive("/category-two")) {
+    if (isActive("/admin/category-one") || isActive("/admin/category-two")) {
       setOpenSections((prev) => ({ ...prev, category: true }));
-    } else if (isActive("/orders") || isActive("/returns-refunds")) {
+    } else if (isActive("/admin/orders") || isActive("/admin/returns-refunds")) {
       setOpenSections((prev) => ({ ...prev, orders: true }));
+    } else if (isActive("/admin/product-list")) {
+      setOpenSections((prev) => ({ ...prev, products: true }));
     }
   }, [location.pathname]);
 
@@ -106,46 +125,79 @@ function MenuItems() {
     <>
       <List>
         <Link
-          to="/dashboard"
+          to="/admin/dashboard"
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <ListItemButton sx={isActive("/dashboard") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/dashboard") ? activeStyles : {}} onClick={closeAllMenus}>
             <ListItemIcon sx={listItemIconStyle}>
-              <HomeIcon />
+              <HomeIcon/>
             </ListItemIcon>
             <ListItemText primary="Dashboard" sx={listItemTextStyle} />
           </ListItemButton>
         </Link>
       </List>
-      <Divider />
+      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA"}}></span>
       <Typography
-        sx={{ pl: 2, pt: 1, pb: 1 }}
+        sx={{ pt: 2, pb: 1 }}
         variant="subtitle2"
         color="textSecondary"
+        style={{fontSize: "12px"}}
       >
-        Items
+        ITEMS
       </Typography>
       <List>
         <ListItemButton
           onClick={() => handleToggle("category")}
-          sx={
-            isActive("/category") || openSections.category ? activeStyles : {}
-          }
+          sx={isActive("/admin/category") || openSections.category ? activeStyles : {}}
         >
           <ListItemIcon sx={listItemIconStyle}>
-            <CategoryIcon />
+            <BiSolidCategory fontSize={"1.3rem"}  />
           </ListItemIcon>
           <ListItemText primary="Category" sx={listItemTextStyle} />
           {openSections.category ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         {renderCollapse("category", [
-          { path: "/category-one", label: "Category One" },
-          { path: "/category-two", label: "Category Two" },
+          { path: "/admin/category", label: "Categories" },
+          { path: "/admin/sub-category", label: "Sub Categories" },
+        ] )}
+        <ListItemButton
+          onClick={() => handleToggle("products")}
+          sx={isActive("/admin/product-list") || openSections.products ? activeStyles : {}}
+        >
+          <ListItemIcon sx={listItemIconStyle}>
+            <BsFillBoxSeamFill fontSize={"1.3rem"} />
+          </ListItemIcon>
+          <ListItemText primary="Products" sx={listItemTextStyle} />
+          {openSections.products ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        {renderCollapse("products", [
+          { path: "/admin/product", label: "Product List" },
+          { path: "/admin/nutrition", label: "Nutrition" },
         ])}
-
+          {/* <ListItemButton
+          onClick={() => handleToggle("nutrition")}
+          sx={isActive("/admin/category") || openSections.category ? activeStyles : {}}>
+          <ListItemIcon sx={listItemIconStyle}>
+          <IoNutrition  size={24}/>
+          </ListItemIcon>
+          <ListItemText primary="Nutrition" sx={listItemTextStyle} />
+          {openSections.category ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        {renderCollapse("nutrition", [
+          { path: "/admin/nutrition", label: "Nutrition" },
+          { path: "/admin/nutrition-value", label: "Nutrition Value" },
+        ])} */}
+        <Link to="/admin/banner" style={{ textDecoration: "none", color: "inherit" }}>
+          <ListItemButton sx={isActive("/admin/banner") ? activeStyles : {}} onClick={closeAllMenus}>
+            <ListItemIcon sx={listItemIconStyle}>
+              <BsImage fontSize={"1.3rem"} />
+            </ListItemIcon>
+            <ListItemText primary="Banners" sx={listItemTextStyle} />
+          </ListItemButton>
+        </Link>
         <ListItemButton
           onClick={() => handleToggle("orders")}
-          sx={isActive("/orders") || openSections.orders ? activeStyles : {}}
+          sx={isActive("/admin/orders") || openSections.orders ? activeStyles : {}}
         >
           <ListItemIcon sx={listItemIconStyle}>
             <Inventory2Icon />
@@ -154,54 +206,112 @@ function MenuItems() {
           {openSections.orders ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         {renderCollapse("orders", [
-          { path: "/orders", label: "Orders" },
-          { path: "/returns-refunds", label: "Returns & Refunds" },
+          { path: "/admin/orders", label: "Order List" },
         ])}
-
         <Link
-          to="/product"
+          to="/admin/coupons"
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <ListItemButton sx={isActive("/product") ? activeStyles : {}}>
+          <ListItemButton sx={isActive("/admin/coupons") ? activeStyles : {}} onClick={closeAllMenus}>
             <ListItemIcon sx={listItemIconStyle}>
-              <HomeIcon />
+              <BiSolidOffer size={23} />
             </ListItemIcon>
-            <ListItemText primary="Products" sx={listItemTextStyle} />
+            <ListItemText primary="Coupons" sx={listItemTextStyle} />
           </ListItemButton>
         </Link>
       </List>
-      <Divider />
+      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
       <Typography
-        sx={{ pl: 2, pt: 1, pb: 1 }}
+        sx={{ pt: 2, pb: 1 }}
         variant="subtitle2"
         color="textSecondary"
-      >
-        Manage Roles
+        style={{fontSize: "12px"}}
+        >
+        MANAGE CUSTOMERS
       </Typography>
       <List>
         <Link
-          to="/customers"
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <ListItemButton sx={isActive("/customers") ? activeStyles : {}}>
+          to="/admin/customers"
+          style={{ textDecoration: "none", color: "inherit" }} >
+          <ListItemButton sx={isActive("/admin/customers") ? activeStyles : {}} onClick={closeAllMenus}>
             <ListItemIcon sx={listItemIconStyle}>
               <PeopleAltIcon />
             </ListItemIcon>
             <ListItemText primary="Customers" sx={listItemTextStyle} />
           </ListItemButton>
         </Link>
-        <Link
-          to="/employees"
-          style={{ textDecoration: "none", color: "inherit" }}
+      </List>
+      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
+      <Typography
+        sx={{ pt: 2, pb: 1 }}
+        variant="subtitle2"
+        color="textSecondary"
+        style={{fontSize: "12px"}}
         >
-          <ListItemButton sx={isActive("/employees") ? activeStyles : {}}>
+        MANAGE EMPLOYEE
+      </Typography>
+      <List>
+        <Link
+          to="/admin/roles"
+          style={{ textDecoration: "none", color: "inherit" }}>
+          <ListItemButton sx={isActive("/admin/roles") ? activeStyles : {}} onClick={closeAllMenus}>
             <ListItemIcon sx={listItemIconStyle}>
-              <BadgeIcon />
+              <FaUserCog size={23} />
             </ListItemIcon>
-            <ListItemText primary="Employees" sx={listItemTextStyle} />
+            <ListItemText primary="Roles" sx={listItemTextStyle} />
           </ListItemButton>
         </Link>
       </List>
+      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA" }}></span>
+      <Typography
+        sx={{ pt: 2, pb: 1 }}
+        variant="subtitle2"
+        color="textSecondary"
+        style={{fontSize: "12px"}}
+        >
+        BUSINESS
+      </Typography>
+      <Link to="/admin/contact" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/admin/contact") ? activeStyles : {}} onClick={closeAllMenus}>
+          <ListItemIcon sx={listItemIconStyle}>
+            <TbMessageUser size={24} />
+          </ListItemIcon>
+          <ListItemText primary="Contact" sx={listItemTextStyle} />
+        </ListItemButton>
+      </Link>
+      <Link to="/admin/report" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/admin/report") ? activeStyles : {}} onClick={closeAllMenus}>
+          <ListItemIcon sx={listItemIconStyle}>
+            <IoReceiptSharp size={23} />
+          </ListItemIcon>
+          <ListItemText primary="Reports" sx={listItemTextStyle} />
+        </ListItemButton>
+      </Link>
+      <span className="d-inline-block w-100" style={{ border: "0.5px dashed #DADADA"}}></span>
+      <Typography
+        sx={{ pt: 2, pb: 1 }}
+        variant="subtitle2"
+        color="textSecondary"
+        style={{fontSize: "12px"}}
+      >
+       MEAL & HEALTH
+      </Typography>
+      <Link to="/admin/manage-meals" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/admin/manage-meals") ? activeStyles : {}} onClick={closeAllMenus}>
+          <ListItemIcon sx={listItemIconStyle}>
+            <PiBowlFoodFill size={23} />
+          </ListItemIcon>
+          <ListItemText primary="Meals" sx={listItemTextStyle} />
+        </ListItemButton>
+      </Link>
+      <Link to="/admin/health" style={{ textDecoration: "none", color: "inherit" }}>
+        <ListItemButton sx={isActive("/admin/health") ? activeStyles : {}} onClick={closeAllMenus}>
+          <ListItemIcon sx={listItemIconStyle}>
+            <BiHealth size={23} />
+          </ListItemIcon>
+          <ListItemText primary="Health Sensitivity" sx={listItemTextStyle} />
+        </ListItemButton>
+      </Link>
     </>
   );
 }

@@ -1,29 +1,45 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 $yellow: #d59615;
-$orange: #f26722;
+$custom-light-yellow: #FFF5E0;
+$orange: #f26722; 
 $white: #ffffff;
 $light: #fafafa;
 $dark-brown: #843a17;
 $brown: #ac562d;
+$light-orange: #FFECE2;
 $dark-grey: #3b3b3b;
 $black: #231d25;
+$red: #E50000;
+$bright-red: #FF0000;
+$semi-orange: #FB9300;
+$custom-btn-bg: #FFE1D2;
 $grey: #979797;
 $border: #dcdad5;
+$recipe-background: #FEF0E9;
 $border-light: #d7d7d7;
 $light-orange: #ffede3;
 $light-yellow: #fff2d7;
 $mid-gray: #918e92;
+$background: #F7F7F7;
+$dark-bg: #231D25;
+$blue: #0073C6;
+$yellow-bg: #FFF7EA;
+$icon-background: #FFF0E9;
+
 
 $font-Poppins: "Poppins", sans-serif;
-$font-Manrope: "Manrope", sans-serif;
-
+$font-Manrope: "Manrope";
 
 ul,
 ol {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+.list-styled{
+    list-style: circle;
 }
 
 html:focus-within {
@@ -44,7 +60,7 @@ body {
 a:not([class]) {
     text-decoration-skip-ink: auto;
 }
-a{
+a {
     text-decoration: none;
     color: $black;
 }
@@ -79,8 +95,8 @@ select {
 
 th {
     font-weight: 500;
-    color: $orange;
-    background-color: #ffede361;
+    color: $mid-gray;
+    background-color: $background;
 }
 td {
     font-weight: 500;
@@ -89,26 +105,84 @@ td {
 .text-sm {
     font-size: 0.75rem;
 }
-
+.text-dark-brown{
+    color: $dark-brown !important;
+}
+.text-blue{
+    color: $blue !important;
+}
+.text-brown{
+    color: $brown !important;
+}
+.text-dark-bg{
+    color: $dark-bg !important;
+}
+.text-mid-grey{
+    color: $mid-gray !important;
+}
 .text-orange {
-    color: $orange;
+    color: $orange !important;
+}
+.text-bright-red {
+    color: $bright-red !important;
+}
+.text-green{
+    color:#287E00  !important;
+
+}
+.text-black {
+    color: $black !important;
+}
+.text-white {
+    color: $white !important;
+}
+.text-yellow {
+    color: $yellow !important;
+}
+.text-semi-orange{
+    color: $semi-orange !important;
+}
+.bg-footer-bg{
+    background-color: $yellow-bg !important;
+}
+.bg-custom-light-yellow{
+    background-color: $custom-light-yellow !important;
 }
 
-.text-white{
-    color: $white;
+.text-grey{
+    color: $grey !important;
+}
+.text-dark-grey{
+    color: $dark-grey !important;
 }
 
 .bg-orange {
-    background-color: $orange;
+    background-color: $orange !important;
 }
-
+.bg-light-orange {
+    background-color: $light-orange !important;
+}
+.bg-recipe-background{
+    background-color: $recipe-background !important;
+}
+.bg-icon-background{
+    background-color: $icon-background !important;
+}
+.bg-custom-btn-bg{
+    background-color: $custom-btn-bg !important;
+}
+.bg-background{
+    background-color: $background;
+}
 .bg-yellow {
     background-color: $yellow;
 }
 
-
-.bg-light-orange {
-    background-color: $light-orange;
+.bg-semi-orange{
+    background-color: $semi-orange !important;
+}
+.bg-light{
+    background-color: $light !important; 
 }
 
 .fw-500 {
@@ -129,13 +203,47 @@ td {
 .w-33 {
     width: 33%;
 }
-
+.w-255{
+    width: 255.64px;
+}
+.w-319{
+    width: 319px;
+}
+.text-balance {
+    text-wrap: balance;
+}
 .box-shadow {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-
+.contact-box-shadow{
+    box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.05);
+}
+.product-detail-shadow{
+    box-shadow: 0px 8px 30px 0px rgba(0, 0, 0, 0.05);
+}
+.fw-300{
+    font-weight: 300;
+}
 .rounded-40 {
-    border-radius: 2.5rem;
+    border-radius: 2.5rem !important;
+}
+.rounded-20{
+    border-radius: 1.25rem !important;
+}
+.z-1{
+    z-index: 1;
+}
+.z-2{
+    z-index: 2;
+}
+.z-3{
+    z-index: 2;
+}
+.z-10{
+    z-index: 10;
+}
+.z-100{
+    z-index: 100;
 }
 
 .d-center {
@@ -152,6 +260,9 @@ td {
 
 .border-raidus-10 {
     border-radius: 0.625rem;
+}
+.border-radius-8{
+    border-radius: 0.5rem;
 }
 
 .img-1-1 {
@@ -177,18 +288,105 @@ td {
     text-align: justify;
 }
 
-.border-orange{
-    border: 1px solid $orange  ;
+.border-orange {
+    border: 1px solid $orange;
+}
+.border-yellow{
+    border: 1px solid $yellow !important;
+}
+.border-yellow-color{
+    border-color:  $yellow !important;
+}
+.border-gray {
+    border: 1px solid $border;
 }
 
-.border-gray{
-    border: 1px solid $border ;
+.disc-style{
+    list-style: disc;
 }
+
+.button-primary-reverse{
+    background-color: $white !important;
+    color: $orange !important;
+    border: 1px solid $orange !important;
+    border-radius: 0.625rem;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-inline: 1.5rem;
+    border: 1px solid transparent;
+    padding-block: 0.75rem;
+    text-decoration: none;
+    line-height: normal;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+        background-color: $orange !important;
+        border-color: transparent;
+        color: $white !important;
+    }
+}
+
+.success-primary-button{
+    background-color: $orange !important;
+    border-radius: 0.625rem;
+    color: $white !important;
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding-inline: 3.3rem;
+    border: 1px solid transparent;
+    padding-block: 0.75rem;
+    text-decoration: none;
+    line-height: normal;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        background-color: $white !important;
+        color: $orange !important;
+        border-color: $orange !important;
+    }
+}
+
+.bright-red-button{
+    background-color: $bright-red !important;
+    border-radius: 0.625rem;
+    color: $white !important;
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding-inline: 4rem;
+    border: 1px solid transparent;
+    padding-block: 0.75rem;
+    text-decoration: none;
+    line-height: normal;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        background-color: $white !important;
+        color: $bright-red !important;
+        border-color: $bright-red !important;
+    }
+}
+.bright-red-button-reverse{
+    background-color: $white !important;
+    color: $bright-red !important;
+    border: 1px solid $bright-red !important;
+    border-radius: 0.625rem;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-inline: 3rem;
+    border: 1px solid transparent;
+    padding-block: 0.75rem;
+    text-decoration: none;
+    line-height: normal;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+        background-color: $bright-red !important;
+        border-color: transparent;
+        color: $white !important;
+    }
+}
+
 
 .button-primary {
-    background-color: $orange;
+    background-color: $orange !important;
     border-radius: 0.625rem;
-    color: $white;
+    color: $white !important;
     font-size: 1.125rem;
     font-weight: 600;
     padding-inline: 1.5rem;
@@ -198,9 +396,47 @@ td {
     line-height: normal;
     transition: all 0.3s ease-in-out;
     &:hover {
+        background-color: $white !important;
+        color: $orange !important;
+        border-color: $orange !important;
+    }
+}
+
+.button-yellow{
+    background-color: $yellow;
+    border-radius: 0.2781rem;
+    color: $white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+    // padding: 0px 6px;
+    text-decoration: none;
+    // line-height: 1px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
         background-color: $white;
-        color: $orange;
-        border-color: $orange;
+        color: $yellow;
+        border-color: $yellow;
+        
+    }  
+}
+
+.button-set-default{
+    background-color: $white;
+    color: $yellow;
+    border: 1px solid $yellow;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #FFF7E7;
+    text-decoration: none;
+    line-height: 1px;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+        background-color: $yellow;
+        color: $white;
+        border-color: transparent;
     }
 }
 
@@ -208,9 +444,9 @@ td {
     background-color: $white;
     border-radius: 3.125rem;
     color: $black;
-    font-size: 1.125rem;
-    font-weight: 600;
-    padding-inline: 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    padding-inline: 2.5rem;
     border: 1px solid transparent;
     padding-block: 0.75rem;
     text-decoration: none;
@@ -220,6 +456,24 @@ td {
         background-color: $black;
         color: $white;
         border-color: $black;
+    }
+}
+
+.button-red{
+    background-color: $white;
+    border-radius: 0.625rem;
+    color: $red;
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding-inline: 3.1rem;
+    padding-block: 0.75rem;
+    border: 1px solid red;
+    text-decoration: none;
+    line-height: normal;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        background-color: $red;
+        color: $white;
     }
 }
 

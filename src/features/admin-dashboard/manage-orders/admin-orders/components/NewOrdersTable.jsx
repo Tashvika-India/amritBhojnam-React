@@ -1,142 +1,313 @@
 import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Tag } from "primereact/tag";
 import { Avatar } from "primereact/avatar";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { MdEdit } from "react-icons/md";
 import { IoMdPrint } from "react-icons/io";
+import { formatDateTime } from "../../../../../utils/constant-variable";
+import { Link, useNavigate } from "react-router-dom";
+import AcceptOrderModal from "./AcceptOrderModal";
+import StatusModal from "./StatusModal";
+import AcceptOrder from "./OrderStatusModal/AcceptOrder";
+import CancelOrder from "./OrderStatusModal/CancelOrder";
+import { getOrderSuccessApi } from "../../../../../services/adminApiRoutes";
+import { RxOpenInNewWindow } from "react-icons/rx";
+const NewOrdersTable = ({ order, getOrderList }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [orderStatus, setOrderStatus] = useState([]);
+  const navigator = useNavigate();
 
-const NewOrdersTable = () => {
-  const [orders, setOrders] = useState([
-    {
-      id: "#634782",
-      customer: { name: "Aman Kumar", phone: "+91 1234567890" },
-      order: 299,
-      payment: { type: "Card", status: "Unpaid" },
-      date: "5 Aug, 2024 07:00PM",
-    },
-    {
-      id: "#634782",
-      customer: { name: "Raj Singh", phone: "+91 1234567890" },
-      order: 466,
-      payment: { type: "Card", status: "Paid" },
-      date: "5 Aug, 2024 07:00PM",
-    },
-    {
-      id: "#634782",
-      customer: { name: "David", phone: "+91 1234567890" },
-      order: 399,
-      payment: { type: "UPI", status: "Paid" },
-      date: "5 Aug, 2024 07:00PM",
-    },
-    {
-      id: "#634782",
-      customer: { name: "Piyush", phone: "+91 1234567890" },
-      order: 249,
-      payment: { type: "Cash", status: "Unpaid" },
-      date: "5 Aug, 2024 07:00PM",
-    },
-    {
-      id: "#634782",
-      customer: { name: "Rahul Singh", phone: "+91 1234567890" },
-      order: 349,
-      payment: { type: "Card", status: "Paid" },
-      date: "5 Aug, 2024 07:00PM",
-    },
-    {
-      id: "#634782",
-      customer: { name: "Mohit Kumar", phone: "+91 1234567890" },
-      order: 349,
-      payment: { type: "UPI", status: "Paid" },
-      date: "5 Aug, 2024 07:00PM",
-    },
-    {
-      id: "#634782",
-      customer: { name: "Raj Singh", phone: "+91 1234567890" },
-      order: 466,
-      payment: { type: "Card", status: "Paid" },
-      date: "5 Aug, 2024 07:00PM",
-    },
-    {
-      id: "#634782",
-      customer: { name: "David", phone: "+91 1234567890" },
-      order: 399,
-      payment: { type: "UPI", status: "Paid" },
-      date: "5 Aug, 2024 07:00PM",
-    },
-    {
-      id: "#634782",
-      customer: { name: "Piyush", phone: "+91 1234567890" },
-      order: 249,
-      payment: { type: "Cash", status: "Unpaid" },
-      date: "5 Aug, 2024 07:00PM",
-    },
-    {
-      id: "#634782",
-      customer: { name: "Rahul Singh", phone: "+91 1234567890" },
-      order: 349,
-      payment: { type: "Card", status: "Paid" },
-      date: "5 Aug, 2024 07:00PM",
-    },
-    {
-      id: "#634782",
-      customer: { name: "Mohit Kumar", phone: "+91 1234567890" },
-      order: 349,
-      payment: { type: "UPI", status: "Paid" },
-      date: "5 Aug, 2024 07:00PM",
-    },
-  ]);
+  const showAcceptModal = (status, orderId, display_order_id) => {
+    const data = { status, orderId, display_order_id };
+    setModalVisible(true);
+    setOrderStatus(data);
+  };
+
+  const getRandomColor = () => {
+    // Generate a random color in hex format
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+  const isGreyColor = (color) => {
+    // Check if the color is grey by comparing RGB values
+    const rgb = parseInt(color.slice(1), 16);
+    const r = (rgb >> 16) & 0xff;
+    const g = (rgb >> 8) & 0xff;
+    const b = rgb & 0xff;
+    return r === g && g === b; // Check if all RGB components are equal
+  };
+
+  const lightenColor = (color, percent) => {
+    // Lighten the color by the given percentage
+    const rgb = parseInt(color.slice(1), 16);
+    let r = (rgb >> 16) & 0xff;
+    let g = (rgb >> 8) & 0xff;
+    let b = rgb & 0xff;
+
+    r = Math.min(255, r + (255 - r) * percent);
+    g = Math.min(255, g + (255 - g) * percent);
+    b = Math.min(255, b + (255 - b) * percent);
+
+    return `#${(
+      (1 << 24) +
+      (Math.round(r) << 16) +
+      (Math.round(g) << 8) +
+      Math.round(b)
+    )
+      .toString(16)
+      .slice(1)}`;
+  };
+
+  const formatStepName = (name) => {
+    return name
+      .replace(/_/g, ' ')  
+      .replace(/\b\w/g, (char) => char.toUpperCase());  
+  };
+
 
   const paymentStatusTemplate = (rowData) => {
     return (
-      <Tag
-        value={rowData.payment.status}
-        severity={rowData.payment.status === "Paid" ? "success" : "danger"}
-      ></Tag>
-    );
-  };
-
-  const actionBodyTemplate = () => {
-    return (
-      <div className="d-flex gap-3">
-        <button className="lt-blue-button">
-          <MdEdit size={24} />
-        </button>
-        <button className="lt-cyan-button" size={24}>
-          <IoMdPrint />
-        </button>
+      <div>
+        <p className="mb-0 fw-500">{rowData?.payment_details?.payment_mode}</p>
+        <p
+          className="fw-400 text-success"
+          style={{ color: "#D3F4D4", fontSize: ".9rem" }}
+        >
+          Paid
+        </p>
       </div>
     );
   };
 
+  const orderTemplate = (rowData) => {
+    return (
+      <>
+        {/* {(rowData?.product_details.map((item) => {
+          return (
+            <div className="d-flex align-items-center gap-3 mb-2 border-bottom pb-2">
+              <img src={item?.product?.images[0]?.image} alt="img" style={{ width: "3.5rem", height: "4rem" }} />
+              <div className="d-flex flex-column">
+                <p className="fw-400 mb-0" style={{ fontSize: ".9rem" }}>{item?.product?.name}</p>
+                <p className="fw-400 mb-0" style={{ fontSize: ".9rem" }}>Qty: {item?.item_quantity}</p>
+                <p className="fw-400 mb-0" style={{ fontSize: ".9rem" }}>Rs. {~~(item?.price)}</p>
+              </div>
+            </div>
+          );
+        }))} */}
+
+        <div className="d-flex align-items-center gap-3 mb-2 pb-2">
+          <img
+            src={rowData?.product_details[0]?.product?.images[0]?.image}
+            alt="img"
+            style={{ width: "3.5rem", height: "4rem" }}
+          />
+          <div className="d-flex flex-column">
+            <p className="fw-400 mb-0" style={{ fontSize: "1rem" }}>
+              {rowData?.product_details[0]?.product?.name}
+            </p>
+            <Link
+              to={`/admin/order-details/${rowData.id}`}
+              className="fw-400 mb-0 "
+              style={{ fontSize: ".88rem", color: "#584EE0" }}
+            >
+              {rowData?.product_details.length > 0 &&
+                `${rowData?.product_details.length} more...`}
+            </Link>
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  const duration = (rowData) => {
+    const formattedDateRange = formatDateTime(rowData?.created_at);
+    return (
+      <div className="fw-400 w-75" style={{ fontSize: ".9rem" }}>
+        {formattedDateRange}
+      </div>
+    );
+  };
+
+  const statusBodyTemplate = (rowData) => {
+    return (
+      <>
+        {rowData?.status === "confirmed" ? (
+          <>
+            <button className="fw-400 lt-pending-button">Pending</button>
+          </>
+        ) : rowData?.status === "dispatched" ? (
+          <button className="fw-400 lt-yellow-button">Dispatched</button>
+        ) : rowData?.status === "cancelled" ? (
+          <button className="fw-400 lt-red-button">Cancel</button>
+        ) : rowData?.status === "accepted" ? (
+          <button className="fw-400 lt-green-button">Accepted</button>
+        ) : null}
+      </>
+    );
+  };
+
+  const actionBodyTemplate = (rowData) => {
+    return (
+      <>
+        {rowData?.status === "confirmed" ? (
+          <div className="d-flex gap-3 align-items-center">
+            <button
+              className="lt-green-button"
+              onClick={() =>
+                showAcceptModal(true, rowData?.id, rowData?.display_order_id)
+              }
+            >
+              Accept
+            </button>
+            {/* <button className="lt-red-button" onClick={() => showAcceptModal(false, rowData?.id,rowData?.display_order_id)}>Cancel</button> */}
+            <button className="lt-red-button">Cancel</button>
+          </div>
+        ) : (
+          <Link
+            to={`/admin/order-details/${rowData.id}`}
+            title="View"
+            className="d-inline-flex gap-2 align-items-center border-0 rounded me-3"
+            style={{
+              color: "#AC562D",
+              backgroundColor: "#FFF1EB",
+              padding: ".5rem .5rem",
+            }}
+          >
+            <RxOpenInNewWindow size={20} />
+          </Link>
+        )}
+      </>
+    );
+  };
+
   const customerTemplate = (rowData) => {
-    const initials = rowData.customer.name
+    const initials = `${rowData?.delivering_to?.ads_name}`
       .split(" ")
       .map((n) => n[0])
       .join("");
+    let backgroundColor = getRandomColor();
+    let color = getRandomColor();
+
+    // If the color is grey, set the background color to a lighter shade
+    if (isGreyColor(backgroundColor)) {
+      backgroundColor = lightenColor(backgroundColor, 0.5); // 30% lighter
+    } 
+    
     return (
-      <div className="d-flex alighn-items-center gap-3">
-        <Avatar label={initials} size="" shape="circle" className="p-mr-2" />
+      <div className="d-flex align-items-center gap-3">
+        <Avatar
+          label={initials}
+          style={{
+            height: "3.3rem",
+            width: "3.3rem",
+            aspectRatio: "1/1",
+            backgroundColor: backgroundColor,
+            color: color,
+            textTransform: "uppercase",
+          }}
+          shape="circle"
+          className="p-mr-2"
+        />
         <div>
-          {rowData.customer.name} <br /> <small>{rowData.customer.phone}</small>
+          <p className="mb-0 ">{rowData?.delivering_to?.ads_name}</p>
+          <small
+            className="fw-400"
+            style={{ fontSize: "0.88rem", color: "#584EE0" }}
+          >
+            {rowData?.delivering_to?.ads_phone}
+          </small>
         </div>
       </div>
     );
   };
 
+  const stockTemplate = (rowData) => {
+    return(
+      <> 
+        <p style={rowData?.stock_status === "in_stock" ? {color: "#4FB74F"} : {color: "#E50000"}}>{formatStepName(rowData?.stock_status)}</p>
+      </>
+    )
+  }
+
+  const onRowClick = (e) => {
+    const orderId = e.data.id;   
+    navigator(`/admin/order-details/${orderId}`);
+  };
+
   return (
     <div className="datatable">
-      <DataTable value={orders} paginator rows={10}>
-        <Column field="id" header="ID"></Column>
-        <Column header="Customer" body={customerTemplate}></Column>
-        <Column field="order" header="Order (Rs)"></Column>
-        <Column header="Payment" body={paymentStatusTemplate}></Column>
-        <Column field="date" header="Order Date"></Column>
-        <Column header="Action" body={actionBodyTemplate}></Column>
+      <DataTable value={order} paginator rows={10} 
+      onRowClick={onRowClick}
+      responsiveLayout="scroll"
+      emptyMessage="No orders found" 
+      selectionMode="single"  
+      >
+        <Column
+          field="id"
+          header="ID"
+          body={(rowData) => (
+            <>
+              <Link
+                to={`/admin/order-details/${rowData?.id}`}
+                style={{ width: "100%", color: "#584EE0" }}
+              >
+                #{rowData?.display_order_id}
+              </Link>
+            </>
+          )}
+        ></Column>
+        <Column
+          header="ORDER"
+          body={orderTemplate}
+          style={{ width: "18%" }}
+        ></Column>
+        <Column
+          header="Qty."
+          field="total_item_qty"
+          // body={(rowData) => `${rowData?.product_details[0]?.item_quantity}`}
+        ></Column>
+        <Column
+          header="CUSTOMER"
+          body={customerTemplate}
+          style={{ width: "20%" }}
+        ></Column>
+        <Column
+          field="amount_to_pay"
+          header="AMOUNT"
+          body={(rowData) => `Rs. ${~~rowData.amount_to_pay}`}
+        ></Column>
+        <Column
+          field="status"
+          header="STATUS"
+          body={statusBodyTemplate}
+        ></Column>
+        <Column header="PAYMENT" body={paymentStatusTemplate}></Column>
+        <Column
+          header="ORDER DATE"
+          body={duration}
+          style={{ width: "10%" }}
+        ></Column>
+        <Column
+          header="Stock Status"
+          field="stock_status"
+          body={stockTemplate}
+          style={{ width: "10%" }}
+        ></Column>
+        <Column header="ACTION" body={actionBodyTemplate}></Column>
       </DataTable>
+      <AcceptOrderModal
+        visible={modalVisible}
+        getOrderList={getOrderList}
+        setVisible={() => setModalVisible(false)}
+        orderStatus={orderStatus}
+      />
     </div>
   );
 };

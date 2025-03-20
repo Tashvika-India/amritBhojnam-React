@@ -1,0 +1,113 @@
+import React from "react";
+import Slider from "react-slick";
+import item from "../../../../assets/images/web/slide-product.png";
+import saveImg from "../../../../assets/images/web/save-image.png";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { Margin } from "@mui/icons-material";
+import ProductCard from "./ProductCard";
+
+const ProductSlide = ({ bestPriceProduct }) => {
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1200, // For mid-sized screens (tablets, etc.)
+        settings: {
+          slidesToShow: 2, // Show 3 items
+        },
+      },
+    ],
+  };
+  return (
+    <>
+      <Slider {...settings} className="item-slider">
+        {bestPriceProduct?.map((item, index) => (
+          <div className="item-slide px-2 px-lg-0" key={index}>
+            <div
+              className="cat-itmes gap-0 mx-0 mx-lg-2" key={index}
+            >
+              <ProductCard product={item} />
+            </div>
+          </div>
+        ))}
+      </Slider>
+    </>
+  );
+};
+
+const arrowStyles = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "40px",
+  height: "40px",
+  borderRadius: "50%",
+  backgroundColor: "#fff",
+  color: "#3B3B3B",
+  boxShadow: "0px 4.83px 10px 0px rgba(0, 0, 0, 0.05)",
+  fontSize: "1rem",
+  cursor: "pointer",
+  transition: "background-color 0.3s ease",
+  position: "absolute",
+  top: "50%",
+  transform: "translateY(-50%)",
+  zIndex: 10,
+};
+
+const nextArrowStyles = {
+  ...arrowStyles,
+  right: "-1rem",
+};
+
+const prevArrowStyles = {
+  ...arrowStyles,
+  left: "-1rem",
+};
+
+const spanStyles = {
+  fontWeight: "bold",
+  textTransform: "uppercase",
+};
+
+// Customize Next Arrow
+const SampleNextArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div
+      className="custom-arrow next-arrow"
+      onClick={onClick}
+      style={nextArrowStyles}
+    >
+      <span style={spanStyles}>
+        <IoIosArrowForward />
+      </span>
+    </div>
+  );
+};
+
+// Customize Previous Arrow
+const SamplePrevArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div
+      className="custom-arrow prev-arrow"
+      onClick={onClick}
+      style={prevArrowStyles}
+    >
+      <span style={spanStyles}>
+        <IoIosArrowBack />
+      </span>
+    </div>
+  );
+};
+
+export default ProductSlide;

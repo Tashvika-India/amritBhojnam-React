@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Image } from "primereact/image";
 import { RxCross2 } from "react-icons/rx";
+import { baseURL } from "../../utils/constant-variable";
 
 export default function DraggableFileUpload({ formik, name }) {
-
   const { values, setFieldValue } = formik;
   const [dragActive, setDragActive] = useState(false);
-
-  console.log("Values", values);
-
+  const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
     const uploadedFile = e.target.files[0];
@@ -35,21 +33,24 @@ export default function DraggableFileUpload({ formik, name }) {
     setDragActive(false);
     const droppedFile = e.dataTransfer.files[0];
     if (droppedFile) {
-      setFieldValue(name, uploadedFile);
+      setFieldValue(name, droppedFile);
     }
   };
 
   const removeFile = () => {
-    setFieldValue(name, null);
+    setFieldValue(name, null); // Clear the field value in Formik
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""; // Reset the file input value
+    }
   };
 
   return (
-    <div className="file-upload-wrapper">
-      <div>
-        <input type="file" id="image" hidden onChange={handleFileChange} />
+    <div className="file-upload-wrapper d-flex gap-3">
+      <div className="w-75">
+        <input type="file" id="image" hidden onChange={handleFileChange} ref={fileInputRef} />
         <label
           htmlFor="image"
-          className={`image-uploader mb-4 ${dragActive ? "drag-active" : ""}`}
+          className={`image-uploader ${dragActive ? "drag-active" : ""}`}
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
@@ -75,19 +76,18 @@ export default function DraggableFileUpload({ formik, name }) {
 
       {/* Preview Section */}
       {values[name] && (
-        <div className="file-preview d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2">
+        <div className="file-preview d-flex justify-content-between align-items-center border-rounded-gray px-3 py-2 position-relative" style={{width: "fit-content"}}>
           <div className="d-inline-flex align-items-center gap-3">
             <Image
-              src={URL.createObjectURL(values[name])}
-              zoomSrc={URL.createObjectURL(values[name])}
+              src={values[name] instanceof File ? URL.createObjectURL(values[name]) : `${baseURL}/${values[name]}` }
+              zoomSrc={values[name] instanceof File ? URL.createObjectURL(values[name]) : `${baseURL}/${values[name]}` }
               alt="Uploaded File"
-              width="80"
-              height="60"
+              width="100"
+              height="auto"
               preview
             />
-            {/* <span>{values[name]}</span> */}
           </div>
-          <div>
+          <div className="position-absolute top-0 end-0" style={{ cursor: "pointer", zIndex: "1" }}>
             <RxCross2
               color="red"
               size={25}

@@ -1,15 +1,20 @@
- 
-@import 'cssReset'; 
+@import "cssReset";
 
 .css-1af8w5v {
   background-color: #eeeeee7a !important;
-}  
+}
 
 .heading {
   font-weight: 600;
   font-size: 1.6rem;
 }
- 
+
+thead th {
+  background-color: $background;
+  color: $mid-gray;
+  text-transform: uppercase;
+}
+
 .card {
   border: 0.5px solid #eeeeee !important;
   border-radius: 10px !important;
@@ -17,6 +22,7 @@
 
 .dsh-heading {
   position: relative;
+
   &::after {
     content: "";
     position: absolute;
@@ -39,12 +45,17 @@
   border-radius: 0.625rem !important;
 }
 
-.css-1a9kd0b-MuiInputBase-root-MuiOutlinedInput-root , .css-hmv5em-MuiInputBase-root-MuiOutlinedInput-root {
+.css-1a9kd0b-MuiInputBase-root-MuiOutlinedInput-root,
+.css-hmv5em-MuiInputBase-root-MuiOutlinedInput-root {
   border-radius: 0.625rem !important;
 }
 
-.css-a18caf-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
-  border-radius: 0.625rem !important;
+// .css-a18caf-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
+//   border-radius: 0.625rem !important;
+// }
+
+.p-datatable .p-datatable-tbody > tr {
+  color: $dark-grey !important;
 }
 
 .btn-orange {
@@ -54,21 +65,25 @@
   transition: 0.3s ease-in-out;
   border-radius: 10px;
   font-weight: 600;
+
   .btn:first-child:active {
     background-color: #d55210;
     border: 1px solid #d55210;
     color: white !important;
   }
+
   &:hover {
     background-color: #d55210;
     border: 1px solid #d55210;
     color: white !important;
   }
+
   &:active {
     background-color: #d55210;
     border: 1px solid #d55210;
     color: white !important;
   }
+
   &:focus-visible {
     background-color: #d55210;
     border: 1px solid #d55210;
@@ -77,13 +92,14 @@
 }
 
 .btn-yellow {
-  background: var(--Yellow, #d59615);
+  background: #d59615;
   color: white;
-  border: 1px solid var(--Yellow, #d59615);
+  border: 1px solid #d59615;
   transition: 0.3s ease-in-out;
   border-radius: 4px;
   padding: 0.6rem 1.25rem;
   font-weight: 600;
+
   &:hover {
     background-color: #eda20a;
     border: 1px solid #eda20a;
@@ -95,7 +111,7 @@
 .lt-green-button {
   background: #ddffdd;
   color: #4fb74f;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 1rem;
   border-radius: 5px;
   border: none;
 }
@@ -104,7 +120,15 @@
 .lt-red-button {
   background: #ffd9d9;
   color: #e50000;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 1rem;
+  border-radius: 5px;
+  border: none;
+}
+
+.lt-pending-button {
+  background: #fff2df;
+  color: #f3a638;
+  padding: 0.3rem 1rem;
   border-radius: 5px;
   border: none;
 }
@@ -136,25 +160,24 @@
 }
 
 .lt-cyan-button {
-  background: #D2F2F4;
-  color: #40A3AA;
+  background: #d2f2f4;
+  color: #40a3aa;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   border: none;
 }
 
 .lt-blue-button {
-  background: #EDF1FF;
-  color: #1F5FBE;
+  background: #edf1ff;
+  color: #1f5fbe;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   border: none;
 }
 
-
-.image-uploader{ 
+.image-uploader {
   display: grid;
-  place-content: center; 
+  place-content: center;
   justify-items: center;
   width: 100%;
   height: 10rem;
@@ -165,56 +188,277 @@
   cursor: pointer;
 }
 
-.border-rounded-gray{
+.border-rounded-gray {
   border-radius: 0.625rem;
   border: 1px solid $border;
 }
 
-.multipule-image-uploader{
+.multi-pre-list {
   display: grid;
-  place-content: center; 
+  gap: 1.5rem;
+  min-height: 17rem;
+  grid-template-columns: repeat(4, 1fr);
+
+  .grid-item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+    height: 100%;
+  }
+
+  .grid-item:nth-child(n + 2) {
+    grid-column: span 1;
+  }
+
+  .file-preview {
+    height: 100%;
+
+    .multi-file-preview {
+      height: 100%;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.multipule-image-uploader {
+  display: grid;
+  place-content: center;
   justify-items: center;
   width: 100%;
-  height: 10rem;
+  height: 17rem;
   border-radius: 0.625rem;
-  border: 1px dashed $border;
+  border: 1px dashed #918e92;
   font-size: 1rem;
-  color: $border;
+  color: #918e92;
   cursor: pointer;
 }
 
+.img-table-thumbnail {
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  aspect-ratio: 1/1;
+  border: 1px solid #d55210;
+  transition: transform 0.3s ease-in-out;
+  background-color: #fff;
 
+  &:hover {
+    transform: scale3d(2, 2, 2);
+  }
+}
+
+.icon-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.add-meal {
+  .multi-pre-list {
+    max-width: 10rem !important;
+    min-height: 10rem !important;
+  }
+  .multipule-image-uploader {
+    height: 10rem !important;
+    border: 2px dashed #d59615;
+
+    svg {
+      display: none;
+    }
+  }
+}
 
 //// Sidebar Start ////
 .dashboard-sidebar {
-  .css-txj0o0-MuiDrawer-docked .MuiDrawer-paper {
+  .MuiDrawer-paper {
     padding: 1rem !important;
   }
-  .css-11px2du-MuiTypography-root{
-    font-weight: 600!important;
+
+  .css-1y2zrd1-MuiSvgIcon-root {
+    width: 0.45em !important;
+  }
+
+  .css-11px2du-MuiTypography-root {
+    font-weight: 500 !important;
+  }
+
+  .MuiListItemIcon-rot {
+    min-width: 0.875rem;
+  }
+
+  .MuiListItemButton-gutters .css-1ovjgx7-MuiListItemIcon-root {
+    min-width: 2.2rem;
+  }
+
+  .MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListItemButton-root {
+    border-radius: 5px !important;
+    margin-bottom: 0.8rem !important;
+  }
+
+  .MuiListItemIcon-root {
+    color: #3b3b3b;
   }
 }
+
 /// Sidebar End //
 
-
 /// Login Start ///
-.login-wrapper {
-  .left-section{
-    padding:  6rem 12rem;
+.login-wrapper-conatiner {
+  .left-section {
+    .login-main-logo {
+      width: 10rem;
+    }
+  }
+
+  .admin-login-image {
+    width: 90%;
+    margin-inline: auto;
   }
 }
 
+.admin-header-notifications {
+  .css-1u169s7-MuiList-root {
+    overflow-y: scroll !important;
+    height: 700px !important;
+    scrollbar-width: none;
+  }
+}
 
+.stepper-wrapper-order {
+  position: relative;
+  z-index: 5;
+  &::before {
+    content: "";
+    position: absolute;
+    height: 71%;
+    width: 3px;
+    background-color: #DADADA;
+    top: 27px;
+    left: 10px;
+    z-index: -1;
+    transition: background-color 0.5s ease;
+  }
 
-@media screen and (max-width: 768px) {
-  .login-wrapper {
-    img{
-      display: none;
-    }
-    .left-section{
-      padding: 2rem;
-
+  &.active{
+    &::before{ 
+      background-color: #4BAE4F; 
+      animation: heightAnimation 0.5s ease;
     }
   }
 
+  &:last-child {
+    &::before {
+      display: none;
+    }
+  }
+  .stepper-content{
+    height: 105px;
+  }
+}
+
+@keyframes heightAnimation {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 71%;
+  }
+}
+
+.light-default-button {
+  background-color:  transparent ;
+  border-radius: 7px;
+  padding: 13px 1.2rem;
+  border: 1px solid transparent ;
+  color: $white;
+}
+
+@media (min-width: 1400px) and (max-width: 1600px) {
+  .login-wrapper-conatiner {
+    .left-section {
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      p {
+        font-size: 0.875rem;
+      }
+    }
+
+    .admin-login-image {
+      width: 95%;
+      margin-top: 2rem;
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1400px) {
+  .login-wrapper-conatiner {
+    .left-section {
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      p {
+        font-size: 0.875rem;
+      }
+    }
+
+    .admin-login-image {
+      width: 92%;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .login-wrapper-conatiner {
+    .admin-login-image {
+      display: none;
+    }
+
+    .left-section {
+      padding: 2rem 0;
+    }
+  }
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid $mid-gray;
+  border-radius: 0.625rem;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+}
+
+.switch-container.active {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid $orange;
+  cursor: pointer;
+  border-radius: 0.625rem;
+  padding: 0.4rem 1rem;
+  // background-color: $light-orange;
+}
+
+.option-button {
+  background-color: #fff1eb;
+  color: #ac562d;
+  border: none !important;
+}
+
+.option-button.active {
+  background-color: #ac562d;
+  color: #fff1eb;
+  border: none !important;
 }

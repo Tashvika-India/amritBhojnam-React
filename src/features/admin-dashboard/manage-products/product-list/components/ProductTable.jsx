@@ -1,152 +1,149 @@
-import React from "react";
+import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FaRegEdit } from "react-icons/fa";
-import productOne from "@/assets/images/dashboard/product-one.png";
-import productTwo from "@/assets/images/dashboard/product-two.png";
-import productThree from "@/assets/images/dashboard/product-three.png";
-import productFour from "@/assets/images/dashboard/product-four.png";
-import productFive from "@/assets/images/dashboard/product-five.png";
 import { FaStar } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import DeleteModal from "../../../../../components/ui/DeleteModal";
+import { MdDelete } from "react-icons/md";
+import { deleteProductApi } from "../../../../../services/adminApiRoutes";  
+import { notifyError, notifySuccess } from "../../../../../components/ui/Notification";
+import { RxOpenInNewWindow } from "react-icons/rx";
 
-function ProductTable() {
-  const categories = [
-    {
-      id: 1,
-      name: "Millet Rice",
-      quantity: 42,
-      image: productOne,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 2,
-      name: "Bakery & Confectionery",
-      quantity: 46,
-      image: productTwo,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 3,
-      name: "Flour",
-      quantity: 24,
-      image: productThree,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 4,
-      name: "Instant Mixes",
-      quantity: 56,
-      image: productFour,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 5,
-      name: "Snacks for Munching",
-      quantity: 23,
-      image: productFive,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 6,
-      name: "Snacks for Munching",
-      quantity: 54,
-      image: productOne,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 7,
-      name: "Millet Rice",
-      quantity: 42,
-      image: productOne,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-    {
-      id: 8,
-      name: "Bakery & Confectionery",
-      quantity: 46,
-      image: productTwo,
-      stocks: 95,
-      price: 100,
-      rating: 5,
-      selling: 56,
-    },
-  ];
 
-  // Template for displaying category image and name
+function ProductTable({ products, getProductList }) {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [currentProduct, setCurrentProduct] = useState(null); // Store the current product in one state
+  const navigate = useNavigate();
+
+  const showDeleteModal = (product) => {
+    setCurrentProduct(product); // Store the product to delete
+    setModalVisible(true);
+  };
+
+  const hideDeleteModal = () => {
+    setModalVisible(false);
+    setCurrentProduct(null); // Reset current product after modal is closed
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteProductApi(currentProduct.id); // Use currentProduct directly
+      getProductList(); 
+      hideDeleteModal();
+      notifySuccess("Product deleted successfully");
+      // Optionally update your product list here (e.g., remove the deleted product from UI)
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      notifyError(error.response?.data?.error);
+    }
+  };
+
+  const handleEditClick = (rowData) => {
+    navigate("/admin/edit-product", { state: rowData });
+  };
+
   const imageBodyTemplate = (rowData) => {
+
+    const imageUrl = rowData?.images[0]?.image;   
     return (
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center" }} type="button" onClick={() => handleEditClick(rowData)}>
         <img
-          src={rowData.image}
-          alt={rowData.name}
-          style={{ width: "40px", marginRight: "10px" }}
+          src={rowData?.images?.[0]?.image}
+          alt={rowData?.name}
+          className="img-fluid"
+          style={{ width: "3.5rem", height: "4rem" }}
         />
       </div>
     );
   };
 
+  const linkToReview = (rowData) => (
+    <Link to="/product/product-reviews" className="text-dark fw-normal">
+      {rowData.name}
+    </Link>
+  );
 
-  const linkToReview = (rowData) => {
-    return (
-      <Link to="/product/product-reviews" className="text-dark">
-         {rowData.name}
-      </Link>
-    
-    );
-  };
+  const editButtonTemplate = (rowData) => (
+    <div className="w-100 d-flex gap-1 ">
+      <button
+        onClick={() => handleEditClick(rowData)}
+        title="View"
+        className="d-flex gap-2 align-items-center border-0 rounded me-3"
+        style={{
+          color: "#AC562D",
+          backgroundColor: "#FFF1EB",
+          padding: ".1rem .45rem",
+        }}
+      >
+        <RxOpenInNewWindow size={20} /> 
+      </button>
+      <button
+        className="text-danger d-flex gap-2 align-items-center border-0 rounded"
+        title="Delete"
+        style={{ backgroundColor: "#d5768f38", padding: ".3rem .523rem" }}
+        onClick={() => showDeleteModal(rowData)}
+      >
+        <MdDelete size={20} />
+      </button>
+    </div>
+  );
 
-
-  // Template for the Edit button
-  const editButtonTemplate = () => {
-    return (
-      <span className="text-orange d-flex gap-2 align-items-center">
-        Edit <FaRegEdit />{" "}
-      </span>
-    );
-  };
-
-  const iosSwitch = () => {
-    return (
-      <span className="d-flex gap-2 align-items-center">
-        <FaStar className="text-warning" /> 5
-      </span>
-    );
-  };
+  const iosSwitch = (rowData) => (
+    <Link
+      to={`/admin/product/product-reviews/${rowData.id}`}
+      className="d-flex gap-2 align-items-center"
+    >
+      <FaStar className="text-warning" /> {Math.round(rowData.ratings)}
+    </Link>
+  );
 
   return (
-    <DataTable value={categories} responsiveLayout="scroll" paginator rows={10}>
-      <Column field="id" header="ID"></Column>
-      <Column field="image" header="Image" body={imageBodyTemplate}></Column>
-      <Column field="name" header="Name" body={linkToReview}></Column>
-      <Column field="quantity" header="Products"></Column>
-      <Column field="stocks" header="Stocks"></Column>
-      <Column field="price" header="Price"></Column>
-      <Column field="selling" header="Selling"></Column>
-      <Column field="rating" header="Rating" body={iosSwitch}></Column>
-      <Column header="Action" body={editButtonTemplate}></Column>
-    </DataTable>
+    <>
+      <DataTable value={products} responsiveLayout="scroll" paginator rows={10}>
+        <Column
+          field="id"
+          header="SR.NO"
+          body={(index) => products.indexOf(index) + 1}
+          className="fw-400"
+        ></Column>
+        <Column field="images" header="IMAGE" body={imageBodyTemplate}></Column>
+        <Column field="name" header="NAME" className="fw-400" body={(rowData) => <><button onClick={() => handleEditClick(rowData)} className="text-dark fw-normal border-0 bg-transparent text-orange-hover">{rowData.name}</button></>}></Column>
+        <Column
+          field="category_name"
+          header="CATEGORY"
+          className="fw-400"
+        ></Column>
+        <Column
+          field="quantity"
+          header="QUANTITY(type)"
+          className="fw-400"
+          body={(rowData) => (
+              <span>{rowData?.quantity}{rowData?.quantity_unit}</span> 
+          )}
+        ></Column>
+        <Column field="stock" header="Stocks Left" className="fw-400"></Column>
+        <Column
+          field="max_price"
+          header="PRICE (₹)"
+          className="fw-400"
+          body={(rowData) => (
+            <div className="d-flex gap-2">
+              <span>Rs. {~~(rowData?.max_price)}</span>
+            </div>
+          )}
+        ></Column>
+        <Column field="offer_price" header="SALE PRICE (₹)" className="fw-400" body={(rowData) => <span>Rs. {~~(rowData?.offer_price)}</span>}>
+        </Column>
+        <Column field="ratings" header="RATING" body={iosSwitch}></Column>
+        <Column header="ACTION" body={editButtonTemplate}></Column>
+      </DataTable> 
+      <DeleteModal
+        visible={isModalVisible}
+        onHide={hideDeleteModal}
+        onDelete={handleDelete}  
+      />
+    </>
   );
 }
 
