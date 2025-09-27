@@ -1,4 +1,4 @@
-name: React Application Deployment
+name: Dev - Bhojnam React
 
 on:
   push:
